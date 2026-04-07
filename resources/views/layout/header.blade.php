@@ -930,8 +930,10 @@
                   </label>
                 </div>
                 @if (Route::has('password.request'))
-                <a class="forgot btn btn-link" href="{{ route('password.request') }}">
-                  {{ __('Forgot Your Password?') }}
+                <a class="forgot btn btn-link"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal3">
+                  Forgot Your Password?
                 </a>
                 @endif
               </div>
@@ -1027,6 +1029,62 @@
             <div class="mt-4">
               <button type="submit" form="register-form" class="theme-btn w-100">
                 <span> Log in </span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="modal-right-thumb position-relative">
+          <img src="{{('buyer-file/assets/img/sign/create.png')}}" alt="img" />
+          <div class="signlogin-btnwrap">
+            <button
+              class="theme-create style-border"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal">
+              create account
+            </button>
+            <button
+              class="theme-btn"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal2">
+              Log In
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Version 3 -->
+<div
+  class="modal modal-common-wrap fade"
+  id="exampleModal3"
+  tabindex="-1"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"></button>
+      </div>
+      <div
+        class="modal-body d-md-flex d-grid gap-md-0 gap-5 align-items-center">
+        <div class="modal-common-content">
+          <div class="box">
+            <h2>Forgot Password</h2>
+            <form action="{{ route('password.email') }}" method="POST" id="forgot-password-form" class="login-from">
+              @csrf
+              <div class="form-grp cmn-mb">
+                <input type="email" name="email" placeholder="Email Address" />
+              </div>
+            </form>
+
+            <div class="mt-4">
+              <button type="submit" form="forgot-password-form" class="theme-btn w-100">
+                <span> Send Password Reset Link </span>
               </button>
             </div>
           </div>
