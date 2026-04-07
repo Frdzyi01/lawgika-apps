@@ -2409,74 +2409,33 @@
      <!-- Card Grid -->
      <div class="row g-4">
 
-       <!-- Card 1: Dubai Global -->
+      @forelse($events as $event)
        <div class="col-12 col-md-6 col-lg-3">
          <div class="ue-card">
            <div class="ue-img-wrap">
-             <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=500&q=75&auto=format&fit=crop"
-               alt="Dubai Global Gateway Event" loading="lazy">
-             <span class="ue-badge ue-badge-done">Selesai</span>
+             @if($event->banner)
+               <img src="{{ asset('storage/' . $event->banner) }}" alt="{{ $event->nama_event }}" loading="lazy">
+             @else
+               <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=500&q=75&auto=format&fit=crop"
+                 alt="{{ $event->nama_event }}" loading="lazy">
+             @endif
+             @if($event->status_aktif)
+               <span class="ue-badge ue-badge-upcoming">Aktif</span>
+             @else
+               <span class="ue-badge ue-badge-done">Selesai</span>
+             @endif
            </div>
            <div class="ue-card-body">
-             <div class="ue-card-date"><i class="fas fa-calendar"></i> 24 Februari 2026</div>
-             <div class="ue-card-title">Dubai Global Gateway Vol.8</div>
-             <p class="ue-card-desc">Doing Business in Dubai: Prospects and Opportunities bersama para pemimpin bisnis internasional.</p>
+             <div class="ue-card-date"><i class="fas fa-calendar"></i> {{ $event->tanggal_mulai->translatedFormat('d F Y') }}</div>
+             <div class="ue-card-title">{{ $event->nama_event }}</div>
+             <p class="ue-card-desc">{{ Str::limit($event->deskripsi, 100) }}</p>
              <a href="#" class="ue-card-btn">Lihat Detail <i class="fas fa-arrow-right"></i></a>
            </div>
          </div>
        </div>
-
-       <!-- Card 2: SPT Coretax -->
-       <div class="col-12 col-md-6 col-lg-3">
-         <div class="ue-card">
-           <div class="ue-img-wrap">
-             <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=500&q=75&auto=format&fit=crop"
-               alt="SPT Coretax Bincang Pajak" loading="lazy">
-             <span class="ue-badge ue-badge-done">Selesai</span>
-           </div>
-           <div class="ue-card-body">
-             <div class="ue-card-date"><i class="fas fa-calendar"></i> 7 Februari 2026</div>
-             <div class="ue-card-title">SPT 2025 Pribadi di Coretax</div>
-             <p class="ue-card-desc">Bincang Pajak: Salah Cara, Dampaknya Nyata. Panduan pelaporan SPT yang benar dan aman.</p>
-             <a href="#" class="ue-card-btn">Lihat Detail <i class="fas fa-arrow-right"></i></a>
-           </div>
-         </div>
-       </div>
-
-       <!-- Card 3: Nexus -->
-       <div class="col-12 col-md-6 col-lg-3">
-         <div class="ue-card">
-           <div class="ue-img-wrap">
-             <img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=500&q=75&auto=format&fit=crop"
-               alt="Nexus Inaugural Gathering" loading="lazy">
-             <span class="ue-badge ue-badge-done">Selesai</span>
-           </div>
-           <div class="ue-card-body">
-             <div class="ue-card-date"><i class="fas fa-calendar"></i> 29 Januari 2026</div>
-             <div class="ue-card-title">Nexus – Inaugural Gathering</div>
-             <p class="ue-card-desc">The Circle of Leaders – forum eksklusif para pemimpin bisnis dan pemangku kebijakan Indonesia.</p>
-             <a href="#" class="ue-card-btn">Lihat Detail <i class="fas fa-arrow-right"></i></a>
-           </div>
-         </div>
-       </div>
-
-       <!-- Card 4: Yapp -->
-       <div class="col-12 col-md-6 col-lg-3">
-         <div class="ue-card">
-           <div class="ue-img-wrap">
-             <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&q=75&auto=format&fit=crop"
-               alt="Yapp Creator Masterclass" loading="lazy">
-             <span class="ue-badge ue-badge-done">Selesai</span>
-           </div>
-           <div class="ue-card-body">
-             <div class="ue-card-date"><i class="fas fa-calendar"></i> 24 Januari 2026</div>
-             <div class="ue-card-title">Yapp – Creator Masterclass</div>
-             <p class="ue-card-desc">Modern Content Strategy &amp; The Creator Economy. Sesi eksklusif bersama pakar konten digital.</p>
-             <a href="#" class="ue-card-btn">Lihat Detail <i class="fas fa-arrow-right"></i></a>
-           </div>
-         </div>
-       </div>
-
+      @empty
+       <div class="col-12 text-center text-muted py-4">Belum ada event yang tersedia.</div>
+      @endforelse
      </div><!-- /row -->
    </div><!-- /container -->
  </section>

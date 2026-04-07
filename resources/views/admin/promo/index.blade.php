@@ -212,11 +212,18 @@
                                 {{-- Edit --}}
                                 <a
                                     href="javascript:;"
-                                    class="text-warning"
+                                    class="text-warning btn-edit-promo"
                                     data-bs-toggle="tooltip"
                                     data-bs-placement="bottom"
                                     title="Edit info"
-                                    onclick="openEditModal({{ $promo->id }}, '{{ addslashes($promo->judul) }}', '{{ addslashes($promo->deskripsi) }}', '{{ $promo->tipe_diskon }}', {{ $promo->diskon }}, '{{ $promo->tanggal_mulai->format('Y-m-d') }}', '{{ $promo->tanggal_berakhir->format('Y-m-d') }}', {{ $promo->status ? 1 : 0 }})"
+                                    data-id="{{ $promo->id }}"
+                                    data-judul="{{ e($promo->judul) }}"
+                                    data-deskripsi="{{ e($promo->deskripsi) }}"
+                                    data-tipe="{{ $promo->tipe_diskon }}"
+                                    data-diskon="{{ $promo->diskon }}"
+                                    data-mulai="{{ $promo->tanggal_mulai->format('Y-m-d') }}"
+                                    data-berakhir="{{ $promo->tanggal_berakhir->format('Y-m-d') }}"
+                                    data-status="{{ $promo->status ? 1 : 0 }}"
                                 ><ion-icon name="pencil-outline"></ion-icon></a>
                                 {{-- Delete --}}
                                 <form action="{{ route('admin.promo.destroy', $promo->id) }}" method="POST" style="display:inline;"
@@ -419,19 +426,34 @@
 
 @push('scripts')
 <script>
-function openEditModal(id, judul, deskripsi, tipe_diskon, diskon, tanggal_mulai, tanggal_berakhir, status) {
-    var form = document.getElementById('formEditPromo');
-    form.action = '/admin/promo/' + id;
-    document.getElementById('edit_judul').value = judul;
-    document.getElementById('edit_deskripsi').value = deskripsi;
-    document.getElementById('edit_tipe_diskon').value = tipe_diskon;
-    document.getElementById('edit_diskon').value = diskon;
-    document.getElementById('edit_tanggal_mulai').value = tanggal_mulai;
-    document.getElementById('edit_tanggal_berakhir').value = tanggal_berakhir;
-    document.getElementById('edit_status').value = status;
-    var modal = new bootstrap.Modal(document.getElementById('editPromoModal'));
-    modal.show();
-}
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.btn-edit-promo').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var id       = this.dataset.id;
+            var judul    = this.dataset.judul;
+            var desk     = this.dataset.deskripsi;
+            var tipe     = this.dataset.tipe;
+            var diskon   = this.dataset.diskon;
+            var mulai    = this.dataset.mulai;
+            var berakhir = this.dataset.berakhir;
+            var status   = this.dataset.status;
+
+            var form = document.getElementById('formEditPromo');
+            form.action = '/admin/promo/' + id;
+
+            document.getElementById('edit_judul').value           = judul;
+            document.getElementById('edit_deskripsi').value       = desk;
+            document.getElementById('edit_tipe_diskon').value     = tipe;
+            document.getElementById('edit_diskon').value          = diskon;
+            document.getElementById('edit_tanggal_mulai').value   = mulai;
+            document.getElementById('edit_tanggal_berakhir').value = berakhir;
+            document.getElementById('edit_status').value          = status;
+
+            var modal = new bootstrap.Modal(document.getElementById('editPromoModal'));
+            modal.show();
+        });
+    });
+});
 </script>
 @endpush
 

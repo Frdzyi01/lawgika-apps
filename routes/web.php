@@ -14,7 +14,16 @@ Route::get('/', function () {
         ->latest()
         ->limit(4)
         ->get();
-    return view('dashboard', compact('promos'));
+
+    $events = \App\Models\EventUpComing::where(function ($q) {
+            $q->where('status', true)
+              ->orWhere('tanggal_selesai', '>=', now());
+        })
+        ->latest()
+        ->limit(4)
+        ->get();
+
+    return view('dashboard', compact('promos', 'events'));
 });
 
 // pendirian badan usaha
@@ -73,7 +82,8 @@ Route::get('/home', function () {
 
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('promo', PromoController::class);
+    Route::resource('event-upcoming', EventUpComingController::class);
 });
 
 Route::get('/admin/peraturan-kbli', [PeraturanKBLIController::class, 'index'])->middleware('auth')->name('admin.peraturan-kbli');
-Route::get('/admin/event-upcoming', [EventUpComingController::class, 'index'])->middleware('auth')->name('admin.event-upcoming');
+

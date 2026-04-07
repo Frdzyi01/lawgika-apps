@@ -53,7 +53,7 @@
           </a>
         </li>
         <li>
-          <a href="{{ route('admin.event-upcoming') }}">
+          <a href="{{ route('admin.event-upcoming.index') }}">
             <div class="parent-icon"><ion-icon name="person-circle-outline"></ion-icon></div>
             <div class="menu-title">Event UpComing</div>
           </a>
