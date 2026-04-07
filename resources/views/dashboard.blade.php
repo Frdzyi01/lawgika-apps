@@ -1356,74 +1356,42 @@
        </a>
      </div>
      <div class="row g-4" id="spPromoGrid">
+      @forelse($promos as $promo)
        <div class="col-12 col-md-6 col-lg-3">
          <div class="sp-card">
            <div class="sp-card-img-wrap">
-             <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=500&q=80" alt="Virtual Office Jakarta Pusat" loading="lazy">
-             <span class="sp-img-badge badge-gold">HEMAT 50%</span>
+             @if($promo->gambar)
+               <img src="{{ asset('storage/' . $promo->gambar) }}" alt="{{ $promo->judul }}" loading="lazy">
+             @else
+               <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=500&q=80" alt="{{ $promo->judul }}" loading="lazy">
+             @endif
+             <span class="sp-img-badge">
+               @if($promo->tipe_diskon === 'persen')
+                 HEMAT {{ number_format($promo->diskon, 0) }}%
+               @else
+                 HEMAT Rp {{ number_format($promo->diskon, 0, ',', '.') }}
+               @endif
+             </span>
            </div>
            <div class="sp-card-body">
-             <div class="sp-card-title">Virtual Office Jakarta Pusat</div>
-             <div class="sp-card-desc">Alamat bisnis prestisius di pusat kota, layanan pengelolaan surat, dan akses meeting room.</div>
+             <div class="sp-card-title">{{ $promo->judul }}</div>
+             <div class="sp-card-desc">{{ Str::limit($promo->deskripsi, 100) }}</div>
              <div class="sp-price-block">
-               <span class="sp-price-old">Rp 4.800.000 / tahun</span>
-               <span class="sp-price-new">Rp 2.400.000 / tahun</span>
+               <span class="sp-price-new">
+                 @if($promo->tipe_diskon === 'persen')
+                   Diskon {{ number_format($promo->diskon, 0) }}%
+                 @else
+                   Rp {{ number_format($promo->diskon, 0, ',', '.') }}
+                 @endif
+               </span>
              </div>
              <a href="#" class="sp-card-btn">Ambil Promo <i class="fas fa-arrow-right"></i></a>
            </div>
          </div>
        </div>
-       <div class="col-12 col-md-6 col-lg-3">
-         <div class="sp-card">
-           <div class="sp-card-img-wrap">
-             <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=500&q=80" alt="Pendirian PT Paket Hemat" loading="lazy">
-             <span class="sp-img-badge">HEMAT 30%</span>
-           </div>
-           <div class="sp-card-body">
-             <div class="sp-card-title">Pendirian PT Paket Hemat</div>
-             <div class="sp-card-desc">Pendirian PT lengkap dengan akta notaris, NIB, dan NPWP perusahaan dalam satu paket terjangkau.</div>
-             <div class="sp-price-block">
-               <span class="sp-price-old">Rp 8.500.000 / paket</span>
-               <span class="sp-price-new">Rp 5.950.000 / paket</span>
-             </div>
-             <a href="#" class="sp-card-btn">Ambil Promo <i class="fas fa-arrow-right"></i></a>
-           </div>
-         </div>
-       </div>
-       <div class="col-12 col-md-6 col-lg-3">
-         <div class="sp-card">
-           <div class="sp-card-img-wrap">
-             <img src="https://images.unsplash.com/photo-1600508774634-4e11d34730e2?w=500&q=80" alt="Coworking Space Bulanan" loading="lazy">
-             <span class="sp-img-badge badge-gold">HEMAT 40%</span>
-           </div>
-           <div class="sp-card-body">
-             <div class="sp-card-title">Coworking Space Bulanan</div>
-             <div class="sp-card-desc">Ruang kerja fleksibel dengan akses 24 jam, WiFi cepat, dan komunitas profesional yang solid.</div>
-             <div class="sp-price-block">
-               <span class="sp-price-old">Rp 2.500.000 / bulan</span>
-               <span class="sp-price-new">Rp 1.500.000 / bulan</span>
-             </div>
-             <a href="#" class="sp-card-btn">Ambil Promo <i class="fas fa-arrow-right"></i></a>
-           </div>
-         </div>
-       </div>
-       <div class="col-12 col-md-6 col-lg-3">
-         <div class="sp-card">
-           <div class="sp-card-img-wrap">
-             <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=500&q=80" alt="Paket KITAS dan Visa" loading="lazy">
-             <span class="sp-img-badge">HEMAT 25%</span>
-           </div>
-           <div class="sp-card-body">
-             <div class="sp-card-title">Paket KITAS + Visa Bisnis</div>
-             <div class="sp-card-desc">Pengurusan KITAS dan Visa bisnis sekaligus dalam satu paket lengkap untuk ekspatriat.</div>
-             <div class="sp-price-block">
-               <span class="sp-price-old">Rp 6.700.000 / proses</span>
-               <span class="sp-price-new">Rp 5.025.000 / proses</span>
-             </div>
-             <a href="#" class="sp-card-btn">Ambil Promo <i class="fas fa-arrow-right"></i></a>
-           </div>
-         </div>
-       </div>
+      @empty
+       <div class="col-12 text-center text-muted py-4">Belum ada promo aktif saat ini.</div>
+      @endforelse
      </div>
    </div>
  </section>

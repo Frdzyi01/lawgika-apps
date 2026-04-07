@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorepromoRequest;
 use App\Http\Requests\UpdatepromoRequest;
-use App\Models\promo;
+use App\Models\Promo;
+use Illuminate\Support\Facades\Storage;
 
 class PromoController extends Controller
 {
@@ -13,7 +14,13 @@ class PromoController extends Controller
      */
     public function index()
     {
-        return view('admin.promo.index');
+        $promos = Promo::latest()->get();
+
+        $totalPromo   = $promos->count();
+        $promoAktif   = $promos->where('status', true)->count();
+        $promoBerakhir= $promos->where('status', false)->count();
+
+        return view('admin.promo.index', compact('promos', 'totalPromo', 'promoAktif', 'promoBerakhir'));
     }
 
     /**
@@ -29,13 +36,21 @@ class PromoController extends Controller
      */
     public function store(StorepromoRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        if ($request->hasFile('gambar')) {
+            $data['gambar'] = $request->file('gambar')->store('promo', 'public');
+        }
+
+        Promo::create($data);
+
+        return redirect()->route('admin.promo.index')->with('success', 'Promo berhasil ditambahkan.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(promo $promo)
+    public function show(Promo $promo)
     {
         //
     }
@@ -43,7 +58,7 @@ class PromoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(promo $promo)
+    public function edit(Promo $promo)
     {
         //
     }
@@ -51,16 +66,36 @@ class PromoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatepromoRequest $request, promo $promo)
+    public function update(UpdatepromoRequest $request, Promo $promo)
     {
-        //
+        $data = $request->validated();
+
+        if ($request->hasFile('gambar')) {
+            // Hapus gambar lama jika ada
+            if ($promo->gambar) {
+                Storage::disk('public')->delete($promo->gambar);
+            }
+            $data['gambar'] = $request->file('gambar')->store('promo', 'public');
+        } else {
+            unset($data['gambar']); // Jaga gambar lama
+        }
+
+        $promo->update($data);
+
+        return redirect()->route('admin.promo.index')->with('success', 'Promo berhasil diperbarui.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(promo $promo)
+    public function destroy(Promo $promo)
     {
-        //
+        if ($promo->gambar) {
+            Storage::disk('public')->delete($promo->gambar);
+        }
+
+        $promo->delete();
+
+        return redirect()->route('admin.promo.index')->with('success', 'Promo berhasil dihapus.');
     }
 }

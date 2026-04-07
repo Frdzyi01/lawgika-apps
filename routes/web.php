@@ -9,7 +9,12 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    return view('dashboard');
+    $promos = \App\Models\Promo::where('status', true)
+        ->where('tanggal_berakhir', '>=', now())
+        ->latest()
+        ->limit(4)
+        ->get();
+    return view('dashboard', compact('promos'));
 });
 
 // pendirian badan usaha
@@ -66,6 +71,9 @@ Route::get('/home', function () {
 })->middleware('auth')->name('home');
 
 
-Route::get('/admin/promo', [PromoController::class, 'index'])->middleware('auth')->name('admin.promo');
+Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
+    Route::resource('promo', PromoController::class);
+});
+
 Route::get('/admin/peraturan-kbli', [PeraturanKBLIController::class, 'index'])->middleware('auth')->name('admin.peraturan-kbli');
 Route::get('/admin/event-upcoming', [EventUpComingController::class, 'index'])->middleware('auth')->name('admin.event-upcoming');

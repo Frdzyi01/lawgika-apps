@@ -18,21 +18,7 @@
             </ol>
         </nav>
     </div>
-    <div class="ms-auto">
-        <div class="btn-group">
-            <button type="button" class="btn btn-outline-primary">Settings</button>
-            <button type="button" class="btn btn-outline-primary split-bg-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">
-                <span class="visually-hidden">Toggle Dropdown</span>
-            </button>
-            <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end">
-                <a class="dropdown-item" href="javascript:;">Action</a>
-                <a class="dropdown-item" href="javascript:;">Another action</a>
-                <a class="dropdown-item" href="javascript:;">Something else here</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="javascript:;">Separated link</a>
-            </div>
-        </div>
-    </div>
+
 </div>
 <!--end breadcrumb-->
 
@@ -51,10 +37,10 @@
                 </div>
                 <div class="d-flex align-items-center mt-3">
                     <div>
-                        <h4 class="mb-0">24</h4>
+                        <h4 class="mb-0">{{ $totalPromo }}</h4>
                     </div>
                     <div class="ms-auto">
-                        <span class="badge bg-light text-success">+2 Promo baru</span>
+                        <span class="badge bg-light text-success">Total semua promo</span>
                     </div>
                 </div>
             </div>
@@ -74,10 +60,10 @@
                 </div>
                 <div class="d-flex align-items-center mt-3">
                     <div>
-                        <h4 class="mb-0">12</h4>
+                        <h4 class="mb-0">{{ $promoAktif }}</h4>
                     </div>
                     <div class="ms-auto">
-                        <span class="badge bg-light text-info">+3 Aktif</span>
+                        <span class="badge bg-light text-info">Promo aktif</span>
                     </div>
                 </div>
             </div>
@@ -97,10 +83,10 @@
                 </div>
                 <div class="d-flex align-items-center mt-3">
                     <div>
-                        <h4 class="mb-0">8</h4>
+                        <h4 class="mb-0">{{ $promoBerakhir }}</h4>
                     </div>
                     <div class="ms-auto">
-                        <span class="badge bg-light text-danger">-1 mgg lalu</span>
+                        <span class="badge bg-light text-danger">Promo nonaktif</span>
                     </div>
                 </div>
             </div>
@@ -183,216 +169,73 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @forelse($promos as $promo)
                     <tr>
-                        <td>1</td>
+                        <td>{{ $loop->iteration }}</td>
                         <td>
                             <div
                                 class="product-box border bg-light rounded d-flex justify-content-center align-items-center"
                                 style="width: 50px; height: 50px">
-                                <ion-icon
-                                    name="pricetag-outline"
-                                    class="fs-4 text-primary"></ion-icon>
+                                @if($promo->gambar)
+                                    <img src="{{ asset('storage/' . $promo->gambar) }}"
+                                         alt="{{ $promo->judul }}"
+                                         style="width:50px;height:50px;object-fit:cover;border-radius:4px;">
+                                @else
+                                    <ion-icon
+                                        name="pricetag-outline"
+                                        class="fs-4 text-primary"></ion-icon>
+                                @endif
                             </div>
                         </td>
                         <td>
-                            <h6 class="mb-0">Promo Ramadhan</h6>
+                            <h6 class="mb-0">{{ $promo->judul }}</h6>
                         </td>
-                        <td>Diskon spesial bulan puasa</td>
-                        <td>20%</td>
-                        <td>12 Mar 2024</td>
-                        <td>12 Apr 2024</td>
-                        <td><span class="badge bg-success">Aktif</span></td>
+                        <td>{{ Str::limit($promo->deskripsi, 40) }}</td>
+                        <td>
+                            @if($promo->tipe_diskon === 'persen')
+                                {{ number_format($promo->diskon, 0) }}%
+                            @else
+                                Rp {{ number_format($promo->diskon, 0, ',', '.') }}
+                            @endif
+                        </td>
+                        <td>{{ $promo->tanggal_mulai->format('d M Y') }}</td>
+                        <td>{{ $promo->tanggal_berakhir->format('d M Y') }}</td>
+                        <td>
+                            @if($promo->status)
+                                <span class="badge bg-success">Aktif</span>
+                            @else
+                                <span class="badge bg-secondary">Nonaktif</span>
+                            @endif
+                        </td>
                         <td>
                             <div class="d-flex align-items-center gap-3 fs-6">
-                                <a
-                                    href="javascript:;"
-                                    class="text-primary"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-placement="bottom"
-                                    title="View detail"><ion-icon name="eye-outline"></ion-icon></a>
+                                {{-- Edit --}}
                                 <a
                                     href="javascript:;"
                                     class="text-warning"
                                     data-bs-toggle="tooltip"
                                     data-bs-placement="bottom"
-                                    title="Edit info"><ion-icon name="pencil-outline"></ion-icon></a>
-                                <a
-                                    href="javascript:;"
-                                    class="text-danger"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-placement="bottom"
-                                    title="Delete"><ion-icon name="trash-outline"></ion-icon></a>
+                                    title="Edit info"
+                                    onclick="openEditModal({{ $promo->id }}, '{{ addslashes($promo->judul) }}', '{{ addslashes($promo->deskripsi) }}', '{{ $promo->tipe_diskon }}', {{ $promo->diskon }}, '{{ $promo->tanggal_mulai->format('Y-m-d') }}', '{{ $promo->tanggal_berakhir->format('Y-m-d') }}', {{ $promo->status ? 1 : 0 }})"
+                                ><ion-icon name="pencil-outline"></ion-icon></a>
+                                {{-- Delete --}}
+                                <form action="{{ route('admin.promo.destroy', $promo->id) }}" method="POST" style="display:inline;"
+                                      onsubmit="return confirm('Hapus promo ini?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn p-0 border-0 bg-transparent text-danger"
+                                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete">
+                                        <ion-icon name="trash-outline"></ion-icon>
+                                    </button>
+                                </form>
                             </div>
                         </td>
                     </tr>
+                    @empty
                     <tr>
-                        <td>2</td>
-                        <td>
-                            <div
-                                class="product-box border bg-light rounded d-flex justify-content-center align-items-center"
-                                style="width: 50px; height: 50px">
-                                <ion-icon
-                                    name="pricetag-outline"
-                                    class="fs-4 text-primary"></ion-icon>
-                            </div>
-                        </td>
-                        <td>
-                            <h6 class="mb-0">Promo Cuci Helm Gratis</h6>
-                        </td>
-                        <td>Setiap layanan servis ganti oli</td>
-                        <td>100%</td>
-                        <td>01 Jan 2024</td>
-                        <td>31 Des 2024</td>
-                        <td><span class="badge bg-success">Aktif</span></td>
-                        <td>
-                            <div class="d-flex align-items-center gap-3 fs-6">
-                                <a
-                                    href="javascript:;"
-                                    class="text-primary"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-placement="bottom"
-                                    title="View detail"><ion-icon name="eye-outline"></ion-icon></a>
-                                <a
-                                    href="javascript:;"
-                                    class="text-warning"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-placement="bottom"
-                                    title="Edit info"><ion-icon name="pencil-outline"></ion-icon></a>
-                                <a
-                                    href="javascript:;"
-                                    class="text-danger"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-placement="bottom"
-                                    title="Delete"><ion-icon name="trash-outline"></ion-icon></a>
-                            </div>
-                        </td>
+                        <td colspan="9" class="text-center text-muted py-4">Belum ada data promo.</td>
                     </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>
-                            <div
-                                class="product-box border bg-light rounded d-flex justify-content-center align-items-center"
-                                style="width: 50px; height: 50px">
-                                <ion-icon
-                                    name="pricetag-outline"
-                                    class="fs-4 text-primary"></ion-icon>
-                            </div>
-                        </td>
-                        <td>
-                            <h6 class="mb-0">Promo Member Baru</h6>
-                        </td>
-                        <td>Potongan harga untuk pendaftar awal</td>
-                        <td>Rp 100.000</td>
-                        <td>15 Feb 2024</td>
-                        <td>15 Mar 2024</td>
-                        <td><span class="badge bg-secondary">Nonaktif</span></td>
-                        <td>
-                            <div class="d-flex align-items-center gap-3 fs-6">
-                                <a
-                                    href="javascript:;"
-                                    class="text-primary"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-placement="bottom"
-                                    title="View detail"><ion-icon name="eye-outline"></ion-icon></a>
-                                <a
-                                    href="javascript:;"
-                                    class="text-warning"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-placement="bottom"
-                                    title="Edit info"><ion-icon name="pencil-outline"></ion-icon></a>
-                                <a
-                                    href="javascript:;"
-                                    class="text-danger"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-placement="bottom"
-                                    title="Delete"><ion-icon name="trash-outline"></ion-icon></a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>
-                            <div
-                                class="product-box border bg-light rounded d-flex justify-content-center align-items-center"
-                                style="width: 50px; height: 50px">
-                                <ion-icon
-                                    name="pricetag-outline"
-                                    class="fs-4 text-primary"></ion-icon>
-                            </div>
-                        </td>
-                        <td>
-                            <h6 class="mb-0">Jumat Berkah</h6>
-                        </td>
-                        <td>Diskon setiap hari jumat pagi</td>
-                        <td>15%</td>
-                        <td>01 Apr 2024</td>
-                        <td>30 Apr 2024</td>
-                        <td><span class="badge bg-success">Aktif</span></td>
-                        <td>
-                            <div class="d-flex align-items-center gap-3 fs-6">
-                                <a
-                                    href="javascript:;"
-                                    class="text-primary"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-placement="bottom"
-                                    title="View detail"><ion-icon name="eye-outline"></ion-icon></a>
-                                <a
-                                    href="javascript:;"
-                                    class="text-warning"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-placement="bottom"
-                                    title="Edit info"><ion-icon name="pencil-outline"></ion-icon></a>
-                                <a
-                                    href="javascript:;"
-                                    class="text-danger"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-placement="bottom"
-                                    title="Delete"><ion-icon name="trash-outline"></ion-icon></a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>
-                            <div
-                                class="product-box border bg-light rounded d-flex justify-content-center align-items-center"
-                                style="width: 50px; height: 50px">
-                                <ion-icon
-                                    name="pricetag-outline"
-                                    class="fs-4 text-primary"></ion-icon>
-                            </div>
-                        </td>
-                        <td>
-                            <h6 class="mb-0">Flash Sale Akhir Tahun</h6>
-                        </td>
-                        <td>Diskon besar-besaran akhir tahun</td>
-                        <td>50%</td>
-                        <td>25 Des 2023</td>
-                        <td>31 Des 2023</td>
-                        <td><span class="badge bg-secondary">Nonaktif</span></td>
-                        <td>
-                            <div class="d-flex align-items-center gap-3 fs-6">
-                                <a
-                                    href="javascript:;"
-                                    class="text-primary"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-placement="bottom"
-                                    title="View detail"><ion-icon name="eye-outline"></ion-icon></a>
-                                <a
-                                    href="javascript:;"
-                                    class="text-warning"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-placement="bottom"
-                                    title="Edit info"><ion-icon name="pencil-outline"></ion-icon></a>
-                                <a
-                                    href="javascript:;"
-                                    class="text-danger"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-placement="bottom"
-                                    title="Delete"><ion-icon name="trash-outline"></ion-icon></a>
-                            </div>
-                        </td>
-                    </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
@@ -422,12 +265,20 @@
                     aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
+                @if(session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                @endif
+                <form id="formTambahPromo" action="{{ route('admin.promo.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
                     <div class="mb-3">
                         <label class="form-label">Upload Gambar</label>
                         <input
                             type="file"
                             class="form-control"
+                            name="gambar"
                             accept="image/*" />
                     </div>
                     <div class="mb-3">
@@ -435,37 +286,47 @@
                         <input
                             type="text"
                             class="form-control"
+                            name="judul"
                             placeholder="Masukkan judul promo" />
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Deskripsi</label>
                         <textarea
                             class="form-control"
+                            name="deskripsi"
                             rows="3"
                             placeholder="Deskripsi singkat promo"></textarea>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Diskon (% atau Rp)</label>
+                        <label class="form-label">Tipe Diskon</label>
+                        <select class="form-select" name="tipe_diskon">
+                            <option value="persen">Persen (%)</option>
+                            <option value="nominal">Nominal (Rp)</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Nilai Diskon</label>
                         <input
                             type="number"
                             class="form-control"
+                            name="diskon"
                             placeholder="Contoh: 20" />
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Tanggal Mulai</label>
-                            <input type="date" class="form-control" />
+                            <input type="date" class="form-control" name="tanggal_mulai" />
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Tanggal Berakhir</label>
-                            <input type="date" class="form-control" />
+                            <input type="date" class="form-control" name="tanggal_berakhir" />
                         </div>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Status</label>
-                        <select class="form-select">
-                            <option value="Aktif">Aktif</option>
-                            <option value="Nonaktif">Nonaktif</option>
+                        <select class="form-select" name="status">
+                            <option value="1">Aktif</option>
+                            <option value="0">Nonaktif</option>
                         </select>
                     </div>
                 </form>
@@ -478,7 +339,8 @@
                     Batal
                 </button>
                 <button
-                    type="button"
+                    type="submit"
+                    form="formTambahPromo"
                     class="btn btn-primary d-flex align-items-center gap-2">
                     <ion-icon name="save-outline"></ion-icon> Simpan
                 </button>
@@ -487,4 +349,90 @@
     </div>
 </div>
 <!-- End Modal Tambah Promo -->
+
+<!-- Modal Edit Promo -->
+<div class="modal fade" id="editPromoModal" tabindex="-1" aria-labelledby="editPromoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title d-flex align-items-center gap-2" id="editPromoModalLabel">
+                    <ion-icon name="pencil-outline"></ion-icon> Edit Promo
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formEditPromo" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    <div class="mb-3">
+                        <label class="form-label">Upload Gambar Baru (opsional)</label>
+                        <input type="file" class="form-control" name="gambar" accept="image/*" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Judul Promo</label>
+                        <input type="text" class="form-control" name="judul" id="edit_judul" placeholder="Masukkan judul promo" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Deskripsi</label>
+                        <textarea class="form-control" name="deskripsi" id="edit_deskripsi" rows="3" placeholder="Deskripsi singkat promo"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Tipe Diskon</label>
+                        <select class="form-select" name="tipe_diskon" id="edit_tipe_diskon">
+                            <option value="persen">Persen (%)</option>
+                            <option value="nominal">Nominal (Rp)</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Nilai Diskon</label>
+                        <input type="number" class="form-control" name="diskon" id="edit_diskon" placeholder="Contoh: 20" />
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Tanggal Mulai</label>
+                            <input type="date" class="form-control" name="tanggal_mulai" id="edit_tanggal_mulai" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Tanggal Berakhir</label>
+                            <input type="date" class="form-control" name="tanggal_berakhir" id="edit_tanggal_berakhir" />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Status</label>
+                        <select class="form-select" name="status" id="edit_status">
+                            <option value="1">Aktif</option>
+                            <option value="0">Nonaktif</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary border-0" data-bs-dismiss="modal">Batal</button>
+                <button type="submit" form="formEditPromo" class="btn btn-primary d-flex align-items-center gap-2">
+                    <ion-icon name="save-outline"></ion-icon> Simpan Perubahan
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal Edit Promo -->
+
+@push('scripts')
+<script>
+function openEditModal(id, judul, deskripsi, tipe_diskon, diskon, tanggal_mulai, tanggal_berakhir, status) {
+    var form = document.getElementById('formEditPromo');
+    form.action = '/admin/promo/' + id;
+    document.getElementById('edit_judul').value = judul;
+    document.getElementById('edit_deskripsi').value = deskripsi;
+    document.getElementById('edit_tipe_diskon').value = tipe_diskon;
+    document.getElementById('edit_diskon').value = diskon;
+    document.getElementById('edit_tanggal_mulai').value = tanggal_mulai;
+    document.getElementById('edit_tanggal_berakhir').value = tanggal_berakhir;
+    document.getElementById('edit_status').value = status;
+    var modal = new bootstrap.Modal(document.getElementById('editPromoModal'));
+    modal.show();
+}
+</script>
+@endpush
+
 @endsection

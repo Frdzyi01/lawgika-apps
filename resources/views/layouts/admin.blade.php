@@ -47,7 +47,7 @@
         </li>
         <li class="menu-label">Content Halaman Depan</li>
         <li>
-          <a href="{{ route('admin.promo') }}">
+          <a href="{{ route('admin.promo.index') }}">
             <div class="parent-icon"><ion-icon name="person-circle-outline"></ion-icon></div>
             <div class="menu-title">Promo</div>
           </a>
