@@ -1,0 +1,56 @@
+<?php
+
+use App\Http\Controllers\ServicesController;
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', function () {
+    return view('dashboard');
+});
+
+// pendirian badan usaha
+Route::get('/pendirian-pt-perorangan', [ServicesController::class, 'pendirianPtPerorangan']);
+Route::get('/pendirian-pt', [ServicesController::class, 'pendirianPt']);
+Route::get('/pendirian-pt-pma', [ServicesController::class, 'pendirianPtPma']);
+Route::get('/pendirian-cv', [ServicesController::class, 'pendirianCv']);
+Route::get('/pendirian-yayasan', [ServicesController::class, 'pendirianYayasan']);
+Route::get('/pendirian-firma', [ServicesController::class, 'pendirianFirma']);
+
+// perizinan dokumen & hukum
+Route::get('/perubahan-anggaran-dasar', [ServicesController::class, 'perubahanAnggaranDasar']);
+Route::get('/haki', [ServicesController::class, 'haki']);
+Route::get('/penutupan-perusahaan', [ServicesController::class, 'penutupanPerusahaan']);
+ROute::get('/nib-dan-oss', [ServicesController::class, 'nibdanoss']);
+Route::get('/pendaftaran-tdp', [ServicesController::class, 'pendaftaranTdp']);
+Route::get('/sbu-sijuk', [ServicesController::class, 'sbuSijuk']);
+Route::get('/laporan-lkpm', [ServicesController::class, 'laporanLkpm']);
+Route::get('/sertifikat-iso', [ServicesController::class, 'sertifikatIso']);
+Route::get('/surat-keterangan-tidak-pailit', [ServicesController::class, 'suratKeteranganTidakPailit']);
+Route::get('/drafting-review-perjanjian-bisnis', [ServicesController::class, 'draftingReviewPerjanjianBisnis']);
+
+// pembukuan dan perpajakan
+Route::get('/langganan-jasa-pembukuan', [ServicesController::class, 'langgananJasaPembukuan']);
+Route::get('/langganan-jasa-perpajakan', [ServicesController::class, 'langgananJasaPerpajakan']);
+Route::get('/layanan-payroll', [ServicesController::class, 'layananPayroll']);
+Route::get('/point-of-sales-fnb', [ServicesController::class, 'pointOfSalesFnb']);
+Route::get('/audit-laporan-keuangan', [ServicesController::class, 'auditLaporanKeuangan']);
+Route::get('/pengurusan-pkp', [ServicesController::class, 'pengurusanPkp']);
+Route::get('/pelaporan-spt-badan', [ServicesController::class, 'pelaporanSptBadan']);
+Route::get('/pelaporan-spt-pribadi', [ServicesController::class, 'pelaporanSptPribadi']);
+Route::get('/pendaftaran-npwp', [ServicesController::class, 'pendaftaranNpwp']);
+Route::get('/audit-pajak', [ServicesController::class, 'auditPajak']);
+
+
+// layanan pendukung bisnis
+Route::get('/sewa-meeting-room', [ServicesController::class, 'sewaMeetingRoom']);
+Route::get('/sewa-ruang-podcast', [ServicesController::class, 'sewaRuangPodcast']);
+Route::get('/layanan-visa-kitas', [ServicesController::class, 'layananVisaKitas']);
+Route::get('/layanan-call-answering', [ServicesController::class, 'layananCallAnswering']);
+Route::get('/layanan-konsultasi-bisnis', [ServicesController::class, 'layananKonsultasiBisnis']);
+Route::get('/virtual-office', [ServicesController::class, 'virtualOffice']);
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
