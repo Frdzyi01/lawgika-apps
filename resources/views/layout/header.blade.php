@@ -1053,6 +1053,7 @@
   </div>
 </div>
 
+
 <!-- Search Area Start -->
 <div class="search-wrap">
   <div class="search-inner">
