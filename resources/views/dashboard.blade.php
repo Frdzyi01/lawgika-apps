@@ -2640,7 +2640,7 @@
    </div>
  </section>
 
- 
+
  <!-- Testimonial Section Start -->
  <section
    class="testimonial-section fix section-padding bg-cover"
@@ -2794,265 +2794,265 @@
    </div>
  </section>
  <!-- Faq Section Start -->
-  <style>
-    /* Styling for the new FAQ section */
-    .faq-modern-section {
-      background-color: #ffffff;
-    }
-    
-    .faq-info-card {
-      background-color: #f5f5f5;
-      border-radius: 1.5rem;
-      padding: 3rem;
-      height: 100%;
-    }
-    
-    .faq-info-label {
-      font-size: 0.75rem;
-      color: #dc3545;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      display: block;
-    }
-    
-    .faq-info-title {
-      font-size: 2rem;
-      font-weight: 700;
-      color: #111827;
-      margin-bottom: 1rem;
-      line-height: 1.2;
-    }
-    
-    .faq-info-desc {
-      color: #737b88;
-      font-size: 0.95rem;
-      line-height: 1.6;
-      margin-bottom: 2.5rem;
-    }
-    
-    .faq-stats-box {
-      background-color: #ffffff;
-      border-radius: 1rem;
-      padding: 1.5rem 1rem;
-      text-align: center;
-      flex: 1;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-    }
-    
-    .faq-stats-number {
-      font-size: 1.75rem;
-      font-weight: 700;
-      color: #111827;
-      margin-bottom: 0.25rem;
-    }
-    
-    .faq-stats-label {
-      font-size: 0.7rem;
-      color: #6b7280;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      font-weight: 600;
-    }
-    
-    .faq-modern-accordion {
-      --bs-accordion-bg: transparent;
-      --bs-accordion-border-width: 0;
-      --bs-accordion-inner-border-radius: 0;
-      --bs-accordion-btn-focus-box-shadow: none;
-    }
-    
-    .faq-modern-accordion .accordion-item {
-      background-color: #f7f7f7;
-      border: none;
-      border-radius: 1.25rem !important;
-      margin-bottom: 1rem;
-      overflow: hidden;
-      transition: background-color 0.3s;
-    }
-    
-    .faq-modern-accordion .accordion-button {
-      background-color: transparent;
-      font-weight: 600;
-      color: #111827;
-      padding: 1.25rem 1.75rem;
-      box-shadow: none !important;
-      border-radius: 1.25rem !important;
-    }
-    
-    .faq-modern-accordion .accordion-button:not(.collapsed) {
-      color: #000;
-      background-color: transparent;
-      box-shadow: none;
-    }
-    
-    .faq-modern-accordion .accordion-button::after {
-      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%236b7280'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
-      transition: transform 0.3s ease;
-    }
-    
-    .faq-modern-accordion .accordion-body {
-      padding: 0 1.75rem 1.25rem;
-      color: #6b7280;
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
-    
-    @media (max-width: 991.98px) {
-      .faq-info-card {
-        margin-bottom: 2rem;
-        padding: 2rem;
-      }
-    }
-  </style>
+ <style>
+   /* Styling for the new FAQ section */
+   .faq-modern-section {
+     background-color: #ffffff;
+   }
 
-  <section class="faq-modern-section section-padding">
-    <div class="container">
-      <div class="row">
-        <!-- Kolom Kiri -->
-        <div class="col-lg-4">
-          <div class="faq-info-card d-flex flex-column">
-            <div>
-              <span class="faq-info-label">RINGKAS &amp; JELAS</span>
-              <h2 class="faq-info-title">Jawaban penting sebelum Anda memulai</h2>
-              <p class="faq-info-desc">Kami rangkum pertanyaan yang paling sering muncul agar Anda bisa menemukan informasi penting tanpa harus berpindah halaman.</p>
-            </div>
-            <div class="d-flex gap-3 mt-auto">
-              <div class="faq-stats-box">
-                <div class="faq-stats-number">15</div>
-                <div class="faq-stats-label">TOPIK AKTIF</div>
-              </div>
-              <div class="faq-stats-box">
-                <div class="faq-stats-number">24/7</div>
-                <div class="faq-stats-label">AKSES INFORMASI</div>
-              </div>
-            </div>
-          </div>
-        </div>
+   .faq-info-card {
+     background-color: #f5f5f5;
+     border-radius: 1.5rem;
+     padding: 3rem;
+     height: 100%;
+   }
 
-        <!-- Kolom Kanan (FAQ Accordion) -->
-        <div class="col-lg-8">
-          <div class="accordion faq-modern-accordion" id="faqAccordionModern">
-            
-            <!-- Item 1 -->
-            <div class="accordion-item">
-              <h5 class="accordion-header" id="faqHeading1">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1" aria-expanded="false" aria-controls="faqCollapse1">
-                  Bagaimana sistem pembayaran Serviced Office? ( Serviced Office )
-                </button>
-              </h5>
-              <div id="faqCollapse1" class="accordion-collapse collapse" aria-labelledby="faqHeading1" data-bs-parent="#faqAccordionModern">
-                <div class="accordion-body">
-                  Untuk Serviced Office, pembayaran dapat dilakukan secara bulanan, kuartalan, atau tahunan dengan berbagai metode pembayaran seperti transfer bank maupun kartu kredit.
-                </div>
-              </div>
-            </div>
+   .faq-info-label {
+     font-size: 0.75rem;
+     color: #dc3545;
+     text-transform: uppercase;
+     letter-spacing: 1.5px;
+     font-weight: 700;
+     margin-bottom: 1rem;
+     display: block;
+   }
 
-            <!-- Item 2 -->
-            <div class="accordion-item">
-              <h5 class="accordion-header" id="faqHeading2">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
-                  Apa Virtual Office sudah bisa PKP? ( Virtual Office )
-                </button>
-              </h5>
-              <div id="faqCollapse2" class="accordion-collapse collapse" aria-labelledby="faqHeading2" data-bs-parent="#faqAccordionModern">
-                <div class="accordion-body">
-                  Ya, sebagian besar lokasi Virtual Office kami dapat digunakan untuk keperluan pendaftaran PKP (Pengusaha Kena Pajak) sesuai dengan ketentuan yang berlaku.
-                </div>
-              </div>
-            </div>
+   .faq-info-title {
+     font-size: 2rem;
+     font-weight: 700;
+     color: #111827;
+     margin-bottom: 1rem;
+     line-height: 1.2;
+   }
 
-            <!-- Item 3 -->
-            <div class="accordion-item">
-              <h5 class="accordion-header" id="faqHeading3">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3">
-                  Apakah semua fasilitas bisa digunakan di semua cabang?
-                </button>
-              </h5>
-              <div id="faqCollapse3" class="accordion-collapse collapse" aria-labelledby="faqHeading3" data-bs-parent="#faqAccordionModern">
-                <div class="accordion-body">
-                  Fasilitas dasar seperti coworking dan lounge dapat diakses di beberapa cabang tertentu jika Anda tergabung dalam paket member berskala nasional.
-                </div>
-              </div>
-            </div>
+   .faq-info-desc {
+     color: #737b88;
+     font-size: 0.95rem;
+     line-height: 1.6;
+     margin-bottom: 2.5rem;
+   }
 
-            <!-- Item 4 -->
-            <div class="accordion-item">
-              <h5 class="accordion-header" id="faqHeading4">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse4" aria-expanded="false" aria-controls="faqCollapse4">
-                  Apakah Virtual Office dapat disewa oleh Firma Hukum yang belum memiliki AKTA Perusahaan? ( Virtual Office )
-                </button>
-              </h5>
-              <div id="faqCollapse4" class="accordion-collapse collapse" aria-labelledby="faqHeading4" data-bs-parent="#faqAccordionModern">
-                <div class="accordion-body">
-                  Tentu. Pendaftaran dapat dilakukan atas nama perorangan atau pendiri terlebih dahulu, dan dapat disesuaikan kembali setelah legalitas perusahaan resmi terbit.
-                </div>
-              </div>
-            </div>
+   .faq-stats-box {
+     background-color: #ffffff;
+     border-radius: 1rem;
+     padding: 1.5rem 1rem;
+     text-align: center;
+     flex: 1;
+     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+   }
 
-            <!-- Item 5 -->
-            <div class="accordion-item">
-              <h5 class="accordion-header" id="faqHeading5">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse5" aria-expanded="false" aria-controls="faqCollapse5">
-                  Apakah Virtual Office dapat disewa dengan harga bulanan? ( Virtual Office )
-                </button>
-              </h5>
-              <div id="faqCollapse5" class="accordion-collapse collapse" aria-labelledby="faqHeading5" data-bs-parent="#faqAccordionModern">
-                <div class="accordion-body">
-                  Pada umumnya penyewaan Virtual Office adalah berlangganan secara tahunan. Namun, kami menyediakan beberapa paket fleksibel yang dapat dibayar bertahap.
-                </div>
-              </div>
-            </div>
+   .faq-stats-number {
+     font-size: 1.75rem;
+     font-weight: 700;
+     color: #111827;
+     margin-bottom: 0.25rem;
+   }
 
-            <!-- Item 6 -->
-            <div class="accordion-item">
-              <h5 class="accordion-header" id="faqHeading6">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse6" aria-expanded="false" aria-controls="faqCollapse6">
-                  Apakah ada perbedaan harga untuk setiap cabang? ( Virtual Office )
-                </button>
-              </h5>
-              <div id="faqCollapse6" class="accordion-collapse collapse" aria-labelledby="faqHeading6" data-bs-parent="#faqAccordionModern">
-                <div class="accordion-body">
-                  Ya, harga dapat bervariasi bergantung pada lokasi cabang (zona premium atau standar) dan kelengkapan fasilitas tambahan pada area tersebut.
-                </div>
-              </div>
-            </div>
+   .faq-stats-label {
+     font-size: 0.7rem;
+     color: #6b7280;
+     text-transform: uppercase;
+     letter-spacing: 0.5px;
+     font-weight: 600;
+   }
 
-            <!-- Item 7 -->
-            <div class="accordion-item">
-              <h5 class="accordion-header" id="faqHeading7">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse7" aria-expanded="false" aria-controls="faqCollapse7">
-                  Apakah terdapat foto dokumentasi Serviced Office yang dapat dilihat? ( Serviced Office )
-                </button>
-              </h5>
-              <div id="faqCollapse7" class="accordion-collapse collapse" aria-labelledby="faqHeading7" data-bs-parent="#faqAccordionModern">
-                <div class="accordion-body">
-                  Tentu saja, dokumentasi foto untuk setiap ruangan Serviced Office tersedia di galeri website kami atau Anda dapat menjadwalkan tur lokasi secara langsung.
-                </div>
-              </div>
-            </div>
+   .faq-modern-accordion {
+     --bs-accordion-bg: transparent;
+     --bs-accordion-border-width: 0;
+     --bs-accordion-inner-border-radius: 0;
+     --bs-accordion-btn-focus-box-shadow: none;
+   }
 
-            <!-- Item 8 -->
-            <div class="accordion-item">
-              <h5 class="accordion-header" id="faqHeading8">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse8" aria-expanded="false" aria-controls="faqCollapse8">
-                  Apakah dapat menyewa Virtual Office dengan tidak/belum memiliki legalitas perusahaan? ( Virtual Office )
-                </button>
-              </h5>
-              <div id="faqCollapse8" class="accordion-collapse collapse" aria-labelledby="faqHeading8" data-bs-parent="#faqAccordionModern">
-                <div class="accordion-body">
-                  Bisa. Anda tetap dapat menggunakan alamat Virtual Office kami selama masa pengurusan legalitas pendirian perusahaan Anda sedang berjalan.
-                </div>
-              </div>
-            </div>
+   .faq-modern-accordion .accordion-item {
+     background-color: #f7f7f7;
+     border: none;
+     border-radius: 1.25rem !important;
+     margin-bottom: 1rem;
+     overflow: hidden;
+     transition: background-color 0.3s;
+   }
 
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-<!-- News Section Start -->
+   .faq-modern-accordion .accordion-button {
+     background-color: transparent;
+     font-weight: 600;
+     color: #111827;
+     padding: 1.25rem 1.75rem;
+     box-shadow: none !important;
+     border-radius: 1.25rem !important;
+   }
+
+   .faq-modern-accordion .accordion-button:not(.collapsed) {
+     color: #000;
+     background-color: transparent;
+     box-shadow: none;
+   }
+
+   .faq-modern-accordion .accordion-button::after {
+     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%236b7280'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+     transition: transform 0.3s ease;
+   }
+
+   .faq-modern-accordion .accordion-body {
+     padding: 0 1.75rem 1.25rem;
+     color: #6b7280;
+     font-size: 0.95rem;
+     line-height: 1.6;
+   }
+
+   @media (max-width: 991.98px) {
+     .faq-info-card {
+       margin-bottom: 2rem;
+       padding: 2rem;
+     }
+   }
+ </style>
+
+ <section class="faq-modern-section section-padding">
+   <div class="container">
+     <div class="row">
+       <!-- Kolom Kiri -->
+       <div class="col-lg-4">
+         <div class="faq-info-card d-flex flex-column">
+           <div>
+             <span class="faq-info-label">RINGKAS &amp; JELAS</span>
+             <h2 class="faq-info-title">Jawaban penting sebelum Anda memulai</h2>
+             <p class="faq-info-desc">Kami rangkum pertanyaan yang paling sering muncul agar Anda bisa menemukan informasi penting tanpa harus berpindah halaman.</p>
+           </div>
+           <div class="d-flex gap-3 mt-auto">
+             <div class="faq-stats-box">
+               <div class="faq-stats-number">15</div>
+               <div class="faq-stats-label">TOPIK AKTIF</div>
+             </div>
+             <div class="faq-stats-box">
+               <div class="faq-stats-number">24/7</div>
+               <div class="faq-stats-label">AKSES INFORMASI</div>
+             </div>
+           </div>
+         </div>
+       </div>
+
+       <!-- Kolom Kanan (FAQ Accordion) -->
+       <div class="col-lg-8">
+         <div class="accordion faq-modern-accordion" id="faqAccordionModern">
+
+           <!-- Item 1 -->
+           <div class="accordion-item">
+             <h5 class="accordion-header" id="faqHeading1">
+               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1" aria-expanded="false" aria-controls="faqCollapse1">
+                 Bagaimana sistem pembayaran Serviced Office? ( Serviced Office )
+               </button>
+             </h5>
+             <div id="faqCollapse1" class="accordion-collapse collapse" aria-labelledby="faqHeading1" data-bs-parent="#faqAccordionModern">
+               <div class="accordion-body">
+                 Untuk Serviced Office, pembayaran dapat dilakukan secara bulanan, kuartalan, atau tahunan dengan berbagai metode pembayaran seperti transfer bank maupun kartu kredit.
+               </div>
+             </div>
+           </div>
+
+           <!-- Item 2 -->
+           <div class="accordion-item">
+             <h5 class="accordion-header" id="faqHeading2">
+               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
+                 Apa Virtual Office sudah bisa PKP? ( Virtual Office )
+               </button>
+             </h5>
+             <div id="faqCollapse2" class="accordion-collapse collapse" aria-labelledby="faqHeading2" data-bs-parent="#faqAccordionModern">
+               <div class="accordion-body">
+                 Ya, sebagian besar lokasi Virtual Office kami dapat digunakan untuk keperluan pendaftaran PKP (Pengusaha Kena Pajak) sesuai dengan ketentuan yang berlaku.
+               </div>
+             </div>
+           </div>
+
+           <!-- Item 3 -->
+           <div class="accordion-item">
+             <h5 class="accordion-header" id="faqHeading3">
+               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3">
+                 Apakah semua fasilitas bisa digunakan di semua cabang?
+               </button>
+             </h5>
+             <div id="faqCollapse3" class="accordion-collapse collapse" aria-labelledby="faqHeading3" data-bs-parent="#faqAccordionModern">
+               <div class="accordion-body">
+                 Fasilitas dasar seperti coworking dan lounge dapat diakses di beberapa cabang tertentu jika Anda tergabung dalam paket member berskala nasional.
+               </div>
+             </div>
+           </div>
+
+           <!-- Item 4 -->
+           <div class="accordion-item">
+             <h5 class="accordion-header" id="faqHeading4">
+               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse4" aria-expanded="false" aria-controls="faqCollapse4">
+                 Apakah Virtual Office dapat disewa oleh Firma Hukum yang belum memiliki AKTA Perusahaan? ( Virtual Office )
+               </button>
+             </h5>
+             <div id="faqCollapse4" class="accordion-collapse collapse" aria-labelledby="faqHeading4" data-bs-parent="#faqAccordionModern">
+               <div class="accordion-body">
+                 Tentu. Pendaftaran dapat dilakukan atas nama perorangan atau pendiri terlebih dahulu, dan dapat disesuaikan kembali setelah legalitas perusahaan resmi terbit.
+               </div>
+             </div>
+           </div>
+
+           <!-- Item 5 -->
+           <div class="accordion-item">
+             <h5 class="accordion-header" id="faqHeading5">
+               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse5" aria-expanded="false" aria-controls="faqCollapse5">
+                 Apakah Virtual Office dapat disewa dengan harga bulanan? ( Virtual Office )
+               </button>
+             </h5>
+             <div id="faqCollapse5" class="accordion-collapse collapse" aria-labelledby="faqHeading5" data-bs-parent="#faqAccordionModern">
+               <div class="accordion-body">
+                 Pada umumnya penyewaan Virtual Office adalah berlangganan secara tahunan. Namun, kami menyediakan beberapa paket fleksibel yang dapat dibayar bertahap.
+               </div>
+             </div>
+           </div>
+
+           <!-- Item 6 -->
+           <div class="accordion-item">
+             <h5 class="accordion-header" id="faqHeading6">
+               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse6" aria-expanded="false" aria-controls="faqCollapse6">
+                 Apakah ada perbedaan harga untuk setiap cabang? ( Virtual Office )
+               </button>
+             </h5>
+             <div id="faqCollapse6" class="accordion-collapse collapse" aria-labelledby="faqHeading6" data-bs-parent="#faqAccordionModern">
+               <div class="accordion-body">
+                 Ya, harga dapat bervariasi bergantung pada lokasi cabang (zona premium atau standar) dan kelengkapan fasilitas tambahan pada area tersebut.
+               </div>
+             </div>
+           </div>
+
+           <!-- Item 7 -->
+           <div class="accordion-item">
+             <h5 class="accordion-header" id="faqHeading7">
+               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse7" aria-expanded="false" aria-controls="faqCollapse7">
+                 Apakah terdapat foto dokumentasi Serviced Office yang dapat dilihat? ( Serviced Office )
+               </button>
+             </h5>
+             <div id="faqCollapse7" class="accordion-collapse collapse" aria-labelledby="faqHeading7" data-bs-parent="#faqAccordionModern">
+               <div class="accordion-body">
+                 Tentu saja, dokumentasi foto untuk setiap ruangan Serviced Office tersedia di galeri website kami atau Anda dapat menjadwalkan tur lokasi secara langsung.
+               </div>
+             </div>
+           </div>
+
+           <!-- Item 8 -->
+           <div class="accordion-item">
+             <h5 class="accordion-header" id="faqHeading8">
+               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse8" aria-expanded="false" aria-controls="faqCollapse8">
+                 Apakah dapat menyewa Virtual Office dengan tidak/belum memiliki legalitas perusahaan? ( Virtual Office )
+               </button>
+             </h5>
+             <div id="faqCollapse8" class="accordion-collapse collapse" aria-labelledby="faqHeading8" data-bs-parent="#faqAccordionModern">
+               <div class="accordion-body">
+                 Bisa. Anda tetap dapat menggunakan alamat Virtual Office kami selama masa pengurusan legalitas pendirian perusahaan Anda sedang berjalan.
+               </div>
+             </div>
+           </div>
+
+         </div>
+       </div>
+     </div>
+   </div>
+ </section>
+ <!-- News Section Start -->
  <section class="news-section fix section-padding section-bg">
    <div class="container">
      <div class="section-title-area">

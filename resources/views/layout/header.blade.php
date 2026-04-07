@@ -6,8 +6,8 @@
         <div
           class="offcanvas__top mb-5 d-flex justify-content-between align-items-center">
           <div class="offcanvas__logo">
-            <a href="{{('/')}}">
-              <img src="{{('buyer-file/assets/img/logo-remove-black.png')}}" alt="logo-img" />
+            <a href="{{ url('/') }}">
+              <img src="{{ asset('buyer-file/assets/img/logo-remove-black.png') }}" alt="logo-img" />
             </a>
           </div>
           <div class="offcanvas__close">
@@ -98,9 +98,21 @@
           </li>
           <li>
             <i class="fa-light fa-user"></i>
+            {{-- Tampilkan Masuk hanya jika belum login --}}
+            @guest
             <button data-bs-toggle="modal" data-bs-target="#exampleModal">
               Masuk
             </button>
+            @endguest
+            {{-- Tampilkan Logout jika sudah login --}}
+            @auth
+            <form action="{{ route('logout') }}" method="POST" style="display:inline;">
+              @csrf
+              <button type="submit" style="background:none;border:none;padding:0;cursor:pointer;color:inherit;">
+                Keluar
+              </button>
+            </form>
+            @endauth
           </li>
         </ul>
       </div>
@@ -112,15 +124,15 @@
         <div class="header-main">
           <div class="header-left">
             <div class="logo">
-              <a href="{{('/')}}" class="header-logo">
+              <a href="{{ url('/') }}" class="header-logo">
                 <img
-                  src="{{('buyer-file/assets/img/logo-removebg.png')}}"
+                  src="{{ asset('buyer-file/assets/img/logo-removebg.png') }}"
                   alt="logo-img"
                   style="width: 13pc" />
               </a>
-              <a href="{{('/')}}" class="header-logo-2">
+              <a href="{{ url('/') }}" class="header-logo-2">
                 <img
-                  src="{{('buyer-file/assets/img/logo-remove-black.png')}}"
+                  src="{{ asset('buyer-file/assets/img/logo-remove-black.png') }}"
                   alt="logo-img"
                   style="width: 13pc" />
               </a>
@@ -662,10 +674,23 @@
               </div>
             </div>
             <div class="header-button">
+              {{-- Tampilkan tombol Masuk jika belum login --}}
+              @guest
               <a href="#" class="theme-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Masuk
                 <i class="fa-solid fa-arrow-right-long"></i>
               </a>
+              @endguest
+              {{-- Tampilkan tombol Logout jika sudah login --}}
+              @auth
+              <form action="{{ route('logout') }}" method="POST" style="display:inline;">
+                @csrf
+                <button type="submit" class="theme-btn">
+                  Keluar
+                  <i class="fa-solid fa-arrow-right-long"></i>
+                </button>
+              </form>
+              @endauth
             </div>
           </div>
         </div>
@@ -885,7 +910,171 @@
       initNavbarScroll();
     }
   })();
+
+  /* ── Auto-buka modal login jika ada error ── */
+  function lwAutoOpenLoginModal() {
+    var hasError = document.getElementById('lw-login-error-box');
+    if (!hasError) return;
+    var modalEl = document.getElementById('exampleModal');
+    if (!modalEl) return;
+    setTimeout(function() {
+      if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
+        var m = bootstrap.Modal.getOrCreateInstance(modalEl);
+        m.show();
+      }
+    }, 250);
+  }
+
+  /* ── Dismiss toast ── */
+  window.lwDismissToast = function(el) {
+    if (!el) return;
+    el.classList.add('lw-toast-hide');
+    setTimeout(function() { if (el.parentNode) el.parentNode.removeChild(el); }, 320);
+  };
+
+  /* ── Auto-dismiss toast setelah 5 detik ── */
+  function lwAutoDismissToasts() {
+    var toasts = document.querySelectorAll('.lw-toast');
+    toasts.forEach(function(t) {
+      setTimeout(function() { lwDismissToast(t); }, 5200);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      lwAutoOpenLoginModal();
+      lwAutoDismissToasts();
+    });
+  } else {
+    lwAutoOpenLoginModal();
+    lwAutoDismissToasts();
+  }
+
+})();
 </script>
+
+{{-- ===== TOAST NOTIFIKASI LOGIN GAGAL ===== --}}
+@if ($errors->any() && old('_token'))
+<style>
+  /* Toast container */
+  #lw-toast-wrap {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 999999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+  }
+
+  .lw-toast {
+    pointer-events: auto;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 8px 32px rgba(220,53,69,0.18), 0 2px 8px rgba(0,0,0,0.08);
+    border-left: 5px solid #dc3545;
+    padding: 16px 20px 16px 18px;
+    min-width: 300px;
+    max-width: 380px;
+    animation: lwToastIn 0.35s cubic-bezier(.4,0,.2,1) both;
+  }
+
+  .lw-toast.lw-toast-hide {
+    animation: lwToastOut 0.3s cubic-bezier(.4,0,.2,1) both;
+  }
+
+  @keyframes lwToastIn {
+    from { opacity: 0; transform: translateX(60px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes lwToastOut {
+    from { opacity: 1; transform: translateX(0); }
+    to   { opacity: 0; transform: translateX(60px); }
+  }
+
+  .lw-toast-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #fff0f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #dc3545;
+    font-size: 1.1rem;
+  }
+
+  .lw-toast-body { flex: 1; }
+
+  .lw-toast-title {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #dc3545;
+    margin-bottom: 3px;
+  }
+
+  .lw-toast-msg {
+    font-size: 0.80rem;
+    color: #374151;
+    line-height: 1.45;
+    margin: 0;
+  }
+
+  .lw-toast-close {
+    background: none;
+    border: none;
+    color: #9ca3af;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .lw-toast-close:hover { color: #dc3545; }
+
+  .lw-toast-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: #dc3545;
+    border-radius: 0 0 14px 14px;
+    animation: lwProgress 5s linear forwards;
+    width: 100%;
+  }
+
+  @keyframes lwProgress {
+    from { width: 100%; }
+    to   { width: 0%; }
+  }
+</style>
+
+<div id="lw-toast-wrap">
+  @foreach ($errors->all() as $error)
+  <div class="lw-toast" style="position:relative;overflow:hidden;">
+    <div class="lw-toast-icon">
+      <i class="fas fa-exclamation-circle"></i>
+    </div>
+    <div class="lw-toast-body">
+      <div class="lw-toast-title">Login Gagal</div>
+      <p class="lw-toast-msg">{{ $error }}</p>
+    </div>
+    <button class="lw-toast-close" onclick="lwDismissToast(this.closest('.lw-toast'))" title="Tutup">
+      <i class="fas fa-times"></i>
+    </button>
+    <div class="lw-toast-progress"></div>
+  </div>
+  @endforeach
+</div>
+@endif
 
 
 <!-- Modal Version 1 -->
@@ -908,13 +1097,26 @@
         <div class="modal-common-content">
           <div class="box">
             <h2>welcome back!</h2>
+
+            {{-- Inline error di dalam modal --}}
+            @if ($errors->any())
+            <div id="lw-login-error-box" style="background:#fff0f1;border:1.5px solid #fca5a5;border-radius:10px;padding:11px 15px;margin-bottom:14px;display:flex;align-items:flex-start;gap:10px;">
+              <i class="fas fa-exclamation-circle" style="color:#dc3545;margin-top:2px;flex-shrink:0;"></i>
+              <div>
+                @foreach ($errors->all() as $error)
+                  <p style="margin:0;font-size:0.82rem;color:#b91c1c;font-weight:500;line-height:1.5;">{{ $error }}</p>
+                @endforeach
+              </div>
+            </div>
+            @endif
+
             <form action="{{ route('login') }}" method="POST" class="login-from">
               @csrf
               <div class="form-grp cmn-mb">
-                <input type="email" name="email" placeholder="Email Address" />
+                <input type="email" name="email" placeholder="Email Address" value="{{ old('email') }}" />
               </div>
               <div class="form-grp">
-                <input type="password" name="password" placeholder="Enter Password" />
+                <input type="password" name="password" placeholder="Enter Password" value="" />
               </div>
               <div
                 class="d-flex forgot-inner-area cmn-mb justify-content-between gap-2 flex-wrap align-items-center">
@@ -956,7 +1158,7 @@
           </div>
         </div>
         <div class="modal-right-thumb position-relative">
-          <img src="{{('buyer-file/assets/img/sign/login.png')}}" alt="img" />
+          <img src="{{ asset('buyer-file/assets/img/sign/login.png') }}" alt="img" />
           <div class="signlogin-btnwrap">
             <button
               class="theme-create style-border"
@@ -1034,7 +1236,7 @@
           </div>
         </div>
         <div class="modal-right-thumb position-relative">
-          <img src="{{('buyer-file/assets/img/sign/create.png')}}" alt="img" />
+          <img src="{{ asset('buyer-file/assets/img/sign/create.png') }}" alt="img" />
           <div class="signlogin-btnwrap">
             <button
               class="theme-create style-border"
@@ -1090,7 +1292,7 @@
           </div>
         </div>
         <div class="modal-right-thumb position-relative">
-          <img src="{{('buyer-file/assets/img/sign/create.png')}}" alt="img" />
+          <img src="{{ asset('buyer-file/assets/img/sign/create.png') }}" alt="img" />
           <div class="signlogin-btnwrap">
             <button
               class="theme-create style-border"

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ServicesController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -47,10 +48,15 @@ Route::get('/layanan-visa-kitas', [ServicesController::class, 'layananVisaKitas'
 Route::get('/layanan-call-answering', [ServicesController::class, 'layananCallAnswering']);
 Route::get('/layanan-konsultasi-bisnis', [ServicesController::class, 'layananKonsultasiBisnis']);
 Route::get('/virtual-office', [ServicesController::class, 'virtualOffice']);
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route admin - hanya bisa diakses setelah login
+Route::get('/admin', function () {
+    return view('admin.home');
+})->middleware('auth')->name('admin.home');
+
+// Redirect /home ke /admin supaya tidak ada konflik
+Route::get('/home', function () {
+    return redirect('/admin');
+})->middleware('auth')->name('home');
