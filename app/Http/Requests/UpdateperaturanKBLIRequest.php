@@ -6,23 +6,20 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateperaturanKBLIRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
-            //
+            'kode_kbli'      => 'required|string|max:20',
+            'judul_peraturan'=> 'required|string|max:255',
+            'deskripsi'      => 'nullable|string',
+            'tanggal_berlaku'=> 'required|date',
+            'status'         => 'required|in:aktif,direvisi,dicabut',
+            'file_dokumen'   => 'nullable|mimes:pdf|max:10240',
         ];
     }
 }

@@ -2513,28 +2513,20 @@
          </style>
 
          <div class="dc-tags-wrap" id="dcTagsWrap">
-           <span class="dc-tag">Keputusan Menteri Keuangan</span>
-           <span class="dc-tag">Keputusan Badan Pemeriksa Keuangan</span>
-           <span class="dc-tag">Instruksi Menteri Dalam Negeri</span>
-           <span class="dc-tag">Ketetapan MPR</span>
-           <span class="dc-tag">Keputusan Menteri Kesehatan</span>
-           <span class="dc-tag">Keputusan Presiden (KEPPRES)</span>
-           <span class="dc-tag">Instruksi Presiden (INPRES)</span>
-           <span class="dc-tag">Keputusan Menteri Kelautan dan Perikanan</span>
-           <span class="dc-tag">Keputusan Komisi Pengawas Persaingan Usaha</span>
-           <span class="dc-tag">Keputusan Menteri Dalam Negeri</span>
-           <!-- Hidden tags -->
-           <span class="dc-tag dc-tag-hidden">Keputusan Kepala Badan Standardisasi Nasional</span>
-           <span class="dc-tag dc-tag-hidden">Keputusan Kepala Badan Nasional Penanggulangan Bencana</span>
-           <span class="dc-tag dc-tag-hidden">Keputusan Menteri Energi dan Sumber Daya Mineral</span>
-           <span class="dc-tag dc-tag-hidden">Virtual Office</span>
-           <span class="dc-tag dc-tag-hidden">Keputusan Menteri Luar Negeri</span>
-           <span class="dc-tag dc-tag-hidden">Pembuatan PT</span>
-           <span class="dc-tag dc-tag-hidden">Jasa Pembuatan PT</span>
-           <span class="dc-tag dc-tag-hidden">Keputusan Menteri Kesehatan</span>
-           <button class="dc-show-more" id="dcShowMore" aria-label="Tampilkan lebih banyak">
-             <i class="fas fa-plus" style="font-size:0.6rem;"></i>&nbsp;8 lainnya
-           </button>
+            @forelse($peraturan->take(10) as $item)
+              <span class="dc-tag">{{ Str::limit($item->judul_peraturan, 50) }}</span>
+            @empty
+              <span class="dc-tag">Belum ada data peraturan</span>
+            @endforelse
+            @if($peraturan->count() > 10)
+              <!-- Hidden tags -->
+              @foreach($peraturan->slice(10) as $item)
+                <span class="dc-tag dc-tag-hidden">{{ Str::limit($item->judul_peraturan, 50) }}</span>
+              @endforeach
+              <button class="dc-show-more" id="dcShowMore" aria-label="Tampilkan lebih banyak">
+                <i class="fas fa-plus" style="font-size:0.6rem;"></i>&nbsp;{{ $peraturan->count() - 10 }} lainnya
+              </button>
+            @endif
          </div>
 
          <script>

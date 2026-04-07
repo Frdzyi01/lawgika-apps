@@ -37,10 +37,10 @@
                 </div>
                 <div class="d-flex align-items-center mt-3">
                     <div>
-                        <h4 class="mb-0">32</h4>
+                        <h4 class="mb-0">{{ $totalPeraturan }}</h4>
                     </div>
                     <div class="ms-auto">
-                        <span class="badge bg-light text-success">+5 terbaru</span>
+                        <span class="badge bg-light text-success">Total semua</span>
                     </div>
                 </div>
             </div>
@@ -60,10 +60,10 @@
                 </div>
                 <div class="d-flex align-items-center mt-3">
                     <div>
-                        <h4 class="mb-0">20</h4>
+                        <h4 class="mb-0">{{ $totalAktif }}</h4>
                     </div>
                     <div class="ms-auto">
-                        <span class="badge bg-light text-info">+3 aktif</span>
+                        <span class="badge bg-light text-info">Aktif</span>
                     </div>
                 </div>
             </div>
@@ -83,10 +83,10 @@
                 </div>
                 <div class="d-flex align-items-center mt-3">
                     <div>
-                        <h4 class="mb-0">7</h4>
+                        <h4 class="mb-0">{{ $totalDirevisi }}</h4>
                     </div>
                     <div class="ms-auto">
-                        <span class="badge bg-light text-warning">+2 revisi</span>
+                        <span class="badge bg-light text-warning">Direvisi</span>
                     </div>
                 </div>
             </div>
@@ -106,10 +106,10 @@
                 </div>
                 <div class="d-flex align-items-center mt-3">
                     <div>
-                        <h4 class="mb-0">5</h4>
+                        <h4 class="mb-0">{{ $totalDicabut }}</h4>
                     </div>
                     <div class="ms-auto">
-                        <span class="badge bg-light text-success">-1 bulan ini</span>
+                        <span class="badge bg-light text-success">Dicabut</span>
                     </div>
                 </div>
             </div>
@@ -127,6 +127,13 @@
         <ion-icon name="document-attach-outline"></ion-icon> Tambah Peraturan
     </button>
 </div>
+
+@if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+@endif
 
 <!-- jgn di apus -->
 <div class="card radius-10 w-100">
@@ -168,73 +175,73 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @forelse($data as $item)
                     <tr>
-                        <td>1</td>
+                        <td>{{ $loop->iteration }}</td>
                         <td>
-                            <h6 class="mb-0">62011</h6>
+                            <h6 class="mb-0">{{ $item->kode_kbli }}</h6>
                         </td>
-                        <td>Aktivitas Pemrograman Komputer</td>
-                        <td>Mengatur kegiatan pengembangan software</td>
-                        <td>12 Jan 2024</td>
-                        <td><span class="badge bg-success">Aktif</span></td>
+                        <td>{{ $item->judul_peraturan }}</td>
+                        <td>{{ Str::limit($item->deskripsi, 50) }}</td>
+                        <td>{{ $item->tanggal_berlaku->translatedFormat('d M Y') }}</td>
                         <td>
-                            <a href="javascript:;" class="btn btn-sm btn-outline-primary d-flex align-items-center gap-1" style="width: max-content;">
-                                <ion-icon name="document-outline"></ion-icon> Lihat PDF
-                            </a>
+                            @if($item->status == 'aktif')
+                                <span class="badge bg-success">Aktif</span>
+                            @elseif($item->status == 'direvisi')
+                                <span class="badge bg-warning text-dark">Direvisi</span>
+                            @else
+                                <span class="badge bg-danger">Dicabut</span>
+                            @endif
+                        </td>
+                        <td>
+                            @if($item->file_dokumen)
+                                <a href="{{ asset('storage/' . $item->file_dokumen) }}"
+                                   target="_blank"
+                                   class="btn btn-sm btn-outline-primary d-flex align-items-center gap-1"
+                                   style="width: max-content;">
+                                    <ion-icon name="document-outline"></ion-icon> Lihat PDF
+                                </a>
+                            @else
+                                <span class="text-muted small">Tidak ada file</span>
+                            @endif
                         </td>
                         <td>
                             <div class="d-flex align-items-center gap-3 fs-6">
-                                <a href="javascript:;" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="View detail"><ion-icon name="eye-outline"></ion-icon></a>
-                                <a href="javascript:;" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit info"><ion-icon name="pencil-outline"></ion-icon></a>
-                                <a href="javascript:;" class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete"><ion-icon name="trash-outline"></ion-icon></a>
+                                {{-- Edit --}}
+                                <a href="javascript:;"
+                                   class="text-warning btn-edit-kbli"
+                                   data-bs-toggle="tooltip"
+                                   data-bs-placement="bottom"
+                                   title="Edit info"
+                                   data-id="{{ $item->id }}"
+                                   data-kode="{{ e($item->kode_kbli) }}"
+                                   data-judul="{{ e($item->judul_peraturan) }}"
+                                   data-deskripsi="{{ e($item->deskripsi) }}"
+                                   data-tanggal="{{ $item->tanggal_berlaku->format('Y-m-d') }}"
+                                   data-status="{{ $item->status }}"
+                                ><ion-icon name="pencil-outline"></ion-icon></a>
+                                {{-- Delete --}}
+                                <form action="{{ route('admin.peraturan-kbli.destroy', $item->id) }}"
+                                      method="POST" style="display:inline;"
+                                      onsubmit="return confirm('Hapus peraturan ini?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                            class="btn p-0 border-0 bg-transparent text-danger"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-placement="bottom"
+                                            title="Delete">
+                                        <ion-icon name="trash-outline"></ion-icon>
+                                    </button>
+                                </form>
                             </div>
                         </td>
                     </tr>
+                    @empty
                     <tr>
-                        <td>2</td>
-                        <td>
-                            <h6 class="mb-0">63122</h6>
-                        </td>
-                        <td>Portal Web dan Platform Digital</td>
-                        <td>Ketentuan platform portal web komersial</td>
-                        <td>01 Mar 2024</td>
-                        <td><span class="badge bg-warning text-dark">Direvisi</span></td>
-                        <td>
-                            <a href="javascript:;" class="btn btn-sm btn-outline-primary d-flex align-items-center gap-1" style="width: max-content;">
-                                <ion-icon name="document-outline"></ion-icon> Lihat PDF
-                            </a>
-                        </td>
-                        <td>
-                            <div class="d-flex align-items-center gap-3 fs-6">
-                                <a href="javascript:;" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="View detail"><ion-icon name="eye-outline"></ion-icon></a>
-                                <a href="javascript:;" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit info"><ion-icon name="pencil-outline"></ion-icon></a>
-                                <a href="javascript:;" class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete"><ion-icon name="trash-outline"></ion-icon></a>
-                            </div>
-                        </td>
+                        <td colspan="8" class="text-center text-muted py-4">Belum ada data peraturan KBLI.</td>
                     </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>
-                            <h6 class="mb-0">70209</h6>
-                        </td>
-                        <td>Konsultasi Manajemen Lainnya</td>
-                        <td>Jasa konsultasi perizinan umum</td>
-                        <td>15 Apr 2023</td>
-                        <td><span class="badge bg-danger">Dicabut</span></td>
-                        <td>
-                            <a href="javascript:;" class="btn btn-sm btn-outline-primary d-flex align-items-center gap-1" style="width: max-content;">
-                                <ion-icon name="document-outline"></ion-icon> Lihat PDF
-                            </a>
-                        </td>
-                        <td>
-                            <div class="d-flex align-items-center gap-3 fs-6">
-                                <a href="javascript:;" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="View detail"><ion-icon name="eye-outline"></ion-icon></a>
-                                <a href="javascript:;" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit info"><ion-icon name="pencil-outline"></ion-icon></a>
-                                <a href="javascript:;" class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete"><ion-icon name="trash-outline"></ion-icon></a>
-                            </div>
-                        </td>
-                    </tr>
-
+                    @endforelse
                 </tbody>
             </table>
         </div>
@@ -264,34 +271,35 @@
                     aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <form id="formTambahKbli" action="{{ route('admin.peraturan-kbli.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
                     <div class="mb-3">
                         <label class="form-label">Kode KBLI</label>
-                        <input type="text" class="form-control" placeholder="Contoh: 62011" />
+                        <input type="text" class="form-control" name="kode_kbli" placeholder="Contoh: 62011" />
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Judul Peraturan</label>
-                        <input type="text" class="form-control" placeholder="Masukkan judul peraturan" />
+                        <input type="text" class="form-control" name="judul_peraturan" placeholder="Masukkan judul peraturan" />
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Deskripsi</label>
-                        <textarea class="form-control" rows="3" placeholder="Deskripsi singkat peraturan"></textarea>
+                        <textarea class="form-control" name="deskripsi" rows="3" placeholder="Deskripsi singkat peraturan"></textarea>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Upload File PDF</label>
-                        <input type="file" class="form-control" accept="application/pdf" />
+                        <input type="file" class="form-control" name="file_dokumen" accept="application/pdf" />
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Tanggal Berlaku</label>
-                            <input type="date" class="form-control" />
+                            <input type="date" class="form-control" name="tanggal_berlaku" />
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Status</label>
-                            <select class="form-select">
-                                <option value="Aktif">Aktif</option>
-                                <option value="Direvisi">Direvisi</option>
-                                <option value="Dicabut">Dicabut</option>
+                            <select class="form-select" name="status">
+                                <option value="aktif">Aktif</option>
+                                <option value="direvisi">Direvisi</option>
+                                <option value="dicabut">Dicabut</option>
                             </select>
                         </div>
                     </div>
@@ -305,7 +313,8 @@
                     Batal
                 </button>
                 <button
-                    type="button"
+                    type="submit"
+                    form="formTambahKbli"
                     class="btn btn-primary d-flex align-items-center gap-2">
                     <ion-icon name="save-outline"></ion-icon> Simpan
                 </button>
@@ -314,4 +323,91 @@
     </div>
 </div>
 <!-- End Modal Tambah Peraturan -->
+
+<!-- Modal Edit Peraturan -->
+<div class="modal fade" id="editKbliModal" tabindex="-1" aria-labelledby="editKbliModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title d-flex align-items-center gap-2" id="editKbliModalLabel">
+                    <ion-icon name="pencil-outline"></ion-icon> Edit Peraturan
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formEditKbli" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    <div class="mb-3">
+                        <label class="form-label">Kode KBLI</label>
+                        <input type="text" class="form-control" name="kode_kbli" id="edit_kode_kbli" placeholder="Contoh: 62011" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Judul Peraturan</label>
+                        <input type="text" class="form-control" name="judul_peraturan" id="edit_judul_peraturan" placeholder="Masukkan judul peraturan" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Deskripsi</label>
+                        <textarea class="form-control" name="deskripsi" id="edit_deskripsi_kbli" rows="3" placeholder="Deskripsi singkat peraturan"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Upload File PDF Baru (opsional)</label>
+                        <input type="file" class="form-control" name="file_dokumen" accept="application/pdf" />
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Tanggal Berlaku</label>
+                            <input type="date" class="form-control" name="tanggal_berlaku" id="edit_tanggal_berlaku" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Status</label>
+                            <select class="form-select" name="status" id="edit_status_kbli">
+                                <option value="aktif">Aktif</option>
+                                <option value="direvisi">Direvisi</option>
+                                <option value="dicabut">Dicabut</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary border-0" data-bs-dismiss="modal">Batal</button>
+                <button type="submit" form="formEditKbli" class="btn btn-primary d-flex align-items-center gap-2">
+                    <ion-icon name="save-outline"></ion-icon> Simpan Perubahan
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal Edit Peraturan -->
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.btn-edit-kbli').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var id      = this.dataset.id;
+            var kode    = this.dataset.kode;
+            var judul   = this.dataset.judul;
+            var desk    = this.dataset.deskripsi;
+            var tanggal = this.dataset.tanggal;
+            var status  = this.dataset.status;
+
+            var form = document.getElementById('formEditKbli');
+            form.action = '/admin/peraturan-kbli/' + id;
+
+            document.getElementById('edit_kode_kbli').value       = kode;
+            document.getElementById('edit_judul_peraturan').value  = judul;
+            document.getElementById('edit_deskripsi_kbli').value   = desk;
+            document.getElementById('edit_tanggal_berlaku').value  = tanggal;
+            document.getElementById('edit_status_kbli').value      = status;
+
+            var modal = new bootstrap.Modal(document.getElementById('editKbliModal'));
+            modal.show();
+        });
+    });
+});
+</script>
+@endpush
+
 @endsection

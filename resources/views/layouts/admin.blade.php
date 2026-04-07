@@ -59,7 +59,7 @@
           </a>
         </li>
         <li>
-          <a href="{{ route('admin.peraturan-kbli') }}">
+          <a href="{{ route('admin.peraturan-kbli.index') }}">
             <div class="parent-icon"><ion-icon name="person-circle-outline"></ion-icon></div>
             <div class="menu-title">Peraturan KBLI</div>
           </a>

@@ -5,62 +5,78 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreperaturanKBLIRequest;
 use App\Http\Requests\UpdateperaturanKBLIRequest;
 use App\Models\peraturanKBLI;
+use Illuminate\Support\Facades\Storage;
 
 class PeraturanKBLIController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        return view('admin.peraturan-kbli.index');
+        $data         = peraturanKBLI::latest()->get();
+        $totalPeraturan = $data->count();
+        $totalAktif   = $data->where('status', 'aktif')->count();
+        $totalDirevisi= $data->where('status', 'direvisi')->count();
+        $totalDicabut = $data->where('status', 'dicabut')->count();
+
+        return view('admin.peraturan-kbli.index', compact(
+            'data', 'totalPeraturan', 'totalAktif', 'totalDirevisi', 'totalDicabut'
+        ));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreperaturanKBLIRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        if ($request->hasFile('file_dokumen')) {
+            $validated['file_dokumen'] = $request->file('file_dokumen')->store('kbli', 'public');
+        }
+
+        peraturanKBLI::create($validated);
+
+        return redirect()->route('admin.peraturan-kbli.index')->with('success', 'Peraturan berhasil ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(peraturanKBLI $peraturanKBLI)
+    public function show(peraturanKBLI $peraturan_kbli)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(peraturanKBLI $peraturanKBLI)
+    public function edit(peraturanKBLI $peraturan_kbli)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateperaturanKBLIRequest $request, peraturanKBLI $peraturanKBLI)
+    public function update(UpdateperaturanKBLIRequest $request, peraturanKBLI $peraturan_kbli)
     {
-        //
+        $validated = $request->validated();
+
+        if ($request->hasFile('file_dokumen')) {
+            // Hapus file lama jika ada
+            if ($peraturan_kbli->file_dokumen) {
+                Storage::disk('public')->delete($peraturan_kbli->file_dokumen);
+            }
+            $validated['file_dokumen'] = $request->file('file_dokumen')->store('kbli', 'public');
+        } else {
+            unset($validated['file_dokumen']); // Jaga file lama
+        }
+
+        $peraturan_kbli->update($validated);
+
+        return redirect()->route('admin.peraturan-kbli.index')->with('success', 'Peraturan berhasil diperbarui.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(peraturanKBLI $peraturanKBLI)
+    public function destroy(peraturanKBLI $peraturan_kbli)
     {
-        //
+        if ($peraturan_kbli->file_dokumen && Storage::disk('public')->exists($peraturan_kbli->file_dokumen)) {
+            Storage::disk('public')->delete($peraturan_kbli->file_dokumen);
+        }
+
+        $peraturan_kbli->delete();
+
+        return redirect()->route('admin.peraturan-kbli.index')->with('success', 'Peraturan berhasil dihapus.');
     }
 }

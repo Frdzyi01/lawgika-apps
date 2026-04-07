@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('peraturan_k_b_l_i_s', function (Blueprint $table) {
             $table->id();
+            $table->string('kode_kbli');
+            $table->string('judul_peraturan');
+            $table->text('deskripsi')->nullable();
+            $table->date('tanggal_berlaku');
+            $table->enum('status', ['aktif', 'direvisi', 'dicabut'])->default('aktif');
+            $table->string('file_dokumen')->nullable();
             $table->timestamps();
         });
     }
