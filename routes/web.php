@@ -1,8 +1,12 @@
 <?php
 
 use App\Http\Controllers\ServicesController;
+use App\Http\Controllers\PromoController;
+use App\Http\Controllers\PeraturanKBLIController;
+use App\Http\Controllers\EventUpComingController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
 
 Route::get('/', function () {
     return view('dashboard');
@@ -60,3 +64,8 @@ Route::get('/admin', function () {
 Route::get('/home', function () {
     return redirect('/admin');
 })->middleware('auth')->name('home');
+
+
+Route::get('/admin/promo', [PromoController::class, 'index'])->middleware('auth')->name('admin.promo');
+Route::get('/admin/peraturan-kbli', [PeraturanKBLIController::class, 'index'])->middleware('auth')->name('admin.peraturan-kbli');
+Route::get('/admin/event-upcoming', [EventUpComingController::class, 'index'])->middleware('auth')->name('admin.event-upcoming');

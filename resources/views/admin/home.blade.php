@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Dashboard - Fobia Admin')
+@section('title', 'Dashboard - Lawgika Admin')
 
 @section('content')
 <!--start breadcrumb-->
