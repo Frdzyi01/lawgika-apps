@@ -732,7 +732,7 @@
                           </a>
 
                           <!-- Item 4: Promo -->
-                          <a href="{{ url('#') }}" class="lw-pelatihan-item">
+                          <a href="{{ url('promo') }}" class="lw-pelatihan-item">
                             <div class="lw-pelatihan-icon">🔥</div>
                             <div class="lw-pelatihan-text">
                               <h6>Promo</h6>

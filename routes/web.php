@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\PromoController;
+use App\Http\Controllers\PromoControllerFrontend;
 use App\Http\Controllers\PeraturanKBLIController;
 use App\Http\Controllers\EventUpComingController;
 use Illuminate\Support\Facades\Auth;
@@ -71,6 +72,10 @@ Route::get('/layanan-visa-kitas', [ServicesController::class, 'layananVisaKitas'
 Route::get('/layanan-call-answering', [ServicesController::class, 'layananCallAnswering']);
 Route::get('/layanan-konsultasi-bisnis', [ServicesController::class, 'layananKonsultasiBisnis']);
 Route::get('/virtual-office', [ServicesController::class, 'virtualOffice']);
+
+// Frontend promo routes
+Route::get('/promo', [PromoControllerFrontend::class, 'index'])->name('promo.index');
+Route::get('/promo/{id}', [PromoControllerFrontend::class, 'show'])->name('promo.show');
 
 Auth::routes();
 
