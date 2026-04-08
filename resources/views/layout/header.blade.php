@@ -568,85 +568,230 @@
                         </div>
                       </div>
                     </li>
-                    <li class="has-dropdown menu-thumb">
-                      <a href="#">
-                        Pusat Pelatihan
-                        <i class="fas fa-angle-down"></i>
-                      </a>
-                      <ul class="submenu has-homemenu has-menu-hosting">
-                        <li class="border-none">
-                          <div class="homemenu-items">
-                            <div class="row">
-                              <div class="col-lg-6">
-                                <div class="homemenu-list">
-                                  <div class="icon">
-                                    <img
-                                      src="{{('buyer-file/assets/img/menu-icon/share-host.png')}}"
-                                      alt="img" />
-                                  </div>
-                                  <div class="content">
-                                    <h6>
-                                      <a href="#">Pelatihan & Seminar</a>
-                                    </h6>
-                                    <p>Berisikan kumpulan peraturan yang dapat di download </p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-lg-6">
-                                <div class="homemenu-list">
-                                  <div class="icon">
-                                    <img
-                                      src="{{('buyer-file/assets/img/menu-icon/reseller-shost.png')}}"
-                                      alt="img" />
-                                  </div>
-                                  <div class="content">
-                                    <h6>
-                                      <a href="#">Artikel & Jurnal</a>
-                                    </h6>
-                                    <p>Berisikan kumpulan peraturan
-                                      yang dapat di download </p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-lg-6">
-                                <div class="homemenu-list">
-                                  <div class="icon">
-                                    <img
-                                      src="{{('buyer-file/assets/img/menu-icon/reseller-shost.png')}}"
-                                      alt="img" />
-                                  </div>
-                                  <div class="content">
-                                    <h6>
-                                      <a href="#">Kumpulan Peraturan</a>
-                                    </h6>
-                                    <p>Berisikan kumpulan peraturan yang dapat di download</p>
-                                  </div>
-                                </div>
-                              </div>
 
+
+                    <li class="has-dropdown menu-thumb" id="mm-pelatihan-li">
+                      <a href="#" id="mm-pelatihan-trigger" class="lw-mm-trigger" aria-expanded="false">
+                        Pusat Pelatihan
+                        <i class="fas fa-angle-down" id="mm-pelatihan-arrow" style="transition:transform 0.22s ease;"></i>
+                      </a>
+
+                      <!-- ===== COMPACT CARD MEGA MENU: Pusat Pelatihan ===== -->
+                      <div class="lw-pelatihan-wrap" id="lwMegaPelatihan" role="navigation" aria-label="Pusat Pelatihan Menu">
+                        <style>
+                          /* ── Pusat Pelatihan: Wrapper ── */
+                          #mm-pelatihan-li {
+                            position: static;
+                          }
+
+                          .lw-pelatihan-wrap {
+                            display: none;
+                            position: absolute;
+                            top: calc(100% + 10px);
+                            left: 50%;
+                            transform: translateX(-50%);
+                            z-index: 99999;
+                            opacity: 0;
+                            transition: opacity 0.18s ease, transform 0.18s ease;
+                            pointer-events: none;
+                            transform: translateX(-50%) translateY(8px);
+                          }
+
+                          .lw-pelatihan-wrap.lw-mm-open {
+                            display: block !important;
+                            opacity: 1;
+                            transform: translateX(-50%) translateY(0) !important;
+                            pointer-events: auto;
+                          }
+
+                          /* ── Card Box ── */
+                          .lw-pelatihan-box {
+                            width: 480px;
+                            background: #fff;
+                            border-radius: 16px;
+                            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.14), 0 4px 16px rgba(0, 0, 0, 0.06);
+                            border: 1px solid #f0f0f0;
+                            padding: 18px;
+                            display: grid;
+                            grid-template-columns: 1fr 1fr;
+                            gap: 10px;
+                          }
+
+                          /* ── Card Header Label ── */
+                          .lw-pelatihan-header {
+                            grid-column: 1 / -1;
+                            font-size: 0.63rem;
+                            font-weight: 800;
+                            letter-spacing: 1.3px;
+                            text-transform: uppercase;
+                            color: #9ca3af;
+                            padding-bottom: 10px;
+                            border-bottom: 1px solid #f3f4f6;
+                            margin-bottom: 2px;
+                          }
+
+                          /* ── Individual Card Item ── */
+                          .lw-pelatihan-item {
+                            display: flex;
+                            align-items: flex-start;
+                            gap: 11px;
+                            padding: 11px 12px;
+                            border-radius: 10px;
+                            text-decoration: none !important;
+                            transition: background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+                            border: 1px solid transparent;
+                          }
+
+                          .lw-pelatihan-item:hover {
+                            background: #fff5f6 !important;
+                            border-color: #fde8ea;
+                            transform: translateY(-2px);
+                            box-shadow: 0 4px 14px rgba(220, 53, 69, 0.09);
+                          }
+
+                          /* ── Icon Badge ── */
+                          .lw-pelatihan-icon {
+                            width: 38px;
+                            height: 38px;
+                            border-radius: 9px;
+                            background: #fff5f6;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 18px;
+                            flex-shrink: 0;
+                            transition: background 0.18s ease;
+                          }
+
+                          .lw-pelatihan-item:hover .lw-pelatihan-icon {
+                            background: #fde8ea;
+                          }
+
+                          /* ── Text Content ── */
+                          .lw-pelatihan-text h6 {
+                            font-size: 1rem;
+                            font-weight: 700;
+                            color: #111827;
+                            margin: 0 0 2px 0;
+                            line-height: 1.3;
+                            transition: color 0.15s ease;
+                          }
+
+                          .lw-pelatihan-item:hover .lw-pelatihan-text h6 {
+                            color: #dc3545;
+                          }
+
+                          .lw-pelatihan-text p {
+                            font-size: 0.8rem;
+                            color: #9ca3af;
+                            margin: 0;
+                            line-height: 1.4;
+                          }
+
+                          /* ── Arrow rotate on open ── */
+                          #mm-pelatihan-trigger[aria-expanded="true"] #mm-pelatihan-arrow {
+                            transform: rotate(180deg);
+                          }
+
+                          #mm-pelatihan-arrow {
+                            display: inline-block;
+                            transition: transform 0.22s ease;
+                          }
+                        </style>
+
+                        <div class="lw-pelatihan-box">
+
+                          <!-- Label Header -->
+                          <div class="lw-pelatihan-header">Pusat Pelatihan & Informasi</div>
+
+                          <!-- Item 1: Pelatihan & Seminar -->
+                          <a href="{{ url('#') }}" class="lw-pelatihan-item">
+                            <div class="lw-pelatihan-icon">📘</div>
+                            <div class="lw-pelatihan-text">
+                              <h6>Pelatihan & Seminar</h6>
+                              <p>Program training bisnis & legal</p>
                             </div>
-                          </div>
-                        </li>
-                      </ul>
+                          </a>
+
+                          <!-- Item 2: Artikel -->
+                          <a href="{{ url('#') }}" class="lw-pelatihan-item">
+                            <div class="lw-pelatihan-icon">📄</div>
+                            <div class="lw-pelatihan-text">
+                              <h6>Artikel</h6>
+                              <p>Insight hukum & bisnis terkini</p>
+                            </div>
+                          </a>
+
+                          <!-- Item 3: Kumpulan Peraturan -->
+                          <a href="{{ url('#') }}" class="lw-pelatihan-item">
+                            <div class="lw-pelatihan-icon">⚖️</div>
+                            <div class="lw-pelatihan-text">
+                              <h6>Kumpulan Peraturan</h6>
+                              <p>Database regulasi terbaru</p>
+                            </div>
+                          </a>
+
+                          <!-- Item 4: Promo -->
+                          <a href="{{ url('#') }}" class="lw-pelatihan-item">
+                            <div class="lw-pelatihan-icon">🔥</div>
+                            <div class="lw-pelatihan-text">
+                              <h6>Promo</h6>
+                              <p>Penawaran spesial Lawgika</p>
+                            </div>
+                          </a>
+
+                          <!-- Item 5: Karir -->
+                          <a href="{{ url('#') }}" class="lw-pelatihan-item">
+                            <div class="lw-pelatihan-icon">💼</div>
+                            <div class="lw-pelatihan-text">
+                              <h6>Karir</h6>
+                              <p>Gabung bersama tim kami</p>
+                            </div>
+                          </a>
+
+                          <!-- Item 6: Tentang Kami -->
+                          <a href="{{ url('#') }}" class="lw-pelatihan-item">
+                            <div class="lw-pelatihan-icon">🏢</div>
+                            <div class="lw-pelatihan-text">
+                              <h6>Tentang Kami</h6>
+                              <p>Profil & visi Lawgika</p>
+                            </div>
+                          </a>
+
+                        </div><!-- /lw-pelatihan-box -->
+                      </div>
+                      <!-- ===== END COMPACT CARD MEGA MENU ===== -->
+
                     </li>
+
+                    <!-- Mobile Layanan Accordion (d-xl-none only) -->
                     <li class="has-dropdown active d-xl-none">
-                      <a href="#" class="border-none">
-                        Pusat Pelatihan
+                      <a href="#" class="border-none" data-bs-toggle="collapse" data-bs-target="#mobileLayananBisnis" aria-expanded="false">
+                        Layanan
                         <i class="fas fa-angle-down"></i>
                       </a>
-                      <ul class="submenu">
-                        <li>
-                          <a href="#">Pelatihan & Seminar</a>
-                        </li>
-
-                        <li>
-                          <a href="#">Artikel & Jurnal</a>
-                        </li>
-                        <li>
-                          <a href="#">Kumpulan Peraturan</a>
-                        </li>
-                      </ul>
+                      <div class="collapse mobile-accordion-menu" id="mobileLayananBisnis">
+                        <!-- Kategori 1: Pusat Pelatihan -->
+                        <div class="mobile-cat-item">
+                          <a href="#" class="mobile-cat-toggle" data-bs-toggle="collapse" data-bs-target="#mobCat1" aria-expanded="false">
+                            Lawgika
+                            <i class="fas fa-chevron-down mobile-cat-arrow"></i>
+                          </a>
+                          <div class="collapse mobile-cat-body" id="mobCat1">
+                            <ul>
+                              <li><a href="{{ url('#') }}">Pelatihan & Seminar</a></li>
+                              <li><a href="{{ url('#') }}">Artikel</a></li>
+                              <li><a href="{{ url('#') }}">Kumpulan Peraturan</a></li>
+                              <li><a href="{{ url('#') }}">Promo</a></li>
+                              <li><a href="{{ url('#') }}">Karir</a></li>
+                              <li><a href="{{ url('#') }}">Tentang Kami</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
                     </li>
+
+
                     <li>
                       <a href="#">Tentang Kami</a>
                     </li>
@@ -911,6 +1056,49 @@
     }
   })();
 
+  /* ── Pusat Pelatihan Mega Menu (handler terpisah, tidak berpengaruh ke Layanan) ── */
+  (function() {
+    function initPelatihanMenu() {
+      var pelatihanTrigger = document.getElementById('mm-pelatihan-trigger');
+      var pelatihanMenu = document.getElementById('lwMegaPelatihan');
+
+      var pelatihanOpen = false;
+
+      if (pelatihanTrigger && pelatihanMenu) {
+
+        pelatihanTrigger.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+
+          pelatihanOpen = !pelatihanOpen;
+
+          if (pelatihanOpen) {
+            pelatihanMenu.classList.add('lw-mm-open');
+            pelatihanTrigger.setAttribute('aria-expanded', 'true');
+          } else {
+            pelatihanMenu.classList.remove('lw-mm-open');
+            pelatihanTrigger.setAttribute('aria-expanded', 'false');
+          }
+        });
+
+        document.addEventListener('click', function(e) {
+          if (!pelatihanMenu.contains(e.target) && !pelatihanTrigger.contains(e.target)) {
+            pelatihanMenu.classList.remove('lw-mm-open');
+            pelatihanTrigger.setAttribute('aria-expanded', 'false');
+            pelatihanOpen = false;
+          }
+        });
+
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initPelatihanMenu);
+    } else {
+      initPelatihanMenu();
+    }
+  })();
+
   /* ── Auto-buka modal login jika ada error ── */
   function lwAutoOpenLoginModal() {
     var hasError = document.getElementById('lw-login-error-box');
@@ -929,14 +1117,18 @@
   window.lwDismissToast = function(el) {
     if (!el) return;
     el.classList.add('lw-toast-hide');
-    setTimeout(function() { if (el.parentNode) el.parentNode.removeChild(el); }, 320);
+    setTimeout(function() {
+      if (el.parentNode) el.parentNode.removeChild(el);
+    }, 320);
   };
 
   /* ── Auto-dismiss toast setelah 5 detik ── */
   function lwAutoDismissToasts() {
     var toasts = document.querySelectorAll('.lw-toast');
     toasts.forEach(function(t) {
-      setTimeout(function() { lwDismissToast(t); }, 5200);
+      setTimeout(function() {
+        lwDismissToast(t);
+      }, 5200);
     });
   }
 
@@ -949,8 +1141,6 @@
     lwAutoOpenLoginModal();
     lwAutoDismissToasts();
   }
-
-})();
 </script>
 
 {{-- ===== TOAST NOTIFIKASI LOGIN GAGAL ===== --}}
@@ -975,26 +1165,40 @@
     gap: 12px;
     background: #fff;
     border-radius: 14px;
-    box-shadow: 0 8px 32px rgba(220,53,69,0.18), 0 2px 8px rgba(0,0,0,0.08);
+    box-shadow: 0 8px 32px rgba(220, 53, 69, 0.18), 0 2px 8px rgba(0, 0, 0, 0.08);
     border-left: 5px solid #dc3545;
     padding: 16px 20px 16px 18px;
     min-width: 300px;
     max-width: 380px;
-    animation: lwToastIn 0.35s cubic-bezier(.4,0,.2,1) both;
+    animation: lwToastIn 0.35s cubic-bezier(.4, 0, .2, 1) both;
   }
 
   .lw-toast.lw-toast-hide {
-    animation: lwToastOut 0.3s cubic-bezier(.4,0,.2,1) both;
+    animation: lwToastOut 0.3s cubic-bezier(.4, 0, .2, 1) both;
   }
 
   @keyframes lwToastIn {
-    from { opacity: 0; transform: translateX(60px); }
-    to   { opacity: 1; transform: translateX(0); }
+    from {
+      opacity: 0;
+      transform: translateX(60px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 
   @keyframes lwToastOut {
-    from { opacity: 1; transform: translateX(0); }
-    to   { opacity: 0; transform: translateX(60px); }
+    from {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    to {
+      opacity: 0;
+      transform: translateX(60px);
+    }
   }
 
   .lw-toast-icon {
@@ -1010,7 +1214,9 @@
     font-size: 1.1rem;
   }
 
-  .lw-toast-body { flex: 1; }
+  .lw-toast-body {
+    flex: 1;
+  }
 
   .lw-toast-title {
     font-size: 0.88rem;
@@ -1038,7 +1244,9 @@
     margin-top: 1px;
   }
 
-  .lw-toast-close:hover { color: #dc3545; }
+  .lw-toast-close:hover {
+    color: #dc3545;
+  }
 
   .lw-toast-progress {
     position: absolute;
@@ -1052,8 +1260,13 @@
   }
 
   @keyframes lwProgress {
-    from { width: 100%; }
-    to   { width: 0%; }
+    from {
+      width: 100%;
+    }
+
+    to {
+      width: 0%;
+    }
   }
 </style>
 
@@ -1104,7 +1317,7 @@
               <i class="fas fa-exclamation-circle" style="color:#dc3545;margin-top:2px;flex-shrink:0;"></i>
               <div>
                 @foreach ($errors->all() as $error)
-                  <p style="margin:0;font-size:0.82rem;color:#b91c1c;font-weight:500;line-height:1.5;">{{ $error }}</p>
+                <p style="margin:0;font-size:0.82rem;color:#b91c1c;font-weight:500;line-height:1.5;">{{ $error }}</p>
                 @endforeach
               </div>
             </div>
