@@ -2,7 +2,6 @@
 @extends('layout.app')
 
 @section('content')
-<base href="{{ url('/') }}/">
 {{-- ===== PERFORMANCE OVERRIDE ===== --}}
 <style>
   .animated {

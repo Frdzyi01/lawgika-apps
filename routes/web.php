@@ -75,7 +75,9 @@ Route::get('/virtual-office', [ServicesController::class, 'virtualOffice']);
 
 // Frontend promo routes
 Route::get('/promo', [PromoControllerFrontend::class, 'index'])->name('promo.index');
-Route::get('/promo/{id}', [PromoControllerFrontend::class, 'show'])->name('promo.show');
+Route::get('/promo/{id}', [PromoControllerFrontend::class, 'show'])
+    ->name('promo.show')
+    ->middleware(\App\Http\Middleware\FixAssetPath::class);
 
 Auth::routes();
 

@@ -1,7 +1,7 @@
   <!--<< Footer Section Start >>-->
     <footer
       class="footer-section fix bg-cover"
-      style="background-image: url(&quot;buyer-file/assets/img/section-bg.jpg&quot;)"
+      style="background-image: url('buyer-file/assets/img/hero/hero-bg-1.jpg')"
     >
       <div class="footer-widgets-wrapper">
         <div class="container">
