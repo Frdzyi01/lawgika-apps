@@ -74,7 +74,7 @@
             <li><a href="{{ route('admin.berita.index') }}"><ion-icon name="ellipse-outline"></ion-icon>Berita</a></li>
           </ul>
         </li>
-        <li class="menu-label">Forms &amp; Tables</li>
+        <!-- <li class="menu-label">Forms &amp; Tables</li>
         <li>
           <a class="has-arrow" href="javascript:;">
             <div class="parent-icon"><ion-icon name="newspaper-outline"></ion-icon></div>
@@ -212,7 +212,7 @@
             <div class="parent-icon"><ion-icon name="link-outline"></ion-icon></div>
             <div class="menu-title">Support</div>
           </a>
-        </li>
+        </li> -->
       </ul>
       <!--end navigation-->
     </aside>

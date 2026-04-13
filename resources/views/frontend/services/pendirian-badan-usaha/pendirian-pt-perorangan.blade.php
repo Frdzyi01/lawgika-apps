@@ -79,137 +79,337 @@
         color: #fff;
     }
 
-    /* Benefits */
-    .pt-benefits {
+    /* Benefits / Why Us */
+    .why-us-section {
         padding: 80px 0;
-        background: var(--bg-light);
-        content-visibility: auto;
-        contain-intrinsic-size: auto 400px;
+        background: linear-gradient(135deg, #fdf8f5 0%, #fff8f3 100%);
+        position: relative;
     }
 
-    .benefit-card {
-        background: #fff;
-        padding: 30px 25px;
-        border-radius: 16px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
-        border: 1px solid #f0e4e8;
+    .why-us-section .section-header {
         text-align: center;
-        height: 100%;
-        transform: translateZ(0);
-        transition: transform 0.15s ease;
+        margin-bottom: 50px;
     }
 
-    .benefit-card:hover {
-        transform: translateY(-3px);
-    }
-
-    .benefit-icon {
-        font-size: 2.5rem;
-        margin-bottom: 15px;
-    }
-
-    .benefit-card h4 {
-        font-weight: 700;
+    .why-us-section .section-header h2 {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: #1e1b2b;
         margin-bottom: 10px;
-        color: var(--dark);
+    }
+
+    .why-us-section .section-header p {
+        color: #64748b;
         font-size: 1.1rem;
     }
 
-    .benefit-card p {
-        color: var(--gray);
-        font-size: 0.9rem;
-        margin: 0;
-    }
-
-    /* Process Steps */
-    .pt-process {
-        padding: 80px 0;
+    .why-us-card {
         background: #fff;
-        content-visibility: auto;
-        contain-intrinsic-size: auto 400px;
-    }
-
-    .process-step {
+        padding: 35px 25px;
+        border-radius: 20px;
         text-align: center;
-        padding: 25px 20px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+        border: 1px solid #f5e6e8;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        height: 100%;
     }
 
-    .step-number {
-        width: 60px;
-        height: 60px;
-        background: var(--primary);
-        color: #fff;
+    .why-us-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(78, 5, 22, 0.08);
+        border-color: #c9a03d;
+    }
+
+    .why-us-icon {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 25px;
+        background: linear-gradient(135deg, #4e0516 0%, #7a0a23 100%);
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-weight: 800;
-        font-size: 1.5rem;
-        margin: 0 auto 20px;
-        box-shadow: 0 4px 15px rgba(78, 5, 22, 0.2);
     }
 
-    .process-step h5 {
+    .why-us-icon i {
+        font-size: 2.2rem;
+        color: #fff;
+    }
+
+    .why-us-card h4 {
+        font-size: 1.25rem;
         font-weight: 700;
+        color: #1e1b2b;
+        margin-bottom: 12px;
+    }
+
+    .why-us-card p {
+        color: #64748b;
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    /* Process Steps */
+    .process-section {
+        padding: 80px 0;
+        background: #fff;
+    }
+
+    .process-section .section-header {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+    .process-section .section-header .badge {
+        background: #f5e6c8;
+        color: #c9a03d;
+        padding: 6px 20px;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        display: inline-block;
+        margin-bottom: 15px;
+    }
+
+    .process-section .section-header h2 {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: #1e1b2b;
         margin-bottom: 10px;
-        color: var(--dark);
+    }
+
+    .process-section .section-header p {
+        color: #64748b;
         font-size: 1.1rem;
     }
 
+    .process-timeline {
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .process-timeline::before {
+        content: '';
+        position: absolute;
+        top: 45px;
+        left: 15%;
+        right: 15%;
+        height: 2px;
+        background: linear-gradient(90deg, #4e0516 0%, #c9a03d 50%, #4e0516 100%);
+        z-index: 1;
+    }
+
+    .process-step {
+        text-align: center;
+        position: relative;
+        z-index: 2;
+        flex: 1;
+        padding: 0 15px;
+    }
+
+    .process-step-number {
+        width: 60px;
+        height: 60px;
+        background: #fff;
+        border: 3px solid #4e0516;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: #4e0516;
+        position: relative;
+        z-index: 3;
+    }
+
+    .process-step.completed .process-step-number {
+        background: #4e0516;
+        color: #fff;
+        border-color: #4e0516;
+    }
+
+    .process-step h5 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #1e1b2b;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
     .process-step p {
-        color: var(--gray);
+        color: #64748b;
         font-size: 0.9rem;
-        margin: 0;
+        line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+        .process-timeline {
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .process-timeline::before {
+            display: none;
+        }
+        
+        .process-step {
+            display: flex;
+            text-align: left;
+            gap: 20px;
+            align-items: flex-start;
+        }
+        
+        .process-step-number {
+            margin: 0;
+            flex-shrink: 0;
+        }
     }
 
     /* Requirements */
-    .pt-requirements {
+    .requirements-section {
         padding: 80px 0;
-        background: var(--bg-light);
-        content-visibility: auto;
-        contain-intrinsic-size: auto 500px;
+        background: linear-gradient(135deg, #faf5f2 0%, #fdf8f5 100%);
+        position: relative;
     }
 
-    .requirement-box {
-        background: #fff;
-        padding: 40px;
-        border-radius: 20px;
-        border: 1px solid #f0e4e8;
-        height: 100%;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+    .requirements-section .section-header {
+        text-align: center;
+        margin-bottom: 50px;
     }
 
-    .requirement-box h4 {
+    .requirements-section .section-header .badge {
+        background: #4e0516;
+        color: #fff;
+        padding: 5px 18px;
+        border-radius: 50px;
+        font-size: 0.75rem;
         font-weight: 700;
-        margin-bottom: 25px;
-        color: var(--dark);
-        font-size: 1.3rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        display: inline-block;
+        margin-bottom: 15px;
+    }
+
+    .requirements-section .section-header h2 {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: #1e1b2b;
+        margin-bottom: 10px;
+    }
+
+    .requirements-section .section-header p {
+        color: #64748b;
+        font-size: 1.1rem;
+    }
+
+    .requirement-card {
+        background: #fff;
+        border-radius: 24px;
+        padding: 35px 30px;
+        height: 100%;
+        box-shadow: 0 10px 30px rgba(78, 5, 22, 0.05);
+        border: 1px solid #f0e4e8;
+        transition: transform 0.2s ease;
+    }
+
+    .requirement-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(78, 5, 22, 0.08);
+    }
+
+    .requirement-header {
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 15px;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #f5e6e8;
     }
 
-    .requirement-box ul {
-        list-style: none;
-        padding: 0;
+    .requirement-icon {
+        width: 55px;
+        height: 55px;
+        background: linear-gradient(135deg, #4e0516 0%, #7a0a23 100%);
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .requirement-icon i {
+        font-size: 1.8rem;
+        color: #fff;
+    }
+
+    .requirement-header h3 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #1e1b2b;
         margin: 0;
     }
 
-    .requirement-box li {
-        padding: 12px 0;
-        border-bottom: 1px solid #f5f5f5;
-        color: #334155;
-        display: flex;
-        align-items: center;
-        gap: 10px;
+    .requirement-list {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 30px;
     }
 
-    .requirement-box li:last-child {
+    .requirement-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 10px 0;
+        border-bottom: 1px dashed #f0e4e8;
+        color: #1e1b2b;
+        font-size: 0.95rem;
+    }
+
+    .requirement-list li:last-child {
         border-bottom: none;
     }
 
-    .requirement-box li i {
-        color: var(--accent);
+    .requirement-list li i {
+        color: #4e0516;
+        font-size: 1.1rem;
+        margin-top: 2px;
+        flex-shrink: 0;
+    }
+
+    .requirement-list li i.fa-circle-check {
+        color: #10b981;
+    }
+
+    .requirement-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: #4e0516;
+        font-weight: 600;
+        text-decoration: none;
+        padding: 10px 0;
+        border-bottom: 2px solid transparent;
+        transition: border-color 0.2s ease;
+    }
+
+    .requirement-cta:hover {
+        border-bottom-color: #c9a03d;
+        color: #7a0a23;
+    }
+
+    .requirement-cta i {
+        transition: transform 0.2s ease;
+    }
+
+    .requirement-cta:hover i {
+        transform: translateX(5px);
     }
 
     /* Pricing Cards */
@@ -513,33 +713,38 @@
 </section>
 
 {{-- ===== MANFAAT & FASILITAS ===== --}}
-<section class="pt-benefits">
+<section class="why-us-section">
     <div class="container">
-        <div class="section-title text-center mb-5">
-            <span class="subtitle">Keuntungan Ekstra</span>
-            <h2>Fasilitas Layanan Kami</h2>
-            <p>Dapatkan berbagai keuntungan tambahan saat mendirikan perusahaan bersama kami.</p>
+        <div class="section-header">
+            <h2>MENGAPA MEMILIH KAMI?</h2>
+            <p>Dapatkan berbagai keuntungan tambahan saat mendirikan perusahaan bersama kami</p>
         </div>
         <div class="row g-4 justify-content-center">
             <div class="col-md-4">
-                <div class="benefit-card">
-                    <div class="benefit-icon">🏦</div>
+                <div class="why-us-card">
+                    <div class="why-us-icon">
+                        <i class="fa-solid fa-building-columns"></i>
+                    </div>
                     <h4>Pembukaan Rekening</h4>
-                    <p>Dapatkan gratis pendampingan pembukaan rekening bisnis PT Anda pasca terbit SK.</p>
+                    <p>Dapatkan gratis pendampingan pembukaan rekening bisnis PT Anda.</p>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="benefit-card">
-                    <div class="benefit-icon">📋</div>
+                <div class="why-us-card">
+                    <div class="why-us-icon">
+                        <i class="fa-solid fa-clipboard-list"></i>
+                    </div>
                     <h4>Nomor EFIN & Pajak</h4>
-                    <p>Terima beres pengurusan permohonan Nomor EFIN dan kebutuhan perpajakan perdana.</p>
+                    <p>Terima beres pengurusan permohonan Nomor EFIN dan perpajakan.</p>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="benefit-card">
-                    <div class="benefit-icon">💬</div>
+                <div class="why-us-card">
+                    <div class="why-us-icon">
+                        <i class="fa-solid fa-comments"></i>
+                    </div>
                     <h4>Konsultasi Gratis</h4>
-                    <p>Kami akan mendampingi dan memberikan advis strategis untuk kebutuhan regulasi PT Anda.</p>
+                    <p>Kami akan mendampingi dan memberikan advokasi strategis untuk kebutuhan regulasi PT Anda.</p>
                 </div>
             </div>
         </div>
@@ -547,70 +752,80 @@
 </section>
 
 {{-- ===== PROSES PENDIRIAN PT ===== --}}
-<section class="pt-process">
+<section class="process-section">
     <div class="container">
-        <div class="section-title text-center mb-5">
-            <span class="subtitle">Tahapan Tuntas</span>
-            <h2>Proses Pendirian PT di Indonesia</h2>
-            <p>Kami menyederhanakan birokrasi kompleks menjadi beberapa tahap transparan dan cepat.</p>
+        <div class="section-header">
+            <span class="badge">Tahapan Tuntas</span>
+            <h2>PROSES PENDIRIAN PT</h2>
+            <p>Kami menyederhanakan birokrasi kompleks menjadi 3 tahap</p>
         </div>
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="process-step">
-                    <div class="step-number">1</div>
-                    <h5>Persyaratan Pendirian PT</h5>
-                    <p>Berdasarkan regulasi resmi, siapkan data KTP, NPWP, dan pengecekan pemesanan nama PT untuk memvalidasi tidak ada duplikasi penamaan dengan korporasi lain.</p>
-                </div>
+        <div class="process-timeline">
+            <div class="process-step">
+                <div class="process-step-number">1</div>
+                <h5>Persyaratan Pendirian</h5>
+                <p>Berdasarkan regulasi resmi, siapkan data KTP, NPWP, dan pengecekan pemesanan nama PT untuk memvalidasi tidak ada duplikasi penamaan dengan korporasi lain.</p>
             </div>
-            <div class="col-md-4">
-                <div class="process-step">
-                    <div class="step-number">2</div>
-                    <h5>Submission Elektronik Hukum</h5>
-                    <p>Ahli hukum kami merangkum pernyataan pendirian secara digital menggunakan protokol autentik dalam bahasa Indonesia ke server Kemenkumham RI.</p>
-                </div>
+            <div class="process-step">
+                <div class="process-step-number">2</div>
+                <h5>Submission Elektronik</h5>
+                <p>Ahli hukum kami merangkum pernyataan pendirian secara digital menggunakan protokol autentik dalam bahasa Indonesia ke server Kemenkumham RI.</p>
             </div>
-            <div class="col-md-4">
-                <div class="process-step">
-                    <div class="step-number">3</div>
-                    <h5>Pengesahan & Legalitas Penuh</h5>
-                    <p>Kementerian Hukum & HAM menerbitkan Surat Keputusan pengesahan badan hukum, diikuti rilis Nomor Induk Berusaha (NIB) PT Anda siap beroperasi resmi.</p>
-                </div>
+            <div class="process-step">
+                <div class="process-step-number">3</div>
+                <h5>Pengesahan & Legalitas</h5>
+                <p>Kementerian Hukum & HAM menerbitkan Surat Keputusan pengesahan badan hukum, diikuti rilis Nomor Induk Berusaha (NIB) PT Anda siap beroperasi resmi.</p>
             </div>
         </div>
     </div>
 </section>
 
 {{-- ===== PERSYARATAN DOKUMEN ===== --}}
-<section class="pt-requirements">
+<section class="requirements-section">
     <div class="container">
-        <div class="section-title text-center mb-5">
-            <span class="subtitle">Persiapan Cepat</span>
-            <h2>Persyaratan Kelengkapan PT</h2>
-            <p>Hanya menyiapkan berkas inti administrasi berikut, biarkan tim kami yang bergerak keras.</p>
+        <div class="section-header">
+            <span class="badge">Persiapan Cepat</span>
+            <h2>PERSYARATAN KELENGKAPAN PT</h2>
+            <p>Hanya menyiapkan berkas berikut, biarkan tim kami yang bergerak</p>
         </div>
         <div class="row g-4 justify-content-center">
             <div class="col-md-6">
-                <div class="requirement-box">
-                    <h4><i class="fa-solid fa-list-check"></i> Kelengkapan Data</h4>
-                    <ul>
-                        <li><i class="fa-solid fa-check"></i> Nama PT (Opsi minimal 3 kata spesifik)</li>
-                        <li><i class="fa-solid fa-check"></i> Alamat Lengkap Kedudukan Perusahaan</li>
-                        <li><i class="fa-solid fa-check"></i> Bidang Usaha Bersesuaian Kode KBLI</li>
-                        <li><i class="fa-solid fa-check"></i> Struktur Modal Disetor Perusahaan</li>
-                        <li><i class="fa-solid fa-check"></i> Susunan Komisaris Direksi & Jabatan</li>
-                        <li><i class="fa-solid fa-check"></i> Susunan Valid Pemegang Saham</li>
+                <div class="requirement-card">
+                    <div class="requirement-header">
+                        <div class="requirement-icon">
+                            <i class="fa-solid fa-clipboard-list"></i>
+                        </div>
+                        <h3>KELENGKAPAN DATA</h3>
+                    </div>
+                    <ul class="requirement-list">
+                        <li><i class="fa-solid fa-circle-check"></i> Nama PT (Minimal 3 kata)</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Alamat Lengkap Perusahaan</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Bidang Usaha (Kode KBLI)</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Struktur Modal Disetor</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Susunan Komisaris & Direksi</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Susunan Pemegang Saham</li>
                     </ul>
+                    <a href="#" class="requirement-cta">
+                        Konsultasi Data <i class="fa-solid fa-arrow-right"></i>
+                    </a>
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="requirement-box">
-                    <h4><i class="fa-solid fa-file-pdf"></i> Kelengkapan Dokumen</h4>
-                    <ul>
-                        <li><i class="fa-solid fa-check"></i> Scan KTP Direktur / Pendiri</li>
-                        <li><i class="fa-solid fa-check"></i> Scan NPWP Direktur / Pendiri Aktif</li>
-                        <li><i class="fa-solid fa-check"></i> Pas Foto Pendiri / Direktur Berwarna</li>
-                        <li><i class="fa-solid fa-check"></i> Dokumen Bukti Alamat Usaha (Contoh: PBB/Sewa)</li>
+                <div class="requirement-card">
+                    <div class="requirement-header">
+                        <div class="requirement-icon">
+                            <i class="fa-solid fa-file-pdf"></i>
+                        </div>
+                        <h3>KELENGKAPAN DOKUMEN</h3>
+                    </div>
+                    <ul class="requirement-list">
+                        <li><i class="fa-solid fa-circle-check"></i> Scan KTP Direktur / Pendiri</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Scan NPWP Direktur Aktif</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Pas Foto Pendiri / Direktur</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Bukti Alamat Usaha (PBB/Sewa)</li>
                     </ul>
+                    <a href="#" class="requirement-cta">
+                        Upload Dokumen <i class="fa-solid fa-arrow-right"></i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -1416,9 +1631,6 @@
     </div>
 </section>
 
-@endsection
-
-@section('scripts')
 <script>
     // Simple FAQ accordion (vanilla JS - ringan)
     document.addEventListener("DOMContentLoaded", function() {
