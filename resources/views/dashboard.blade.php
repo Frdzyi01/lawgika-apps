@@ -505,6 +505,42 @@
        bottom: 14px;
      }
    }
+
+   .promo-card-footer {
+     padding: 0 22px 22px;
+   }
+
+   .promo-card-btn {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     gap: 8px;
+     background: #dc3545;
+     color: #fff !important;
+     font-weight: 700;
+     font-size: 0.88rem;
+     padding: 11px 22px;
+     border-radius: 10px;
+     text-decoration: none;
+     transition: background 0.22s ease, transform 0.18s ease, box-shadow 0.22s ease;
+     box-shadow: 0 4px 14px rgba(220, 53, 69, 0.30);
+     width: 100%;
+   }
+
+   .promo-card-btn:hover {
+     background: #b91c1c;
+     color: #fff !important;
+     transform: translateY(-2px);
+     box-shadow: 0 8px 22px rgba(220, 53, 69, 0.38);
+   }
+
+   .promo-card-btn i {
+     transition: transform 0.20s;
+   }
+
+   .promo-card-btn:hover i {
+     transform: translateX(4px);
+   }
  </style>
 
  <script>
@@ -1356,20 +1392,20 @@
        </a>
      </div>
      <div class="row g-4" id="spPromoGrid">
-      @forelse($promos as $promo)
+       @forelse($promos as $promo)
        <div class="col-12 col-md-6 col-lg-3">
          <div class="sp-card">
            <div class="sp-card-img-wrap">
              @if($promo->gambar)
-               <img src="{{ asset('storage/' . $promo->gambar) }}" alt="{{ $promo->judul }}" loading="lazy">
+             <img src="{{ asset('storage/' . $promo->gambar) }}" alt="{{ $promo->judul }}" loading="lazy">
              @else
-               <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=500&q=80" alt="{{ $promo->judul }}" loading="lazy">
+             <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=500&q=80" alt="{{ $promo->judul }}" loading="lazy">
              @endif
              <span class="sp-img-badge">
                @if($promo->tipe_diskon === 'persen')
-                 HEMAT {{ number_format($promo->diskon, 0) }}%
+               HEMAT {{ number_format($promo->diskon, 0) }}%
                @else
-                 HEMAT Rp {{ number_format($promo->diskon, 0, ',', '.') }}
+               HEMAT Rp {{ number_format($promo->diskon, 0, ',', '.') }}
                @endif
              </span>
            </div>
@@ -1379,19 +1415,21 @@
              <div class="sp-price-block">
                <span class="sp-price-new">
                  @if($promo->tipe_diskon === 'persen')
-                   Diskon {{ number_format($promo->diskon, 0) }}%
+                 Diskon {{ number_format($promo->diskon, 0) }}%
                  @else
-                   Rp {{ number_format($promo->diskon, 0, ',', '.') }}
+                 Rp {{ number_format($promo->diskon, 0, ',', '.') }}
                  @endif
                </span>
              </div>
-             <a href="#" class="sp-card-btn">Ambil Promo <i class="fas fa-arrow-right"></i></a>
+             <a href="{{ route('promo.show', $promo->id) }}" class="promo-card-btn" id="promo-btn-{{ $promo->id }}">
+               Lihat Detail <i class="fas fa-arrow-right"></i>
+             </a>
            </div>
          </div>
        </div>
-      @empty
+       @empty
        <div class="col-12 text-center text-muted py-4">Belum ada promo aktif saat ini.</div>
-      @endforelse
+       @endforelse
      </div>
    </div>
  </section>
@@ -2409,20 +2447,20 @@
      <!-- Card Grid -->
      <div class="row g-4">
 
-      @forelse($events as $event)
+       @forelse($events as $event)
        <div class="col-12 col-md-6 col-lg-3">
          <div class="ue-card">
            <div class="ue-img-wrap">
              @if($event->banner)
-               <img src="{{ asset('storage/' . $event->banner) }}" alt="{{ $event->nama_event }}" loading="lazy">
+             <img src="{{ asset('storage/' . $event->banner) }}" alt="{{ $event->nama_event }}" loading="lazy">
              @else
-               <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=500&q=75&auto=format&fit=crop"
-                 alt="{{ $event->nama_event }}" loading="lazy">
+             <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=500&q=75&auto=format&fit=crop"
+               alt="{{ $event->nama_event }}" loading="lazy">
              @endif
              @if($event->status_aktif)
-               <span class="ue-badge ue-badge-upcoming">Aktif</span>
+             <span class="ue-badge ue-badge-upcoming">Aktif</span>
              @else
-               <span class="ue-badge ue-badge-done">Selesai</span>
+             <span class="ue-badge ue-badge-done">Selesai</span>
              @endif
            </div>
            <div class="ue-card-body">
@@ -2433,9 +2471,9 @@
            </div>
          </div>
        </div>
-      @empty
+       @empty
        <div class="col-12 text-center text-muted py-4">Belum ada event yang tersedia.</div>
-      @endforelse
+       @endforelse
      </div><!-- /row -->
    </div><!-- /container -->
  </section>
@@ -2443,6 +2481,168 @@
 
 
  <!-- Peraturan Start -->
+ <style>
+   /* ================================================================
+      DATABASE PERATURAN — PREMIUM UPGRADE
+   ================================================================ */
+   .data-center-section {
+     background: linear-gradient(145deg, #f0f4ff 0%, #e8ecff 40%, #f5f0ff 70%, #eef2ff 100%) !important;
+     position: relative;
+     overflow: hidden;
+   }
+   .data-center-section::before {
+     content: '';
+     position: absolute;
+     width: 520px; height: 520px;
+     background: radial-gradient(circle, rgba(99,102,241,0.10) 0%, transparent 70%);
+     top: -120px; right: -100px;
+     border-radius: 50%;
+     pointer-events: none;
+   }
+   .data-center-section::after {
+     content: '';
+     position: absolute;
+     width: 400px; height: 400px;
+     background: radial-gradient(circle, rgba(139,92,246,0.09) 0%, transparent 70%);
+     bottom: -80px; left: -80px;
+     border-radius: 50%;
+     pointer-events: none;
+   }
+   .peraturan-container {
+     background: rgba(255,255,255,0.88);
+     backdrop-filter: blur(20px);
+     -webkit-backdrop-filter: blur(20px);
+     border: 1px solid rgba(99,102,241,0.13);
+     border-radius: 24px;
+     box-shadow:
+       0 4px 6px rgba(0,0,0,0.04),
+       0 20px 60px rgba(99,102,241,0.13),
+       0 40px 80px rgba(0,0,0,0.06);
+     padding: 52px 48px 48px;
+     position: relative;
+     z-index: 1;
+   }
+   .data-center-section .section-title h2 {
+     font-size: 2.1rem;
+     font-weight: 800;
+     color: #1e1b4b;
+     letter-spacing: -0.5px;
+     margin-top: 10px;
+   }
+   .data-center-section .section-title .style-bg {
+     color: #6366f1;
+     font-size: 0.8rem;
+     font-weight: 700;
+     letter-spacing: 1px;
+     text-transform: uppercase;
+     background: rgba(99,102,241,0.09);
+     padding: 4px 14px;
+     border-radius: 20px;
+   }
+   /* Stat bar */
+   .dc-stat-row {
+     display: flex; align-items: center; justify-content: center;
+     gap: 32px; margin-bottom: 32px; flex-wrap: wrap;
+   }
+   .dc-stat-item { text-align: center; }
+   .dc-stat-num { font-size: 1.55rem; font-weight: 800; color: #4f46e5; line-height: 1.1; }
+   .dc-stat-lbl { font-size: 0.68rem; color: #9ca3af; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-top: 2px; }
+   .dc-stat-divider { width: 1px; height: 36px; background: rgba(99,102,241,0.15); }
+   /* Logo trust row */
+   .dc-logo-row {
+     display: flex; align-items: center; justify-content: center;
+     flex-wrap: wrap; gap: 24px;
+     margin: 28px 0 32px;
+     padding: 20px 24px;
+     background: rgba(99,102,241,0.04);
+     border: 1px solid rgba(99,102,241,0.09);
+     border-radius: 16px;
+   }
+   .dc-logo-item {
+     display: flex; flex-direction: column;
+     align-items: center; gap: 6px;
+     opacity: 0.72;
+     transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+     cursor: default;
+   }
+   .dc-logo-item:hover { opacity: 1; transform: scale(1.04); }
+   .dc-logo-icon {
+     width: 48px; height: 48px;
+     border-radius: 12px;
+     display: flex; align-items: center; justify-content: center;
+     color: #fff;
+     box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+   }
+   .dc-logo-label { font-size: 0.63rem; font-weight: 600; color: #6b7280; text-align: center; max-width: 68px; line-height: 1.3; }
+   .dc-logo-divider { width: 1px; height: 38px; background: rgba(99,102,241,0.15); flex-shrink: 0; }
+   /* Chips */
+   .dc-tags-wrap {
+     display: flex; flex-wrap: wrap;
+     justify-content: center;
+     gap: 8px; margin-bottom: 20px;
+   }
+   .dc-tag {
+     display: inline-flex; align-items: center;
+     background: linear-gradient(135deg, rgba(99,102,241,0.08) 0%, rgba(139,92,246,0.08) 100%);
+     border: 1px solid rgba(99,102,241,0.20);
+     color: #4f46e5;
+     font-size: 0.72rem; font-weight: 600;
+     padding: 5px 13px;
+     border-radius: 999px;
+     line-height: 1.4;
+     transition: color 0.18s ease-out, border-color 0.18s ease-out, background 0.18s ease-out;
+     cursor: default; white-space: nowrap;
+   }
+   .dc-tag:hover {
+     background: rgba(99,102,241,0.14);
+     border-color: #6366f1; color: #3730a3;
+   }
+   .dc-tag.dc-tag-hidden { display: none; }
+   .dc-tag.dc-tag-hidden.dc-expanded { display: inline-flex; }
+   .dc-show-more {
+     display: inline-flex; align-items: center; gap: 4px;
+     background: transparent;
+     border: 1.5px dashed rgba(99,102,241,0.35);
+     color: #6366f1; font-size: 0.72rem; font-weight: 600;
+     padding: 5px 13px; border-radius: 999px;
+     cursor: pointer;
+     transition: color 0.18s ease-out, border-color 0.18s ease-out, background 0.18s ease-out;
+   }
+   .dc-show-more:hover { border-color: #6366f1; color: #4f46e5; background: rgba(99,102,241,0.07); }
+   /* CTA Button */
+   .peraturan-btn {
+     display: inline-flex; align-items: center; gap: 8px;
+     background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #3b82f6 100%);
+     color: #fff !important;
+     border: none; border-radius: 12px;
+     padding: 14px 36px;
+     font-size: 1rem; font-weight: 700;
+     box-shadow: 0 4px 16px rgba(99,102,241,0.30);
+     cursor: pointer;
+     transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+     position: relative; overflow: hidden;
+   }
+   .peraturan-btn::before {
+     content: '';
+     position: absolute; inset: 0;
+     background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 60%);
+     border-radius: inherit;
+   }
+   .peraturan-btn:hover {
+     transform: translateY(-2px);
+     box-shadow: 0 8px 24px rgba(99,102,241,0.38);
+     color: #fff !important;
+   }
+   @media (max-width: 767.98px) {
+     .peraturan-container { padding: 36px 20px 36px; border-radius: 20px; }
+     .data-center-section .section-title h2 { font-size: 1.6rem; }
+     .dc-logo-row { gap: 14px; padding: 14px; }
+     .dc-logo-divider { display: none; }
+     .dc-stat-row { gap: 16px; }
+     .dc-stat-divider { display: none; }
+     .peraturan-btn { padding: 13px 24px; font-size: 0.92rem; }
+   }
+ </style>
  <section class="data-center-section fix section-padding section-bg">
    <div class="container">
      <div class="section-title text-center">
@@ -2452,81 +2652,98 @@
      <div class="container">
        <div class="peraturan-container">
 
-         <!-- Compact chip tags: 10 visible, 8 hidden behind toggle -->
-         <style>
-           .dc-tags-wrap {
-             display: flex;
-             flex-wrap: wrap;
-             justify-content: center;
-             gap: 7px;
-             margin-bottom: 18px;
-           }
+         <!-- Stats bar -->
+         <div class="dc-stat-row">
+           <div class="dc-stat-item">
+             <div class="dc-stat-num">95.000+</div>
+             <div class="dc-stat-lbl">Peraturan Tersedia</div>
+           </div>
+           <div class="dc-stat-divider"></div>
+           <div class="dc-stat-item">
+             <div class="dc-stat-num">40+</div>
+             <div class="dc-stat-lbl">Instansi Penerbit</div>
+           </div>
+           <div class="dc-stat-divider"></div>
+           <div class="dc-stat-item">
+             <div class="dc-stat-num">12</div>
+             <div class="dc-stat-lbl">Kategori Hukum</div>
+           </div>
+           <div class="dc-stat-divider"></div>
+           <div class="dc-stat-item">
+             <div class="dc-stat-num">Realtime</div>
+             <div class="dc-stat-lbl">Diperbarui</div>
+           </div>
+         </div>
 
-           .dc-tag {
-             display: inline-flex;
-             align-items: center;
-             background: #ffffff;
-             border: 1px solid #e2e5ef;
-             color: #4b5563;
-             font-size: 0.73rem;
-             font-weight: 500;
-             padding: 4px 11px;
-             border-radius: 20px;
-             line-height: 1.4;
-             transition: border-color 0.15s, color 0.15s;
-             cursor: default;
-             white-space: nowrap;
-           }
+         <!-- Logo instansi trust row -->
+         <div class="dc-logo-row">
+           <div class="dc-logo-item" title="Kementerian Keuangan">
+             <div class="dc-logo-icon" style="background:linear-gradient(135deg,#1e40af,#3b82f6);">
+               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L2 7v2h20V7L12 2z" fill="white" opacity="0.9"/><rect x="4" y="11" width="2" height="8" fill="white"/><rect x="11" y="11" width="2" height="8" fill="white"/><rect x="18" y="11" width="2" height="8" fill="white"/><rect x="2" y="19" width="20" height="2" fill="white"/></svg>
+             </div>
+             <div class="dc-logo-label">Kemenkeu</div>
+           </div>
+           <div class="dc-logo-divider"></div>
+           <div class="dc-logo-item" title="Kementerian Hukum dan HAM">
+             <div class="dc-logo-icon" style="background:linear-gradient(135deg,#7c3aed,#a78bfa);">
+               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-4H7l5-8v4h4l-5 8z" fill="white"/></svg>
+             </div>
+             <div class="dc-logo-label">Kemenkumham</div>
+           </div>
+           <div class="dc-logo-divider"></div>
+           <div class="dc-logo-item" title="BKPM">
+             <div class="dc-logo-icon" style="background:linear-gradient(135deg,#0f766e,#14b8a6);">
+               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="8" r="4" fill="white"/><path d="M4 20c0-4 3.58-7 8-7s8 3 8 7" fill="white" opacity="0.85"/></svg>
+             </div>
+             <div class="dc-logo-label">BKPM</div>
+           </div>
+           <div class="dc-logo-divider"></div>
+           <div class="dc-logo-item" title="Kementerian Ketenagakerjaan">
+             <div class="dc-logo-icon" style="background:linear-gradient(135deg,#be185d,#f472b6);">
+               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="8" height="8" rx="1.5" fill="white"/><rect x="13" y="3" width="8" height="8" rx="1.5" fill="white" opacity="0.75"/><rect x="3" y="13" width="8" height="8" rx="1.5" fill="white" opacity="0.75"/><rect x="13" y="13" width="8" height="8" rx="1.5" fill="white"/></svg>
+             </div>
+             <div class="dc-logo-label">Kemnaker</div>
+           </div>
+           <div class="dc-logo-divider"></div>
+           <div class="dc-logo-item" title="BPKP / BPK">
+             <div class="dc-logo-icon" style="background:linear-gradient(135deg,#b45309,#f59e0b);">
+               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 1L3 5v6c0 5.25 3.75 10.15 9 11.35C17.25 21.15 21 16.25 21 11V5L12 1z" fill="white" opacity="0.9"/></svg>
+             </div>
+             <div class="dc-logo-label">BPKP / BPK</div>
+           </div>
+           <div class="dc-logo-divider"></div>
+           <div class="dc-logo-item" title="Kementerian Perdagangan">
+             <div class="dc-logo-icon" style="background:linear-gradient(135deg,#0369a1,#38bdf8);">
+               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6h-2.18c.07-.44.18-.88.18-1.36C18 2.54 16.46 1 14.55 1 13.4 1 12.35 1.6 11.7 2.55L11 3.4l-.7-.85C9.65 1.6 8.6 1 7.45 1 5.54 1 4 2.54 4 4.64c0 .48.11.92.18 1.36H2v14h20V6z" fill="white"/></svg>
+             </div>
+             <div class="dc-logo-label">Kemendag</div>
+           </div>
+         </div>
 
-           .dc-tag:hover {
-             border-color: #6366f1;
-             color: #4f46e5;
-           }
-
-           .dc-tag.dc-tag-hidden {
-             display: none;
-           }
-
-           .dc-tag.dc-tag-hidden.dc-expanded {
-             display: inline-flex;
-           }
-
-           .dc-show-more {
-             display: inline-flex;
-             align-items: center;
-             gap: 4px;
-             background: transparent;
-             border: 1px dashed #9ca3af;
-             color: #6b7280;
-             font-size: 0.73rem;
-             font-weight: 600;
-             padding: 4px 11px;
-             border-radius: 20px;
-             cursor: pointer;
-             transition: border-color 0.15s, color 0.15s;
-           }
-
-           .dc-show-more:hover {
-             border-color: #6366f1;
-             color: #4f46e5;
-           }
-         </style>
-
+         <!-- Category chip tags (premium) -->
          <div class="dc-tags-wrap" id="dcTagsWrap">
-            @forelse($peraturan->take(10) as $item)
-              <span class="dc-tag">{{ Str::limit($item->judul_peraturan, 50) }}</span>
-            @empty
-              <span class="dc-tag">Belum ada data peraturan</span>
-            @endforelse
-            @if($peraturan->count() > 10)
-              <!-- Hidden tags -->
-              @foreach($peraturan->slice(10) as $item)
-                <span class="dc-tag dc-tag-hidden">{{ Str::limit($item->judul_peraturan, 50) }}</span>
-              @endforeach
-              <button class="dc-show-more" id="dcShowMore" aria-label="Tampilkan lebih banyak">
-                <i class="fas fa-plus" style="font-size:0.6rem;"></i>&nbsp;{{ $peraturan->count() - 10 }} lainnya
-              </button>
-            @endif
+           <span class="dc-tag">&#128220; Undang-Undang (UU)</span>
+           <span class="dc-tag">&#127963; Kepres</span>
+           <span class="dc-tag">&#128203; Peraturan Menteri</span>
+           <span class="dc-tag">&#128204; Instruksi Presiden</span>
+           <span class="dc-tag">&#9878; Peraturan Pemerintah</span>
+           <span class="dc-tag">&#128057; Perpres</span>
+           <span class="dc-tag">&#128196; Permen BUMN</span>
+           <span class="dc-tag">&#127970; Perda</span>
+           <span class="dc-tag">&#128450; SK Dirjen</span>
+           <span class="dc-tag">&#128209; Surat Edaran</span>
+           @forelse($peraturan->take(10) as $item)
+           <span class="dc-tag dc-tag-hidden">{{ Str::limit($item->judul_peraturan, 45) }}</span>
+           @empty
+           @endforelse
+           @if($peraturan->count() > 0)
+           @foreach($peraturan->slice(10) as $item)
+           <span class="dc-tag dc-tag-hidden">{{ Str::limit($item->judul_peraturan, 45) }}</span>
+           @endforeach
+           <button class="dc-show-more" id="dcShowMore" aria-label="Tampilkan lebih banyak">
+             <i class="fas fa-plus" style="font-size:0.6rem;"></i>&nbsp;{{ $peraturan->count() }} dari database
+           </button>
+           @endif
          </div>
 
          <script>
@@ -2537,19 +2754,17 @@
              var open = false;
              btn.addEventListener('click', function() {
                open = !open;
-               hidden.forEach(function(t) {
-                 t.classList.toggle('dc-expanded', open);
-               });
-               btn.innerHTML = open ?
-                 '<i class="fas fa-minus" style="font-size:0.6rem;"></i>&nbsp;Lebih sedikit' :
-                 '<i class="fas fa-plus"  style="font-size:0.6rem;"></i>&nbsp;8 lainnya';
+               hidden.forEach(function(t) { t.classList.toggle('dc-expanded', open); });
+               btn.innerHTML = open
+                 ? '<i class="fas fa-minus" style="font-size:0.6rem;"></i>&nbsp;Lebih sedikit'
+                 : '<i class="fas fa-plus" style="font-size:0.6rem;"></i>&nbsp;Lihat lainnya';
              });
            })();
          </script>
 
          <!-- CTA Button -->
          <div class="button-row text-center mt-4">
-           <button class="peraturan-btn">Lihat 95.000++ peraturan &rarr;</button>
+           <a href="{{ route('peraturan.index') }}" class="peraturan-btn">Lihat 95.000+ Peraturan &rarr;</a>
          </div>
 
        </div>

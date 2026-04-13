@@ -4,6 +4,7 @@ use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\PromoController;
 use App\Http\Controllers\PromoControllerFrontend;
 use App\Http\Controllers\PeraturanKBLIController;
+use App\Http\Controllers\PeraturanFrontendController;
 use App\Http\Controllers\EventUpComingController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -78,6 +79,9 @@ Route::get('/promo', [PromoControllerFrontend::class, 'index'])->name('promo.ind
 Route::get('/promo/{id}', [PromoControllerFrontend::class, 'show'])
     ->name('promo.show')
     ->middleware(\App\Http\Middleware\FixAssetPath::class);
+
+// Frontend Database Peraturan
+Route::get('/database-peraturan', [PeraturanFrontendController::class, 'index'])->name('peraturan.index');
 
 Auth::routes();
 
