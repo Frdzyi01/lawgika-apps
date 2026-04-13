@@ -6,6 +6,7 @@ use App\Http\Controllers\PromoControllerFrontend;
 use App\Http\Controllers\PeraturanKBLIController;
 use App\Http\Controllers\PeraturanFrontendController;
 use App\Http\Controllers\EventUpComingController;
+use App\Http\Controllers\BeritaController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -30,7 +31,13 @@ Route::get('/', function () {
         ->limit(18)
         ->get();
 
-    return view('dashboard', compact('promos', 'events', 'peraturan'));
+    $beritas = \App\Models\Berita::whereNotNull('published_at')
+        ->where('published_at', '<=', now())
+        ->latest('published_at')
+        ->limit(3)
+        ->get();
+
+    return view('dashboard', compact('promos', 'events', 'peraturan', 'beritas'));
 });
 
 // pendirian badan usaha
@@ -100,5 +107,11 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('promo', PromoController::class);
     Route::resource('event-upcoming', EventUpComingController::class);
     Route::resource('peraturan-kbli', PeraturanKBLIController::class);
+    Route::resource('berita', BeritaController::class)->parameters([
+        'berita' => 'berita'
+    ]);
 });
+// Frontend Berita
+Route::get('/berita', [\App\Http\Controllers\BeritaController::class, 'frontendIndex'])->name('berita.index');
+Route::get('/berita/{slug}', [\App\Http\Controllers\BeritaController::class, 'frontendShow'])->name('berita.show');
 

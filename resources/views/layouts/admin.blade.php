@@ -71,7 +71,7 @@
             <div class="menu-title">Berita dan Artikel</div>
           </a>
           <ul>
-            <li><a href="berita.html"><ion-icon name="ellipse-outline"></ion-icon>Berita</a></li>
+            <li><a href="{{ route('admin.berita.index') }}"><ion-icon name="ellipse-outline"></ion-icon>Berita</a></li>
           </ul>
         </li>
         <li class="menu-label">Forms &amp; Tables</li>

@@ -12,25 +12,25 @@
     <!-- ======== Page title ============ -->
     <title>Lawgika - Legal & Business Consulting Services</title>
     <!--<< Favcion >>-->
-    <link rel="shortcut icon" href="{{('buyer-file/assets/img/favicon.svg')}}" />
+    <link rel="shortcut icon" href="{{ asset('buyer-file/assets/img/favicon.svg')}}" />
     <!--<< Bootstrap min.css >>-->
-    <link rel="stylesheet" href="{{('buyer-file/assets/css/bootstrap.min.css')}}" />
+    <link rel="stylesheet" href="{{ asset('buyer-file/assets/css/bootstrap.min.css')}}" />
     <!--<< All Min Css >>-->
-    <link rel="stylesheet" href="{{('buyer-file/assets/css/all.min.css')}}" />
+    <link rel="stylesheet" href="{{ asset('buyer-file/assets/css/all.min.css')}}" />
     <!--<< Animate.css >>-->
-    <link rel="stylesheet" href="{{('buyer-file/assets/css/animate.css')}}" />
+    <link rel="stylesheet" href="{{ asset('buyer-file/assets/css/animate.css')}}" />
     <!--<< Magnific Popup.css >>-->
-    <link rel="stylesheet" href="{{('buyer-file/assets/css/magnific-popup.css')}}" />
+    <link rel="stylesheet" href="{{ asset('buyer-file/assets/css/magnific-popup.css')}}" />
     <!--<< MeanMenu.css >>-->
-    <link rel="stylesheet" href="{{('buyer-file/assets/css/meanmenu.css')}}" />
+    <link rel="stylesheet" href="{{ asset('buyer-file/assets/css/meanmenu.css')}}" />
     <!--<< Swiper Bundle.css >>-->
-    <link rel="stylesheet" href="{{('buyer-file/assets/css/swiper-bundle.min.css')}}" />
+    <link rel="stylesheet" href="{{ asset('buyer-file/assets/css/swiper-bundle.min.css')}}" />
     <!--<< Nice Select.css >>-->
-    <link rel="stylesheet" href="{{('buyer-file/assets/css/nice-select.css')}}" />
+    <link rel="stylesheet" href="{{ asset('buyer-file/assets/css/nice-select.css')}}" />
     <!--<< Color.css >>-->
-    <link rel="stylesheet" href="{{('buyer-file/assets/css/color.css')}}" />
+    <link rel="stylesheet" href="{{ asset('buyer-file/assets/css/color.css')}}" />
     <!--<< Main.css >>-->
-    <link rel="stylesheet" href="{{('buyer-file/assets/css/main.css')}}" />
+    <link rel="stylesheet" href="{{ asset('buyer-file/assets/css/main.css')}}" />
 </head>
 
 <body>

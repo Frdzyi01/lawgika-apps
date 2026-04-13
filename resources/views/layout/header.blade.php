@@ -714,7 +714,7 @@
                           </a>
 
                           <!-- Item 2: Artikel -->
-                          <a href="{{ url('#') }}" class="lw-pelatihan-item">
+                          <a href="{{ url('/berita') }}" class="lw-pelatihan-item">
                             <div class="lw-pelatihan-icon">📄</div>
                             <div class="lw-pelatihan-text">
                               <h6>Artikel</h6>
@@ -1374,15 +1374,13 @@
           <img src="{{ asset('buyer-file/assets/img/sign/login.png') }}" alt="img" />
           <div class="signlogin-btnwrap">
             <button
-              class="theme-create style-border"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal">
+              id="btn-go-register"
+              class="theme-create style-border">
               create account
             </button>
             <button
-              class="theme-btn"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal2">
+              id="btn-stay-login"
+              class="theme-btn">
               Log In
             </button>
           </div>
@@ -1452,15 +1450,13 @@
           <img src="{{ asset('buyer-file/assets/img/sign/create.png') }}" alt="img" />
           <div class="signlogin-btnwrap">
             <button
-              class="theme-create style-border"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal">
+              id="btn-stay-register"
+              class="theme-create style-border">
               create account
             </button>
             <button
-              class="theme-btn"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal2">
+              id="btn-go-login"
+              class="theme-btn">
               Log In
             </button>
           </div>
@@ -1508,15 +1504,13 @@
           <img src="{{ asset('buyer-file/assets/img/sign/create.png') }}" alt="img" />
           <div class="signlogin-btnwrap">
             <button
-              class="theme-create style-border"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal">
+              id="btn-forgot-go-register"
+              class="theme-create style-border">
               create account
             </button>
             <button
-              class="theme-btn"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal2">
+              id="btn-forgot-go-login"
+              class="theme-btn">
               Log In
             </button>
           </div>
@@ -1527,7 +1521,77 @@
 </div>
 
 
+<!-- Modal Switcher Script -->
+<script>
+  (function () {
+    'use strict';
+
+    /**
+     * switchModal(fromId, toId)
+     * Tutup modal asal, tunggu animasi selesai (hidden.bs.modal),
+     * lalu buka modal tujuan. Pola ini mencegah double-backdrop dan glitch.
+     */
+    function switchModal(fromId, toId) {
+      var fromEl = document.getElementById(fromId);
+      var toEl   = document.getElementById(toId);
+      if (!fromEl || !toEl) return;
+
+      var fromModal = bootstrap.Modal.getInstance(fromEl)
+                   || new bootstrap.Modal(fromEl);
+
+      /* One-time listener: setelah modal asal benar-benar tersembunyi, buka yang baru */
+      fromEl.addEventListener('hidden.bs.modal', function handler() {
+        fromEl.removeEventListener('hidden.bs.modal', handler);
+        bootstrap.Modal.getOrCreateInstance(toEl).show();
+      });
+
+      fromModal.hide();
+    }
+
+    function initModalSwitcher() {
+      /* Login → Register */
+      var btnGoRegister = document.getElementById('btn-go-register');
+      if (btnGoRegister) {
+        btnGoRegister.addEventListener('click', function () {
+          switchModal('exampleModal', 'exampleModal2');
+        });
+      }
+
+      /* Register → Login */
+      var btnGoLogin = document.getElementById('btn-go-login');
+      if (btnGoLogin) {
+        btnGoLogin.addEventListener('click', function () {
+          switchModal('exampleModal2', 'exampleModal');
+        });
+      }
+
+      /* Forgot Password → Register */
+      var btnForgotGoRegister = document.getElementById('btn-forgot-go-register');
+      if (btnForgotGoRegister) {
+        btnForgotGoRegister.addEventListener('click', function () {
+          switchModal('exampleModal3', 'exampleModal2');
+        });
+      }
+
+      /* Forgot Password → Login */
+      var btnForgotGoLogin = document.getElementById('btn-forgot-go-login');
+      if (btnForgotGoLogin) {
+        btnForgotGoLogin.addEventListener('click', function () {
+          switchModal('exampleModal3', 'exampleModal');
+        });
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initModalSwitcher);
+    } else {
+      initModalSwitcher();
+    }
+  })();
+</script>
+
 <!-- Search Area Start -->
+
 <div class="search-wrap">
   <div class="search-inner">
     <i class="fas fa-times search-close" id="search-close"></i>

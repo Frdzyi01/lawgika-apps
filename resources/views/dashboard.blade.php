@@ -3197,109 +3197,48 @@
          </h2>
        </div>
        <a
-         href="#"
+         href="{{ route('berita.index') }}"
          class="theme-btn">See All More <i class="fas fa-long-arrow-alt-right"></i></a>
      </div>
      <div class="row">
-       <div
-         class="col-xl-4 col-lg-6 col-md-6">
-         <div class="news-card-items">
-           <div class="news-image">
-             <img src="{{('buyer-file/assets/img/news/01.jpg')}}" alt="news-img" loading="lazy" />
+       @foreach($beritas as $item)
+       <div class="col-xl-4 col-lg-6 col-md-6">
+         <div class="news-card-items" style="height: 100%; display: flex; flex-direction: column;">
+           <div class="news-image" style="height: 250px; overflow: hidden;">
+             @if($item->gambar)
+               <img src="{{ asset('storage/' . $item->gambar) }}" alt="{{ $item->judul }}" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy" />
+             @else
+               <img src="{{ asset('buyer-file/assets/img/news/01.jpg') }}" alt="news-img" loading="lazy" />
+             @endif
            </div>
-           <div class="news-content">
+           <div class="news-content" style="flex: 1; display: flex; flex-direction: column;">
              <div class="post-list">
-               <span>Berita Hukum</span>
-               <p>MARCH 24, 2024</p>
+               <span>{{ $item->kategori }}</span>
+               <p>{{ strtoupper($item->published_at->translatedFormat('F d, Y')) }}</p>
              </div>
-             <h3>
-               <a href="#">Pentingnya legal drafting dalam perjanjian bisnis</a>
+             <h3 style="flex: 1;">
+               <a href="{{ route('berita.show', $item->slug) }}">{{ $item->judul }}</a>
              </h3>
-             <div class="author-items">
+             <div class="author-items" style="margin-top: auto;">
                <div class="author-image">
                  <div
-                   class="author-img bg-cover"
-                   style="
-                        background-image: url(&quot;assets/img/news/post-1.png&quot;);
-                      "></div>
+                   class="author-img bg-cover bg-danger text-white d-flex align-items-center justify-content-center fw-bold"
+                   style="width: 45px; height: 45px; border-radius: 50%;">
+                   {{ substr(strtoupper($item->penulis), 0, 1) }}
+                 </div>
                  <div class="content">
-                   <h6>Admin</h6>
-                   <p>Co, Founder</p>
+                   <h6>{{ $item->penulis }}</h6>
+                   <p>{{ $item->jabatan_penulis }}</p>
                  </div>
                </div>
-               <a href="#" class="link-btn">
+               <a href="{{ route('berita.show', $item->slug) }}" class="link-btn">
                  <i class="fa-solid fa-arrow-right"></i>
                </a>
              </div>
            </div>
          </div>
        </div>
-       <div
-         class="col-xl-4 col-lg-6 col-md-6">
-         <div class="news-card-items">
-           <div class="news-image">
-             <img src="{{('buyer-file/assets/img/news/02.jpg')}}" alt="news-img" loading="lazy" />
-           </div>
-           <div class="news-content">
-             <div class="post-list">
-               <span>Bisnis</span>
-               <p>MARCH 22, 2024</p>
-             </div>
-             <h3>
-               <a href="#">Pentingnya Legalitas untuk Startup & UMKM</a>
-             </h3>
-             <div class="author-items">
-               <div class="author-image">
-                 <div
-                   class="author-img bg-cover"
-                   style="
-                        background-image: url(&quot;assets/img/news/post-2.png&quot;);
-                      "></div>
-                 <div class="content">
-                   <h6>Admin</h6>
-                   <p>Co, Founder</p>
-                 </div>
-               </div>
-               <a href="#" class="link-btn">
-                 <i class="fa-solid fa-arrow-right"></i>
-               </a>
-             </div>
-           </div>
-         </div>
-       </div>
-       <div
-         class="col-xl-4 col-lg-6 col-md-6">
-         <div class="news-card-items">
-           <div class="news-image">
-             <img src="{{('buyer-file/assets/img/news/03.jpg')}}" alt="news-img" loading="lazy" />
-           </div>
-           <div class="news-content">
-             <div class="post-list">
-               <span>Update Perizinan</span>
-               <p>MARCH 14, 2024</p>
-             </div>
-             <h3>
-               <a href="#">Perubahan Aturan Pajak Terbaru Tahun Ini</a>
-             </h3>
-             <div class="author-items">
-               <div class="author-image">
-                 <div
-                   class="author-img bg-cover"
-                   style="
-                        background-image: url(&quot;assets/img/news/post-3.png&quot;);
-                      "></div>
-                 <div class="content">
-                   <h6>Admin</h6>
-                   <p>Co, Founder</p>
-                 </div>
-               </div>
-               <a href="#" class="link-btn">
-                 <i class="fa-solid fa-arrow-right"></i>
-               </a>
-             </div>
-           </div>
-         </div>
-       </div>
+       @endforeach
      </div>
    </div>
  </section>

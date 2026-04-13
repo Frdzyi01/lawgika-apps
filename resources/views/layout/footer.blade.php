@@ -1,7 +1,7 @@
   <!--<< Footer Section Start >>-->
     <footer
       class="footer-section fix bg-cover"
-      style="background-image: url('buyer-file/assets/img/hero/hero-bg-1.jpg')"
+      style="background-image: url('{{ asset('buyer-file/assets/img/hero/hero-bg-1.jpg') }}')"
     >
       <div class="footer-widgets-wrapper">
         <div class="container">
@@ -12,7 +12,7 @@
               <div class="single-footer-widget">
                 <div class="widget-head">
                   <a href="#">
-                    <img src="{{('buyer-file/assets/img/logo-removebg.png')}}" alt="logo-img" />
+                    <img src="{{ asset('buyer-file/assets/img/logo-removebg.png')}}" alt="logo-img" />
                   </a>
                 </div>
                 <div class="footer-content">
@@ -233,21 +233,21 @@
             </p>
             <ul class="brand-logo">
               <li>
-                <img src="{{('buyer-file/assets/img/visa-logo.png')}}" alt="img" />
+                <img src="{{ asset('buyer-file/assets/img/visa-logo.png')}}" alt="img" />
               </li>
               <li>
                 <a href="#">
-                  <img src="{{('buyer-file/assets/img/mastercard-logo.png')}}" alt="img" />
+                  <img src="{{ asset('buyer-file/assets/img/mastercard-logo.png')}}" alt="img" />
                 </a>
               </li>
               <li>
                 <a href="#">
-                  <img src="{{('buyer-file/assets/img/payoneer-logo.png')}}" alt="img" />
+                  <img src="{{ asset('buyer-file/assets/img/payoneer-logo.png')}}" alt="img" />
                 </a>
               </li>
               <li>
                 <a href="#">
-                  <img src="{{('buyer-file/assets/img/affirm-logo.png')}}" alt="img" />
+                  <img src="{{ asset('buyer-file/assets/img/affirm-logo.png')}}" alt="img" />
                 </a>
               </li>
             </ul>
@@ -259,26 +259,26 @@
       </div>
     </footer>
     <!--<< All JS Plugins >>-->
-    <script src="{{('buyer-file/assets/js/jquery-3.7.1.min.js')}}"></script>
+    <script src="{{ asset('buyer-file/assets/js/jquery-3.7.1.min.js')}}"></script>
     <!--<< Viewport Js >>-->
-    <script src="{{('buyer-file/assets/js/viewport.jquery.js')}}"></script>
+    <script src="{{ asset('buyer-file/assets/js/viewport.jquery.js')}}"></script>
     <!--<< Bootstrap Js >>-->
-    <script src="{{('buyer-file/assets/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{ asset('buyer-file/assets/js/bootstrap.bundle.min.js')}}"></script>
     <!--<< Nice Select Js >>-->
-    <script src="{{('buyer-file/assets/js/jquery.nice-select.min.js')}}"></script>
+    <script src="{{ asset('buyer-file/assets/js/jquery.nice-select.min.js')}}"></script>
     <!--<< Waypoints Js >>-->
-    <script src="{{('buyer-file/assets/js/jquery.waypoints.js')}}"></script>
+    <script src="{{ asset('buyer-file/assets/js/jquery.waypoints.js')}}"></script>
     <!--<< Counterup Js >>-->
-    <script src="{{('buyer-file/assets/js/jquery.counterup.min.js')}}"></script>
+    <script src="{{ asset('buyer-file/assets/js/jquery.counterup.min.js')}}"></script>
     <!--<< Swiper Slider Js >>-->
-    <script src="{{('buyer-file/assets/js/swiper-bundle.min.js')}}"></script>
+    <script src="{{ asset('buyer-file/assets/js/swiper-bundle.min.js')}}"></script>
     <!--<< MeanMenu Js >>-->
-    <script src="{{('buyer-file/assets/js/jquery.meanmenu.min.js')}}"></script>
+    <script src="{{ asset('buyer-file/assets/js/jquery.meanmenu.min.js')}}"></script>
     <!--<< Magnific Popup Js >>-->
-    <script src="{{('buyer-file/assets/js/jquery.magnific-popup.min.js')}}"></script>
+    <script src="{{ asset('buyer-file/assets/js/jquery.magnific-popup.min.js')}}"></script>
     <!--<< Wow Animation Js >>-->
-    <script src="{{('buyer-file/assets/js/wow.min.js')}}"></script>
+    <script src="{{ asset('buyer-file/assets/js/wow.min.js')}}"></script>
     <!--<< Main.js >>-->
-    <script src="{{('buyer-file/assets/js/main.js')}}"></script>
+    <script src="{{ asset('buyer-file/assets/js/main.js')}}"></script>
   </body>
 </html>
