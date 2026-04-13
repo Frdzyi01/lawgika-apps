@@ -12,7 +12,7 @@ class PromoControllerFrontend extends Controller
     public function index()
     {
         $promos = Promo::where('status', true)->latest()->get();
-        return view('frontend.promo', compact('promos'));
+        return view('frontend.promo.index', compact('promos'));
     }
 
     /**
@@ -21,6 +21,6 @@ class PromoControllerFrontend extends Controller
     public function show($id)
     {
         $promo = Promo::findOrFail($id);
-        return view('frontend.promo-detail', compact('promo'));
+        return view('frontend.promo.show', compact('promo'));
     }
 }

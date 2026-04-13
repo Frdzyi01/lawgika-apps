@@ -37,7 +37,7 @@ Route::get('/', function () {
         ->limit(3)
         ->get();
 
-    return view('dashboard', compact('promos', 'events', 'peraturan', 'beritas'));
+    return view('frontend.dashboard', compact('promos', 'events', 'peraturan', 'beritas'));
 });
 
 // pendirian badan usaha

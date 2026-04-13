@@ -39,6 +39,6 @@ class PeraturanFrontendController extends Controller
             ->orderByDesc('tahun')
             ->pluck('tahun');
 
-        return view('database-peraturan', compact('peraturan', 'years'));
+        return view('frontend.peraturan.index', compact('peraturan', 'years'));
     }
 }
