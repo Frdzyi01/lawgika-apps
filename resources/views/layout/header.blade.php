@@ -723,7 +723,7 @@
                           </a>
 
                           <!-- Item 3: Kumpulan Peraturan -->
-                          <a href="{{ url('#') }}" class="lw-pelatihan-item">
+                          <a href="{{ route('peraturan.index') }}" class="lw-pelatihan-item">
                             <div class="lw-pelatihan-icon">⚖️</div>
                             <div class="lw-pelatihan-text">
                               <h6>Kumpulan Peraturan</h6>

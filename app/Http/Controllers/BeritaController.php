@@ -14,14 +14,25 @@ class BeritaController extends Controller
     /**
      * Frontend: Tampilkan daftar berita
      */
-    public function frontendIndex()
+    public function frontendIndex(Request $request)
     {
-        $beritas = Berita::whereNotNull('published_at')
-                    ->where('published_at', '<=', now())
-                    ->orderBy('published_at', 'desc')
-                    ->paginate(9);
-
-        return view('frontend.berita.index', compact('beritas'));
+        $query = Berita::whereNotNull('published_at')
+            ->where('published_at', '<=', now());
+        
+        // Filter by kategori
+        if ($request->has('kategori')) {
+            $query->where('kategori', $request->kategori);
+        }
+        
+        $beritas = $query->orderBy('published_at', 'desc')->paginate(9);
+        
+        $kategoriList = Berita::select('kategori', \DB::raw('count(*) as total'))
+            ->whereNotNull('published_at')
+            ->where('published_at', '<=', now())
+            ->groupBy('kategori')
+            ->get();
+        
+        return view('frontend.berita.index', compact('beritas', 'kategoriList'));
     }
 
     /**
@@ -38,10 +49,17 @@ class BeritaController extends Controller
                     ->whereNotNull('published_at')
                     ->where('published_at', '<=', now())
                     ->orderBy('published_at', 'desc')
-                    ->limit(5)
+                    ->limit(4)
                     ->get();
+                    
+        $kategoriList = Berita::select('kategori', \DB::raw('count(*) as total'))
+            ->whereNotNull('published_at')
+            ->where('published_at', '<=', now())
+            ->groupBy('kategori')
+            ->orderBy('kategori')
+            ->get();
 
-        return view('frontend.berita.show', compact('berita', 'beritaLainnya'));
+        return view('frontend.berita.show', compact('berita', 'beritaLainnya', 'kategoriList'));
     }
 
     /**

@@ -543,6 +543,48 @@
    }
  </style>
 
+ <style>
+   .berita-card-link {
+     display: block;
+     height: 100%;
+     color: inherit;
+     transition: transform 0.3s ease;
+   }
+
+   .blog-card {
+     transition: box-shadow 0.3s ease;
+   }
+
+   .hover-scale {
+     transition: transform 0.4s ease;
+   }
+
+   @media (hover: hover) {
+     .berita-card-link:hover {
+       transform: translateY(-5px);
+     }
+
+     .berita-card-link:hover .blog-card {
+       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+     }
+
+     .berita-card-link:hover .hover-scale {
+       transform: scale(1.05);
+     }
+
+     .berita-card-link:hover .hover-primary-heading {
+       color: #dc3545 !important;
+       transition: color 0.2s ease;
+     }
+   }
+
+   @media (hover: none) {
+     .berita-card-link:active {
+       transform: scale(0.98);
+     }
+   }
+ </style>
+
  <script>
    /* ---- Dynamic header offset ---- */
    (function() {
@@ -2489,39 +2531,56 @@
      background: linear-gradient(145deg, #f0f4ff 0%, #e8ecff 40%, #f5f0ff 70%, #eef2ff 100%) !important;
      position: relative;
      overflow: hidden;
+     transform: translateZ(0);
+     will-change: transform;
+     content-visibility: auto;
+     contain-intrinsic-size: auto 600px;
    }
+
    .data-center-section::before {
      content: '';
      position: absolute;
-     width: 520px; height: 520px;
-     background: radial-gradient(circle, rgba(99,102,241,0.10) 0%, transparent 70%);
-     top: -120px; right: -100px;
+     width: 520px;
+     height: 520px;
+     background: radial-gradient(circle, rgba(99, 102, 241, 0.10) 0%, transparent 70%);
+     top: -120px;
+     right: -100px;
      border-radius: 50%;
      pointer-events: none;
+     contain: strict;
+     transform: translateZ(0);
    }
+
    .data-center-section::after {
      content: '';
      position: absolute;
-     width: 400px; height: 400px;
-     background: radial-gradient(circle, rgba(139,92,246,0.09) 0%, transparent 70%);
-     bottom: -80px; left: -80px;
+     width: 400px;
+     height: 400px;
+     background: radial-gradient(circle, rgba(139, 92, 246, 0.09) 0%, transparent 70%);
+     bottom: -80px;
+     left: -80px;
      border-radius: 50%;
      pointer-events: none;
+     contain: strict;
+     transform: translateZ(0);
    }
+
    .peraturan-container {
-     background: rgba(255,255,255,0.88);
-     backdrop-filter: blur(20px);
-     -webkit-backdrop-filter: blur(20px);
-     border: 1px solid rgba(99,102,241,0.13);
+     background: rgba(255, 255, 255, 0.92);
+     border: 1px solid rgba(99, 102, 241, 0.13);
      border-radius: 24px;
      box-shadow:
-       0 4px 6px rgba(0,0,0,0.04),
-       0 20px 60px rgba(99,102,241,0.13),
-       0 40px 80px rgba(0,0,0,0.06);
+       0 4px 6px rgba(0, 0, 0, 0.04),
+       0 20px 60px rgba(99, 102, 241, 0.13),
+       0 40px 80px rgba(0, 0, 0, 0.06);
      padding: 52px 48px 48px;
      position: relative;
      z-index: 1;
+     transform: translateZ(0);
+     will-change: transform;
+     backface-visibility: hidden;
    }
+
    .data-center-section .section-title h2 {
      font-size: 2.1rem;
      font-weight: 800;
@@ -2529,118 +2588,254 @@
      letter-spacing: -0.5px;
      margin-top: 10px;
    }
+
    .data-center-section .section-title .style-bg {
      color: #6366f1;
      font-size: 0.8rem;
      font-weight: 700;
      letter-spacing: 1px;
      text-transform: uppercase;
-     background: rgba(99,102,241,0.09);
+     background: rgba(99, 102, 241, 0.09);
      padding: 4px 14px;
      border-radius: 20px;
    }
+
    /* Stat bar */
    .dc-stat-row {
-     display: flex; align-items: center; justify-content: center;
-     gap: 32px; margin-bottom: 32px; flex-wrap: wrap;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     gap: 32px;
+     margin-bottom: 32px;
+     flex-wrap: wrap;
    }
-   .dc-stat-item { text-align: center; }
-   .dc-stat-num { font-size: 1.55rem; font-weight: 800; color: #4f46e5; line-height: 1.1; }
-   .dc-stat-lbl { font-size: 0.68rem; color: #9ca3af; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-top: 2px; }
-   .dc-stat-divider { width: 1px; height: 36px; background: rgba(99,102,241,0.15); }
+
+   .dc-stat-item {
+     text-align: center;
+   }
+
+   .dc-stat-num {
+     font-size: 1.55rem;
+     font-weight: 800;
+     color: #4f46e5;
+     line-height: 1.1;
+   }
+
+   .dc-stat-lbl {
+     font-size: 0.68rem;
+     color: #9ca3af;
+     font-weight: 600;
+     letter-spacing: 0.5px;
+     text-transform: uppercase;
+     margin-top: 2px;
+   }
+
+   .dc-stat-divider {
+     width: 1px;
+     height: 36px;
+     background: rgba(99, 102, 241, 0.15);
+   }
+
    /* Logo trust row */
    .dc-logo-row {
-     display: flex; align-items: center; justify-content: center;
-     flex-wrap: wrap; gap: 24px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     flex-wrap: wrap;
+     gap: 24px;
      margin: 28px 0 32px;
      padding: 20px 24px;
-     background: rgba(99,102,241,0.04);
-     border: 1px solid rgba(99,102,241,0.09);
+     background: rgba(99, 102, 241, 0.04);
+     border: 1px solid rgba(99, 102, 241, 0.09);
      border-radius: 16px;
    }
+
    .dc-logo-item {
-     display: flex; flex-direction: column;
-     align-items: center; gap: 6px;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     gap: 6px;
      opacity: 0.72;
-     transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+     transition: transform 0.15s cubic-bezier(0.2, 0, 0, 1), opacity 0.15s ease-out;
+     transform: translateZ(0);
+     will-change: transform, opacity;
      cursor: default;
    }
-   .dc-logo-item:hover { opacity: 1; transform: scale(1.04); }
-   .dc-logo-icon {
-     width: 48px; height: 48px;
-     border-radius: 12px;
-     display: flex; align-items: center; justify-content: center;
-     color: #fff;
-     box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+
+   .dc-logo-item:hover {
+     opacity: 1;
+     transform: scale(1.04) translateZ(0);
    }
-   .dc-logo-label { font-size: 0.63rem; font-weight: 600; color: #6b7280; text-align: center; max-width: 68px; line-height: 1.3; }
-   .dc-logo-divider { width: 1px; height: 38px; background: rgba(99,102,241,0.15); flex-shrink: 0; }
+
+   .dc-logo-icon {
+     width: 48px;
+     height: 48px;
+     border-radius: 12px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     color: #fff;
+     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+   }
+
+   .dc-logo-label {
+     font-size: 0.63rem;
+     font-weight: 600;
+     color: #6b7280;
+     text-align: center;
+     max-width: 68px;
+     line-height: 1.3;
+   }
+
+   .dc-logo-divider {
+     width: 1px;
+     height: 38px;
+     background: rgba(99, 102, 241, 0.15);
+     flex-shrink: 0;
+   }
+
    /* Chips */
    .dc-tags-wrap {
-     display: flex; flex-wrap: wrap;
+     display: flex;
+     flex-wrap: wrap;
      justify-content: center;
-     gap: 8px; margin-bottom: 20px;
+     gap: 8px;
+     margin-bottom: 20px;
    }
+
    .dc-tag {
-     display: inline-flex; align-items: center;
-     background: linear-gradient(135deg, rgba(99,102,241,0.08) 0%, rgba(139,92,246,0.08) 100%);
-     border: 1px solid rgba(99,102,241,0.20);
+     display: inline-flex;
+     align-items: center;
+     background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(139, 92, 246, 0.08) 100%);
+     border: 1px solid rgba(99, 102, 241, 0.20);
      color: #4f46e5;
-     font-size: 0.72rem; font-weight: 600;
+     font-size: 0.72rem;
+     font-weight: 600;
      padding: 5px 13px;
      border-radius: 999px;
      line-height: 1.4;
      transition: color 0.18s ease-out, border-color 0.18s ease-out, background 0.18s ease-out;
-     cursor: default; white-space: nowrap;
+     cursor: default;
+     white-space: nowrap;
    }
+
    .dc-tag:hover {
-     background: rgba(99,102,241,0.14);
-     border-color: #6366f1; color: #3730a3;
+     background: rgba(99, 102, 241, 0.14);
+     border-color: #6366f1;
+     color: #3730a3;
    }
-   .dc-tag.dc-tag-hidden { display: none; }
-   .dc-tag.dc-tag-hidden.dc-expanded { display: inline-flex; }
+
+   .dc-tag.dc-tag-hidden {
+     display: none;
+   }
+
+   .dc-tag.dc-tag-hidden.dc-expanded {
+     display: inline-flex;
+   }
+
    .dc-show-more {
-     display: inline-flex; align-items: center; gap: 4px;
+     display: inline-flex;
+     align-items: center;
+     gap: 4px;
      background: transparent;
-     border: 1.5px dashed rgba(99,102,241,0.35);
-     color: #6366f1; font-size: 0.72rem; font-weight: 600;
-     padding: 5px 13px; border-radius: 999px;
+     border: 1.5px dashed rgba(99, 102, 241, 0.35);
+     color: #6366f1;
+     font-size: 0.72rem;
+     font-weight: 600;
+     padding: 5px 13px;
+     border-radius: 999px;
      cursor: pointer;
      transition: color 0.18s ease-out, border-color 0.18s ease-out, background 0.18s ease-out;
    }
-   .dc-show-more:hover { border-color: #6366f1; color: #4f46e5; background: rgba(99,102,241,0.07); }
+
+   .dc-show-more:hover {
+     border-color: #6366f1;
+     color: #4f46e5;
+     background: rgba(99, 102, 241, 0.07);
+   }
+
    /* CTA Button */
    .peraturan-btn {
-     display: inline-flex; align-items: center; gap: 8px;
+     display: inline-flex;
+     align-items: center;
+     gap: 8px;
      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #3b82f6 100%);
      color: #fff !important;
-     border: none; border-radius: 12px;
+     border: none;
+     border-radius: 12px;
      padding: 14px 36px;
-     font-size: 1rem; font-weight: 700;
-     box-shadow: 0 4px 16px rgba(99,102,241,0.30);
+     font-size: 1rem;
+     font-weight: 700;
+     box-shadow: 0 4px 16px rgba(99, 102, 241, 0.30);
      cursor: pointer;
-     transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
-     position: relative; overflow: hidden;
+     transition: transform 0.15s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.15s ease-out;
+     transform: translateZ(0);
+     will-change: transform, box-shadow;
+     position: relative;
+     overflow: hidden;
    }
+
    .peraturan-btn::before {
      content: '';
-     position: absolute; inset: 0;
-     background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 60%);
+     position: absolute;
+     inset: 0;
+     background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, transparent 60%);
      border-radius: inherit;
    }
+
    .peraturan-btn:hover {
-     transform: translateY(-2px);
-     box-shadow: 0 8px 24px rgba(99,102,241,0.38);
+     transform: translateY(-2px) translateZ(0);
+     box-shadow: 0 8px 24px rgba(99, 102, 241, 0.38);
      color: #fff !important;
    }
+
    @media (max-width: 767.98px) {
-     .peraturan-container { padding: 36px 20px 36px; border-radius: 20px; }
-     .data-center-section .section-title h2 { font-size: 1.6rem; }
-     .dc-logo-row { gap: 14px; padding: 14px; }
-     .dc-logo-divider { display: none; }
-     .dc-stat-row { gap: 16px; }
-     .dc-stat-divider { display: none; }
-     .peraturan-btn { padding: 13px 24px; font-size: 0.92rem; }
+     .peraturan-container {
+       padding: 36px 20px 36px;
+       border-radius: 20px;
+     }
+
+     .data-center-section .section-title h2 {
+       font-size: 1.6rem;
+     }
+
+     .dc-logo-row {
+       gap: 14px;
+       padding: 14px;
+     }
+
+     .dc-logo-divider {
+       display: none;
+     }
+
+     .dc-stat-row {
+       gap: 16px;
+     }
+
+     .dc-stat-divider {
+       display: none;
+     }
+
+     .peraturan-btn {
+       padding: 13px 24px;
+       font-size: 0.92rem;
+     }
+   }
+
+   .data-center-section,
+   .peraturan-container,
+   .dc-logo-row,
+   .dc-tags-wrap {
+     transform: translateZ(0);
+     backface-visibility: hidden;
+   }
+
+   .dc-logo-item,
+   .peraturan-btn,
+   .dc-tag,
+   .dc-show-more {
+     transition-property: transform, opacity, box-shadow, color, border-color, background;
+     transition-duration: 0.15s;
    }
  </style>
  <section class="data-center-section fix section-padding section-bg">
@@ -2679,42 +2874,62 @@
          <div class="dc-logo-row">
            <div class="dc-logo-item" title="Kementerian Keuangan">
              <div class="dc-logo-icon" style="background:linear-gradient(135deg,#1e40af,#3b82f6);">
-               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L2 7v2h20V7L12 2z" fill="white" opacity="0.9"/><rect x="4" y="11" width="2" height="8" fill="white"/><rect x="11" y="11" width="2" height="8" fill="white"/><rect x="18" y="11" width="2" height="8" fill="white"/><rect x="2" y="19" width="20" height="2" fill="white"/></svg>
+               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                 <path d="M12 2L2 7v2h20V7L12 2z" fill="white" opacity="0.9" />
+                 <rect x="4" y="11" width="2" height="8" fill="white" />
+                 <rect x="11" y="11" width="2" height="8" fill="white" />
+                 <rect x="18" y="11" width="2" height="8" fill="white" />
+                 <rect x="2" y="19" width="20" height="2" fill="white" />
+               </svg>
              </div>
              <div class="dc-logo-label">Kemenkeu</div>
            </div>
            <div class="dc-logo-divider"></div>
            <div class="dc-logo-item" title="Kementerian Hukum dan HAM">
              <div class="dc-logo-icon" style="background:linear-gradient(135deg,#7c3aed,#a78bfa);">
-               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-4H7l5-8v4h4l-5 8z" fill="white"/></svg>
+               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-4H7l5-8v4h4l-5 8z" fill="white" />
+               </svg>
              </div>
              <div class="dc-logo-label">Kemenkumham</div>
            </div>
            <div class="dc-logo-divider"></div>
            <div class="dc-logo-item" title="BKPM">
              <div class="dc-logo-icon" style="background:linear-gradient(135deg,#0f766e,#14b8a6);">
-               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="8" r="4" fill="white"/><path d="M4 20c0-4 3.58-7 8-7s8 3 8 7" fill="white" opacity="0.85"/></svg>
+               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                 <circle cx="12" cy="8" r="4" fill="white" />
+                 <path d="M4 20c0-4 3.58-7 8-7s8 3 8 7" fill="white" opacity="0.85" />
+               </svg>
              </div>
              <div class="dc-logo-label">BKPM</div>
            </div>
            <div class="dc-logo-divider"></div>
            <div class="dc-logo-item" title="Kementerian Ketenagakerjaan">
              <div class="dc-logo-icon" style="background:linear-gradient(135deg,#be185d,#f472b6);">
-               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="8" height="8" rx="1.5" fill="white"/><rect x="13" y="3" width="8" height="8" rx="1.5" fill="white" opacity="0.75"/><rect x="3" y="13" width="8" height="8" rx="1.5" fill="white" opacity="0.75"/><rect x="13" y="13" width="8" height="8" rx="1.5" fill="white"/></svg>
+               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                 <rect x="3" y="3" width="8" height="8" rx="1.5" fill="white" />
+                 <rect x="13" y="3" width="8" height="8" rx="1.5" fill="white" opacity="0.75" />
+                 <rect x="3" y="13" width="8" height="8" rx="1.5" fill="white" opacity="0.75" />
+                 <rect x="13" y="13" width="8" height="8" rx="1.5" fill="white" />
+               </svg>
              </div>
              <div class="dc-logo-label">Kemnaker</div>
            </div>
            <div class="dc-logo-divider"></div>
            <div class="dc-logo-item" title="BPKP / BPK">
              <div class="dc-logo-icon" style="background:linear-gradient(135deg,#b45309,#f59e0b);">
-               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 1L3 5v6c0 5.25 3.75 10.15 9 11.35C17.25 21.15 21 16.25 21 11V5L12 1z" fill="white" opacity="0.9"/></svg>
+               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                 <path d="M12 1L3 5v6c0 5.25 3.75 10.15 9 11.35C17.25 21.15 21 16.25 21 11V5L12 1z" fill="white" opacity="0.9" />
+               </svg>
              </div>
              <div class="dc-logo-label">BPKP / BPK</div>
            </div>
            <div class="dc-logo-divider"></div>
            <div class="dc-logo-item" title="Kementerian Perdagangan">
              <div class="dc-logo-icon" style="background:linear-gradient(135deg,#0369a1,#38bdf8);">
-               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6h-2.18c.07-.44.18-.88.18-1.36C18 2.54 16.46 1 14.55 1 13.4 1 12.35 1.6 11.7 2.55L11 3.4l-.7-.85C9.65 1.6 8.6 1 7.45 1 5.54 1 4 2.54 4 4.64c0 .48.11.92.18 1.36H2v14h20V6z" fill="white"/></svg>
+               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                 <path d="M20 6h-2.18c.07-.44.18-.88.18-1.36C18 2.54 16.46 1 14.55 1 13.4 1 12.35 1.6 11.7 2.55L11 3.4l-.7-.85C9.65 1.6 8.6 1 7.45 1 5.54 1 4 2.54 4 4.64c0 .48.11.92.18 1.36H2v14h20V6z" fill="white" />
+               </svg>
              </div>
              <div class="dc-logo-label">Kemendag</div>
            </div>
@@ -2722,16 +2937,16 @@
 
          <!-- Category chip tags (premium) -->
          <div class="dc-tags-wrap" id="dcTagsWrap">
-           <span class="dc-tag">&#128220; Undang-Undang (UU)</span>
-           <span class="dc-tag">&#127963; Kepres</span>
-           <span class="dc-tag">&#128203; Peraturan Menteri</span>
-           <span class="dc-tag">&#128204; Instruksi Presiden</span>
-           <span class="dc-tag">&#9878; Peraturan Pemerintah</span>
-           <span class="dc-tag">&#128057; Perpres</span>
-           <span class="dc-tag">&#128196; Permen BUMN</span>
-           <span class="dc-tag">&#127970; Perda</span>
-           <span class="dc-tag">&#128450; SK Dirjen</span>
-           <span class="dc-tag">&#128209; Surat Edaran</span>
+           <a href="{{ route('peraturan.index') }}"> <span class="dc-tag">&#128220; Undang-Undang (UU)</span></a>
+           <a href="{{ route('peraturan.index') }}"> <span class="dc-tag">&#127963; Kepres</span></a>
+           <a href="{{ route('peraturan.index') }}"> <span class="dc-tag">&#128203; Peraturan Menteri</span></a>
+           <a href="{{ route('peraturan.index') }}"> <span class="dc-tag">&#128204; Instruksi Presiden</span></a>
+           <a href="{{ route('peraturan.index') }}"> <span class="dc-tag">&#9878; Peraturan Pemerintah</span></a>
+           <a href="{{ route('peraturan.index') }}"> <span class="dc-tag">&#128057; Perpres</span></a>
+           <a href="{{ route('peraturan.index') }}"> <span class="dc-tag">&#128196; Permen BUMN</span></a>
+           <a href="{{ route('peraturan.index') }}"> <span class="dc-tag">&#127970; Perda</span></a>
+           <a href="{{ route('peraturan.index') }}"> <span class="dc-tag">&#128450; SK Dirjen</span></a>
+           <a href="{{ route('peraturan.index') }}"> <span class="dc-tag">&#128209; Surat Edaran</span></a>
            @forelse($peraturan->take(10) as $item)
            <span class="dc-tag dc-tag-hidden">{{ Str::limit($item->judul_peraturan, 45) }}</span>
            @empty
@@ -2741,7 +2956,7 @@
            <span class="dc-tag dc-tag-hidden">{{ Str::limit($item->judul_peraturan, 45) }}</span>
            @endforeach
            <button class="dc-show-more" id="dcShowMore" aria-label="Tampilkan lebih banyak">
-             <i class="fas fa-plus" style="font-size:0.6rem;"></i>&nbsp;{{ $peraturan->count() }} dari database
+             <i class="fas fa-plus" style="font-size:0.6rem;"></i>&nbsp;{{ $peraturan->count() }}
            </button>
            @endif
          </div>
@@ -2753,11 +2968,15 @@
              if (!btn || !hidden.length) return;
              var open = false;
              btn.addEventListener('click', function() {
-               open = !open;
-               hidden.forEach(function(t) { t.classList.toggle('dc-expanded', open); });
-               btn.innerHTML = open
-                 ? '<i class="fas fa-minus" style="font-size:0.6rem;"></i>&nbsp;Lebih sedikit'
-                 : '<i class="fas fa-plus" style="font-size:0.6rem;"></i>&nbsp;Lihat lainnya';
+               requestAnimationFrame(function() {
+                 open = !open;
+                 hidden.forEach(function(t) {
+                   t.classList.toggle('dc-expanded', open);
+                 });
+                 btn.innerHTML = open ?
+                   '<i class="fas fa-minus" style="font-size:0.6rem;"></i>&nbsp;Lebih sedikit' :
+                   '<i class="fas fa-plus" style="font-size:0.6rem;"></i>&nbsp;Lihat lainnya';
+               });
              });
            })();
          </script>
@@ -3202,41 +3421,49 @@
      </div>
      <div class="row">
        @foreach($beritas as $item)
-       <div class="col-xl-4 col-lg-6 col-md-6">
-         <div class="news-card-items" style="height: 100%; display: flex; flex-direction: column;">
-           <div class="news-image" style="height: 250px; overflow: hidden;">
-             @if($item->gambar)
-               <img src="{{ asset('storage/' . $item->gambar) }}" alt="{{ $item->judul }}" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy" />
-             @else
-               <img src="{{ asset('buyer-file/assets/img/news/01.jpg') }}" alt="news-img" loading="lazy" />
-             @endif
-           </div>
-           <div class="news-content" style="flex: 1; display: flex; flex-direction: column;">
-             <div class="post-list">
-               <span>{{ $item->kategori }}</span>
-               <p>{{ strtoupper($item->published_at->translatedFormat('F d, Y')) }}</p>
+       <div class="col-lg-4 col-md-6">
+         <a href="{{ route('berita.show', $item->slug) }}" class="berita-card-link text-decoration-none" aria-label="Baca berita: {{ $item->judul }}">
+           <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden blog-card text-dark">
+             {{-- Thumbnail --}}
+             <div class="position-relative overflow-hidden" style="height: 250px;">
+               @if($item->gambar)
+               <img src="{{ asset('storage/' . $item->gambar) }}" class="w-100 h-100 object-fit-cover hover-scale transition-all" alt="{{ $item->judul }}">
+               @else
+               <div class="w-100 h-100 bg-secondary d-flex align-items-center justify-content-center text-white-50">
+                 <i class="fas fa-image fa-3x"></i>
+               </div>
+               @endif
              </div>
-             <h3 style="flex: 1;">
-               <a href="{{ route('berita.show', $item->slug) }}">{{ $item->judul }}</a>
-             </h3>
-             <div class="author-items" style="margin-top: auto;">
-               <div class="author-image">
-                 <div
-                   class="author-img bg-cover bg-danger text-white d-flex align-items-center justify-content-center fw-bold"
-                   style="width: 45px; height: 45px; border-radius: 50%;">
+
+             {{-- Card Body --}}
+             <div class="card-body p-4 d-flex flex-column">
+               <div class="d-flex align-items-center gap-3 mb-3">
+                 <span class="text-primary fw-bold text-uppercase" style="font-size: 0.8rem; letter-spacing: 0.5px;">{{ $item->kategori }}</span>
+                 <span class="text-muted" style="font-size: 0.8rem;">
+                   <i class="far fa-calendar-alt me-1"></i>
+                   {{ strtoupper($item->published_at->translatedFormat('F d, Y')) }}
+                 </span>
+               </div>
+
+               <h4 class="card-title fw-bold mb-3 hover-primary-heading">
+                 {{ $item->judul }}
+               </h4>
+
+               <p class="card-text text-muted mb-auto">
+                 {{ $item->excerpt ?: Str::limit(strip_tags($item->konten), 100) }}
+               </p>
+
+               <div class="mt-4 pt-3 border-top d-flex align-items-center">
+                 <div class="rounded-circle bg-danger text-white d-flex align-items-center justify-content-center fw-bold me-3 shadow-sm" style="width: 40px; height: 40px; font-size: 0.9rem;">
                    {{ substr(strtoupper($item->penulis), 0, 1) }}
                  </div>
-                 <div class="content">
-                   <h6>{{ $item->penulis }}</h6>
-                   <p>{{ $item->jabatan_penulis }}</p>
+                 <div>
+                   <h6 class="mb-0 fw-bold fs-6">{{ $item->penulis }} <span class="text-muted fw-normal">· {{ $item->jabatan_penulis }}</span></h6>
                  </div>
                </div>
-               <a href="{{ route('berita.show', $item->slug) }}" class="link-btn">
-                 <i class="fa-solid fa-arrow-right"></i>
-               </a>
              </div>
            </div>
-         </div>
+         </a>
        </div>
        @endforeach
      </div>

@@ -31,46 +31,48 @@
         <div class="row g-4">
             @forelse($beritas as $item)
             <div class="col-lg-4 col-md-6">
-                <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden blog-card">
-                    {{-- Thumbnail --}}
-                    <div class="position-relative overflow-hidden" style="height: 250px;">
-                        @if($item->gambar)
-                            <img src="{{ asset('storage/' . $item->gambar) }}" class="w-100 h-100 object-fit-cover hover-scale transition-all" alt="{{ $item->judul }}">
-                        @else
-                            <div class="w-100 h-100 bg-secondary d-flex align-items-center justify-content-center text-white-50">
-                                <i class="fas fa-image fa-3x"></i>
-                            </div>
-                        @endif
-                    </div>
-                    
-                    {{-- Card Body --}}
-                    <div class="card-body p-4 d-flex flex-column">
-                        <div class="d-flex align-items-center gap-3 mb-3">
-                            <span class="text-primary fw-bold text-uppercase" style="font-size: 0.8rem; letter-spacing: 0.5px;">{{ $item->kategori }}</span>
-                            <span class="text-muted" style="font-size: 0.8rem;">
-                                <i class="far fa-calendar-alt me-1"></i> 
-                                {{ strtoupper($item->published_at->translatedFormat('F d, Y')) }}
-                            </span>
+                <a href="{{ route('berita.show', $item->slug) }}" class="berita-card-link text-decoration-none" aria-label="Baca berita: {{ $item->judul }}">
+                    <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden blog-card text-dark">
+                        {{-- Thumbnail --}}
+                        <div class="position-relative overflow-hidden" style="height: 250px;">
+                            @if($item->gambar)
+                                <img src="{{ asset('storage/' . $item->gambar) }}" class="w-100 h-100 object-fit-cover hover-scale transition-all" alt="{{ $item->judul }}">
+                            @else
+                                <div class="w-100 h-100 bg-secondary d-flex align-items-center justify-content-center text-white-50">
+                                    <i class="fas fa-image fa-3x"></i>
+                                </div>
+                            @endif
                         </div>
                         
-                        <h4 class="card-title fw-bold mb-3">
-                            <a href="{{ route('berita.show', $item->slug) }}" class="text-dark text-decoration-none hover-primary">{{ $item->judul }}</a>
-                        </h4>
-                        
-                        <p class="card-text text-muted mb-auto">
-                            {{ $item->excerpt ?: Str::limit(strip_tags($item->konten), 100) }}
-                        </p>
-                        
-                        <div class="mt-4 pt-3 border-top d-flex align-items-center">
-                            <div class="rounded-circle bg-danger text-white d-flex align-items-center justify-content-center fw-bold me-3 shadow-sm" style="width: 40px; height: 40px; font-size: 0.9rem;">
-                                {{ substr(strtoupper($item->penulis), 0, 1) }}
+                        {{-- Card Body --}}
+                        <div class="card-body p-4 d-flex flex-column">
+                            <div class="d-flex align-items-center gap-3 mb-3">
+                                <span class="text-primary fw-bold text-uppercase" style="font-size: 0.8rem; letter-spacing: 0.5px;">{{ $item->kategori }}</span>
+                                <span class="text-muted" style="font-size: 0.8rem;">
+                                    <i class="far fa-calendar-alt me-1"></i> 
+                                    {{ strtoupper($item->published_at->translatedFormat('F d, Y')) }}
+                                </span>
                             </div>
-                            <div>
-                                <h6 class="mb-0 fw-bold fs-6">{{ $item->penulis }} <span class="text-muted fw-normal">· {{ $item->jabatan_penulis }}</span></h6>
+                            
+                            <h4 class="card-title fw-bold mb-3 hover-primary-heading">
+                                {{ $item->judul }}
+                            </h4>
+                            
+                            <p class="card-text text-muted mb-auto">
+                                {{ $item->excerpt ?: Str::limit(strip_tags($item->konten), 100) }}
+                            </p>
+                            
+                            <div class="mt-4 pt-3 border-top d-flex align-items-center">
+                                <div class="rounded-circle bg-danger text-white d-flex align-items-center justify-content-center fw-bold me-3 shadow-sm" style="width: 40px; height: 40px; font-size: 0.9rem;">
+                                    {{ substr(strtoupper($item->penulis), 0, 1) }}
+                                </div>
+                                <div>
+                                    <h6 class="mb-0 fw-bold fs-6">{{ $item->penulis }} <span class="text-muted fw-normal">· {{ $item->jabatan_penulis }}</span></h6>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
             @empty
             <div class="col-12 py-5 text-center">
@@ -88,21 +90,39 @@
 </section>
 
 <style>
-    .blog-card {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    .berita-card-link {
+        display: block;
+        height: 100%;
+        color: inherit;
+        transition: transform 0.3s ease;
     }
-    .blog-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
+    .blog-card {
+        transition: box-shadow 0.3s ease;
     }
     .hover-scale {
         transition: transform 0.4s ease;
     }
-    .blog-card:hover .hover-scale {
-        transform: scale(1.05);
+    
+    @media (hover: hover) {
+        .berita-card-link:hover {
+            transform: translateY(-5px);
+        }
+        .berita-card-link:hover .blog-card {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+        }
+        .berita-card-link:hover .hover-scale {
+            transform: scale(1.05);
+        }
+        .berita-card-link:hover .hover-primary-heading {
+            color: #dc3545 !important;
+            transition: color 0.2s ease;
+        }
     }
-    .hover-primary:hover {
-        color: #dc3545 !important;
+    
+    @media (hover: none) {
+        .berita-card-link:active {
+            transform: scale(0.98);
+        }
     }
 </style>
 @endsection
