@@ -585,6 +585,137 @@
    }
  </style>
 
+ <style>
+   /* ===== QUICK ACCESS ICONS ===== */
+   .hero-quick-access {
+     position: relative;
+     margin-top: -40px;
+     margin-bottom: 40px;
+     z-index: 20;
+   }
+
+   .quick-access-wrapper {
+     display: flex;
+     justify-content: space-around;
+     align-items: flex-start;
+     gap: 15px;
+     background: #ffffff;
+     padding: 25px 20px;
+     border-radius: 20px;
+     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+     border: 1px solid #f0e4e8;
+   }
+
+   .quick-access-item {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     text-decoration: none;
+     gap: 12px;
+     flex: 1;
+     max-width: 120px;
+     transition: all 0.3s ease;
+   }
+
+   .quick-access-icon {
+     width: 75px;
+     height: 75px;
+     background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
+     color: #4a0000;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     border-radius: 50%;
+     font-size: 28px;
+     transition: all 0.3s ease;
+     border: 2px solid transparent;
+   }
+
+   .quick-access-item:hover .quick-access-icon {
+     background: #4a0000;
+     color: #ffffff;
+     transform: translateY(-5px);
+     box-shadow: 0 10px 25px rgba(74, 0, 0, 0.25);
+     border-color: #D4AF37;
+   }
+
+   .quick-access-label {
+     font-size: 0.85rem;
+     font-weight: 600;
+     color: #1e1b2b;
+     text-align: center;
+     line-height: 1.3;
+     transition: color 0.3s ease;
+   }
+
+   .quick-access-item:hover .quick-access-label {
+     color: #4a0000;
+   }
+
+   /* Responsive */
+   @media (max-width: 992px) {
+     .quick-access-wrapper {
+       flex-wrap: wrap;
+       padding: 20px 15px;
+       gap: 10px;
+     }
+
+     .quick-access-item {
+       max-width: 100px;
+     }
+
+     .quick-access-icon {
+       width: 65px;
+       height: 65px;
+       font-size: 24px;
+     }
+
+     .quick-access-label {
+       font-size: 0.75rem;
+     }
+   }
+
+   @media (max-width: 768px) {
+     .hero-quick-access {
+       margin-top: -30px;
+       margin-bottom: 30px;
+     }
+
+     .quick-access-wrapper {
+       padding: 20px 12px;
+     }
+
+     .quick-access-item {
+       max-width: 85px;
+     }
+
+     .quick-access-icon {
+       width: 55px;
+       height: 55px;
+       font-size: 20px;
+     }
+
+     .quick-access-label {
+       font-size: 0.7rem;
+     }
+   }
+
+   @media (max-width: 576px) {
+     .quick-access-wrapper {
+       justify-content: center;
+     }
+
+     .quick-access-item {
+       min-width: 70px;
+     }
+
+     .quick-access-icon {
+       width: 50px;
+       height: 50px;
+       font-size: 18px;
+     }
+   }
+ </style>
  <script>
    /* ---- Dynamic header offset ---- */
    (function() {
@@ -708,18 +839,39 @@
      </div><!-- /hero-slides-wrapper -->
    </div><!-- /hero-card -->
 
-   <!-- Floating search bar -->
-   <div class="hero-search-bar">
-     <div class="container" style="max-width:1200px;">
-       <div class="hero-search-card">
-         <span class="hero-search-label">Cari Layanan</span>
-         <div class="hero-search-divider"></div>
-         <div class="hero-search-input-wrap">
-           <i class="fas fa-search"></i>
-           <input type="text" placeholder="Ketik layanan yang Anda butuhkan...">
-         </div>
-         <a href="#layanan-kami-section" class="hero-search-btn">
-           <i class="fas fa-search"></i> Telusuri
+   {{-- Quick Access Icons - Pengganti Search Bar --}}
+   <div class="hero-quick-access">
+     <div class="container" style="max-width: 1200px;">
+       <div class="quick-access-wrapper">
+         <a href="/jasa-pembukuan-perpajakan" class="quick-access-item">
+           <div class="quick-access-icon">
+             <i class="fas fa-calculator"></i>
+           </div>
+           <span class="quick-access-label">Pembukuan & Perpajakan</span>
+         </a>
+         <a href="/pendirian-pt" class="quick-access-item">
+           <div class="quick-access-icon">
+             <i class="fas fa-building"></i>
+           </div>
+           <span class="quick-access-label">Pendirian Perusahaan</span>
+         </a>
+         <a href="/virtual-office" class="quick-access-item">
+           <div class="quick-access-icon">
+             <i class="fas fa-door-open"></i>
+           </div>
+           <span class="quick-access-label">Sewa Meeting Room</span>
+         </a>
+         <a href="/promo" class="quick-access-item">
+           <div class="quick-access-icon">
+             <i class="fas fa-tags"></i>
+           </div>
+           <span class="quick-access-label">Promo Spesial</span>
+         </a>
+         <a href="/event" class="quick-access-item">
+           <div class="quick-access-icon">
+             <i class="fas fa-calendar-alt"></i>
+           </div>
+           <span class="quick-access-label">Event Upcoming</span>
          </a>
        </div>
      </div>
@@ -2567,57 +2719,57 @@
      color: white;
    }
 
-    .modal-event-badge.selesai {
-      background: #6c757d;
-      color: white;
-    }
+   .modal-event-badge.selesai {
+     background: #6c757d;
+     color: white;
+   }
 
-    .modal-event-badge.berbayar {
-      background: #fd7e14;
-      color: white;
-    }
+   .modal-event-badge.berbayar {
+     background: #fd7e14;
+     color: white;
+   }
 
-    .modal-event-badge.gratis {
-      background: #28a745;
-      color: white;
-    }
+   .modal-event-badge.gratis {
+     background: #28a745;
+     color: white;
+   }
 
-    .ue-card-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
+   .ue-card-meta {
+     display: flex;
+     flex-wrap: wrap;
+     gap: 8px;
+     margin-bottom: 12px;
+   }
 
-    .ue-price,
-    .ue-price-free,
-    .ue-capacity {
-      font-size: 0.73rem;
-      padding: 3px 10px;
-      border-radius: 20px;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-    }
+   .ue-price,
+   .ue-price-free,
+   .ue-capacity {
+     font-size: 0.73rem;
+     padding: 3px 10px;
+     border-radius: 20px;
+     font-weight: 600;
+     display: inline-flex;
+     align-items: center;
+     gap: 5px;
+   }
 
-    .ue-price {
-      background: #fff5f5;
-      color: #dc3545;
-      border: 1px solid #feb2b2;
-    }
+   .ue-price {
+     background: #fff5f5;
+     color: #dc3545;
+     border: 1px solid #feb2b2;
+   }
 
-    .ue-price-free {
-      background: #f0fff4;
-      color: #28a745;
-      border: 1px solid #9ae6b4;
-    }
+   .ue-price-free {
+     background: #f0fff4;
+     color: #28a745;
+     border: 1px solid #9ae6b4;
+   }
 
-    .ue-capacity {
-      background: #f7fafc;
-      color: #4a5568;
-      border: 1px solid #e2e8f0;
-    }
+   .ue-capacity {
+     background: #f7fafc;
+     color: #4a5568;
+     border: 1px solid #e2e8f0;
+   }
 
    .modal-event-date {
      color: #6c757d;
@@ -2939,15 +3091,15 @@
          // STATUS CHECK — metode paling aman, cek semua kemungkinan tipe
          let isAktif = false;
          if (event.status_aktif === true ||
-             event.status_aktif === 1 ||
-             event.status_aktif === '1' ||
-             event.status_aktif === 'true' ||
-             Number(event.status_aktif) === 1) {
-             isAktif = true;
+           event.status_aktif === 1 ||
+           event.status_aktif === '1' ||
+           event.status_aktif === 'true' ||
+           Number(event.status_aktif) === 1) {
+           isAktif = true;
          }
          // Fallback: gunakan label_status dari backend jika ada
          if (event.label_status) {
-             isAktif = (event.label_status === 'Aktif');
+           isAktif = (event.label_status === 'Aktif');
          }
 
          console.log('[EventPopup] Final isAktif:', isAktif);
