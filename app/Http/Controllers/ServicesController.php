@@ -15,9 +15,14 @@ class ServicesController extends Controller
         return view('frontend.services.pendirian-badan-usaha.pendirian-pt-perorangan');
     }
 
-    public function pendirianPt()
+    public function pendirianPtdiatas1M()
     {
-        return view('frontend.services.pendirian-badan-usaha.pendirian-pt');
+        return view('frontend.services.pendirian-badan-usaha.pendirian-pt-<-1m');
+    }
+
+    public function pendirianPtdibawah1M()
+    {
+        return view('frontend.services.pendirian-badan-usaha.pendirian-pt->-1m');
     }
 
     public function pendirianPtPma()
@@ -58,7 +63,7 @@ class ServicesController extends Controller
 
     public function nibdanoss()
     {
-        return view('frontend.services.perizinan-dokumen-hukum.nib&oss');
+        return view('frontend.services.perizinan-dokumen-hukum.nib-oss');
     }
 
     public function pendaftaranTdp()

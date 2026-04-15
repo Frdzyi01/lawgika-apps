@@ -20,6 +20,11 @@ class UpdateEventUpComingRequest extends FormRequest
             'lokasi'          => 'required|string|max:255',
             'tanggal_mulai'   => 'required|date',
             'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
+            'waktu_event'     => 'nullable|string|max:255',
+            'kapasitas'       => 'nullable|integer|min:0',
+            'narasumber'      => 'nullable|string|max:500',
+            'harga'           => 'nullable|integer|min:0',
+            'tipe_event'      => 'nullable|in:gratis,berbayar',
             'status'          => 'required|boolean',
         ];
     }

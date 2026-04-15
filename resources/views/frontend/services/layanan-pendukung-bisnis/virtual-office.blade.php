@@ -2,116 +2,1479 @@
 
 @section('content')
 
-<!--<< Breadcrumb Section Start >>-->
-<div
-    class="breadcrumb-wrapper bg-cover"
-    style="background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80');">
+<style>
+    /* ===== MINIMAL CSS ===== */
+    :root {
+        --primary: #4e0516;
+        --primary-light: #7a0a23;
+        --accent: #c9a03d;
+        --dark: #1e1b2b;
+        --gray: #64748b;
+        --bg-light: #fdf8f5;
+    }
+
+    body {
+        font-family: 'Inter', -apple-system, sans-serif;
+        color: var(--dark);
+    }
+
+    /* Solusi Section */
+    .pt-solution {
+        padding: 80px 0;
+        background: #fff;
+        contain: content;
+        content-visibility: auto;
+        contain-intrinsic-size: auto 500px;
+    }
+
+    .pt-solution h2 {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: var(--dark);
+        margin-bottom: 15px;
+    }
+
+    .pt-solution p {
+        color: var(--gray);
+        font-size: 1.05rem;
+        line-height: 1.6;
+        margin-bottom: 25px;
+    }
+
+    .solution-list {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 30px;
+    }
+
+    .solution-list li {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 15px;
+        color: #334155;
+        font-weight: 500;
+    }
+
+    .solution-list li i {
+        color: #10b981;
+        font-size: 1.2rem;
+    }
+
+    .btn-outline-brand {
+        display: inline-block;
+        padding: 12px 30px;
+        border: 2px solid var(--primary);
+        color: var(--primary);
+        border-radius: 50px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background 0.15s ease;
+    }
+
+    .btn-outline-brand:hover {
+        background: var(--primary);
+        color: #fff;
+    }
+
+    /* Benefits / Why Us */
+    .why-us-section {
+        padding: 80px 0;
+        background: linear-gradient(135deg, #fdf8f5 0%, #fff8f3 100%);
+        position: relative;
+    }
+
+    .why-us-section .section-header {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+    .why-us-section .section-header h2 {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: #1e1b2b;
+        margin-bottom: 10px;
+    }
+
+    .why-us-section .section-header p {
+        color: #64748b;
+        font-size: 1.1rem;
+    }
+
+    .why-us-card {
+        background: #fff;
+        padding: 35px 25px;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
+        border: 1px solid #f5e6e8;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        height: 100%;
+    }
+
+    .why-us-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(78, 5, 22, 0.08);
+        border-color: #c9a03d;
+    }
+
+    .why-us-icon {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 25px;
+        background: linear-gradient(135deg, #4e0516 0%, #7a0a23 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .why-us-icon i {
+        font-size: 2.2rem;
+        color: #fff;
+    }
+
+    .why-us-card h4 {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #1e1b2b;
+        margin-bottom: 12px;
+    }
+
+    .why-us-card p {
+        color: #64748b;
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    /* Process Steps */
+    .process-section {
+        padding: 80px 0;
+        background: #fff;
+    }
+
+    .process-section .section-header {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+    .process-section .section-header .badge {
+        background: #f5e6c8;
+        color: #c9a03d;
+        padding: 6px 20px;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        display: inline-block;
+        margin-bottom: 15px;
+    }
+
+    .process-section .section-header h2 {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: #1e1b2b;
+        margin-bottom: 10px;
+    }
+
+    .process-section .section-header p {
+        color: #64748b;
+        font-size: 1.1rem;
+    }
+
+    .process-timeline {
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .process-timeline::before {
+        content: '';
+        position: absolute;
+        top: 45px;
+        left: 15%;
+        right: 15%;
+        height: 2px;
+        background: linear-gradient(90deg, #4e0516 0%, #c9a03d 50%, #4e0516 100%);
+        z-index: 1;
+    }
+
+    .process-step {
+        text-align: center;
+        position: relative;
+        z-index: 2;
+        flex: 1;
+        padding: 0 15px;
+    }
+
+    .process-step-number {
+        width: 60px;
+        height: 60px;
+        background: #fff;
+        border: 3px solid #4e0516;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: #4e0516;
+        position: relative;
+        z-index: 3;
+    }
+
+    .process-step.completed .process-step-number {
+        background: #4e0516;
+        color: #fff;
+        border-color: #4e0516;
+    }
+
+    .process-step h5 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #1e1b2b;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .process-step p {
+        color: #64748b;
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+        .process-timeline {
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .process-timeline::before {
+            display: none;
+        }
+
+        .process-step {
+            display: flex;
+            text-align: left;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .process-step-number {
+            margin: 0;
+            flex-shrink: 0;
+        }
+    }
+
+    /* Requirements */
+    .requirements-section {
+        padding: 80px 0;
+        background: linear-gradient(135deg, #faf5f2 0%, #fdf8f5 100%);
+        position: relative;
+    }
+
+    .requirements-section .section-header {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+    .requirements-section .section-header .badge {
+        background: #4e0516;
+        color: #fff;
+        padding: 5px 18px;
+        border-radius: 50px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        display: inline-block;
+        margin-bottom: 15px;
+    }
+
+    .requirements-section .section-header h2 {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: #1e1b2b;
+        margin-bottom: 10px;
+    }
+
+    .requirements-section .section-header p {
+        color: #64748b;
+        font-size: 1.1rem;
+    }
+
+    .requirement-card {
+        background: #fff;
+        border-radius: 24px;
+        padding: 35px 30px;
+        height: 100%;
+        box-shadow: 0 10px 30px rgba(78, 5, 22, 0.05);
+        border: 1px solid #f0e4e8;
+        transition: transform 0.2s ease;
+    }
+
+    .requirement-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(78, 5, 22, 0.08);
+    }
+
+    .requirement-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #f5e6e8;
+    }
+
+    .requirement-icon {
+        width: 55px;
+        height: 55px;
+        background: linear-gradient(135deg, #4e0516 0%, #7a0a23 100%);
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .requirement-icon i {
+        font-size: 1.8rem;
+        color: #fff;
+    }
+
+    .requirement-header h3 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #1e1b2b;
+        margin: 0;
+    }
+
+    .requirement-list {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 30px;
+    }
+
+    .requirement-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 10px 0;
+        border-bottom: 1px dashed #f0e4e8;
+        color: #1e1b2b;
+        font-size: 0.95rem;
+    }
+
+    .requirement-list li:last-child {
+        border-bottom: none;
+    }
+
+    .requirement-list li i {
+        color: #4e0516;
+        font-size: 1.1rem;
+        margin-top: 2px;
+        flex-shrink: 0;
+    }
+
+    .requirement-list li i.fa-circle-check {
+        color: #10b981;
+    }
+
+    .requirement-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: #4e0516;
+        font-weight: 600;
+        text-decoration: none;
+        padding: 10px 0;
+        border-bottom: 2px solid transparent;
+        transition: border-color 0.2s ease;
+    }
+
+    .requirement-cta:hover {
+        border-bottom-color: #c9a03d;
+        color: #7a0a23;
+    }
+
+    .requirement-cta i {
+        transition: transform 0.2s ease;
+    }
+
+    .requirement-cta:hover i {
+        transform: translateX(5px);
+    }
+
+    /* Pricing Cards */
+    .pt-pricing {
+        padding: 80px 0;
+        background: #fff;
+        content-visibility: auto;
+        contain-intrinsic-size: auto 700px;
+    }
+
+    .pricing-card {
+        background: #fff;
+        border-radius: 20px;
+        padding: 40px 30px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.04);
+        border: 1px solid #f0e4e8;
+        position: relative;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        transform: translateZ(0);
+        transition: transform 0.15s ease;
+    }
+
+    .pricing-card:hover {
+        transform: translateY(-3px);
+    }
+
+    .pricing-card.featured {
+        border: 2px solid var(--accent);
+    }
+
+    .pricing-card .badge {
+        position: absolute;
+        top: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--accent);
+        color: #1e1b2b;
+        padding: 6px 20px;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        font-weight: 700;
+    }
+
+    .pricing-card h4 {
+        font-weight: 700;
+        margin-bottom: 10px;
+        text-align: center;
+        color: var(--dark);
+        font-size: 1.3rem;
+    }
+
+    .pricing-card .price {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--primary);
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .feature-list {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 30px;
+        flex-grow: 1;
+    }
+
+    .feature-list li {
+        padding: 10px 0;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        border-bottom: 1px solid #f5f5f5;
+        font-size: 0.9rem;
+        color: #334155;
+    }
+
+    .feature-list li i.fa-check {
+        color: var(--primary);
+        width: 18px;
+    }
+
+    .feature-list li i.fa-minus {
+        color: #d4d4d8;
+        width: 18px;
+    }
+
+    .feature-list li.disabled {
+        color: #a1a1aa;
+    }
+
+    .btn-pricing {
+        display: block;
+        text-align: center;
+        padding: 14px;
+        border: 2px solid var(--primary);
+        border-radius: 50px;
+        color: var(--primary);
+        font-weight: 600;
+        text-decoration: none;
+        transition: background 0.15s ease;
+    }
+
+    .btn-pricing:hover {
+        background: var(--primary);
+        color: #fff;
+    }
+
+    .btn-pricing-primary {
+        display: block;
+        text-align: center;
+        padding: 14px;
+        background: var(--primary);
+        border-radius: 50px;
+        color: #fff;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background 0.15s ease;
+        border: none;
+    }
+
+    .btn-pricing-primary:hover {
+        background: var(--primary-light);
+        color: #fff;
+    }
+
+    /* FAQ */
+    .pt-faq {
+        padding: 80px 0;
+        background: var(--bg-light);
+        content-visibility: auto;
+        contain-intrinsic-size: auto 500px;
+    }
+
+    .faq-item {
+        background: #fff;
+        border-radius: 12px;
+        margin-bottom: 12px;
+        border: 1px solid #f0e4e8;
+        overflow: hidden;
+    }
+
+    .faq-question {
+        padding: 20px 25px;
+        font-weight: 700;
+        color: var(--dark);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .faq-question i {
+        transition: transform 0.2s ease;
+        color: var(--accent);
+    }
+
+    .faq-answer {
+        padding: 0 25px 20px;
+        color: var(--gray);
+        display: none;
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    .faq-item.active .faq-answer {
+        display: block;
+    }
+
+    .faq-item.active .faq-question i {
+        transform: rotate(180deg);
+    }
+
+    /* Section Title Umum */
+    .section-title {
+        margin-bottom: 40px;
+    }
+
+    .section-title .subtitle {
+        color: var(--accent);
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    .section-title h2 {
+        color: var(--dark);
+        font-size: 2.2rem;
+        font-weight: 800;
+        margin: 0 0 15px;
+    }
+
+    .section-title p {
+        color: var(--gray);
+        font-size: 1.1rem;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .pt-hero h1 {
+            font-size: 2.2rem;
+        }
+
+        .pt-hero {
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .pt-hero .hero-badge {
+            margin: 0 auto 20px;
+        }
+
+        .section-title h2 {
+            font-size: 1.8rem;
+        }
+
+        .pt-solution {
+            text-align: center;
+        }
+
+        .solution-list li {
+            justify-content: center;
+        }
+
+        .page-title-area {
+            padding-top: 100px !important;
+            padding-bottom: 65px !important;
+        }
+    }
+
+    /* Utilities */
+    .img-fluid-rounded {
+        border-radius: 20px;
+        max-width: 100%;
+        height: auto;
+        display: block;
+        box-shadow: 0 10px 30px rgba(78, 5, 22, 0.08);
+    }
+</style>
+
+{{-- Breadcrumb / Header Area --}}
+<section class="page-title-area position-relative"
+    style="
+    background-image: linear-gradient(135deg, rgba(26, 2, 8, 0.7) 0%, rgba(45, 6, 16, 0.7) 50%, rgba(26, 2, 8, 0.7) 100%), 
+                      url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding-top: 200px;
+    padding-bottom: 100px;
+  ">
+    <div class="container position-relative z-1">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="page-title-content">
+                    <span class="text-white bg-danger rounded-pill px-3 py-1 fw-medium mb-3 d-inline-block shadow-sm" style="font-size: 0.85rem">Lawgika | Virtual Office</span>
+                    <h1 class="text-white fw-bold mb-3 display-4">Layanan Virtual Office Premium</h1>
+                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem">Miliki alamat bisnis prestisius tanpa perlu menyewa kantor fisik. Hemat biaya operasional hingga 90% dengan layanan Virtual Office dari Lawgika.</p>
+                </div>
+            </div>
+            <div class="col-lg-6 text-lg-end mt-4 mt-lg-0">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-lg-end justify-content-start mb-0">
+                        <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none">Beranda</a></li>
+                        <li class="breadcrumb-item active text-white-50" aria-current="page">Virtual Office</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{-- ===== SOLUSI VIRTUAL OFFICE ===== --}}
+<section class="pt-solution">
     <div class="container">
-        <div class="page-heading">
-            <div class="page-header-left">
-                <h1 class="wow fadeInUp" data-wow-delay=".3s">
-                    Layanan Virtual Office
-                </h1>
-                <ul
-                    class="breadcrumb-items wow fadeInUp"
-                    data-wow-delay=".5s">
-                    <li>
-                        <a href="{{('/')}}"> Beranda </a>
-                    </li>
-                    <li>
-                        <i class="fa-regular fa-chevrons-right"></i>
-                    </li>
-                    <li>Virtual Office</li>
+        <div class="row align-items-center g-5 flex-row-reverse">
+            <div class="col-lg-6">
+                <h2>Solusi Kantor Tanpa Sewa Fisik</h2>
+                <p>Virtual Office adalah solusi tepat bagi Anda yang ingin memiliki alamat bisnis di kawasan prestisius tanpa harus mengeluarkan biaya sewa kantor yang mahal. Hemat biaya operasional hingga 90%!</p>
+                <ul class="solution-list">
+                    <li><i class="fa-regular fa-circle-check"></i> Alamat bisnis di kawasan strategis</li>
+                    <li><i class="fa-regular fa-circle-check"></i> Pengelolaan surat & paket profesional</li>
+                    <li><i class="fa-regular fa-circle-check"></i> Fasilitas meeting room & coworking space</li>
                 </ul>
+                <a href="#pricing" class="btn-outline-brand">Lihat Pilihan Paket →</a>
             </div>
-            <div
-                class="breadcrumb-image"
-                style="min-height: 352px;">
+            <div class="col-lg-6">
+                <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&auto=format" alt="Virtual Office Workspace" class="img-fluid-rounded">
             </div>
         </div>
     </div>
-</div>
+</section>
 
-<!-- About Section Start -->
-<section class="about-section section-padding fix">
+{{-- ===== MANFAAT & FASILITAS ===== --}}
+<section class="why-us-section">
     <div class="container">
-        <div class="about-wrapper">
-            <div class="row g-4 align-items-center">
-                <div class="col-lg-6">
-                    <div class="about-image-items">
-                        <div class="about-sub">
-                            Virtual Office
+        <div class="section-header">
+            <h2>MENGAPA MEMILIH VIRTUAL OFFICE KAMI?</h2>
+            <p>Dapatkan berbagai keuntungan memiliki Virtual Office bersama Lawgika</p>
+        </div>
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-4">
+                <div class="why-us-card">
+                    <div class="why-us-icon">
+                        <i class="fa-solid fa-building"></i>
+                    </div>
+                    <h4>Alamat Prestisius</h4>
+                    <p>Alamat di kawasan bisnis strategis yang meningkatkan kredibilitas perusahaan Anda.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="why-us-card">
+                    <div class="why-us-icon">
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+                    <h4>Pengelolaan Surat & Paket</h4>
+                    <p>Surat dan paket bisnis Anda dikelola secara profesional dan notifikasi real-time.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="why-us-card">
+                    <div class="why-us-icon">
+                        <i class="fa-solid fa-phone"></i>
+                    </div>
+                    <h4>Layanan Call Handling</h4>
+                    <p>Layanan penerimaan telepon dan forwarding dengan nama perusahaan Anda.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{-- ===== PROSES LAYANAN ===== --}}
+<section class="process-section">
+    <div class="container">
+        <div class="section-header">
+            <span class="badge">Mudah & Cepat</span>
+            <h2>PROSES AKTIVASI VIRTUAL OFFICE</h2>
+            <p>Mulai gunakan Virtual Office dalam hitungan jam</p>
+        </div>
+        <div class="process-timeline">
+            <div class="process-step">
+                <div class="process-step-number">1</div>
+                <h5>Pilih Paket</h5>
+                <p>Pilih paket Virtual Office yang sesuai dengan kebutuhan bisnis Anda.</p>
+            </div>
+            <div class="process-step">
+                <div class="process-step-number">2</div>
+                <h5>Isi Data Perusahaan</h5>
+                <p>Lengkapi data perusahaan dan dokumen yang diperlukan.</p>
+            </div>
+            <div class="process-step">
+                <div class="process-step-number">3</div>
+                <h5>Aktif & Gunakan</h5>
+                <p>Virtual Office aktif dan siap digunakan untuk bisnis Anda.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{-- ===== PERSYARATAN DOKUMEN ===== --}}
+<section class="requirements-section">
+    <div class="container">
+        <div class="section-header">
+            <span class="badge">Persiapan Mudah</span>
+            <h2>PERSYARATAN VIRTUAL OFFICE</h2>
+            <p>Siapkan dokumen berikut untuk aktivasi</p>
+        </div>
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-6">
+                <div class="requirement-card">
+                    <div class="requirement-header">
+                        <div class="requirement-icon">
+                            <i class="fa-solid fa-building"></i>
                         </div>
-                        <div class="shape-image">
-                            <img
-                                src="{{ asset('buyer-file/assets/img/about/shape.png') }}"
-                                alt="img" />
+                        <h3>UNTUK PERUSAHAAN</h3>
+                    </div>
+                    <ul class="requirement-list">
+                        <li><i class="fa-solid fa-circle-check"></i> Akta Pendirian Perusahaan</li>
+                        <li><i class="fa-solid fa-circle-check"></i> NPWP Perusahaan</li>
+                        <li><i class="fa-solid fa-circle-check"></i> SK Kemenkumham (jika ada)</li>
+                        <li><i class="fa-solid fa-circle-check"></i> NIB (jika ada)</li>
+                    </ul>
+                    <a href="#" class="requirement-cta">
+                        Konsultasi Persyaratan <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="requirement-card">
+                    <div class="requirement-header">
+                        <div class="requirement-icon">
+                            <i class="fa-solid fa-user"></i>
                         </div>
-                        <div
-                            class="about-image-1 wow fadeInLeft"
-                            data-wow-delay=".3s">
-                            <img
-                                src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=80"
-                                alt="img" />
-                            <div
-                                class="about-image-2 wow fadeInUp"
-                                data-wow-delay=".5s">
-                                <img
-                                    src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=80"
-                                    alt="img" />
+                        <h3>UNTUK PERORANGAN</h3>
+                    </div>
+                    <ul class="requirement-list">
+                        <li><i class="fa-solid fa-circle-check"></i> KTP Pemilik</li>
+                        <li><i class="fa-solid fa-circle-check"></i> NPWP Pribadi</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Pas Foto</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Nama Usaha / Brand</li>
+                    </ul>
+                    <a href="#" class="requirement-cta">
+                        Upload Dokumen <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{-- ===== PRICING TABLE VIRTUAL OFFICE ===== --}}
+<section class="pt-pricing" id="pricing">
+    <div class="container">
+        <div class="section-title text-center mb-5">
+            <span class="subtitle">Pilihan Paket Virtual Office</span>
+            <h2>Paket Virtual Office</h2>
+            <p>Pilih paket yang sesuai dengan kebutuhan bisnis Anda</p>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+            {{-- PREMIUM --}}
+            <div class="col-lg-4 col-md-6">
+                <div class="pricing-card">
+                    <h4>PREMIUM</h4>
+                    <div class="price">Rp 2.580.000</div>
+                    <ul class="feature-list">
+                        <li><i class="fa-solid fa-check"></i> Alamat Bisnis Eksklusif</li>
+                        <li><i class="fa-solid fa-check"></i> Pengelolaan surat/paket masuk</li>
+                        <li><i class="fa-solid fa-check"></i> Notifikasi Surat/Paket Masuk</li>
+                        <li><i class="fa-solid fa-check"></i> Surat Keterangan Domisili</li>
+                        <li><i class="fa-solid fa-check"></i> Gratis akses komunitas bisnis</li>
+                        <li><i class="fa-solid fa-check"></i> Layanan Resepsionis</li>
+                        <li><i class="fa-solid fa-check"></i> Dashboard Login Klien</li>
+                        <li><i class="fa-solid fa-check"></i> Storage cloud dokumen</li>
+                        <li class="disabled"><i class="fa-solid fa-minus"></i> Fasilitas Ruang Meeting atau podcast</li>
+                        <li class="disabled"><i class="fa-solid fa-minus"></i> Akses Wifi</li>
+                        <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Print, Scan dan Fotocopy</li>
+                        <li class="disabled"><i class="fa-solid fa-minus"></i> Signage Display</li>
+                        <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Call Handling</li>
+                        <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Call Forwarding</li>
+                    </ul>
+                    <a href="https://wa.me/628123456789?text=Halo%20saya%20tertarik%20Paket%20PREMIUM%20Virtual%20Office" class="btn-pricing">Pilih Paket Premium</a>
+                </div>
+            </div>
+
+            {{-- EKSKLUSIF (Recommended) --}}
+            <div class="col-lg-4 col-md-6">
+                <div class="pricing-card featured">
+                    <span class="badge">REKOMENDASI</span>
+                    <h4>EKSKLUSIF</h4>
+                    <div class="price">Rp 5.000.000</div>
+                    <ul class="feature-list">
+                        <li><i class="fa-solid fa-check"></i> Alamat Bisnis Eksklusif</li>
+                        <li><i class="fa-solid fa-check"></i> Pengelolaan surat/paket masuk</li>
+                        <li><i class="fa-solid fa-check"></i> Notifikasi Surat/Paket Masuk</li>
+                        <li><i class="fa-solid fa-check"></i> Surat Keterangan Domisili</li>
+                        <li><i class="fa-solid fa-check"></i> Gratis akses komunitas bisnis</li>
+                        <li><i class="fa-solid fa-check"></i> Layanan Resepsionis</li>
+                        <li><i class="fa-solid fa-check"></i> Dashboard Login Klien</li>
+                        <li><i class="fa-solid fa-check"></i> Storage cloud dokumen</li>
+                        <li><i class="fa-solid fa-check"></i> Fasilitas Ruang Meeting atau podcast 60 jam / tahun</li>
+                        <li><i class="fa-solid fa-check"></i> Akses Wifi</li>
+                        <li><i class="fa-solid fa-check"></i> Layanan Print, Scan dan Fotocopy</li>
+                        <li><i class="fa-solid fa-check"></i> Signage Display</li>
+                         <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Call Handling</li>
+                         <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Call Forwarding</li>
+                    </ul>
+                    <a href="https://wa.me/628123456789?text=Halo%20saya%20tertarik%20Paket%20EKSKLUSIF%20Virtual%20Office" class="btn-pricing-primary">Pilih Paket Eksklusif</a>
+                </div>
+            </div>
+
+            {{-- ENTERPRISE --}}
+            <div class="col-lg-4 col-md-6">
+                <div class="pricing-card">
+                    <h4>ENTERPRISE</h4>
+                    <div class="price">Rp 6.250.000</div>
+                    <ul class="feature-list">
+                        <li><i class="fa-solid fa-check"></i> Alamat Bisnis Eksklusif</li>
+                        <li><i class="fa-solid fa-check"></i> Pengelolaan surat/paket masuk</li>
+                        <li><i class="fa-solid fa-check"></i> Notifikasi Surat/Paket Masuk</li>
+                        <li><i class="fa-solid fa-check"></i> Surat Keterangan Domisili</li>
+                        <li><i class="fa-solid fa-check"></i> Gratis akses komunitas bisnis</li>
+                        <li><i class="fa-solid fa-check"></i> Layanan Resepsionis</li>
+                        <li><i class="fa-solid fa-check"></i> Dashboard Login Klien</li>
+                        <li><i class="fa-solid fa-check"></i> Storage cloud dokumen</li>
+                        <li><i class="fa-solid fa-check"></i> Fasilitas Ruang Meeting atau podcast 60 jam / tahun</li>
+                        <li><i class="fa-solid fa-check"></i> Akses Wifi</li>
+                        <li><i class="fa-solid fa-check"></i> Layanan Print, Scan dan Fotocopy</li>
+                        <li><i class="fa-solid fa-check"></i> Signage Display</li>
+                        <li><i class="fa-solid fa-check"></i> Layanan Call Handling</li>
+                        <li><i class="fa-solid fa-check"></i> Layanan Call Forwarding</li>
+                    </ul>
+                    <a href="https://wa.me/628123456789?text=Halo%20saya%20tertarik%20Paket%20ENTERPRISE%20Virtual%20Office" class="btn-pricing">Pilih Paket Enterprise</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{-- ===== LAYANAN KAMI SECTION ===== --}}
+<style>
+    /* ==============================
+       LAYANAN KAMI – Custom Styles
+    ============================== */
+    #layanan-kami-section {
+        background-color: #fff;
+        padding: 72px 0 80px;
+    }
+
+    .layanan-section-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #111827;
+        letter-spacing: -0.3px;
+        margin-bottom: 0;
+    }
+
+    .layanan-nav {
+        border-bottom: 1.5px solid #e5e7eb;
+        gap: 0;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scrollbar-width: none;
+    }
+
+    .layanan-nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    .layanan-nav .nav-link {
+        color: #6b7280;
+        font-size: 0.95rem;
+        font-weight: 500;
+        padding: 10px 0;
+        margin-right: 36px;
+        border: none;
+        border-bottom: 2.5px solid transparent;
+        background: transparent;
+        border-radius: 0;
+        white-space: nowrap;
+        transition: color 0.2s, border-color 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .layanan-nav .nav-link:hover {
+        color: #dc3545;
+    }
+
+    .layanan-nav .nav-link.active {
+        color: #dc3545;
+        border-bottom-color: #dc3545;
+        background: transparent;
+        font-weight: 600;
+    }
+
+    .layanan-nav .nav-link .nav-arrow {
+        font-size: 0.8rem;
+        transition: transform 0.2s;
+    }
+
+    .layanan-nav .nav-link.active .nav-arrow {
+        transform: translateX(3px);
+    }
+
+    .layanan-banner {
+        background: linear-gradient(135deg, #f0f9ff 0%, #e8f5e9 100%);
+        border-radius: 16px;
+        padding: 36px 40px;
+        margin-bottom: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        min-height: 160px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .layanan-banner-text h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #111827;
+        line-height: 1.35;
+        margin-bottom: 10px;
+    }
+
+    .layanan-banner-text p {
+        font-size: 0.9rem;
+        color: #4b5563;
+        max-width: 480px;
+        line-height: 1.65;
+        margin-bottom: 0;
+    }
+
+    .layanan-banner-icon {
+        flex-shrink: 0;
+    }
+
+    .layanan-banner-icon svg {
+        width: 110px;
+        height: 110px;
+        opacity: 0.85;
+    }
+
+    .layanan-nav-arrows {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .layanan-arrow-btn {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        border: 1.5px solid #d1d5db;
+        background: #fff;
+        color: #111827;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: border-color 0.2s, background 0.2s, color 0.2s;
+    }
+
+    .layanan-arrow-btn:hover {
+        border-color: #dc3545;
+        background: #dc3545;
+        color: #fff;
+    }
+
+    .layanan-card {
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        border: none;
+        overflow: hidden;
+        transition: box-shadow 0.28s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .layanan-card:hover {
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .layanan-card-img-wrap {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .layanan-card-img-wrap img {
+        width: 100%;
+        height: 190px;
+        object-fit: cover;
+        display: block;
+    }
+
+    .layanan-card-badge {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: #dc3545;
+        color: #fff;
+        font-size: 0.7rem;
+        font-weight: 700;
+        padding: 3px 10px;
+        border-radius: 20px;
+        letter-spacing: 0.3px;
+        text-transform: uppercase;
+    }
+
+    .layanan-card-body {
+        padding: 20px 20px 24px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .layanan-card-title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: #111827;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .layanan-card-desc {
+        font-size: 0.875rem;
+        color: #6b7280;
+        line-height: 1.6;
+        flex: 1;
+        margin-bottom: 16px;
+    }
+
+    .layanan-card-price-label {
+        font-size: 0.72rem;
+        color: #9ca3af;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 2px;
+    }
+
+    .layanan-card-price {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #dc3545;
+        margin-bottom: 16px;
+    }
+
+    .layanan-card-btn {
+        background: #dc3545;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 0;
+        font-size: 0.875rem;
+        font-weight: 600;
+        width: 100%;
+        cursor: pointer;
+        transition: background 0.22s, transform 0.15s;
+        text-align: center;
+        display: block;
+        text-decoration: none;
+    }
+
+    .layanan-card-btn:hover {
+        background: #b91c1c;
+        color: #fff;
+        transform: translateY(-1px);
+    }
+
+    .layanan-tab-pane {
+        display: none;
+    }
+
+    .layanan-tab-pane.active-visible {
+        display: block;
+        animation: layananFadeIn 0.32s ease both;
+    }
+
+    @keyframes layananFadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    @media (max-width: 767.98px) {
+        #layanan-kami-section {
+            padding: 48px 0 56px;
+        }
+
+        .layanan-banner {
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 28px 24px;
+        }
+
+        .layanan-banner-icon svg {
+            width: 80px;
+            height: 80px;
+        }
+
+        .layanan-section-title {
+            font-size: 1.6rem;
+        }
+    }
+
+    @media (max-width: 575.98px) {
+        .layanan-nav .nav-link {
+            font-size: 0.85rem;
+            margin-right: 20px;
+        }
+    }
+</style>
+
+<section id="layanan-kami-section" aria-label="Layanan Kami">
+    <div class="container">
+        <h2 class="layanan-section-title mb-3">Layanan Kami</h2>
+
+        <ul class="nav layanan-nav mb-4" id="layananTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="tab-office" data-layanan-tab="office" type="button" role="tab" aria-controls="pane-office" aria-selected="true">
+                    Office &amp; Work Space <span class="nav-arrow">→</span>
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-business" data-layanan-tab="business" type="button" role="tab" aria-controls="pane-business" aria-selected="false">
+                    Business Services <span class="nav-arrow">→</span>
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-foreign" data-layanan-tab="foreign" type="button" role="tab" aria-controls="pane-foreign" aria-selected="false">
+                    Foreign Services <span class="nav-arrow">→</span>
+                </button>
+            </li>
+        </ul>
+
+        <div id="layananTabContent">
+            {{-- TAB 1 – Office & Work Space --}}
+            <div class="layanan-tab-pane active-visible" id="pane-office" role="tabpanel" aria-labelledby="tab-office">
+                <div class="layanan-banner">
+                    <div class="layanan-banner-text">
+                        <h2>Saatnya Membuat Bisnis Anda Lebih Besar</h2>
+                        <p>Akan sangat disayangkan jika bisnis Anda tidak memiliki kantor dan ruang kerja yang mampu membuat Anda menjalankan bisnis secara efektif.</p>
+                    </div>
+                    <div class="layanan-banner-icon d-none d-md-block">
+                        <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="10" y="50" width="100" height="60" rx="4" stroke="#2CB67D" stroke-width="3" fill="none" />
+                            <rect x="25" y="65" width="20" height="20" rx="2" stroke="#2CB67D" stroke-width="2.5" fill="none" />
+                            <rect x="75" y="65" width="20" height="20" rx="2" stroke="#2CB67D" stroke-width="2.5" fill="none" />
+                            <line x1="60" y1="50" x2="60" y2="110" stroke="#2CB67D" stroke-width="2" />
+                            <rect x="35" y="90" width="50" height="20" rx="2" stroke="#2CB67D" stroke-width="2.5" fill="none" />
+                            <line x1="10" y1="50" x2="60" y2="20" stroke="#2CB67D" stroke-width="2.5" />
+                            <line x1="110" y1="50" x2="60" y2="20" stroke="#2CB67D" stroke-width="2.5" />
+                            <circle cx="60" cy="18" r="4" fill="#2CB67D" />
+                            <path d="M78 32 Q85 25 92 32" stroke="#2CB67D" stroke-width="2" fill="none" />
+                            <line x1="85" y1="32" x2="85" y2="45" stroke="#2CB67D" stroke-width="2" />
+                            <path d="M78 45 Q85 48 92 45" stroke="#2CB67D" stroke-width="2" fill="none" />
+                            <line x1="80" y1="45" x2="78" y2="55" stroke="#2CB67D" stroke-width="2" />
+                            <line x1="90" y1="45" x2="92" y2="55" stroke="#2CB67D" stroke-width="2" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="layanan-nav-arrows">
+                    <button class="layanan-arrow-btn" title="Previous" aria-label="Previous">&#8592;</button>
+                    <button class="layanan-arrow-btn" title="Next" aria-label="Next">&#8594;</button>
+                </div>
+                <div class="row g-4">
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="layanan-card">
+                            <div class="layanan-card-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=500&q=80" alt="Virtual Office" loading="lazy">
+                                <span class="layanan-card-badge">Best Seller</span>
+                            </div>
+                            <div class="layanan-card-body">
+                                <div class="layanan-card-title">Virtual Office</div>
+                                <div class="layanan-card-desc">Hemat biaya operasional hingga 90% dengan alamat kantor prestisius tanpa sewa fisik.</div>
+                                <div class="layanan-card-price-label">Price Start From</div>
+                                <div class="layanan-card-price">Rp 299.000/Bulan*</div>
+                                <a href="#" class="layanan-card-btn">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="layanan-card">
+                            <div class="layanan-card-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=500&q=80" alt="Serviced Office" loading="lazy">
+                            </div>
+                            <div class="layanan-card-body">
+                                <div class="layanan-card-title">Serviced Office</div>
+                                <div class="layanan-card-desc">Ruang kantor siap pakai yang ideal untuk tim Anda, dilengkapi fasilitas lengkap.</div>
+                                <div class="layanan-card-price-label">Price Start From</div>
+                                <div class="layanan-card-price">Rp 4.500.000/Bulan*</div>
+                                <a href="#" class="layanan-card-btn">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="layanan-card">
+                            <div class="layanan-card-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1517502884422-41eaead166d4?w=500&q=80" alt="Meeting Room" loading="lazy">
+                            </div>
+                            <div class="layanan-card-body">
+                                <div class="layanan-card-title">Meeting Room</div>
+                                <div class="layanan-card-desc">Tempat yang cocok untuk melakukan pertemuan penting dengan klien atau mitra bisnis.</div>
+                                <div class="layanan-card-price-label">Price Start From</div>
+                                <div class="layanan-card-price">Rp 255.000/Jam*</div>
+                                <a href="#" class="layanan-card-btn">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="layanan-card">
+                            <div class="layanan-card-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1600508774634-4e11d34730e2?w=500&q=80" alt="Coworking Space" loading="lazy">
+                            </div>
+                            <div class="layanan-card-body">
+                                <div class="layanan-card-title">Coworking Space</div>
+                                <div class="layanan-card-desc">Ruang kerja bersama yang fleksibel dan produktif untuk freelancer maupun startup.</div>
+                                <div class="layanan-card-price-label">Price Start From</div>
+                                <div class="layanan-card-price">Rp 150.000/Hari*</div>
+                                <a href="#" class="layanan-card-btn">Details</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="about-content">
-                        <div class="section-title">
-                            <span class="wow fadeInUp">Jasa Virtual Office</span>
-                            <h2
-                                class="wow fadeInUp"
-                                data-wow-delay=".3s">
-                                Jasa Virtual Office Terpercaya.
-                            </h2>
+            </div>
+
+            {{-- TAB 2 – Business Services --}}
+            <div class="layanan-tab-pane" id="pane-business" role="tabpanel" aria-labelledby="tab-business">
+                <div class="layanan-banner" style="background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 100%);">
+                    <div class="layanan-banner-text">
+                        <h2>Wujudkan Bisnis Impian Anda Bersama Kami</h2>
+                        <p>Kami hadir untuk membantu Anda mengurus seluruh kebutuhan legalitas dan administrasi bisnis dengan cepat, tepat, dan terpercaya.</p>
+                    </div>
+                    <div class="layanan-banner-icon d-none d-md-block">
+                        <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="20" y="15" width="80" height="95" rx="6" stroke="#F59E0B" stroke-width="3" fill="none" />
+                            <line x1="35" y1="38" x2="85" y2="38" stroke="#F59E0B" stroke-width="2.5" />
+                            <line x1="35" y1="52" x2="85" y2="52" stroke="#F59E0B" stroke-width="2.5" />
+                            <line x1="35" y1="66" x2="70" y2="66" stroke="#F59E0B" stroke-width="2.5" />
+                            <line x1="35" y1="80" x2="65" y2="80" stroke="#F59E0B" stroke-width="2.5" />
+                            <circle cx="85" cy="88" r="18" fill="#fff7ed" stroke="#F59E0B" stroke-width="2.5" />
+                            <path d="M78 88 l4 5 l9-9" stroke="#F59E0B" stroke-width="3" stroke-linecap="round" fill="none" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="layanan-nav-arrows">
+                    <button class="layanan-arrow-btn" title="Previous">&#8592;</button>
+                    <button class="layanan-arrow-btn" title="Next">&#8594;</button>
+                </div>
+                <div class="row g-4">
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="layanan-card">
+                            <div class="layanan-card-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=500&q=80" alt="Company Registration" loading="lazy">
+                                <span class="layanan-card-badge">Populer</span>
+                            </div>
+                            <div class="layanan-card-body">
+                                <div class="layanan-card-title">Company Registration</div>
+                                <div class="layanan-card-desc">Proses pendirian badan usaha PT, CV, Firma dengan cepat dan sesuai regulasi yang berlaku.</div>
+                                <div class="layanan-card-price-label">Price Start From</div>
+                                <div class="layanan-card-price">Rp 2.500.000/Paket*</div>
+                                <a href="#" class="layanan-card-btn">Details</a>
+                            </div>
                         </div>
-                        <p
-                            class="mt-3 mt-md-0 wow fadeInUp"
-                            data-wow-delay=".5s">
-                            There are many variations of passages of
-                            Lorem Ipsum available, but the majority have
-                            suffered alteration in some form, by
-                            injected humour, or randomised words which
-                            don't look even slightly believable.
-                        </p>
-                        <div class="about-counter-items">
-                            <div
-                                class="counter-items wow fadeInUp"
-                                data-wow-delay=".3s">
-                                <h2><span class="count">1.2</span>k+</h2>
-                                <h6>Klien Terdaftar</h6>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="layanan-card">
+                            <div class="layanan-card-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=500&q=80" alt="Legal Consulting" loading="lazy">
                             </div>
-                            <div
-                                class="counter-items ps-0 wow fadeInUp"
-                                data-wow-delay=".5s">
-                                <h2><span class="count">100</span>%</h2>
-                                <h6>Legalitas Valid</h6>
+                            <div class="layanan-card-body">
+                                <div class="layanan-card-title">Legal Consulting</div>
+                                <div class="layanan-card-desc">Konsultasi hukum profesional untuk melindungi bisnis Anda dari risiko hukum yang merugikan.</div>
+                                <div class="layanan-card-price-label">Price Start From</div>
+                                <div class="layanan-card-price">Rp 500.000/Sesi*</div>
+                                <a href="#" class="layanan-card-btn">Details</a>
                             </div>
-                            <div
-                                class="video-thumb wow fadeInUp"
-                                data-wow-delay=".7s">
-                                <img
-                                    src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=80"
-                                    alt="video-img" />
-                                <div class="video-box">
-                                    <span
-                                        class="button-text wow fadeInUp">
-                                        <a
-                                            href="https://www.youtube.com/watch?v=Cn4G2lZ_g2I"
-                                            class="video-btn ripple video-popup">
-                                            <i
-                                                class="fa-solid fa-play"></i>
-                                        </a>
-                                    </span>
-                                </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="layanan-card">
+                            <div class="layanan-card-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=500&q=80" alt="Tax Services" loading="lazy">
+                            </div>
+                            <div class="layanan-card-body">
+                                <div class="layanan-card-title">Tax Services</div>
+                                <div class="layanan-card-desc">Pengurusan NPWP, pelaporan SPT Tahunan, dan konsultasi pajak bisnis yang akurat dan aman.</div>
+                                <div class="layanan-card-price-label">Price Start From</div>
+                                <div class="layanan-card-price">Rp 750.000/Laporan*</div>
+                                <a href="#" class="layanan-card-btn">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="layanan-card">
+                            <div class="layanan-card-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&q=80" alt="Business Licensing" loading="lazy">
+                            </div>
+                            <div class="layanan-card-body">
+                                <div class="layanan-card-title">Business Licensing</div>
+                                <div class="layanan-card-desc">Pengurusan NIB, OSS, SIUP, dan berbagai izin usaha lainnya secara cepat dan terpercaya.</div>
+                                <div class="layanan-card-price-label">Price Start From</div>
+                                <div class="layanan-card-price">Rp 1.200.000/Izin*</div>
+                                <a href="#" class="layanan-card-btn">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- TAB 3 – Foreign Services --}}
+            <div class="layanan-tab-pane" id="pane-foreign" role="tabpanel" aria-labelledby="tab-foreign">
+                <div class="layanan-banner" style="background: linear-gradient(135deg, #eff6ff 0%, #e0e7ff 100%);">
+                    <div class="layanan-banner-text">
+                        <h2>Solusi Lengkap untuk Kebutuhan Imigrasi Anda</h2>
+                        <p>Kami membantu WNA dan ekspatriat mengurus seluruh dokumen keimigrasian di Indonesia dengan mudah, cepat, dan sesuai prosedur resmi.</p>
+                    </div>
+                    <div class="layanan-banner-icon d-none d-md-block">
+                        <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="60" cy="60" r="44" stroke="#6366F1" stroke-width="3" fill="none" />
+                            <ellipse cx="60" cy="60" rx="24" ry="44" stroke="#6366F1" stroke-width="2.5" fill="none" />
+                            <line x1="16" y1="60" x2="104" y2="60" stroke="#6366F1" stroke-width="2.5" />
+                            <path d="M22 38 Q60 48 98 38" stroke="#6366F1" stroke-width="2" fill="none" />
+                            <path d="M22 82 Q60 72 98 82" stroke="#6366F1" stroke-width="2" fill="none" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="layanan-nav-arrows">
+                    <button class="layanan-arrow-btn" title="Previous">&#8592;</button>
+                    <button class="layanan-arrow-btn" title="Next">&#8594;</button>
+                </div>
+                <div class="row g-4">
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="layanan-card">
+                            <div class="layanan-card-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1551009175-15bdf9dcb580?w=500&q=80" alt="Visa Application" loading="lazy">
+                                <span class="layanan-card-badge">Terlaris</span>
+                            </div>
+                            <div class="layanan-card-body">
+                                <div class="layanan-card-title">Visa Application</div>
+                                <div class="layanan-card-desc">Pengurusan visa kunjungan, bisnis, dan tinggal terbatas di Indonesia secara profesional.</div>
+                                <div class="layanan-card-price-label">Price Start From</div>
+                                <div class="layanan-card-price">Rp 1.500.000/Proses*</div>
+                                <a href="#" class="layanan-card-btn">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="layanan-card">
+                            <div class="layanan-card-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&q=80" alt="KITAS / KITAP" loading="lazy">
+                            </div>
+                            <div class="layanan-card-body">
+                                <div class="layanan-card-title">KITAS / KITAP</div>
+                                <div class="layanan-card-desc">Pengurusan izin tinggal terbatas dan tetap untuk warga negara asing di Indonesia.</div>
+                                <div class="layanan-card-price-label">Price Start From</div>
+                                <div class="layanan-card-price">Rp 3.500.000/Proses*</div>
+                                <a href="#" class="layanan-card-btn">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="layanan-card">
+                            <div class="layanan-card-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=500&q=80" alt="Passport Assistance" loading="lazy">
+                            </div>
+                            <div class="layanan-card-body">
+                                <div class="layanan-card-title">Passport Assistance</div>
+                                <div class="layanan-card-desc">Bantuan persiapan, pengurusan, dan perpanjangan paspor untuk keperluan perjalanan internasional.</div>
+                                <div class="layanan-card-price-label">Price Start From</div>
+                                <div class="layanan-card-price">Rp 800.000/Proses*</div>
+                                <a href="#" class="layanan-card-btn">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="layanan-card">
+                            <div class="layanan-card-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=500&q=80" alt="Immigration Consulting" loading="lazy">
+                            </div>
+                            <div class="layanan-card-body">
+                                <div class="layanan-card-title">Immigration Consulting</div>
+                                <div class="layanan-card-desc">Layanan konsultasi keimigrasian komprehensif untuk WNA yang akan tinggal atau bekerja di Indonesia.</div>
+                                <div class="layanan-card-price-label">Price Start From</div>
+                                <div class="layanan-card-price">Rp 500.000/Sesi*</div>
+                                <a href="#" class="layanan-card-btn">Details</a>
                             </div>
                         </div>
                     </div>
@@ -121,290 +1484,84 @@
     </div>
 </section>
 
-<!-- Pricing Section Start -->
-<section class="pricing-section fix section-padding section-bg">
-    <div class="pricing-shape">
-        <img src="{{ asset('buyer-file/assets/img/pricing-shape.png') }}" alt="img" />
-    </div>
-    <div class="container">
-        <div class="section-title text-center">
-            <span class="wow fadeInUp">Virtual Office</span>
-            <h2 class="wow fadeInUp" data-wow-delay=".3s">
-                Pilih Paket <br />
-                Virtual Office
-            </h2>
-        </div>
+<script>
+    (function() {
+        'use strict';
 
+        const tabBtns = document.querySelectorAll('[data-layanan-tab]');
+        const tabPanes = document.querySelectorAll('.layanan-tab-pane');
+
+        tabBtns.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                const target = btn.getAttribute('data-layanan-tab');
+
+                tabBtns.forEach(function(b) {
+                    b.classList.remove('active');
+                    b.setAttribute('aria-selected', 'false');
+                });
+                btn.classList.add('active');
+                btn.setAttribute('aria-selected', 'true');
+
+                tabPanes.forEach(function(pane) {
+                    if (pane.classList.contains('active-visible')) {
+                        pane.classList.remove('active-visible');
+                        pane.style.display = 'none';
+                    }
+                });
+
+                const targetPane = document.getElementById('pane-' + target);
+                if (targetPane) {
+                    targetPane.style.display = 'block';
+                    void targetPane.offsetWidth;
+                    targetPane.classList.add('active-visible');
+                }
+            });
+        });
+    })();
+</script>
+
+{{-- ===== FAQ SECTION ===== --}}
+<section class="pt-faq">
+    <div class="container">
+        <div class="section-title text-center mb-5">
+            <span class="subtitle">Bantuan Sentral</span>
+            <h2>FAQ terkait Virtual Office</h2>
+            <p>Pertanyaan yang paling sering diajukan seputar layanan Virtual Office</p>
+        </div>
         <div class="row">
-            <!-- Paket 1 VO -->
-            <div class="col-xl-4 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay=".2s">
-                <div class="pricing-items style-2">
-                    <h6 class="top-text">PAKET 1 VO</h6>
-                    <div class="pricing-header-2">
-                        <h2>Rp 3.000.000 / 12 BULAN<br>Rp 5.500.000 / 24 BULAN</h2>
-                    </div>
-                    <ul class="pricing-list">
-                        <li><span><i class="fa-solid fa-check"></i> Alamat Bisnis Eksklusif</span></li>
-                        <li><span><i class="fa-solid fa-check"></i> Pengelolaan surat/paket masuk</span></li>
-                        <li><span><i class="fa-solid fa-check"></i> Notifikasi Surat/Paket Masuk</span></li>
-                        <li><span><i class="fa-solid fa-check"></i> Surat Keterangan Domisili</span></li>
-                        <li><span><i class="fa-solid fa-check"></i> Gratis akses komunitas bisnis</span></li>
-                        <li><span><i class="fa-solid fa-check"></i> Layanan Resepsionis</span></li>
-                        <li><span><i class="fa-solid fa-check"></i> Dashboard Login Klien</span></li>
-                        <li><span><i class="fa-solid fa-check"></i> Storage cloud dokumen</span></li>
-                    </ul>
-                    <div class="pricing-button">
-                        <a href="#" class="pricing-btn">Pilih Paket <i class="fa-solid fa-arrow-right-long"></i></a>
-                    </div>
+            <div class="col-lg-8 mx-auto">
+                <div class="faq-item">
+                    <div class="faq-question">Apa itu Virtual Office? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">Virtual Office adalah layanan yang menyediakan alamat bisnis prestisius, pengelolaan surat dan paket, serta layanan administrasi kantor lainnya tanpa perlu menyewa kantor fisik secara penuh. Cocok untuk startup, UKM, dan bisnis yang ingin menghemat biaya operasional.</div>
                 </div>
-            </div>
-
-            <!-- Paket 2 VO -->
-            <div class="col-xl-4 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay=".4s">
-                <div class="pricing-items style-2 active">
-                    <h6 class="top-text">PAKET 2 VO</h6>
-                    <div class="pricing-header-2">
-                        <h2>Rp 5.000.000 / 12 BULAN<br>Rp 9.500.000 / 24 BULAN</h2>
-                    </div>
-                    <ul class="pricing-list">
-                        <li><span><i class="fa-solid fa-check"></i> Semua dari Paket 1 + tambahan:</span></li>
-                        <li><span><i class="fa-solid fa-check"></i> Fasilitas Ruang Meeting atau podcast 6 jam / bulan</span></li>
-                        <li><span><i class="fa-solid fa-check"></i> Akses Wifi</span></li>
-                        <li><span><i class="fa-solid fa-check"></i> Layanan Print, Scan dan Fotocopy</span></li>
-                    </ul>
-                    <div class="pricing-button">
-                        <a href="#" class="pricing-btn">Pilih Paket <i class="fa-solid fa-arrow-right-long"></i></a>
-                    </div>
+                <div class="faq-item">
+                    <div class="faq-question">Apakah alamat Virtual Office bisa digunakan untuk pendirian PT? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">Ya, alamat Virtual Office kami dapat digunakan sebagai alamat domisili untuk pendirian PT, CV, Firma, dan Yayasan. Kami menyediakan Surat Keterangan Domisili yang diperlukan untuk pengurusan legalitas perusahaan.</div>
                 </div>
-            </div>
-
-            <!-- Paket 3 VO -->
-            <div class="col-xl-4 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay=".6s">
-                <div class="pricing-items style-2">
-                    <h6 class="top-text">PAKET 3 VO</h6>
-                    <div class="pricing-header-2">
-                        <h2>Rp 8.000.000 / 12 BULAN<br>Rp 15.000.000 / 24 BULAN</h2>
-                    </div>
-                    <ul class="pricing-list">
-                        <li><span><i class="fa-solid fa-check"></i> Semua dari Paket 2 + tambahan:</span></li>
-                        <li><span><i class="fa-solid fa-check"></i> Fasilitas Ruang Meeting atau podcast 12 jam / bulan</span></li>
-                        <li><span><i class="fa-solid fa-check"></i> Layanan Call Handling</span></li>
-                    </ul>
-                    <div class="pricing-button">
-                        <a href="#" class="pricing-btn">Pilih Paket <i class="fa-solid fa-arrow-right-long"></i></a>
-                    </div>
+                <div class="faq-item">
+                    <div class="faq-question">Apakah saya bisa menggunakan ruang meeting? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">Ya, semua paket Virtual Office kami menyediakan akses ke fasilitas ruang meeting dan ruang podcast. Paket Eksklusif dan Enterprise mendapatkan kuota 60 jam per tahun.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Apakah ada biaya tambahan selain harga paket? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">Tidak ada biaya tersembunyi. Harga yang tertera sudah termasuk semua layanan yang disebutkan dalam benefit. Biaya pengiriman surat/ paket (jika ada) akan ditagih sesuai biaya riil.</div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-
-<!-- Faq Section Start -->
-<section class="faq-section fix section-padding pt-5">
-    <div class="container">
-        <div class="faq-wrapper">
-            <div class="row g-4">
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay=".3s">
-                    <div class="faq-image">
-                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=615&h=592&q=80" alt="img">
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="faq-content">
-                        <div class="section-title">
-                            <span class="wow fadeInUp">FAQ’S</span>
-                            <h2 class="wow fadeInUp" data-wow-delay=".3s">
-                                Pertanyaan Seputar Legalitas & Pendirian PT
-                            </h2>
-                        </div>
-                        <div class="faq-accordion mt-4 mt-md-0">
-                            <div class="accordion" id="accordion">
-                                <div class="accordion-item wow fadeInUp" data-wow-delay=".3s">
-                                    <h5 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="true" aria-controls="faq1">
-                                            Berapa lama proses pendirian PT Sekutu?
-                                        </button>
-                                    </h5>
-                                    <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#accordion">
-                                        <div class="accordion-body">
-                                            Proses pendirian PT biasanya memakan waktu sekitar 3 sampai 7 hari kerja setelah semua dokumen persyaratan lengkap, penandatanganan akta notaris, dan pembayaran modal disetor dikonfirmasi.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item wow fadeInUp" data-wow-delay=".5s">
-                                    <h5 class="accordion-header">
-                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2">
-                                            Apa syarat dokumen yang dibutuhkan?
-                                        </button>
-                                    </h5>
-                                    <div id="faq2" class="accordion-collapse show" data-bs-parent="#accordion">
-                                        <div class="accordion-body">
-                                            Secara umum, persyaratan dokumen meliputi e-KTP dan NPWP dari minimal 2 (dua) orang pendiri yang masing-masing akan bertindak sebagai Direktur dan Komisaris, serta menyiapkan surat keterangan domisili usaha.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item wow fadeInUp" data-wow-delay=".7s">
-                                    <h5 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false" aria-controls="faq3">
-                                            Apakah harta pribadi aman jika PT mengalami kerugian?
-                                        </button>
-                                    </h5>
-                                    <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#accordion">
-                                        <div class="accordion-body">
-                                            Ya, sangat aman. PT merupakan entitas berbadan hukum mandiri yang memiliki pemisahan tegas antara harta pribadi para pengurus (pemegang saham) dengan harta kekayaan perusahaan.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item wow fadeInUp" data-wow-delay=".7s">
-                                    <h5 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false" aria-controls="faq4">
-                                            Apa bedanya PT dengan CV?
-                                        </button>
-                                    </h5>
-                                    <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#accordion">
-                                        <div class="accordion-body">
-                                            Perbedaan mendasar adalah PT merupakan badan hukum penuh dengan modal dasar yang terbagi dalam saham dan melindungi harta pribadi. Sementara CV bukan badan hukum penuh melainkan badan usaha persekutuan, di mana sekutu aktif bertanggung jawab hingga ke harta pribadinya.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Testimonia Section Start -->
-<section class="testimonial-section fix section-padding">
-    <div class="container">
-        <div class="section-title text-center">
-            <span class="style-border wow fadeInUp">Testimonials</span>
-            <h2 class="mb-3 wow fadeInUp" data-wow-delay=".3s">
-                Impressions & Feedback
-            </h2>
-            <p class="wow fadeInUp" data-wow-delay=".5s">
-                Aliquam viverra accumsan lectus in dignissim ante
-                interdum eu Sed odio massa
-            </p>
-        </div>
-        <div class="swiper testimonial-slider">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div class="testimonial-card-items-2">
-                        <div class="icon">
-                            <i class="fa-solid fa-quote-right"></i>
-                        </div>
-                        <div class="client-info">
-                            <div
-                                class="client-img bg-cover"
-                                style="
-                                            background-image: url(&quot;https://i.pravatar.cc/150?img=11&quot;);
-                                        "></div>
-                            <div class="content">
-                                <h4>Ronald Richards</h4>
-                                <span>Direktur Utama PT</span>
-                            </div>
-                        </div>
-                        <p>
-                            Praesent ut lacus a velit tincidunt aliquam
-                            a eget urna. Sed ullamcorper tristique nisl
-                            at pharetra turpis accumsan et etiam eu
-                            sollicitudin eros. In imperdiet accumsan
-                            felis sed.
-                        </p>
-                        <div class="client-bottom">
-                            <div class="star">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-regular fa-star"></i>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="testimonial-card-items-2">
-                        <div class="icon">
-                            <i class="fa-solid fa-quote-right"></i>
-                        </div>
-                        <div class="client-info">
-                            <div
-                                class="client-img bg-cover"
-                                style="
-                                            background-image: url(&quot;https://i.pravatar.cc/150?img=12&quot;);
-                                        "></div>
-                            <div class="content">
-                                <h4>Esther Howard</h4>
-                                <span>Komisaris Utama</span>
-                            </div>
-                        </div>
-                        <p>
-                            Praesent ut lacus a velit tincidunt aliquam
-                            a eget urna. Sed ullamcorper tristique nisl
-                            at pharetra turpis accumsan et etiam eu
-                            sollicitudin eros. In imperdiet accumsan
-                            felis sed.
-                        </p>
-                        <div class="client-bottom">
-                            <div class="star">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-regular fa-star"></i>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="testimonial-card-items-2">
-                        <div class="icon">
-                            <i class="fa-solid fa-quote-right"></i>
-                        </div>
-                        <div class="client-info">
-                            <div
-                                class="client-img bg-cover"
-                                style="
-                                            background-image: url(&quot;https://i.pravatar.cc/150?img=13&quot;);
-                                        "></div>
-                            <div class="content">
-                                <h4>Courtney Henry</h4>
-                                <span>CEO & Founder</span>
-                            </div>
-                        </div>
-                        <p>
-                            Praesent ut lacus a velit tincidunt aliquam
-                            a eget urna. Sed ullamcorper tristique nisl
-                            at pharetra turpis accumsan et etiam eu
-                            sollicitudin eros. In imperdiet accumsan
-                            felis sed.
-                        </p>
-                        <div class="client-bottom">
-                            <div class="star">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-regular fa-star"></i>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div
-            class="testimonial-click-text wow fadeInUp"
-            data-wow-delay=".3s">
-            <p>Explore more testimonials by</p>
-            <a href="contact.html"> Click Here</a>
-        </div>
-    </div>
-</section>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll('.faq-question').forEach(item => {
+            item.addEventListener('click', () => {
+                const parent = item.parentElement;
+                document.querySelectorAll('.faq-item').forEach(faq => {
+                    if (faq !== parent) faq.classList.remove('active');
+                });
+                parent.classList.toggle('active');
+            });
+        });
+    });
+</script>
 @endsection

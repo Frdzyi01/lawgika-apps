@@ -11,11 +11,17 @@ use Illuminate\Support\Facades\Storage;
 class EventUpComingController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * ==============================================
+     * ADMIN SECTION (sudah ada)
+     * ==============================================
+     */
+
+    /**
+     * Display a listing of the resource for ADMIN.
      */
     public function index()
     {
-        $events = EventUpComing::latest()->get();
+        $events = EventUpComing::latest()->get(); // ini sudah aman karena pakai latest()
 
         $totalEvent   = $events->count();
         $eventAktif   = $events->filter(fn($e) => $e->status_aktif)->count();
@@ -41,6 +47,11 @@ class EventUpComingController extends Controller
 
         if ($request->hasFile('banner')) {
             $data['banner'] = $request->file('banner')->store('event', 'public');
+        }
+
+        // Konversi narasumber dari string koma ke array JSON
+        if (!empty($data['narasumber'])) {
+            $data['narasumber'] = array_map('trim', explode(',', $data['narasumber']));
         }
 
         EventUpComing::create($data);
@@ -80,6 +91,11 @@ class EventUpComingController extends Controller
             unset($data['banner']);
         }
 
+        // Konversi narasumber dari string koma ke array JSON
+        if (!empty($data['narasumber'])) {
+            $data['narasumber'] = array_map('trim', explode(',', $data['narasumber']));
+        }
+
         $event_upcoming->update($data);
 
         return redirect()->route('admin.event-upcoming.index')->with('success', 'Event berhasil diperbarui.');
@@ -97,5 +113,35 @@ class EventUpComingController extends Controller
         $event_upcoming->delete();
 
         return redirect()->route('admin.event-upcoming.index')->with('success', 'Event berhasil dihapus.');
+    }
+
+    /**
+     * ==============================================
+     * FRONTEND SECTION (TAMBAHAN BARU)
+     * ==============================================
+     */
+
+    /**
+     * Halaman publik: menampilkan semua event untuk user
+     */
+    public function frontendIndex()
+    {
+        $events = EventUpComing::orderBy('tanggal_mulai', 'asc')->get();
+        return view('frontend.upcomingevent.index', compact('events'));
+    }
+
+    /**
+     * API untuk detail event (dipanggil popup via fetch)
+     */
+    public function detail($id)
+    {
+        $event = EventUpComing::findOrFail($id);
+
+        // Explicit cast agar frontend selalu menerima tipe yang konsisten
+        $data = $event->toArray();
+        $data['status_aktif'] = (bool) $event->status_aktif;
+        $data['label_status'] = $event->label_status; // "Aktif" atau "Selesai"
+
+        return response()->json($data);
     }
 }

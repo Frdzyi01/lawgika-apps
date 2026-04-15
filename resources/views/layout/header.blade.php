@@ -399,7 +399,8 @@
                                 </div>
                                 <ul>
                                   <li><a href="{{ url('/pendirian-pt-perorangan') }}">Pendirian PT Perorangan</a></li>
-                                  <li><a href="{{ url('/pendirian-pt') }}">Pendirian PT</a></li>
+                                  <li><a href="{{ url('/pendirian-pt-<-1m') }}">Pendirian PT < 1M</a></li>
+                                  <li><a href="{{ url('/pendirian-pt->-1m') }}">Pendirian PT > 1M</a></li>
                                   <li><a href="{{ url('/pendirian-pt-pma') }}">Pendirian PT PMA</a></li>
                                   <li><a href="{{ url('/pendirian-cv') }}">Pendirian CV</a></li>
                                   <li><a href="{{ url('/pendirian-yayasan') }}">Pendirian Yayasan</a></li>
@@ -432,7 +433,7 @@
                                 <ul>
                                   <li><a href="{{ url('/langganan-jasa-pembukuan') }}">Jasa Pembukuan</a></li>
                                   <li><a href="{{ url('/langganan-jasa-perpajakan') }}">Jasa Perpajakan</a></li>
-                                  <li><a href="{{ url('/layanan-payroll') }}">Payroll</a></li>
+                                  <li><a href="{{ url('/layanan-payroll') }}">Layanan Payroll</a></li>
                                   <li><a href="{{ url('/pendaftaran-npwp') }}">Pendaftaran NPWP</a></li>
                                   <li><a href="{{ url('/pelaporan-spt-badan') }}">Pelaporan SPT Badan</a></li>
                                   <li><a href="{{ url('/audit-laporan-keuangan') }}">Audit Laporan Keuangan</a></li>

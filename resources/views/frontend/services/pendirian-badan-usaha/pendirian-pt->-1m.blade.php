@@ -106,7 +106,7 @@
         padding: 35px 25px;
         border-radius: 20px;
         text-align: center;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
+        box-shadow: 0 5px 20px rgba(0,0,0,0.03);
         border: 1px solid #f5e6e8;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
         height: 100%;
@@ -253,18 +253,18 @@
             flex-direction: column;
             gap: 30px;
         }
-
+        
         .process-timeline::before {
             display: none;
         }
-
+        
         .process-step {
             display: flex;
             text-align: left;
             gap: 20px;
             align-items: flex-start;
         }
-
+        
         .process-step-number {
             margin: 0;
             flex-shrink: 0;
@@ -670,16 +670,16 @@
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="page-title-content">
-                    <span class="text-white bg-danger rounded-pill px-3 py-1 fw-medium mb-3 d-inline-block shadow-sm" style="font-size: 0.85rem">Lawgika | Pendirian Firma</span>
-                    <h1 class="text-white fw-bold mb-3 display-4">Jasa Pendirian Firma</h1>
-                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem">Solusi legalitas untuk usaha bersama yang didirikan oleh dua orang atau lebih dengan memakai nama bersama. Proses cepat, transparan, dan terpercaya.</p>
+                    <span class="text-white bg-danger rounded-pill px-3 py-1 fw-medium mb-3 d-inline-block shadow-sm" style="font-size: 0.85rem">Lawgika | Pendirian PT</span>
+                    <h1 class="text-white fw-bold mb-3 display-4">Jasa Pendirian PT (Perseroan Terbatas) <br> > 1M</h1>
+                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem">Solusi legalitas untuk badan usaha berbadan hukum yang modalnya terdiri atas saham-saham. Proses cepat, transparan, dan terpercaya.</p>
                 </div>
             </div>
             <div class="col-lg-6 text-lg-end mt-4 mt-lg-0">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-lg-end justify-content-start mb-0">
                         <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none">Beranda</a></li>
-                        <li class="breadcrumb-item active text-white-50" aria-current="page">Pendirian Firma</li>
+                        <li class="breadcrumb-item active text-white-50" aria-current="page">Pendirian PT > 1M</li>
                     </ol>
                 </nav>
             </div>
@@ -692,8 +692,8 @@
     <div class="container">
         <div class="row align-items-center g-5 flex-row-reverse">
             <div class="col-lg-6">
-                <h2>Solusi Legalitas Firma Untuk Bisnis Kolektif Anda</h2>
-                <p>Firma adalah badan usaha yang didirikan oleh dua orang atau lebih dengan memakai nama bersama, di mana setiap sekutu bertanggung jawab penuh secara tanggung renteng. Kami membantu proses pendirian Firma yang sesuai dengan regulasi Kemenkumham.</p>
+                <h2>Solusi Legalitas PT Untuk Bisnis Profesional Anda</h2>
+                <p>PT (Perseroan Terbatas) adalah badan usaha berbadan hukum yang modalnya terdiri atas saham-saham. Cocok untuk bisnis yang ingin tumbuh besar, menarik investor, dan memiliki kredibilitas tinggi di mata mitra bisnis.</p>
                 <ul class="solution-list">
                     <li><i class="fa-regular fa-circle-check"></i> Pendirian cepat dengan akta notaris</li>
                     <li><i class="fa-regular fa-circle-check"></i> SK Kemenkumham resmi</li>
@@ -702,7 +702,7 @@
                 <a href="#pricing" class="btn-outline-brand">Lihat Pilihan Paket →</a>
             </div>
             <div class="col-lg-6">
-                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format" alt="Business Partnership Meeting" class="img-fluid-rounded">
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&auto=format" alt="Business Meeting PT" class="img-fluid-rounded">
             </div>
         </div>
     </div>
@@ -713,25 +713,25 @@
     <div class="container">
         <div class="section-header">
             <h2>MENGAPA MEMILIH KAMI?</h2>
-            <p>Dapatkan berbagai keuntungan tambahan saat mendirikan Firma bersama kami</p>
+            <p>Dapatkan berbagai keuntungan tambahan saat mendirikan PT bersama kami</p>
         </div>
         <div class="row g-4 justify-content-center">
             <div class="col-md-4">
                 <div class="why-us-card">
                     <div class="why-us-icon">
-                        <i class="fa-solid fa-users"></i>
+                        <i class="fa-solid fa-building"></i>
                     </div>
-                    <h4>Legalitas Kolektif</h4>
-                    <p>Akta pendirian dan SK Kemenkumham yang sah untuk usaha bersama.</p>
+                    <h4>Legalitas Kuat</h4>
+                    <p>Akta pendirian dan SK Kemenkumham yang sah untuk badan usaha Anda.</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="why-us-card">
                     <div class="why-us-icon">
-                        <i class="fa-solid fa-handshake"></i>
+                        <i class="fa-solid fa-chart-line"></i>
                     </div>
-                    <h4>Pendampingan Profesional</h4>
-                    <p>Konsultasi gratis dan pendampingan hingga Firma Anda berdiri.</p>
+                    <h4>Skalabilitas Bisnis</h4>
+                    <p>PT memudahkan Anda menarik investor dan mengembangkan bisnis.</p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -740,31 +740,31 @@
                         <i class="fa-solid fa-scale-balanced"></i>
                     </div>
                     <h4>Kepatuhan Hukum</h4>
-                    <p>Jaminan dokumen sesuai dengan regulasi firma terbaru.</p>
+                    <p>Jaminan dokumen sesuai dengan regulasi PT terbaru.</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-{{-- ===== PROSES PENDIRIAN FIRMA ===== --}}
+{{-- ===== PROSES PENDIRIAN PT ===== --}}
 <section class="process-section">
     <div class="container">
         <div class="section-header">
             <span class="badge">Tahapan Tuntas</span>
-            <h2>PROSES PENDIRIAN FIRMA</h2>
+            <h2>PROSES PENDIRIAN PT</h2>
             <p>Kami menyederhanakan birokrasi menjadi tahapan yang jelas</p>
         </div>
         <div class="process-timeline">
             <div class="process-step">
                 <div class="process-step-number">1</div>
                 <h5>Persiapan Dokumen</h5>
-                <p>Siapkan KTP, NPWP, dan kesepakatan antara para sekutu firma.</p>
+                <p>Siapkan KTP, NPWP pendiri, dan struktur pemegang saham.</p>
             </div>
             <div class="process-step">
                 <div class="process-step-number">2</div>
                 <h5>Pembuatan Akta Notaris</h5>
-                <p>Pembuatan akta pendirian firma di hadapan notaris.</p>
+                <p>Pembuatan akta pendirian PT di hadapan notaris.</p>
             </div>
             <div class="process-step">
                 <div class="process-step-number">3</div>
@@ -775,12 +775,12 @@
     </div>
 </section>
 
-{{-- ===== PERSYARATAN DOKUMEN FIRMA ===== --}}
+{{-- ===== PERSYARATAN DOKUMEN PT ===== --}}
 <section class="requirements-section">
     <div class="container">
         <div class="section-header">
             <span class="badge">Persiapan Dokumen</span>
-            <h2>PERSYARATAN DOKUMEN FIRMA</h2>
+            <h2>PERSYARATAN DOKUMEN PT</h2>
             <p>Siapkan berkas berikut, tim kami akan memprosesnya</p>
         </div>
         <div class="row g-4 justify-content-center">
@@ -793,11 +793,12 @@
                         <h3>KELENGKAPAN DATA</h3>
                     </div>
                     <ul class="requirement-list">
-                        <li><i class="fa-solid fa-circle-check"></i> Nama Firma (minimal 3 kata)</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Nama PT (minimal 3 kata)</li>
                         <li><i class="fa-solid fa-circle-check"></i> Alamat lengkap perusahaan</li>
                         <li><i class="fa-solid fa-circle-check"></i> Bidang usaha (Kode KBLI)</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Susunan para sekutu</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Pembagian modal dan keuntungan</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Struktur pemegang saham</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Susunan direksi & komisaris</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Modal dasar, modal ditempatkan, modal disetor</li>
                     </ul>
                     <a href="#" class="requirement-cta">
                         Konsultasi Data <i class="fa-solid fa-arrow-right"></i>
@@ -813,10 +814,10 @@
                         <h3>KELENGKAPAN DOKUMEN</h3>
                     </div>
                     <ul class="requirement-list">
-                        <li><i class="fa-solid fa-circle-check"></i> Scan KTP para sekutu</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Scan NPWP para sekutu</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Pas foto para sekutu</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Bukti alamat usaha</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Scan KTP pendiri & pengurus</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Scan NPWP pendiri & pengurus</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Pas foto pendiri & pengurus</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Bukti alamat perusahaan</li>
                     </ul>
                     <a href="#" class="requirement-cta">
                         Upload Dokumen <i class="fa-solid fa-arrow-right"></i>
@@ -827,13 +828,13 @@
     </div>
 </section>
 
-{{-- ===== PRICING TABLE FIRMA (SESUAI FOTO) ===== --}}
+{{-- ===== PRICING TABLE PT ===== --}}
 <section class="pt-pricing" id="pricing">
     <div class="container">
         <div class="section-title text-center mb-5">
-            <span class="subtitle">Pilihan Paket Firma</span>
-            <h2>Paket Pendirian Firma</h2>
-            <p>Pilih paket yang sesuai dengan kebutuhan bisnis kolektif Anda</p>
+            <span class="subtitle">Pilihan Paket PT</span>
+            <h2>Paket Pendirian PT</h2>
+            <p>Pilih paket yang sesuai dengan kebutuhan bisnis profesional Anda</p>
         </div>
 
         <div class="row g-4 justify-content-center">
@@ -841,31 +842,31 @@
             <div class="col-lg-4 col-md-6">
                 <div class="pricing-card">
                     <h4>PREMIUM</h4>
-                    <div class="price">Rp 6.030.000</div>
+                    <div class="price">Rp 6.930.000</div>
                     <ul class="feature-list">
-                        <li><i class="fa-solid fa-check"></i> Pengecekan Nama Firma</li>
-                        <li><i class="fa-solid fa-check"></i> Pemesanan Nama Firma</li>
-                        <li><i class="fa-solid fa-check"></i> Akta Pendirian Firma</li>
+                        <li><i class="fa-solid fa-check"></i> Pengecekan Nama PT</li>
+                        <li><i class="fa-solid fa-check"></i> Pemesanan Nama PT</li>
+                        <li><i class="fa-solid fa-check"></i> Akta Pendirian PT</li>
                         <li><i class="fa-solid fa-check"></i> SK Menkumham</li>
                         <li><i class="fa-solid fa-check"></i> NPWP & SKT & EFIN*</li>
                         <li><i class="fa-solid fa-check"></i> NIB & Sertifikat Standar* & PKKPR*</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Alamat Bisnis Eksklusif</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Fasilitas Ruang Meeting atau podcast 12 jam / bulan</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Akses Wifi dan Smart TV</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Print, Scan dan Fotocopy</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Pengelolaan surat/paket masuk</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Notifikasi Surat/Paket Masuk</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Surat Keterangan Domisili</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Gratis akses komunitas bisnis</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Resepsionis</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Dashboard Login Klien</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Storage cloud dokumen</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Rekening PT Bank OCBC/BCA/MANDIRI</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Signage Display</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Call Handling</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Call Forwarding</li>
+                         <li class="disabled"><i class="fa-solid fa-minus"></i> Alamat Bisnis Eksklusif</li>
+                         <li class="disabled"><i class="fa-solid fa-minus"></i> Fasilitas Ruang Meeting atau podcast 12 jam / bulan</li>
+                         <li class="disabled"><i class="fa-solid fa-minus"></i> Akses Wifi dan Smart TV</li>
+                         <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Print, Scan dan Fotocopy</li>
+                         <li class="disabled"><i class="fa-solid fa-minus"></i> Pengelolaan surat/paket masuk</li>
+                         <li class="disabled"><i class="fa-solid fa-minus"></i> Notifikasi Surat/Paket Masuk</li>
+                         <li class="disabled"><i class="fa-solid fa-minus"></i> Surat Keterangan Domisili</li>
+                         <li class="disabled"><i class="fa-solid fa-minus"></i> Gratis akses komunitas bisnis</li>
+                         <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Resepsionis</li>
+                         <li class="disabled"><i class="fa-solid fa-minus"></i> Dashboard Login Klien</li>
+                         <li class="disabled"><i class="fa-solid fa-minus"></i> Storage cloud dokumen</li>
+                         <li class="disabled"><i class="fa-solid fa-minus"></i> Rekening PT Bank OCBC/BCA/MANDIRI</li>
+                         <li class="disabled"><i class="fa-solid fa-minus"></i> Signage Display</li>
+                         <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Call Handling</li>
+                         <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Call Forwarding</li>
                     </ul>
-                    <a href="https://wa.me/628123456789?text=Halo%20saya%20tertarik%20Paket%20PREMIUM%20Firma" class="btn-pricing">Pilih Paket Premium</a>
+                    <a href="https://wa.me/628123456789?text=Halo%20saya%20tertarik%20Paket%20PREMIUM%20PT" class="btn-pricing">Pilih Paket Premium</a>
                 </div>
             </div>
 
@@ -874,11 +875,11 @@
                 <div class="pricing-card featured">
                     <span class="badge">REKOMENDASI</span>
                     <h4>EKSKLUSIF</h4>
-                    <div class="price">Rp 7.740.000</div>
+                    <div class="price">Rp 8.640.000</div>
                     <ul class="feature-list">
-                        <li><i class="fa-solid fa-check"></i> Pengecekan Nama Firma</li>
-                        <li><i class="fa-solid fa-check"></i> Pemesanan Nama Firma</li>
-                        <li><i class="fa-solid fa-check"></i> Akta Pendirian Firma</li>
+                        <li><i class="fa-solid fa-check"></i> Pengecekan Nama PT</li>
+                        <li><i class="fa-solid fa-check"></i> Pemesanan Nama PT</li>
+                        <li><i class="fa-solid fa-check"></i> Akta Pendirian PT</li>
                         <li><i class="fa-solid fa-check"></i> SK Menkumham</li>
                         <li><i class="fa-solid fa-check"></i> NPWP & SKT & EFIN*</li>
                         <li><i class="fa-solid fa-check"></i> NIB & Sertifikat Standar* & PKKPR*</li>
@@ -895,10 +896,10 @@
                         <li><i class="fa-solid fa-check"></i> Storage cloud dokumen</li>
                         <li><i class="fa-solid fa-check"></i> Rekening PT Bank OCBC/BCA/MANDIRI</li>
                         <li><i class="fa-solid fa-check"></i> Signage Display</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Call Handling</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Call Forwarding</li>
+                         <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Call Handling</li>
+                         <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Call Forwarding</li>
                     </ul>
-                    <a href="https://wa.me/628123456789?text=Halo%20saya%20tertarik%20Paket%20EKSKLUSIF%20Firma" class="btn-pricing-primary">Pilih Paket Eksklusif</a>
+                    <a href="https://wa.me/628123456789?text=Halo%20saya%20tertarik%20Paket%20EKSKLUSIF%20PT" class="btn-pricing-primary">Pilih Paket Eksklusif</a>
                 </div>
             </div>
 
@@ -906,11 +907,11 @@
             <div class="col-lg-4 col-md-6">
                 <div class="pricing-card">
                     <h4>ENTERPRISE</h4>
-                    <div class="price">Rp 8.640.000</div>
+                    <div class="price">Rp 9.540.000</div>
                     <ul class="feature-list">
-                        <li><i class="fa-solid fa-check"></i> Pengecekan Nama Firma</li>
-                        <li><i class="fa-solid fa-check"></i> Pemesanan Nama Firma</li>
-                        <li><i class="fa-solid fa-check"></i> Akta Pendirian Firma</li>
+                        <li><i class="fa-solid fa-check"></i> Pengecekan Nama PT</li>
+                        <li><i class="fa-solid fa-check"></i> Pemesanan Nama PT</li>
+                        <li><i class="fa-solid fa-check"></i> Akta Pendirian PT</li>
                         <li><i class="fa-solid fa-check"></i> SK Menkumham</li>
                         <li><i class="fa-solid fa-check"></i> NPWP & SKT & EFIN*</li>
                         <li><i class="fa-solid fa-check"></i> NIB & Sertifikat Standar* & PKKPR*</li>
@@ -930,7 +931,7 @@
                         <li><i class="fa-solid fa-check"></i> Layanan Call Handling</li>
                         <li><i class="fa-solid fa-check"></i> Layanan Call Forwarding</li>
                     </ul>
-                    <a href="https://wa.me/628123456789?text=Halo%20saya%20tertarik%20Paket%20ENTERPRISE%20Firma" class="btn-pricing">Pilih Paket Enterprise</a>
+                    <a href="https://wa.me/628123456789?text=Halo%20saya%20tertarik%20Paket%20ENTERPRISE%20PT" class="btn-pricing">Pilih Paket Enterprise</a>
                 </div>
             </div>
         </div>
@@ -1186,41 +1187,19 @@
     }
 
     @keyframes layananFadeIn {
-        from {
-            opacity: 0;
-        }
-
-        to {
-            opacity: 1;
-        }
+        from { opacity: 0; }
+        to { opacity: 1; }
     }
 
     @media (max-width: 767.98px) {
-        #layanan-kami-section {
-            padding: 48px 0 56px;
-        }
-
-        .layanan-banner {
-            flex-direction: column;
-            align-items: flex-start;
-            padding: 28px 24px;
-        }
-
-        .layanan-banner-icon svg {
-            width: 80px;
-            height: 80px;
-        }
-
-        .layanan-section-title {
-            font-size: 1.6rem;
-        }
+        #layanan-kami-section { padding: 48px 0 56px; }
+        .layanan-banner { flex-direction: column; align-items: flex-start; padding: 28px 24px; }
+        .layanan-banner-icon svg { width: 80px; height: 80px; }
+        .layanan-section-title { font-size: 1.6rem; }
     }
 
     @media (max-width: 575.98px) {
-        .layanan-nav .nav-link {
-            font-size: 0.85rem;
-            margin-right: 20px;
-        }
+        .layanan-nav .nav-link { font-size: 0.85rem; margin-right: 20px; }
     }
 </style>
 
@@ -1547,26 +1526,26 @@
     <div class="container">
         <div class="section-title text-center mb-5">
             <span class="subtitle">Bantuan Sentral</span>
-            <h2>FAQ terkait Pendirian Firma</h2>
-            <p>Pertanyaan yang paling sering diajukan seputar legalitas Firma di Indonesia</p>
+            <h2>FAQ terkait Pendirian PT</h2>
+            <p>Pertanyaan yang paling sering diajukan seputar legalitas PT di Indonesia</p>
         </div>
         <div class="row">
             <div class="col-lg-8 mx-auto">
                 <div class="faq-item">
-                    <div class="faq-question">Apa perbedaan antara Firma dan CV? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Firma didirikan oleh dua orang atau lebih dengan memakai nama bersama, di mana setiap sekutu bertanggung jawab penuh secara tanggung renteng. Sedangkan CV memiliki sekutu aktif (pengelola) dan sekutu pasif (pemberi modal) dengan tanggung jawab terbatas untuk sekutu pasif.</div>
+                    <div class="faq-question">Apa itu PT (Perseroan Terbatas)? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">PT (Perseroan Terbatas) adalah badan usaha berbadan hukum yang modalnya terdiri atas saham-saham. Setiap pemegang saham bertanggung jawab sebatas jumlah saham yang dimiliki. PT cocok untuk bisnis skala menengah hingga besar.</div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">Berapa minimal modal untuk mendirikan Firma? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Tidak ada ketentuan minimal modal untuk Firma. Modal disesuaikan dengan kesepakatan para sekutu yang tertuang dalam akta pendirian.</div>
+                    <div class="faq-question">Berapa minimal modal untuk mendirikan PT? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">Sesuai UU Cipta Kerja, tidak ada ketentuan minimal modal untuk mendirikan PT. Namun, untuk PT biasa disarankan modal dasar minimal Rp 50.000.000 dengan modal disetor minimal 25% dari modal dasar.</div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">Berapa lama proses pendirian Firma? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Dengan dokumen lengkap, proses pendirian Firma memakan waktu sekitar 7-14 hari kerja, tergantung dari kecepatan pembuatan akta notaris dan pengesahan dari Kemenkumham.</div>
+                    <div class="faq-question">Berapa lama proses pendirian PT? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">Dengan dokumen lengkap, proses pendirian PT memakan waktu sekitar 7-14 hari kerja, tergantung dari kecepatan pembuatan akta notaris dan pengesahan dari Kemenkumham.</div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">Apakah Firma bisa memiliki lebih dari 2 sekutu? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Ya, Firma dapat didirikan oleh 2 orang atau lebih. Semakin banyak sekutu, semakin besar potensi modal dan keahlian yang terkumpul untuk mengembangkan usaha.</div>
+                    <div class="faq-question">Berapa minimal pemegang saham dalam PT? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">PT minimal didirikan oleh 2 (dua) orang pemegang saham, kecuali PT Perorangan yang hanya memerlukan 1 orang pendiri.</div>
                 </div>
             </div>
         </div>

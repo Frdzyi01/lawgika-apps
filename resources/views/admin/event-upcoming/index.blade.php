@@ -164,12 +164,14 @@
                 <thead class="table-light">
                     <tr>
                         <th>No</th>
-                        <th>Banner Event</th>
+                        <th>Banner</th>
                         <th>Nama Event</th>
-                        <th>Deskripsi</th>
+                        <th>Waktu Detail</th>
                         <th>Lokasi</th>
                         <th>Tanggal Event</th>
-                        <th>Tanggal Selesai Event</th>
+                        <th>Peserta</th>
+                        <th>Narasumber</th>
+                        <th>Harga</th>
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
@@ -195,11 +197,30 @@
                         </td>
                         <td>
                             <h6 class="mb-0">{{ $event->nama_event }}</h6>
+                            <small class="text-muted">{{ $event->tipe_event }}</small>
                         </td>
-                        <td>{{ Str::limit($event->deskripsi, 40) }}</td>
+                        <td>{{ $event->waktu_event ?? '-' }}</td>
                         <td>{{ $event->lokasi }}</td>
-                        <td>{{ $event->tanggal_mulai->translatedFormat('d M Y') }}</td>
-                        <td>{{ $event->tanggal_selesai->translatedFormat('d M Y') }}</td>
+                        <td>
+                            <div>{{ $event->tanggal_mulai->translatedFormat('d M Y') }}</div>
+                            <small class="text-muted">s/d {{ $event->tanggal_selesai->translatedFormat('d M Y') }}</small>
+                        </td>
+                        <td>{{ $event->kapasitas ?? '-' }}</td>
+                        <td>
+                            @if(is_array($event->narasumber))
+                                {{ implode(', ', array_slice($event->narasumber, 0, 2)) }}
+                                @if(count($event->narasumber) > 2) ... @endif
+                            @else
+                                {{ $event->narasumber ?? '-' }}
+                            @endif
+                        </td>
+                        <td>
+                            @if($event->harga > 0)
+                                Rp {{ number_format($event->harga, 0, ',', '.') }}
+                            @else
+                                <span class="text-success">Gratis</span>
+                            @endif
+                        </td>
                         <td>
                             @if($event->status_aktif)
                                 <span class="badge bg-success">Aktif</span>
@@ -223,6 +244,11 @@
                                     data-mulai="{{ $event->tanggal_mulai->format('Y-m-d') }}"
                                     data-selesai="{{ $event->tanggal_selesai->format('Y-m-d') }}"
                                     data-status="{{ $event->status ? 1 : 0 }}"
+                                    data-waktuevent="{{ $event->waktu_event }}"
+                                    data-kapasitas="{{ $event->kapasitas }}"
+                                    data-narasumber="{{ is_array($event->narasumber) ? implode(', ', $event->narasumber) : $event->narasumber }}"
+                                    data-harga="{{ $event->harga }}"
+                                    data-tipe="{{ $event->tipe_event }}"
                                 ><ion-icon name="pencil-outline"></ion-icon></a>
                                 {{-- Delete --}}
                                 <form action="{{ route('admin.event-upcoming.destroy', $event->id) }}" method="POST" style="display:inline;"
@@ -239,7 +265,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="9" class="text-center text-muted py-4">Belum ada data event.</td>
+                        <td colspan="11" class="text-center text-muted py-4">Belum ada data event.</td>
                     </tr>
                     @endforelse
                 </tbody>
@@ -315,6 +341,34 @@
                         </div>
                     </div>
                     <div class="mb-3">
+                        <label class="form-label">Waktu Event (Detail)</label>
+                        <input type="text" class="form-control" name="waktu_event" placeholder="Contoh: 15.00 - 17.00 WIB" />
+                        <small class="text-muted">Isi dengan detail waktu pelaksanaan event</small>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Kapasitas Peserta</label>
+                        <input type="number" class="form-control" name="kapasitas" placeholder="Maksimal jumlah peserta" />
+                        <small class="text-muted">Kosongkan jika tidak terbatas</small>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Narasumber / Moderator</label>
+                        <input type="text" class="form-control" name="narasumber" placeholder="Contoh: Sandiaga Uno, Theresa Tjandrawinata" />
+                        <small class="text-muted">Pisahkan dengan koma jika lebih dari satu</small>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Harga Event (Rp)</label>
+                            <input type="number" class="form-control" name="harga" placeholder="0 untuk gratis" value="0" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Tipe Event</label>
+                            <select class="form-select" name="tipe_event">
+                                <option value="gratis">Gratis</option>
+                                <option value="berbayar">Berbayar</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
                         <label class="form-label">Status</label>
                         <select class="form-select" name="status">
                             <option value="1">Aktif</option>
@@ -383,6 +437,31 @@
                         </div>
                     </div>
                     <div class="mb-3">
+                        <label class="form-label">Waktu Event (Detail)</label>
+                        <input type="text" class="form-control" name="waktu_event" id="edit_waktu_event" placeholder="Contoh: 15.00 - 17.00 WIB" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Kapasitas Peserta</label>
+                        <input type="number" class="form-control" name="kapasitas" id="edit_kapasitas" placeholder="Maksimal jumlah peserta" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Narasumber / Moderator</label>
+                        <input type="text" class="form-control" name="narasumber" id="edit_narasumber" placeholder="Contoh: Sandiaga Uno, Theresa Tjandrawinata" />
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Harga Event (Rp)</label>
+                            <input type="number" class="form-control" name="harga" id="edit_harga" placeholder="0 untuk gratis" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Tipe Event</label>
+                            <select class="form-select" name="tipe_event" id="edit_tipe_event">
+                                <option value="gratis">Gratis</option>
+                                <option value="berbayar">Berbayar</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
                         <label class="form-label">Status</label>
                         <select class="form-select" name="status" id="edit_status_event">
                             <option value="1">Aktif</option>
@@ -414,6 +493,11 @@ document.addEventListener('DOMContentLoaded', function () {
             var mulai    = this.dataset.mulai;
             var selesai  = this.dataset.selesai;
             var status   = this.dataset.status;
+            var waktuEv  = this.dataset.waktuevent;
+            var kap      = this.dataset.kapasitas;
+            var nar      = this.dataset.narasumber;
+            var harga    = this.dataset.harga;
+            var tipe     = this.dataset.tipe;
 
             var form = document.getElementById('formEditEvent');
             form.action = '/admin/event-upcoming/' + id;
@@ -424,6 +508,11 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('edit_tanggal_mulai_event').value  = mulai;
             document.getElementById('edit_tanggal_selesai_event').value = selesai;
             document.getElementById('edit_status_event').value         = status;
+            document.getElementById('edit_waktu_event').value          = waktuEv || '';
+            document.getElementById('edit_kapasitas').value            = kap || '';
+            document.getElementById('edit_narasumber').value           = nar || '';
+            document.getElementById('edit_harga').value                = harga || 0;
+            document.getElementById('edit_tipe_event').value           = tipe || 'gratis';
 
             var modal = new bootstrap.Modal(document.getElementById('editEventModal'));
             modal.show();

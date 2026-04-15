@@ -50,10 +50,10 @@
     }
 
     .author-title {
-        font-size: 0.85rem;
-        color: #6b7280;
-        margin-left: 4px;
-        font-weight: 400;
+      font-size: 0.85rem;
+      color: #6b7280;
+      margin-left: 4px;
+      font-weight: 400;
     }
   </style>
 
@@ -442,7 +442,7 @@
                       <i class="fa-regular fa-user"></i>
                       {{ $berita->penulis }}
                       @if($berita->jabatan_penulis)
-                          <span class="author-title">({{ $berita->jabatan_penulis }})</span>
+                      <span class="author-title">({{ $berita->jabatan_penulis }})</span>
                       @endif
                     </li>
                     <li>
@@ -455,9 +455,9 @@
                     </li>
                   </ul>
                   <h3>{{ $berita->judul }}</h3>
-                  
+
                   <div class="berita-content mt-4">
-                      {!! $berita->konten !!}
+                    {!! $berita->konten !!}
                   </div>
                 </div>
               </div>
@@ -470,7 +470,7 @@
                 </div>
                 <div class="col-lg-4 col-12 mt-3 mt-lg-0 text-lg-end">
                   <a href="{{ url('/berita') }}" class="theme-btn">
-                      <i class="fa-solid fa-arrow-left-long"></i> Kembali ke Berita
+                    <i class="fa-solid fa-arrow-left-long"></i> Kembali ke Berita
                   </a>
                 </div>
               </div>
@@ -486,10 +486,10 @@
                   <ul>
                     @foreach($kategoriList as $kat)
                     <li class="{{ request('kategori') == $kat->kategori ? 'active' : '' }}">
-                        <a href="{{ url('/berita?kategori=' . urlencode($kat->kategori)) }}">
-                            {{ $kat->kategori }}
-                        </a>
-                        <span>({{ $kat->total }})</span>
+                      <a href="{{ url('/berita?kategori=' . urlencode($kat->kategori)) }}">
+                        {{ $kat->kategori }}
+                      </a>
+                      <span>({{ $kat->total }})</span>
                     </li>
                     @endforeach
                   </ul>
@@ -503,24 +503,24 @@
                   @forelse($beritaLainnya as $item)
                   <div class="recent-items">
                     <div class="recent-thumb">
-                        @if($item->gambar)
-                        <img src="{{ asset('storage/' . $item->gambar) }}" alt="{{ $item->judul }}">
-                        @else
-                        <img src="{{ asset('buyer-file/assets/img/news/pp3.jpg') }}" alt="placeholder">
-                        @endif
+                      @if($item->gambar)
+                      <img src="{{ asset('storage/' . $item->gambar) }}" alt="{{ $item->judul }}">
+                      @else
+                      <img src="{{ asset('buyer-file/assets/img/news/pp3.jpg') }}" alt="placeholder">
+                      @endif
                     </div>
                     <div class="recent-content">
-                        <ul>
-                            <li>
-                                <i class="fa-solid fa-calendar-days"></i>
-                                {{ $item->published_at->format('d/m/Y') }}
-                            </li>
-                        </ul>
-                        <h6>
-                            <a href="{{ route('berita.show', $item->slug) }}">
-                                {{ \Illuminate\Support\Str::limit($item->judul, 40) }}
-                            </a>
-                        </h6>
+                      <ul>
+                        <li>
+                          <i class="fa-solid fa-calendar-days"></i>
+                          {{ $item->published_at->format('d/m/Y') }}
+                        </li>
+                      </ul>
+                      <h6>
+                        <a href="{{ route('berita.show', $item->slug) }}">
+                          {{ \Illuminate\Support\Str::limit($item->judul, 40) }}
+                        </a>
+                      </h6>
                     </div>
                   </div>
                   @empty

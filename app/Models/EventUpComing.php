@@ -18,6 +18,11 @@ class EventUpComing extends Model
         'lokasi',
         'tanggal_mulai',
         'tanggal_selesai',
+        'waktu_event',
+        'kapasitas',
+        'narasumber',
+        'harga',
+        'tipe_event',
         'status',
     ];
 
@@ -25,6 +30,17 @@ class EventUpComing extends Model
         'tanggal_mulai'   => 'date',
         'tanggal_selesai' => 'date',
         'status'          => 'boolean',
+        'narasumber'      => 'array',
+        'kapasitas'       => 'integer',
+        'harga'           => 'integer',
+    ];
+
+    /**
+     * Sertakan accessor ini secara otomatis dalam output JSON/array
+     */
+    protected $appends = [
+        'status_aktif',
+        'label_status',
     ];
 
     /**

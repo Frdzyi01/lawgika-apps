@@ -1429,7 +1429,7 @@
          <div class="sp-eyebrow"><i class="fas fa-bolt"></i> Penawaran Terbatas</div>
          <h2 class="sp-main-title">Special <span>Promo</span> Lawgika</h2>
        </div>
-       <a href="#layanan-kami-section" class="sp-other-btn">
+       <a href="{{ ('/promo') }}" class="sp-other-btn">
          Promo Lainnya <i class="fas fa-long-arrow-alt-right"></i>
        </a>
      </div>
@@ -2458,18 +2458,348 @@
      transform: translateX(3px);
    }
 
-   @media (max-width: 767.98px) {
-     #upcoming-event-section {
-       padding: 48px 0 56px;
+   /* ===== MODAL POPUP STYLE — OPTIMIZED (NO BLUR, NO HEAVY FX) ===== */
+   .event-modal-overlay {
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     background: rgba(0, 0, 0, 0.85);
+     /* NO backdrop-filter — causes severe lag on mobile */
+     display: none;
+     justify-content: center;
+     align-items: center;
+     z-index: 10000;
+   }
+
+   .event-modal-overlay.active {
+     display: flex;
+   }
+
+   .event-modal-container {
+     background: #fff;
+     border-radius: 24px;
+     max-width: 560px;
+     width: 90%;
+     max-height: 80vh;
+     overflow-y: auto;
+     position: relative;
+     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+     /* Optimasi scroll — ringan */
+     -webkit-overflow-scrolling: touch;
+     overscroll-behavior: contain;
+     scrollbar-width: thin;
+   }
+
+   .event-modal-container::-webkit-scrollbar {
+     width: 5px;
+   }
+
+   .event-modal-container::-webkit-scrollbar-track {
+     background: #f1f1f1;
+     border-radius: 10px;
+   }
+
+   .event-modal-container::-webkit-scrollbar-thumb {
+     background: #dc3545;
+     border-radius: 10px;
+   }
+
+   .event-modal-close {
+     position: absolute;
+     top: 16px;
+     right: 20px;
+     font-size: 28px;
+     font-weight: 400;
+     color: white;
+     cursor: pointer;
+     background: rgba(0, 0, 0, 0.5);
+     border: none;
+     width: 38px;
+     height: 38px;
+     border-radius: 50%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     z-index: 20;
+   }
+
+   .event-modal-close:hover {
+     background: #dc3545;
+     color: white;
+   }
+
+   .modal-event-img {
+     width: 100%;
+     height: 240px;
+     object-fit: cover;
+     border-radius: 24px 24px 0 0;
+   }
+
+   .modal-event-body {
+     padding: 28px 30px 32px;
+   }
+
+   .modal-event-title {
+     font-size: 1.8rem;
+     font-weight: 800;
+     margin-bottom: 8px;
+     color: #111827;
+     letter-spacing: -0.3px;
+     line-height: 1.3;
+   }
+
+   .modal-event-badge {
+     display: inline-block;
+     font-size: 0.7rem;
+     font-weight: 700;
+     padding: 4px 12px;
+     border-radius: 30px;
+     margin-left: 10px;
+     vertical-align: middle;
+     text-transform: uppercase;
+     letter-spacing: 0.5px;
+   }
+
+   .modal-event-badge.aktif {
+     background: #28a745;
+     color: white;
+   }
+
+    .modal-event-badge.selesai {
+      background: #6c757d;
+      color: white;
+    }
+
+    .modal-event-badge.berbayar {
+      background: #fd7e14;
+      color: white;
+    }
+
+    .modal-event-badge.gratis {
+      background: #28a745;
+      color: white;
+    }
+
+    .ue-card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .ue-price,
+    .ue-price-free,
+    .ue-capacity {
+      font-size: 0.73rem;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .ue-price {
+      background: #fff5f5;
+      color: #dc3545;
+      border: 1px solid #feb2b2;
+    }
+
+    .ue-price-free {
+      background: #f0fff4;
+      color: #28a745;
+      border: 1px solid #9ae6b4;
+    }
+
+    .ue-capacity {
+      background: #f7fafc;
+      color: #4a5568;
+      border: 1px solid #e2e8f0;
+    }
+
+   .modal-event-date {
+     color: #6c757d;
+     font-size: 0.9rem;
+     margin-bottom: 20px;
+     display: flex;
+     align-items: center;
+     gap: 10px;
+     border-bottom: 1.5px solid #f0f0f0;
+     padding-bottom: 16px;
+   }
+
+   .modal-event-date i {
+     color: #dc3545;
+     width: 20px;
+     font-size: 1rem;
+   }
+
+   .modal-event-desc {
+     color: #4a5568;
+     line-height: 1.7;
+     margin-bottom: 24px;
+     font-size: 0.95rem;
+     background: #fafbfc;
+     padding: 18px;
+     border-radius: 16px;
+     border-left: 4px solid #dc3545;
+   }
+
+   .modal-event-info {
+     background: #ffffff;
+     padding: 0;
+     margin-bottom: 28px;
+     border: 1px solid #eef2f6;
+     border-radius: 20px;
+     overflow: hidden;
+   }
+
+   .modal-event-info-item {
+     display: flex;
+     align-items: center;
+     gap: 14px;
+     padding: 14px 20px;
+     border-bottom: 1px solid #f0f2f5;
+   }
+
+   .modal-event-info-item:last-child {
+     border-bottom: none;
+   }
+
+   .modal-event-info-item i {
+     width: 24px;
+     color: #dc3545;
+     font-size: 1.1rem;
+     text-align: center;
+   }
+
+   .modal-event-info-item .info-label {
+     font-weight: 700;
+     color: #2c3e50;
+     min-width: 80px;
+     font-size: 0.85rem;
+   }
+
+   .modal-event-info-item .info-value {
+     color: #4a5568;
+     font-size: 0.9rem;
+     flex: 1;
+   }
+
+   .modal-buttons {
+     display: flex;
+     flex-direction: column;
+     gap: 12px;
+     margin-top: 8px;
+   }
+
+   .btn-daftar {
+     background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+     color: white;
+     text-align: center;
+     padding: 14px;
+     border-radius: 50px;
+     text-decoration: none;
+     font-weight: 700;
+     font-size: 1rem;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     gap: 10px;
+     border: none;
+     cursor: pointer;
+   }
+
+   .btn-daftar:hover {
+     box-shadow: 0 8px 20px rgba(40, 167, 69, 0.3);
+     color: white;
+   }
+
+   .btn-lihat-semua {
+     background: white;
+     color: #dc3545;
+     text-align: center;
+     padding: 13px;
+     border-radius: 50px;
+     text-decoration: none;
+     font-weight: 700;
+     font-size: 0.95rem;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     gap: 10px;
+     border: 2px solid #dc3545;
+     cursor: pointer;
+   }
+
+   .btn-lihat-semua:hover {
+     background: #dc3545;
+     color: white;
+   }
+
+   /* Loading state */
+   .modal-loading {
+     text-align: center;
+     padding: 60px 30px;
+   }
+
+   .modal-loading i {
+     font-size: 48px;
+     color: #dc3545;
+     margin-bottom: 16px;
+   }
+
+   .modal-loading p {
+     color: #6c757d;
+     font-size: 0.9rem;
+   }
+
+   /* Error state */
+   .modal-error {
+     text-align: center;
+     padding: 50px 30px;
+   }
+
+   .modal-error i {
+     font-size: 48px;
+     color: #dc3545;
+     margin-bottom: 16px;
+   }
+
+   .modal-error p {
+     color: #dc3545;
+     margin-bottom: 20px;
+   }
+
+   @media (max-width: 576px) {
+     .event-modal-container {
+       width: 95%;
+       border-radius: 20px;
      }
 
-     .ue-title {
-       font-size: 1.55rem;
+     .modal-event-img {
+       height: 180px;
      }
 
-     .ue-header {
+     .modal-event-body {
+       padding: 20px;
+     }
+
+     .modal-event-title {
+       font-size: 1.4rem;
+     }
+
+     .modal-event-info-item {
        flex-direction: column;
        align-items: flex-start;
+       gap: 6px;
+       padding: 12px 16px;
+     }
+
+     .modal-event-info-item .info-label {
+       min-width: auto;
      }
    }
  </style>
@@ -2483,7 +2813,7 @@
          <div class="sp-eyebrow mb-1"><i class="fas fa-calendar-alt"></i> Agenda Lawgika</div>
          <h2 class="ue-title">Upcoming Event</h2>
        </div>
-       <a href="#" class="ue-all-btn">Lihat Event <i class="fas fa-long-arrow-alt-right"></i></a>
+       <a href="{{ route('upcoming.event') }}" class="ue-all-btn">Lihat Event <i class="fas fa-long-arrow-alt-right"></i></a>
      </div>
 
      <!-- Card Grid -->
@@ -2509,7 +2839,29 @@
              <div class="ue-card-date"><i class="fas fa-calendar"></i> {{ $event->tanggal_mulai->translatedFormat('d F Y') }}</div>
              <div class="ue-card-title">{{ $event->nama_event }}</div>
              <p class="ue-card-desc">{{ Str::limit($event->deskripsi, 100) }}</p>
-             <a href="#" class="ue-card-btn">Lihat Detail <i class="fas fa-arrow-right"></i></a>
+
+             <!-- INFORMASI TAMBAHAN DI CARD -->
+             <div class="ue-card-meta">
+               @if($event->harga > 0)
+               <span class="ue-price">
+                 <i class="fas fa-tag"></i>
+                 Rp {{ number_format($event->harga, 0, ',', '.') }}
+               </span>
+               @else
+               <span class="ue-price-free">
+                 <i class="fas fa-gift"></i> Gratis
+               </span>
+               @endif
+
+               @if($event->kapasitas)
+               <span class="ue-capacity">
+                 <i class="fas fa-users"></i>
+                 Max {{ $event->kapasitas }} org
+               </span>
+               @endif
+             </div>
+
+             <a href="javascript:void(0)" onclick="openEventPopup({{ $event->id }})" class="ue-card-btn">Lihat Detail <i class="fas fa-arrow-right"></i></a>
            </div>
          </div>
        </div>
@@ -2519,8 +2871,194 @@
      </div><!-- /row -->
    </div><!-- /container -->
  </section>
- <!-- ===== END UPCOMING EVENT SECTION ===== -->
 
+ <!-- ===== MODAL POPUP ===== -->
+ <div id="eventModal" class="event-modal-overlay">
+   <div class="event-modal-container">
+     <button class="event-modal-close" onclick="closeEventModal()">&times;</button>
+     <div id="eventModalContent">
+       <!-- Konten akan diisi via JavaScript -->
+       <div class="text-center py-5">
+         <i class="fas fa-spinner fa-spin fa-2x text-muted"></i>
+         <p class="mt-2">Memuat data...</p>
+       </div>
+     </div>
+   </div>
+ </div>
+
+ <!-- ===== JAVASCRIPT FOR POPUP ===== -->
+ <script>
+   function openEventPopup(eventId) {
+     console.log('[EventPopup] Opening event ID:', eventId);
+
+     // Tampilkan loading
+     document.getElementById('eventModalContent').innerHTML = `
+         <div class="text-center py-5">
+             <i class="fas fa-spinner fa-spin fa-2x text-muted"></i>
+             <p class="mt-2">Memuat data event...</p>
+         </div>
+     `;
+
+     // Tampilkan modal
+     document.getElementById('eventModal').classList.add('active');
+
+     // Fetch data event
+     fetch(`/event-upcoming/${eventId}/detail`)
+       .then(response => {
+         if (!response.ok) {
+           throw new Error('Event tidak ditemukan');
+         }
+         return response.json();
+       })
+       .then(event => {
+         // DEBUG: Log raw values dari backend
+         console.log('[EventPopup] Raw status_aktif:', event.status_aktif);
+         console.log('[EventPopup] Type of status_aktif:', typeof event.status_aktif);
+         console.log('[EventPopup] label_status:', event.label_status);
+         console.log('[EventPopup] Full event data:', event);
+
+         // Format tanggal
+         let formattedDate = '';
+         if (event.tanggal_mulai) {
+           const date = new Date(event.tanggal_mulai);
+           formattedDate = date.toLocaleDateString('id-ID', {
+             day: 'numeric',
+             month: 'long',
+             year: 'numeric'
+           });
+         }
+
+         // Siapkan banner image
+         let bannerHtml = '';
+         if (event.banner) {
+           bannerHtml = `<img src="/storage/${event.banner}" alt="${event.nama_event}" class="modal-event-img">`;
+         } else {
+           bannerHtml = `<img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=80&auto=format&fit=crop" alt="${event.nama_event}" class="modal-event-img">`;
+         }
+
+         // STATUS CHECK — metode paling aman, cek semua kemungkinan tipe
+         let isAktif = false;
+         if (event.status_aktif === true ||
+             event.status_aktif === 1 ||
+             event.status_aktif === '1' ||
+             event.status_aktif === 'true' ||
+             Number(event.status_aktif) === 1) {
+             isAktif = true;
+         }
+         // Fallback: gunakan label_status dari backend jika ada
+         if (event.label_status) {
+             isAktif = (event.label_status === 'Aktif');
+         }
+
+         console.log('[EventPopup] Final isAktif:', isAktif);
+
+         let statusBadge = isAktif ?
+           '<span class="modal-event-badge aktif">● Aktif</span>' :
+           '<span class="modal-event-badge selesai">● Selesai</span>';
+
+         // Format harga
+         let hargaText = '';
+         if (event.harga && event.harga > 0) {
+           hargaText = `Rp ${event.harga.toLocaleString('id-ID')}`;
+         } else {
+           hargaText = 'Gratis';
+         }
+
+         // Format narasumber
+         let narasumberText = '-';
+         if (event.narasumber) {
+           if (typeof event.narasumber === 'string') {
+             narasumberText = event.narasumber;
+           } else if (Array.isArray(event.narasumber)) {
+             narasumberText = event.narasumber.join(', ');
+           }
+         }
+
+         // Tipe event badge
+         let tipeEventBadge = (event.tipe_event === 'berbayar' || event.harga > 0) ?
+           '<span class="modal-event-badge berbayar">💰 Berbayar</span>' :
+           '<span class="modal-event-badge gratis">🎉 Gratis</span>';
+
+         const modalContent = document.getElementById('eventModalContent');
+         modalContent.innerHTML = `
+                 ${bannerHtml}
+                 <div class="modal-event-body">
+                     <h3 class="modal-event-title">${escapeHtml(event.nama_event)} ${statusBadge} ${tipeEventBadge}</h3>
+                     <div class="modal-event-date">
+                         <i class="fas fa-calendar-alt"></i> ${formattedDate}
+                     </div>
+                     <div class="modal-event-desc">
+                         ${escapeHtml(event.deskripsi) || 'Tidak ada deskripsi'}
+                     </div>
+                     <div class="modal-event-info">
+                         <div class="modal-event-info-item">
+                             <i class="fas fa-map-marker-alt"></i>
+                             <span class="info-label">Lokasi</span>
+                             <span class="info-value">${escapeHtml(event.lokasi) || '-'}</span>
+                         </div>
+                         <div class="modal-event-info-item">
+                             <i class="fas fa-clock"></i>
+                             <span class="info-label">Waktu</span>
+                             <span class="info-value">${escapeHtml(event.waktu_event) || escapeHtml(event.waktu) || 'Belum ditentukan'}</span>
+                         </div>
+                         <div class="modal-event-info-item">
+                             <i class="fas fa-users"></i>
+                             <span class="info-label">Kapasitas</span>
+                             <span class="info-value">${event.kapasitas ? event.kapasitas.toLocaleString() + ' peserta' : 'Tidak terbatas'}</span>
+                         </div>
+                         <div class="modal-event-info-item">
+                             <i class="fas fa-chalkboard-user"></i>
+                             <span class="info-label">Narasumber</span>
+                             <span class="info-value">${escapeHtml(narasumberText)}</span>
+                         </div>
+                         <div class="modal-event-info-item">
+                             <i class="fas fa-ticket"></i>
+                             <span class="info-label">Harga</span>
+                             <span class="info-value ${event.harga > 0 ? 'text-danger fw-bold' : 'text-success fw-bold'}">${hargaText}</span>
+                         </div>
+                     </div>
+                     <div class="modal-buttons">
+                         <a href="#" class="btn-daftar"><i class="fas fa-ticket-alt"></i> Daftar Sekarang</a>
+                         <a href="{{ route('upcoming.event') }}" class="btn-lihat-semua"><i class="fas fa-calendar-week"></i> LIHAT SEMUA EVENT →</a>
+                     </div>
+                 </div>
+             `;
+       })
+       .catch(error => {
+         console.error('[EventPopup] Error:', error);
+         document.getElementById('eventModalContent').innerHTML = `
+                 <div class="modal-event-body text-center py-5">
+                     <i class="fas fa-exclamation-triangle fa-2x text-danger"></i>
+                     <p class="mt-3 text-danger">Gagal memuat detail event</p>
+                     <button onclick="closeEventModal()" class="btn btn-secondary mt-2">Tutup</button>
+                 </div>
+             `;
+       });
+   }
+
+   function closeEventModal() {
+     document.getElementById('eventModal').classList.remove('active');
+   }
+
+   // Tutup modal jika klik di luar area modal
+   document.getElementById('eventModal').addEventListener('click', function(e) {
+     if (e.target === this) {
+       closeEventModal();
+     }
+   });
+
+   // Escape HTML untuk keamanan
+   function escapeHtml(str) {
+     if (!str) return '';
+     return str
+       .replace(/&/g, '&amp;')
+       .replace(/</g, '&lt;')
+       .replace(/>/g, '&gt;')
+       .replace(/"/g, '&quot;')
+       .replace(/'/g, '&#39;');
+   }
+ </script>
+ <!-- ===== END UPCOMING EVENT SECTION ===== -->
 
  <!-- Peraturan Start -->
  <style>

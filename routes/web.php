@@ -7,6 +7,7 @@ use App\Http\Controllers\PeraturanKBLIController;
 use App\Http\Controllers\PeraturanFrontendController;
 use App\Http\Controllers\EventUpComingController;
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\EventUpComingFrontendController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -42,7 +43,8 @@ Route::get('/', function () {
 
 // pendirian badan usaha
 Route::get('/pendirian-pt-perorangan', [ServicesController::class, 'pendirianPtPerorangan']);
-Route::get('/pendirian-pt', [ServicesController::class, 'pendirianPt']);
+Route::get('/pendirian-pt->-1m', [ServicesController::class, 'pendirianPtdibawah1M']);
+Route::get('/pendirian-pt-<-1m', [ServicesController::class, 'pendirianPtdiatas1M']);
 Route::get('/pendirian-pt-pma', [ServicesController::class, 'pendirianPtPma']);
 Route::get('/pendirian-cv', [ServicesController::class, 'pendirianCv']);
 Route::get('/pendirian-yayasan', [ServicesController::class, 'pendirianYayasan']);
@@ -115,3 +117,6 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 Route::get('/berita', [\App\Http\Controllers\BeritaController::class, 'frontendIndex'])->name('berita.index');
 Route::get('/berita/{slug}', [\App\Http\Controllers\BeritaController::class, 'frontendShow'])->name('berita.show');
 
+// ROUTE FRONTEND (TAMBAHKAN INI)
+Route::get('/upcoming-event', [EventUpComingController::class, 'frontendIndex'])->name('upcoming.event');
+Route::get('/event-upcoming/{id}/detail', [EventUpComingController::class, 'detail'])->name('event.detail');
