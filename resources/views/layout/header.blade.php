@@ -399,7 +399,8 @@
                                 </div>
                                 <ul>
                                   <li><a href="{{ url('/pendirian-pt-perorangan') }}">Pendirian PT Perorangan</a></li>
-                                  <li><a href="{{ url('/pendirian-pt-<-1m') }}">Pendirian PT < 1M</a></li>
+                                  <li><a href="{{ url('/pendirian-pt-<-1m') }}">Pendirian PT < 1M</a>
+                                  </li>
                                   <li><a href="{{ url('/pendirian-pt->-1m') }}">Pendirian PT > 1M</a></li>
                                   <li><a href="{{ url('/pendirian-pt-pma') }}">Pendirian PT PMA</a></li>
                                   <li><a href="{{ url('/pendirian-cv') }}">Pendirian CV</a></li>
@@ -416,12 +417,22 @@
                                 <ul>
                                   <li><a href="{{ url('/nib-dan-oss') }}">NIB &amp; OSS</a></li>
                                   <li><a href="{{ url('/haki') }}">HAKI / Pendaftaran Merek</a></li>
-                                  <li><a href="{{ url('/perubahan-anggaran-dasar') }}">Perubahan Anggaran Dasar</a></li>
+                                  <!-- <li><a href="{{ url('/perubahan-anggaran-dasar') }}">Perubahan Anggaran Dasar</a></li>
                                   <li><a href="{{ url('/penutupan-perusahaan') }}">Penutupan Perusahaan</a></li>
-                                  <li><a href="{{ url('/sbu-sijuk') }}">SBU &amp; SIJUK</a></li>
+                                  <li><a href="{{ url('/sbu-sijuk') }}">SBU &amp; SIJUK</a></li> -->
                                   <li><a href="{{ url('/laporan-lkpm') }}">Laporan LKPM</a></li>
                                   <li><a href="{{ url('/sertifikat-iso') }}">Sertifikat ISO</a></li>
+                                  <li><a href="{{ url('/surat-keterangan-tidak-pailit') }}" style="font-size: 14px !important;">Surat Keterangan Tidak Pailit</a></li>
                                   <li><a href="{{ url('/drafting-review-perjanjian-bisnis') }}">Drafting Perjanjian Bisnis</a></li>
+                                </ul>
+                                <div class="lw-col-title mt-3">
+                                  <i class="fas fa-map-marker-alt"></i> Kantor &amp; Pendukung
+                                </div>
+                                <ul>
+                                  <li><a href="{{ url('/virtual-office') }}">Virtual Office</a></li>
+                                  <li><a href="{{ url('/sewa-meeting-room') }}">Sewa Meeting Room</a></li>
+                                  <li><a href="{{ url('/layanan-visa-kitas') }}">Visa dan KITAS</a></li>
+                                  <li><a href="{{ url('/layanan-konsultasi-bisnis') }}">Konsultasi Bisnis</a></li>
                                 </ul>
                               </div>
 
@@ -436,17 +447,11 @@
                                   <li><a href="{{ url('/layanan-payroll') }}">Layanan Payroll</a></li>
                                   <li><a href="{{ url('/pendaftaran-npwp') }}">Pendaftaran NPWP</a></li>
                                   <li><a href="{{ url('/pelaporan-spt-badan') }}">Pelaporan SPT Badan</a></li>
+                                  <li><a href="{{ url('/pelaporan-spt-pribadi') }}">Pelaporan SPT Pribadi</a></li>
                                   <li><a href="{{ url('/audit-laporan-keuangan') }}">Audit Laporan Keuangan</a></li>
+                                  <li><a href="{{ url('/pengurusan-pkp') }}">Pengurusan PKP</a></li>
                                 </ul>
-                                <div class="lw-col-title mt-3">
-                                  <i class="fas fa-map-marker-alt"></i> Kantor &amp; Pendukung
-                                </div>
-                                <ul>
-                                  <li><a href="{{ url('/virtual-office') }}">Virtual Office</a></li>
-                                  <li><a href="{{ url('/sewa-meeting-room') }}">Sewa Meeting Room</a></li>
-                                  <li><a href="{{ url('/layanan-visa-kitas') }}">Visa dan KITAS</a></li>
-                                  <li><a href="{{ url('/layanan-konsultasi-bisnis') }}">Konsultasi Bisnis</a></li>
-                                </ul>
+
                               </div>
 
                             </div><!-- /lw-mega-cols -->
@@ -1524,7 +1529,7 @@
 
 <!-- Modal Switcher Script -->
 <script>
-  (function () {
+  (function() {
     'use strict';
 
     /**
@@ -1534,11 +1539,11 @@
      */
     function switchModal(fromId, toId) {
       var fromEl = document.getElementById(fromId);
-      var toEl   = document.getElementById(toId);
+      var toEl = document.getElementById(toId);
       if (!fromEl || !toEl) return;
 
-      var fromModal = bootstrap.Modal.getInstance(fromEl)
-                   || new bootstrap.Modal(fromEl);
+      var fromModal = bootstrap.Modal.getInstance(fromEl) ||
+        new bootstrap.Modal(fromEl);
 
       /* One-time listener: setelah modal asal benar-benar tersembunyi, buka yang baru */
       fromEl.addEventListener('hidden.bs.modal', function handler() {
@@ -1553,7 +1558,7 @@
       /* Login → Register */
       var btnGoRegister = document.getElementById('btn-go-register');
       if (btnGoRegister) {
-        btnGoRegister.addEventListener('click', function () {
+        btnGoRegister.addEventListener('click', function() {
           switchModal('exampleModal', 'exampleModal2');
         });
       }
@@ -1561,7 +1566,7 @@
       /* Register → Login */
       var btnGoLogin = document.getElementById('btn-go-login');
       if (btnGoLogin) {
-        btnGoLogin.addEventListener('click', function () {
+        btnGoLogin.addEventListener('click', function() {
           switchModal('exampleModal2', 'exampleModal');
         });
       }
@@ -1569,7 +1574,7 @@
       /* Forgot Password → Register */
       var btnForgotGoRegister = document.getElementById('btn-forgot-go-register');
       if (btnForgotGoRegister) {
-        btnForgotGoRegister.addEventListener('click', function () {
+        btnForgotGoRegister.addEventListener('click', function() {
           switchModal('exampleModal3', 'exampleModal2');
         });
       }
@@ -1577,7 +1582,7 @@
       /* Forgot Password → Login */
       var btnForgotGoLogin = document.getElementById('btn-forgot-go-login');
       if (btnForgotGoLogin) {
-        btnForgotGoLogin.addEventListener('click', function () {
+        btnForgotGoLogin.addEventListener('click', function() {
           switchModal('exampleModal3', 'exampleModal');
         });
       }
