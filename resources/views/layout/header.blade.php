@@ -442,8 +442,7 @@
                                   <i class="fas fa-calculator"></i> Pajak &amp; Pembukuan
                                 </div>
                                 <ul>
-                                  <li><a href="{{ url('/langganan-jasa-pembukuan') }}">Jasa Pembukuan</a></li>
-                                  <li><a href="{{ url('/langganan-jasa-perpajakan') }}">Jasa Perpajakan</a></li>
+                                  <li><a href="{{ url('/jasa-pembukuan-perpajakan') }}">Jasa Pembukuan & Perpajakan</a></li>
                                   <li><a href="{{ url('/layanan-payroll') }}">Layanan Payroll</a></li>
                                   <li><a href="{{ url('/pendaftaran-npwp') }}">Pendaftaran NPWP</a></li>
                                   <li><a href="{{ url('/pelaporan-spt-badan') }}">Pelaporan SPT Badan</a></li>
@@ -543,8 +542,7 @@
                           </a>
                           <div class="collapse mobile-cat-body" id="mobCat3">
                             <ul>
-                              <li><a href="#">Langganan Jasa Pembukuan</a></li>
-                              <li><a href="#">Langganan Jasa Perpajakan</a></li>
+                              <li><a href="{{ url('/jasa-pembukuan-perpajakan') }}">Jasa Pembukuan & Perpajakan</a></li>
                               <li><a href="#">Layanan Payroll</a></li>
                               <li><a href="#">Point of Sales F&B</a></li>
                               <li><a href="#">Audit Laporan Keuangan</a></li>

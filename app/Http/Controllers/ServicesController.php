@@ -97,14 +97,19 @@ class ServicesController extends Controller
     }
 
     // pembukuan dan perpajakan
+    public function jasaPembukuanPerpajakan()
+    {
+        return view('frontend.services.perizinan-dokumen-hukum.jasa-pembukuan-perpajakan');
+    }
+
     public function langgananJasaPembukuan()
     {
-        return view('frontend.services.pembukuan-pajak.langganan-jasa-pembukuan');
+        return redirect()->route('jasa-pembukuan-perpajakan');
     }
 
     public function langgananJasaPerpajakan()
     {
-        return view('frontend.services.pembukuan-pajak.langganan-jasa-perpajakan');
+        return redirect()->route('jasa-pembukuan-perpajakan');
     }
 
     public function layananPayroll()

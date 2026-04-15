@@ -63,6 +63,7 @@ Route::get('/surat-keterangan-tidak-pailit', [ServicesController::class, 'suratK
 Route::get('/drafting-review-perjanjian-bisnis', [ServicesController::class, 'draftingReviewPerjanjianBisnis']);
 
 // pembukuan dan perpajakan
+Route::get('/jasa-pembukuan-perpajakan', [ServicesController::class, 'jasaPembukuanPerpajakan'])->name('jasa-pembukuan-perpajakan');
 Route::get('/langganan-jasa-pembukuan', [ServicesController::class, 'langgananJasaPembukuan']);
 Route::get('/langganan-jasa-perpajakan', [ServicesController::class, 'langgananJasaPerpajakan']);
 Route::get('/layanan-payroll', [ServicesController::class, 'layananPayroll']);
