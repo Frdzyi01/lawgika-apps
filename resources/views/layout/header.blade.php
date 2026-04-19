@@ -431,7 +431,7 @@
                                 <ul>
                                   <li><a href="{{ url('/virtual-office') }}">Virtual Office</a></li>
                                   <li><a href="{{ url('/sewa-meeting-room') }}">Sewa Meeting Room</a></li>
-                                  <li><a href="{{ url('/layanan-visa-kitas') }}">Visa dan KITAS</a></li>
+                                  <!-- <li><a href="{{ url('/layanan-visa-kitas') }}">Visa dan KITAS</a></li> -->
                                   <li><a href="{{ url('/layanan-konsultasi-bisnis') }}">Konsultasi Bisnis</a></li>
                                 </ul>
                               </div>
@@ -486,23 +486,19 @@
                         </div><!-- /.container p-0 -->
                       </div>
                       <!-- ===== END MEGA MENU ===== -->
-
                     </li>
 
-                    <!-- Mobile Layanan Accordion (d-xl-none only) -->
-                    <li class="has-dropdown active d-xl-none">
-                      <a href="#" class="border-none" data-bs-toggle="collapse" data-bs-target="#mobileLayananBisnis" aria-expanded="false">
-                        Layanan
-                        <i class="fas fa-angle-down"></i>
-                      </a>
-                      <div class="collapse mobile-accordion-menu" id="mobileLayananBisnis">
-                        <!-- Kategori 1: Pendirian Badan Usaha -->
+                    <!-- ========== MOBILE LAYANAN MENU (SIAP PAKAI) ========== -->
+                    <li class="has-dropdown d-xl-none">
+                      <a href="#" class="mobile-main-link" id="mobileLayananToggle">Layanan</a>
+                      <div class="mobile-menu-wrapper" id="mobileLayananMenu" style="display: none;">
+
+                        <!-- Kategori 1 -->
                         <div class="mobile-cat-item">
-                          <a href="#" class="mobile-cat-toggle" data-bs-toggle="collapse" data-bs-target="#mobCat1" aria-expanded="false">
-                            Pendirian Badan Usaha
-                            <i class="fas fa-chevron-down mobile-cat-arrow"></i>
+                          <a href="#" class="mobile-cat-toggle">
+                            <span>Pendirian Badan Usaha</span>
                           </a>
-                          <div class="collapse mobile-cat-body" id="mobCat1">
+                          <div class="mobile-cat-body" style="display: none;">
                             <ul>
                               <li><a href="{{ url('/pendirian-pt-perorangan') }}">Pendirian PT Perorangan</a></li>
                               <li><a href="{{ url('/pendirian-pt') }}">Pendirian PT</a></li>
@@ -513,66 +509,257 @@
                             </ul>
                           </div>
                         </div>
-                        <!-- Kategori 2: Perizinan & Dokumen Hukum -->
+
+                        <!-- Kategori 2 -->
                         <div class="mobile-cat-item">
-                          <a href="#" class="mobile-cat-toggle" data-bs-toggle="collapse" data-bs-target="#mobCat2" aria-expanded="false">
-                            Perizinan &amp; Dokumen Hukum
-                            <i class="fas fa-chevron-down mobile-cat-arrow"></i>
+                          <a href="#" class="mobile-cat-toggle">
+                            <span>Perizinan & Hukum</span>
                           </a>
-                          <div class="collapse mobile-cat-body" id="mobCat2">
+                          <div class="mobile-cat-body" style="display: none;">
                             <ul>
-                              <li><a href="#">Perubahan Anggaran Dasar</a></li>
-                              <li><a href="#">Penutupan Perusahaan</a></li>
-                              <li><a href="#">NIB & OSS</a></li>
-                              <li><a href="#">Pendaftaran TDPSE</a></li>
-                              <li><a href="#">SBU & SIJUK</a></li>
-                              <li><a href="#">Laporan LKPM</a></li>
-                              <li><a href="#">HAKI</a></li>
-                              <li><a href="#">Sertifikat ISO</a></li>
-                              <li><a href="#">Surat Keterangan Tidak Pailit</a></li>
-                              <li><a href="#">Drafting & Review Perjanjian Bisnis</a></li>
+                              <li><a href="{{ url('/nib-dan-oss') }}">NIB & OSS</a></li>
+                              <li><a href="{{ url('/haki') }}">HAKI / Pendaftaran Merek</a></li>
+                              <li><a href="{{ url('/laporan-lkpm') }}">Laporan LKPM</a></li>
+                              <li><a href="{{ url('/sertifikat-iso') }}">Sertifikat ISO</a></li>
+                              <li><a href="{{ url('/surat-keterangan-tidak-pailit') }}">Surat Keterangan Tidak Pailit</a></li>
+                              <li><a href="{{ url('/drafting-review-perjanjian-bisnis') }}">Drafting Perjanjian Bisnis</a></li>
                             </ul>
                           </div>
                         </div>
-                        <!-- Kategori 3: Pembukuan & Pajak -->
+
+                        <!-- Kategori 3 -->
                         <div class="mobile-cat-item">
-                          <a href="#" class="mobile-cat-toggle" data-bs-toggle="collapse" data-bs-target="#mobCat3" aria-expanded="false">
-                            Pembukuan & Pajak
-                            <i class="fas fa-chevron-down mobile-cat-arrow"></i>
+                          <a href="#" class="mobile-cat-toggle">
+                            <span>Pajak & Pembukuan</span>
                           </a>
-                          <div class="collapse mobile-cat-body" id="mobCat3">
+                          <div class="mobile-cat-body" style="display: none;">
                             <ul>
                               <li><a href="{{ url('/jasa-pembukuan-perpajakan') }}">Jasa Pembukuan & Perpajakan</a></li>
-                              <li><a href="#">Layanan Payroll</a></li>
-                              <li><a href="#">Point of Sales F&B</a></li>
-                              <li><a href="#">Audit Laporan Keuangan</a></li>
-                              <li><a href="#">Pengurusan PKP</a></li>
-                              <li><a href="#">Pelaporan SPT Badan</a></li>
-                              <li><a href="#">Pelaporan SPT Pribadi</a></li>
-                              <li><a href="#">Pendaftaran NPWP</a></li>
-                              <li><a href="#">Audit Pajak</a></li>
+                              <li><a href="{{ url('/layanan-payroll') }}">Layanan Payroll</a></li>
+                              <li><a href="{{ url('/pendaftaran-npwp') }}">Pendaftaran NPWP</a></li>
+                              <li><a href="{{ url('/pelaporan-spt-badan') }}">Pelaporan SPT Badan</a></li>
+                              <li><a href="{{ url('/pelaporan-spt-pribadi') }}">Pelaporan SPT Pribadi</a></li>
+                              <li><a href="{{ url('/audit-laporan-keuangan') }}">Audit Laporan Keuangan</a></li>
+                              <li><a href="{{ url('/pengurusan-pkp') }}">Pengurusan PKP</a></li>
                             </ul>
                           </div>
                         </div>
-                        <!-- Kategori 4: Layanan Pendukung Bisnis -->
+
+                        <!-- Kategori 4 -->
                         <div class="mobile-cat-item">
-                          <a href="#" class="mobile-cat-toggle" data-bs-toggle="collapse" data-bs-target="#mobCat4" aria-expanded="false">
-                            Layanan Pendukung Bisnis
-                            <i class="fas fa-chevron-down mobile-cat-arrow"></i>
+                          <a href="#" class="mobile-cat-toggle">
+                            <span>Kantor & Pendukung</span>
                           </a>
-                          <div class="collapse mobile-cat-body" id="mobCat4">
+                          <div class="mobile-cat-body" style="display: none;">
                             <ul>
-                              <li><a href="#">Sewa Meeting Room</a></li>
-                              <li><a href="#">Sewa Ruang Podcast</a></li>
-                              <li><a href="#">Layanan Visa & KITAS</a></li>
-                              <li><a href="#">Layanan Call Answering</a></li>
-                              <li><a href="#">Layanan Konsultasi Bisnis</a></li>
+                              <li><a href="{{ url('/virtual-office') }}">Virtual Office</a></li>
+                              <li><a href="{{ url('/sewa-meeting-room') }}">Sewa Meeting Room</a></li>
+                              <li><a href="{{ url('/layanan-konsultasi-bisnis') }}">Konsultasi Bisnis</a></li>
                             </ul>
                           </div>
                         </div>
+
                       </div>
                     </li>
 
+                    <!-- STYLE KHUSUS MENU MOBILE -->
+                    <style>
+                      /* === RESET LIST STYLE === */
+                      .has-dropdown {
+                        list-style: none;
+                      }
+
+                      /* === TOMBOL UTAMA "LAYANAN" === */
+                      .mobile-main-link {
+                        display: block;
+                        padding: 14px 20px;
+                        background: #ffffff;
+                        color: #333333;
+                        text-decoration: none;
+                        font-weight: 600;
+                        font-size: 16px;
+                        border-bottom: 1px solid #e9ecef;
+                        transition: background 0.2s, color 0.2s;
+                        position: relative;
+                        cursor: pointer;
+                      }
+
+                      /* Tanda + default (sebelum dibuka) */
+                      .mobile-main-link::after {
+                        content: "+";
+                        position: absolute;
+                        right: 20px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        font-size: 22px;
+                        font-weight: 400;
+                        color: #6c757d;
+                        transition: transform 0.2s;
+                      }
+
+                      /* Saat menu utama terbuka (class active) */
+                      .mobile-main-link.active {
+                        background-color: #dc3545 !important;
+                        color: #ffffff !important;
+                      }
+
+                      .mobile-main-link.active::after {
+                        content: "−";
+                        color: #ffffff;
+                      }
+
+                      /* === WRAPPER MENU UTAMA === */
+                      .mobile-menu-wrapper {
+                        background: #ffffff;
+                        border-bottom: 1px solid #dee2e6;
+                      }
+
+                      /* === ITEM KATEGORI === */
+                      .mobile-cat-item {
+                        border-top: 1px solid #e9ecef;
+                      }
+
+                      .mobile-cat-toggle {
+                        display: block;
+                        padding: 12px 20px;
+                        background-color: #f8f9fa;
+                        color: #212529;
+                        text-decoration: none;
+                        font-weight: 500;
+                        font-size: 15px;
+                        position: relative;
+                        cursor: pointer;
+                        transition: background 0.2s, color 0.2s;
+                      }
+
+                      /* Tanda panah bawah untuk kategori */
+                      .mobile-cat-toggle::after {
+                        content: "▼";
+                        position: absolute;
+                        right: 20px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        font-size: 12px;
+                        color: #6c757d;
+                        transition: transform 0.3s;
+                      }
+
+                      /* Saat kategori terbuka */
+                      .mobile-cat-toggle.active {
+                        background-color: #fceaea;
+                        color: #dc3545;
+                      }
+
+                      .mobile-cat-toggle.active::after {
+                        transform: translateY(-50%) rotate(180deg);
+                        color: #dc3545;
+                      }
+
+                      /* === BODY SUBMENU (LEVEL 3) === */
+                      .mobile-cat-body {
+                        background: #ffffff;
+                      }
+
+                      .mobile-cat-body ul {
+                        list-style: none;
+                        margin: 0;
+                        padding: 0;
+                      }
+
+                      .mobile-cat-body li {
+                        border-bottom: 1px solid #f1f3f5;
+                      }
+
+                      .mobile-cat-body li:last-child {
+                        border-bottom: none;
+                      }
+
+                      .mobile-cat-body li a {
+                        display: block;
+                        padding: 12px 20px 12px 35px;
+                        /* indentasi kiri */
+                        color: #495057;
+                        text-decoration: none;
+                        font-size: 14px;
+                        transition: background 0.15s, color 0.15s;
+                      }
+
+                      .mobile-cat-body li a:hover {
+                        background: #fff5f6;
+                        color: #dc3545;
+                      }
+                    </style>
+
+                    <!-- JAVASCRIPT MENU (TANPA BOOTSTRAP) -->
+                    <script>
+                      (function() {
+                        function initMobileMenu() {
+                          const mainToggle = document.getElementById('mobileLayananToggle');
+                          const mainMenu = document.getElementById('mobileLayananMenu');
+
+                          if (!mainToggle || !mainMenu) {
+                            console.warn('Elemen mobileLayananToggle atau mobileLayananMenu tidak ditemukan.');
+                            return;
+                          }
+
+                          // --- Toggle Menu Utama "Layanan" ---
+                          mainToggle.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            const isHidden = (mainMenu.style.display === 'none' || mainMenu.style.display === '');
+
+                            if (isHidden) {
+                              mainMenu.style.display = 'block';
+                              this.classList.add('active');
+                            } else {
+                              mainMenu.style.display = 'none';
+                              this.classList.remove('active');
+                              // Tutup semua subkategori saat menu utama ditutup
+                              document.querySelectorAll('.mobile-cat-body').forEach(body => body.style.display = 'none');
+                              document.querySelectorAll('.mobile-cat-toggle').forEach(toggle => toggle.classList.remove('active'));
+                            }
+                          });
+
+                          // --- Toggle Kategori (Akordeon) ---
+                          const catToggles = document.querySelectorAll('.mobile-cat-toggle');
+
+                          catToggles.forEach(toggle => {
+                            toggle.addEventListener('click', function(e) {
+                              e.preventDefault();
+
+                              const catBody = this.nextElementSibling;
+                              if (!catBody || !catBody.classList.contains('mobile-cat-body')) return;
+
+                              const isActive = this.classList.contains('active');
+
+                              // Tutup semua kategori lain (akordeon)
+                              document.querySelectorAll('.mobile-cat-body').forEach(body => {
+                                if (body !== catBody) body.style.display = 'none';
+                              });
+                              document.querySelectorAll('.mobile-cat-toggle').forEach(t => {
+                                if (t !== this) t.classList.remove('active');
+                              });
+
+                              // Toggle kategori saat ini
+                              if (!isActive) {
+                                catBody.style.display = 'block';
+                                this.classList.add('active');
+                              } else {
+                                catBody.style.display = 'none';
+                                this.classList.remove('active');
+                              }
+                            });
+                          });
+                        }
+
+                        // Jalankan setelah DOM siap
+                        if (document.readyState === 'loading') {
+                          document.addEventListener('DOMContentLoaded', initMobileMenu);
+                        } else {
+                          initMobileMenu();
+                        }
+                      })();
+                    </script>
+                    <!-- ========== END MOBILE LAYANAN ========== -->
 
                     <li class="has-dropdown menu-thumb" id="mm-pelatihan-li">
                       <a href="#" id="mm-pelatihan-trigger" class="lw-mm-trigger" aria-expanded="false">
@@ -704,7 +891,6 @@
                         </style>
 
                         <div class="lw-pelatihan-box">
-
                           <!-- Label Header -->
                           <div class="lw-pelatihan-header">Pusat Pelatihan & Informasi</div>
 
@@ -765,34 +951,22 @@
                         </div><!-- /lw-pelatihan-box -->
                       </div>
                       <!-- ===== END COMPACT CARD MEGA MENU ===== -->
-
                     </li>
 
                     <!-- Mobile Layanan Accordion (d-xl-none only) -->
-                    <li class="has-dropdown active d-xl-none">
-                      <a href="#" class="border-none" data-bs-toggle="collapse" data-bs-target="#mobileLayananBisnis" aria-expanded="false">
-                        Layanan
+                    <li class="d-xl-none">
+                      <a href="#">
+                        Pusat Pelatihan
                         <i class="fas fa-angle-down"></i>
                       </a>
-                      <div class="collapse mobile-accordion-menu" id="mobileLayananBisnis">
-                        <!-- Kategori 1: Pusat Pelatihan -->
-                        <div class="mobile-cat-item">
-                          <a href="#" class="mobile-cat-toggle" data-bs-toggle="collapse" data-bs-target="#mobCat1" aria-expanded="false">
-                            Lawgika
-                            <i class="fas fa-chevron-down mobile-cat-arrow"></i>
-                          </a>
-                          <div class="collapse mobile-cat-body" id="mobCat1">
-                            <ul>
-                              <li><a href="{{ url('#') }}">Pelatihan & Seminar</a></li>
-                              <li><a href="{{ url('#') }}">Artikel</a></li>
-                              <li><a href="{{ url('#') }}">Kumpulan Peraturan</a></li>
-                              <li><a href="{{ url('#') }}">Promo</a></li>
-                              <li><a href="{{ url('#') }}">Karir</a></li>
-                              <li><a href="{{ url('#') }}">Tentang Kami</a></li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
+                      <ul class="submenu" style="list-style: none; padding: 0; margin: 0;">
+                        <li><a href="{{ url('#') }}" style="display: block; padding: 12px 20px; border-bottom: 1px solid #eee;">📘 Pelatihan & Seminar</a></li>
+                        <li><a href="{{ url('/berita') }}" style="display: block; padding: 12px 20px; border-bottom: 1px solid #eee;">📄 Artikel</a></li>
+                        <li><a href="{{ route('peraturan.index') }}" style="display: block; padding: 12px 20px; border-bottom: 1px solid #eee;">⚖️ Kumpulan Peraturan</a></li>
+                        <li><a href="{{ url('promo') }}" style="display: block; padding: 12px 20px; border-bottom: 1px solid #eee;">🔥 Promo</a></li>
+                        <li><a href="{{ url('#') }}" style="display: block; padding: 12px 20px; border-bottom: 1px solid #eee;">💼 Karir</a></li>
+                        <li><a href="{{ url('#') }}" style="display: block; padding: 12px 20px;">🏢 Tentang Kami</a></li>
+                      </ul>
                     </li>
 
 
