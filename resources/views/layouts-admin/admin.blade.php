@@ -58,6 +58,19 @@
             <div class="menu-title">Event UpComing</div>
           </a>
         </li>
+        <li class="menu-label">Penjualan & Jasa</li>
+        <li>
+          <a href="{{ route('admin.services.index') }}">
+            <div class="parent-icon"><ion-icon name="briefcase-outline"></ion-icon></div>
+            <div class="menu-title">Jasa Layanan</div>
+          </a>
+        </li>
+        <li>
+          <a href="{{ route('admin.orders.index') }}">
+            <div class="parent-icon"><ion-icon name="cart-outline"></ion-icon></div>
+            <div class="menu-title">Pesanan</div>
+          </a>
+        </li>
         <li>
           <a href="{{ route('admin.peraturan-kbli.index') }}">
             <div class="parent-icon"><ion-icon name="person-circle-outline"></ion-icon></div>

@@ -47,6 +47,13 @@ class LoginController extends Controller
      */
     protected function authenticated(\Illuminate\Http\Request $request, $user)
     {
-        return redirect('/admin');
+        if ($user->role === 'admin') {
+            return redirect()->route('admin.dashboard');
+        } elseif ($user->role === 'customer') {
+            return redirect()->route('customer.dashboard');
+        }
+        
+        // Fallback jika dikosongkan secara tak sengaja
+        return redirect()->route('customer.dashboard');
     }
 }

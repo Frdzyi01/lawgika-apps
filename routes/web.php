@@ -95,18 +95,21 @@ Route::get('/database-peraturan', [PeraturanFrontendController::class, 'index'])
 
 Auth::routes();
 
-// Route admin - hanya bisa diakses setelah login
-Route::get('/admin', function () {
-    return view('admin.home');
-})->middleware('auth')->name('admin.home');
+// Public Order Route (guest + logged in)
+Route::post('/order', [\App\Http\Controllers\PublicOrderController::class, 'store'])->name('public.order.store');
 
-// Redirect /home ke /admin supaya tidak ada konflik
+// Redirect /home
 Route::get('/home', function () {
-    return redirect('/admin');
+    if (auth()->check() && auth()->user()->role === 'admin') return redirect()->route('admin.dashboard');
+    return redirect()->route('customer.dashboard');
 })->middleware('auth')->name('home');
 
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/home', function() { return redirect()->route('admin.dashboard'); })->name('home'); // backward compatibility
+    Route::resource('services', \App\Http\Controllers\Admin\ServiceController::class);
+    Route::resource('orders', \App\Http\Controllers\Admin\OrderController::class)->except(['create', 'store', 'destroy']);
 
-Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('promo', PromoController::class);
     Route::resource('event-upcoming', EventUpComingController::class);
     Route::resource('peraturan-kbli', PeraturanKBLIController::class);
@@ -114,6 +117,15 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
         'berita' => 'berita'
     ]);
 });
+
+Route::middleware(['auth', 'role:customer'])->prefix('dashboard')->name('customer.')->group(function () {
+    Route::get('/', [\App\Http\Controllers\Customer\DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('orders', \App\Http\Controllers\Customer\OrderController::class)->only(['index', 'show']);
+    Route::post('documents', [\App\Http\Controllers\Customer\DocumentController::class, 'store'])->name('documents.store');
+    Route::get('documents', [\App\Http\Controllers\Customer\DocumentController::class, 'index'])->name('documents.index');
+});
+
+Route::get('/layanan/{slug}', [\App\Http\Controllers\PublicServiceController::class, 'show'])->name('services.show');
 // Frontend Berita
 Route::get('/berita', [\App\Http\Controllers\BeritaController::class, 'frontendIndex'])->name('berita.index');
 Route::get('/berita/{slug}', [\App\Http\Controllers\BeritaController::class, 'frontendShow'])->name('berita.show');

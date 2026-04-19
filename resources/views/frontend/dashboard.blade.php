@@ -1930,7 +1930,7 @@
                 <div class="layanan-card-desc">Hemat biaya operasional hingga 90% dengan alamat kantor prestisius tanpa sewa fisik.</div>
                 <div class="layanan-card-price-label">Price Start From</div>
                 <div class="layanan-card-price">Rp 299.000/Bulan*</div>
-                <a href="#" class="layanan-card-btn" role="button">Details</a>
+                <button type="button" class="layanan-card-btn" onclick="openOrderModal('Virtual Office')">Order Now</button>
               </div>
             </div>
           </div>
@@ -1946,7 +1946,7 @@
                 <div class="layanan-card-desc">Ruang kantor siap pakai yang ideal untuk tim Anda, dilengkapi fasilitas lengkap.</div>
                 <div class="layanan-card-price-label">Price Start From</div>
                 <div class="layanan-card-price">Rp 4.500.000/Bulan*</div>
-                <a href="#" class="layanan-card-btn" role="button">Details</a>
+                <button type="button" class="layanan-card-btn" onclick="openOrderModal('Serviced Office')">Order Now</button>
               </div>
             </div>
           </div>
@@ -1962,7 +1962,7 @@
                 <div class="layanan-card-desc">Tempat yang cocok untuk melakukan pertemuan penting dengan klien atau mitra bisnis.</div>
                 <div class="layanan-card-price-label">Price Start From</div>
                 <div class="layanan-card-price">Rp 255.000/Jam*</div>
-                <a href="#" class="layanan-card-btn" role="button">Details</a>
+                <button type="button" class="layanan-card-btn" onclick="openOrderModal('Meeting Room')">Order Now</button>
               </div>
             </div>
           </div>
@@ -1978,7 +1978,7 @@
                 <div class="layanan-card-desc">Ruang kerja bersama yang fleksibel dan produktif untuk freelancer maupun startup.</div>
                 <div class="layanan-card-price-label">Price Start From</div>
                 <div class="layanan-card-price">Rp 150.000/Hari*</div>
-                <a href="#" class="layanan-card-btn" role="button">Details</a>
+                <button type="button" class="layanan-card-btn" onclick="openOrderModal('Coworking Space')">Order Now</button>
               </div>
             </div>
           </div>
@@ -2031,7 +2031,7 @@
                 <div class="layanan-card-desc">Proses pendirian badan usaha PT, CV, Firma dengan cepat dan sesuai regulasi yang berlaku.</div>
                 <div class="layanan-card-price-label">Price Start From</div>
                 <div class="layanan-card-price">Rp 2.500.000/Paket*</div>
-                <a href="#" class="layanan-card-btn" role="button">Details</a>
+                <button type="button" class="layanan-card-btn" onclick="openOrderModal('Company Registration')">Order Now</button>
               </div>
             </div>
           </div>
@@ -2047,7 +2047,7 @@
                 <div class="layanan-card-desc">Konsultasi hukum profesional untuk melindungi bisnis Anda dari risiko hukum yang merugikan.</div>
                 <div class="layanan-card-price-label">Price Start From</div>
                 <div class="layanan-card-price">Rp 500.000/Sesi*</div>
-                <a href="#" class="layanan-card-btn" role="button">Details</a>
+                <button type="button" class="layanan-card-btn" onclick="openOrderModal('Legal Consulting')">Order Now</button>
               </div>
             </div>
           </div>
@@ -2063,7 +2063,7 @@
                 <div class="layanan-card-desc">Pengurusan NPWP, pelaporan SPT Tahunan, dan konsultasi pajak bisnis yang akurat dan aman.</div>
                 <div class="layanan-card-price-label">Price Start From</div>
                 <div class="layanan-card-price">Rp 750.000/Laporan*</div>
-                <a href="#" class="layanan-card-btn" role="button">Details</a>
+                <button type="button" class="layanan-card-btn" onclick="openOrderModal('Tax Services')">Order Now</button>
               </div>
             </div>
           </div>
@@ -2079,7 +2079,7 @@
                 <div class="layanan-card-desc">Pengurusan NIB, OSS, SIUP, dan berbagai izin usaha lainnya secara cepat dan terpercaya.</div>
                 <div class="layanan-card-price-label">Price Start From</div>
                 <div class="layanan-card-price">Rp 1.200.000/Izin*</div>
-                <a href="#" class="layanan-card-btn" role="button">Details</a>
+                <button type="button" class="layanan-card-btn" onclick="openOrderModal('Business Licensing')">Order Now</button>
               </div>
             </div>
           </div>
@@ -2130,7 +2130,7 @@
                 <div class="layanan-card-desc">Pengurusan visa kunjungan, bisnis, dan tinggal terbatas di Indonesia secara profesional.</div>
                 <div class="layanan-card-price-label">Price Start From</div>
                 <div class="layanan-card-price">Rp 1.500.000/Proses*</div>
-                <a href="#" class="layanan-card-btn" role="button">Details</a>
+                <button type="button" class="layanan-card-btn" onclick="openOrderModal('Visa Application')">Order Now</button>
               </div>
             </div>
           </div>
@@ -2146,7 +2146,7 @@
                 <div class="layanan-card-desc">Pengurusan izin tinggal terbatas dan tetap untuk warga negara asing di Indonesia.</div>
                 <div class="layanan-card-price-label">Price Start From</div>
                 <div class="layanan-card-price">Rp 3.500.000/Proses*</div>
-                <a href="#" class="layanan-card-btn" role="button">Details</a>
+                <button type="button" class="layanan-card-btn" onclick="openOrderModal('KITAS / KITAP')">Order Now</button>
               </div>
             </div>
           </div>
@@ -2162,7 +2162,7 @@
                 <div class="layanan-card-desc">Bantuan persiapan, pengurusan, dan perpanjangan paspor untuk keperluan perjalanan internasional.</div>
                 <div class="layanan-card-price-label">Price Start From</div>
                 <div class="layanan-card-price">Rp 800.000/Proses*</div>
-                <a href="#" class="layanan-card-btn" role="button">Details</a>
+                <button type="button" class="layanan-card-btn" onclick="openOrderModal('Passport Assistance')">Order Now</button>
               </div>
             </div>
           </div>
@@ -2178,7 +2178,7 @@
                 <div class="layanan-card-desc">Layanan konsultasi keimigrasian komprehensif untuk WNA yang akan tinggal atau bekerja di Indonesia.</div>
                 <div class="layanan-card-price-label">Price Start From</div>
                 <div class="layanan-card-price">Rp 500.000/Sesi*</div>
-                <a href="#" class="layanan-card-btn" role="button">Details</a>
+                <button type="button" class="layanan-card-btn" onclick="openOrderModal('Immigration Consulting')">Order Now</button>
               </div>
             </div>
           </div>
@@ -2189,47 +2189,195 @@
   </div>{{-- /.container --}}
 </section>
 
-{{-- =================== JAVASCRIPT =================== --}}
+{{-- =================== JAVASCRIPT (TAB) =================== --}}
 <script>
   (function() {
     'use strict';
-
-    // Tab switching with fade + slide-up animation
     const tabBtns = document.querySelectorAll('[data-layanan-tab]');
     const tabPanes = document.querySelectorAll('.layanan-tab-pane');
-
     tabBtns.forEach(function(btn) {
       btn.addEventListener('click', function() {
         const target = btn.getAttribute('data-layanan-tab');
-
-        // Update active button state
-        tabBtns.forEach(function(b) {
-          b.classList.remove('active');
-          b.setAttribute('aria-selected', 'false');
-        });
-        btn.classList.add('active');
-        btn.setAttribute('aria-selected', 'true');
-
-        // Hide current pane
-        tabPanes.forEach(function(pane) {
-          if (pane.classList.contains('active-visible')) {
-            pane.classList.remove('active-visible');
-            pane.style.display = 'none';
-          }
-        });
-
-        // Show target pane with animation
+        tabBtns.forEach(function(b) { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
+        btn.classList.add('active'); btn.setAttribute('aria-selected', 'true');
+        tabPanes.forEach(function(pane) { if (pane.classList.contains('active-visible')) { pane.classList.remove('active-visible'); pane.style.display = 'none'; } });
         const targetPane = document.getElementById('pane-' + target);
-        if (targetPane) {
-          targetPane.style.display = 'block';
-          // Trigger reflow to re-run animation
-          void targetPane.offsetWidth;
-          targetPane.classList.add('active-visible');
-        }
+        if (targetPane) { targetPane.style.display = 'block'; void targetPane.offsetWidth; targetPane.classList.add('active-visible'); }
       });
     });
   })();
 </script>
+
+{{-- =================== ORDER MODAL =================== --}}
+{{-- Isi nama layanan secara dinamis saat tombol diklik --}}
+<div id="orderModalOverlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:99999; align-items:center; justify-content:center;" onclick="closeOrderModal(event)">
+  <div id="orderModalBox" style="background:#fff; border-radius:16px; padding:36px 32px; width:100%; max-width:480px; position:relative; box-shadow:0 20px 60px rgba(0,0,0,0.18); margin:16px;" onclick="event.stopPropagation()">
+
+    {{-- Close button --}}
+    <button onclick="document.getElementById('orderModalOverlay').style.display='none'" style="position:absolute; top:14px; right:16px; background:none; border:none; font-size:1.5rem; line-height:1; cursor:pointer; color:#9ca3af;" aria-label="Tutup">&times;</button>
+
+    <h4 style="font-weight:700; font-size:1.2rem; margin-bottom:4px; color:#111827;">Pesan Layanan</h4>
+    <p id="orderModalServiceLabel" style="color:#dc3545; font-weight:600; font-size:0.95rem; margin-bottom:20px;"></p>
+
+    <form id="orderForm" action="{{ route('public.order.store') }}" method="POST">
+      @csrf
+      <input type="hidden" name="service_name" id="orderServiceInput">
+
+      <div style="margin-bottom:14px;">
+        <label style="display:block; font-size:0.82rem; font-weight:600; margin-bottom:6px; color:#374151;">Nama Lengkap <span style="color:#dc3545;">*</span></label>
+        <input type="text" name="name" required placeholder="Masukkan nama lengkap Anda"
+          value="{{ auth()->user()->name ?? '' }}"
+          style="width:100%; border:1.5px solid #e5e7eb; border-radius:8px; padding:10px 14px; font-size:0.9rem; outline:none; transition:border-color .2s; color:#111827 !important; background:#fff !important;"
+          onfocus="this.style.borderColor='#dc3545'" onblur="this.style.borderColor='#e5e7eb'">
+      </div>
+
+      <div style="margin-bottom:14px;">
+        <label style="display:block; font-size:0.82rem; font-weight:600; margin-bottom:6px; color:#374151;">Email <span style="color:#dc3545;">*</span></label>
+        <input type="email" name="email" required placeholder="email@domain.com"
+          value="{{ auth()->user()->email ?? '' }}"
+          style="width:100%; border:1.5px solid #e5e7eb; border-radius:8px; padding:10px 14px; font-size:0.9rem; outline:none; transition:border-color .2s; color:#111827 !important; background:#fff !important;"
+          onfocus="this.style.borderColor='#dc3545'" onblur="this.style.borderColor='#e5e7eb'">
+      </div>
+
+      <div style="margin-bottom:14px;">
+        <label style="display:block; font-size:0.82rem; font-weight:600; margin-bottom:6px; color:#374151;">Nomor WhatsApp <span style="color:#dc3545;">*</span></label>
+        <input type="text" name="phone" required placeholder="08xx-xxxx-xxxx"
+          value="{{ auth()->user()->phone ?? '' }}"
+          style="width:100%; border:1.5px solid #e5e7eb; border-radius:8px; padding:10px 14px; font-size:0.9rem; outline:none; transition:border-color .2s; color:#111827 !important; background:#fff !important;"
+          onfocus="this.style.borderColor='#dc3545'" onblur="this.style.borderColor='#e5e7eb'">
+      </div>
+
+      <div style="margin-bottom:20px;">
+        <label style="display:block; font-size:0.82rem; font-weight:600; margin-bottom:6px; color:#374151;">Catatan (opsional)</label>
+        <textarea name="notes" rows="3" placeholder="Ceritakan kebutuhan Anda secara singkat…"
+          style="width:100%; border:1.5px solid #e5e7eb; border-radius:8px; padding:10px 14px; font-size:0.9rem; outline:none; resize:none; transition:border-color .2s; color:#111827 !important; background:#fff !important;"
+          onfocus="this.style.borderColor='#dc3545'" onblur="this.style.borderColor='#e5e7eb'"></textarea>
+      </div>
+
+      <button type="submit" id="orderSubmitBtn"
+        style="width:100%; background:#dc3545; color:#fff; border:none; border-radius:10px; padding:13px; font-size:1rem; font-weight:700; cursor:pointer; transition:background .2s;"
+        onmouseover="this.style.background='#b91c1c'" onmouseout="this.style.background='#dc3545'"
+        onclick="this.disabled=true; this.textContent='Memproses…'; this.closest('form').submit();">
+        Kirim Pesanan
+      </button>
+    </form>
+  </div>
+</div>
+
+{{-- ── Auth state untuk JS (server-side rendered, aman) ── --}}
+<script>
+  var IS_LOGGED_IN = {{ auth()->check() ? 'true' : 'false' }};
+
+  function openOrderModal(serviceName) {
+    if (!IS_LOGGED_IN) {
+      showLoginToast();
+      return;
+    }
+    document.getElementById('orderServiceInput').value = serviceName;
+    document.getElementById('orderModalServiceLabel').textContent = serviceName;
+    var overlay = document.getElementById('orderModalOverlay');
+    overlay.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeOrderModal(e) {
+    if (e.target === document.getElementById('orderModalOverlay')) {
+      document.getElementById('orderModalOverlay').style.display = 'none';
+      document.body.style.overflow = '';
+    }
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      document.getElementById('orderModalOverlay').style.display = 'none';
+      document.body.style.overflow = '';
+    }
+  });
+
+  // ── Login Notification Logic ──
+  function showLoginToast() {
+    var toast = document.getElementById('loginRequiredToast');
+    if (!toast) return;
+    toast.style.opacity = '0';
+    toast.style.display = 'flex';
+    setTimeout(function() { toast.style.opacity = '1'; }, 10);
+  }
+
+  function hideLoginToast() {
+    var toast = document.getElementById('loginRequiredToast');
+    if (!toast) return;
+    toast.style.opacity = '0';
+    setTimeout(function() { toast.style.display = 'none'; }, 300);
+  }
+
+  function openLoginModal() {
+    hideLoginToast();
+    setTimeout(function() {
+      var modalEl = document.getElementById('exampleModal');
+      if (modalEl && typeof bootstrap !== 'undefined') {
+        bootstrap.Modal.getOrCreateInstance(modalEl).show();
+      }
+    }, 250);
+  }
+</script>
+
+{{-- ── Login Required Notification ── --}}
+<div id="loginRequiredToast"
+  style="display:none; opacity:0; position:fixed; top:24px; right:24px; z-index:999999;
+         background:#fff; border-radius:14px; padding:16px 18px;
+         min-width:280px; max-width:340px;
+         box-shadow:0 12px 40px rgba(0,0,0,0.16); border-left:4px solid #dc3545;
+         align-items:flex-start; gap:12px; transition:opacity 0.3s ease;">
+
+  {{-- Icon --}}
+  <div style="flex-shrink:0; padding-top:2px;">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#dc3545" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="12" y1="8" x2="12" y2="12"/>
+      <line x1="12" y1="16" x2="12.01" y2="16"/>
+    </svg>
+  </div>
+
+  {{-- Content --}}
+  <div style="flex:1; min-width:0;">
+    <p style="margin:0 0 3px; font-weight:700; font-size:0.88rem; color:#111827;">Login Diperlukan</p>
+    <p style="margin:0 0 12px; font-size:0.8rem; color:#6b7280; line-height:1.5;">
+      Silakan login untuk melakukan pemesanan layanan.
+    </p>
+    <div style="display:flex; gap:8px;">
+      <button onclick="openLoginModal()"
+        style="background:#dc3545; color:#fff; border:none; padding:7px 16px;
+               border-radius:8px; font-size:0.82rem; font-weight:700; cursor:pointer;
+               transition:background .15s;"
+        onmouseover="this.style.background='#b91c1c'"
+        onmouseout="this.style.background='#dc3545'">
+        Login
+      </button>
+      <button onclick="hideLoginToast()"
+        style="background:#f3f4f6; color:#6b7280; border:none; padding:7px 14px;
+               border-radius:8px; font-size:0.82rem; cursor:pointer;
+               transition:background .15s;"
+        onmouseover="this.style.background='#e5e7eb'"
+        onmouseout="this.style.background='#f3f4f6'">
+        Tutup
+      </button>
+    </div>
+  </div>
+
+  {{-- X close --}}
+  <button onclick="hideLoginToast()"
+    style="position:absolute; top:10px; right:12px; background:none; border:none;
+           font-size:1.1rem; color:#9ca3af; cursor:pointer; line-height:1;">&times;</button>
+</div>
+
+{{-- Flash success toast --}}
+@if(session('success'))
+<div id="orderToast" style="position:fixed; bottom:28px; right:28px; background:#16a34a; color:#fff; padding:14px 22px; border-radius:12px; font-size:0.92rem; font-weight:600; box-shadow:0 8px 24px rgba(0,0,0,0.15); z-index:999999; max-width:340px; display:flex; align-items:center; gap:10px;">
+  <span style="font-size:1.2rem;">✓</span>
+  <span>{{ session('success') }}</span>
+</div>
+<script>setTimeout(function(){ var t = document.getElementById('orderToast'); if(t){t.style.transition='opacity .5s';t.style.opacity='0'; setTimeout(function(){t.remove();},500);} }, 4000);</script>
+@endif
 
 
 

@@ -108,7 +108,7 @@
         padding: 35px 25px;
         border-radius: 20px;
         text-align: center;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
         border: 1px solid #f5e6e8;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
         height: 100%;
@@ -255,18 +255,18 @@
             flex-direction: column;
             gap: 30px;
         }
-        
+
         .process-timeline::before {
             display: none;
         }
-        
+
         .process-step {
             display: flex;
             text-align: left;
             gap: 20px;
             align-items: flex-start;
         }
-        
+
         .process-step-number {
             margin: 0;
             flex-shrink: 0;
@@ -1298,7 +1298,7 @@
                                 <div class="layanan-card-desc">Hemat biaya operasional hingga 90% dengan alamat kantor prestisius tanpa sewa fisik.</div>
                                 <div class="layanan-card-price-label">Price Start From</div>
                                 <div class="layanan-card-price">Rp 299.000/Bulan*</div>
-                                <a href="#" class="layanan-card-btn" role="button">Details</a>
+                                <a href="#" class="layanan-card-btn" role="button">Order Now</a>
                             </div>
                         </div>
                     </div>
@@ -1314,7 +1314,7 @@
                                 <div class="layanan-card-desc">Ruang kantor siap pakai yang ideal untuk tim Anda, dilengkapi fasilitas lengkap.</div>
                                 <div class="layanan-card-price-label">Price Start From</div>
                                 <div class="layanan-card-price">Rp 4.500.000/Bulan*</div>
-                                <a href="#" class="layanan-card-btn" role="button">Details</a>
+                                <a href="#" class="layanan-card-btn" role="button">Order Now</a>
                             </div>
                         </div>
                     </div>
@@ -1330,7 +1330,7 @@
                                 <div class="layanan-card-desc">Tempat yang cocok untuk melakukan pertemuan penting dengan klien atau mitra bisnis.</div>
                                 <div class="layanan-card-price-label">Price Start From</div>
                                 <div class="layanan-card-price">Rp 255.000/Jam*</div>
-                                <a href="#" class="layanan-card-btn" role="button">Details</a>
+                                <a href="#" class="layanan-card-btn" role="button">Order Now</a>
                             </div>
                         </div>
                     </div>
@@ -1346,7 +1346,7 @@
                                 <div class="layanan-card-desc">Ruang kerja bersama yang fleksibel dan produktif untuk freelancer maupun startup.</div>
                                 <div class="layanan-card-price-label">Price Start From</div>
                                 <div class="layanan-card-price">Rp 150.000/Hari*</div>
-                                <a href="#" class="layanan-card-btn" role="button">Details</a>
+                                <a href="#" class="layanan-card-btn" role="button">Order Now</a>
                             </div>
                         </div>
                     </div>
@@ -1399,7 +1399,7 @@
                                 <div class="layanan-card-desc">Proses pendirian badan usaha PT, CV, Firma dengan cepat dan sesuai regulasi yang berlaku.</div>
                                 <div class="layanan-card-price-label">Price Start From</div>
                                 <div class="layanan-card-price">Rp 2.500.000/Paket*</div>
-                                <a href="#" class="layanan-card-btn" role="button">Details</a>
+                                <a href="#" class="layanan-card-btn" role="button">Order Now</a>
                             </div>
                         </div>
                     </div>
@@ -1415,7 +1415,7 @@
                                 <div class="layanan-card-desc">Konsultasi hukum profesional untuk melindungi bisnis Anda dari risiko hukum yang merugikan.</div>
                                 <div class="layanan-card-price-label">Price Start From</div>
                                 <div class="layanan-card-price">Rp 500.000/Sesi*</div>
-                                <a href="#" class="layanan-card-btn" role="button">Details</a>
+                                <a href="#" class="layanan-card-btn" role="button">Order Now</a>
                             </div>
                         </div>
                     </div>
@@ -1431,7 +1431,7 @@
                                 <div class="layanan-card-desc">Pengurusan NPWP, pelaporan SPT Tahunan, dan konsultasi pajak bisnis yang akurat dan aman.</div>
                                 <div class="layanan-card-price-label">Price Start From</div>
                                 <div class="layanan-card-price">Rp 750.000/Laporan*</div>
-                                <a href="#" class="layanan-card-btn" role="button">Details</a>
+                                <a href="#" class="layanan-card-btn" role="button">Order Now</a>
                             </div>
                         </div>
                     </div>
@@ -1447,7 +1447,7 @@
                                 <div class="layanan-card-desc">Pengurusan NIB, OSS, SIUP, dan berbagai izin usaha lainnya secara cepat dan terpercaya.</div>
                                 <div class="layanan-card-price-label">Price Start From</div>
                                 <div class="layanan-card-price">Rp 1.200.000/Izin*</div>
-                                <a href="#" class="layanan-card-btn" role="button">Details</a>
+                                <a href="#" class="layanan-card-btn" role="button">Order Now</a>
                             </div>
                         </div>
                     </div>
@@ -1498,7 +1498,7 @@
                                 <div class="layanan-card-desc">Pengurusan visa kunjungan, bisnis, dan tinggal terbatas di Indonesia secara profesional.</div>
                                 <div class="layanan-card-price-label">Price Start From</div>
                                 <div class="layanan-card-price">Rp 1.500.000/Proses*</div>
-                                <a href="#" class="layanan-card-btn" role="button">Details</a>
+                                <a href="#" class="layanan-card-btn" role="button">Order Now</a>
                             </div>
                         </div>
                     </div>
@@ -1514,7 +1514,7 @@
                                 <div class="layanan-card-desc">Pengurusan izin tinggal terbatas dan tetap untuk warga negara asing di Indonesia.</div>
                                 <div class="layanan-card-price-label">Price Start From</div>
                                 <div class="layanan-card-price">Rp 3.500.000/Proses*</div>
-                                <a href="#" class="layanan-card-btn" role="button">Details</a>
+                                <a href="#" class="layanan-card-btn" role="button">Order Now</a>
                             </div>
                         </div>
                     </div>
@@ -1530,7 +1530,7 @@
                                 <div class="layanan-card-desc">Bantuan persiapan, pengurusan, dan perpanjangan paspor untuk keperluan perjalanan internasional.</div>
                                 <div class="layanan-card-price-label">Price Start From</div>
                                 <div class="layanan-card-price">Rp 800.000/Proses*</div>
-                                <a href="#" class="layanan-card-btn" role="button">Details</a>
+                                <a href="#" class="layanan-card-btn" role="button">Order Now</a>
                             </div>
                         </div>
                     </div>
@@ -1546,7 +1546,7 @@
                                 <div class="layanan-card-desc">Layanan konsultasi keimigrasian komprehensif untuk WNA yang akan tinggal atau bekerja di Indonesia.</div>
                                 <div class="layanan-card-price-label">Price Start From</div>
                                 <div class="layanan-card-price">Rp 500.000/Sesi*</div>
-                                <a href="#" class="layanan-card-btn" role="button">Details</a>
+                                <a href="#" class="layanan-card-btn" role="button">Order Now</a>
                             </div>
                         </div>
                     </div>

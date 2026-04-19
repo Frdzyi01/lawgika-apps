@@ -937,7 +937,7 @@
     </div>
 </section>
 
-{{-- ===== LAYANAN KAMI SECTION ===== --}}
+
 <style>
     /* ==============================
        LAYANAN KAMI – Custom Styles
@@ -947,6 +947,7 @@
         padding: 72px 0 80px;
     }
 
+    /* ------- Section Title ------- */
     .layanan-section-title {
         font-size: 2rem;
         font-weight: 700;
@@ -955,6 +956,7 @@
         margin-bottom: 0;
     }
 
+    /* ------- Tab Nav ------- */
     .layanan-nav {
         border-bottom: 1.5px solid #e5e7eb;
         gap: 0;
@@ -1004,6 +1006,7 @@
         transform: translateX(3px);
     }
 
+    /* ------- Banner / Sub-header ------- */
     .layanan-banner {
         background: linear-gradient(135deg, #f0f9ff 0%, #e8f5e9 100%);
         border-radius: 16px;
@@ -1044,6 +1047,7 @@
         opacity: 0.85;
     }
 
+    /* ------- Arrows Custom ------- */
     .layanan-nav-arrows {
         display: flex;
         justify-content: flex-end;
@@ -1072,6 +1076,7 @@
         color: #fff;
     }
 
+    /* ------- Cards ------- */
     .layanan-card {
         background: #fff;
         border-radius: 16px;
@@ -1176,6 +1181,7 @@
         transform: translateY(-1px);
     }
 
+    /* ------- Tab Content: single fade on container only ------- */
     .layanan-tab-pane {
         display: none;
     }
@@ -1195,6 +1201,7 @@
         }
     }
 
+    /* ------- Responsive ------- */
     @media (max-width: 767.98px) {
         #layanan-kami-section {
             padding: 48px 0 56px;
@@ -1224,37 +1231,62 @@
     }
 </style>
 
+{{-- =================== SECTION HTML =================== --}}
 <section id="layanan-kami-section" aria-label="Layanan Kami">
     <div class="container">
+
+        {{-- ── Section Title ── --}}
         <h2 class="layanan-section-title mb-3">Layanan Kami</h2>
 
+        {{-- ── Tab Navigation ── --}}
         <ul class="nav layanan-nav mb-4" id="layananTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="tab-office" data-layanan-tab="office" type="button" role="tab" aria-controls="pane-office" aria-selected="true">
-                    Office &amp; Work Space <span class="nav-arrow">→</span>
+                <button class="nav-link active" id="tab-office"
+                    data-layanan-tab="office"
+                    type="button" role="tab"
+                    aria-controls="pane-office" aria-selected="true">
+                    Office &amp; Work Space
+                    <span class="nav-arrow">→</span>
                 </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="tab-business" data-layanan-tab="business" type="button" role="tab" aria-controls="pane-business" aria-selected="false">
-                    Business Services <span class="nav-arrow">→</span>
+                <button class="nav-link" id="tab-business"
+                    data-layanan-tab="business"
+                    type="button" role="tab"
+                    aria-controls="pane-business" aria-selected="false">
+                    Business Services
+                    <span class="nav-arrow">→</span>
                 </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="tab-foreign" data-layanan-tab="foreign" type="button" role="tab" aria-controls="pane-foreign" aria-selected="false">
-                    Foreign Services <span class="nav-arrow">→</span>
+                <button class="nav-link" id="tab-foreign"
+                    data-layanan-tab="foreign"
+                    type="button" role="tab"
+                    aria-controls="pane-foreign" aria-selected="false">
+                    Foreign Services
+                    <span class="nav-arrow">→</span>
                 </button>
             </li>
         </ul>
 
+        {{-- ── Tab Content Wrapper ── --}}
         <div id="layananTabContent">
-            {{-- TAB 1 – Office & Work Space --}}
-            <div class="layanan-tab-pane active-visible" id="pane-office" role="tabpanel" aria-labelledby="tab-office">
+
+            {{-- ═══════════════════════════════════
+                 TAB 1 – Office & Work Space
+            ═══════════════════════════════════ --}}
+            <div class="layanan-tab-pane active-visible"
+                id="pane-office" role="tabpanel" aria-labelledby="tab-office">
+
+                {{-- Sub-banner --}}
                 <div class="layanan-banner">
                     <div class="layanan-banner-text">
                         <h2>Saatnya Membuat Bisnis Anda Lebih Besar</h2>
-                        <p>Akan sangat disayangkan jika bisnis Anda tidak memiliki kantor dan ruang kerja yang mampu membuat Anda menjalankan bisnis secara efektif.</p>
+                        <p>Akan sangat disayangkan jika bisnis Anda tidak memiliki kantor dan ruang kerja
+                            yang mampu membuat Anda menjalankan bisnis secara efektif.</p>
                     </div>
                     <div class="layanan-banner-icon d-none d-md-block">
+                        {{-- Office SVG Illustration --}}
                         <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="10" y="50" width="100" height="60" rx="4" stroke="#2CB67D" stroke-width="3" fill="none" />
                             <rect x="25" y="65" width="20" height="20" rx="2" stroke="#2CB67D" stroke-width="2.5" fill="none" />
@@ -1264,6 +1296,7 @@
                             <line x1="10" y1="50" x2="60" y2="20" stroke="#2CB67D" stroke-width="2.5" />
                             <line x1="110" y1="50" x2="60" y2="20" stroke="#2CB67D" stroke-width="2.5" />
                             <circle cx="60" cy="18" r="4" fill="#2CB67D" />
+                            <!-- Chair sketch -->
                             <path d="M78 32 Q85 25 92 32" stroke="#2CB67D" stroke-width="2" fill="none" />
                             <line x1="85" y1="32" x2="85" y2="45" stroke="#2CB67D" stroke-width="2" />
                             <path d="M78 45 Q85 48 92 45" stroke="#2CB67D" stroke-width="2" fill="none" />
@@ -1272,15 +1305,21 @@
                         </svg>
                     </div>
                 </div>
+
+                {{-- Arrow Controls --}}
                 <div class="layanan-nav-arrows">
                     <button class="layanan-arrow-btn" title="Previous" aria-label="Previous">&#8592;</button>
                     <button class="layanan-arrow-btn" title="Next" aria-label="Next">&#8594;</button>
                 </div>
+
+                {{-- Cards Grid --}}
                 <div class="row g-4">
+                    {{-- Card 1: Virtual Office --}}
                     <div class="col-12 col-md-6 col-lg-3">
                         <div class="layanan-card">
                             <div class="layanan-card-img-wrap">
-                                <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=500&q=80" alt="Virtual Office" loading="lazy">
+                                <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=500&q=80"
+                                    alt="Virtual Office – Gedung Perkantoran Modern" loading="lazy">
                                 <span class="layanan-card-badge">Best Seller</span>
                             </div>
                             <div class="layanan-card-body">
@@ -1288,61 +1327,74 @@
                                 <div class="layanan-card-desc">Hemat biaya operasional hingga 90% dengan alamat kantor prestisius tanpa sewa fisik.</div>
                                 <div class="layanan-card-price-label">Price Start From</div>
                                 <div class="layanan-card-price">Rp 299.000/Bulan*</div>
-                                <a href="#" class="layanan-card-btn">Details</a>
+                                <a href="#" class="layanan-card-btn" role="button">Order Now</a>
                             </div>
                         </div>
                     </div>
+                    {{-- Card 2: Serviced Office --}}
                     <div class="col-12 col-md-6 col-lg-3">
                         <div class="layanan-card">
                             <div class="layanan-card-img-wrap">
-                                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=500&q=80" alt="Serviced Office" loading="lazy">
+                                <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=500&q=80"
+                                    alt="Serviced Office – Ruang Kantor Siap Pakai" loading="lazy">
                             </div>
                             <div class="layanan-card-body">
                                 <div class="layanan-card-title">Serviced Office</div>
                                 <div class="layanan-card-desc">Ruang kantor siap pakai yang ideal untuk tim Anda, dilengkapi fasilitas lengkap.</div>
                                 <div class="layanan-card-price-label">Price Start From</div>
                                 <div class="layanan-card-price">Rp 4.500.000/Bulan*</div>
-                                <a href="#" class="layanan-card-btn">Details</a>
+                                <a href="#" class="layanan-card-btn" role="button">Order Now</a>
                             </div>
                         </div>
                     </div>
+                    {{-- Card 3: Meeting Room --}}
                     <div class="col-12 col-md-6 col-lg-3">
                         <div class="layanan-card">
                             <div class="layanan-card-img-wrap">
-                                <img src="https://images.unsplash.com/photo-1517502884422-41eaead166d4?w=500&q=80" alt="Meeting Room" loading="lazy">
+                                <img src="https://images.unsplash.com/photo-1606857521015-7f9fcf423740?w=500&q=80"
+                                    alt="Meeting Room – Ruang Rapat Profesional" loading="lazy">
                             </div>
                             <div class="layanan-card-body">
                                 <div class="layanan-card-title">Meeting Room</div>
                                 <div class="layanan-card-desc">Tempat yang cocok untuk melakukan pertemuan penting dengan klien atau mitra bisnis.</div>
                                 <div class="layanan-card-price-label">Price Start From</div>
                                 <div class="layanan-card-price">Rp 255.000/Jam*</div>
-                                <a href="#" class="layanan-card-btn">Details</a>
+                                <a href="#" class="layanan-card-btn" role="button">Order Now</a>
                             </div>
                         </div>
                     </div>
+                    {{-- Card 4: Coworking Space --}}
                     <div class="col-12 col-md-6 col-lg-3">
                         <div class="layanan-card">
                             <div class="layanan-card-img-wrap">
-                                <img src="https://images.unsplash.com/photo-1600508774634-4e11d34730e2?w=500&q=80" alt="Coworking Space" loading="lazy">
+                                <img src="https://images.unsplash.com/photo-1527192491265-7e15c55b1ed2?w=500&q=80"
+                                    alt="Coworking Space – Ruang Kerja Bersama" loading="lazy">
                             </div>
                             <div class="layanan-card-body">
                                 <div class="layanan-card-title">Coworking Space</div>
                                 <div class="layanan-card-desc">Ruang kerja bersama yang fleksibel dan produktif untuk freelancer maupun startup.</div>
                                 <div class="layanan-card-price-label">Price Start From</div>
                                 <div class="layanan-card-price">Rp 150.000/Hari*</div>
-                                <a href="#" class="layanan-card-btn">Details</a>
+                                <a href="#" class="layanan-card-btn" role="button">Order Now</a>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </div>{{-- /row --}}
+            </div>{{-- /pane-office --}}
 
-            {{-- TAB 2 – Business Services --}}
-            <div class="layanan-tab-pane" id="pane-business" role="tabpanel" aria-labelledby="tab-business">
+
+            {{-- ═══════════════════════════════════
+                 TAB 2 – Business Services
+            ═══════════════════════════════════ --}}
+            <div class="layanan-tab-pane"
+                id="pane-business" role="tabpanel" aria-labelledby="tab-business">
+
+                {{-- Sub-banner --}}
                 <div class="layanan-banner" style="background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 100%);">
                     <div class="layanan-banner-text">
                         <h2>Wujudkan Bisnis Impian Anda Bersama Kami</h2>
-                        <p>Kami hadir untuk membantu Anda mengurus seluruh kebutuhan legalitas dan administrasi bisnis dengan cepat, tepat, dan terpercaya.</p>
+                        <p>Kami hadir untuk membantu Anda mengurus seluruh kebutuhan legalitas dan administrasi
+                            bisnis dengan cepat, tepat, dan terpercaya.</p>
                     </div>
                     <div class="layanan-banner-icon d-none d-md-block">
                         <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1356,15 +1408,19 @@
                         </svg>
                     </div>
                 </div>
+
                 <div class="layanan-nav-arrows">
-                    <button class="layanan-arrow-btn" title="Previous">&#8592;</button>
-                    <button class="layanan-arrow-btn" title="Next">&#8594;</button>
+                    <button class="layanan-arrow-btn" title="Previous" aria-label="Previous">&#8592;</button>
+                    <button class="layanan-arrow-btn" title="Next" aria-label="Next">&#8594;</button>
                 </div>
+
                 <div class="row g-4">
+                    {{-- Card 1 --}}
                     <div class="col-12 col-md-6 col-lg-3">
                         <div class="layanan-card">
                             <div class="layanan-card-img-wrap">
-                                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=500&q=80" alt="Company Registration" loading="lazy">
+                                <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=500&q=80"
+                                    alt="Company Registration – Pendirian Perusahaan" loading="lazy">
                                 <span class="layanan-card-badge">Populer</span>
                             </div>
                             <div class="layanan-card-body">
@@ -1372,61 +1428,74 @@
                                 <div class="layanan-card-desc">Proses pendirian badan usaha PT, CV, Firma dengan cepat dan sesuai regulasi yang berlaku.</div>
                                 <div class="layanan-card-price-label">Price Start From</div>
                                 <div class="layanan-card-price">Rp 2.500.000/Paket*</div>
-                                <a href="#" class="layanan-card-btn">Details</a>
+                                <a href="#" class="layanan-card-btn" role="button">Order Now</a>
                             </div>
                         </div>
                     </div>
+                    {{-- Card 2 --}}
                     <div class="col-12 col-md-6 col-lg-3">
                         <div class="layanan-card">
                             <div class="layanan-card-img-wrap">
-                                <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=500&q=80" alt="Legal Consulting" loading="lazy">
+                                <img src="https://images.unsplash.com/photo-1505664124016-161b9eebd6bc?w=500&q=80"
+                                    alt="Legal Consulting – Konsultasi Hukum Bisnis" loading="lazy">
                             </div>
                             <div class="layanan-card-body">
                                 <div class="layanan-card-title">Legal Consulting</div>
                                 <div class="layanan-card-desc">Konsultasi hukum profesional untuk melindungi bisnis Anda dari risiko hukum yang merugikan.</div>
                                 <div class="layanan-card-price-label">Price Start From</div>
                                 <div class="layanan-card-price">Rp 500.000/Sesi*</div>
-                                <a href="#" class="layanan-card-btn">Details</a>
+                                <a href="#" class="layanan-card-btn" role="button">Order Now</a>
                             </div>
                         </div>
                     </div>
+                    {{-- Card 3 --}}
                     <div class="col-12 col-md-6 col-lg-3">
                         <div class="layanan-card">
                             <div class="layanan-card-img-wrap">
-                                <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=500&q=80" alt="Tax Services" loading="lazy">
+                                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=500&q=80"
+                                    alt="Tax Services – Layanan Pajak" loading="lazy">
                             </div>
                             <div class="layanan-card-body">
                                 <div class="layanan-card-title">Tax Services</div>
                                 <div class="layanan-card-desc">Pengurusan NPWP, pelaporan SPT Tahunan, dan konsultasi pajak bisnis yang akurat dan aman.</div>
                                 <div class="layanan-card-price-label">Price Start From</div>
                                 <div class="layanan-card-price">Rp 750.000/Laporan*</div>
-                                <a href="#" class="layanan-card-btn">Details</a>
+                                <a href="#" class="layanan-card-btn" role="button">Order Now</a>
                             </div>
                         </div>
                     </div>
+                    {{-- Card 4 --}}
                     <div class="col-12 col-md-6 col-lg-3">
                         <div class="layanan-card">
                             <div class="layanan-card-img-wrap">
-                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&q=80" alt="Business Licensing" loading="lazy">
+                                <img src="https://images.unsplash.com/photo-1563986768494-4dee2763ff0f?w=500&q=80"
+                                    alt="Business Licensing – Perizinan Usaha" loading="lazy">
                             </div>
                             <div class="layanan-card-body">
                                 <div class="layanan-card-title">Business Licensing</div>
                                 <div class="layanan-card-desc">Pengurusan NIB, OSS, SIUP, dan berbagai izin usaha lainnya secara cepat dan terpercaya.</div>
                                 <div class="layanan-card-price-label">Price Start From</div>
                                 <div class="layanan-card-price">Rp 1.200.000/Izin*</div>
-                                <a href="#" class="layanan-card-btn">Details</a>
+                                <a href="#" class="layanan-card-btn" role="button">Order Now</a>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </div>{{-- /row --}}
+            </div>{{-- /pane-business --}}
 
-            {{-- TAB 3 – Foreign Services --}}
-            <div class="layanan-tab-pane" id="pane-foreign" role="tabpanel" aria-labelledby="tab-foreign">
+
+            {{-- ═══════════════════════════════════
+                 TAB 3 – Foreign Services
+            ═══════════════════════════════════ --}}
+            <div class="layanan-tab-pane"
+                id="pane-foreign" role="tabpanel" aria-labelledby="tab-foreign">
+
+                {{-- Sub-banner --}}
                 <div class="layanan-banner" style="background: linear-gradient(135deg, #eff6ff 0%, #e0e7ff 100%);">
                     <div class="layanan-banner-text">
                         <h2>Solusi Lengkap untuk Kebutuhan Imigrasi Anda</h2>
-                        <p>Kami membantu WNA dan ekspatriat mengurus seluruh dokumen keimigrasian di Indonesia dengan mudah, cepat, dan sesuai prosedur resmi.</p>
+                        <p>Kami membantu WNA dan ekspatriat mengurus seluruh dokumen keimigrasian
+                            di Indonesia dengan mudah, cepat, dan sesuai prosedur resmi.</p>
                     </div>
                     <div class="layanan-banner-icon d-none d-md-block">
                         <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1438,15 +1507,19 @@
                         </svg>
                     </div>
                 </div>
+
                 <div class="layanan-nav-arrows">
-                    <button class="layanan-arrow-btn" title="Previous">&#8592;</button>
-                    <button class="layanan-arrow-btn" title="Next">&#8594;</button>
+                    <button class="layanan-arrow-btn" title="Previous" aria-label="Previous">&#8592;</button>
+                    <button class="layanan-arrow-btn" title="Next" aria-label="Next">&#8594;</button>
                 </div>
+
                 <div class="row g-4">
+                    {{-- Card 1 --}}
                     <div class="col-12 col-md-6 col-lg-3">
                         <div class="layanan-card">
                             <div class="layanan-card-img-wrap">
-                                <img src="https://images.unsplash.com/photo-1551009175-15bdf9dcb580?w=500&q=80" alt="Visa Application" loading="lazy">
+                                <img src="https://images.unsplash.com/photo-1569154941061-e231b4732659?w=500&q=80"
+                                    alt="Visa Application – Permohonan Visa" loading="lazy">
                                 <span class="layanan-card-badge">Terlaris</span>
                             </div>
                             <div class="layanan-card-body">
@@ -1454,62 +1527,71 @@
                                 <div class="layanan-card-desc">Pengurusan visa kunjungan, bisnis, dan tinggal terbatas di Indonesia secara profesional.</div>
                                 <div class="layanan-card-price-label">Price Start From</div>
                                 <div class="layanan-card-price">Rp 1.500.000/Proses*</div>
-                                <a href="#" class="layanan-card-btn">Details</a>
+                                <a href="#" class="layanan-card-btn" role="button">Order Now</a>
                             </div>
                         </div>
                     </div>
+                    {{-- Card 2 --}}
                     <div class="col-12 col-md-6 col-lg-3">
                         <div class="layanan-card">
                             <div class="layanan-card-img-wrap">
-                                <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&q=80" alt="KITAS / KITAP" loading="lazy">
+                                <img src="https://images.unsplash.com/photo-1569982175971-d92b01cf8694?w=500&q=80"
+                                    alt="KITAS / KITAP – Izin Tinggal WNA" loading="lazy">
                             </div>
                             <div class="layanan-card-body">
                                 <div class="layanan-card-title">KITAS / KITAP</div>
                                 <div class="layanan-card-desc">Pengurusan izin tinggal terbatas dan tetap untuk warga negara asing di Indonesia.</div>
                                 <div class="layanan-card-price-label">Price Start From</div>
                                 <div class="layanan-card-price">Rp 3.500.000/Proses*</div>
-                                <a href="#" class="layanan-card-btn">Details</a>
+                                <a href="#" class="layanan-card-btn" role="button">Order Now</a>
                             </div>
                         </div>
                     </div>
+                    {{-- Card 3 --}}
                     <div class="col-12 col-md-6 col-lg-3">
                         <div class="layanan-card">
                             <div class="layanan-card-img-wrap">
-                                <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=500&q=80" alt="Passport Assistance" loading="lazy">
+                                <img src="https://images.unsplash.com/photo-1596781708892-71089209f984?w=500&q=80"
+                                    alt="Passport Assistance – Bantuan Paspor" loading="lazy">
                             </div>
                             <div class="layanan-card-body">
                                 <div class="layanan-card-title">Passport Assistance</div>
                                 <div class="layanan-card-desc">Bantuan persiapan, pengurusan, dan perpanjangan paspor untuk keperluan perjalanan internasional.</div>
                                 <div class="layanan-card-price-label">Price Start From</div>
                                 <div class="layanan-card-price">Rp 800.000/Proses*</div>
-                                <a href="#" class="layanan-card-btn">Details</a>
+                                <a href="#" class="layanan-card-btn" role="button">Order Now</a>
                             </div>
                         </div>
                     </div>
+                    {{-- Card 4 --}}
                     <div class="col-12 col-md-6 col-lg-3">
                         <div class="layanan-card">
                             <div class="layanan-card-img-wrap">
-                                <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=500&q=80" alt="Immigration Consulting" loading="lazy">
+                                <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=500&q=80"
+                                    alt="Immigration Consulting – Konsultasi Imigrasi" loading="lazy">
                             </div>
                             <div class="layanan-card-body">
                                 <div class="layanan-card-title">Immigration Consulting</div>
                                 <div class="layanan-card-desc">Layanan konsultasi keimigrasian komprehensif untuk WNA yang akan tinggal atau bekerja di Indonesia.</div>
                                 <div class="layanan-card-price-label">Price Start From</div>
                                 <div class="layanan-card-price">Rp 500.000/Sesi*</div>
-                                <a href="#" class="layanan-card-btn">Details</a>
+                                <a href="#" class="layanan-card-btn" role="button">Order Now</a>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                </div>{{-- /row --}}
+            </div>{{-- /pane-foreign --}}
+
+        </div>{{-- /#layananTabContent --}}
+    </div>{{-- /.container --}}
 </section>
 
+{{-- =================== JAVASCRIPT LAYER =================== --}}
 <script>
     (function() {
         'use strict';
 
+        // Tab switching with fade + slide-up animation
         const tabBtns = document.querySelectorAll('[data-layanan-tab]');
         const tabPanes = document.querySelectorAll('.layanan-tab-pane');
 
@@ -1517,6 +1599,7 @@
             btn.addEventListener('click', function() {
                 const target = btn.getAttribute('data-layanan-tab');
 
+                // Update active button state
                 tabBtns.forEach(function(b) {
                     b.classList.remove('active');
                     b.setAttribute('aria-selected', 'false');
@@ -1524,6 +1607,7 @@
                 btn.classList.add('active');
                 btn.setAttribute('aria-selected', 'true');
 
+                // Hide current pane
                 tabPanes.forEach(function(pane) {
                     if (pane.classList.contains('active-visible')) {
                         pane.classList.remove('active-visible');
@@ -1531,9 +1615,11 @@
                     }
                 });
 
+                // Show target pane with animation
                 const targetPane = document.getElementById('pane-' + target);
                 if (targetPane) {
                     targetPane.style.display = 'block';
+                    // Trigger reflow to re-run animation
                     void targetPane.offsetWidth;
                     targetPane.classList.add('active-visible');
                 }
@@ -1541,6 +1627,8 @@
         });
     })();
 </script>
+
+
 
 {{-- ===== FAQ SECTION ===== --}}
 <section class="pt-faq">

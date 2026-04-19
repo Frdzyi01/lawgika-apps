@@ -5977,7 +5977,7 @@ fieldset:disabled .btn {
 }
 
 .modal-backdrop.show {
-    opacity: var(--bs-backdrop-opacity)
+    opacity: 0.95
 }
 
 .modal-header {

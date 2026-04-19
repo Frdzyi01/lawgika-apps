@@ -57,9 +57,54 @@
             </li>
           </ul>
           <div class="header-button mt-4">
-            <a href="#" class="theme-btn text-center">
-              Get A Quote <i class="fa-solid fa-arrow-right-long"></i>
-            </a>
+
+            {{-- Jika belum login --}}
+            @guest
+            <div class="d-flex flex-column gap-2">
+
+              {{-- Login --}}
+              <button class="theme-btn text-center"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal">
+                Masuk <i class="fa-solid fa-arrow-right-long"></i>
+              </button>
+
+              {{-- Register --}}
+              <button class="theme-btn text-center"
+                data-bs-toggle="modal"
+                data-bs-target="#registerModal">
+                Daftar <i class="fa-solid fa-user-plus"></i>
+              </button>
+
+            </div>
+            @endguest
+
+            {{-- Jika sudah login --}}
+            @auth
+            <div class="d-flex flex-column gap-2">
+
+              {{-- Dashboard --}}
+              @if(Auth::user()->role === 'admin')
+              <a href="/admin/dashboard" class="theme-btn text-center">
+                Dashboard <i class="fa-solid fa-arrow-right-long"></i>
+              </a>
+              @else
+              <a href="/dashboard" class="theme-btn text-center">
+                Dashboard <i class="fa-solid fa-arrow-right-long"></i>
+              </a>
+              @endif
+
+              {{-- Logout --}}
+              <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="theme-btn text-center w-100">
+                  Keluar <i class="fa-solid fa-sign-out-alt"></i>
+                </button>
+              </form>
+
+            </div>
+            @endauth
+
           </div>
           <div class="social-icon d-flex align-items-center">
             <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -98,20 +143,36 @@
           </li>
           <li>
             <i class="fa-light fa-user"></i>
-            {{-- Tampilkan Masuk hanya jika belum login --}}
+
+            {{-- Jika belum login --}}
             @guest
             <button data-bs-toggle="modal" data-bs-target="#exampleModal">
               Masuk
             </button>
             @endguest
-            {{-- Tampilkan Logout jika sudah login --}}
+
+            {{-- Jika sudah login --}}
             @auth
+
+            {{-- Dashboard --}}
+            @if(Auth::user()->role === 'admin')
+            <a href="/admin/dashboard" style="margin-right:10px;">
+              Dashboard
+            </a>
+            @else
+            <a href="/dashboard" style="margin-right:10px;">
+              Dashboard
+            </a>
+            @endif
+
+            {{-- Logout --}}
             <form action="{{ route('logout') }}" method="POST" style="display:inline;">
               @csrf
-              <button type="submit" style="background:none;border:none;padding:0;cursor:pointer;color:inherit;">
-                Keluar
-              </button>
+              <a href="#"><button type="submit" style="background:none;border:none;padding:0;cursor:pointer;color:inherit;">
+                  Keluar
+                </button></a>
             </form>
+
             @endauth
           </li>
         </ul>
@@ -997,15 +1058,29 @@
               </div>
             </div>
             <div class="header-button">
-              {{-- Tampilkan tombol Masuk jika belum login --}}
+
               @guest
               <a href="#" class="theme-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Masuk
                 <i class="fa-solid fa-arrow-right-long"></i>
               </a>
               @endguest
-              {{-- Tampilkan tombol Logout jika sudah login --}}
+
               @auth
+              {{-- Dashboard Button --}}
+              @if(Auth::user()->role === 'admin')
+              <a href="/admin/dashboard" class="theme-btn">
+                Dashboard
+                <i class="fa-solid fa-arrow-right-long"></i>
+              </a>
+              @else
+              <a href="/dashboard" class="theme-btn">
+                Dashboard
+                <i class="fa-solid fa-arrow-right-long"></i>
+              </a>
+              @endif
+
+              {{-- Logout Button --}}
               <form action="{{ route('logout') }}" method="POST" style="display:inline;">
                 @csrf
                 <button type="submit" class="theme-btn">
@@ -1014,6 +1089,7 @@
                 </button>
               </form>
               @endauth
+
             </div>
           </div>
         </div>
