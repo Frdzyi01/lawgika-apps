@@ -867,7 +867,7 @@
                         <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Call Handling</li>
                         <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Call Forwarding</li>
                     </ul>
-                    <a href="https://wa.me/628123456789?text=Halo%20saya%20tertarik%20Paket%20PREMIUM%20PT" class="btn-pricing">Pilih Paket Premium</a>
+                    <button onclick="goOrder('pt-diatas-1m','premium')" class="btn-pricing w-100">Pilih Paket Premium</button>
                 </div>
             </div>
 
@@ -900,7 +900,7 @@
                         <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Call Handling</li>
                         <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Call Forwarding</li>
                     </ul>
-                    <a href="https://wa.me/628123456789?text=Halo%20saya%20tertarik%20Paket%20EKSKLUSIF%20PT" class="btn-pricing-primary">Pilih Paket Eksklusif</a>
+                    <button onclick="goOrder('pt-diatas-1m','eksklusif')" class="btn-pricing-primary w-100">Pilih Paket Eksklusif</button>
                 </div>
             </div>
 
@@ -932,7 +932,7 @@
                         <li><i class="fa-solid fa-check"></i> Layanan Call Handling</li>
                         <li><i class="fa-solid fa-check"></i> Layanan Call Forwarding</li>
                     </ul>
-                    <a href="https://wa.me/628123456789?text=Halo%20saya%20tertarik%20Paket%20ENTERPRISE%20PT" class="btn-pricing">Pilih Paket Enterprise</a>
+                    <button onclick="goOrder('pt-diatas-1m','enterprise')" class="btn-pricing w-100">Pilih Paket Enterprise</button>
                 </div>
             </div>
         </div>
@@ -978,6 +978,18 @@
 </section>
 
 <script>
+    // ── Universal goOrder ──────────────────────────────────────────────────
+    function goOrder(service, pkg) {
+        @guest
+            const loginModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+            loginModal.show();
+            return;
+        @endguest
+        @auth
+            window.location.href = '/order/' + service + '/' + pkg;
+        @endauth
+    }
+
     document.addEventListener("DOMContentLoaded", function() {
         document.querySelectorAll('.faq-question').forEach(item => {
             item.addEventListener('click', () => {

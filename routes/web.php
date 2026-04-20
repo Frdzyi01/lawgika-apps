@@ -8,7 +8,7 @@ use App\Http\Controllers\PeraturanFrontendController;
 use App\Http\Controllers\EventUpComingController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\EventUpComingFrontendController;
-use App\Http\Controllers\PtPeroranganOrderController;
+use App\Http\Controllers\UniversalOrderController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -96,8 +96,8 @@ Route::get('/database-peraturan', [PeraturanFrontendController::class, 'index'])
 
 Auth::routes();
 
-// Public Order Route (guest + logged in)
-Route::post('/order', [\App\Http\Controllers\PublicOrderController::class, 'store'])->name('public.order.store');
+// Public Order Route (guest + logged in) — modal quick form
+Route::post('/order-quick', [\App\Http\Controllers\PublicOrderController::class, 'store'])->name('public.order.store');
 
 // Redirect /home
 Route::get('/home', function () {
@@ -110,6 +110,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/home', function() { return redirect()->route('admin.dashboard'); })->name('home'); // backward compatibility
     Route::resource('services', \App\Http\Controllers\Admin\ServiceController::class);
     Route::resource('orders', \App\Http\Controllers\Admin\OrderController::class)->except(['create', 'store', 'destroy']);
+    Route::post('documents/{document}/status', [\App\Http\Controllers\Admin\DocumentController::class, 'updateStatus'])->name('documents.status');
+    Route::post('orders/{order}/payment-status', [\App\Http\Controllers\Admin\OrderController::class, 'updatePaymentStatus'])->name('orders.payment-status');
 
     Route::resource('promo', PromoController::class);
     Route::resource('event-upcoming', EventUpComingController::class);
@@ -124,6 +126,7 @@ Route::middleware(['auth', 'role:customer'])->prefix('dashboard')->name('custome
     Route::resource('orders', \App\Http\Controllers\Customer\OrderController::class)->only(['index', 'show']);
     Route::post('documents', [\App\Http\Controllers\Customer\DocumentController::class, 'store'])->name('documents.store');
     Route::get('documents', [\App\Http\Controllers\Customer\DocumentController::class, 'index'])->name('documents.index');
+    Route::post('orders/{order}/payment-proof', [\App\Http\Controllers\Customer\OrderController::class, 'uploadPaymentProof'])->name('orders.payment-proof');
 });
 
 Route::get('/layanan/{slug}', [\App\Http\Controllers\PublicServiceController::class, 'show'])->name('services.show');
@@ -135,12 +138,12 @@ Route::get('/berita/{slug}', [\App\Http\Controllers\BeritaController::class, 'fr
 Route::get('/upcoming-event', [EventUpComingController::class, 'frontendIndex'])->name('upcoming.event');
 Route::get('/event-upcoming/{id}/detail', [EventUpComingController::class, 'detail'])->name('event.detail');
 
-// ── PT Perorangan Order Flow (auth required) ─────────────────────────────────
+// ── Universal Order Flow (auth required) ─────────────────────────────────────
 Route::middleware('auth')->group(function () {
-    Route::get('/order/pt-perorangan/{package}', [PtPeroranganOrderController::class, 'create'])
-        ->name('order.pt-perorangan.create');
-    Route::post('/order/pt-perorangan', [PtPeroranganOrderController::class, 'store'])
-        ->name('order.pt-perorangan.store');
-    Route::get('/order/pt-perorangan/success', [PtPeroranganOrderController::class, 'success'])
-        ->name('order.pt-perorangan.success');
+    Route::get('/order/{service}/{package}', [UniversalOrderController::class, 'create'])
+        ->name('order.create');
+    Route::post('/order', [UniversalOrderController::class, 'store'])
+        ->name('order.store');
+    Route::get('/order/success', [UniversalOrderController::class, 'success'])
+        ->name('order.success');
 });

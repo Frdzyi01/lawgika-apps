@@ -1062,7 +1062,6 @@
               @guest
               <a href="#" class="theme-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Masuk
-                <i class="fa-solid fa-arrow-right-long"></i>
               </a>
               @endguest
 

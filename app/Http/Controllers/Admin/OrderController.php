@@ -50,4 +50,17 @@ class OrderController extends Controller
 
         return redirect()->back()->with('success', 'Status pesanan berhasil diperbarui menjadi: ' . ucfirst($request->status));
     }
+
+    public function updatePaymentStatus(Request $request, Order $order)
+    {
+        $request->validate([
+            'payment_status' => 'required|in:unpaid,pending_verification,verified,rejected',
+        ]);
+
+        $order->update([
+            'payment_status' => $request->payment_status,
+        ]);
+
+        return redirect()->back()->with('success', 'Status pembayaran pesanan berhasil diperbarui menjadi: ' . $order->payment_status_label);
+    }
 }

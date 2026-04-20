@@ -15,6 +15,24 @@ class Order extends Model
         'form_data' => 'array',
     ];
 
+    /** Payment statuses */
+    const PAYMENT_STATUSES = [
+        'unpaid'               => ['label' => 'Belum Bayar',          'color' => 'secondary'],
+        'pending_verification' => ['label' => 'Menunggu Verifikasi',  'color' => 'warning'],
+        'verified'             => ['label' => 'Pembayaran Terverifikasi', 'color' => 'success'],
+        'rejected'             => ['label' => 'Pembayaran Ditolak',   'color' => 'danger'],
+    ];
+
+    public function getPaymentStatusLabelAttribute(): string
+    {
+        return self::PAYMENT_STATUSES[$this->payment_status]['label'] ?? ucfirst($this->payment_status);
+    }
+
+    public function getPaymentStatusColorAttribute(): string
+    {
+        return self::PAYMENT_STATUSES[$this->payment_status]['color'] ?? 'secondary';
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

@@ -504,6 +504,7 @@
 
     .btn-pricing {
         display: block;
+        width: 100%;
         text-align: center;
         padding: 14px;
         border: 2px solid var(--primary);
@@ -511,7 +512,9 @@
         color: var(--primary);
         font-weight: 600;
         text-decoration: none;
-        transition: background 0.15s ease;
+        background: transparent;
+        cursor: pointer;
+        transition: background 0.15s ease, color 0.15s ease;
     }
 
     .btn-pricing:hover {
@@ -521,6 +524,7 @@
 
     .btn-pricing-primary {
         display: block;
+        width: 100%;
         text-align: center;
         padding: 14px;
         background: var(--primary);
@@ -528,8 +532,9 @@
         color: #fff;
         font-weight: 600;
         text-decoration: none;
+        border: 2px solid var(--primary);
+        cursor: pointer;
         transition: background 0.15s ease;
-        border: none;
     }
 
     .btn-pricing-primary:hover {
@@ -859,7 +864,7 @@
                         <li class="disabled"><i class="fa-solid fa-minus"></i> Pendampingan 6 Bulan</li>
                         <li class="disabled"><i class="fa-solid fa-minus"></i> Review Kontrak Bisnis</li>
                     </ul>
-                    <a href="https://wa.me/628123456789?text=Halo%20saya%20tertarik%20Paket%20Basic%20PT%20Perorangan" class="btn-pricing">Pilih Paket Basic</a>
+                    <button onclick="goOrder('pt-perorangan','basic')" class="btn-pricing w-100">Pilih Paket Basic</button>
                 </div>
             </div>
 
@@ -881,7 +886,7 @@
                         <li class="disabled"><i class="fa-solid fa-minus"></i> Pendampingan 6 Bulan</li>
                         <li class="disabled"><i class="fa-solid fa-minus"></i> Review Kontrak Bisnis</li>
                     </ul>
-                    <a href="https://wa.me/628123456789?text=Halo%20saya%20tertarik%20Paket%20Professional%20PT%20Perorangan" class="btn-pricing-primary">Pilih Paket Professional</a>
+                    <button onclick="goOrder('pt-perorangan','professional')" class="btn-pricing-primary w-100">Pilih Paket Professional</button>
                 </div>
             </div>
 
@@ -902,7 +907,7 @@
                         <li><i class="fa-solid fa-check"></i> Pendampingan 6 Bulan</li>
                         <li><i class="fa-solid fa-check"></i> Review Kontrak Bisnis</li>
                     </ul>
-                    <a href="https://wa.me/628123456789?text=Halo%20saya%20tertarik%20Paket%20Enterprise%20PT%20Perorangan" class="btn-pricing">Pilih Paket Enterprise</a>
+                    <button onclick="goOrder('pt-perorangan','enterprise')" class="btn-pricing w-100">Pilih Paket Enterprise</button>
                 </div>
             </div>
         </div>
@@ -946,6 +951,19 @@
 </section>
 
 <script>
+    // ── Universal goOrder ──────────────────────────────────────────────────
+    function goOrder(service, pkg) {
+        @guest
+            const loginModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+            loginModal.show();
+            return;
+        @endguest
+
+        @auth
+            window.location.href = '/order/' + service + '/' + pkg;
+        @endauth
+    }
+
     // Simple FAQ accordion (vanilla JS - ringan)
     document.addEventListener("DOMContentLoaded", function() {
         document.querySelectorAll('.faq-question').forEach(item => {
