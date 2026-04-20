@@ -8,6 +8,7 @@ use App\Http\Controllers\PeraturanFrontendController;
 use App\Http\Controllers\EventUpComingController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\EventUpComingFrontendController;
+use App\Http\Controllers\PtPeroranganOrderController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -133,3 +134,13 @@ Route::get('/berita/{slug}', [\App\Http\Controllers\BeritaController::class, 'fr
 // ROUTE FRONTEND (TAMBAHKAN INI)
 Route::get('/upcoming-event', [EventUpComingController::class, 'frontendIndex'])->name('upcoming.event');
 Route::get('/event-upcoming/{id}/detail', [EventUpComingController::class, 'detail'])->name('event.detail');
+
+// ── PT Perorangan Order Flow (auth required) ─────────────────────────────────
+Route::middleware('auth')->group(function () {
+    Route::get('/order/pt-perorangan/{package}', [PtPeroranganOrderController::class, 'create'])
+        ->name('order.pt-perorangan.create');
+    Route::post('/order/pt-perorangan', [PtPeroranganOrderController::class, 'store'])
+        ->name('order.pt-perorangan.store');
+    Route::get('/order/pt-perorangan/success', [PtPeroranganOrderController::class, 'success'])
+        ->name('order.pt-perorangan.success');
+});
