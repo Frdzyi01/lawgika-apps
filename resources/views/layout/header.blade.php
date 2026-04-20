@@ -129,51 +129,19 @@
             <i class="far fa-envelope"></i>
             <a href="#">info@example.com</a>
           </li>
-          <li>
-            <i class="fa-regular fa-phone"></i>
-            <a href="#">+208-6666-0112</a>
-          </li>
+
         </ul>
         <p>
           Dapatkan konsultasi awal gratis untuk pendirian perusahaan Anda.
         </p>
         <ul class="list">
+
           <li>
-            <i class="fa-light fa-comments"></i><a href="#">Live Chat</a>
+            <i class="fa-regular fa-phone"></i>
+            <a href="#">+208-6666-0112</a>
           </li>
           <li>
-            <i class="fa-light fa-user"></i>
-
-            {{-- Jika belum login --}}
-            @guest
-            <button data-bs-toggle="modal" data-bs-target="#exampleModal">
-              Masuk
-            </button>
-            @endguest
-
-            {{-- Jika sudah login --}}
-            @auth
-
-            {{-- Dashboard --}}
-            @if(Auth::user()->role === 'admin')
-            <a href="/admin/dashboard" style="margin-right:10px;">
-              Dashboard
-            </a>
-            @else
-            <a href="/dashboard" style="margin-right:10px;">
-              Dashboard
-            </a>
-            @endif
-
-            {{-- Logout --}}
-            <form action="{{ route('logout') }}" method="POST" style="display:inline;">
-              @csrf
-              <a href="#"><button type="submit" style="background:none;border:none;padding:0;cursor:pointer;color:inherit;">
-                  Keluar
-                </button></a>
-            </form>
-
-            @endauth
+            <i class="fa-light fa-comments"></i><a href="#">Live Chat</a>
           </li>
         </ul>
       </div>
@@ -1058,37 +1026,37 @@
               </div>
             </div>
             <div class="header-button">
-
               @guest
+              <!-- Menampilkan tombol 'Masuk' jika belum login -->
               <a href="#" class="theme-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Masuk
               </a>
               @endguest
 
               @auth
-              {{-- Dashboard Button --}}
-              @if(Auth::user()->role === 'admin')
-              <a href="/admin/dashboard" class="theme-btn">
-                Dashboard
-                <i class="fa-solid fa-arrow-right-long"></i>
-              </a>
-              @else
-              <a href="/dashboard" class="theme-btn">
-                Dashboard
-                <i class="fa-solid fa-arrow-right-long"></i>
-              </a>
-              @endif
-
-              {{-- Logout Button --}}
-              <form action="{{ route('logout') }}" method="POST" style="display:inline;">
-                @csrf
-                <button type="submit" class="theme-btn">
-                  Keluar
-                  <i class="fa-solid fa-arrow-right-long"></i>
+              <!-- Menampilkan dropdown untuk user yang sudah login -->
+              <div class="dropdown">
+                <button class="theme-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                  Profile
                 </button>
-              </form>
-              @endauth
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <!-- Dashboard link -->
+                  @if(Auth::user()->role === 'admin')
+                  <li><a class="dropdown-item" href="/admin/dashboard">Dashboard</a></li>
+                  @else
+                  <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
+                  @endif
 
+                  <!-- Logout link -->
+                  <li>
+                    <form action="{{ route('logout') }}" method="POST" style="display:inline;">
+                      @csrf
+                      <button type="submit" class="dropdown-item">Keluar</button>
+                    </form>
+                  </li>
+                </ul>
+              </div>
+              @endauth
             </div>
           </div>
         </div>
