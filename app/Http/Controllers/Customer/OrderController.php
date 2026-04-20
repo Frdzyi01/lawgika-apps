@@ -16,7 +16,7 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
-        if ($order->user_id !== auth()->id()) {
+        if ($order->user_id != auth()->id()) {
             abort(403);
         }
         $order->load(['service', 'documents']);
@@ -25,7 +25,7 @@ class OrderController extends Controller
 
     public function uploadPaymentProof(Request $request, Order $order)
     {
-        if ($order->user_id !== auth()->id()) {
+        if ($order->user_id != auth()->id()) {
             abort(403);
         }
 
