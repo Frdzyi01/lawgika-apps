@@ -34,7 +34,7 @@
           <img src="{{ asset('template-admin/assets/images/logo-icon-2.png') }}" class="logo-icon" alt="logo icon" />
         </div>
         <div>
-          <h4 class="logo-text">Fobia</h4>
+          <h4 class="logo-text">Lawgika</h4>
         </div>
       </div>
       <!--navigation-->
@@ -87,6 +87,14 @@
         </form>
         <div class="top-navbar-right ms-auto">
           <ul class="navbar-nav align-items-center">
+<li class="nav-item">
+  <a class="nav-link" style="margin: 45px;" href="{{ url('/') }}" title="Kembali ke Landing Utama">
+    <span>landingpage</span>
+  </a>
+</li>
+
+
+
             <li class="nav-item">
               <a class="nav-link mobile-search-button" href="javascript:;">
                 <div class=""><ion-icon name="search-outline"></ion-icon></div>

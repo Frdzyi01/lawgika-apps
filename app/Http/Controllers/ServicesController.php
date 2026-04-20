@@ -177,6 +177,11 @@ class ServicesController extends Controller
     {
         return view('frontend.services.layanan-pendukung-bisnis.virtual-office');
     }
+
+    public function tentangKami()
+    {
+        return view('frontend.tentangkami');
+    }
     /**
      * Show the form for creating a new resource.
      */

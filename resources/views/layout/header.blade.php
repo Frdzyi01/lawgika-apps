@@ -969,7 +969,7 @@
                           </a>
 
                           <!-- Item 6: Tentang Kami -->
-                          <a href="{{ url('#') }}" class="lw-pelatihan-item">
+                          <a href="{{ url('tentang-kami') }}" class="lw-pelatihan-item">
                             <div class="lw-pelatihan-icon">🏢</div>
                             <div class="lw-pelatihan-text">
                               <h6>Tentang Kami</h6>
@@ -994,13 +994,13 @@
                         <li><a href="{{ route('peraturan.index') }}" style="display: block; padding: 12px 20px; border-bottom: 1px solid #eee;">⚖️ Kumpulan Peraturan</a></li>
                         <li><a href="{{ url('promo') }}" style="display: block; padding: 12px 20px; border-bottom: 1px solid #eee;">🔥 Promo</a></li>
                         <li><a href="{{ url('#') }}" style="display: block; padding: 12px 20px; border-bottom: 1px solid #eee;">💼 Karir</a></li>
-                        <li><a href="{{ url('#') }}" style="display: block; padding: 12px 20px;">🏢 Tentang Kami</a></li>
+                        <li><a href="{{ url('tentang-kami') }}" style="display: block; padding: 12px 20px;">🏢 Tentang Kami</a></li>
                       </ul>
                     </li>
 
 
                     <li>
-                      <a href="#">Tentang Kami</a>
+                      <a href="{{ url('tentang-kami') }}">Tentang Kami</a>
                     </li>
 
                     <li>

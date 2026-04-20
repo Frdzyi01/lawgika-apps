@@ -42,6 +42,10 @@ Route::get('/', function () {
     return view('frontend.dashboard', compact('promos', 'events', 'peraturan', 'beritas'));
 });
 
+
+// tentang kami
+Route::get('/tentang-kami', [ServicesController::class, 'tentangKami']);
+
 // pendirian badan usaha
 Route::get('/pendirian-pt-perorangan', [ServicesController::class, 'pendirianPtPerorangan']);
 Route::get('/pendirian-pt->-1m', [ServicesController::class, 'pendirianPtdibawah1M']);
