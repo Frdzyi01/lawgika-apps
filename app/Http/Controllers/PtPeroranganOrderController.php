@@ -39,17 +39,53 @@ class PtPeroranganOrderController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'phone'    => 'required|string|max:20',
+        $baseRules = [
             'package'  => 'required|string|in:basic,professional,enterprise',
             'notes'    => 'nullable|string|max:2000',
-            'ktp'      => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
-            'npwp'     => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:5120',
-            'document' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:5120',
-        ]);
+        ];
+
+        if ($request->package === 'professional') {
+            $rules = array_merge($baseRules, [
+                'director_name'       => 'required|string|max:255',
+                'director_phone'      => 'required|string|max:20',
+                'company_name'        => 'required|string|max:255',
+                'pic_name'            => 'required|string|max:255',
+                'pic_phone'           => 'required|string|max:20',
+                'company_email'       => 'required|email|max:255',
+                'operational_address' => 'required|string',
+                'business_field'      => 'required|string|max:255',
+                'akta_pendirian'      => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
+                'npwp_perusahaan'     => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
+                'sk_kemenkumham'      => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
+                'ktp_direktur'        => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
+                'npwp_direktur'       => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
+            ]);
+        } else {
+            $rules = array_merge($baseRules, [
+                'phone'    => 'required|string|max:20',
+                'ktp'      => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
+                'npwp'     => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:5120',
+                'document' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:5120',
+            ]);
+        }
+
+        $request->validate($rules);
 
         $packageKey  = $request->package;
         $packageInfo = $this->packages[$packageKey];
+
+        $formData = [
+            'package' => $packageKey,
+        ];
+
+        if ($request->package === 'professional') {
+            $formData = array_merge($formData, $request->only([
+                'director_name', 'director_phone', 'company_name', 'pic_name',
+                'pic_phone', 'company_email', 'operational_address', 'business_field'
+            ]));
+        } else {
+            $formData['phone'] = $request->phone;
+        }
 
         // Buat order
         $order = Order::create([
@@ -60,30 +96,44 @@ class PtPeroranganOrderController extends Controller
             'status'       => 'pending',
             'total_price'  => 0,
             'notes'        => $request->notes,
-            'form_data'    => [
-                'package' => $packageKey,
-                'phone'   => $request->phone,
-            ],
+            'form_data'    => $formData,
         ]);
 
-        // Upload KTP (wajib)
-        $this->storeDoc($request, 'ktp', $order->id, 'ktp');
+        if ($request->package === 'professional') {
+            $docTypes = [
+                'akta_pendirian'  => 'akta_pendirian',
+                'npwp_perusahaan' => 'npwp_perusahaan',
+                'sk_kemenkumham'  => 'sk_kemenkumham',
+                'ktp_direktur'    => 'ktp_direktur',
+                'npwp_direktur'   => 'npwp_direktur',
+            ];
+            foreach ($docTypes as $inputName => $type) {
+                if ($request->hasFile($inputName)) {
+                    $this->storeDoc($request, $inputName, $order->id, $type);
+                }
+            }
+        } else {
+            // Upload KTP (wajib)
+            $this->storeDoc($request, 'ktp', $order->id, 'ktp');
 
-        // Upload NPWP (opsional)
-        if ($request->hasFile('npwp')) {
-            $this->storeDoc($request, 'npwp', $order->id, 'npwp');
-        }
+            // Upload NPWP (opsional)
+            if ($request->hasFile('npwp')) {
+                $this->storeDoc($request, 'npwp', $order->id, 'npwp');
+            }
 
-        // Upload Dokumen Pendukung (opsional)
-        if ($request->hasFile('document')) {
-            $this->storeDoc($request, 'document', $order->id, 'other');
+            // Upload Dokumen Pendukung (opsional)
+            if ($request->hasFile('document')) {
+                $this->storeDoc($request, 'document', $order->id, 'other');
+            }
         }
 
         // Update nomor HP user jika belum ada
-        $user = auth()->user();
-        if (empty($user->phone)) {
-            $user->phone = $request->phone;
-            $user->save();
+        if ($request->package !== 'professional') {
+            $user = auth()->user();
+            if (empty($user->phone)) {
+                $user->phone = $request->phone;
+                $user->save();
+            }
         }
 
         return redirect()->route('order.pt-perorangan.success', [

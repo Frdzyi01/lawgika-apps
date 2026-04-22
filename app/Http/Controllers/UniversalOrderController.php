@@ -50,6 +50,7 @@ class UniversalOrderController extends Controller
         $packageLabel = self::$packages[$package]
             ?? Str::title(str_replace('-', ' ', $package));
 
+        // The view handles conditional rendering for all service+package combos
         return view('order.create', compact('service', 'package', 'serviceInfo', 'packageLabel'));
     }
 
@@ -58,16 +59,29 @@ class UniversalOrderController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'service'  => 'required|string|max:100',
-            'package'  => 'required|string|max:100',
-            'phone'    => 'required|string|max:20',
-            'notes'    => 'nullable|string|max:2000',
-            'ktp'      => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
-            'npwp'     => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:5120',
-            'document' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:5120',
-        ]);
+        // ── Unified Validation Rules for All Orders ───────────────────────────
+        $rules = [
+            'service'               => 'required|string|in:' . implode(',', array_keys(self::$services)),
+            'package'               => 'required|string|max:100', // Allow any string like premium, eksklusif, enterprise
+            'director_name'         => 'required|string|max:255',
+            'director_phone'        => 'required|string|max:20',
+            'company_name'          => 'required|string|max:255',
+            'pic_name'              => 'required|string|max:255',
+            'pic_phone'             => 'required|string|max:20',
+            'company_email'         => 'required|email|max:255',
+            'operational_address'   => 'required|string',
+            'business_field'        => 'required|string|max:255',
+            'akta_pendirian'        => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
+            'npwp_perusahaan'       => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
+            'sk_kemenkumham'        => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
+            'ktp_direktur'          => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
+            'npwp_direktur'         => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
+            'notes'                 => 'nullable|string|max:2000',
+        ];
 
+        $request->validate($rules);
+
+        // ── Resolve labels ────────────────────────────────────────────────────
         $serviceKey   = $request->service;
         $packageKey   = $request->package;
         $serviceInfo  = self::$services[$serviceKey]
@@ -77,7 +91,21 @@ class UniversalOrderController extends Controller
 
         $serviceName = $serviceInfo['label'] . ' – ' . $packageLabel;
 
-        // Create order
+        // ── Build form_data payload ───────────────────────────────────────────
+        $formData = [
+            'service'             => $serviceKey,
+            'package'             => $packageKey,
+            'director_name'       => $request->input('director_name'),
+            'director_phone'      => $request->input('director_phone'),
+            'company_name'        => $request->input('company_name'),
+            'pic_name'            => $request->input('pic_name'),
+            'pic_phone'           => $request->input('pic_phone'),
+            'company_email'       => $request->input('company_email'),
+            'operational_address' => $request->input('operational_address'),
+            'business_field'      => $request->input('business_field'),
+        ];
+
+        // ── Create order ──────────────────────────────────────────────────────
         $order = Order::create([
             'order_number' => 'ORD-' . strtoupper(substr($serviceKey, 0, 3)) . '-'
                             . date('Ymd') . '-' . strtoupper(Str::random(5)),
@@ -87,30 +115,29 @@ class UniversalOrderController extends Controller
             'status'       => 'pending',
             'total_price'  => 0,
             'notes'        => $request->notes,
-            'form_data'    => [
-                'service' => $serviceKey,
-                'package' => $packageKey,
-                'phone'   => $request->phone,
-            ],
+            'form_data'    => $formData,
         ]);
 
-        // Upload KTP (required)
-        $this->storeDoc($request, 'ktp', $order->id, 'ktp');
+        // ── Document uploads ──────────────────────────────────────────────────
+        // 5 required documents for all orders now
+        $docTypes = [
+            'akta_pendirian'  => 'akta_pendirian',
+            'npwp_perusahaan' => 'npwp_perusahaan',
+            'sk_kemenkumham'  => 'sk_kemenkumham',
+            'ktp_direktur'    => 'ktp_direktur',
+            'npwp_direktur'   => 'npwp_direktur',
+        ];
 
-        // Upload NPWP (optional)
-        if ($request->hasFile('npwp')) {
-            $this->storeDoc($request, 'npwp', $order->id, 'npwp');
+        foreach ($docTypes as $inputName => $type) {
+            if ($request->hasFile($inputName)) {
+                $this->storeDoc($request, $inputName, $order->id, $type);
+            }
         }
 
-        // Upload Dokumen Pendukung (optional)
-        if ($request->hasFile('document')) {
-            $this->storeDoc($request, 'document', $order->id, 'other');
-        }
-
-        // Persist phone to user profile if not already set
+        // (Optional) Update user profile phone if not exists using director_phone
         $user = auth()->user();
-        if (empty($user->phone)) {
-            $user->phone = $request->phone;
+        if (empty($user->phone) && !empty($request->director_phone)) {
+            $user->phone = $request->director_phone;
             $user->save();
         }
 

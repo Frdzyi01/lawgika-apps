@@ -21,7 +21,7 @@
   <link href="{{ asset('template-admin/assets/css/dark-theme.css') }}" rel="stylesheet" />
   <link href="{{ asset('template-admin/assets/css/semi-dark.css') }}" rel="stylesheet" />
   <link href="{{ asset('template-admin/assets/css/header-colors.css') }}" rel="stylesheet" />
-  <title>@yield('title', 'Fobia - Bootstrap5 Admin Template')</title>
+  <title>@yield('title', 'Lawgika - Dashboard Admin')</title>
 </head>
 
 <body>
@@ -69,6 +69,12 @@
           <a href="{{ route('admin.orders.index') }}">
             <div class="parent-icon"><ion-icon name="cart-outline"></ion-icon></div>
             <div class="menu-title">Pesanan</div>
+          </a>
+        </li>
+        <li>
+          <a href="{{ url('admin/meeting-room') }}">
+            <div class="parent-icon"><ion-icon name="business-outline"></ion-icon></div>
+            <div class="menu-title">Reservasi Meeting Room</div>
           </a>
         </li>
         <li>

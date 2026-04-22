@@ -17,20 +17,33 @@
                 <p><strong>Jasa:</strong> {{ $order->service?->name ?? $order->service_name ?? '-' }}</p>
                 <p><strong>Total:</strong> Rp {{ number_format($order->total_price, 0, ',', '.') }}</p>
                 @if($order->form_data)
+                @php
+                    $labels = [
+                        'service'              => 'Layanan',
+                        'package'              => 'Paket',
+                        'phone'                => 'No. HP / WhatsApp',
+                        'name'                 => 'Nama',
+                        'email'                => 'Email',
+                        'notes'                => 'Catatan',
+                        'director_name'        => 'Nama Direktur',
+                        'director_phone'       => 'No. HP Direktur',
+                        'company_name'         => 'Nama Perusahaan',
+                        'pic_name'             => 'Nama PIC',
+                        'pic_phone'            => 'No. HP PIC',
+                        'company_email'        => 'Email Perusahaan',
+                        'operational_address'  => 'Alamat Operasional',
+                        'business_field'       => 'Bidang Usaha',
+                    ];
+                    $internalKeys = ['service', 'package'];
+                    $ptProKeys    = ['director_name','director_phone','company_name','pic_name','pic_phone','company_email','operational_address','business_field'];
+                    $isPtPro      = !empty($order->form_data['director_name']);
+                @endphp
+
+                {{-- General info table (excludes internal & PT-Pro-only keys) --}}
                 <p><strong>Detail Pesanan:</strong></p>
                 <table class="table table-sm table-bordered text-body order-detail-table" style="font-size:.88rem;">
-                    @php
-                        $labels = [
-                            'service' => 'Layanan',
-                            'package' => 'Paket',
-                            'phone'   => 'No. HP / WhatsApp',
-                            'name'    => 'Nama',
-                            'email'   => 'Email',
-                            'notes'   => 'Catatan',
-                        ];
-                    @endphp
                     @foreach((array)$order->form_data as $key => $val)
-                        @if(!empty($val))
+                        @if(!empty($val) && !in_array($key, $internalKeys) && !($isPtPro && in_array($key, $ptProKeys)))
                         <tr>
                             <td class="fw-semibold" style="white-space:nowrap; width:40%">
                                 {{ $labels[$key] ?? ucfirst(str_replace('_', ' ', $key)) }}
@@ -40,6 +53,29 @@
                         @endif
                     @endforeach
                 </table>
+
+                {{-- PT Perorangan Professional: dedicated company/director block --}}
+                @if($isPtPro)
+                <div class="card border-0 bg-light mt-3 mb-2">
+                    <div class="card-body py-3">
+                        <h6 class="fw-bold mb-3" style="font-size:.92rem;">
+                            <i class="fa fa-building me-1"></i> Data Perusahaan &amp; Direktur
+                        </h6>
+                        <table class="table table-sm table-bordered text-body order-detail-table mb-0" style="font-size:.88rem;">
+                            @foreach($ptProKeys as $key)
+                                @if(!empty($order->form_data[$key]))
+                                <tr>
+                                    <td class="fw-semibold" style="white-space:nowrap; width:40%">
+                                        {{ $labels[$key] ?? ucfirst(str_replace('_', ' ', $key)) }}
+                                    </td>
+                                    <td>{{ $order->form_data[$key] }}</td>
+                                </tr>
+                                @endif
+                            @endforeach
+                        </table>
+                    </div>
+                </div>
+                @endif
                 @endif
                 @if($order->admin_notes)
                 <div class="alert alert-warning mt-2">

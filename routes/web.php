@@ -11,7 +11,7 @@ use App\Http\Controllers\EventUpComingFrontendController;
 use App\Http\Controllers\UniversalOrderController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\MeetingRoomController;
 
 Route::get('/', function () {
     $promos = \App\Models\Promo::where('status', true)
@@ -82,12 +82,15 @@ Route::get('/audit-pajak', [ServicesController::class, 'auditPajak']);
 
 
 // layanan pendukung bisnis
-Route::get('/sewa-meeting-room', [ServicesController::class, 'sewaMeetingRoom']);
+Route::get('/sewa-meeting-room', [MeetingRoomController::class, 'index']);
+Route::get('/meeting-room/order', [MeetingRoomController::class, 'order'])->name('meeting-room.order');
+Route::post('/meeting-room/store', [MeetingRoomController::class, 'store'])->name('meeting-room.store');
 Route::get('/sewa-ruang-podcast', [ServicesController::class, 'sewaRuangPodcast']);
 Route::get('/layanan-visa-kitas', [ServicesController::class, 'layananVisaKitas']);
 Route::get('/layanan-call-answering', [ServicesController::class, 'layananCallAnswering']);
 Route::get('/layanan-konsultasi-bisnis', [ServicesController::class, 'layananKonsultasiBisnis']);
 Route::get('/virtual-office', [ServicesController::class, 'virtualOffice']);
+Route::get('/kerjasama-bisnis', [ServicesController::class, 'kerjasamaBisnis']);
 
 // Frontend promo routes
 Route::get('/promo', [PromoControllerFrontend::class, 'index'])->name('promo.index');
@@ -123,6 +126,12 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::resource('berita', BeritaController::class)->parameters([
         'berita' => 'berita'
     ]);
+
+    Route::get('/meeting-room', [MeetingRoomController::class, 'adminIndex']);
+    Route::post('/meeting-room/{id}/checkin', [MeetingRoomController::class, 'checkin']);
+    Route::post('/meeting-room/{id}/checkout', [MeetingRoomController::class, 'checkout']);
+    Route::post('/meeting-room/{id}/approve-payment', [MeetingRoomController::class, 'approvePayment'])->name('admin.meeting-room.approve');
+    Route::post('/meeting-room/{id}/reject-payment', [MeetingRoomController::class, 'rejectPayment'])->name('admin.meeting-room.reject');
 });
 
 Route::middleware(['auth', 'role:customer'])->prefix('dashboard')->name('customer.')->group(function () {
@@ -131,6 +140,10 @@ Route::middleware(['auth', 'role:customer'])->prefix('dashboard')->name('custome
     Route::post('documents', [\App\Http\Controllers\Customer\DocumentController::class, 'store'])->name('documents.store');
     Route::get('documents', [\App\Http\Controllers\Customer\DocumentController::class, 'index'])->name('documents.index');
     Route::post('orders/{order}/payment-proof', [\App\Http\Controllers\Customer\OrderController::class, 'uploadPaymentProof'])->name('orders.payment-proof');
+
+    Route::get('/meeting-room', [MeetingRoomController::class, 'customerIndex'])->name('meeting-room.index');
+    Route::post('/meeting-room/{id}/checkin', [MeetingRoomController::class, 'checkin']);
+    Route::post('/meeting-room/{id}/checkout', [MeetingRoomController::class, 'checkout']);
 });
 
 Route::get('/layanan/{slug}', [\App\Http\Controllers\PublicServiceController::class, 'show'])->name('services.show');
@@ -150,4 +163,12 @@ Route::middleware('auth')->group(function () {
         ->name('order.store');
     Route::get('/order/success', [UniversalOrderController::class, 'success'])
         ->name('order.success');
+
+    // ── PT Perorangan dedicated order flow ────────────────────────────────────
+    Route::get('/order/pt-perorangan/{package}', [\App\Http\Controllers\PtPeroranganOrderController::class, 'create'])
+        ->name('order.pt-perorangan.create');
+    Route::post('/order/pt-perorangan', [\App\Http\Controllers\PtPeroranganOrderController::class, 'store'])
+        ->name('order.pt-perorangan.store');
+    Route::get('/order/pt-perorangan/success', [\App\Http\Controllers\PtPeroranganOrderController::class, 'success'])
+        ->name('order.pt-perorangan.success');
 });

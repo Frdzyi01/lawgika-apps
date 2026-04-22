@@ -62,6 +62,40 @@
             </div>
         </div>
 
+        {{-- PT Perorangan Professional: Company & Director Data --}}
+        @if(!empty($order->form_data['director_name']))
+        @php
+            $ptProLabels = [
+                'director_name'       => 'Nama Direktur',
+                'director_phone'      => 'No. HP Direktur',
+                'company_name'        => 'Nama Perusahaan',
+                'company_email'       => 'Email Perusahaan',
+                'pic_name'            => 'Nama PIC',
+                'pic_phone'           => 'No. HP PIC',
+                'business_field'      => 'Bidang Usaha',
+                'operational_address' => 'Alamat Operasional',
+            ];
+        @endphp
+        <div class="card border-0 shadow-sm mb-4" style="border-left: 4px solid #4e0516 !important;">
+            <div class="card-header bg-transparent border-bottom-0 pt-4 pb-2 px-4 d-flex align-items-center gap-2">
+                <h6 class="fw-bold mb-0"><i class="fa fa-building me-1" style="color:#4e0516"></i>Data PT Perorangan Professional</h6>
+                <span class="badge" style="background:#4e0516;font-size:.72rem;">Professional</span>
+            </div>
+            <div class="card-body px-4 pb-4">
+                <table class="table table-borderless text-body order-detail-table">
+                    @foreach($ptProLabels as $key => $label)
+                        @if(!empty($order->form_data[$key]))
+                        <tr>
+                            <td width="40%" class="text-muted">{{ $label }}</td>
+                            <td class="fw-semibold">{{ $order->form_data[$key] }}</td>
+                        </tr>
+                        @endif
+                    @endforeach
+                </table>
+            </div>
+        </div>
+        @endif
+
         {{-- Payment Proof --}}
         <div class="card border-0 shadow-sm mb-4">
             <div class="card-header bg-transparent border-bottom-0 pt-4 pb-2 px-4 d-flex align-items-center justify-content-between">

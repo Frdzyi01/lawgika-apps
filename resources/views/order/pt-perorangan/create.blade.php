@@ -337,109 +337,114 @@
                             {{-- Hidden package --}}
                             <input type="hidden" name="package" value="{{ $package }}">
 
-                            {{-- ── DATA DIRI ── --}}
-                            <p class="form-section-title"><i class="fa-solid fa-user me-1"></i> Data Diri</p>
+                            @if($package === 'professional')
+                                {{-- TAMPILKAN FORM PROFESSIONAL --}}
+                                @include('order.pt-perorangan.partials.form-professional')
+                            @else
+                                {{-- ── DATA DIRI ── --}}
+                                <p class="form-section-title"><i class="fa-solid fa-user me-1"></i> Data Diri</p>
 
-                            <div class="row g-3 mb-4">
-                                <div class="col-md-6">
-                                    <label class="form-label">Nama Lengkap</label>
-                                    <input type="text" name="name"
-                                           value="{{ auth()->user()->name }}"
-                                           class="form-control" readonly>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Email</label>
-                                    <input type="email" name="email"
-                                           value="{{ auth()->user()->email }}"
-                                           class="form-control" readonly>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">No. HP / WhatsApp <span class="req">*</span></label>
-                                    <input type="text" name="phone" id="phone"
-                                           value="{{ old('phone', auth()->user()->phone) }}"
-                                           class="form-control @error('phone') is-invalid @enderror"
-                                           placeholder="Contoh: 081234567890" required>
-                                    @error('phone')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Paket Dipilih</label>
-                                    <input type="text"
-                                           value="{{ $packageInfo['label'] }} – {{ $packageInfo['price'] }}"
-                                           class="form-control" readonly>
-                                </div>
-                            </div>
-
-                            {{-- ── CATATAN ── --}}
-                            <p class="form-section-title"><i class="fa-solid fa-note-sticky me-1"></i> Catatan Tambahan</p>
-                            <div class="mb-4">
-                                <label class="form-label">Catatan / Pertanyaan <span class="opt-badge">Opsional</span></label>
-                                <textarea name="notes" class="form-control"
-                                          placeholder="Tuliskan nama PT yang diinginkan, bidang usaha, atau pertanyaan lainnya…">{{ old('notes') }}</textarea>
-                            </div>
-
-                            {{-- ── UPLOAD DOKUMEN ── --}}
-                            <p class="form-section-title"><i class="fa-solid fa-upload me-1"></i> Upload Dokumen</p>
-
-                            <div class="row g-3 mb-4">
-                                {{-- KTP --}}
-                                <div class="col-md-12">
-                                    <label class="form-label">
-                                        Scan KTP Direktur / Pendiri
-                                        <span class="req">*</span>
-                                        <span style="font-size:.78rem; color:var(--gray); font-weight:400"> (JPG, PNG, PDF – maks. 5MB)</span>
-                                    </label>
-                                    <div class="file-upload-box @error('ktp') border-danger @enderror" id="ktpBox">
-                                        <input type="file" name="ktp" accept=".jpg,.jpeg,.png,.pdf" required
-                                               onchange="showFileName(this, 'ktpName')">
-                                        <div class="upload-icon"><i class="fa-solid fa-id-card"></i></div>
-                                        <div class="upload-label">Klik atau seret file KTP ke sini</div>
-                                        <div class="upload-hint">JPG, PNG, atau PDF</div>
-                                        <div class="file-name" id="ktpName"></div>
+                                <div class="row g-3 mb-4">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Nama Lengkap</label>
+                                        <input type="text" name="name"
+                                               value="{{ auth()->user()->name }}"
+                                               class="form-control" readonly>
                                     </div>
-                                    @error('ktp')
-                                        <div style="color:#be123c; font-size:.82rem; margin-top:4px">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                {{-- NPWP --}}
-                                <div class="col-md-6">
-                                    <label class="form-label">
-                                        Scan NPWP Direktur
-                                        <span class="opt-badge">Opsional</span>
-                                        <span style="font-size:.78rem; color:var(--gray); font-weight:400"> (maks. 5MB)</span>
-                                    </label>
-                                    <div class="file-upload-box" id="npwpBox">
-                                        <input type="file" name="npwp" accept=".jpg,.jpeg,.png,.pdf"
-                                               onchange="showFileName(this, 'npwpName')">
-                                        <div class="upload-icon"><i class="fa-solid fa-file-invoice"></i></div>
-                                        <div class="upload-label">Klik atau seret file NPWP</div>
-                                        <div class="upload-hint">JPG, PNG, atau PDF</div>
-                                        <div class="file-name" id="npwpName"></div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" name="email"
+                                               value="{{ auth()->user()->email }}"
+                                               class="form-control" readonly>
                                     </div>
-                                    @error('npwp')
-                                        <div style="color:#be123c; font-size:.82rem; margin-top:4px">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                {{-- Dokumen Pendukung --}}
-                                <div class="col-md-6">
-                                    <label class="form-label">
-                                        Dokumen Pendukung
-                                        <span class="opt-badge">Opsional</span>
-                                        <span style="font-size:.78rem; color:var(--gray); font-weight:400"> (maks. 5MB)</span>
-                                    </label>
-                                    <div class="file-upload-box" id="docBox">
-                                        <input type="file" name="document" accept=".jpg,.jpeg,.png,.pdf"
-                                               onchange="showFileName(this, 'docName')">
-                                        <div class="upload-icon"><i class="fa-solid fa-folder-open"></i></div>
-                                        <div class="upload-label">Dokumen pendukung lainnya</div>
-                                        <div class="upload-hint">JPG, PNG, atau PDF</div>
-                                        <div class="file-name" id="docName"></div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">No. HP / WhatsApp <span class="req">*</span></label>
+                                        <input type="text" name="phone" id="phone"
+                                               value="{{ old('phone', auth()->user()->phone) }}"
+                                               class="form-control @error('phone') is-invalid @enderror"
+                                               placeholder="Contoh: 081234567890" required>
+                                        @error('phone')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Paket Dipilih</label>
+                                        <input type="text"
+                                               value="{{ $packageInfo['label'] }} – {{ $packageInfo['price'] }}"
+                                               class="form-control" readonly>
                                     </div>
                                 </div>
-                            </div>
+
+                                {{-- ── CATATAN ── --}}
+                                <p class="form-section-title"><i class="fa-solid fa-note-sticky me-1"></i> Catatan Tambahan</p>
+                                <div class="mb-4">
+                                    <label class="form-label">Catatan / Pertanyaan <span class="opt-badge">Opsional</span></label>
+                                    <textarea name="notes" class="form-control"
+                                              placeholder="Tuliskan nama PT yang diinginkan, bidang usaha, atau pertanyaan lainnya…">{{ old('notes') }}</textarea>
+                                </div>
+
+                                {{-- ── UPLOAD DOKUMEN ── --}}
+                                <p class="form-section-title"><i class="fa-solid fa-upload me-1"></i> Upload Dokumen</p>
+
+                                <div class="row g-3 mb-4">
+                                    {{-- KTP --}}
+                                    <div class="col-md-12">
+                                        <label class="form-label">
+                                            Scan KTP Direktur / Pendiri
+                                            <span class="req">*</span>
+                                            <span style="font-size:.78rem; color:var(--gray); font-weight:400"> (JPG, PNG, PDF – maks. 5MB)</span>
+                                        </label>
+                                        <div class="file-upload-box @error('ktp') border-danger-upload @enderror" id="ktpBox">
+                                            <input type="file" name="ktp" accept=".jpg,.jpeg,.png,.pdf" required
+                                                   onchange="showFileName(this, 'ktpName')">
+                                            <div class="upload-icon"><i class="fa-solid fa-id-card"></i></div>
+                                            <div class="upload-label">Klik atau seret file KTP ke sini</div>
+                                            <div class="upload-hint">JPG, PNG, atau PDF</div>
+                                            <div class="file-name" id="ktpName"></div>
+                                        </div>
+                                        @error('ktp')
+                                            <div style="color:#be123c; font-size:.82rem; margin-top:4px">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    {{-- NPWP --}}
+                                    <div class="col-md-6">
+                                        <label class="form-label">
+                                            Scan NPWP Direktur
+                                            <span class="opt-badge">Opsional</span>
+                                            <span style="font-size:.78rem; color:var(--gray); font-weight:400"> (maks. 5MB)</span>
+                                        </label>
+                                        <div class="file-upload-box" id="npwpBox">
+                                            <input type="file" name="npwp" accept=".jpg,.jpeg,.png,.pdf"
+                                                   onchange="showFileName(this, 'npwpName')">
+                                            <div class="upload-icon"><i class="fa-solid fa-file-invoice"></i></div>
+                                            <div class="upload-label">Klik atau seret file NPWP</div>
+                                            <div class="upload-hint">JPG, PNG, atau PDF</div>
+                                            <div class="file-name" id="npwpName"></div>
+                                        </div>
+                                        @error('npwp')
+                                            <div style="color:#be123c; font-size:.82rem; margin-top:4px">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    {{-- Dokumen Pendukung --}}
+                                    <div class="col-md-6">
+                                        <label class="form-label">
+                                            Dokumen Pendukung
+                                            <span class="opt-badge">Opsional</span>
+                                            <span style="font-size:.78rem; color:var(--gray); font-weight:400"> (maks. 5MB)</span>
+                                        </label>
+                                        <div class="file-upload-box" id="docBox">
+                                            <input type="file" name="document" accept=".jpg,.jpeg,.png,.pdf"
+                                                   onchange="showFileName(this, 'docName')">
+                                            <div class="upload-icon"><i class="fa-solid fa-folder-open"></i></div>
+                                            <div class="upload-label">Dokumen pendukung lainnya</div>
+                                            <div class="upload-hint">JPG, PNG, atau PDF</div>
+                                            <div class="file-name" id="docName"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
 
                             {{-- ── SUBMIT ── --}}
                             <div class="d-flex align-items-center gap-3 flex-wrap">

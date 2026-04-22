@@ -182,6 +182,10 @@ class ServicesController extends Controller
     {
         return view('frontend.tentangkami');
     }
+    public function kerjasamaBisnis()
+    {
+        return view('frontend.services.layanan-pendukung-bisnis.kerjasama-bisnis');
+    }
     /**
      * Show the form for creating a new resource.
      */

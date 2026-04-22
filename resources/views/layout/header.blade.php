@@ -460,8 +460,8 @@
                                 <ul>
                                   <li><a href="{{ url('/virtual-office') }}">Virtual Office</a></li>
                                   <li><a href="{{ url('/sewa-meeting-room') }}">Sewa Meeting Room</a></li>
-                                  <!-- <li><a href="{{ url('/layanan-visa-kitas') }}">Visa dan KITAS</a></li> -->
                                   <li><a href="{{ url('/layanan-konsultasi-bisnis') }}">Konsultasi Bisnis</a></li>
+                                  <li><a href="{{ url('/kerjasama-bisnis') }}">Kerjasama Bisnis</a></li>
                                 </ul>
                               </div>
 
@@ -584,6 +584,7 @@
                               <li><a href="{{ url('/virtual-office') }}">Virtual Office</a></li>
                               <li><a href="{{ url('/sewa-meeting-room') }}">Sewa Meeting Room</a></li>
                               <li><a href="{{ url('/layanan-konsultasi-bisnis') }}">Konsultasi Bisnis</a></li>
+                              <li><a href="{{ url('/kerjasama-bisnis') }}">Kerjasama Bisnis</a></li>
                             </ul>
                           </div>
                         </div>
