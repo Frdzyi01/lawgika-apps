@@ -64,6 +64,12 @@
             <div class="menu-title">Reservasi Meeting Room</div>
           </a>
         </li>
+        <li>
+          <a href="{{ route('customer.spt-badan.index') }}">
+            <div class="parent-icon"><ion-icon name="document-outline"></ion-icon></div>
+            <div class="menu-title">Laporan SPT Badan</div>
+          </a>
+        </li>
         <li class="menu-label">Pengaturan</li>
         <li>
           <a href="javascript:;">

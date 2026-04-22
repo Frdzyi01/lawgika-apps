@@ -2,13 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SptRequest extends Model
+class SptBadan extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
         'user_id',
         'nama',
@@ -17,7 +14,7 @@ class SptRequest extends Model
         'tahun_pajak',
         'laporan_keuangan',
         'status_lapor',
-        'status'
+        'status_pesanan',
     ];
 
     public function user()

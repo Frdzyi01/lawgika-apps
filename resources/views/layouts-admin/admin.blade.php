@@ -40,7 +40,7 @@
       <!--navigation-->
       <ul class="metismenu" id="menu">
         <li>
-          <a href="index.html">
+          <a href="{{ route('home') }}">
             <div class="parent-icon"><ion-icon name="home-outline"></ion-icon></div>
             <div class="menu-title">Dashboard</div>
           </a>
@@ -75,6 +75,12 @@
           <a href="{{ url('admin/meeting-room') }}">
             <div class="parent-icon"><ion-icon name="business-outline"></ion-icon></div>
             <div class="menu-title">Reservasi Meeting Room</div>
+          </a>
+        </li>
+        <li>
+          <a href="{{ route('admin.spt-badan.index') }}">
+            <div class="parent-icon"><ion-icon name="document-text-outline"></ion-icon></div>
+            <div class="menu-title">Laporan SPT Badan</div>
           </a>
         </li>
         <li>

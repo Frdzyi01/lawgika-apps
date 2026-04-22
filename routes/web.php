@@ -7,6 +7,7 @@ use App\Http\Controllers\PeraturanKBLIController;
 use App\Http\Controllers\PeraturanFrontendController;
 use App\Http\Controllers\EventUpComingController;
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\KarirController;
 use App\Http\Controllers\EventUpComingFrontendController;
 use App\Http\Controllers\UniversalOrderController;
 use Illuminate\Support\Facades\Auth;
@@ -76,6 +77,9 @@ Route::get('/point-of-sales-fnb', [ServicesController::class, 'pointOfSalesFnb']
 Route::get('/audit-laporan-keuangan', [ServicesController::class, 'auditLaporanKeuangan']);
 Route::get('/pengurusan-pkp', [ServicesController::class, 'pengurusanPkp']);
 Route::get('/pelaporan-spt-badan', [ServicesController::class, 'pelaporanSptBadan']);
+Route::post('/spt-badan/store', [\App\Http\Controllers\SptBadanController::class, 'store'])
+    ->name('spt-badan.store')
+    ->middleware('auth');
 Route::get('/pelaporan-spt-pribadi', [ServicesController::class, 'pelaporanSptPribadi']);
 Route::get('/pendaftaran-npwp', [ServicesController::class, 'pendaftaranNpwp']);
 Route::get('/audit-pajak', [ServicesController::class, 'auditPajak']);
@@ -91,6 +95,8 @@ Route::get('/layanan-call-answering', [ServicesController::class, 'layananCallAn
 Route::get('/layanan-konsultasi-bisnis', [ServicesController::class, 'layananKonsultasiBisnis']);
 Route::get('/virtual-office', [ServicesController::class, 'virtualOffice']);
 Route::get('/kerjasama-bisnis', [ServicesController::class, 'kerjasamaBisnis']);
+
+Route::get('/karir', [KarirController::class, 'Karir']);
 
 // Frontend promo routes
 Route::get('/promo', [PromoControllerFrontend::class, 'index'])->name('promo.index');
@@ -132,6 +138,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::post('/meeting-room/{id}/checkout', [MeetingRoomController::class, 'checkout']);
     Route::post('/meeting-room/{id}/approve-payment', [MeetingRoomController::class, 'approvePayment'])->name('admin.meeting-room.approve');
     Route::post('/meeting-room/{id}/reject-payment', [MeetingRoomController::class, 'rejectPayment'])->name('admin.meeting-room.reject');
+
+    Route::get('/spt-badan', [\App\Http\Controllers\SptBadanController::class, 'adminDashboard'])->name('spt-badan.index');
+    Route::post('/spt-badan/{id}/status', [\App\Http\Controllers\SptBadanController::class, 'updateStatus'])->name('spt-badan.status');
 });
 
 Route::middleware(['auth', 'role:customer'])->prefix('dashboard')->name('customer.')->group(function () {
@@ -144,6 +153,8 @@ Route::middleware(['auth', 'role:customer'])->prefix('dashboard')->name('custome
     Route::get('/meeting-room', [MeetingRoomController::class, 'customerIndex'])->name('meeting-room.index');
     Route::post('/meeting-room/{id}/checkin', [MeetingRoomController::class, 'checkin']);
     Route::post('/meeting-room/{id}/checkout', [MeetingRoomController::class, 'checkout']);
+
+    Route::get('/spt-badan', [\App\Http\Controllers\SptBadanController::class, 'customerDashboard'])->name('spt-badan.index');
 });
 
 Route::get('/layanan/{slug}', [\App\Http\Controllers\PublicServiceController::class, 'show'])->name('services.show');

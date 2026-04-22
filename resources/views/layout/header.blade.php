@@ -925,7 +925,7 @@
                           <div class="lw-pelatihan-header">Pusat Pelatihan & Informasi</div>
 
                           <!-- Item 1: Pelatihan & Seminar -->
-                          <a href="{{ url('#') }}" class="lw-pelatihan-item">
+                          <a href="{{ url('/upcoming-event') }}" class="lw-pelatihan-item">
                             <div class="lw-pelatihan-icon">📘</div>
                             <div class="lw-pelatihan-text">
                               <h6>Pelatihan & Seminar</h6>
@@ -961,7 +961,7 @@
                           </a>
 
                           <!-- Item 5: Karir -->
-                          <a href="{{ url('#') }}" class="lw-pelatihan-item">
+                          <a href="{{ url('karir') }}" class="lw-pelatihan-item">
                             <div class="lw-pelatihan-icon">💼</div>
                             <div class="lw-pelatihan-text">
                               <h6>Karir</h6>

@@ -935,6 +935,69 @@
     </div>
 </section>
 
+
+{{-- ===== FORM PENGAJUAN ===== --}}
+<section class="section-padding" id="formPengajuan">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Form Pengajuan</span>
+            <h2>Ajukan Layanan SPT Badan</h2>
+            <p>Isi data berikut untuk memulai proses pelaporan pajak Anda</p>
+        </div>
+
+
+        <form action="{{ route('spt-badan.store') }}" method="POST">
+            @csrf
+
+            <div class="row g-3">
+
+                <div class="col-md-6">
+                    <label>Nama</label>
+                    <input type="text" name="nama" class="form-control" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label>Nama Perusahaan</label>
+                    <input type="text" name="perusahaan" class="form-control" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label>Jenis Usaha</label>
+                    <input type="text" name="jenis_usaha" class="form-control" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label>Tahun Pajak</label>
+                    <input type="number" name="tahun_pajak" class="form-control" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label>Sudah punya laporan keuangan?</label>
+                    <select name="laporan_keuangan" class="form-control">
+                        <option value="sudah">Sudah</option>
+                        <option value="belum">Belum</option>
+                    </select>
+                </div>
+
+                <div class="col-md-6">
+                    <label>Status pelaporan sebelumnya</label>
+                    <select name="status_lapor" class="form-control">
+                        <option value="sudah">Sudah</option>
+                        <option value="belum">Belum</option>
+                    </select>
+                </div>
+
+                <div class="col-12 text-center mt-4">
+                    <button type="submit" class="btn-calculate">
+                        Kirim Pengajuan
+                    </button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</section>
+
 {{-- FAQ Section --}}
 <section class="faq-modern">
     <div class="container">
@@ -1033,6 +1096,28 @@
             });
         });
     });
+
+    function scrollToForm() {
+        document.getElementById('formPengajuan').scrollIntoView({
+            behavior: 'smooth'
+        });
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    @if(session('success'))
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil!',
+            text: '{{ session("success") }}',
+            confirmButtonColor: '#800000',
+            confirmButtonText: 'Tutup',
+            customClass: {
+                popup: 'rounded-4'
+            }
+        });
+    @endif
 </script>
 
 @endsection

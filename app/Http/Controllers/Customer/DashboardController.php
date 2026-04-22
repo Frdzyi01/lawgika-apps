@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\Request;
 
+use App\Models\SptBadan;
+
 class DashboardController extends Controller
 {
     public function index()
