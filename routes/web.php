@@ -87,8 +87,9 @@ Route::get('/audit-pajak', [ServicesController::class, 'auditPajak']);
 
 // layanan pendukung bisnis
 Route::get('/sewa-meeting-room', [MeetingRoomController::class, 'index']);
-Route::get('/meeting-room/order', [MeetingRoomController::class, 'order'])->name('meeting-room.order');
-Route::post('/meeting-room/store', [MeetingRoomController::class, 'store'])->name('meeting-room.store');
+Route::get('/meeting-room/booked-slots', [MeetingRoomController::class, 'getBookedSlots'])->name('meeting-room.booked-slots');
+Route::get('/meeting-room/order', [MeetingRoomController::class, 'order'])->name('meeting-room.order')->middleware('auth');
+Route::post('/meeting-room/store', [MeetingRoomController::class, 'store'])->name('meeting-room.store')->middleware('auth');
 Route::get('/sewa-ruang-podcast', [ServicesController::class, 'sewaRuangPodcast']);
 Route::get('/layanan-visa-kitas', [ServicesController::class, 'layananVisaKitas']);
 Route::get('/layanan-call-answering', [ServicesController::class, 'layananCallAnswering']);

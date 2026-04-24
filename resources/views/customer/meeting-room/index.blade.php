@@ -89,15 +89,11 @@
                                     @elseif($booking->remaining_minutes <= 0)
                                         <span class="text-muted small">Waktu Habis</span>
                                     @elseif($booking->status === 'checkin')
-                                        <form action="{{ url('dashboard/meeting-room/'.$booking->id.'/checkout') }}" method="POST">
-                                            @csrf
-                                            <button class="btn btn-sm btn-warning text-dark" onclick="return confirm('Yakin Check Out?')">Check Out</button>
-                                        </form>
+                                        <button class="btn btn-sm btn-primary" disabled style="cursor: not-allowed;">Sedang Checkin</button>
+                                        <small class="d-block text-muted mt-1" style="font-size: 11px;">*Dikelola Admin</small>
                                     @else
-                                        <form action="{{ url('dashboard/meeting-room/'.$booking->id.'/checkin') }}" method="POST">
-                                            @csrf
-                                            <button class="btn btn-sm btn-success" onclick="return confirm('Anda akan Check In sekarang?')">Check In</button>
-                                        </form>
+                                        <button class="btn btn-sm btn-secondary" disabled style="cursor: not-allowed;">Sedang Checkout</button>
+                                        <small class="d-block text-muted mt-1" style="font-size: 11px;">*Dikelola Admin</small>
                                     @endif
                                 </td>
                             </tr>

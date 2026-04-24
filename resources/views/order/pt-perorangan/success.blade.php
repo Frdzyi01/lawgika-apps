@@ -4,13 +4,13 @@
 
 <style>
     :root {
-        --primary:   #4e0516;
+        --primary: #4e0516;
         --primary-l: #7a0a23;
-        --accent:    #c9a03d;
-        --dark:      #1e1b2b;
-        --gray:      #64748b;
-        --bg:        #fdf8f5;
-        --border:    #e8d9dd;
+        --accent: #c9a03d;
+        --dark: #1e1b2b;
+        --gray: #64748b;
+        --bg: #fdf8f5;
+        --border: #e8d9dd;
     }
 
     .success-page {
@@ -153,7 +153,9 @@
         line-height: 1.5;
     }
 
-    .payment-steps li:last-child { border-bottom: none; }
+    .payment-steps li:last-child {
+        border-bottom: none;
+    }
 
     .step-num {
         width: 28px;
@@ -182,7 +184,11 @@
         flex-wrap: wrap;
     }
 
-    .wa-highlight i { font-size: 2rem; color: #16a34a; flex-shrink: 0; }
+    .wa-highlight i {
+        font-size: 2rem;
+        color: #16a34a;
+        flex-shrink: 0;
+    }
 
     .wa-highlight .wa-text strong {
         display: block;
@@ -213,7 +219,11 @@
         transition: background .2s, transform .15s;
     }
 
-    .btn-wa:hover { background: #1ebe57; color: #fff; transform: translateY(-2px); }
+    .btn-wa:hover {
+        background: #1ebe57;
+        color: #fff;
+        transform: translateY(-2px);
+    }
 
     .btn-dashboard {
         display: inline-flex;
@@ -230,7 +240,10 @@
         transition: background .2s, color .2s;
     }
 
-    .btn-dashboard:hover { background: var(--primary); color: #fff; }
+    .btn-dashboard:hover {
+        background: var(--primary);
+        color: #fff;
+    }
 </style>
 
 {{-- ── BREADCRUMB ── --}}
@@ -275,8 +288,8 @@
                             <div class="number">{{ $orderNumber }}</div>
                         </div>
                         <i class="fa-solid fa-copy" style="color:var(--gray); cursor:pointer; font-size:1.2rem"
-                           onclick="navigator.clipboard.writeText('{{ $orderNumber }}').then(() => this.style.color='#16a34a')"
-                           title="Salin nomor order"></i>
+                            onclick="navigator.clipboard.writeText('{{ $orderNumber }}').then(() => this.style.color='#16a34a')"
+                            title="Salin nomor order"></i>
                     </div>
                 </div>
                 @endif
@@ -328,10 +341,10 @@
                         </div>
                     </div>
                     <div style="font-size: 2rem; font-weight: 800; color: var(--primary); margin-bottom: 20px; letter-spacing:1px;">
-                        081219110199
+                        081112088600
                     </div>
-                    <a href="https://wa.me/6281219110199?text={{ urlencode('Halo Lawgika, saya sudah transfer untuk order ' . $packageInfo['label'] . ' PT Perorangan. Nomor Order: ' . $orderNumber . '. Berikut bukti pembayaran saya.') }}"
-                       target="_blank" class="btn-wa">
+                    <a href="https://wa.me/6281112088600?text={{ urlencode('Halo Lawgika, saya sudah transfer untuk order ' . $packageInfo['label'] . ' PT Perorangan. Nomor Order: ' . $orderNumber . '. Berikut bukti pembayaran saya.') }}"
+                        target="_blank" class="btn-wa">
                         <i class="fa-brands fa-whatsapp" style="font-size:1.3rem"></i>
                         Kirim Bukti via WhatsApp
                     </a>

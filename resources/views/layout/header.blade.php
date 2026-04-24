@@ -421,10 +421,10 @@
                             <!-- LEFT: 3 CATEGORY COLUMNS -->
                             <div class="lw-mega-cols">
 
-                              <!-- Kolom 1: Pendirian Badan Usaha -->
+                              <!-- Kolom 1: Layanan BIsnis -->
                               <div class="lw-col">
                                 <div class="lw-col-title">
-                                  <i class="fas fa-building"></i> Pendirian Badan Usaha
+                                  <i class="fas fa-building"></i> Layanan BIsnis
                                 </div>
                                 <ul>
                                   <li><a href="{{ url('/pendirian-pt-perorangan') }}">Pendirian PT Perorangan</a></li>
@@ -455,7 +455,7 @@
                                   <li><a href="{{ url('/drafting-review-perjanjian-bisnis') }}">Drafting Perjanjian Bisnis</a></li>
                                 </ul>
                                 <div class="lw-col-title mt-3">
-                                  <i class="fas fa-map-marker-alt"></i> Kantor &amp; Pendukung
+                                  <i class="fas fa-map-marker-alt"></i> Kantor &amp; Ruang Podcast
                                 </div>
                                 <ul>
                                   <li><a href="{{ url('/virtual-office') }}">Virtual Office</a></li>
@@ -472,11 +472,11 @@
                                 </div>
                                 <ul>
                                   <li><a href="{{ url('/jasa-pembukuan-perpajakan') }}">Jasa Pembukuan & Perpajakan</a></li>
-                                  <li><a href="{{ url('/layanan-payroll') }}">Layanan Payroll</a></li>
+                                  <!-- <li><a href="{{ url('/layanan-payroll') }}">Layanan Payroll</a></li> -->
                                   <li><a href="{{ url('/pendaftaran-npwp') }}">Pendaftaran NPWP</a></li>
                                   <li><a href="{{ url('/pelaporan-spt-badan') }}">Pelaporan SPT Badan</a></li>
                                   <li><a href="{{ url('/pelaporan-spt-pribadi') }}">Pelaporan SPT Pribadi</a></li>
-                                  <li><a href="{{ url('/audit-laporan-keuangan') }}">Audit Laporan Keuangan</a></li>
+                                  <!-- <li><a href="{{ url('/audit-laporan-keuangan') }}">Audit Laporan Keuangan</a></li> -->
                                   <li><a href="{{ url('/pengurusan-pkp') }}">Pengurusan PKP</a></li>
                                 </ul>
 
@@ -525,7 +525,7 @@
                         <!-- Kategori 1 -->
                         <div class="mobile-cat-item">
                           <a href="#" class="mobile-cat-toggle">
-                            <span>Pendirian Badan Usaha</span>
+                            <span>Layanan BIsnis</span>
                           </a>
                           <div class="mobile-cat-body" style="display: none;">
                             <ul>
@@ -564,11 +564,11 @@
                           <div class="mobile-cat-body" style="display: none;">
                             <ul>
                               <li><a href="{{ url('/jasa-pembukuan-perpajakan') }}">Jasa Pembukuan & Perpajakan</a></li>
-                              <li><a href="{{ url('/layanan-payroll') }}">Layanan Payroll</a></li>
+                              <!-- <li><a href="{{ url('/layanan-payroll') }}">Layanan Payroll</a></li> -->
                               <li><a href="{{ url('/pendaftaran-npwp') }}">Pendaftaran NPWP</a></li>
                               <li><a href="{{ url('/pelaporan-spt-badan') }}">Pelaporan SPT Badan</a></li>
                               <li><a href="{{ url('/pelaporan-spt-pribadi') }}">Pelaporan SPT Pribadi</a></li>
-                              <li><a href="{{ url('/audit-laporan-keuangan') }}">Audit Laporan Keuangan</a></li>
+                              <!-- <li><a href="{{ url('/audit-laporan-keuangan') }}">Audit Laporan Keuangan</a></li> -->
                               <li><a href="{{ url('/pengurusan-pkp') }}">Pengurusan PKP</a></li>
                             </ul>
                           </div>
@@ -577,7 +577,7 @@
                         <!-- Kategori 4 -->
                         <div class="mobile-cat-item">
                           <a href="#" class="mobile-cat-toggle">
-                            <span>Kantor & Pendukung</span>
+                            <span>Kantor & Ruang Podcast</span>
                           </a>
                           <div class="mobile-cat-body" style="display: none;">
                             <ul>

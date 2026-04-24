@@ -21,6 +21,11 @@ return new class extends Migration
      */
     public function down(): void
     {
+        // Update any 'paused' status to 'pending' so it fits the previous enum definition
+        \Illuminate\Support\Facades\DB::table('meeting_room_bookings')
+            ->where('status', 'paused')
+            ->update(['status' => 'pending']);
+
         Schema::table('meeting_room_bookings', function (Blueprint $table) {
             $table->enum('status', ['pending', 'checkin', 'checkout', 'selesai'])->default('pending')->change();
         });

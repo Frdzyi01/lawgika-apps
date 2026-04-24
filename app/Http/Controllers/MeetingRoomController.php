@@ -13,9 +13,27 @@ class MeetingRoomController extends Controller
         return view('frontend.services.layanan-pendukung-bisnis.sewa-meeting-room');
     }
 
-    public function order()
+    public function order(Request $request)
     {
-        return view('meeting-room.order');
+        return view('meeting-room.order', [
+            'tanggal'  => $request->get('tanggal'),
+            'jam'      => $request->get('jam'),
+            'durasi'   => $request->get('durasi', 1),
+            'package'  => $request->get('package', 'reservasi'),
+        ]);
+    }
+
+    public function getBookedSlots(Request $request)
+    {
+        $date   = $request->get('date');
+        $booked = MeetingRoomBooking::whereDate('date', $date)
+            ->whereNotIn('payment_status', ['rejected'])
+            ->pluck('start_time')
+            ->map(fn($t) => substr($t, 0, 5))
+            ->values()
+            ->toArray();
+
+        return response()->json($booked);
     }
 
     public function store(Request $request)
@@ -28,6 +46,18 @@ class MeetingRoomController extends Controller
             'durasi'        => 'required|integer|min:1',
             'payment_proof' => 'required|image|mimes:jpg,jpeg,png|max:2048',
         ]);
+
+        // ── Double-booking guard ──────────────────────────────────────────────
+        $conflict = MeetingRoomBooking::where('date', $request->tanggal)
+            ->where('start_time', 'like', $request->jam . '%')
+            ->whereNotIn('payment_status', ['rejected'])
+            ->exists();
+
+        if ($conflict) {
+            return back()
+                ->withInput()
+                ->withErrors(['jam' => 'Slot waktu tersebut sudah dipesan. Silakan pilih waktu lain.']);
+        }
 
         $path = $request->file('payment_proof')->store('payment_proofs', 'public');
 
@@ -43,7 +73,8 @@ class MeetingRoomController extends Controller
             'payment_status' => 'pending',
         ]);
 
-        return redirect()->route('meeting-room.order')->with('success', 'Reservasi berhasil dibuat! Menunggu konfirmasi pembayaran dari admin.');
+        return redirect()->route('customer.meeting-room.index')
+            ->with('success', 'Reservasi berhasil dibuat! Menunggu konfirmasi pembayaran dari admin.');
     }
 
     public function adminIndex()

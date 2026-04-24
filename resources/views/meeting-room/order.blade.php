@@ -132,12 +132,12 @@
 
             <div class="form-group">
                 <label for="tanggal">Tanggal Penggunaan</label>
-                <input type="date" id="tanggal" name="tanggal" class="form-control" required value="{{ old('tanggal') }}">
+                <input type="date" id="tanggal" name="tanggal" class="form-control" required value="{{ old('tanggal', $tanggal ?? '') }}" readonly>
             </div>
 
             <div class="form-group">
                 <label for="jam">Jam Penggunaan</label>
-                <input type="time" id="jam" name="jam" class="form-control" required value="{{ old('jam') }}">
+                <input type="time" id="jam" name="jam" class="form-control" required value="{{ old('jam', $jam ?? '') }}" readonly>
             </div>
 
             <div class="row">
@@ -150,13 +150,40 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="durasi">Durasi Sewa (Jam)</label>
-                        <input type="number" id="durasi" name="durasi" class="form-control" min="1" required placeholder="Contoh: 2" value="{{ old('durasi') }}">
+                        <!-- Defaulting to what we got from query parameter or 1 -->
+                        <input type="number" id="durasi" name="durasi" class="form-control" min="1" required placeholder="Contoh: 2" value="{{ old('durasi', $durasi ?? 1) }}" onchange="updateTotal()">
                     </div>
                 </div>
             </div>
 
+            <!-- Manual Transfer Instructions -->
+            <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:20px; margin-bottom:20px;">
+                <h5 style="font-size:1.05rem; font-weight:700; color:var(--dark); margin-bottom:15px;"><i class="fa-solid fa-building-columns"></i> Instruksi Pembayaran (Transfer Bank)</h5>
+                <p style="font-size:0.95rem; color:var(--gray); margin-bottom:10px;">Silakan lakukan pembayaran ke rekening berikut:</p>
+                <div style="background:#fff; padding:15px; border-radius:8px; border:1px solid #e2e8f0;">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                        <span style="color:#64748b; font-size:0.9rem;">Bank</span>
+                        <strong style="color:#1e1b2b;">BCA (Bank Central Asia)</strong>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                        <span style="color:#64748b; font-size:0.9rem;">No. Rekening</span>
+                        <strong style="color:#1e1b2b; font-size:1.1rem; letter-spacing:1px;">869 123 4567</strong>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; border-top:1px dashed #e2e8f0; padding-top:8px; margin-top:8px;">
+                        <span style="color:#64748b; font-size:0.9rem;">Atas Nama</span>
+                        <strong style="color:#1e1b2b;">PT Lawgika Associates</strong>
+                    </div>
+                </div>
+                
+                <div style="margin-top:15px; text-align:right;">
+                    <span style="color:#64748b; font-size:0.95rem; margin-right:10px;">Total Tagihan:</span>
+                    <strong style="color:var(--primary); font-size:1.4rem;" id="totalAmountDisplay">Rp 150.000</strong>
+                    <input type="hidden" id="package" value="{{ $package ?? 'reservasi' }}">
+                </div>
+            </div>
+
             <div class="form-group">
-                <label for="payment_proof">Bukti Pembayaran</label>
+                <label for="payment_proof">Upload Bukti Pembayaran <span class="text-danger">*</span></label>
                 <div style="border:2px dashed #e2e8f0; border-radius:10px; padding:20px; text-align:center; cursor:pointer;" onclick="document.getElementById('payment_proof').click()">
                     <i class="fa-solid fa-cloud-arrow-up" style="font-size:2rem; color:var(--primary); margin-bottom:8px; display:block;"></i>
                     <p style="color:var(--gray); margin:0; font-size:0.9rem;">Klik untuk upload bukti transfer / pembayaran</p>
@@ -170,9 +197,14 @@
                 <strong>⚡ Info:</strong> Setelah reservasi, admin akan mengkonfirmasi pembayaran Anda. Check In hanya bisa dilakukan setelah pembayaran <strong>disetujui</strong>.
             </div>
 
-            <button type="submit" class="btn-submit">
-                <i class="fa-solid fa-calendar-check"></i> Pesan Sekarang
-            </button>
+            <div style="display:flex; gap:15px;">
+                <button type="submit" class="btn-submit" style="flex:1; margin-top:0;">
+                    <i class="fa-solid fa-calendar-check"></i> Pesan Sekarang
+                </button>
+                <button type="button" class="btn-submit" onclick="sendWhatsApp()" style="flex:1; margin-top:0; background:#25D366; color:#fff; border:none;">
+                    <i class="fa-brands fa-whatsapp"></i> Hubungi WhatsApp
+                </button>
+            </div>
         </form>
     </div>
 </div>
@@ -185,6 +217,53 @@ function showFileName(input) {
         label.style.display = 'block';
     }
 }
+
+const hargaPerJam = 150000;
+
+function updateTotal() {
+    const packageType = document.getElementById('package').value;
+    const durasi = parseInt(document.getElementById('durasi').value) || 1;
+    let total = durasi * hargaPerJam;
+    
+    // Jika paket badan usaha (reservasi), harganya bisa disesuaikan atau dianggap gratis jika menggunakan kuota.
+    // Asumsi: di halaman reservasi, harga default kita tampilkan berdasarkan durasi. 
+    // Untuk paket yang sudah dibeli kuotanya, admin yang akan verify.
+    // Di sini kita tampilkan estimasi normal jika belum punya paket, atau kita beri note.
+    
+    document.getElementById('totalAmountDisplay').innerText = 'Rp ' + total.toLocaleString('id-ID');
+}
+
+function sendWhatsApp() {
+    const nama = document.getElementById('nama').value;
+    const tanggal = document.getElementById('tanggal').value;
+    const jam = document.getElementById('jam').value;
+    const durasi = document.getElementById('durasi').value;
+    const peserta = document.getElementById('peserta').value;
+    const packageType = document.getElementById('package').value;
+    
+    if(!tanggal || !jam || !durasi) {
+        alert('Mohon lengkapi tanggal, jam, dan durasi terlebih dahulu.');
+        return;
+    }
+    
+    const text = `Halo Admin Lawgika, saya ingin memverifikasi pemesanan Meeting Room:
+    
+- Nama: ${nama || '-'}
+- Tanggal: ${tanggal}
+- Jam: ${jam}
+- Durasi: ${durasi} Jam
+- Peserta: ${peserta} Orang
+- Tipe Pemesanan: ${packageType === 'paket' ? 'Beli Paket 60 Jam' : 'Reservasi Reguler/Gunakan Kuota'}
+
+Mohon konfirmasinya. Terima kasih.`;
+
+    const phone = '628111234567'; // Ganti dengan nomor WA admin yang sebenarnya
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+    window.open(url, '_blank');
+}
+
+// Inisialisasi total saat load
+document.addEventListener('DOMContentLoaded', updateTotal);
 </script>
     </div>
 </div>

@@ -21,8 +21,13 @@ return new class extends Migration
 
     public function down(): void
     {
+        // Delete orders that have no service_id before making the column not-null
+        \Illuminate\Support\Facades\DB::table('orders')->whereNull('service_id')->delete();
+
         Schema::table('orders', function (Blueprint $table) {
-            $table->dropColumn('service_name');
+            if (Schema::hasColumn('orders', 'service_name')) {
+                $table->dropColumn('service_name');
+            }
             $table->foreignId('service_id')->nullable(false)->change();
         });
     }

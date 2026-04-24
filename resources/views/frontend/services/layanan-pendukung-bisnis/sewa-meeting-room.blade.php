@@ -168,10 +168,12 @@
     }
 
     @media (max-width: 768px) {
+
         .pricing-table-header,
         .pricing-table-body {
             grid-template-columns: 1fr !important;
         }
+
         .pricing-column-right {
             border-left: none !important;
             border-top: 1px solid #f0e4e8;
@@ -435,40 +437,39 @@
 
         <div class="pricing-table-container">
             <div class="pricing-table-header">
-                {{-- KIRI --}}
-                <div class="pricing-column">
-                    <h3 class="pricing-title">MEETING ROOM</h3>
-                    <div class="pricing-subtitle">HARGA JUAL</div>
-                    
-                    <ul class="pricing-benefit-list mt-4">
-                        <li><i class="fa-solid fa-circle"></i> Ruang Meeting Nyaman & Profesional</li>
-                        <li><i class="fa-solid fa-circle"></i> Smart TV</li>
-                        <li><i class="fa-solid fa-circle"></i> Akses Wifi</li>
-                        <li><i class="fa-solid fa-circle"></i> Ruangan ber AC</li>
-                        <li><i class="fa-solid fa-circle"></i> Layanan Print, Scan dan Fotocopy</li>
-                        <li><i class="fa-solid fa-circle"></i> Ruang Tunggu dan Pantry</li>
+                {{-- KIRI: Reservasi Sekarang --}}
+                <div class="pricing-column pricing-column-right h-100" style="border-left:none; background-color:#e0e2e5;">
+                    <h3 class="pricing-title">RESERVASI MEETING ROOM</h3>
+                    <div class="pricing-subtitle">60 JAM / TAHUN</div>
+                    <div class="pricing-price">Paket Badan Usaha</div>
+                    <ul class="pricing-benefit-list">
+                        <li><i class="fa-solid fa-check"></i> Ruang Meeting Nyaman</li>
+                        <li><i class="fa-solid fa-check"></i> Smart TV</li>
+                        <li><i class="fa-solid fa-check"></i> Akses Wifi</li>
+                        <li><i class="fa-solid fa-check"></i> Ruangan ber AC</li>
+                        <li><i class="fa-solid fa-check"></i> Print, Scan, Copy</li>
+                        <li><i class="fa-solid fa-check"></i> Ruang Tunggu &amp; Pantry</li>
                     </ul>
+                    <button type="button" class="btn-outline-brand mt-auto" style="border-radius:8px;width:100%;background:none;cursor:pointer;"
+                        onclick="openBookingModal('reservasi','Paket Badan Usaha','60 mnt')">Reservasi Sekarang</button>
                 </div>
-                
-                {{-- KANAN --}}
-                <a href="{{ route('meeting-room.order') }}" style="text-decoration:none; color:inherit;">
-                    <div class="pricing-column pricing-column-right h-100">
-                        <h3 class="pricing-title">PAKET MEETING ROOM</h3>
-                        <div class="pricing-subtitle">60 JAM / TAHUN</div>
-                        <div class="pricing-price">Rp 1.000.000</div>
-                        
-                        <ul class="pricing-benefit-list">
-                            <li><i class="fa-solid fa-check"></i> Ruang Meeting Nyaman</li>
-                            <li><i class="fa-solid fa-check"></i> Smart TV</li>
-                            <li><i class="fa-solid fa-check"></i> Akses Wifi</li>
-                            <li><i class="fa-solid fa-check"></i> Ruangan ber AC</li>
-                            <li><i class="fa-solid fa-check"></i> Print, Scan, Copy</li>
-                            <li><i class="fa-solid fa-check"></i> Ruang Tunggu & Pantry</li>
-                        </ul>
-                        
-                        <span class="btn-outline-brand mt-auto" style="border-radius:8px; width:100%;">Reservasi Sekarang</span>
-                    </div>
-                </a>
+
+                {{-- KANAN: Beli Paket --}}
+                <div class="pricing-column pricing-column-right h-100">
+                    <h3 class="pricing-title">PAKET MEETING ROOM</h3>
+                    <div class="pricing-subtitle">60 JAM / TAHUN</div>
+                    <div class="pricing-price">Rp 1.000.000</div>
+                    <ul class="pricing-benefit-list">
+                        <li><i class="fa-solid fa-check"></i> Ruang Meeting Nyaman</li>
+                        <li><i class="fa-solid fa-check"></i> Smart TV</li>
+                        <li><i class="fa-solid fa-check"></i> Akses Wifi</li>
+                        <li><i class="fa-solid fa-check"></i> Ruangan ber AC</li>
+                        <li><i class="fa-solid fa-check"></i> Print, Scan, Copy</li>
+                        <li><i class="fa-solid fa-check"></i> Ruang Tunggu &amp; Pantry</li>
+                    </ul>
+                    <button type="button" class="btn-outline-brand mt-auto" style="border-radius:8px;width:100%;background:none;cursor:pointer;"
+                        onclick="openBookingModal('paket','Paket Meeting Room','60 mnt')">Beli Paket</button>
+                </div>
             </div>
         </div>
     </div>
@@ -516,4 +517,262 @@
         });
     });
 </script>
+
+{{-- ===== MODAL BOOKING CALENDLY-STYLE ===== --}}
+<style>
+    .booking-modal-overlay {
+        position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
+        display: none; justify-content: center; align-items: center;
+        z-index: 9999; opacity: 0; transition: opacity 0.3s ease;
+    }
+    .booking-modal-overlay.active { display: flex; opacity: 1; }
+    
+    .booking-modal {
+        background: #fff; width: 100%; max-width: 900px;
+        border-radius: 16px; display: flex; overflow: hidden;
+        box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+        transform: scale(0.95); transition: transform 0.3s ease;
+        max-height: 90vh;
+    }
+    .booking-modal-overlay.active .booking-modal { transform: scale(1); }
+    
+    .bm-left {
+        width: 35%; padding: 40px; background: #fafafa;
+        border-right: 1px solid #eaeaea; display: flex; flex-direction: column;
+    }
+    .bm-left h4 { font-size: 1.2rem; font-weight: 700; margin-bottom: 20px; color: #1e1b2b; }
+    .bm-info-item { display: flex; align-items: center; gap: 10px; color: #64748b; margin-bottom: 12px; font-size: 0.95rem; }
+    
+    .bm-right { width: 65%; padding: 40px; display: flex; flex-direction: column; position: relative; }
+    .bm-close {
+        position: absolute; top: 20px; right: 20px;
+        background: none; border: none; font-size: 1.5rem;
+        cursor: pointer; color: #64748b; line-height: 1;
+    }
+    .bm-header h3 { font-size: 1.4rem; font-weight: 700; color: #1e1b2b; margin-bottom: 30px; }
+    
+    .bm-body { display: flex; gap: 30px; flex-grow: 1; }
+    .bm-calendar-col { flex: 1; }
+    .bm-time-col { width: 180px; display: none; flex-direction: column; }
+    .bm-time-col.active { display: flex; }
+    
+    .calendar-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .calendar-nav button { background: none; border: none; cursor: pointer; color: #4e0516; padding: 5px; }
+    .calendar-nav span { font-weight: 600; color: #1e1b2b; }
+    
+    .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; text-align: center; }
+    .calendar-day-header { font-size: 0.8rem; color: #64748b; font-weight: 600; margin-bottom: 10px; }
+    .calendar-date {
+        aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+        border-radius: 50%; cursor: pointer; font-weight: 500; color: #1e1b2b;
+        transition: all 0.2s; font-size: 0.95rem;
+    }
+    .calendar-date:hover:not(.disabled) { background: #f0e4e8; color: #4e0516; }
+    .calendar-date.active { background: #4e0516; color: #fff; }
+    .calendar-date.disabled { color: #cbd5e1; cursor: not-allowed; }
+    
+    .time-slot {
+        padding: 12px; border: 1px solid #4e0516; border-radius: 8px;
+        text-align: center; cursor: pointer; color: #4e0516;
+        font-weight: 600; transition: all 0.2s; margin-bottom: 10px; background: #fff;
+    }
+    .time-slot:hover { background: #4e0516; color: #fff; }
+    .time-slot.active { background: #4e0516; color: #fff; }
+    .time-slot.disabled { border-color: #cbd5e1; color: #cbd5e1; cursor: not-allowed; background: #f8fafc; }
+    
+    .bm-footer { margin-top: 30px; display: flex; justify-content: flex-end; gap: 15px; border-top: 1px solid #eaeaea; padding-top: 20px; }
+    .btn-bm-cancel { padding: 10px 20px; border: none; background: none; color: #64748b; font-weight: 600; cursor: pointer; }
+    .btn-bm-submit { padding: 10px 24px; border: none; background: #4e0516; color: #fff; font-weight: 600; border-radius: 8px; cursor: pointer; transition: opacity 0.2s; }
+    .btn-bm-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    @media (max-width: 768px) {
+        .booking-modal { flex-direction: column; max-height: 95vh; overflow-y: auto; }
+        .bm-left { width: 100%; border-right: none; border-bottom: 1px solid #eaeaea; padding: 25px; }
+        .bm-right { width: 100%; padding: 25px; }
+        .bm-body { flex-direction: column; }
+        .bm-time-col { width: 100%; margin-top: 20px; }
+    }
+</style>
+
+<div class="booking-modal-overlay" id="bookingModalOverlay">
+    <div class="booking-modal">
+        <div class="bm-left">
+            <h4 id="bmPackageName">Paket Meeting Room</h4>
+            <div class="bm-info-item"><i class="fa-regular fa-clock"></i> <span id="bmDuration">60 mnt</span></div>
+            <div class="bm-info-item"><i class="fa-solid fa-location-dot"></i> <span>Meeting Offline (Lawgika Office)</span></div>
+            <div style="margin-top:20px;">
+                <p style="font-size:0.9rem; color:#64748b; line-height:1.6;">
+                    Pilih tanggal dan waktu yang tersedia untuk jadwal meeting room Anda.
+                </p>
+            </div>
+        </div>
+        <div class="bm-right">
+            <button class="bm-close" onclick="closeBookingModal()">&times;</button>
+            <div class="bm-header">
+                <h3>Pilih tanggal & waktu</h3>
+            </div>
+            <div class="bm-body">
+                <div class="bm-calendar-col">
+                    <div class="calendar-nav">
+                        <button id="calPrev" onclick="changeMonth(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+                        <span id="calMonthYear">Apr 2026</span>
+                        <button id="calNext" onclick="changeMonth(1)"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                    <div class="calendar-grid">
+                        <div class="calendar-day-header">Min</div>
+                        <div class="calendar-day-header">Sen</div>
+                        <div class="calendar-day-header">Sel</div>
+                        <div class="calendar-day-header">Rab</div>
+                        <div class="calendar-day-header">Kam</div>
+                        <div class="calendar-day-header">Jum</div>
+                        <div class="calendar-day-header">Sab</div>
+                    </div>
+                    <div class="calendar-grid" id="calDays"></div>
+                </div>
+                <div class="bm-time-col" id="bmTimeCol">
+                    <div style="font-size:0.9rem; font-weight:600; color:#1e1b2b; margin-bottom:15px;" id="timeColTitle"></div>
+                    <div id="timeSlotsContainer" style="overflow-y:auto; max-height:250px; padding-right:10px;"></div>
+                </div>
+            </div>
+            <div class="bm-footer">
+                <button class="btn-bm-cancel" onclick="closeBookingModal()">Batal</button>
+                <button class="btn-bm-submit" id="btnReservasi" disabled onclick="submitBooking()">Lanjut ke Pembayaran</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let selectedPackage = '';
+    let selectedDate = null;
+    let selectedTime = null;
+    let currentMonth = new Date().getMonth();
+    let currentYear = new Date().getFullYear();
+    let bookedSlotsCache = {};
+
+    const availableTimes = ['09:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00'];
+    const monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+
+    function openBookingModal(pkgId, pkgName, duration) {
+        selectedPackage = pkgId;
+        document.getElementById('bmPackageName').innerText = pkgName;
+        document.getElementById('bmDuration').innerText = duration;
+        
+        selectedDate = null;
+        selectedTime = null;
+        document.getElementById('bmTimeCol').classList.remove('active');
+        document.getElementById('btnReservasi').disabled = true;
+        
+        currentMonth = new Date().getMonth();
+        currentYear = new Date().getFullYear();
+        renderCalendar();
+        
+        const overlay = document.getElementById('bookingModalOverlay');
+        overlay.style.display = 'flex';
+        // Trigger reflow
+        void overlay.offsetWidth;
+        overlay.classList.add('active');
+    }
+
+    function closeBookingModal() {
+        const overlay = document.getElementById('bookingModalOverlay');
+        overlay.classList.remove('active');
+        setTimeout(() => { overlay.style.display = 'none'; }, 300);
+    }
+
+    function changeMonth(dir) {
+        currentMonth += dir;
+        if(currentMonth > 11) { currentMonth = 0; currentYear++; }
+        if(currentMonth < 0) { currentMonth = 11; currentYear--; }
+        renderCalendar();
+    }
+
+    function renderCalendar() {
+        document.getElementById('calMonthYear').innerText = `${monthNames[currentMonth]} ${currentYear}`;
+        const calDays = document.getElementById('calDays');
+        calDays.innerHTML = '';
+        
+        const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+        const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+        const today = new Date();
+        today.setHours(0,0,0,0);
+        
+        for(let i=0; i<firstDay; i++) {
+            calDays.innerHTML += `<div></div>`;
+        }
+        
+        for(let d=1; d<=daysInMonth; d++) {
+            const dateObj = new Date(currentYear, currentMonth, d);
+            const isPast = dateObj < today;
+            const isWeekend = dateObj.getDay() === 0 || dateObj.getDay() === 6;
+            const disabled = isPast || isWeekend;
+            
+            const dateStr = `${currentYear}-${String(currentMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+            const activeClass = (selectedDate === dateStr) ? 'active' : '';
+            const disClass = disabled ? 'disabled' : '';
+            
+            if(disabled) {
+                calDays.innerHTML += `<div class="calendar-date disabled">${d}</div>`;
+            } else {
+                calDays.innerHTML += `<div class="calendar-date ${activeClass}" onclick="selectDate('${dateStr}', ${d})">${d}</div>`;
+            }
+        }
+    }
+
+    async function selectDate(dateStr, dayNum) {
+        selectedDate = dateStr;
+        selectedTime = null;
+        document.getElementById('btnReservasi').disabled = true;
+        renderCalendar(); // Refresh active state
+        
+        const dayName = new Date(currentYear, currentMonth, dayNum).toLocaleDateString('id-ID', {weekday:'long'});
+        document.getElementById('timeColTitle').innerText = `${dayName}, ${dayNum} ${monthNames[currentMonth]}`;
+        document.getElementById('bmTimeCol').classList.add('active');
+        
+        const container = document.getElementById('timeSlotsContainer');
+        container.innerHTML = '<div style="text-align:center;padding:20px;color:#64748b;"><i class="fa-solid fa-spinner fa-spin"></i> Mengecek ketersediaan...</div>';
+        
+        // Fetch booked slots via AJAX
+        let booked = [];
+        if(bookedSlotsCache[dateStr]) {
+            booked = bookedSlotsCache[dateStr];
+        } else {
+            try {
+                const res = await fetch(`{{ route('meeting-room.booked-slots') }}?date=${dateStr}`);
+                booked = await res.json();
+                bookedSlotsCache[dateStr] = booked;
+            } catch(e) {
+                console.error('Failed to load slots', e);
+            }
+        }
+        
+        container.innerHTML = '';
+        availableTimes.forEach(time => {
+            if(booked.includes(time)) {
+                container.innerHTML += `<div class="time-slot disabled">${time} (Penuh)</div>`;
+            } else {
+                container.innerHTML += `<div class="time-slot" onclick="selectTime('${time}', this)">${time}</div>`;
+            }
+        });
+    }
+
+    function selectTime(time, el) {
+        if(el.classList.contains('disabled')) return;
+        selectedTime = time;
+        document.querySelectorAll('.time-slot').forEach(n => n.classList.remove('active'));
+        el.classList.add('active');
+        document.getElementById('btnReservasi').disabled = false;
+    }
+
+    function submitBooking() {
+        if(!selectedDate || !selectedTime) return;
+        
+        // Save to session via URL params instead of storage for simpler redirect to checkout
+        // Redirect to order page with pre-filled query params
+        const url = `{{ route('meeting-room.order') }}?tanggal=${selectedDate}&jam=${selectedTime}&package=${selectedPackage}`;
+        window.location.href = url;
+    }
+</script>
+
 @endsection
