@@ -168,6 +168,49 @@
         margin-top: 1px;
     }
 
+    /* Total Biaya */
+    .total-biaya-box {
+        background: linear-gradient(135deg, #fdf3e0 0%, #fff8ee 100%);
+        border: 2px solid var(--accent);
+        border-radius: 14px;
+        padding: 18px 22px;
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .total-biaya-box .tb-label {
+        font-size: .82rem;
+        font-weight: 700;
+        color: #7a5200;
+        text-transform: uppercase;
+        letter-spacing: .5px;
+    }
+
+    .total-biaya-box .tb-amount {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--primary);
+        letter-spacing: .5px;
+    }
+
+    .modal-dasar-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: #f0f4ff;
+        border: 1px solid #c7d7ff;
+        border-radius: 20px;
+        padding: 4px 14px;
+        font-size: .78rem;
+        font-weight: 600;
+        color: #1e3a8a;
+        margin-top: 6px;
+    }
+
     /* WA */
     .wa-highlight {
         background: #f0fdf4;
@@ -316,9 +359,24 @@
                         <div class="text-start">
                             <div class="summary-service">{{ $serviceInfo['label'] }}</div>
                             <div class="summary-package">{{ $packageLabel }}</div>
+                            @if(!empty($modalDasar))
+                            <div class="modal-dasar-badge">
+                                <i class="fa-solid fa-building-columns" style="font-size:.75rem"></i>
+                                Modal Dasar: {{ $modalDasar }}
+                            </div>
+                            @endif
                         </div>
                         <span class="summary-badge">Pendirian Badan Usaha</span>
                     </div>
+
+                    @if(!is_null($totalBiaya))
+                    <div class="total-biaya-box">
+                        <div>
+                            <div class="tb-label"><i class="fa-solid fa-money-bill-wave me-1"></i>Total Biaya yang Harus Dibayar</div>
+                        </div>
+                        <div class="tb-amount">Rp {{ number_format($totalBiaya, 0, ',', '.') }}</div>
+                    </div>
+                    @endif
                 </div>
 
                 {{-- Payment Steps --}}

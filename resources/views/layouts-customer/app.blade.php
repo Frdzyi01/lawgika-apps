@@ -65,6 +65,12 @@
           </a>
         </li>
         <li>
+          <a href="{{ route('customer.podcast-room.index') }}">
+            <div class="parent-icon"><ion-icon name="mic-outline"></ion-icon></div>
+            <div class="menu-title">Reservasi Ruang Podcast</div>
+          </a>
+        </li>
+        <li>
           <a href="{{ route('customer.spt-badan.index') }}">
             <div class="parent-icon"><ion-icon name="document-outline"></ion-icon></div>
             <div class="menu-title">Laporan SPT Badan</div>

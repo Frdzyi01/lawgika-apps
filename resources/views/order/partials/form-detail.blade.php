@@ -16,6 +16,17 @@
         <input type="text" name="company_name" value="{{ old('company_name') }}" class="form-control @error('company_name') is-invalid @enderror" required>
         @error('company_name')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
     </div>
+    @if(isset($service) && $service === 'pendirian-pt')
+    <div class="col-md-6">
+        <label class="form-label">Modal Dasar <span class="req">*</span></label>
+        <select name="modal_dasar" class="form-control @error('modal_dasar') is-invalid @enderror" required>
+            <option value="">-- Pilih Modal Dasar --</option>
+            <option value="Di bawah 1 Miliar" {{ old('modal_dasar') == 'Di bawah 1 Miliar' ? 'selected' : '' }}>Di bawah 1 Miliar</option>
+            <option value="Di atas 1 Miliar" {{ old('modal_dasar') == 'Di atas 1 Miliar' ? 'selected' : '' }}>Di atas 1 Miliar</option>
+        </select>
+        @error('modal_dasar')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
+    </div>
+    @endif
     <div class="col-md-6">
         <label class="form-label">Nama PIC <span class="req">*</span></label>
         <input type="text" name="pic_name" value="{{ old('pic_name') }}" class="form-control @error('pic_name') is-invalid @enderror" required>
@@ -57,9 +68,6 @@
 <div class="row g-3 mb-4">
     @php
         $uploads = [
-            ['name' => 'akta_pendirian',  'label' => 'Akta Pendirian Perusahaan', 'icon' => 'fa-file-contract'],
-            ['name' => 'npwp_perusahaan', 'label' => 'NPWP Perusahaan',           'icon' => 'fa-file-invoice-dollar'],
-            ['name' => 'sk_kemenkumham',  'label' => 'SK Kemenkumham',            'icon' => 'fa-landmark'],
             ['name' => 'ktp_direktur',    'label' => 'KTP Direktur',              'icon' => 'fa-id-card'],
             ['name' => 'npwp_direktur',   'label' => 'NPWP Direktur',             'icon' => 'fa-file-invoice'],
         ];

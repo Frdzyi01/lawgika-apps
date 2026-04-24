@@ -3208,7 +3208,7 @@ span {
   background: var(--header);
 }
 .nice-select .option {
-  background-color: transparent;
+  background-color: white;
   font-size: 16px;
   line-height: 150%;
   padding: 4px 5px;
@@ -3218,7 +3218,7 @@ span {
 .nice-select .option:hover,
 .nice-select .option:focus,
 .nice-select .option.selected.focus {
-  background-color: transparent;
+  background-color: rgb(255, 255, 255);
 }
 .nice-select .current {
   font-weight: 500;

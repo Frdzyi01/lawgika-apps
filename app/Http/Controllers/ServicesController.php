@@ -15,14 +15,9 @@ class ServicesController extends Controller
         return view('frontend.services.pendirian-badan-usaha.pendirian-pt-perorangan');
     }
 
-    public function pendirianPtdiatas1M()
+    public function pendirianPt()
     {
-        return view('frontend.services.pendirian-badan-usaha.pendirian-pt-<-1m');
-    }
-
-    public function pendirianPtdibawah1M()
-    {
-        return view('frontend.services.pendirian-badan-usaha.pendirian-pt->-1m');
+        return view('frontend.services.pendirian-badan-usaha.pendirian-pt');
     }
 
     public function pendirianPtPma()

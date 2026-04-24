@@ -49,8 +49,7 @@ Route::get('/tentang-kami', [ServicesController::class, 'tentangKami']);
 
 // pendirian badan usaha
 Route::get('/pendirian-pt-perorangan', [ServicesController::class, 'pendirianPtPerorangan']);
-Route::get('/pendirian-pt->-1m', [ServicesController::class, 'pendirianPtdibawah1M']);
-Route::get('/pendirian-pt-<-1m', [ServicesController::class, 'pendirianPtdiatas1M']);
+Route::get('/pendirian-pt', [ServicesController::class, 'pendirianPt']);
 Route::get('/pendirian-pt-pma', [ServicesController::class, 'pendirianPtPma']);
 Route::get('/pendirian-cv', [ServicesController::class, 'pendirianCv']);
 Route::get('/pendirian-yayasan', [ServicesController::class, 'pendirianYayasan']);
@@ -90,10 +89,13 @@ Route::get('/sewa-meeting-room', [MeetingRoomController::class, 'index']);
 Route::get('/meeting-room/booked-slots', [MeetingRoomController::class, 'getBookedSlots'])->name('meeting-room.booked-slots');
 Route::get('/meeting-room/order', [MeetingRoomController::class, 'order'])->name('meeting-room.order')->middleware('auth');
 Route::post('/meeting-room/store', [MeetingRoomController::class, 'store'])->name('meeting-room.store')->middleware('auth');
-Route::get('/sewa-ruang-podcast', [ServicesController::class, 'sewaRuangPodcast']);
+Route::get('/sewa-ruang-podcast', [\App\Http\Controllers\PodcastRoomController::class, 'index'])->name('podcast-room.index');
+Route::get('/podcast-room/booked-slots', [\App\Http\Controllers\PodcastRoomController::class, 'getBookedSlots'])->name('podcast-room.booked-slots');
+Route::get('/podcast-room/order', [\App\Http\Controllers\PodcastRoomController::class, 'order'])->name('podcast-room.order')->middleware('auth');
+Route::post('/podcast-room/store', [\App\Http\Controllers\PodcastRoomController::class, 'store'])->name('podcast-room.store')->middleware('auth');
+Route::get('/layanan-konsultasi-bisnis', function() { return redirect('/sewa-ruang-podcast', 301); });
 Route::get('/layanan-visa-kitas', [ServicesController::class, 'layananVisaKitas']);
 Route::get('/layanan-call-answering', [ServicesController::class, 'layananCallAnswering']);
-Route::get('/layanan-konsultasi-bisnis', [ServicesController::class, 'layananKonsultasiBisnis']);
 Route::get('/virtual-office', [ServicesController::class, 'virtualOffice']);
 Route::get('/kerjasama-bisnis', [ServicesController::class, 'kerjasamaBisnis']);
 
@@ -140,6 +142,12 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::post('/meeting-room/{id}/approve-payment', [MeetingRoomController::class, 'approvePayment'])->name('admin.meeting-room.approve');
     Route::post('/meeting-room/{id}/reject-payment', [MeetingRoomController::class, 'rejectPayment'])->name('admin.meeting-room.reject');
 
+    Route::get('/podcast-room', [\App\Http\Controllers\PodcastRoomController::class, 'adminIndex'])->name('podcast-room.index');
+    Route::post('/podcast-room/{id}/checkin', [\App\Http\Controllers\PodcastRoomController::class, 'checkin']);
+    Route::post('/podcast-room/{id}/checkout', [\App\Http\Controllers\PodcastRoomController::class, 'checkout']);
+    Route::post('/podcast-room/{id}/approve-payment', [\App\Http\Controllers\PodcastRoomController::class, 'approvePayment'])->name('admin.podcast-room.approve');
+    Route::post('/podcast-room/{id}/reject-payment', [\App\Http\Controllers\PodcastRoomController::class, 'rejectPayment'])->name('admin.podcast-room.reject');
+
     Route::get('/spt-badan', [\App\Http\Controllers\SptBadanController::class, 'adminDashboard'])->name('spt-badan.index');
     Route::post('/spt-badan/{id}/status', [\App\Http\Controllers\SptBadanController::class, 'updateStatus'])->name('spt-badan.status');
 });
@@ -154,6 +162,8 @@ Route::middleware(['auth', 'role:customer'])->prefix('dashboard')->name('custome
     Route::get('/meeting-room', [MeetingRoomController::class, 'customerIndex'])->name('meeting-room.index');
     Route::post('/meeting-room/{id}/checkin', [MeetingRoomController::class, 'checkin']);
     Route::post('/meeting-room/{id}/checkout', [MeetingRoomController::class, 'checkout']);
+
+    Route::get('/podcast-room', [\App\Http\Controllers\PodcastRoomController::class, 'customerIndex'])->name('podcast-room.index');
 
     Route::get('/spt-badan', [\App\Http\Controllers\SptBadanController::class, 'customerDashboard'])->name('spt-badan.index');
 });

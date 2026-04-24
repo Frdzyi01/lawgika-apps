@@ -18,8 +18,8 @@ class UniversalOrderController extends Controller
         'firma'          => ['label' => 'Pendirian Firma',              'url' => '/pendirian-firma'],
         'pt-pma'         => ['label' => 'Pendirian PT PMA',             'url' => '/pendirian-pt-pma'],
         'yayasan'        => ['label' => 'Pendirian Yayasan',            'url' => '/pendirian-yayasan'],
-        'pt-dibawah-1m'  => ['label' => 'Pendirian PT (< 1M)',          'url' => '/pendirian-pt->-1m'],
-        'pt-diatas-1m'   => ['label' => 'Pendirian PT (> 1M)',          'url' => '/pendirian-pt-<-1m'],
+        'pendirian-pt'   => ['label' => 'Pendirian PT',                 'url' => '/pendirian-pt'],
+        'pt-diatas-1m'   => ['label' => 'Pendirian PT (Legacy)',        'url' => '/pendirian-pt'],
     ];
 
     /**
@@ -31,7 +31,27 @@ class UniversalOrderController extends Controller
         'professional' => 'Paket Professional',
         'enterprise'   => 'Paket Enterprise',
         'premium'      => 'Paket Premium',
-        'eksklusif'    => 'Paket Eksklusif',
+        'eksklusif'    => 'Paket Eksekutif',
+        'eksekutif'    => 'Paket Eksekutif',
+    ];
+
+    /**
+     * Pricing matrix for Pendirian PT.
+     * Key: modal_dasar value  →  [ package_slug => price_in_rupiah ]
+     */
+    public static array $ptPricing = [
+        'Di bawah 1 Miliar' => [
+            'premium'   => 6030000,
+            'eksklusif' => 7740000,
+            'eksekutif' => 7740000,
+            'enterprise' => 8640000,
+        ],
+        'Di atas 1 Miliar' => [
+            'premium'   => 6930000,
+            'eksklusif' => 8640000,
+            'eksekutif' => 8640000,
+            'enterprise' => 9540000,
+        ],
     ];
 
     // ─────────────────────────────────────────────────────────────────────────
@@ -71,13 +91,14 @@ class UniversalOrderController extends Controller
             'company_email'         => 'required|email|max:255',
             'operational_address'   => 'required|string',
             'business_field'        => 'required|string|max:255',
-            'akta_pendirian'        => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
-            'npwp_perusahaan'       => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
-            'sk_kemenkumham'        => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
             'ktp_direktur'          => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
             'npwp_direktur'         => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
             'notes'                 => 'nullable|string|max:2000',
         ];
+
+        if (strtolower($request->service) === 'pendirian-pt') {
+            $rules['modal_dasar'] = 'required|string|in:Di bawah 1 Miliar,Di atas 1 Miliar';
+        }
 
         $request->validate($rules);
 
@@ -105,6 +126,10 @@ class UniversalOrderController extends Controller
             'business_field'      => $request->input('business_field'),
         ];
 
+        if ($request->has('modal_dasar')) {
+            $formData['modal_dasar'] = $request->input('modal_dasar');
+        }
+
         // ── Create order ──────────────────────────────────────────────────────
         $order = Order::create([
             'order_number' => 'ORD-' . strtoupper(substr($serviceKey, 0, 3)) . '-'
@@ -119,11 +144,8 @@ class UniversalOrderController extends Controller
         ]);
 
         // ── Document uploads ──────────────────────────────────────────────────
-        // 5 required documents for all orders now
+        // 2 required documents for all orders now
         $docTypes = [
-            'akta_pendirian'  => 'akta_pendirian',
-            'npwp_perusahaan' => 'npwp_perusahaan',
-            'sk_kemenkumham'  => 'sk_kemenkumham',
             'ktp_direktur'    => 'ktp_direktur',
             'npwp_direktur'   => 'npwp_direktur',
         ];
@@ -142,9 +164,10 @@ class UniversalOrderController extends Controller
         }
 
         return redirect()->route('order.success', [
-            'order'   => $order->order_number,
-            'service' => $serviceKey,
-            'package' => $packageKey,
+            'order'       => $order->order_number,
+            'service'     => $serviceKey,
+            'package'     => $packageKey,
+            'modal_dasar' => $request->input('modal_dasar', ''),
         ]);
     }
 
@@ -154,15 +177,25 @@ class UniversalOrderController extends Controller
     public function success(Request $request)
     {
         $serviceKey   = $request->query('service', '');
-        $packageKey   = $request->query('package', '');
+        $packageKey   = strtolower($request->query('package', ''));
         $orderNumber  = $request->query('order', '');
+        $modalDasar   = $request->query('modal_dasar', '');
 
         $serviceInfo  = self::$services[$serviceKey]
             ?? ['label' => Str::title(str_replace('-', ' ', $serviceKey)), 'url' => '/'];
         $packageLabel = self::$packages[$packageKey]
             ?? Str::title(str_replace('-', ' ', $packageKey));
 
-        return view('order.success', compact('serviceKey', 'packageKey', 'serviceInfo', 'packageLabel', 'orderNumber'));
+        // Hitung total biaya khusus Pendirian PT
+        $totalBiaya = null;
+        if ($serviceKey === 'pendirian-pt' && $modalDasar && isset(self::$ptPricing[$modalDasar][$packageKey])) {
+            $totalBiaya = self::$ptPricing[$modalDasar][$packageKey];
+        }
+
+        return view('order.success', compact(
+            'serviceKey', 'packageKey', 'serviceInfo', 'packageLabel',
+            'orderNumber', 'modalDasar', 'totalBiaya'
+        ));
     }
 
     // ─── Helper ──────────────────────────────────────────────────────────────

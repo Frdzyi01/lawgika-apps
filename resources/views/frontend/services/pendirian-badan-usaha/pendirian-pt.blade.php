@@ -671,7 +671,7 @@
             <div class="col-lg-6">
                 <div class="page-title-content">
                     <span class="text-white bg-danger rounded-pill px-3 py-1 fw-medium mb-3 d-inline-block shadow-sm" style="font-size: 0.85rem">Lawgika | Pendirian PT</span>
-                    <h1 class="text-white fw-bold mb-3 display-4">Jasa Pendirian PT (Perseroan Terbatas) <br> > 1M</h1>
+                    <h1 class="text-white fw-bold mb-3 display-4">Jasa Pendirian PT (Perseroan Terbatas)</h1>
                     <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem">Solusi legalitas untuk badan usaha berbadan hukum yang modalnya terdiri atas saham-saham. Proses cepat, transparan, dan terpercaya.</p>
                 </div>
             </div>
@@ -679,7 +679,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-lg-end justify-content-start mb-0">
                         <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none">Beranda</a></li>
-                        <li class="breadcrumb-item active text-white-50" aria-current="page">Pendirian PT > 1M</li>
+                        <li class="breadcrumb-item active text-white-50" aria-current="page">Pendirian PT</li>
                     </ol>
                 </nav>
             </div>
@@ -842,7 +842,18 @@
             <div class="col-lg-4 col-md-6">
                 <div class="pricing-card">
                     <h4>PREMIUM</h4>
-                    <div class="price">Rp 6.930.000</div>
+                    <div class="price">
+                        <span class="start-text">Start from</span> Rp 6.030.000
+                    </div>
+                    <style>
+                        .start-text {
+                            font-size: 14px;
+                            color: #888;
+                            margin-left: -50px;
+                            font-weight: normal;
+                        }
+                    </style>
+
                     <ul class="feature-list">
                         <li><i class="fa-solid fa-check"></i> Pengecekan Nama PT</li>
                         <li><i class="fa-solid fa-check"></i> Pemesanan Nama PT</li>
@@ -866,7 +877,7 @@
                         <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Call Handling</li>
                         <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Call Forwarding</li>
                     </ul>
-                    <button onclick="goOrder('pt-dibawah-1m','premium')" class="btn-pricing w-100">Pilih Paket Premium</button>
+                    <button onclick="goOrder('pendirian-PT','premium')" class="btn-pricing w-100">Pilih Paket Premium</button>
                 </div>
             </div>
 
@@ -875,7 +886,7 @@
                 <div class="pricing-card featured">
                     <span class="badge">REKOMENDASI</span>
                     <h4>EKSKLUSIF</h4>
-                    <div class="price">Rp 8.640.000</div>
+                    <div class="price"><span class="start-text">Start from</span> Rp 7.740.000</div>
                     <ul class="feature-list">
                         <li><i class="fa-solid fa-check"></i> Pengecekan Nama PT</li>
                         <li><i class="fa-solid fa-check"></i> Pemesanan Nama PT</li>
@@ -899,7 +910,7 @@
                         <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Call Handling</li>
                         <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Call Forwarding</li>
                     </ul>
-                    <button onclick="goOrder('pt-dibawah-1m','eksklusif')" class="btn-pricing-primary w-100">Pilih Paket Eksklusif</button>
+                    <button onclick="goOrder('pendirian-PT','eksklusif')" class="btn-pricing-primary w-100">Pilih Paket Eksklusif</button>
                 </div>
             </div>
 
@@ -907,7 +918,7 @@
             <div class="col-lg-4 col-md-6">
                 <div class="pricing-card">
                     <h4>ENTERPRISE</h4>
-                    <div class="price">Rp 9.540.000</div>
+                    <div class="price"> <span class="start-text">Start from</span> Rp 8.640.000</div>
                     <ul class="feature-list">
                         <li><i class="fa-solid fa-check"></i> Pengecekan Nama PT</li>
                         <li><i class="fa-solid fa-check"></i> Pemesanan Nama PT</li>
@@ -931,7 +942,7 @@
                         <li><i class="fa-solid fa-check"></i> Layanan Call Handling</li>
                         <li><i class="fa-solid fa-check"></i> Layanan Call Forwarding</li>
                     </ul>
-                    <button onclick="goOrder('pt-dibawah-1m','enterprise')" class="btn-pricing w-100">Pilih Paket Enterprise</button>
+                    <button onclick="goOrder('pendirian-PT','enterprise')" class="btn-pricing w-100">Pilih Paket Enterprise</button>
                 </div>
             </div>
         </div>
@@ -980,12 +991,12 @@
     // ── Universal goOrder ──────────────────────────────────────────────────
     function goOrder(service, pkg) {
         @guest
-            const loginModal = new bootstrap.Modal(document.getElementById('exampleModal'));
-            loginModal.show();
-            return;
+        const loginModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+        loginModal.show();
+        return;
         @endguest
         @auth
-            window.location.href = '/order/' + service + '/' + pkg;
+        window.location.href = '/order/' + service + '/' + pkg;
         @endauth
     }
 

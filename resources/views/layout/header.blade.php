@@ -1,4 +1,3 @@
-<!-- Offcanvas Area Start -->
 <div class="fix-area">
   <div class="offcanvas__info">
     <div class="offcanvas__wrapper">
@@ -119,7 +118,6 @@
 </div>
 <div class="offcanvas__overlay"></div>
 
-<!-- Header Section Start -->
 <header class="header-section-1">
   <div class="header-top">
     <div class="container">
@@ -191,7 +189,6 @@
                         <i class="fas fa-angle-down" id="mm-layanan-arrow" style="transition:transform 0.22s ease;"></i>
                       </a>
 
-                      <!-- ===== MEGA MENU: LAYANAN ===== -->
                       <div class="lw-mega-wrap" id="lwMegaMenu" role="navigation" aria-label="Layanan Menu">
                         <style>
                           /* Parent (navbar container) harus position: relative */
@@ -418,27 +415,24 @@
                         <div class="container p-0">
                           <div class="lw-mega-body">
 
-                            <!-- LEFT: 3 CATEGORY COLUMNS -->
                             <div class="lw-mega-cols">
 
-                              <!-- Kolom 1: Layanan BIsnis -->
                               <div class="lw-col">
                                 <div class="lw-col-title">
                                   <i class="fas fa-building"></i> Layanan BIsnis
                                 </div>
                                 <ul>
                                   <li><a href="{{ url('/pendirian-pt-perorangan') }}">Pendirian PT Perorangan</a></li>
-                                  <li><a href="{{ url('/pendirian-pt-<-1m') }}">Pendirian PT < 1M</a>
-                                  </li>
-                                  <li><a href="{{ url('/pendirian-pt->-1m') }}">Pendirian PT > 1M</a></li>
+                                  <li><a href="{{ url('/pendirian-pt') }}">Pendirian PT</a></li>
                                   <li><a href="{{ url('/pendirian-pt-pma') }}">Pendirian PT PMA</a></li>
                                   <li><a href="{{ url('/pendirian-cv') }}">Pendirian CV</a></li>
                                   <li><a href="{{ url('/pendirian-yayasan') }}">Pendirian Yayasan</a></li>
                                   <li><a href="{{ url('/pendirian-firma') }}">Pendirian Firma</a></li>
+                                  <hr>
+                                  <li><a href="{{'#' }}">Perizinan dan Hukum</a></li>
                                 </ul>
                               </div>
 
-                              <!-- Kolom 2: Perizinan & Hukum -->
                               <div class="lw-col">
                                 <div class="lw-col-title">
                                   <i class="fas fa-file-contract"></i> Perizinan &amp; Hukum
@@ -446,9 +440,6 @@
                                 <ul>
                                   <li><a href="{{ url('/nib-dan-oss') }}">NIB &amp; OSS</a></li>
                                   <li><a href="{{ url('/haki') }}">HAKI / Pendaftaran Merek</a></li>
-                                  <!-- <li><a href="{{ url('/perubahan-anggaran-dasar') }}">Perubahan Anggaran Dasar</a></li>
-                                  <li><a href="{{ url('/penutupan-perusahaan') }}">Penutupan Perusahaan</a></li>
-                                  <li><a href="{{ url('/sbu-sijuk') }}">SBU &amp; SIJUK</a></li> -->
                                   <li><a href="{{ url('/laporan-lkpm') }}">Laporan LKPM</a></li>
                                   <li><a href="{{ url('/sertifikat-iso') }}">Sertifikat ISO</a></li>
                                   <li><a href="{{ url('/surat-keterangan-tidak-pailit') }}" style="font-size: 14px !important;">Surat Keterangan Tidak Pailit</a></li>
@@ -460,31 +451,25 @@
                                 <ul>
                                   <li><a href="{{ url('/virtual-office') }}">Virtual Office</a></li>
                                   <li><a href="{{ url('/sewa-meeting-room') }}">Sewa Meeting Room</a></li>
-                                  <li><a href="{{ url('/layanan-konsultasi-bisnis') }}">Konsultasi Bisnis</a></li>
-                                  <li><a href="{{ url('/kerjasama-bisnis') }}">Kerjasama Bisnis</a></li>
+                                  <li><a href="{{ url('/sewa-ruang-podcast') }}">Sewa Ruang Podcast</a></li>
                                 </ul>
                               </div>
 
-                              <!-- Kolom 3: Pajak, Kantor & Layanan -->
                               <div class="lw-col">
                                 <div class="lw-col-title">
                                   <i class="fas fa-calculator"></i> Pajak &amp; Pembukuan
                                 </div>
                                 <ul>
                                   <li><a href="{{ url('/jasa-pembukuan-perpajakan') }}">Jasa Pembukuan & Perpajakan</a></li>
-                                  <!-- <li><a href="{{ url('/layanan-payroll') }}">Layanan Payroll</a></li> -->
                                   <li><a href="{{ url('/pendaftaran-npwp') }}">Pendaftaran NPWP</a></li>
                                   <li><a href="{{ url('/pelaporan-spt-badan') }}">Pelaporan SPT Badan</a></li>
                                   <li><a href="{{ url('/pelaporan-spt-pribadi') }}">Pelaporan SPT Pribadi</a></li>
-                                  <!-- <li><a href="{{ url('/audit-laporan-keuangan') }}">Audit Laporan Keuangan</a></li> -->
                                   <li><a href="{{ url('/pengurusan-pkp') }}">Pengurusan PKP</a></li>
                                 </ul>
 
                               </div>
 
-                            </div><!-- /lw-mega-cols -->
-
-                            <!-- RIGHT: SIDEBAR -->
+                            </div>
                             <div class="lw-mega-sidebar">
                               <div class="lw-sidebar-label">Paket Populer</div>
 
@@ -509,20 +494,16 @@
                               <a href="#layanan-kami-section" class="lw-sidebar-cta">
                                 Semua Layanan <i class="fas fa-arrow-right"></i>
                               </a>
-                            </div><!-- /lw-mega-sidebar -->
-
-                          </div><!-- /lw-mega-body -->
-                        </div><!-- /.container p-0 -->
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <!-- ===== END MEGA MENU ===== -->
                     </li>
 
-                    <!-- ========== MOBILE LAYANAN MENU (SIAP PAKAI) ========== -->
                     <li class="has-dropdown d-xl-none">
                       <a href="#" class="mobile-main-link" id="mobileLayananToggle">Layanan</a>
                       <div class="mobile-menu-wrapper" id="mobileLayananMenu" style="display: none;">
 
-                        <!-- Kategori 1 -->
                         <div class="mobile-cat-item">
                           <a href="#" class="mobile-cat-toggle">
                             <span>Layanan BIsnis</span>
@@ -539,7 +520,6 @@
                           </div>
                         </div>
 
-                        <!-- Kategori 2 -->
                         <div class="mobile-cat-item">
                           <a href="#" class="mobile-cat-toggle">
                             <span>Perizinan & Hukum</span>
@@ -556,7 +536,6 @@
                           </div>
                         </div>
 
-                        <!-- Kategori 3 -->
                         <div class="mobile-cat-item">
                           <a href="#" class="mobile-cat-toggle">
                             <span>Pajak & Pembukuan</span>
@@ -564,17 +543,14 @@
                           <div class="mobile-cat-body" style="display: none;">
                             <ul>
                               <li><a href="{{ url('/jasa-pembukuan-perpajakan') }}">Jasa Pembukuan & Perpajakan</a></li>
-                              <!-- <li><a href="{{ url('/layanan-payroll') }}">Layanan Payroll</a></li> -->
                               <li><a href="{{ url('/pendaftaran-npwp') }}">Pendaftaran NPWP</a></li>
                               <li><a href="{{ url('/pelaporan-spt-badan') }}">Pelaporan SPT Badan</a></li>
                               <li><a href="{{ url('/pelaporan-spt-pribadi') }}">Pelaporan SPT Pribadi</a></li>
-                              <!-- <li><a href="{{ url('/audit-laporan-keuangan') }}">Audit Laporan Keuangan</a></li> -->
                               <li><a href="{{ url('/pengurusan-pkp') }}">Pengurusan PKP</a></li>
                             </ul>
                           </div>
                         </div>
 
-                        <!-- Kategori 4 -->
                         <div class="mobile-cat-item">
                           <a href="#" class="mobile-cat-toggle">
                             <span>Kantor & Ruang Podcast</span>
@@ -583,8 +559,7 @@
                             <ul>
                               <li><a href="{{ url('/virtual-office') }}">Virtual Office</a></li>
                               <li><a href="{{ url('/sewa-meeting-room') }}">Sewa Meeting Room</a></li>
-                              <li><a href="{{ url('/layanan-konsultasi-bisnis') }}">Konsultasi Bisnis</a></li>
-                              <li><a href="{{ url('/kerjasama-bisnis') }}">Kerjasama Bisnis</a></li>
+                              <li><a href="{{ url('/sewa-ruang-podcast') }}">Sewa Ruang Podcast</a></li>
                             </ul>
                           </div>
                         </div>
@@ -592,7 +567,6 @@
                       </div>
                     </li>
 
-                    <!-- STYLE KHUSUS MENU MOBILE -->
                     <style>
                       /* === RESET LIST STYLE === */
                       .has-dropdown {
@@ -720,7 +694,6 @@
                       }
                     </style>
 
-                    <!-- JAVASCRIPT MENU (TANPA BOOTSTRAP) -->
                     <script>
                       (function() {
                         function initMobileMenu() {
@@ -789,232 +762,33 @@
                         }
                       })();
                     </script>
-                    <!-- ========== END MOBILE LAYANAN ========== -->
-
-                    <li class="has-dropdown menu-thumb" id="mm-pelatihan-li">
-                      <a href="#" id="mm-pelatihan-trigger" class="lw-mm-trigger" aria-expanded="false">
-                        Pusat Pelatihan
-                        <i class="fas fa-angle-down" id="mm-pelatihan-arrow" style="transition:transform 0.22s ease;"></i>
-                      </a>
-
-                      <!-- ===== COMPACT CARD MEGA MENU: Pusat Pelatihan ===== -->
-                      <div class="lw-pelatihan-wrap" id="lwMegaPelatihan" role="navigation" aria-label="Pusat Pelatihan Menu">
-                        <style>
-                          /* ── Pusat Pelatihan: Wrapper ── */
-                          #mm-pelatihan-li {
-                            position: static;
-                          }
-
-                          .lw-pelatihan-wrap {
-                            display: none;
-                            position: absolute;
-                            top: calc(100% + 10px);
-                            left: 50%;
-                            transform: translateX(-50%);
-                            z-index: 99999;
-                            opacity: 0;
-                            transition: opacity 0.18s ease, transform 0.18s ease;
-                            pointer-events: none;
-                            transform: translateX(-50%) translateY(8px);
-                          }
-
-                          .lw-pelatihan-wrap.lw-mm-open {
-                            display: block !important;
-                            opacity: 1;
-                            transform: translateX(-50%) translateY(0) !important;
-                            pointer-events: auto;
-                          }
-
-                          /* ── Card Box ── */
-                          .lw-pelatihan-box {
-                            width: 480px;
-                            background: #fff;
-                            border-radius: 16px;
-                            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.14), 0 4px 16px rgba(0, 0, 0, 0.06);
-                            border: 1px solid #f0f0f0;
-                            padding: 18px;
-                            display: grid;
-                            grid-template-columns: 1fr 1fr;
-                            gap: 10px;
-                          }
-
-                          /* ── Card Header Label ── */
-                          .lw-pelatihan-header {
-                            grid-column: 1 / -1;
-                            font-size: 0.63rem;
-                            font-weight: 800;
-                            letter-spacing: 1.3px;
-                            text-transform: uppercase;
-                            color: #9ca3af;
-                            padding-bottom: 10px;
-                            border-bottom: 1px solid #f3f4f6;
-                            margin-bottom: 2px;
-                          }
-
-                          /* ── Individual Card Item ── */
-                          .lw-pelatihan-item {
-                            display: flex;
-                            align-items: flex-start;
-                            gap: 11px;
-                            padding: 11px 12px;
-                            border-radius: 10px;
-                            text-decoration: none !important;
-                            transition: background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
-                            border: 1px solid transparent;
-                          }
-
-                          .lw-pelatihan-item:hover {
-                            background: #fff5f6 !important;
-                            border-color: #fde8ea;
-                            transform: translateY(-2px);
-                            box-shadow: 0 4px 14px rgba(220, 53, 69, 0.09);
-                          }
-
-                          /* ── Icon Badge ── */
-                          .lw-pelatihan-icon {
-                            width: 38px;
-                            height: 38px;
-                            border-radius: 9px;
-                            background: #fff5f6;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            font-size: 18px;
-                            flex-shrink: 0;
-                            transition: background 0.18s ease;
-                          }
-
-                          .lw-pelatihan-item:hover .lw-pelatihan-icon {
-                            background: #fde8ea;
-                          }
-
-                          /* ── Text Content ── */
-                          .lw-pelatihan-text h6 {
-                            font-size: 1rem;
-                            font-weight: 700;
-                            color: #111827;
-                            margin: 0 0 2px 0;
-                            line-height: 1.3;
-                            transition: color 0.15s ease;
-                          }
-
-                          .lw-pelatihan-item:hover .lw-pelatihan-text h6 {
-                            color: #dc3545;
-                          }
-
-                          .lw-pelatihan-text p {
-                            font-size: 0.8rem;
-                            color: #9ca3af;
-                            margin: 0;
-                            line-height: 1.4;
-                          }
-
-                          /* ── Arrow rotate on open ── */
-                          #mm-pelatihan-trigger[aria-expanded="true"] #mm-pelatihan-arrow {
-                            transform: rotate(180deg);
-                          }
-
-                          #mm-pelatihan-arrow {
-                            display: inline-block;
-                            transition: transform 0.22s ease;
-                          }
-                        </style>
-
-                        <div class="lw-pelatihan-box">
-                          <!-- Label Header -->
-                          <div class="lw-pelatihan-header">Pusat Pelatihan & Informasi</div>
-
-                          <!-- Item 1: Pelatihan & Seminar -->
-                          <a href="{{ url('/upcoming-event') }}" class="lw-pelatihan-item">
-                            <div class="lw-pelatihan-icon">📘</div>
-                            <div class="lw-pelatihan-text">
-                              <h6>Pelatihan & Seminar</h6>
-                              <p>Program training bisnis & legal</p>
-                            </div>
-                          </a>
-
-                          <!-- Item 2: Artikel -->
-                          <a href="{{ url('/berita') }}" class="lw-pelatihan-item">
-                            <div class="lw-pelatihan-icon">📄</div>
-                            <div class="lw-pelatihan-text">
-                              <h6>Artikel</h6>
-                              <p>Insight hukum & bisnis terkini</p>
-                            </div>
-                          </a>
-
-                          <!-- Item 3: Kumpulan Peraturan -->
-                          <a href="{{ route('peraturan.index') }}" class="lw-pelatihan-item">
-                            <div class="lw-pelatihan-icon">⚖️</div>
-                            <div class="lw-pelatihan-text">
-                              <h6>Kumpulan Peraturan</h6>
-                              <p>Database regulasi terbaru</p>
-                            </div>
-                          </a>
-
-                          <!-- Item 4: Promo -->
-                          <a href="{{ url('promo') }}" class="lw-pelatihan-item">
-                            <div class="lw-pelatihan-icon">🔥</div>
-                            <div class="lw-pelatihan-text">
-                              <h6>Promo</h6>
-                              <p>Penawaran spesial Lawgika</p>
-                            </div>
-                          </a>
-
-                          <!-- Item 5: Karir -->
-                          <a href="{{ url('karir') }}" class="lw-pelatihan-item">
-                            <div class="lw-pelatihan-icon">💼</div>
-                            <div class="lw-pelatihan-text">
-                              <h6>Karir</h6>
-                              <p>Gabung bersama tim kami</p>
-                            </div>
-                          </a>
-
-                          <!-- Item 6: Tentang Kami -->
-                          <a href="{{ url('tentang-kami') }}" class="lw-pelatihan-item">
-                            <div class="lw-pelatihan-icon">🏢</div>
-                            <div class="lw-pelatihan-text">
-                              <h6>Tentang Kami</h6>
-                              <p>Profil & visi Lawgika</p>
-                            </div>
-                          </a>
-
-                        </div><!-- /lw-pelatihan-box -->
-                      </div>
-                      <!-- ===== END COMPACT CARD MEGA MENU ===== -->
-                    </li>
-
-                    <!-- Mobile Layanan Accordion (d-xl-none only) -->
-                    <li class="d-xl-none">
-                      <a href="#">
-                        Pusat Pelatihan
-                        <i class="fas fa-angle-down"></i>
-                      </a>
-                      <ul class="submenu" style="list-style: none; padding: 0; margin: 0;">
-                        <li><a href="{{ url('#') }}" style="display: block; padding: 12px 20px; border-bottom: 1px solid #eee;">📘 Pelatihan & Seminar</a></li>
-                        <li><a href="{{ url('/berita') }}" style="display: block; padding: 12px 20px; border-bottom: 1px solid #eee;">📄 Artikel</a></li>
-                        <li><a href="{{ route('peraturan.index') }}" style="display: block; padding: 12px 20px; border-bottom: 1px solid #eee;">⚖️ Kumpulan Peraturan</a></li>
-                        <li><a href="{{ url('promo') }}" style="display: block; padding: 12px 20px; border-bottom: 1px solid #eee;">🔥 Promo</a></li>
-                        <li><a href="{{ url('#') }}" style="display: block; padding: 12px 20px; border-bottom: 1px solid #eee;">💼 Karir</a></li>
-                        <li><a href="{{ url('tentang-kami') }}" style="display: block; padding: 12px 20px;">🏢 Tentang Kami</a></li>
-                      </ul>
-                    </li>
-
-
-                    <li>
-                      <a href="{{ url('tentang-kami') }}">Tentang Kami</a>
-                    </li>
-
                     <li>
                       <a href="#">
-                        Klien
+                        Pusat Pelatihan
                         <i class="fas fa-angle-down"></i>
                       </a>
                       <ul class="submenu">
-                        <li><a href="#">Faq</a></li>
-                        <li><a href="#">Error 404</a></li>
-                        <li><a href="#">Support</a></li>
-                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="{{ url('/upcoming-event') }}">Pelatihan & Seminar</a></li>
+                        <li><a href="{{ url('/berita') }}">Artikel</a></li>
+                        <li><a href="{{ route('peraturan.index') }}">Kumpulan Peraturan</a></li>
                       </ul>
+                    </li>
+
+                    <li>
+                      <a href="#">
+                        Tentang Kami
+                        <i class="fas fa-angle-down"></i>
+                      </a>
+                      <ul class="submenu">
+                        <li><a href="{{ url('promo') }}">Promo</a></li>
+                        <li><a href="{{ url('tentang-kami') }}">Profile Perusahaann</a></li>
+                        <li><a href="{{ url('karir') }}">Karir</a></li>
+                        <li><a href="{{ url('kerjasama-bisnis') }}">Kerjasama Bisnis</a></li>
+                      </ul>
+                    </li>
+
+                    <li>
+                      <a href="{{ url('tentang-kami') }}">Kontak Kami</a>
                     </li>
                   </ul>
                 </nav>
@@ -1028,27 +802,23 @@
             </div>
             <div class="header-button">
               @guest
-              <!-- Menampilkan tombol 'Masuk' jika belum login -->
               <a href="#" class="theme-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Masuk
               </a>
               @endguest
 
               @auth
-              <!-- Menampilkan dropdown untuk user yang sudah login -->
               <div class="dropdown">
                 <button class="theme-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                   Profile
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <!-- Dashboard link -->
                   @if(Auth::user()->role === 'admin')
                   <li><a class="dropdown-item" href="/admin/dashboard">Dashboard</a></li>
                   @else
                   <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
                   @endif
 
-                  <!-- Logout link -->
                   <li>
                     <form action="{{ route('logout') }}" method="POST" style="display:inline;">
                       @csrf
@@ -1278,48 +1048,6 @@
     }
   })();
 
-  /* ── Pusat Pelatihan Mega Menu (handler terpisah, tidak berpengaruh ke Layanan) ── */
-  (function() {
-    function initPelatihanMenu() {
-      var pelatihanTrigger = document.getElementById('mm-pelatihan-trigger');
-      var pelatihanMenu = document.getElementById('lwMegaPelatihan');
-
-      var pelatihanOpen = false;
-
-      if (pelatihanTrigger && pelatihanMenu) {
-
-        pelatihanTrigger.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-
-          pelatihanOpen = !pelatihanOpen;
-
-          if (pelatihanOpen) {
-            pelatihanMenu.classList.add('lw-mm-open');
-            pelatihanTrigger.setAttribute('aria-expanded', 'true');
-          } else {
-            pelatihanMenu.classList.remove('lw-mm-open');
-            pelatihanTrigger.setAttribute('aria-expanded', 'false');
-          }
-        });
-
-        document.addEventListener('click', function(e) {
-          if (!pelatihanMenu.contains(e.target) && !pelatihanTrigger.contains(e.target)) {
-            pelatihanMenu.classList.remove('lw-mm-open');
-            pelatihanTrigger.setAttribute('aria-expanded', 'false');
-            pelatihanOpen = false;
-          }
-        });
-
-      }
-    }
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initPelatihanMenu);
-    } else {
-      initPelatihanMenu();
-    }
-  })();
 
   /* ── Auto-buka modal login jika ada error ── */
   function lwAutoOpenLoginModal() {
@@ -1512,7 +1240,6 @@
 @endif
 
 
-<!-- Modal Version 1 -->
 <div
   class="modal modal-common-wrap fade"
   id="exampleModal"
@@ -1611,7 +1338,6 @@
     </div>
   </div>
 </div>
-<!-- Modal Version 2 -->
 <div
   class="modal modal-common-wrap fade"
   id="exampleModal2"
@@ -1688,7 +1414,6 @@
   </div>
 </div>
 
-<!-- Modal Version 3 -->
 <div
   class="modal modal-common-wrap fade"
   id="exampleModal3"
@@ -1743,7 +1468,6 @@
 </div>
 
 
-<!-- Modal Switcher Script -->
 <script>
   (function() {
     'use strict';
@@ -1811,8 +1535,6 @@
     }
   })();
 </script>
-
-<!-- Search Area Start -->
 
 <div class="search-wrap">
   <div class="search-inner">
