@@ -17,6 +17,7 @@ class MeetingRoomBooking extends Model
         'checkin_at',
         'checkout_at',
         'total_used_minutes',
+        'total_used_seconds',
         'payment_proof',
         'payment_status',
     ];
@@ -33,46 +34,57 @@ class MeetingRoomBooking extends Model
     }
 
     /**
-     * Helper: Format menit ke string "X jam Y menit"
+     * Helper: Format detik ke string "X jam Y menit Z detik"
      */
-    public function formatMinutes($minutes)
+    public function formatSeconds($seconds)
     {
-        $minutes = (int) max(0, floor($minutes));
+        $seconds = (int) max(0, floor($seconds));
 
-        $hours = intdiv($minutes, 60);
-        $mins  = $minutes % 60;
+        $hours   = floor($seconds / 3600);
+        $minutes = floor(($seconds % 3600) / 60);
+        $secs    = $seconds % 60;
 
-        if ($hours > 0 && $mins > 0) {
-            return "{$hours} jam {$mins} menit";
-        } elseif ($hours > 0) {
-            return "{$hours} jam";
-        } else {
-            return "{$mins} menit";
-        }
+        return "{$hours} jam {$minutes} menit {$secs} detik";
     }
 
     /**
-     * Accessor: Menit yang sudah terpakai (termasuk sesi yg sedang berjalan)
-     * Menggunakan raw total_used_minutes dari DB + sesi aktif jika sedang checkin
+     * Accessor: Detik yang sudah terpakai
      */
-    public function getUsedMinutesAttribute()
+    public function getUsedSecondsAttribute()
     {
-        $used = (int) $this->total_used_minutes;
+        // Migrasi fallback: jika total_used_seconds 0 tapi total_used_minutes ada
+        $used = $this->total_used_seconds > 0 ? $this->total_used_seconds : ($this->total_used_minutes * 60);
 
         if ($this->status === 'checkin' && $this->checkin_at) {
-            $used += (int) floor($this->checkin_at->diffInSeconds(now()) / 60);
+            $used += $this->checkin_at->diffInSeconds(now());
         }
 
         return $used;
     }
 
     /**
-     * Accessor: Sisa menit (tidak pernah negatif)
+     * Accessor: Sisa detik (tidak pernah negatif)
      */
-    public function getRemainingMinutesAttribute()
+    public function getRemainingSecondsAttribute()
     {
-        $totalMinutes = (int) ($this->duration * 60);
-        return max(0, $totalMinutes - $this->used_minutes);
+        $totalSeconds = (int) ($this->duration * 3600);
+        return max(0, $totalSeconds - $this->used_seconds);
+    }
+
+    /**
+     * Accessor: Apakah masa berlaku (1 tahun) sudah habis?
+     */
+    public function getIsExpiredAttribute()
+    {
+        return now()->greaterThan($this->created_at->addYear());
+    }
+
+    /**
+     * Accessor: Waktu terpakai string format
+     */
+    public function getFormattedUsedTimeAttribute()
+    {
+        return $this->formatSeconds($this->used_seconds);
     }
 
     /**
@@ -80,12 +92,16 @@ class MeetingRoomBooking extends Model
      */
     public function getFormattedRemainingTimeAttribute()
     {
-        $remaining = $this->remaining_minutes;
+        if ($this->is_expired) {
+            return 'Expired';
+        }
+
+        $remaining = $this->remaining_seconds;
 
         if ($remaining <= 0) {
             return 'Waktu habis';
         }
 
-        return $this->formatMinutes($remaining);
+        return $this->formatSeconds($remaining);
     }
 }

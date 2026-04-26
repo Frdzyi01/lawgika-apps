@@ -78,36 +78,47 @@
                                 @endif
                             </td>
                             <td>
-                                <small class="d-block">Total: {{ $b->formatMinutes($b->duration*60) }}</small>
-                                <small class="d-block">Dipakai: {{ $b->formatMinutes($b->used_minutes) }}</small>
-                                @php $sisa=$b->formatted_remaining_time; $bc=$sisa==='Waktu habis'?'bg-danger':'bg-success'; @endphp
-                                <span class="badge {{ $bc }} mt-1">Sisa: {{ $sisa }}</span>
+                                <small class="d-block">Total: {{ $b->formatSeconds($b->duration*3600) }}</small>
+                                <small class="d-block">Dipakai: <span class="used-time-display" data-status="{{ $b->status }}" data-used="{{ $b->used_seconds }}">{{ $b->formatted_used_time }}</span></small>
+                                @php 
+                                    $sisa=$b->formatted_remaining_time; 
+                                    $bc='bg-success';
+                                    if ($b->is_expired || $sisa==='Waktu habis') $bc='bg-danger';
+                                @endphp
+                                <span class="badge {{ $bc }} mt-1">Sisa: <span class="remaining-time-display" data-status="{{ $b->status }}" data-remaining="{{ $b->remaining_seconds }}">{{ $sisa }}</span></span>
                             </td>
                             <td>
-                                @if($b->remaining_minutes<=0)
-                                    <span class="badge bg-secondary">Selesai</span>
+                                @if($b->is_expired)
+                                    <span class="badge bg-danger" title="Expired setelah 1 tahun dari reservasi dibuat">❌ Expired</span>
+                                @elseif($b->remaining_seconds<=0)
+                                    <span class="badge bg-danger">⛔ Waktu Habis</span>
                                 @elseif($b->status==='checkin')
-                                    <span class="badge bg-primary">Sedang digunakan</span>
-                                @elseif($b->status==='paused'||$b->total_used_minutes>0)
-                                    <span class="badge bg-warning text-dark">Berhenti sementara</span>
+                                    <span class="badge bg-success">✅ Aktif</span>
+                                @elseif($b->status==='paused'||$b->used_seconds>0)
+                                    <span class="badge bg-warning text-dark">⏳ Berhenti sementara</span>
                                 @else
                                     <span class="badge bg-secondary">Pending</span>
                                 @endif
                             </td>
                             <td>
-                                @if($b->payment_status!=='approved')
-                                    <span class="text-muted small">Tunggu konfirmasi</span>
-                                @elseif($b->remaining_minutes<=0)
-                                    <span class="text-muted small">Waktu Habis</span>
-                                @elseif($b->status==='checkin')
-                                    <form action="{{ url('admin/podcast-room/'.$b->id.'/checkout') }}" method="POST">
-                                        @csrf<button class="btn btn-sm btn-warning text-dark" onclick="return confirm('Check Out?')">Check Out</button>
-                                    </form>
-                                @else
-                                    <form action="{{ url('admin/podcast-room/'.$b->id.'/checkin') }}" method="POST">
-                                        @csrf<button class="btn btn-sm btn-success" onclick="return confirm('Check In?')">Check In</button>
-                                    </form>
-                                @endif
+                                <div class="d-flex flex-column gap-1">
+                                    <a href="{{ url('admin/podcast-room/'.$b->id.'/detail') }}" class="btn btn-sm btn-info text-white"><i class="fas fa-eye"></i> Lihat Data</a>
+                                    @if($b->payment_status!=='approved')
+                                        <span class="text-muted small text-center mt-1">Tunggu konfirmasi</span>
+                                    @elseif($b->is_expired)
+                                        <span class="text-muted small text-danger fw-bold text-center mt-1">Expired</span>
+                                    @elseif($b->remaining_seconds<=0)
+                                        <span class="text-muted small text-danger fw-bold text-center mt-1">Waktu Habis</span>
+                                    @elseif($b->status==='checkin')
+                                        <form action="{{ url('admin/podcast-room/'.$b->id.'/checkout') }}" method="POST">
+                                            @csrf<button class="btn btn-sm btn-warning text-dark w-100" onclick="return confirm('Check Out?')">Check Out</button>
+                                        </form>
+                                    @else
+                                        <form action="{{ url('admin/podcast-room/'.$b->id.'/checkin') }}" method="POST">
+                                            @csrf<button class="btn btn-sm btn-success w-100" onclick="return confirm('Check In?')">Check In</button>
+                                        </form>
+                                    @endif
+                                </div>
                             </td>
                         </tr>
                         @empty
@@ -121,5 +132,35 @@
 </div>
 @endsection
 @push('scripts')
-<script>setInterval(()=>location.reload(),30000);</script>
+<script>
+    function formatSecs(seconds) {
+        if (seconds <= 0) return 'Waktu habis';
+        const h = Math.floor(seconds / 3600);
+        const m = Math.floor((seconds % 3600) / 60);
+        const s = Math.floor(seconds % 60);
+        return h + " jam " + m + " menit " + s + " detik";
+    }
+
+    setInterval(() => {
+        document.querySelectorAll('.used-time-display').forEach(el => {
+            if (el.dataset.status === 'checkin') {
+                let used = parseInt(el.dataset.used);
+                used++;
+                el.dataset.used = used;
+                el.innerText = formatSecs(used);
+            }
+        });
+        document.querySelectorAll('.remaining-time-display').forEach(el => {
+            if (el.dataset.status === 'checkin') {
+                let rem = parseInt(el.dataset.remaining);
+                if (rem > 0) {
+                    rem--;
+                    el.dataset.remaining = rem;
+                    el.innerText = formatSecs(rem);
+                    if (rem === 0) location.reload();
+                }
+            }
+        });
+    }, 1000);
+</script>
 @endpush

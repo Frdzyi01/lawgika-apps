@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PodcastRoomBooking;
+use App\Models\RoomUsageLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -107,6 +108,17 @@ class PodcastRoomController extends Controller
         return view('admin.podcast-room.index', compact('bookings'));
     }
 
+    public function adminDetail($id)
+    {
+        $booking = PodcastRoomBooking::with('user')->findOrFail($id);
+        $logs = RoomUsageLog::where('reservation_id', $id)
+            ->where('room_type', 'podcast_room')
+            ->orderBy('timestamp', 'asc')
+            ->get();
+            
+        return view('admin.podcast-room.detail', compact('booking', 'logs'));
+    }
+
     public function approvePayment($id)
     {
         PodcastRoomBooking::findOrFail($id)->update(['payment_status' => 'approved']);
@@ -129,7 +141,10 @@ class PodcastRoomController extends Controller
         if ($booking->status === 'checkin') {
             return back()->with('error', 'Booking ini sudah di Check In.');
         }
-        if ($booking->remaining_minutes <= 0) {
+        if ($booking->is_expired) {
+            return back()->with('error', 'Masa berlaku reservasi sudah expired (lebih dari 1 tahun).');
+        }
+        if ($booking->remaining_seconds <= 0) {
             return back()->with('error', 'Waktu reservasi sudah habis.');
         }
 
@@ -139,7 +154,14 @@ class PodcastRoomController extends Controller
             'checkout_at' => null,
         ]);
 
-        return back()->with('success', 'Berhasil Check In Ruang Podcast.');
+        RoomUsageLog::create([
+            'reservation_id' => $booking->id,
+            'room_type'      => 'podcast_room',
+            'type'           => 'checkin',
+            'timestamp'      => now(),
+        ]);
+
+        return back()->with('success', 'User berhasil Check In ke ruangan.');
     }
 
     public function checkout($id)
@@ -150,18 +172,27 @@ class PodcastRoomController extends Controller
             return back()->with('error', 'Booking ini belum di Check In.');
         }
 
-        $sessionMinutes = (int) floor($booking->checkin_at->diffInSeconds(now()) / 60);
-        $newTotalUsed   = (int) $booking->total_used_minutes + $sessionMinutes;
-        $newStatus      = ($newTotalUsed >= $booking->total_minutes) ? 'selesai' : 'paused';
+        $sessionSeconds = $booking->checkin_at->diffInSeconds(now());
+        $prevUsed       = $booking->total_used_seconds > 0 ? $booking->total_used_seconds : ($booking->total_used_minutes * 60);
+        $newTotalUsed   = $prevUsed + $sessionSeconds;
+        $totalSeconds   = $booking->duration * 3600;
+        $newStatus      = ($newTotalUsed >= $totalSeconds) ? 'selesai' : 'paused';
 
         $booking->update([
             'status'             => $newStatus,
-            'total_used_minutes' => $newTotalUsed,
+            'total_used_seconds' => $newTotalUsed,
             'checkout_at'        => now(),
             'checkin_at'         => null,
         ]);
 
-        return back()->with('success', "Berhasil Check Out. Waktu terpakai sesi ini: {$sessionMinutes} menit.");
+        RoomUsageLog::create([
+            'reservation_id' => $booking->id,
+            'room_type'      => 'podcast_room',
+            'type'           => 'checkout',
+            'timestamp'      => now(),
+        ]);
+
+        return back()->with('success', "User berhasil Check Out dari ruangan. Durasi: " . $booking->formatSeconds($sessionSeconds) . ".");
     }
 
     // ── Customer ──────────────────────────────────────────────────────────────

@@ -145,12 +145,14 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     ]);
 
     Route::get('/meeting-room', [MeetingRoomController::class, 'adminIndex']);
+    Route::get('/meeting-room/{id}/detail', [MeetingRoomController::class, 'adminDetail']);
     Route::post('/meeting-room/{id}/checkin', [MeetingRoomController::class, 'checkin']);
     Route::post('/meeting-room/{id}/checkout', [MeetingRoomController::class, 'checkout']);
     Route::post('/meeting-room/{id}/approve-payment', [MeetingRoomController::class, 'approvePayment'])->name('admin.meeting-room.approve');
     Route::post('/meeting-room/{id}/reject-payment', [MeetingRoomController::class, 'rejectPayment'])->name('admin.meeting-room.reject');
 
     Route::get('/podcast-room', [\App\Http\Controllers\PodcastRoomController::class, 'adminIndex'])->name('podcast-room.index');
+    Route::get('/podcast-room/{id}/detail', [\App\Http\Controllers\PodcastRoomController::class, 'adminDetail']);
     Route::post('/podcast-room/{id}/checkin', [\App\Http\Controllers\PodcastRoomController::class, 'checkin']);
     Route::post('/podcast-room/{id}/checkout', [\App\Http\Controllers\PodcastRoomController::class, 'checkout']);
     Route::post('/podcast-room/{id}/approve-payment', [\App\Http\Controllers\PodcastRoomController::class, 'approvePayment'])->name('admin.podcast-room.approve');

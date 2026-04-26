@@ -323,7 +323,7 @@
           data-layanan-tab="foreign"
           type="button" role="tab"
           aria-controls="pane-foreign" aria-selected="false">
-          Foreign Services
+          Accounting Tax
           <span class="nav-arrow">→</span>
         </button>
       </li>
@@ -545,7 +545,7 @@
 
 
       {{-- ═══════════════════════════════════
-                 TAB 3 – Foreign Services
+                 TAB 3 – Accounting Tax
             ═══════════════════════════════════ --}}
       <div class="layanan-tab-pane"
         id="pane-foreign" role="tabpanel" aria-labelledby="tab-foreign">
@@ -655,11 +655,24 @@
     tabBtns.forEach(function(btn) {
       btn.addEventListener('click', function() {
         const target = btn.getAttribute('data-layanan-tab');
-        tabBtns.forEach(function(b) { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
-        btn.classList.add('active'); btn.setAttribute('aria-selected', 'true');
-        tabPanes.forEach(function(pane) { if (pane.classList.contains('active-visible')) { pane.classList.remove('active-visible'); pane.style.display = 'none'; } });
+        tabBtns.forEach(function(b) {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        tabPanes.forEach(function(pane) {
+          if (pane.classList.contains('active-visible')) {
+            pane.classList.remove('active-visible');
+            pane.style.display = 'none';
+          }
+        });
         const targetPane = document.getElementById('pane-' + target);
-        if (targetPane) { targetPane.style.display = 'block'; void targetPane.offsetWidth; targetPane.classList.add('active-visible'); }
+        if (targetPane) {
+          targetPane.style.display = 'block';
+          void targetPane.offsetWidth;
+          targetPane.classList.add('active-visible');
+        }
       });
     });
   })();
@@ -723,7 +736,11 @@
 
 {{-- ── Auth state untuk JS (server-side rendered, aman) ── --}}
 <script>
-  var IS_LOGGED_IN = {{ auth()->check() ? 'true' : 'false' }};
+  var IS_LOGGED_IN = {
+    {
+      auth() - > check() ? 'true' : 'false'
+    }
+  };
 
   function openOrderModal(serviceName) {
     if (!IS_LOGGED_IN) {
@@ -757,14 +774,18 @@
     if (!toast) return;
     toast.style.opacity = '0';
     toast.style.display = 'flex';
-    setTimeout(function() { toast.style.opacity = '1'; }, 10);
+    setTimeout(function() {
+      toast.style.opacity = '1';
+    }, 10);
   }
 
   function hideLoginToast() {
     var toast = document.getElementById('loginRequiredToast');
     if (!toast) return;
     toast.style.opacity = '0';
-    setTimeout(function() { toast.style.display = 'none'; }, 300);
+    setTimeout(function() {
+      toast.style.display = 'none';
+    }, 300);
   }
 
   function openLoginModal() {
@@ -789,9 +810,9 @@
   {{-- Icon --}}
   <div style="flex-shrink:0; padding-top:2px;">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#dc3545" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="12" cy="12" r="10"/>
-      <line x1="12" y1="8" x2="12" y2="12"/>
-      <line x1="12" y1="16" x2="12.01" y2="16"/>
+      <circle cx="12" cy="12" r="10" />
+      <line x1="12" y1="8" x2="12" y2="12" />
+      <line x1="12" y1="16" x2="12.01" y2="16" />
     </svg>
   </div>
 
@@ -833,5 +854,16 @@
   <span style="font-size:1.2rem;">✓</span>
   <span>{{ session('success') }}</span>
 </div>
-<script>setTimeout(function(){ var t = document.getElementById('orderToast'); if(t){t.style.transition='opacity .5s';t.style.opacity='0'; setTimeout(function(){t.remove();},500);} }, 4000);</script>
+<script>
+  setTimeout(function() {
+    var t = document.getElementById('orderToast');
+    if (t) {
+      t.style.transition = 'opacity .5s';
+      t.style.opacity = '0';
+      setTimeout(function() {
+        t.remove();
+      }, 500);
+    }
+  }, 4000);
+</script>
 @endif

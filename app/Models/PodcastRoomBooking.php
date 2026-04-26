@@ -11,7 +11,7 @@ class PodcastRoomBooking extends Model
         'user_id', 'order_number', 'name', 'podcast_title',
         'date', 'start_time', 'duration', 'participants', 'package',
         'total_price', 'payment_proof', 'payment_status', 'status',
-        'checkin_at', 'checkout_at', 'total_used_minutes',
+        'checkin_at', 'checkout_at', 'total_used_minutes', 'total_used_seconds',
     ];
 
     protected $casts = [
@@ -25,43 +25,65 @@ class PodcastRoomBooking extends Model
         return $this->belongsTo(User::class);
     }
 
-    /** Total quota in minutes */
-    public function getTotalMinutesAttribute(): int
+    /** Total quota in seconds */
+    public function getTotalSecondsAttribute(): int
     {
-        return (int) $this->duration * 60;
+        return (int) $this->duration * 3600;
     }
 
-    /** Minutes already used (including active session if checked-in) */
-    public function getUsedMinutesAttribute(): int
+    /** Seconds already used (including active session if checked-in) */
+    public function getUsedSecondsAttribute(): int
     {
-        $used = (int) $this->total_used_minutes;
+        // Migrasi fallback: jika total_used_seconds 0 tapi total_used_minutes ada
+        $used = $this->total_used_seconds > 0 ? $this->total_used_seconds : ($this->total_used_minutes * 60);
+
         if ($this->status === 'checkin' && $this->checkin_at) {
-            $used += (int) floor($this->checkin_at->diffInSeconds(now()) / 60);
+            $used += $this->checkin_at->diffInSeconds(now());
         }
+
         return $used;
     }
 
-    /** Remaining minutes */
-    public function getRemainingMinutesAttribute(): int
+    /** Remaining seconds */
+    public function getRemainingSecondsAttribute(): int
     {
-        return max(0, $this->total_minutes - $this->used_minutes);
+        return max(0, $this->total_seconds - $this->used_seconds);
+    }
+
+    /**
+     * Accessor: Apakah masa berlaku (1 tahun) sudah habis?
+     */
+    public function getIsExpiredAttribute()
+    {
+        return now()->greaterThan($this->created_at->addYear());
+    }
+
+    /** Human-readable used time */
+    public function getFormattedUsedTimeAttribute(): string
+    {
+        return $this->formatSeconds($this->used_seconds);
     }
 
     /** Human-readable remaining time */
     public function getFormattedRemainingTimeAttribute(): string
     {
-        $rem = $this->remaining_minutes;
+        if ($this->is_expired) {
+            return 'Expired';
+        }
+
+        $rem = $this->remaining_seconds;
         if ($rem <= 0) return 'Waktu habis';
-        $h = intdiv($rem, 60);
-        $m = $rem % 60;
-        return $h > 0 ? "{$h} jam {$m} menit" : "{$m} menit";
+        
+        return $this->formatSeconds($rem);
     }
 
-    /** Format helper for minutes → human */
-    public function formatMinutes(int $minutes): string
+    /** Format helper for seconds → human */
+    public function formatSeconds(int $seconds): string
     {
-        $h = intdiv($minutes, 60);
-        $m = $minutes % 60;
-        return $h > 0 ? "{$h} jam {$m} menit" : "{$m} menit";
+        $seconds = (int) max(0, floor($seconds));
+        $h = (int) floor($seconds / 3600);
+        $m = (int) floor(($seconds % 3600) / 60);
+        $s = $seconds % 60;
+        return "{$h} jam {$m} menit {$s} detik";
     }
 }

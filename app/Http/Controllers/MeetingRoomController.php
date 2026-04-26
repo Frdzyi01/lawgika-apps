@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\MeetingRoomBooking;
+use App\Models\RoomUsageLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -83,6 +84,17 @@ class MeetingRoomController extends Controller
         return view('admin.meeting-room.index', compact('bookings'));
     }
 
+    public function adminDetail($id)
+    {
+        $booking = MeetingRoomBooking::with('user')->findOrFail($id);
+        $logs = RoomUsageLog::where('reservation_id', $id)
+            ->where('room_type', 'meeting_room')
+            ->orderBy('timestamp', 'asc')
+            ->get();
+            
+        return view('admin.meeting-room.detail', compact('booking', 'logs'));
+    }
+
     public function customerIndex()
     {
         $bookings = MeetingRoomBooking::where('user_id', Auth::id())->latest()->get();
@@ -119,8 +131,12 @@ class MeetingRoomController extends Controller
             return redirect()->back()->with('error', 'Booking ini sudah di Check In.');
         }
 
-        $totalMinutes = $booking->duration * 60;
-        $remainingRaw = $totalMinutes - (int) $booking->total_used_minutes;
+        if ($booking->is_expired) {
+            return redirect()->back()->with('error', 'Masa berlaku reservasi sudah expired (lebih dari 1 tahun).');
+        }
+
+        $totalSeconds = $booking->duration * 3600;
+        $remainingRaw = $totalSeconds - $booking->used_seconds;
 
         if ($remainingRaw <= 0) {
             return redirect()->back()->with('error', 'Waktu reservasi sudah habis.');
@@ -132,7 +148,14 @@ class MeetingRoomController extends Controller
             'checkout_at' => null,
         ]);
 
-        return redirect()->back()->with('success', 'Berhasil Check In.');
+        RoomUsageLog::create([
+            'reservation_id' => $booking->id,
+            'room_type'      => 'meeting_room',
+            'type'           => 'checkin',
+            'timestamp'      => now(),
+        ]);
+
+        return redirect()->back()->with('success', 'User berhasil Check In ke ruangan.');
     }
 
     public function checkout($id)
@@ -149,21 +172,28 @@ class MeetingRoomController extends Controller
 
         $checkinAt      = $booking->checkin_at;
         $sessionSeconds = $checkinAt->diffInSeconds(now());
-        $sessionMinutes = (int) floor($sessionSeconds / 60);
 
-        $prevUsed     = (int) $booking->total_used_minutes;
-        $newTotalUsed = $prevUsed + $sessionMinutes;
-        $totalMinutes = (int) ($booking->duration * 60);
+        // fallback if total_used_seconds was 0 but total_used_minutes wasn't
+        $prevUsed     = $booking->total_used_seconds > 0 ? $booking->total_used_seconds : ($booking->total_used_minutes * 60);
+        $newTotalUsed = $prevUsed + $sessionSeconds;
+        $totalSeconds = $booking->duration * 3600;
 
-        $newStatus = ($newTotalUsed >= $totalMinutes) ? 'selesai' : 'paused';
+        $newStatus = ($newTotalUsed >= $totalSeconds) ? 'selesai' : 'paused';
 
         $booking->update([
             'status'             => $newStatus,
-            'total_used_minutes' => $newTotalUsed,
+            'total_used_seconds' => $newTotalUsed,
             'checkout_at'        => now(),
             'checkin_at'         => null,
         ]);
 
-        return redirect()->back()->with('success', 'Berhasil Check Out. Waktu terpakai sesi ini: ' . $sessionMinutes . ' menit.');
+        RoomUsageLog::create([
+            'reservation_id' => $booking->id,
+            'room_type'      => 'meeting_room',
+            'type'           => 'checkout',
+            'timestamp'      => now(),
+        ]);
+
+        return redirect()->back()->with('success', 'User berhasil Check Out dari ruangan. Durasi: ' . $booking->formatSeconds($sessionSeconds) . '.');
     }
 }

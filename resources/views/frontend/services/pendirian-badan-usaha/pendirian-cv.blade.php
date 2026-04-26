@@ -850,7 +850,7 @@
                         <li><i class="fa-solid fa-check"></i> NPWP & SKT & EFIN*</li>
                         <li><i class="fa-solid fa-check"></i> NIB & Sertifikat Standar* & PKKPR*</li>
                         <li class="disabled"><i class="fa-solid fa-minus"></i> Alamat Bisnis Eksklusif</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Fasilitas Ruang Meeting atau podcast 12 jam / bulan</li>
+                        <li class="disabled"><i class="fa-solid fa-minus"></i> Fasilitas Ruang Meeting atau podcast 60 jam / tahun</li>
                         <li class="disabled"><i class="fa-solid fa-minus"></i> Akses Wifi dan Smart TV</li>
                         <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Print, Scan dan Fotocopy</li>
                         <li class="disabled"><i class="fa-solid fa-minus"></i> Pengelolaan surat/paket masuk</li>
@@ -882,7 +882,7 @@
                         <li><i class="fa-solid fa-check"></i> NPWP & SKT & EFIN*</li>
                         <li><i class="fa-solid fa-check"></i> NIB & Sertifikat Standar* & PKKPR*</li>
                         <li><i class="fa-solid fa-check"></i> Alamat Bisnis Eksklusif</li>
-                        <li><i class="fa-solid fa-check"></i> Fasilitas Ruang Meeting atau podcast 12 jam / bulan</li>
+                        <li><i class="fa-solid fa-check"></i> Fasilitas Ruang Meeting atau podcast 60 jam / tahun</li>
                         <li><i class="fa-solid fa-check"></i> Akses Wifi dan Smart TV</li>
                         <li><i class="fa-solid fa-check"></i> Layanan Print, Scan dan Fotocopy</li>
                         <li><i class="fa-solid fa-check"></i> Pengelolaan surat/paket masuk</li>
@@ -913,7 +913,7 @@
                         <li><i class="fa-solid fa-check"></i> NPWP & SKT & EFIN*</li>
                         <li><i class="fa-solid fa-check"></i> NIB & Sertifikat Standar* & PKKPR*</li>
                         <li><i class="fa-solid fa-check"></i> Alamat Bisnis Eksklusif</li>
-                        <li><i class="fa-solid fa-check"></i> Fasilitas Ruang Meeting atau podcast 12 jam / bulan</li>
+                        <li><i class="fa-solid fa-check"></i> Fasilitas Ruang Meeting atau podcast 60 jam / tahun</li>
                         <li><i class="fa-solid fa-check"></i> Akses Wifi dan Smart TV</li>
                         <li><i class="fa-solid fa-check"></i> Layanan Print, Scan dan Fotocopy</li>
                         <li><i class="fa-solid fa-check"></i> Pengelolaan surat/paket masuk</li>
@@ -974,12 +974,12 @@
     // ── Universal goOrder ──────────────────────────────────────────────────
     function goOrder(service, pkg) {
         @guest
-            const loginModal = new bootstrap.Modal(document.getElementById('exampleModal'));
-            loginModal.show();
-            return;
+        const loginModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+        loginModal.show();
+        return;
         @endguest
         @auth
-            window.location.href = '/order/' + service + '/' + pkg;
+        window.location.href = '/order/' + service + '/' + pkg;
         @endauth
     }
 

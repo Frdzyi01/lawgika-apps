@@ -88,41 +88,51 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <small class="d-block">Total: {{ $booking->formatMinutes($booking->duration * 60) }}</small>
-                                    <small class="d-block">Dipakai: {{ $booking->formatMinutes($booking->used_minutes) }}</small>
+                                    <small class="d-block">Total: {{ $booking->formatSeconds($booking->duration * 3600) }}</small>
+                                    <small class="d-block">Dipakai: <span class="used-time-display" data-status="{{ $booking->status }}" data-used="{{ $booking->used_seconds }}">{{ $booking->formatted_used_time }}</span></small>
                                     @php
                                         $sisa = $booking->formatted_remaining_time;
-                                        $bc = $sisa === 'Waktu habis' ? 'bg-danger' : ((!str_contains($sisa,'jam') && (int)$sisa < 15) ? 'bg-warning text-dark' : 'bg-success');
+                                        $bc = 'bg-success';
+                                        if ($booking->is_expired || $sisa === 'Waktu habis') {
+                                            $bc = 'bg-danger';
+                                        }
                                     @endphp
-                                    <span class="badge {{ $bc }} mt-1">Sisa: {{ $sisa }}</span>
+                                    <span class="badge {{ $bc }} mt-1">Sisa: <span class="remaining-time-display" data-status="{{ $booking->status }}" data-remaining="{{ $booking->remaining_seconds }}">{{ $sisa }}</span></span>
                                 </td>
                                 <td>
-                                    @if($booking->remaining_minutes <= 0)
-                                        <span class="badge bg-secondary">Selesai</span>
+                                    @if($booking->is_expired)
+                                        <span class="badge bg-danger" title="Expired setelah 1 tahun dari reservasi dibuat">❌ Expired</span>
+                                    @elseif($booking->remaining_seconds <= 0)
+                                        <span class="badge bg-danger">⛔ Waktu Habis</span>
                                     @elseif($booking->status === 'checkin')
-                                        <span class="badge bg-primary">Sedang digunakan</span>
-                                    @elseif($booking->status === 'paused' || $booking->total_used_minutes > 0)
-                                        <span class="badge bg-warning text-dark">Berhenti sementara</span>
+                                        <span class="badge bg-success">✅ Aktif</span>
+                                    @elseif($booking->status === 'paused' || $booking->used_seconds > 0)
+                                        <span class="badge bg-warning text-dark">⏳ Berhenti sementara</span>
                                     @else
                                         <span class="badge bg-secondary">Pending</span>
                                     @endif
                                 </td>
                                 <td>
+                                <div class="d-flex flex-column gap-1">
+                                    <a href="{{ url('admin/meeting-room/'.$booking->id.'/detail') }}" class="btn btn-sm btn-info text-white"><i class="fas fa-eye"></i> Lihat Data</a>
                                     @if($booking->payment_status !== 'approved')
-                                        <span class="text-muted small">Tunggu konfirmasi bayar</span>
-                                    @elseif($booking->remaining_minutes <= 0)
-                                        <span class="text-muted small">Waktu Habis</span>
+                                        <span class="text-muted small text-center mt-1">Tunggu konfirmasi bayar</span>
+                                    @elseif($booking->is_expired)
+                                        <span class="text-muted small text-danger fw-bold text-center mt-1">Expired</span>
+                                    @elseif($booking->remaining_seconds <= 0)
+                                        <span class="text-muted small text-danger fw-bold text-center mt-1">Waktu Habis</span>
                                     @elseif($booking->status === 'checkin')
                                         <form action="{{ url('admin/meeting-room/'.$booking->id.'/checkout') }}" method="POST">
                                             @csrf
-                                            <button class="btn btn-sm btn-warning text-dark" onclick="return confirm('Check Out?')">Check Out</button>
+                                            <button class="btn btn-sm btn-warning text-dark w-100" onclick="return confirm('Check Out?')">Check Out</button>
                                         </form>
                                     @else
                                         <form action="{{ url('admin/meeting-room/'.$booking->id.'/checkin') }}" method="POST">
                                             @csrf
-                                            <button class="btn btn-sm btn-success" onclick="return confirm('Check In?')">Check In</button>
+                                            <button class="btn btn-sm btn-success w-100" onclick="return confirm('Check In?')">Check In</button>
                                         </form>
                                     @endif
+                                </div>
                                 </td>
                             </tr>
                         @empty
@@ -140,6 +150,34 @@
 
 @push('scripts')
 <script>
-    setInterval(() => location.reload(), 30000);
+    function formatSecs(seconds) {
+        if (seconds <= 0) return 'Waktu habis';
+        const h = Math.floor(seconds / 3600);
+        const m = Math.floor((seconds % 3600) / 60);
+        const s = Math.floor(seconds % 60);
+        return h + " jam " + m + " menit " + s + " detik";
+    }
+
+    setInterval(() => {
+        document.querySelectorAll('.used-time-display').forEach(el => {
+            if (el.dataset.status === 'checkin') {
+                let used = parseInt(el.dataset.used);
+                used++;
+                el.dataset.used = used;
+                el.innerText = formatSecs(used);
+            }
+        });
+        document.querySelectorAll('.remaining-time-display').forEach(el => {
+            if (el.dataset.status === 'checkin') {
+                let rem = parseInt(el.dataset.remaining);
+                if (rem > 0) {
+                    rem--;
+                    el.dataset.remaining = rem;
+                    el.innerText = formatSecs(rem);
+                    if (rem === 0) location.reload(); // auto refresh when exactly 0
+                }
+            }
+        });
+    }, 1000);
 </script>
 @endpush
