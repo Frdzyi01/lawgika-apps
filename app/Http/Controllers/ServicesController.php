@@ -122,19 +122,34 @@ class ServicesController extends Controller
         return view('frontend.services.pembukuan-pajak.audit-laporan-keuangan');
     }
 
+    public function ptPerorangan()
+    {
+        return view('frontend.services.layanan-hukum.pt-perorangan');
+    }
+
+    public function perizinanDanHukum()
+    {
+        return view('frontend.services.perizinan-dan-hukum');
+    }
+
     public function pengurusanPkp()
     {
         return view('frontend.services.pembukuan-pajak.pengurusan-pkp');
     }
 
+    public function pelaporanSptTahunan()
+    {
+        return view('frontend.services.pembukuan-pajak.pelaporan-spt-tahunan');
+    }
+
     public function pelaporanSptBadan()
     {
-        return view('frontend.services.pembukuan-pajak.pelaporan-spt-badan');
+        return redirect('/pelaporan-spt-tahunan', 301);
     }
 
     public function pelaporanSptPribadi()
     {
-        return view('frontend.services.pembukuan-pajak.pelaporan-spt-pribadi');
+        return redirect('/pelaporan-spt-tahunan', 301);
     }
 
     public function pendaftaranNpwp()

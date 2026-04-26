@@ -75,11 +75,14 @@ Route::get('/layanan-payroll', [ServicesController::class, 'layananPayroll']);
 Route::get('/point-of-sales-fnb', [ServicesController::class, 'pointOfSalesFnb']);
 Route::get('/audit-laporan-keuangan', [ServicesController::class, 'auditLaporanKeuangan']);
 Route::get('/pengurusan-pkp', [ServicesController::class, 'pengurusanPkp']);
-Route::get('/pelaporan-spt-badan', [ServicesController::class, 'pelaporanSptBadan']);
-Route::post('/spt-badan/store', [\App\Http\Controllers\SptBadanController::class, 'store'])
-    ->name('spt-badan.store')
-    ->middleware('auth');
-Route::get('/pelaporan-spt-pribadi', [ServicesController::class, 'pelaporanSptPribadi']);
+// Unified SPT Tahunan (Pribadi + Badan)
+Route::get('/pelaporan-spt-tahunan', [ServicesController::class, 'pelaporanSptTahunan'])->name('spt-tahunan.index');
+Route::post('/spt-tahunan/store', [\App\Http\Controllers\SptTahunanController::class, 'store'])->name('spt-tahunan.store')->middleware('auth');
+Route::get('/spt-tahunan/success', [\App\Http\Controllers\SptTahunanController::class, 'success'])->name('spt-tahunan.success')->middleware('auth');
+// Legacy redirects
+Route::get('/pelaporan-spt-badan', fn() => redirect('/pelaporan-spt-tahunan', 301));
+Route::get('/pelaporan-spt-pribadi', fn() => redirect('/pelaporan-spt-tahunan', 301));
+Route::post('/spt-badan/store', [\App\Http\Controllers\SptBadanController::class, 'store'])->name('spt-badan.store')->middleware('auth');
 Route::get('/pendaftaran-npwp', [ServicesController::class, 'pendaftaranNpwp']);
 Route::get('/audit-pajak', [ServicesController::class, 'auditPajak']);
 
@@ -98,6 +101,7 @@ Route::get('/layanan-visa-kitas', [ServicesController::class, 'layananVisaKitas'
 Route::get('/layanan-call-answering', [ServicesController::class, 'layananCallAnswering']);
 Route::get('/virtual-office', [ServicesController::class, 'virtualOffice']);
 Route::get('/kerjasama-bisnis', [ServicesController::class, 'kerjasamaBisnis']);
+Route::get('/perizinan-dan-hukum', [ServicesController::class, 'perizinanDanHukum']);
 
 Route::get('/karir', [KarirController::class, 'Karir']);
 
@@ -148,8 +152,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::post('/podcast-room/{id}/approve-payment', [\App\Http\Controllers\PodcastRoomController::class, 'approvePayment'])->name('admin.podcast-room.approve');
     Route::post('/podcast-room/{id}/reject-payment', [\App\Http\Controllers\PodcastRoomController::class, 'rejectPayment'])->name('admin.podcast-room.reject');
 
-    Route::get('/spt-badan', [\App\Http\Controllers\SptBadanController::class, 'adminDashboard'])->name('spt-badan.index');
-    Route::post('/spt-badan/{id}/status', [\App\Http\Controllers\SptBadanController::class, 'updateStatus'])->name('spt-badan.status');
+    Route::get('/spt-badan', [\App\Http\Controllers\SptTahunanController::class, 'adminDashboard'])->name('spt-badan.index');
+    Route::post('/spt-badan/{id}/status', [\App\Http\Controllers\SptTahunanController::class, 'updateStatus'])->name('spt-badan.status');
 });
 
 Route::middleware(['auth', 'role:customer'])->prefix('dashboard')->name('customer.')->group(function () {
@@ -165,7 +169,7 @@ Route::middleware(['auth', 'role:customer'])->prefix('dashboard')->name('custome
 
     Route::get('/podcast-room', [\App\Http\Controllers\PodcastRoomController::class, 'customerIndex'])->name('podcast-room.index');
 
-    Route::get('/spt-badan', [\App\Http\Controllers\SptBadanController::class, 'customerDashboard'])->name('spt-badan.index');
+    Route::get('/spt-badan', [\App\Http\Controllers\SptTahunanController::class, 'customerDashboard'])->name('spt-badan.index');
 });
 
 Route::get('/layanan/{slug}', [\App\Http\Controllers\PublicServiceController::class, 'show'])->name('services.show');

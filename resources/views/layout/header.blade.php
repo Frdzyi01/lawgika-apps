@@ -416,6 +416,16 @@
                           <div class="lw-mega-body">
 
                             <div class="lw-mega-cols">
+                              <div class="lw-col">
+                                <div class="lw-col-title">
+                                  <i class="fas fa-file-contract"></i> Kantor &amp; Ruang Podcast
+                                </div>
+                                <ul>
+                                  <li><a href="{{ url('/virtual-office') }}">Virtual Office</a></li>
+                                  <li><a href="{{ url('/sewa-meeting-room') }}">Sewa Meeting Room</a></li>
+                                  <li><a href="{{ url('/sewa-ruang-podcast') }}">Sewa Ruang Podcast</a></li>
+                                </ul>
+                              </div>
 
                               <div class="lw-col">
                                 <div class="lw-col-title">
@@ -429,29 +439,7 @@
                                   <li><a href="{{ url('/pendirian-yayasan') }}">Pendirian Yayasan</a></li>
                                   <li><a href="{{ url('/pendirian-firma') }}">Pendirian Firma</a></li>
                                   <hr>
-                                  <li><a href="{{'#' }}">Perizinan dan Hukum</a></li>
-                                </ul>
-                              </div>
-
-                              <div class="lw-col">
-                                <div class="lw-col-title">
-                                  <i class="fas fa-file-contract"></i> Perizinan &amp; Hukum
-                                </div>
-                                <ul>
-                                  <li><a href="{{ url('/nib-dan-oss') }}">NIB &amp; OSS</a></li>
-                                  <li><a href="{{ url('/haki') }}">HAKI / Pendaftaran Merek</a></li>
-                                  <li><a href="{{ url('/laporan-lkpm') }}">Laporan LKPM</a></li>
-                                  <li><a href="{{ url('/sertifikat-iso') }}">Sertifikat ISO</a></li>
-                                  <li><a href="{{ url('/surat-keterangan-tidak-pailit') }}" style="font-size: 14px !important;">Surat Keterangan Tidak Pailit</a></li>
-                                  <li><a href="{{ url('/drafting-review-perjanjian-bisnis') }}">Drafting Perjanjian Bisnis</a></li>
-                                </ul>
-                                <div class="lw-col-title mt-3">
-                                  <i class="fas fa-map-marker-alt"></i> Kantor &amp; Ruang Podcast
-                                </div>
-                                <ul>
-                                  <li><a href="{{ url('/virtual-office') }}">Virtual Office</a></li>
-                                  <li><a href="{{ url('/sewa-meeting-room') }}">Sewa Meeting Room</a></li>
-                                  <li><a href="{{ url('/sewa-ruang-podcast') }}">Sewa Ruang Podcast</a></li>
+                                  <li><a href="{{ url('/perizinan-dan-hukum') }}">Perizinan dan Hukum</a></li>
                                 </ul>
                               </div>
 
@@ -461,9 +449,8 @@
                                 </div>
                                 <ul>
                                   <li><a href="{{ url('/jasa-pembukuan-perpajakan') }}">Jasa Pembukuan & Perpajakan</a></li>
-                                  <li><a href="{{ url('/pendaftaran-npwp') }}">Pendaftaran NPWP</a></li>
-                                  <li><a href="{{ url('/pelaporan-spt-badan') }}">Pelaporan SPT Badan</a></li>
-                                  <li><a href="{{ url('/pelaporan-spt-pribadi') }}">Pelaporan SPT Pribadi</a></li>
+                                  <!-- <li><a href="{{ url('/pendaftaran-npwp') }}">Pendaftaran NPWP</a></li> -->
+                                  <li><a href="{{ url('/pelaporan-spt-tahunan') }}">Pelaporan SPT Tahunan</a></li>
                                   <li><a href="{{ url('/pengurusan-pkp') }}">Pengurusan PKP</a></li>
                                 </ul>
 
@@ -506,6 +493,19 @@
 
                         <div class="mobile-cat-item">
                           <a href="#" class="mobile-cat-toggle">
+                            <span>Kantor &amp; Ruang Podcast</span>
+                          </a>
+                          <div class="mobile-cat-body" style="display: none;">
+                            <ul>
+                              <li><a href="{{ url('/virtual-office') }}">Virtual Office</a></li>
+                              <li><a href="{{ url('/sewa-meeting-room') }}">Sewa Meeting Room</a></li>
+                              <li><a href="{{ url('/sewa-ruang-podcast') }}">Sewa Ruang Podcast</a></li>
+                            </ul>
+                          </div>
+                        </div>
+
+                        <div class="mobile-cat-item">
+                          <a href="#" class="mobile-cat-toggle">
                             <span>Layanan BIsnis</span>
                           </a>
                           <div class="mobile-cat-body" style="display: none;">
@@ -522,48 +522,17 @@
 
                         <div class="mobile-cat-item">
                           <a href="#" class="mobile-cat-toggle">
-                            <span>Perizinan & Hukum</span>
-                          </a>
-                          <div class="mobile-cat-body" style="display: none;">
-                            <ul>
-                              <li><a href="{{ url('/nib-dan-oss') }}">NIB & OSS</a></li>
-                              <li><a href="{{ url('/haki') }}">HAKI / Pendaftaran Merek</a></li>
-                              <li><a href="{{ url('/laporan-lkpm') }}">Laporan LKPM</a></li>
-                              <li><a href="{{ url('/sertifikat-iso') }}">Sertifikat ISO</a></li>
-                              <li><a href="{{ url('/surat-keterangan-tidak-pailit') }}">Surat Keterangan Tidak Pailit</a></li>
-                              <li><a href="{{ url('/drafting-review-perjanjian-bisnis') }}">Drafting Perjanjian Bisnis</a></li>
-                            </ul>
-                          </div>
-                        </div>
-
-                        <div class="mobile-cat-item">
-                          <a href="#" class="mobile-cat-toggle">
                             <span>Pajak & Pembukuan</span>
                           </a>
                           <div class="mobile-cat-body" style="display: none;">
                             <ul>
                               <li><a href="{{ url('/jasa-pembukuan-perpajakan') }}">Jasa Pembukuan & Perpajakan</a></li>
-                              <li><a href="{{ url('/pendaftaran-npwp') }}">Pendaftaran NPWP</a></li>
-                              <li><a href="{{ url('/pelaporan-spt-badan') }}">Pelaporan SPT Badan</a></li>
-                              <li><a href="{{ url('/pelaporan-spt-pribadi') }}">Pelaporan SPT Pribadi</a></li>
+                              <!-- <li><a href="{{ url('/pendaftaran-npwp') }}">Pendaftaran NPWP</a></li> -->
+                              <li><a href="{{ url('/pelaporan-spt-tahunan') }}">Pelaporan SPT Tahunan</a></li>
                               <li><a href="{{ url('/pengurusan-pkp') }}">Pengurusan PKP</a></li>
                             </ul>
                           </div>
                         </div>
-
-                        <div class="mobile-cat-item">
-                          <a href="#" class="mobile-cat-toggle">
-                            <span>Kantor & Ruang Podcast</span>
-                          </a>
-                          <div class="mobile-cat-body" style="display: none;">
-                            <ul>
-                              <li><a href="{{ url('/virtual-office') }}">Virtual Office</a></li>
-                              <li><a href="{{ url('/sewa-meeting-room') }}">Sewa Meeting Room</a></li>
-                              <li><a href="{{ url('/sewa-ruang-podcast') }}">Sewa Ruang Podcast</a></li>
-                            </ul>
-                          </div>
-                        </div>
-
                       </div>
                     </li>
 
