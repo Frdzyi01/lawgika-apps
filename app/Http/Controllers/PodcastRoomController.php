@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PodcastRoomBooking;
 use App\Models\RoomUsageLog;
+use App\Models\UserRoomQuota;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -41,11 +42,14 @@ class PodcastRoomController extends Controller
 
     public function order(Request $request)
     {
+        $quota = UserRoomQuota::where('user_id', Auth::id())->first();
+
         return view('podcast-room.order', [
             'tanggal' => $request->get('tanggal'),
             'jam'     => $request->get('jam'),
             'durasi'  => $request->get('durasi', 2),
             'packages'=> self::$packages,
+            'quota'   => $quota,
         ]);
     }
 
@@ -53,15 +57,35 @@ class PodcastRoomController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $rules = [
             'nama'          => 'required|string|max:255',
             'podcast_title' => 'nullable|string|max:255',
             'tanggal'       => 'required|date',
             'jam'           => 'required',
             'durasi'        => 'required|integer|min:2',
             'peserta'       => 'required|integer|min:1',
-            'payment_proof' => 'required|image|mimes:jpg,jpeg,png|max:2048',
-        ]);
+            'use_quota'     => 'nullable|boolean',
+        ];
+
+        if (!$request->input('use_quota')) {
+            $rules['payment_proof'] = 'required|image|mimes:jpg,jpeg,png|max:2048';
+        }
+
+        $request->validate($rules);
+
+        if ($request->input('use_quota')) {
+            $quota = UserRoomQuota::where('user_id', Auth::id())->first();
+            if (!$quota) {
+                return back()->withInput()->withErrors(['quota' => 'Anda tidak memiliki quota.']);
+            }
+            if (now()->greaterThan($quota->expired_at)) {
+                return back()->withInput()->withErrors(['quota' => 'Quota Anda sudah expired.']);
+            }
+            $reqSeconds = $request->durasi * 3600;
+            if ($quota->remaining_seconds < $reqSeconds) {
+                return back()->withInput()->withErrors(['quota' => 'Sisa waktu quota tidak mencukupi untuk durasi ini.']);
+            }
+        }
 
         // Double-booking guard
         $conflict = PodcastRoomBooking::where('date', $request->tanggal)
@@ -74,7 +98,11 @@ class PodcastRoomController extends Controller
                 ->withErrors(['jam' => 'Slot waktu tersebut sudah dipesan. Silakan pilih waktu lain.']);
         }
 
-        $path       = $request->file('payment_proof')->store('payment_proofs/podcast', 'public');
+        $path = null;
+        if ($request->hasFile('payment_proof')) {
+            $path = $request->file('payment_proof')->store('payment_proofs/podcast', 'public');
+        }
+
         $durasi     = (int) $request->durasi;
         if ($durasi < 2 || $durasi % 2 !== 0) $durasi = 2; // Guard for multiples of 2
         $price      = ($durasi / 2) * 500000;
@@ -93,11 +121,14 @@ class PodcastRoomController extends Controller
             'total_price'    => $price,
             'status'         => 'pending',
             'payment_proof'  => $path,
-            'payment_status' => 'pending',
+            'payment_status' => $request->input('use_quota') ? 'approved' : 'pending',
         ]);
 
-        return redirect()->route('customer.podcast-room.index')
-            ->with('success', "Reservasi Ruang Podcast berhasil! Nomor Order: {$orderNum}. Menunggu konfirmasi pembayaran admin.");
+        $msg = $request->input('use_quota') 
+            ? "Reservasi Ruang Podcast menggunakan quota berhasil! Nomor Order: {$orderNum}. Status langsung disetujui."
+            : "Reservasi Ruang Podcast berhasil! Nomor Order: {$orderNum}. Menunggu konfirmasi pembayaran admin.";
+
+        return redirect()->route('customer.podcast-room.index')->with('success', $msg);
     }
 
     // ── Admin ─────────────────────────────────────────────────────────────────
@@ -191,6 +222,21 @@ class PodcastRoomController extends Controller
             'type'           => 'checkout',
             'timestamp'      => now(),
         ]);
+
+        // ── Deduct Shared Quota if exists ─────────────────────────────────────
+        $quota = UserRoomQuota::where('user_id', $booking->user_id)->first();
+        if ($quota && !now()->greaterThan($quota->expired_at) && empty($booking->payment_proof)) {
+            $quota->used_seconds += $sessionSeconds;
+            $quota->remaining_seconds = max(0, $quota->total_seconds - $quota->used_seconds);
+            $quota->save();
+
+            \App\Models\QuotaLog::create([
+                'user_id'   => $booking->user_id,
+                'room_type' => 'podcast_room',
+                'duration'  => $sessionSeconds,
+                'tanggal'   => now(),
+            ]);
+        }
 
         return back()->with('success', "User berhasil Check Out dari ruangan. Durasi: " . $booking->formatSeconds($sessionSeconds) . ".");
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\MeetingRoomBooking;
 use App\Models\RoomUsageLog;
+use App\Models\UserRoomQuota;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,11 +17,14 @@ class MeetingRoomController extends Controller
 
     public function order(Request $request)
     {
+        $quota = UserRoomQuota::where('user_id', Auth::id())->first();
+
         return view('meeting-room.order', [
             'tanggal'  => $request->get('tanggal'),
             'jam'      => $request->get('jam'),
             'durasi'   => $request->get('durasi', 1),
             'package'  => $request->get('package', 'reservasi'),
+            'quota'    => $quota,
         ]);
     }
 
@@ -39,14 +43,35 @@ class MeetingRoomController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $rules = [
             'nama'          => 'required|string|max:255',
             'tanggal'       => 'required|date',
             'jam'           => 'required',
             'peserta'       => 'required|integer|min:1',
             'durasi'        => 'required|integer|min:1',
-            'payment_proof' => 'required|image|mimes:jpg,jpeg,png|max:2048',
-        ]);
+            'use_quota'     => 'nullable|boolean',
+        ];
+
+        // Jika tidak pakai quota, payment proof wajib
+        if (!$request->input('use_quota')) {
+            $rules['payment_proof'] = 'required|image|mimes:jpg,jpeg,png|max:2048';
+        }
+
+        $request->validate($rules);
+
+        if ($request->input('use_quota')) {
+            $quota = UserRoomQuota::where('user_id', Auth::id())->first();
+            if (!$quota) {
+                return back()->withInput()->withErrors(['quota' => 'Anda tidak memiliki quota.']);
+            }
+            if (now()->greaterThan($quota->expired_at)) {
+                return back()->withInput()->withErrors(['quota' => 'Quota Anda sudah expired.']);
+            }
+            $reqSeconds = $request->durasi * 3600;
+            if ($quota->remaining_seconds < $reqSeconds) {
+                return back()->withInput()->withErrors(['quota' => 'Sisa waktu quota tidak mencukupi untuk durasi ini.']);
+            }
+        }
 
         // ── Double-booking guard ──────────────────────────────────────────────
         $conflict = MeetingRoomBooking::where('date', $request->tanggal)
@@ -60,7 +85,10 @@ class MeetingRoomController extends Controller
                 ->withErrors(['jam' => 'Slot waktu tersebut sudah dipesan. Silakan pilih waktu lain.']);
         }
 
-        $path = $request->file('payment_proof')->store('payment_proofs', 'public');
+        $path = null;
+        if ($request->hasFile('payment_proof')) {
+            $path = $request->file('payment_proof')->store('payment_proofs', 'public');
+        }
 
         MeetingRoomBooking::create([
             'user_id'        => Auth::id(),
@@ -71,11 +99,14 @@ class MeetingRoomController extends Controller
             'participants'   => $request->peserta,
             'status'         => 'pending',
             'payment_proof'  => $path,
-            'payment_status' => 'pending',
+            'payment_status' => $request->input('use_quota') ? 'approved' : 'pending',
         ]);
 
-        return redirect()->route('customer.meeting-room.index')
-            ->with('success', 'Reservasi berhasil dibuat! Menunggu konfirmasi pembayaran dari admin.');
+        $msg = $request->input('use_quota') 
+            ? 'Reservasi menggunakan quota berhasil dibuat! Status langsung disetujui.' 
+            : 'Reservasi berhasil dibuat! Menunggu konfirmasi pembayaran dari admin.';
+
+        return redirect()->route('customer.meeting-room.index')->with('success', $msg);
     }
 
     public function adminIndex()
@@ -193,6 +224,21 @@ class MeetingRoomController extends Controller
             'type'           => 'checkout',
             'timestamp'      => now(),
         ]);
+
+        // ── Deduct Shared Quota if exists ─────────────────────────────────────
+        $quota = UserRoomQuota::where('user_id', $booking->user_id)->first();
+        if ($quota && !now()->greaterThan($quota->expired_at) && empty($booking->payment_proof)) {
+            $quota->used_seconds += $sessionSeconds;
+            $quota->remaining_seconds = max(0, $quota->total_seconds - $quota->used_seconds);
+            $quota->save();
+
+            \App\Models\QuotaLog::create([
+                'user_id'   => $booking->user_id,
+                'room_type' => 'meeting_room',
+                'duration'  => $sessionSeconds,
+                'tanggal'   => now(),
+            ]);
+        }
 
         return redirect()->back()->with('success', 'User berhasil Check Out dari ruangan. Durasi: ' . $booking->formatSeconds($sessionSeconds) . '.');
     }

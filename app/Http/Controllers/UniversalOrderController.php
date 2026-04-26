@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Document;
 use App\Models\Order;
+use App\Models\UserRoomQuota;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -161,6 +162,19 @@ class UniversalOrderController extends Controller
         if (empty($user->phone) && !empty($request->director_phone)) {
             $user->phone = $request->director_phone;
             $user->save();
+        }
+
+        // ── Auto Create Shared Room Quota for PT Eksklusif/Enterprise ─────────
+        if (in_array(strtolower($packageKey), ['eksklusif', 'eksekutif', 'enterprise'])) {
+            UserRoomQuota::updateOrCreate(
+                ['user_id' => $user->id],
+                [
+                    'total_seconds'     => 216000, // 60 jam
+                    'used_seconds'      => \DB::raw('used_seconds'), // keep if exists, or defaults to 0 if new
+                    'remaining_seconds' => \DB::raw('216000 - used_seconds'), 
+                    'expired_at'        => now()->addYear()
+                ]
+            );
         }
 
         return redirect()->route('order.success', [

@@ -156,9 +156,23 @@
                 </div>
             </div>
 
+            @if(isset($quota) && !now()->greaterThan($quota->expired_at) && $quota->remaining_seconds > 0)
+                <div style="background:#fdf2f8; border:1px solid #fbcfe8; border-radius:10px; padding:20px; margin-bottom:20px;">
+                    <h5 style="color:#be185d; font-weight:700; margin-bottom:10px;"><i class="fa-solid fa-gem"></i> Anda Memiliki Quota Ruangan!</h5>
+                    <p style="margin-bottom:15px; color:#831843;">Sisa quota Anda: <strong>{{ $quota->formatted_remaining_time }}</strong> (Berlaku hingga {{ \Carbon\Carbon::parse($quota->expired_at)->format('d M Y') }})</p>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="use_quota" id="use_quota" value="1" checked onchange="togglePaymentProof()">
+                        <label class="form-check-label fw-bold text-dark" style="margin-bottom:0;" for="use_quota">
+                            Gunakan Quota untuk Reservasi ini (Bebas Biaya)
+                        </label>
+                    </div>
+                </div>
+            @endif
+
             <!-- Manual Transfer Instructions -->
-            <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:20px; margin-bottom:20px;">
-                <h5 style="font-size:1.05rem; font-weight:700; color:var(--dark); margin-bottom:15px;"><i class="fa-solid fa-building-columns"></i> Instruksi Pembayaran (Transfer Bank)</h5>
+            <div id="payment-section">
+                <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:20px; margin-bottom:20px;">
+                    <h5 style="font-size:1.05rem; font-weight:700; color:var(--dark); margin-bottom:15px;"><i class="fa-solid fa-building-columns"></i> Instruksi Pembayaran (Transfer Bank)</h5>
                 <p style="font-size:0.95rem; color:var(--gray); margin-bottom:10px;">Silakan lakukan pembayaran ke rekening berikut:</p>
                 <div style="background:#fff; padding:15px; border-radius:8px; border:1px solid #e2e8f0;">
                     <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
@@ -191,6 +205,7 @@
                     <p id="file-name" style="color:var(--primary); font-weight:600; margin:8px 0 0; font-size:0.9rem; display:none;"></p>
                 </div>
                 <input type="file" id="payment_proof" name="payment_proof" accept="image/jpg,image/jpeg,image/png" required style="display:none;" onchange="showFileName(this)">
+                </div>
             </div>
 
             <div style="background:#fef9c3; border:1px solid #fde047; border-radius:10px; padding:14px; margin-bottom:20px; font-size:0.9rem; color:#713f12;">
@@ -262,8 +277,24 @@ Mohon konfirmasinya. Terima kasih.`;
     window.open(url, '_blank');
 }
 
+function togglePaymentProof() {
+    const useQuota = document.getElementById('use_quota');
+    const paymentSection = document.getElementById('payment-section');
+    const paymentProofInput = document.getElementById('payment_proof');
+    if (useQuota && useQuota.checked) {
+        paymentSection.style.display = 'none';
+        paymentProofInput.required = false;
+    } else {
+        paymentSection.style.display = 'block';
+        paymentProofInput.required = true;
+    }
+}
+
 // Inisialisasi total saat load
-document.addEventListener('DOMContentLoaded', updateTotal);
+document.addEventListener('DOMContentLoaded', () => {
+    updateTotal();
+    togglePaymentProof();
+});
 </script>
     </div>
 </div>

@@ -85,9 +85,23 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);}
             </div>
         </div>
 
+        @if(isset($quota) && !now()->greaterThan($quota->expired_at) && $quota->remaining_seconds > 0)
+            <div style="background:#fdf2f8; border:1px solid #fbcfe8; border-radius:10px; padding:20px; margin-bottom:20px;">
+                <h5 style="color:#be185d; font-weight:700; margin-bottom:10px;"><i class="fa-solid fa-gem"></i> Anda Memiliki Quota Ruangan!</h5>
+                <p style="margin-bottom:15px; color:#831843;">Sisa quota Anda: <strong>{{ $quota->formatted_remaining_time }}</strong> (Berlaku hingga {{ \Carbon\Carbon::parse($quota->expired_at)->format('d M Y') }})</p>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="use_quota" id="use_quota" value="1" checked onchange="togglePaymentProof()">
+                    <label class="form-check-label fw-bold text-dark" style="margin-bottom:0;" for="use_quota">
+                        Gunakan Quota untuk Reservasi ini (Bebas Biaya)
+                    </label>
+                </div>
+            </div>
+        @endif
+
         {{-- Payment Info --}}
-        <div class="bank-box">
-            <h5><i class="fa-solid fa-building-columns me-1"></i> Instruksi Pembayaran (Transfer Bank)</h5>
+        <div id="payment-section">
+            <div class="bank-box">
+                <h5><i class="fa-solid fa-building-columns me-1"></i> Instruksi Pembayaran (Transfer Bank)</h5>
             <p style="font-size:.88rem;color:var(--gray);margin-bottom:12px;">Silakan lakukan pembayaran ke rekening berikut:</p>
             <div class="bank-row"><span style="color:#64748b;">Bank</span><strong>BCA (Bank Central Asia)</strong></div>
             <div class="bank-row"><span style="color:#64748b;">No. Rekening</span><strong style="letter-spacing:1px;font-size:1.05rem;">869 123 4567</strong></div>
@@ -106,7 +120,9 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);}
                 <p style="color:#94a3b8;margin:4px 0 0;font-size:.78rem;">JPG, PNG, JPEG — Maks. 2MB</p>
                 <p id="fileName" style="color:var(--primary);font-weight:600;margin:8px 0 0;font-size:.88rem;display:none;"></p>
             </div>
+            </div>
             <input type="file" id="payment_proof" name="payment_proof" accept="image/jpg,image/jpeg,image/png" required style="display:none;" onchange="showFile(this)">
+        </div>
         </div>
 
         <div style="background:#fef9c3;border:1px solid #fde047;border-radius:10px;padding:13px;font-size:.88rem;color:#713f12;margin-bottom:18px;">
@@ -145,6 +161,21 @@ function showFile(input){
     const lbl = document.getElementById('fileName');
     if(input.files&&input.files[0]){lbl.textContent='✅ '+input.files[0].name;lbl.style.display='block';}
 }
-document.addEventListener('DOMContentLoaded', hitungTotal);
+function togglePaymentProof() {
+    const useQuota = document.getElementById('use_quota');
+    const paymentSection = document.getElementById('payment-section');
+    const paymentProofInput = document.getElementById('payment_proof');
+    if (useQuota && useQuota.checked) {
+        paymentSection.style.display = 'none';
+        paymentProofInput.required = false;
+    } else {
+        paymentSection.style.display = 'block';
+        paymentProofInput.required = true;
+    }
+}
+document.addEventListener('DOMContentLoaded', () => {
+    hitungTotal();
+    togglePaymentProof();
+});
 </script>
 @endsection

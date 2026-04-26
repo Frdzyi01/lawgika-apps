@@ -23,6 +23,8 @@ class DashboardController extends Controller
             'rejected'   => Order::where('user_id', auth()->id())->where('status', 'rejected')->count(),
         ];
 
-        return view('customer.dashboard.index', compact('orders', 'stats'));
+        $quota = \App\Models\UserRoomQuota::where('user_id', auth()->id())->first();
+
+        return view('customer.dashboard.index', compact('orders', 'stats', 'quota'));
     }
 }
