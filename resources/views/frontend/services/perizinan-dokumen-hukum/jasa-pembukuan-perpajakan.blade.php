@@ -941,7 +941,7 @@
                             <li><i class="fa-solid fa-check"></i> Laporan SPT Tahunan Badan</li>
                             <li><i class="fa-solid fa-check"></i> Konsultasi perpajakan</li>
                         </ul>
-                        <a href="https://wa.me/628123456789?text=Halo%20saya%20tertarik%20Paket%20Basic%20Pembukuan" class="btn-pricing">Pilih Paket Basic</a>
+                        <a href="/order/jasa-pembukuan-perpajakan/pembukuan-pajak/premium" class="btn-pricing">Pilih Paket Premium</a>
                     </div>
                 </div>
 
@@ -965,7 +965,7 @@
                             <li><i class="fa-solid fa-check"></i> Laporan SPT Tahunan Badan</li>
                             <li><i class="fa-solid fa-check"></i> Konsultasi perpajakan</li>
                         </ul>
-                        <a href="https://wa.me/628123456789?text=Halo%20saya%20tertarik%20Paket%20Professional%20Pembukuan" class="btn-pricing-primary">Pilih Paket Professional</a>
+                        <a href="/order/jasa-pembukuan-perpajakan/pembukuan-pajak/eksklusif" class="btn-pricing-primary">Pilih Paket Eksklusif</a>
                     </div>
                 </div>
 
@@ -988,7 +988,7 @@
                             <li><i class="fa-solid fa-check"></i> Laporan SPT Tahunan Badan</li>
                             <li><i class="fa-solid fa-check"></i> Konsultasi perpajakan</li>
                         </ul>
-                        <a href="https://wa.me/628123456789?text=Halo%20saya%20tertarik%20Paket%20Enterprise%20Pembukuan" class="btn-pricing">Pilih Paket Enterprise</a>
+                        <a href="/order/jasa-pembukuan-perpajakan/pembukuan-pajak/enterprise" class="btn-pricing">Pilih Paket Enterprise</a>
                     </div>
                 </div>
             </div>
@@ -1017,7 +1017,7 @@
                             <li><i class="fa-solid fa-check"></i> Laporan SPT Tahunan Badan</li>
                             <li><i class="fa-solid fa-check"></i> Konsultasi perpajakan</li>
                         </ul>
-                        <a href="https://wa.me/628123456789?text=Halo%20saya%20tertarik%20Paket%20Pajak%20Basic" class="btn-pricing">Pilih Paket Pajak Basic</a>
+                        <a href="/order/jasa-pembukuan-perpajakan/berlangganan-pajak/premium" class="btn-pricing">Pilih Paket Premium</a>
                     </div>
                 </div>
 
@@ -1041,7 +1041,7 @@
                             <li><i class="fa-solid fa-check"></i> Laporan SPT Tahunan Badan</li>
                             <li><i class="fa-solid fa-check"></i> Konsultasi perpajakan</li>
                         </ul>
-                        <a href="https://wa.me/628123456789?text=Halo%20saya%20tertarik%20Paket%20Pajak%20Professional" class="btn-pricing-primary">Pilih Paket Pajak Professional</a>
+                        <a href="/order/jasa-pembukuan-perpajakan/berlangganan-pajak/eksklusif" class="btn-pricing-primary">Pilih Paket Eksklusif</a>
                     </div>
                 </div>
 
@@ -1064,7 +1064,7 @@
                             <li><i class="fa-solid fa-check"></i> Laporan SPT Tahunan Badan</li>
                             <li><i class="fa-solid fa-check"></i> Konsultasi perpajakan</li>
                         </ul>
-                        <a href="https://wa.me/628123456789?text=Halo%20saya%20tertarik%20Paket%20Pajak%20Enterprise" class="btn-pricing">Pilih Paket Pajak Enterprise</a>
+                        <a href="/order/jasa-pembukuan-perpajakan/berlangganan-pajak/enterprise" class="btn-pricing">Pilih Paket Enterprise</a>
                     </div>
                 </div>
             </div>

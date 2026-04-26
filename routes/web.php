@@ -69,6 +69,10 @@ Route::get('/drafting-review-perjanjian-bisnis', [ServicesController::class, 'dr
 
 // pembukuan dan perpajakan
 Route::get('/jasa-pembukuan-perpajakan', [ServicesController::class, 'jasaPembukuanPerpajakan'])->name('jasa-pembukuan-perpajakan');
+// Jasa Pembukuan – Multi package order flow
+Route::get('/order/jasa-pembukuan-perpajakan/{kategori}/{paket}', [\App\Http\Controllers\JasaPembukuanController::class, 'create'])->name('jpp.create')->middleware('auth');
+Route::post('/order/jasa-pembukuan-perpajakan', [\App\Http\Controllers\JasaPembukuanController::class, 'store'])->name('jpp.store')->middleware('auth');
+Route::get('/order/jasa-pembukuan-perpajakan/success', [\App\Http\Controllers\JasaPembukuanController::class, 'success'])->name('jpp.success')->middleware('auth');
 Route::get('/langganan-jasa-pembukuan', [ServicesController::class, 'langgananJasaPembukuan']);
 Route::get('/langganan-jasa-perpajakan', [ServicesController::class, 'langgananJasaPerpajakan']);
 Route::get('/layanan-payroll', [ServicesController::class, 'layananPayroll']);
