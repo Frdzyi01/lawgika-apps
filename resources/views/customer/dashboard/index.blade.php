@@ -36,9 +36,9 @@
             <div class="card-body p-4">
                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
                     <h5 class="fw-bold mb-0" style="color:#be185d;"><ion-icon name="time-outline" class="me-2 align-middle"></ion-icon> Quota Ruangan (Shared)</h5>
-                    <span class="badge bg-danger bg-opacity-10 text-danger border border-danger rounded-pill px-3 py-2">Berlaku hingga: {{ \Carbon\Carbon::parse($quota->expired_at)->format('d M Y') }}</span>
+                    <span class="badge bg-danger bg-opacity-10 text-danger border border-danger rounded-pill px-3 py-2" style="color: white !important;">Berlaku hingga: {{ \Carbon\Carbon::parse($quota->expired_at)->format('d M Y') }}</span>
                 </div>
-                
+
                 <div class="mb-2 d-flex justify-content-between align-items-end">
                     <div>
                         <small class="text-muted d-block mb-1">Sisa Waktu Anda:</small>
@@ -51,7 +51,7 @@
                 </div>
 
                 @php
-                    $percent = $quota->total_seconds > 0 ? ($quota->used_seconds / $quota->total_seconds) * 100 : 0;
+                $percent = $quota->total_seconds > 0 ? ($quota->used_seconds / $quota->total_seconds) * 100 : 0;
                 @endphp
                 <div class="progress" style="height: 12px; border-radius: 6px; background-color: #f1f5f9; overflow: hidden;">
                     <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="background-color: #be185d; width: {{ $percent }}%;" aria-valuenow="{{ $percent }}" aria-valuemin="0" aria-valuemax="100"></div>
@@ -121,14 +121,14 @@
                         <td>{{ $order->service_name ?? ($order->service->name ?? '—') }}</td>
                         <td>
                             @php
-                                $badge = match($order->status) {
-                                    'pending'    => 'warning',
-                                    'approved'   => 'success',
-                                    'processing' => 'info',
-                                    'rejected'   => 'danger',
-                                    'completed'  => 'primary',
-                                    default      => 'secondary',
-                                };
+                            $badge = match($order->status) {
+                            'pending' => 'warning',
+                            'approved' => 'success',
+                            'processing' => 'info',
+                            'rejected' => 'danger',
+                            'completed' => 'primary',
+                            default => 'secondary',
+                            };
                             @endphp
                             <span class="badge bg-{{ $badge }} bg-opacity-20 text-{{ $badge }} border border-{{ $badge }}">
                                 {{ ucfirst($order->status) }}

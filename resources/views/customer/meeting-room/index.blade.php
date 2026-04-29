@@ -22,9 +22,22 @@
         </div>
     @endif
 
+    {{-- ============================================================ --}}
+    {{-- TABLE 1 (NEW): Benefit dari Paket PT                        --}}
+    {{-- ============================================================ --}}
+    @include('partials.room-benefit-table', [
+        'benefits'  => $benefits,
+        'roomLabel' => 'Meeting Room',
+        'isAdmin'   => false,
+        'roomType'  => 'meeting',
+    ])
+
+    {{-- ============================================================ --}}
+    {{-- TABLE 2 (EXISTING): Reservasi Manual — unchanged query/data --}}
+    {{-- ============================================================ --}}
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Daftar Reservasi Anda</h6>
+            <h6 class="m-0 font-weight-bold text-primary">📋 Reservasi Manual</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">

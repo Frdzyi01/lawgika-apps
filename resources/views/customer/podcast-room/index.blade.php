@@ -15,9 +15,22 @@
     <div class="alert alert-danger alert-dismissible fade show">{{ session('error') }}<button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
     @endif
 
+    {{-- ============================================================ --}}
+    {{-- TABLE 1 (NEW): Benefit dari Paket PT                        --}}
+    {{-- ============================================================ --}}
+    @include('partials.room-benefit-table', [
+        'benefits'  => $benefits,
+        'roomLabel' => 'Podcast Room',
+        'isAdmin'   => false,
+        'roomType'  => 'podcast',
+    ])
+
+    {{-- ============================================================ --}}
+    {{-- TABLE 2 (EXISTING): Reservasi Manual — unchanged query/data --}}
+    {{-- ============================================================ --}}
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">🎙️ Reservasi Ruang Podcast Anda</h6>
+            <h6 class="m-0 font-weight-bold text-primary">🎙️ Reservasi Manual</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -55,8 +68,8 @@
                             </td>
                             <td>
                                 @if($b->payment_status==='approved')
-                                    <small class="d-block">Total: {{ $b->formatMinutes($b->duration*60) }}</small>
-                                    <small class="d-block">Dipakai: {{ $b->formatMinutes($b->used_minutes) }}</small>
+                                    <small class="d-block">Total: {{ $b->formatSeconds($b->duration * 3600) }}</small>
+                                    <small class="d-block">Dipakai: {{ $b->formatted_used_time }}</small>
                                     @php $sisa=$b->formatted_remaining_time; $bc=$sisa==='Waktu habis'?'bg-danger':'bg-success'; @endphp
                                     <span class="badge {{ $bc }} mt-1">Sisa: {{ $sisa }}</span>
                                 @else
@@ -66,7 +79,7 @@
                             <td>
                                 @if($b->payment_status!=='approved')
                                     <span class="badge bg-secondary">Belum aktif</span>
-                                @elseif($b->remaining_minutes<=0)
+                                @elseif($b->remaining_seconds<=0)
                                     <span class="badge bg-secondary">Selesai</span>
                                 @elseif($b->status==='checkin')
                                     <span class="badge bg-primary">Sedang Digunakan</span>

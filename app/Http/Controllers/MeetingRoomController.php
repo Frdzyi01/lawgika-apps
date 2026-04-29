@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\MeetingRoomBooking;
+use App\Models\RoomBenefit;
 use App\Models\RoomUsageLog;
 use App\Models\UserRoomQuota;
 use Illuminate\Http\Request;
@@ -111,8 +112,10 @@ class MeetingRoomController extends Controller
 
     public function adminIndex()
     {
-        $bookings = MeetingRoomBooking::latest()->get();
-        return view('admin.meeting-room.index', compact('bookings'));
+        $bookings  = MeetingRoomBooking::latest()->get();
+        // NEW: collect all active benefits across all users for admin view
+        $benefits  = RoomBenefit::with(['user', 'order'])->latest()->get();
+        return view('admin.meeting-room.index', compact('bookings', 'benefits'));
     }
 
     public function adminDetail($id)
@@ -129,7 +132,12 @@ class MeetingRoomController extends Controller
     public function customerIndex()
     {
         $bookings = MeetingRoomBooking::where('user_id', Auth::id())->latest()->get();
-        return view('customer.meeting-room.index', compact('bookings'));
+        // NEW: load this customer's own benefits for display
+        $benefits = RoomBenefit::with('order')
+            ->where('user_id', Auth::id())
+            ->latest()
+            ->get();
+        return view('customer.meeting-room.index', compact('bookings', 'benefits'));
     }
 
     public function approvePayment($id)

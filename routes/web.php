@@ -137,6 +137,12 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::post('documents/{document}/status', [\App\Http\Controllers\Admin\DocumentController::class, 'updateStatus'])->name('documents.status');
     Route::post('orders/{order}/payment-status', [\App\Http\Controllers\Admin\OrderController::class, 'updatePaymentStatus'])->name('orders.payment-status');
 
+    // ── Room Benefit System (NEW) ─────────────────────────────────────────────
+    Route::post('orders/{order}/approve-benefit', [\App\Http\Controllers\Admin\RoomBenefitController::class, 'approve'])->name('orders.approve-benefit');
+    Route::post('benefits/{benefit}/checkin/{roomType}', [\App\Http\Controllers\Admin\RoomBenefitController::class, 'checkin'])->name('benefits.checkin');
+    Route::post('benefits/{benefit}/checkout/{roomType}', [\App\Http\Controllers\Admin\RoomBenefitController::class, 'checkout'])->name('benefits.checkout');
+    Route::get('benefits/{benefit}/detail', [\App\Http\Controllers\Admin\RoomBenefitController::class, 'showDetail'])->name('benefits.detail');
+
     Route::resource('promo', PromoController::class);
     Route::resource('event-upcoming', EventUpComingController::class);
     Route::resource('peraturan-kbli', PeraturanKBLIController::class);
@@ -174,6 +180,9 @@ Route::middleware(['auth', 'role:customer'])->prefix('dashboard')->name('custome
     Route::post('/meeting-room/{id}/checkout', [MeetingRoomController::class, 'checkout']);
 
     Route::get('/podcast-room', [\App\Http\Controllers\PodcastRoomController::class, 'customerIndex'])->name('podcast-room.index');
+
+    // ── Room Benefit Detail (NEW — read-only for customer) ────────────────────
+    Route::get('benefits/{benefit}/detail', [\App\Http\Controllers\Customer\RoomBenefitController::class, 'showDetail'])->name('benefits.detail');
 
     Route::get('/spt-badan', [\App\Http\Controllers\SptTahunanController::class, 'customerDashboard'])->name('spt-badan.index');
 });

@@ -12,9 +12,22 @@
     <div class="alert alert-danger alert-dismissible fade show">{{ session('error') }}<button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
     @endif
 
+    {{-- ============================================================ --}}
+    {{-- TABLE 1 (NEW): Benefit dari Paket PT                        --}}
+    {{-- ============================================================ --}}
+    @include('partials.room-benefit-table', [
+        'benefits'  => $benefits,
+        'roomLabel' => 'Podcast Room',
+        'isAdmin'   => true,
+        'roomType'  => 'podcast',
+    ])
+
+    {{-- ============================================================ --}}
+    {{-- TABLE 2 (EXISTING): Reservasi Manual                        --}}
+    {{-- ============================================================ --}}
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-center">
-            <h6 class="m-0 font-weight-bold text-primary">🎙️ Daftar Reservasi Ruang Podcast</h6>
+            <h6 class="m-0 font-weight-bold text-primary">🎙️ Reservasi Manual — Ruang Podcast</h6>
             <span class="badge bg-primary">{{ $bookings->count() }} Reservasi</span>
         </div>
         <div class="card-body">

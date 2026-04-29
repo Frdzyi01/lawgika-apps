@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PodcastRoomBooking;
+use App\Models\RoomBenefit;
 use App\Models\RoomUsageLog;
 use App\Models\UserRoomQuota;
 use Illuminate\Http\Request;
@@ -136,7 +137,9 @@ class PodcastRoomController extends Controller
     public function adminIndex()
     {
         $bookings = PodcastRoomBooking::with('user')->latest()->get();
-        return view('admin.podcast-room.index', compact('bookings'));
+        // NEW: collect all active benefits across all users for admin view
+        $benefits = RoomBenefit::with(['user', 'order'])->latest()->get();
+        return view('admin.podcast-room.index', compact('bookings', 'benefits'));
     }
 
     public function adminDetail($id)
@@ -246,6 +249,11 @@ class PodcastRoomController extends Controller
     public function customerIndex()
     {
         $bookings = PodcastRoomBooking::where('user_id', Auth::id())->latest()->get();
-        return view('customer.podcast-room.index', compact('bookings'));
+        // NEW: load this customer's own benefits for display
+        $benefits = RoomBenefit::with('order')
+            ->where('user_id', Auth::id())
+            ->latest()
+            ->get();
+        return view('customer.podcast-room.index', compact('bookings', 'benefits'));
     }
 }

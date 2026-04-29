@@ -32,7 +32,7 @@ class UniversalOrderController extends Controller
         'professional' => 'Paket Professional',
         'enterprise'   => 'Paket Enterprise',
         'premium'      => 'Paket Premium',
-        'eksklusif'    => 'Paket Eksekutif',
+        'eksklusif'    => 'Paket Eksklusif',   // Fixed: was "Paket Eksekutif" (typo)
         'eksekutif'    => 'Paket Eksekutif',
     ];
 

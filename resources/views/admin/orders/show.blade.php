@@ -26,6 +26,12 @@
     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
 </div>
 @endif
+@if(session('error'))
+<div class="alert alert-danger alert-dismissible fade show">
+    {{ session('error') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+@endif
 
 <div class="row g-4">
     {{-- Left: Order Info --}}
@@ -230,9 +236,11 @@
         @endif
     </div>
 
-    {{-- Right: Update Status --}}
+    {{-- Right: Update Status + Approve Room Benefit --}}
     <div class="col-md-4">
-        <div class="card border-0 shadow-sm">
+
+        {{-- Update Status --}}
+        <div class="card border-0 shadow-sm mb-4">
             <div class="card-header bg-transparent border-bottom-0 pt-4 pb-2 px-4">
                 <h6 class="fw-bold mb-0">Update Status</h6>
             </div>
@@ -269,6 +277,86 @@
                 </form>
             </div>
         </div>
+
+        {{-- ============================================================ --}}
+        {{-- ROOM BENEFIT APPROVAL (NEW — isolated, does not break existing) --}}
+        {{-- ============================================================ --}}
+        @php
+            use App\Models\RoomBenefit;
+            // ROOT FIX: read form_data['package'] (raw slug) as primary source.
+            // service_name stores the display label which may contain typos
+            // (e.g. "Paket Eksekutif" instead of "Paket Eksklusif").
+            // The raw slug from form_data is always clean: 'eksklusif' / 'enterprise'.
+            $formData       = $order->form_data ?? [];
+            $rawSlug        = strtolower(trim($formData['package'] ?? ''));
+            $serviceNameRaw = strtolower(trim($order->service_name ?? ($order->service->name ?? '')));
+            $isEligible     = RoomBenefit::isEligiblePackage($rawSlug)
+                           || RoomBenefit::isEligiblePackage($serviceNameRaw);
+            $packageName    = $order->service_name ?? ($order->service->name ?? '');
+            $existingBenefit = RoomBenefit::where('order_id', $order->id)->first();
+        @endphp
+
+        @if($isEligible)
+        <div class="card border-0 shadow-sm" style="border-left: 4px solid #198754 !important;">
+            <div class="card-header bg-transparent border-bottom-0 pt-4 pb-2 px-4 d-flex align-items-center gap-2">
+                <i class="fa fa-door-open text-success"></i>
+                <h6 class="fw-bold mb-0">Approve Benefit Ruangan</h6>
+            </div>
+            <div class="card-body px-4 pb-4">
+
+                <p class="text-muted small mb-3">
+                    Paket <strong>{{ $packageName }}</strong> berhak mendapatkan
+                    <strong>60 jam</strong> akses ruangan (Meeting Room + Podcast Room)
+                    sebagai shared pool berlaku 1 tahun.
+                </p>
+
+                @if($existingBenefit)
+                    {{-- Already approved — show summary --}}
+                    <div class="alert alert-success py-2 px-3 mb-0" style="font-size:.88rem;">
+                        <i class="fa fa-circle-check me-1"></i>
+                        <strong>Benefit sudah diaktifkan</strong><br>
+                        <span class="text-muted">
+                            Disetujui: {{ $existingBenefit->created_at->format('d M Y, H:i') }}<br>
+                            Total: 60 jam &nbsp;|&nbsp;
+                            Dipakai: {{ RoomBenefit::formatMinutes($existingBenefit->used_minutes) }}<br>
+                            Sisa: <strong>{{ RoomBenefit::formatMinutes($existingBenefit->remaining_minutes) }}</strong><br>
+                            Berlaku hingga: {{ $existingBenefit->expired_at?->format('d M Y') ?? '–' }}
+                        </span>
+                    </div>
+                @else
+                    {{-- Show approve button --}}
+                    <form action="{{ route('admin.orders.approve-benefit', $order->id) }}" method="POST">
+                        @csrf
+                        <button type="submit"
+                                id="btn-approve-benefit"
+                                class="btn btn-success w-100"
+                                onclick="return confirm('Aktifkan benefit 60 jam untuk customer ini?\nTindakan ini tidak dapat dibatalkan.')">
+                            <i class="fa fa-unlock me-1"></i> Approve Benefit
+                        </button>
+                    </form>
+                    <p class="text-muted small mt-2 mb-0">
+                        ⚠️ Satu pesanan hanya bisa di-approve satu kali.
+                    </p>
+                @endif
+            </div>
+        </div>
+
+        @else
+        {{-- Not eligible — informational card --}}
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-transparent border-bottom-0 pt-4 pb-2 px-4 d-flex align-items-center gap-2">
+                <i class="fa fa-door-closed text-secondary"></i>
+                <h6 class="fw-bold mb-0 text-secondary">Benefit Ruangan</h6>
+            </div>
+            <div class="card-body px-4 pb-4">
+                <p class="text-muted small mb-0">
+                    Paket <strong>{{ $packageName ?: '–' }}</strong> tidak termasuk benefit ruangan.<br>
+                    Hanya paket <strong>Eksklusif</strong> dan <strong>Enterprise</strong> yang berhak.
+                </p>
+            </div>
+        </div>
+        @endif
+
     </div>
 </div>
 @endsection
