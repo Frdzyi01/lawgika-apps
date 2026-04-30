@@ -43,6 +43,14 @@ class UniversalOrderController extends Controller
         'Di atas 1 Miliar'  => ['premium' => 6930000, 'eksklusif' => 8640000, 'eksekutif' => 8640000, 'enterprise' => 9540000],
     ];
 
+    public static array $otherPricing = [
+        'pt-perorangan' => ['basic' => 2000000, 'professional' => 6000000, 'enterprise' => 8000000],
+        'cv'            => ['premium' => 6030000, 'eksklusif' => 7740000, 'enterprise' => 8640000],
+        'firma'         => ['premium' => 6030000, 'eksklusif' => 7740000, 'enterprise' => 8640000],
+        'yayasan'       => ['premium' => 6030000, 'eksklusif' => 7740000, 'enterprise' => 8640000],
+        'pt-pma'        => ['premium' => 7830000, 'eksklusif' => 9540000, 'enterprise' => 10440000],
+    ];
+
     // ─────────────────────────────────────────────────────────────────────────
 
     /**
@@ -140,6 +148,14 @@ class UniversalOrderController extends Controller
             $formData['modal_dasar'] = $request->input('modal_dasar');
         }
 
+        $totalBiaya = 0;
+        if ($serviceKey === 'pendirian-pt' && $request->has('modal_dasar')) {
+            $md = $request->input('modal_dasar');
+            $totalBiaya = self::$ptPricing[$md][$packageKey] ?? 0;
+        } elseif (isset(self::$otherPricing[$serviceKey][$packageKey])) {
+            $totalBiaya = self::$otherPricing[$serviceKey][$packageKey];
+        }
+
         // ── Create order ──────────────────────────────────────────────────────
         $order = Order::create([
             'order_number' => 'ORD-' . strtoupper(substr($serviceKey, 0, 3)) . '-' . date('Ymd') . '-' . strtoupper(Str::random(5)),
@@ -147,7 +163,7 @@ class UniversalOrderController extends Controller
             'service_id'   => $dbService?->id,
             'service_name' => $serviceName,
             'status'       => 'draft',
-            'total_price'  => 0,
+            'total_price'  => $totalBiaya,
             'notes'        => $request->notes,
             'form_data'    => $formData,
         ]);
@@ -211,6 +227,8 @@ class UniversalOrderController extends Controller
         $totalBiaya = null;
         if ($serviceKey === 'pendirian-pt' && $modalDasar && isset(self::$ptPricing[$modalDasar][$packageKey])) {
             $totalBiaya = self::$ptPricing[$modalDasar][$packageKey];
+        } elseif (isset(self::$otherPricing[$serviceKey][$packageKey])) {
+            $totalBiaya = self::$otherPricing[$serviceKey][$packageKey];
         }
 
         return view('order.success', compact('serviceKey', 'packageKey', 'serviceInfo', 'packageLabel', 'orderNumber', 'modalDasar', 'totalBiaya'));

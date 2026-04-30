@@ -59,6 +59,12 @@
           </a>
         </li>
         <li>
+          <a href="{{ route('customer.surat-menyurat.index') }}">
+            <div class="parent-icon"><ion-icon name="mail-unread-outline"></ion-icon></div>
+            <div class="menu-title">Surat Menyurat</div>
+          </a>
+        </li>
+        <li>
           <a href="{{ route('customer.meeting-room.index') }}">
             <div class="parent-icon"><ion-icon name="business-outline"></ion-icon></div>
             <div class="menu-title">Reservasi Meeting Room</div>

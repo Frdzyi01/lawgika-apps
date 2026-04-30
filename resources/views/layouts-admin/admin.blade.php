@@ -95,6 +95,12 @@
             <div class="menu-title">Laporan SPT Badan</div>
           </a>
         </li>
+        <li>
+          <a href="{{ route('admin.surat-menyurat.index') }}">
+            <div class="parent-icon"><ion-icon name="mail-unread-outline"></ion-icon></div>
+            <div class="menu-title">Surat Menyurat</div>
+          </a>
+        </li>
        
         <li class="menu-label">Berita dan Artikel</li>
         <li>

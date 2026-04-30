@@ -13,6 +13,8 @@ use App\Http\Controllers\UniversalOrderController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MeetingRoomController;
+use App\Http\Controllers\Admin\CorrespondenceController as AdminCorrespondenceController;
+use App\Http\Controllers\Customer\CorrespondenceController as CustomerCorrespondenceController;
 
 Route::get('/', function () {
     $promos = \App\Models\Promo::where('status', true)
@@ -173,6 +175,12 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
     Route::get('/spt-badan', [\App\Http\Controllers\SptTahunanController::class, 'adminDashboard'])->name('spt-badan.index');
     Route::post('/spt-badan/{id}/status', [\App\Http\Controllers\SptTahunanController::class, 'updateStatus'])->name('spt-badan.status');
+
+    // ── Surat Menyurat Dokumen Legal (NEW) ────────────────────────────────────
+    Route::get('/surat-menyurat', [AdminCorrespondenceController::class, 'index'])->name('surat-menyurat.index');
+    Route::get('/surat-menyurat/{id}', [AdminCorrespondenceController::class, 'show'])->name('surat-menyurat.show');
+    Route::post('/surat-menyurat/reply/{id}', [AdminCorrespondenceController::class, 'reply'])->name('surat-menyurat.reply');
+    Route::post('/surat-menyurat/status/{id}', [AdminCorrespondenceController::class, 'updateStatus'])->name('surat-menyurat.status');
 });
 
 Route::middleware(['auth', 'role:customer'])->prefix('dashboard')->name('customer.')->group(function () {
@@ -192,6 +200,12 @@ Route::middleware(['auth', 'role:customer'])->prefix('dashboard')->name('custome
     Route::get('benefits/{benefit}/detail', [\App\Http\Controllers\Customer\RoomBenefitController::class, 'showDetail'])->name('benefits.detail');
 
     Route::get('/spt-badan', [\App\Http\Controllers\SptTahunanController::class, 'customerDashboard'])->name('spt-badan.index');
+
+    // ── Surat Menyurat Dokumen Legal (NEW) ────────────────────────────────────
+    Route::get('/surat-menyurat', [CustomerCorrespondenceController::class, 'index'])->name('surat-menyurat.index');
+    Route::get('/surat-menyurat/create', [CustomerCorrespondenceController::class, 'create'])->name('surat-menyurat.create');
+    Route::post('/surat-menyurat', [CustomerCorrespondenceController::class, 'store'])->name('surat-menyurat.store');
+    Route::get('/surat-menyurat/{id}', [CustomerCorrespondenceController::class, 'show'])->name('surat-menyurat.show');
 });
 
 Route::get('/layanan/{slug}', [\App\Http\Controllers\PublicServiceController::class, 'show'])->name('services.show');
