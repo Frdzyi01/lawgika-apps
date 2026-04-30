@@ -42,7 +42,7 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);}
 
         <div class="form-group">
             <label for="nama">Nama Lengkap <span class="text-danger">*</span></label>
-            <input type="text" id="nama" name="nama" class="form-control" required placeholder="Masukkan nama Anda" value="{{ old('nama', auth()->user()->name ?? '') }}">
+            <input type="text" id="nama" name="nama" class="form-control" required placeholder="Masukkan nama Anda" value="{{ old('nama', auth()->user()->name ?? '') }}" readonly>
         </div>
 
         <div class="form-group">

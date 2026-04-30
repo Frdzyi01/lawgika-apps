@@ -127,7 +127,7 @@
             @csrf
             <div class="form-group">
                 <label for="nama">Nama Lengkap</label>
-                <input type="text" id="nama" name="nama" class="form-control" required placeholder="Masukkan nama Anda" value="{{ old('nama') }}">
+                <input type="text" id="nama" name="nama" class="form-control" required placeholder="Masukkan nama Anda" value="{{ old('nama', auth()->user()->name ?? '') }}" readonly>
             </div>
 
             <div class="form-group">

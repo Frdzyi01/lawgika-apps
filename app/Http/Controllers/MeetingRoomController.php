@@ -44,6 +44,9 @@ class MeetingRoomController extends Controller
 
     public function store(Request $request)
     {
+        if (auth()->check()) {
+            $request->merge(['nama' => auth()->user()->name]);
+        }
         $rules = [
             'nama'          => 'required|string|max:255',
             'tanggal'       => 'required|date',

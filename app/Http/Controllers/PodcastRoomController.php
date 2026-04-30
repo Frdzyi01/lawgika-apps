@@ -58,6 +58,9 @@ class PodcastRoomController extends Controller
 
     public function store(Request $request)
     {
+        if (auth()->check()) {
+            $request->merge(['nama' => auth()->user()->name]);
+        }
         $rules = [
             'nama'          => 'required|string|max:255',
             'podcast_title' => 'nullable|string|max:255',
