@@ -65,12 +65,12 @@
           </a>
         </li>
         <li class="menu-label">Penjualan & Jasa</li>
-        <li>
+        <!-- <li>
           <a href="{{ route('admin.services.index') }}">
             <div class="parent-icon"><ion-icon name="briefcase-outline"></ion-icon></div>
             <div class="menu-title">Jasa Layanan</div>
           </a>
-        </li>
+        </li> -->
         <li>
           <a href="{{ route('admin.orders.index') }}">
             <div class="parent-icon"><ion-icon name="cart-outline"></ion-icon></div>

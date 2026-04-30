@@ -140,7 +140,7 @@
                             <small class="text-muted">{{ $item->slug }}</small>
                         </td>
                         <td>
-                            <span class="badge bg-secondary">{{ $item->kategori }}</span>
+                            <span class="badge bg-secondary" style="color: #fff !important;">{{ $item->kategori }}</span>
                         </td>
                         <td>
                             <div class="fw-bold">{{ $item->penulis }}</div>
@@ -149,13 +149,13 @@
                         <td>
                             @if($item->published_at)
                                 @if($item->published_at <= now())
-                                    <span class="badge bg-success mb-1">Published</span><br>
+                                    <span class="badge bg-success mb-1" style="color: #fff !important;">Published</span><br>
                                 @else
                                     <span class="badge bg-warning text-dark mb-1">Scheduled</span><br>
                                 @endif
                                 {{ $item->published_at->translatedFormat('d M Y, H:i') }}
                             @else
-                                <span class="badge bg-danger">Draft</span>
+                                <span class="badge bg-danger" style="color: #fff !important;">Draft</span>
                             @endif
                         </td>
                         <td>

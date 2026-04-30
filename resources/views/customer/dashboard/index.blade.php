@@ -130,7 +130,7 @@
                             default => 'secondary',
                             };
                             @endphp
-                            <span class="badge bg-{{ $badge }} bg-opacity-20 text-{{ $badge }} border border-{{ $badge }}">
+                            <span class="badge bg-{{ $badge }} px-3 py-2" style="border-radius: 6px; color: {{ in_array($badge, ['warning', 'light']) ? '#000' : '#fff' }} !important;">
                                 {{ ucfirst($order->status) }}
                             </span>
                         </td>

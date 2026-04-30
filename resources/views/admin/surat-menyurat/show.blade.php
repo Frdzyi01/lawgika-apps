@@ -21,7 +21,7 @@
   @endif
 
     {{-- ④ Update Status --}}
-  <div class="card border-0 shadow-sm" style="border-radius:16px;border-top:3px solid #22c55e!important;">
+  <div class="card border-0 shadow-sm rounded-4 border-top border-3 border-success mb-4">
     <div class="card-body p-4">
       <h6 class="fw-bold mb-3">
         <ion-icon name="checkmark-done-circle-outline" style="vertical-align:-2px;color:#22c55e;"></ion-icon>
@@ -30,14 +30,14 @@
       <form action="{{ route('admin.surat-menyurat.status', $correspondence->id) }}"
             method="POST" class="d-flex align-items-center gap-3 flex-wrap">
         @csrf
-        <select name="status" class="form-select" style="max-width:200px;border-radius:10px;">
+        <select name="status" class="form-select w-auto rounded-3">
           @foreach(['pending' => 'Menunggu', 'replied' => 'Dibalas', 'done' => 'Selesai'] as $val => $label)
           <option value="{{ $val }}" {{ $correspondence->status === $val ? 'selected' : '' }}>
             {{ $label }}
           </option>
           @endforeach
         </select>
-        <button type="submit" class="btn btn-success px-4 fw-semibold" style="border-radius:10px;">
+        <button type="submit" class="btn btn-success px-4 fw-semibold rounded-3">
           Update Status
         </button>
       </form>
@@ -45,8 +45,8 @@
   </div>
   
   {{-- ① Detail Dokumen Asli --}}
-  <div class="card border-0 shadow-sm mb-4" style="border-radius:16px;">
-    <div class="card-body p-5">
+  <div class="card border-0 shadow-sm mb-4 rounded-4">
+    <div class="card-body p-4">
 
       <div class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-4">
         <div>
@@ -64,28 +64,27 @@
           </div>
         </div>
         @php
-          $badgeStyle = match($correspondence->status) {
-            'done'    => 'background:#dcfce7;color:#16a34a;border:1px solid #bbf7d0;',
-            'replied' => 'background:#dbeafe;color:#1d4ed8;border:1px solid #bfdbfe;',
-            default   => 'background:#f3f4f6;color:#6b7280;border:1px solid #e5e7eb;',
+          $badgeColor = match($correspondence->status) {
+            'done'    => 'success',
+            'replied' => 'info',
+            default   => 'warning',
           };
         @endphp
-        <span style="font-size:.82rem;padding:5px 14px;border-radius:99px;font-weight:700;{{ $badgeStyle }}">
+        <span class="badge bg-{{ $badgeColor }} rounded-pill px-3 py-2" style="color: {{ in_array($badgeColor, ['warning', 'light', 'info']) ? '#000' : '#fff' }} !important;">
           {{ $correspondence->status_label }}
         </span>
       </div>
 
       {{-- Note --}}
-      <div class="rounded-3 p-3 mb-4" style="background:#f8fafc;border:1px solid #e2e8f0;">
-        <p class="text-muted mb-1" style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;">Catatan dari Customer</p>
-        <p class="mb-0" style="font-size:.92rem;line-height:1.7;">{{ $correspondence->note }}</p>
+      <div class="rounded-3 p-3 mb-4 bg-light border">
+        <p class="text-muted mb-1 fw-bold"><small>CATATAN DARI CUSTOMER</small></p>
+        <p class="mb-0">{{ $correspondence->note }}</p>
       </div>
 
       {{-- Download --}}
       <a href="{{ asset('storage/' . $correspondence->file_path) }}"
          target="_blank"
-         class="btn btn-outline-danger fw-semibold px-4"
-         style="border-radius:10px;font-size:.87rem;">
+         class="btn btn-outline-danger fw-semibold px-4 rounded-3">
         <ion-icon name="download-outline" style="vertical-align:-2px;"></ion-icon>
         Download Dokumen Customer
       </a>
@@ -93,53 +92,53 @@
     </div>
   </div>
 
-  
   {{-- ② Riwayat Balasan --}}
-  <h6 class="fw-bold mb-3 text-secondary" style="font-size:.82rem;text-transform:uppercase;letter-spacing:.5px;">
+  <h6 class="fw-bold mb-3 text-secondary text-uppercase"><small>
     <ion-icon name="chatbubbles-outline" style="vertical-align:-2px;"></ion-icon>
     Riwayat Balasan ({{ $correspondence->replies->count() }})
-  </h6>
+  </small></h6>
 
   @forelse($correspondence->replies as $reply)
-  <div class="card border-0 shadow-sm mb-3"
-       style="border-radius:12px;
-              border-left:4px solid {{ $reply->sender_role === 'admin' ? '#3b82f6' : '#e11d48' }} !important;">
+  @php
+    $replyBorder = $reply->sender_role === 'admin' ? 'border-primary' : 'border-danger';
+    $replyIconColor = $reply->sender_role === 'admin' ? 'text-primary' : 'text-danger';
+  @endphp
+  <div class="card border-0 shadow-sm rounded-4 mb-3 border-start border-4 {{ $replyBorder }}">
     <div class="card-body p-4">
       <div class="d-flex justify-content-between flex-wrap gap-2 mb-2">
-        <span class="fw-bold" style="font-size:.88rem;">
+        <span class="fw-bold">
           @if($reply->sender_role === 'admin')
-            <ion-icon name="shield-checkmark-outline" style="vertical-align:-2px;color:#3b82f6;"></ion-icon>
+            <ion-icon name="shield-checkmark-outline" style="vertical-align:-2px;" class="{{ $replyIconColor }}"></ion-icon>
             Admin ({{ $reply->user->name ?? 'Admin' }})
           @else
-            <ion-icon name="person-circle-outline" style="vertical-align:-2px;color:#e11d48;"></ion-icon>
+            <ion-icon name="person-circle-outline" style="vertical-align:-2px;" class="{{ $replyIconColor }}"></ion-icon>
             Customer
           @endif
         </span>
         <small class="text-muted">{{ $reply->created_at->format('d M Y, H:i') }}</small>
       </div>
-      <p class="mb-3" style="font-size:.88rem;line-height:1.6;color:#374151;">{{ $reply->note }}</p>
+      <p class="mb-3">{{ $reply->note }}</p>
       <a href="{{ asset('storage/' . $reply->file_path) }}"
          target="_blank"
-         class="btn btn-sm btn-outline-secondary px-3 fw-semibold"
-         style="border-radius:8px;font-size:.8rem;">
+         class="btn btn-sm btn-outline-secondary px-3 fw-semibold rounded-3">
         <ion-icon name="document-attach-outline" style="vertical-align:-2px;"></ion-icon>
         Download PDF Balasan
       </a>
     </div>
   </div>
   @empty
-  <div class="card border-0 shadow-sm mb-4" style="border-radius:12px;">
+  <div class="card border-0 shadow-sm rounded-4 mb-4">
     <div class="card-body text-center py-4">
-      <p class="text-muted mb-0" style="font-size:.86rem;">Belum ada balasan untuk surat ini.</p>
+      <p class="text-muted mb-0"><small>Belum ada balasan untuk surat ini.</small></p>
     </div>
   </div>
   @endforelse
 
   {{-- ③ Form Balas --}}
-  <div class="card border-0 shadow-sm mb-4" style="border-radius:16px;border-top:3px solid #3b82f6!important;">
+  <div class="card border-0 shadow-sm rounded-4 mb-4 border-top border-3 border-primary">
     <div class="card-body p-4">
       <h6 class="fw-bold mb-3">
-        <ion-icon name="send-outline" style="vertical-align:-2px;color:#3b82f6;"></ion-icon>
+        <ion-icon name="send-outline" style="vertical-align:-2px;" class="text-primary"></ion-icon>
         Tulis Balasan
       </h6>
 
@@ -148,12 +147,11 @@
         @csrf
 
         <div class="mb-3">
-          <label class="form-label fw-semibold" style="font-size:.88rem;">
+          <label class="form-label fw-semibold">
             Catatan Balasan <span class="text-danger">*</span>
           </label>
           <textarea name="note" rows="4"
                     class="form-control @error('note') is-invalid @enderror"
-                    style="border-radius:10px;padding:10px 14px;resize:vertical;"
                     placeholder="Tulis balasan / penjelasan untuk customer...">{{ old('note') }}</textarea>
           @error('note')
             <div class="invalid-feedback">{{ $message }}</div>
@@ -161,26 +159,26 @@
         </div>
 
         <div class="mb-4">
-          <label class="form-label fw-semibold" style="font-size:.88rem;">
+          <label class="form-label fw-semibold">
             Upload PDF Balasan <span class="text-danger">*</span>
           </label>
-          <div class="border rounded-3 p-3 text-center"
-               style="border-style:dashed!important;border-color:#d1d5db;background:#f8fafc;cursor:pointer;"
+          <div class="border rounded-3 p-3 text-center bg-light"
+               style="border-style:dashed!important;cursor:pointer;"
                onclick="document.getElementById('reply-file').click()">
-            <ion-icon name="cloud-upload-outline" style="font-size:1.8rem;color:#9ca3af;"></ion-icon>
-            <p class="mb-0 mt-1 text-muted" style="font-size:.83rem;">Klik pilih file PDF · Maks 5MB</p>
-            <p id="reply-file-name" class="text-primary fw-semibold mb-0 mt-1" style="font-size:.83rem;display:none;"></p>
+            <ion-icon name="cloud-upload-outline" style="font-size:1.8rem;" class="text-secondary"></ion-icon>
+            <p class="mb-0 mt-1 text-muted"><small>Klik pilih file PDF · Maks 5MB</small></p>
+            <p id="reply-file-name" class="text-primary fw-semibold mb-0 mt-1" style="display:none;"></p>
           </div>
           <input type="file" id="reply-file" name="file" accept=".pdf"
                  class="d-none @error('file') is-invalid @enderror"
                  onchange="document.getElementById('reply-file-name').textContent=this.files[0]?.name;
                            document.getElementById('reply-file-name').style.display='block';">
           @error('file')
-            <div class="text-danger mt-1" style="font-size:.82rem;">{{ $message }}</div>
+            <div class="text-danger mt-1"><small>{{ $message }}</small></div>
           @enderror
         </div>
 
-        <button type="submit" class="btn btn-primary px-5 fw-semibold shadow-sm" style="border-radius:10px;">
+        <button type="submit" class="btn btn-primary px-5 fw-semibold shadow-sm rounded-3">
           <ion-icon name="send-outline" style="vertical-align:-2px;"></ion-icon>
           Kirim Balasan
         </button>

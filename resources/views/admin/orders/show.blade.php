@@ -208,7 +208,7 @@
                             <strong style="font-size:.9rem">{{ $req->label }}</strong>
                             <code style="font-size:.72rem;color:#6b7280">{{ $req->document_type }}</code>
                         </div>
-                        <span class="badge {{ $fulfilled ? 'bg-success' : 'bg-secondary' }}" style="font-size:.72rem">
+                        <span class="badge {{ $fulfilled ? 'bg-success' : 'bg-secondary' }}" style="font-size:.72rem; color: #fff !important;">
                             {{ $approved }}/{{ $req->min_required }} approved
                         </span>
                     </div>
@@ -252,7 +252,7 @@
                             </div>
                             {{-- Actions --}}
                             <div class="d-flex align-items-center gap-2 flex-wrap">
-                                <span class="badge bg-{{ $sc }}" style="font-size:.72rem">
+                                <span class="badge bg-{{ $sc }}" style="font-size:.72rem; color: {{ $sc === 'warning' ? '#000' : '#fff' }} !important;">
                                     <i class="fa {{ $si }} me-1"></i>{{ $sl }}
                                 </span>
 
@@ -282,7 +282,7 @@
                                     @csrf
                                     <button type="submit" class="btn btn-outline-secondary btn-sm"
                                         onclick="return confirm('Reset ke pending?')" title="Reset">
-                                        <i class="fa fa-rotate-left"></i>
+                                        <ion-icon name="arrow-undo-outline" style="font-size: 1.1rem; vertical-align: middle;"></ion-icon>
                                     </button>
                                 </form>
                                 @endif
@@ -312,7 +312,7 @@
         <div class="card border-0 shadow-sm mb-4">
             <div class="card-header bg-transparent border-0 pt-4 pb-2 px-4 d-flex align-items-center justify-content-between">
                 <h6 class="fw-bold mb-0">Dokumen yang Diunggah</h6>
-                <span class="badge bg-secondary">{{ $order->documents->count() }} file</span>
+                <span class="badge bg-secondary" style="color: #fff !important;">{{ $order->documents->count() }} file</span>
             </div>
             <div class="card-body px-4 pb-4">
                 <div class="d-flex flex-column gap-3">
@@ -324,14 +324,14 @@
                     <div class="border border-{{ $sc }} rounded-3 p-3 bg-{{ $sc }} bg-opacity-10">
                         <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
                             <div class="d-flex align-items-center gap-2">
-                                <span class="badge bg-secondary text-uppercase" style="font-size:.7rem">{{ $doc->document_type ?? $doc->type }}</span>
+                                <span class="badge bg-secondary text-uppercase" style="font-size:.7rem; color: #fff !important;">{{ $doc->document_type ?? $doc->type }}</span>
                                 <span class="fw-semibold" style="font-size:.9rem">{{ $doc->original_name }}</span>
                                 <a href="{{ asset('storage/' . $doc->path) }}" target="_blank" class="text-muted" style="font-size:.8rem">
                                     <i class="fa fa-eye"></i> Lihat
                                 </a>
                             </div>
                             <div class="d-flex align-items-center gap-2">
-                                <span class="badge bg-{{ $sc }}" style="font-size:.78rem">
+                                <span class="badge bg-{{ $sc }}" style="font-size:.78rem; color: {{ $sc === 'warning' ? '#000' : '#fff' }} !important;">
                                     <i class="fa {{ $si }} me-1"></i>{{ ucfirst($doc->status) }}
                                 </span>
                                 @if(!in_array($doc->status, ['approved','verified']))
@@ -375,7 +375,7 @@
                 $badge = App\Models\Order::STATUS_MAP[$order->status]['color'] ?? 'secondary';
                 $label = App\Models\Order::STATUS_MAP[$order->status]['label'] ?? ucfirst($order->status);
                 @endphp
-                <p>Status: <span class="badge bg-{{ $badge }}">{{ $label }}</span></p>
+                <p>Status: <span class="badge bg-{{ $badge }}" style="color: {{ in_array($badge, ['warning', 'light', 'info']) ? '#000' : '#fff' }} !important;">{{ $label }}</span></p>
                 <form action="{{ route('admin.orders.update', $order->id) }}" method="POST">
                     @csrf @method('PUT')
                     <div class="mb-3">

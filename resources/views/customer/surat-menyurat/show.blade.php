@@ -21,8 +21,8 @@
   @endif
 
   {{-- Detail Card --}}
-  <div class="card border-0 shadow-sm mb-4" style="border-radius:16px;">
-    <div class="card-body p-5">
+  <div class="card border-0 shadow-sm rounded-4 mb-4">
+    <div class="card-body p-4">
 
       <div class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-4">
         <div>
@@ -33,28 +33,27 @@
           </small>
         </div>
         @php
-          $badgeStyle = match($correspondence->status) {
-            'done'    => 'background:#dcfce7;color:#16a34a;border:1px solid #bbf7d0;',
-            'replied' => 'background:#dbeafe;color:#1d4ed8;border:1px solid #bfdbfe;',
-            default   => 'background:#f3f4f6;color:#6b7280;border:1px solid #e5e7eb;',
+          $badgeColor = match($correspondence->status) {
+            'done'    => 'success',
+            'replied' => 'info',
+            default   => 'warning',
           };
         @endphp
-        <span style="font-size:.82rem;padding:5px 14px;border-radius:99px;font-weight:700;{{ $badgeStyle }}">
+        <span class="badge bg-{{ $badgeColor }} rounded-pill px-3 py-2" style="color: {{ in_array($badgeColor, ['warning', 'light', 'info']) ? '#000' : '#fff' }} !important;">
           {{ $correspondence->status_label }}
         </span>
       </div>
 
       {{-- Note --}}
-      <div class="rounded-3 p-3 mb-4" style="background:#f8fafc;border:1px solid #e2e8f0;">
-        <p class="text-muted mb-1" style="font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px;">Catatan</p>
-        <p class="mb-0" style="font-size:.92rem;line-height:1.6;">{{ $correspondence->note }}</p>
+      <div class="rounded-3 p-3 mb-4 bg-light border">
+        <p class="text-muted mb-1 fw-bold"><small>CATATAN</small></p>
+        <p class="mb-0">{{ $correspondence->note }}</p>
       </div>
 
       {{-- Download --}}
       <a href="{{ asset('storage/' . $correspondence->file_path) }}"
          target="_blank"
-         class="btn btn-outline-danger fw-semibold px-4"
-         style="border-radius:10px;font-size:.87rem;">
+         class="btn btn-outline-danger fw-semibold px-4 rounded-3">
         <ion-icon name="download-outline" style="vertical-align:-2px;"></ion-icon>
         Download Dokumen PDF
       </a>
@@ -63,51 +62,51 @@
   </div>
 
   {{-- Riwayat Balasan (Timeline) --}}
-  <h6 class="fw-bold mb-3 text-secondary" style="font-size:.85rem;text-transform:uppercase;letter-spacing:.5px;">
+  <h6 class="fw-bold mb-3 text-secondary text-uppercase"><small>
     <ion-icon name="chatbubbles-outline" style="vertical-align:-2px;"></ion-icon>
     Riwayat Balasan ({{ $correspondence->replies->count() }})
-  </h6>
+  </small></h6>
 
   @forelse($correspondence->replies as $reply)
-  <div class="card border-0 shadow-sm mb-3"
-       style="border-radius:12px;
-              border-left:4px solid {{ $reply->sender_role === 'admin' ? '#3b82f6' : '#e11d48' }} !important;">
+  @php
+    $replyBorder = $reply->sender_role === 'admin' ? 'border-primary' : 'border-danger';
+    $replyIconColor = $reply->sender_role === 'admin' ? 'text-primary' : 'text-danger';
+  @endphp
+  <div class="card border-0 shadow-sm rounded-4 mb-3 border-start border-4 {{ $replyBorder }}">
     <div class="card-body p-4">
       <div class="d-flex justify-content-between flex-wrap gap-2 mb-2">
-        <span class="fw-bold" style="font-size:.9rem;">
+        <span class="fw-bold">
           @if($reply->sender_role === 'admin')
-            <ion-icon name="shield-checkmark-outline" style="vertical-align:-2px;color:#3b82f6;"></ion-icon>
+            <ion-icon name="shield-checkmark-outline" style="vertical-align:-2px;" class="{{ $replyIconColor }}"></ion-icon>
             Tim Legal Lawgika
           @else
-            <ion-icon name="person-circle-outline" style="vertical-align:-2px;color:#e11d48;"></ion-icon>
+            <ion-icon name="person-circle-outline" style="vertical-align:-2px;" class="{{ $replyIconColor }}"></ion-icon>
             Anda
           @endif
         </span>
         <small class="text-muted">{{ $reply->created_at->format('d M Y, H:i') }}</small>
       </div>
-      <p class="mb-3" style="font-size:.88rem;color:#374151;line-height:1.6;">{{ $reply->note }}</p>
+      <p class="mb-3">{{ $reply->note }}</p>
       <a href="{{ asset('storage/' . $reply->file_path) }}"
          target="_blank"
-         class="btn btn-sm btn-outline-secondary px-3 fw-semibold"
-         style="border-radius:8px;font-size:.8rem;">
+         class="btn btn-sm btn-outline-secondary px-3 fw-semibold rounded-3">
         <ion-icon name="document-attach-outline" style="vertical-align:-2px;"></ion-icon>
         Download PDF Balasan
       </a>
     </div>
   </div>
   @empty
-  <div class="card border-0 shadow-sm mb-4" style="border-radius:12px;">
+  <div class="card border-0 shadow-sm rounded-4 mb-4">
     <div class="card-body text-center py-4">
-      <ion-icon name="hourglass-outline" style="font-size:2rem;color:#d1d5db;"></ion-icon>
-      <p class="text-muted mb-0 mt-2" style="font-size:.87rem;">Belum ada balasan. Menunggu respons dari admin.</p>
+      <ion-icon name="hourglass-outline" style="font-size:2rem;" class="text-muted"></ion-icon>
+      <p class="text-muted mb-0 mt-2">Belum ada balasan. Menunggu respons dari admin.</p>
     </div>
   </div>
   @endforelse
 
   <div class="mt-3">
     <a href="{{ route('customer.surat-menyurat.index') }}"
-       class="btn btn-outline-secondary px-4 fw-semibold"
-       style="border-radius:10px;font-size:.87rem;">
+       class="btn btn-outline-secondary px-4 fw-semibold rounded-3">
       ← Kembali ke Daftar
     </a>
   </div>

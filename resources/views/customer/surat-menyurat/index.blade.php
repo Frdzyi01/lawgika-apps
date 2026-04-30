@@ -6,12 +6,11 @@
   {{-- Header --}}
   <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
     <div>
-      <h4 class="mb-1 fw-bold">📄 Surat Menyurat Dokumen Legal</h4>
+      <h4 class="mb-1 fw-bold">Surat Menyurat Dokumen Legal</h4>
       <p class="text-muted mb-0" style="font-size:.88rem;">Kelola korespondensi PDF Anda dengan tim legal kami.</p>
     </div>
     <a href="{{ route('customer.surat-menyurat.create') }}"
-       class="btn btn-danger px-4 fw-semibold shadow-sm"
-       style="border-radius:10px;">
+       class="btn btn-danger px-4 fw-semibold shadow-sm rounded-3">
       <ion-icon name="add-circle-outline" style="vertical-align:-3px;"></ion-icon>
       Kirim Dokumen Baru
     </a>
@@ -27,9 +26,14 @@
 
   {{-- Card Grid --}}
   @forelse($correspondences as $doc)
-  <div class="card border-0 shadow-sm mb-3"
-       style="border-radius:14px; border-left:4px solid
-         {{ $doc->status === 'done' ? '#22c55e' : ($doc->status === 'replied' ? '#3b82f6' : '#9ca3af') }} !important;">
+  @php
+    $borderColor = match($doc->status) {
+      'done'    => 'border-success',
+      'replied' => 'border-primary',
+      default   => 'border-secondary',
+    };
+  @endphp
+  <div class="card border-0 shadow-sm rounded-4 mb-3 border-start border-4 {{ $borderColor }}">
     <div class="card-body p-4">
       <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
         <div>
@@ -45,13 +49,13 @@
         <div class="d-flex flex-column align-items-end gap-2">
           {{-- Status Badge --}}
           @php
-            $badgeStyle = match($doc->status) {
-              'done'    => 'background:#dcfce7;color:#16a34a;border:1px solid #bbf7d0;',
-              'replied' => 'background:#dbeafe;color:#1d4ed8;border:1px solid #bfdbfe;',
-              default   => 'background:#f3f4f6;color:#6b7280;border:1px solid #e5e7eb;',
+            $badgeColor = match($doc->status) {
+              'done'    => 'success',
+              'replied' => 'info',
+              default   => 'warning',
             };
           @endphp
-          <span style="font-size:.78rem;padding:4px 12px;border-radius:99px;font-weight:600;{{ $badgeStyle }}">
+          <span class="badge bg-{{ $badgeColor }} rounded-pill px-3 py-2" style="color: {{ in_array($badgeColor, ['warning', 'light', 'info']) ? '#000' : '#fff' }} !important;">
             {{ $doc->status_label }}
           </span>
           {{-- Replies count --}}
@@ -62,8 +66,7 @@
           </small>
           @endif
           <a href="{{ route('customer.surat-menyurat.show', $doc->id) }}"
-             class="btn btn-sm btn-outline-primary px-3 fw-semibold"
-             style="border-radius:8px;font-size:.82rem;">
+             class="btn btn-sm btn-outline-primary px-3 fw-semibold rounded-3">
             <ion-icon name="eye-outline" style="vertical-align:-2px;"></ion-icon>
             Lihat Detail
           </a>
@@ -72,12 +75,12 @@
     </div>
   </div>
   @empty
-  <div class="card border-0 shadow-sm" style="border-radius:14px;">
+  <div class="card border-0 shadow-sm rounded-4">
     <div class="card-body text-center py-5">
-      <ion-icon name="mail-open-outline" style="font-size:3rem;color:#d1d5db;"></ion-icon>
+      <ion-icon name="mail-open-outline" style="font-size:3rem;" class="text-muted"></ion-icon>
       <p class="text-muted mt-3 mb-1 fw-semibold">Belum ada dokumen dikirim</p>
       <p class="text-muted" style="font-size:.85rem;">Mulai kirim dokumen PDF pertama Anda ke tim kami.</p>
-      <a href="{{ route('customer.surat-menyurat.create') }}" class="btn btn-danger mt-1 px-4 fw-semibold" style="border-radius:10px;">
+      <a href="{{ route('customer.surat-menyurat.create') }}" class="btn btn-danger mt-1 px-4 fw-semibold rounded-3">
         Kirim Sekarang
       </a>
     </div>

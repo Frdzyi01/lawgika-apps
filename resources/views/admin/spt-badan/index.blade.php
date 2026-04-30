@@ -58,7 +58,7 @@
                     default           => 'secondary',
                   };
                 @endphp
-                <span class="badge bg-{{ $badge }} bg-opacity-20 text-{{ $badge }} border border-{{ $badge }}">
+                <span class="badge bg-{{ $badge }} px-3 py-1" style="color: {{ in_array($badge, ['warning', 'light', 'info']) ? '#000' : '#fff' }} !important;">
                   {{ $r->status_pesanan }}
                 </span>
               </td>
