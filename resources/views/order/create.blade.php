@@ -424,10 +424,10 @@
                         <i class="fa-solid fa-building"></i>
                         <div><strong>{{ $serviceInfo['label'] }}</strong><span>{{ $packageLabel }}</span></div>
                     </div>
-                    @if($service === 'pt-perorangan' && $package === 'professional')
+                    @if(isset($requirements) && $requirements->count() > 0)
                     <div class="info-item">
                         <i class="fa-solid fa-file-lines"></i>
-                        <div><strong>Dokumen Wajib</strong><span>5 dokumen harus diunggah saat order</span></div>
+                        <div><strong>Dokumen Wajib</strong><span>{{ $requirements->where('min_required', '>', 0)->count() }} dokumen harus diunggah</span></div>
                     </div>
                     @endif
                     <div class="info-item">
@@ -442,15 +442,13 @@
                         <i class="fa-solid fa-headset"></i>
                         <div><strong>Konsultasi Gratis</strong><span>Tim kami siap membantu</span></div>
                     </div>
-                    @if($service === 'pt-perorangan' && $package === 'professional')
+                    @if(isset($requirements) && $requirements->count() > 0)
                     <div class="doc-checklist">
                         <p><i class="fa-solid fa-list-check me-1"></i>Checklist Dokumen</p>
                         <ul>
-                            <li>Akta Pendirian</li>
-                            <li>NPWP Perusahaan</li>
-                            <li>SK Kemenkumham</li>
-                            <li>KTP Direktur</li>
-                            <li>NPWP Direktur</li>
+                            @foreach($requirements as $req)
+                            <li>{{ $req->label }}@if($req->min_required > 1) <small>(min {{ $req->min_required }})</small>@endif</li>
+                            @endforeach
                         </ul>
                     </div>
                     @endif
@@ -466,10 +464,6 @@
 </section>
 
 <script>
-    function showFileName(input, spanId) {
-        document.getElementById(spanId).textContent = input.files[0] ? '✓ ' + input.files[0].name : '';
-    }
-
     document.getElementById('orderForm').addEventListener('submit', function() {
         const btn = document.getElementById('submitBtn');
         btn.disabled = true;

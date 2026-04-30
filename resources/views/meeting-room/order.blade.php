@@ -132,12 +132,12 @@
 
             <div class="form-group">
                 <label for="tanggal">Tanggal Penggunaan</label>
-                <input type="date" id="tanggal" name="tanggal" class="form-control" required value="{{ old('tanggal', $tanggal ?? '') }}" readonly>
+                <input type="date" id="tanggal" name="tanggal" class="form-control" required value="{{ old('tanggal', $tanggal ?? '') }}">
             </div>
 
             <div class="form-group">
                 <label for="jam">Jam Penggunaan</label>
-                <input type="time" id="jam" name="jam" class="form-control" required value="{{ old('jam', $jam ?? '') }}" readonly>
+                <input type="time" id="jam" name="jam" class="form-control" required value="{{ old('jam', $jam ?? '') }}">
             </div>
 
             <div class="row">

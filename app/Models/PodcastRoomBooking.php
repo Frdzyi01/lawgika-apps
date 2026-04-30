@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class PodcastRoomBooking extends Model
 {
     protected $fillable = [
-        'user_id', 'order_number', 'name', 'podcast_title',
+        'user_id', 'source_type', 'benefit_id', 'order_number', 'name', 'podcast_title',
         'date', 'start_time', 'duration', 'participants', 'package',
         'total_price', 'payment_proof', 'payment_status', 'status',
         'checkin_at', 'checkout_at', 'total_used_minutes', 'total_used_seconds',
@@ -23,6 +23,11 @@ class PodcastRoomBooking extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function benefit(): BelongsTo
+    {
+        return $this->belongsTo(\App\Models\RoomBenefit::class, 'benefit_id');
     }
 
     /** Total quota in seconds */

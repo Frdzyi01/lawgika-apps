@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Services\DocumentService;
 use Illuminate\Http\Request;
 use App\Notifications\OrderStatusUpdated;
 
 class OrderController extends Controller
 {
+    public function __construct(protected DocumentService $documentService) {}
+
     public function index(Request $request)
     {
         $query = Order::with(['user', 'service'])->latest();
@@ -23,20 +26,21 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
-        $order->load(['user', 'service', 'documents']);
-        return view('admin.orders.show', compact('order'));
+        $order->load(['user', 'service.documentRequirements', 'documents']);
+        $documentSummary = $this->documentService->getDocumentSummary($order);
+        return view('admin.orders.show', compact('order', 'documentSummary'));
     }
 
     public function update(Request $request, Order $order)
     {
         $request->validate([
-            'status'      => 'required|in:pending,approved,processing,rejected,completed,cancelled',
-            'admin_notes' => 'nullable|string|max:1000'
+            'status'      => 'required|string|max:50',
+            'admin_notes' => 'nullable|string|max:1000',
         ]);
 
         $order->update([
             'status'      => $request->status,
-            'admin_notes' => $request->admin_notes
+            'admin_notes' => $request->admin_notes,
         ]);
 
         // Kirim notifikasi email ke customer jika status berubah

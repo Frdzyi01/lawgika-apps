@@ -54,13 +54,13 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);}
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="tanggal">Tanggal Penggunaan <span class="text-danger">*</span></label>
-                    <input type="date" id="tanggal" name="tanggal" class="form-control" required value="{{ old('tanggal', $tanggal ?? '') }}" readonly>
+                    <input type="date" id="tanggal" name="tanggal" class="form-control" required value="{{ old('tanggal', $tanggal ?? '') }}">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="jam">Jam Mulai <span class="text-danger">*</span></label>
-                    <input type="time" id="jam" name="jam" class="form-control" required value="{{ old('jam', $jam ?? '') }}" readonly>
+                    <input type="time" id="jam" name="jam" class="form-control" required value="{{ old('jam', $jam ?? '') }}">
                 </div>
             </div>
         </div>

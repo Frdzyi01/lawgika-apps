@@ -13,10 +13,14 @@ class RoomBenefitLog extends Model
         'duration_minutes',
         'action',
         'action_at',
+        'checkin_at',
+        'checkout_at',
     ];
 
     protected $casts = [
-        'action_at' => 'datetime',
+        'action_at'   => 'datetime',
+        'checkin_at'  => 'datetime',
+        'checkout_at' => 'datetime',
     ];
 
     public function benefit(): BelongsTo

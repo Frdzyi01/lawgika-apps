@@ -13,7 +13,7 @@
     @endif
 
     {{-- ============================================================ --}}
-    {{-- TABLE 1 (NEW): Benefit dari Paket PT                        --}}
+    {{-- TABLE 1: Benefit dari Paket PT (quota pool cards)           --}}
     {{-- ============================================================ --}}
     @include('partials.room-benefit-table', [
         'benefits'  => $benefits,
@@ -23,7 +23,108 @@
     ])
 
     {{-- ============================================================ --}}
-    {{-- TABLE 2 (EXISTING): Reservasi Manual                        --}}
+    {{-- TABLE 2: Reservasi Benefit                                   --}}
+    {{-- All bookings tagged source_type='benefit' — approve here    --}}
+    {{-- ============================================================ --}}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex align-items-center justify-content-between" style="background:#fff3cd; border-left:4px solid #ffc107;">
+            <h6 class="m-0 font-weight-bold" style="color:#856404;">🎁 Reservasi Benefit — Ruang Podcast</h6>
+            <span class="badge bg-warning text-dark">{{ $benefitBookings->count() }} Reservasi</span>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>No. Order</th>
+                            <th>Pemesan</th>
+                            <th>Judul Podcast</th>
+                            <th>Waktu & Peserta</th>
+                            <th>Durasi</th>
+                            <th>Paket Asal</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($benefitBookings as $booking)
+                            <tr>
+                                <td><code style="font-size:.8rem;">{{ $booking->order_number ?? '#'.$booking->id }}</code></td>
+                                <td>
+                                    {{ $booking->name }}
+                                    @if($booking->user)
+                                        <br><small class="text-muted">{{ $booking->user->email }}</small>
+                                    @endif
+                                </td>
+                                <td>{{ $booking->podcast_title ?? '–' }}</td>
+                                <td>
+                                    {{ \Carbon\Carbon::parse($booking->date)->format('d M Y') }}
+                                    <small class="d-block">{{ \Carbon\Carbon::parse($booking->start_time)->format('H:i') }}</small>
+                                    <small class="text-muted">{{ $booking->participants }} Orang</small>
+                                </td>
+                                <td>{{ $booking->duration }} Jam</td>
+                                <td>
+                                    @if($booking->benefit)
+                                        <span class="badge bg-info text-dark">{{ $booking->benefit->paket }}</span>
+                                    @else
+                                        <span class="text-muted">–</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($booking->status === 'pending')
+                                        <span class="badge bg-warning text-dark">⏳ Menunggu Approval</span>
+                                    @elseif($booking->status === 'approved')
+                                        <span class="badge bg-success">✅ Disetujui</span>
+                                    @elseif($booking->status === 'rejected')
+                                        <span class="badge bg-danger">❌ Ditolak</span>
+                                    @elseif($booking->status === 'checkin')
+                                        <span class="badge bg-primary">🔵 Sedang Digunakan</span>
+                                    @elseif($booking->status === 'paused')
+                                        <span class="badge bg-secondary">⏸ Berhenti Sementara</span>
+                                    @elseif($booking->status === 'selesai')
+                                        <span class="badge bg-dark">✔ Selesai</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    <div class="d-flex flex-column gap-1">
+                                        <a href="{{ url('admin/podcast-room/'.$booking->id.'/detail') }}" class="btn btn-sm btn-info text-white"><i class="fas fa-eye"></i> Detail</a>
+
+                                        @if($booking->status === 'pending')
+                                            <form action="{{ url('admin/podcast-room/'.$booking->id.'/benefit-approve') }}" method="POST">
+                                                @csrf
+                                                <button class="btn btn-sm btn-success w-100" onclick="return confirm('Setujui reservasi ini?')"><i class="fas fa-check"></i> Approve</button>
+                                            </form>
+                                            <form action="{{ url('admin/podcast-room/'.$booking->id.'/benefit-reject') }}" method="POST">
+                                                @csrf
+                                                <button class="btn btn-sm btn-danger w-100" onclick="return confirm('Tolak reservasi ini?')"><i class="fas fa-times"></i> Reject</button>
+                                            </form>
+                                        @elseif($booking->status === 'approved' || $booking->status === 'paused')
+                                            <form action="{{ url('admin/podcast-room/'.$booking->id.'/checkin') }}" method="POST">
+                                                @csrf
+                                                <button class="btn btn-sm btn-success w-100" onclick="return confirm('Check In?')">Check In</button>
+                                            </form>
+                                        @elseif($booking->status === 'checkin')
+                                            <form action="{{ url('admin/podcast-room/'.$booking->id.'/checkout') }}" method="POST">
+                                                @csrf
+                                                <button class="btn btn-sm btn-warning text-dark w-100" onclick="return confirm('Check Out?')">Check Out</button>
+                                            </form>
+                                        @endif
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="8" class="text-center text-muted">Belum ada reservasi benefit ruang podcast.</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {{-- ============================================================ --}}
+    {{-- TABLE 3: Reservasi Manual (existing — fully untouched)      --}}
     {{-- ============================================================ --}}
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-center">
@@ -93,16 +194,15 @@
                             <td>
                                 <small class="d-block">Total: {{ $b->formatSeconds($b->duration*3600) }}</small>
                                 <small class="d-block">Dipakai: <span class="used-time-display" data-status="{{ $b->status }}" data-used="{{ $b->used_seconds }}">{{ $b->formatted_used_time }}</span></small>
-                                @php 
-                                    $sisa=$b->formatted_remaining_time; 
-                                    $bc='bg-success';
-                                    if ($b->is_expired || $sisa==='Waktu habis') $bc='bg-danger';
+                                @php
+                                    $sisa=$b->formatted_remaining_time;
+                                    $bc=($b->is_expired || $sisa==='Waktu habis') ? 'bg-danger' : 'bg-success';
                                 @endphp
                                 <span class="badge {{ $bc }} mt-1">Sisa: <span class="remaining-time-display" data-status="{{ $b->status }}" data-remaining="{{ $b->remaining_seconds }}">{{ $sisa }}</span></span>
                             </td>
                             <td>
                                 @if($b->is_expired)
-                                    <span class="badge bg-danger" title="Expired setelah 1 tahun dari reservasi dibuat">❌ Expired</span>
+                                    <span class="badge bg-danger">❌ Expired</span>
                                 @elseif($b->remaining_seconds<=0)
                                     <span class="badge bg-danger">⛔ Waktu Habis</span>
                                 @elseif($b->status==='checkin')

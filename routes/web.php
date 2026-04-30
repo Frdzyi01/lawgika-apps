@@ -134,7 +134,10 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/home', function() { return redirect()->route('admin.dashboard'); })->name('home'); // backward compatibility
     Route::resource('services', \App\Http\Controllers\Admin\ServiceController::class);
     Route::resource('orders', \App\Http\Controllers\Admin\OrderController::class)->except(['create', 'store', 'destroy']);
-    Route::post('documents/{document}/status', [\App\Http\Controllers\Admin\DocumentController::class, 'updateStatus'])->name('documents.status');
+    Route::post('documents/{document}/status',  [\App\Http\Controllers\Admin\DocumentController::class, 'updateStatus'])->name('documents.status');
+    Route::post('documents/{document}/approve', [\App\Http\Controllers\Admin\DocumentController::class, 'approve'])->name('documents.approve');
+    Route::post('documents/{document}/reject',  [\App\Http\Controllers\Admin\DocumentController::class, 'reject'])->name('documents.reject');
+    Route::post('documents/{document}/reset',   [\App\Http\Controllers\Admin\DocumentController::class, 'reset'])->name('documents.reset');
     Route::post('orders/{order}/payment-status', [\App\Http\Controllers\Admin\OrderController::class, 'updatePaymentStatus'])->name('orders.payment-status');
 
     // ── Room Benefit System (NEW) ─────────────────────────────────────────────
@@ -156,6 +159,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::post('/meeting-room/{id}/checkout', [MeetingRoomController::class, 'checkout']);
     Route::post('/meeting-room/{id}/approve-payment', [MeetingRoomController::class, 'approvePayment'])->name('admin.meeting-room.approve');
     Route::post('/meeting-room/{id}/reject-payment', [MeetingRoomController::class, 'rejectPayment'])->name('admin.meeting-room.reject');
+    Route::post('/meeting-room/{id}/benefit-approve', [MeetingRoomController::class, 'approveBenefitReservation'])->name('admin.meeting-room.benefit-approve');
+    Route::post('/meeting-room/{id}/benefit-reject', [MeetingRoomController::class, 'rejectBenefitReservation'])->name('admin.meeting-room.benefit-reject');
 
     Route::get('/podcast-room', [\App\Http\Controllers\PodcastRoomController::class, 'adminIndex'])->name('podcast-room.index');
     Route::get('/podcast-room/{id}/detail', [\App\Http\Controllers\PodcastRoomController::class, 'adminDetail']);
@@ -163,6 +168,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::post('/podcast-room/{id}/checkout', [\App\Http\Controllers\PodcastRoomController::class, 'checkout']);
     Route::post('/podcast-room/{id}/approve-payment', [\App\Http\Controllers\PodcastRoomController::class, 'approvePayment'])->name('admin.podcast-room.approve');
     Route::post('/podcast-room/{id}/reject-payment', [\App\Http\Controllers\PodcastRoomController::class, 'rejectPayment'])->name('admin.podcast-room.reject');
+    Route::post('/podcast-room/{id}/benefit-approve', [\App\Http\Controllers\PodcastRoomController::class, 'approveBenefitReservation'])->name('admin.podcast-room.benefit-approve');
+    Route::post('/podcast-room/{id}/benefit-reject', [\App\Http\Controllers\PodcastRoomController::class, 'rejectBenefitReservation'])->name('admin.podcast-room.benefit-reject');
 
     Route::get('/spt-badan', [\App\Http\Controllers\SptTahunanController::class, 'adminDashboard'])->name('spt-badan.index');
     Route::post('/spt-badan/{id}/status', [\App\Http\Controllers\SptTahunanController::class, 'updateStatus'])->name('spt-badan.status');

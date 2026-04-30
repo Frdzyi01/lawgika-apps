@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Services\DocumentService;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
+    public function __construct(protected DocumentService $documentService) {}
+
     public function index()
     {
         $orders = Order::where('user_id', auth()->id())->with('service')->latest()->paginate(10);
@@ -19,8 +22,10 @@ class OrderController extends Controller
         if ($order->user_id != auth()->id()) {
             abort(403);
         }
-        $order->load(['service', 'documents']);
-        return view('customer.orders.show', compact('order'));
+        $order->load(['service.documentRequirements', 'documents']);
+        $documentSummary = $this->documentService->getDocumentSummary($order);
+
+        return view('customer.orders.show', compact('order', 'documentSummary'));
     }
 
     public function uploadPaymentProof(Request $request, Order $order)
@@ -30,7 +35,7 @@ class OrderController extends Controller
         }
 
         $request->validate([
-            'payment_proof' => 'requiredo|file|mimes:jpg,jpeg,png,pdf|max:5120',
+            'payment_proof' => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
         ]);
 
         $file     = $request->file('payment_proof');

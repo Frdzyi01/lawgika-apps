@@ -8,6 +8,8 @@ class MeetingRoomBooking extends Model
 {
     protected $fillable = [
         'user_id',
+        'source_type',
+        'benefit_id',
         'name',
         'date',
         'start_time',
@@ -31,6 +33,11 @@ class MeetingRoomBooking extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function benefit()
+    {
+        return $this->belongsTo(\App\Models\RoomBenefit::class, 'benefit_id');
     }
 
     /**

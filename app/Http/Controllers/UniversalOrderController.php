@@ -3,117 +3,127 @@
 namespace App\Http\Controllers;
 
 use App\Models\Document;
+use App\Models\DocumentRequirement;
 use App\Models\Order;
+use App\Models\Service;
 use App\Models\UserRoomQuota;
+use App\Services\DocumentService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class UniversalOrderController extends Controller
 {
-    /**
-     * Map service slug → human-readable label + page URL.
-     */
-    public static array $services = [
-        'pt-perorangan'  => ['label' => 'Pendirian PT Perorangan',     'url' => '/pendirian-pt-perorangan'],
-        'cv'             => ['label' => 'Pendirian CV',                 'url' => '/pendirian-cv'],
-        'firma'          => ['label' => 'Pendirian Firma',              'url' => '/pendirian-firma'],
-        'pt-pma'         => ['label' => 'Pendirian PT PMA',             'url' => '/pendirian-pt-pma'],
-        'yayasan'        => ['label' => 'Pendirian Yayasan',            'url' => '/pendirian-yayasan'],
-        'pendirian-pt'   => ['label' => 'Pendirian PT',                 'url' => '/pendirian-pt'],
-        'pt-diatas-1m'   => ['label' => 'Pendirian PT (Legacy)',        'url' => '/pendirian-pt'],
-    ];
+    public function __construct(protected DocumentService $documentService) {}
 
     /**
-     * Map package slug → label.
-     * Packages that don't match will be shown title-cased.
+     * Map service slug → human-readable label + page URL + DB slug.
      */
+    public static array $services = [
+        'pt-perorangan'  => ['label' => 'Pendirian PT Perorangan', 'url' => '/pendirian-pt-perorangan', 'db_slug' => 'pendirian-pt-perorangan'],
+        'cv'             => ['label' => 'Pendirian CV',             'url' => '/pendirian-cv',             'db_slug' => 'pendirian-cv'],
+        'firma'          => ['label' => 'Pendirian Firma',          'url' => '/pendirian-firma',          'db_slug' => 'pendirian-firma'],
+        'pt-pma'         => ['label' => 'Pendirian PT PMA',         'url' => '/pendirian-pt-pma',         'db_slug' => 'pendirian-pt-pma'],
+        'yayasan'        => ['label' => 'Pendirian Yayasan',        'url' => '/pendirian-yayasan',        'db_slug' => 'pendirian-yayasan'],
+        'pendirian-pt'   => ['label' => 'Pendirian PT',             'url' => '/pendirian-pt',             'db_slug' => 'pendirian-pt'],
+        'pt-diatas-1m'   => ['label' => 'Pendirian PT (Legacy)',    'url' => '/pendirian-pt',             'db_slug' => 'pendirian-pt'],
+    ];
+
     public static array $packages = [
         'basic'        => 'Paket Basic',
         'professional' => 'Paket Professional',
         'enterprise'   => 'Paket Enterprise',
         'premium'      => 'Paket Premium',
-        'eksklusif'    => 'Paket Eksklusif',   // Fixed: was "Paket Eksekutif" (typo)
+        'eksklusif'    => 'Paket Eksklusif',
         'eksekutif'    => 'Paket Eksekutif',
     ];
 
-    /**
-     * Pricing matrix for Pendirian PT.
-     * Key: modal_dasar value  →  [ package_slug => price_in_rupiah ]
-     */
     public static array $ptPricing = [
-        'Di bawah 1 Miliar' => [
-            'premium'   => 6030000,
-            'eksklusif' => 7740000,
-            'eksekutif' => 7740000,
-            'enterprise' => 8640000,
-        ],
-        'Di atas 1 Miliar' => [
-            'premium'   => 6930000,
-            'eksklusif' => 8640000,
-            'eksekutif' => 8640000,
-            'enterprise' => 9540000,
-        ],
+        'Di bawah 1 Miliar' => ['premium' => 6030000, 'eksklusif' => 7740000, 'eksekutif' => 7740000, 'enterprise' => 8640000],
+        'Di atas 1 Miliar'  => ['premium' => 6930000, 'eksklusif' => 8640000, 'eksekutif' => 8640000, 'enterprise' => 9540000],
     ];
 
     // ─────────────────────────────────────────────────────────────────────────
 
     /**
-     * Show the order form.
+     * Show the order form — requirements diambil dari DB, BUKAN hardcoded.
      */
     public function create(string $service, string $package)
     {
-        $service  = strtolower($service);
-        $package  = strtolower($package);
+        $service = strtolower($service);
+        $package = strtolower($package);
 
-        $serviceInfo = self::$services[$service]
-            ?? ['label' => Str::title(str_replace('-', ' ', $service)), 'url' => '/'];
+        $serviceInfo  = self::$services[$service] ?? ['label' => Str::title(str_replace('-', ' ', $service)), 'url' => '/', 'db_slug' => $service];
+        $packageLabel = self::$packages[$package] ?? Str::title(str_replace('-', ' ', $package));
 
-        $packageLabel = self::$packages[$package]
-            ?? Str::title(str_replace('-', ' ', $package));
+        // Ambil requirements dari DB berdasarkan slug layanan
+        $dbService    = Service::where('slug', $serviceInfo['db_slug'])->first();
+        $requirements = $dbService
+            ? DocumentRequirement::where('service_id', $dbService->id)->orderBy('id')->get()
+            : collect();
 
-        // The view handles conditional rendering for all service+package combos
-        return view('order.create', compact('service', 'package', 'serviceInfo', 'packageLabel'));
+        return view('order.create', compact('service', 'package', 'serviceInfo', 'packageLabel', 'requirements', 'dbService'));
     }
 
     /**
-     * Store the order.
+     * Store the order — dokumen diproses secara dinamis dari $requirements.
      */
     public function store(Request $request)
     {
-        // ── Unified Validation Rules for All Orders ───────────────────────────
+        // ── Base validation rules ─────────────────────────────────────────────
         $rules = [
-            'service'               => 'required|string|in:' . implode(',', array_keys(self::$services)),
-            'package'               => 'required|string|max:100', // Allow any string like premium, eksklusif, enterprise
-            'director_name'         => 'required|string|max:255',
-            'director_phone'        => 'required|string|max:20',
-            'company_name'          => 'required|string|max:255',
-            'pic_name'              => 'required|string|max:255',
-            'pic_phone'             => 'required|string|max:20',
-            'company_email'         => 'required|email|max:255',
-            'operational_address'   => 'required|string',
-            'business_field'        => 'required|string|max:255',
-            'ktp_direktur'          => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
-            'npwp_direktur'         => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
-            'notes'                 => 'nullable|string|max:2000',
+            'service'             => 'required|string|in:' . implode(',', array_keys(self::$services)),
+            'package'             => 'required|string|max:100',
+            'director_name'       => 'required|string|max:255',
+            'director_phone'      => 'required|string|max:20',
+            'company_name'        => 'required|string|max:255',
+            'pic_name'            => 'required|string|max:255',
+            'pic_phone'           => 'required|string|max:20',
+            'company_email'       => 'required|email|max:255',
+            'operational_address' => 'required|string',
+            'business_field'      => 'required|string|max:255',
+            'notes'               => 'nullable|string|max:2000',
         ];
 
         if (strtolower($request->service) === 'pendirian-pt') {
             $rules['modal_dasar'] = 'required|string|in:Di bawah 1 Miliar,Di atas 1 Miliar';
         }
 
-        $request->validate($rules);
+        // ── Dynamic file validation dari document_requirements ─────────────────
+        $serviceKey  = strtolower($request->service);
+        $serviceInfo = self::$services[$serviceKey] ?? ['db_slug' => $serviceKey];
+        $dbService   = Service::where('slug', $serviceInfo['db_slug'] ?? $serviceKey)->first();
+        $requirements = $dbService
+            ? DocumentRequirement::where('service_id', $dbService->id)->get()
+            : collect();
+
+        foreach ($requirements as $req) {
+            $fieldKey = 'documents.' . $req->document_type;
+            if ($req->min_required > 0) {
+                $rules[$fieldKey]      = 'required|array|min:1';
+                $rules[$fieldKey . '.*'] = 'file|mimes:jpg,jpeg,png,pdf|max:5120';
+            } else {
+                $rules[$fieldKey]        = 'nullable|array';
+                $rules[$fieldKey . '.*'] = 'file|mimes:jpg,jpeg,png,pdf|max:5120';
+            }
+        }
+
+        $messages = [];
+        foreach ($requirements as $req) {
+            $messages['documents.' . $req->document_type . '.required'] = $req->label . ' wajib diunggah.';
+            $messages['documents.' . $req->document_type . '.min']      = $req->label . ' minimal 1 file.';
+            $messages['documents.' . $req->document_type . '.*.mimes']  = $req->label . ': format harus JPG, PNG, atau PDF.';
+            $messages['documents.' . $req->document_type . '.*.max']    = $req->label . ': ukuran maksimal 5MB per file.';
+        }
+
+        $request->validate($rules, $messages);
 
         // ── Resolve labels ────────────────────────────────────────────────────
-        $serviceKey   = $request->service;
-        $packageKey   = $request->package;
-        $serviceInfo  = self::$services[$serviceKey]
-            ?? ['label' => Str::title(str_replace('-', ' ', $serviceKey)), 'url' => '/'];
-        $packageLabel = self::$packages[$packageKey]
-            ?? Str::title(str_replace('-', ' ', $packageKey));
+        $packageKey   = strtolower($request->package);
+        $packageLabel = self::$packages[$packageKey] ?? Str::title(str_replace('-', ' ', $packageKey));
+        $serviceName  = ($serviceInfo['label'] ?? Str::title(str_replace('-', ' ', $serviceKey))) . ' – ' . $packageLabel;
 
-        $serviceName = $serviceInfo['label'] . ' – ' . $packageLabel;
-
-        // ── Build form_data payload ───────────────────────────────────────────
+        // ── Build form_data ───────────────────────────────────────────────────
         $formData = [
             'service'             => $serviceKey,
             'package'             => $packageKey,
@@ -126,53 +136,52 @@ class UniversalOrderController extends Controller
             'operational_address' => $request->input('operational_address'),
             'business_field'      => $request->input('business_field'),
         ];
-
         if ($request->has('modal_dasar')) {
             $formData['modal_dasar'] = $request->input('modal_dasar');
         }
 
         // ── Create order ──────────────────────────────────────────────────────
         $order = Order::create([
-            'order_number' => 'ORD-' . strtoupper(substr($serviceKey, 0, 3)) . '-'
-                            . date('Ymd') . '-' . strtoupper(Str::random(5)),
+            'order_number' => 'ORD-' . strtoupper(substr($serviceKey, 0, 3)) . '-' . date('Ymd') . '-' . strtoupper(Str::random(5)),
             'user_id'      => auth()->id(),
-            'service_id'   => null,
+            'service_id'   => $dbService?->id,
             'service_name' => $serviceName,
-            'status'       => 'pending',
+            'status'       => 'draft',
             'total_price'  => 0,
             'notes'        => $request->notes,
             'form_data'    => $formData,
         ]);
 
-        // ── Document uploads ──────────────────────────────────────────────────
-        // 2 required documents for all orders now
-        $docTypes = [
-            'ktp_direktur'    => 'ktp_direktur',
-            'npwp_direktur'   => 'npwp_direktur',
-        ];
-
-        foreach ($docTypes as $inputName => $type) {
-            if ($request->hasFile($inputName)) {
-                $this->storeDoc($request, $inputName, $order->id, $type);
+        // ── Store dokumen secara dinamis ──────────────────────────────────────
+        if ($request->has('documents') && is_array($request->documents)) {
+            foreach ($request->documents as $documentType => $files) {
+                if (!is_array($files)) continue;
+                foreach ($files as $file) {
+                    if (!$file || !$file->isValid()) continue;
+                    $this->storeDocumentFile($file, $order->id, $documentType, $dbService?->id);
+                }
             }
         }
 
-        // (Optional) Update user profile phone if not exists using director_phone
+        // ── Sinkronisasi status order ─────────────────────────────────────────
+        $this->documentService->syncOrderStatus($order);
+
+        // ── Update user phone ─────────────────────────────────────────────────
         $user = auth()->user();
         if (empty($user->phone) && !empty($request->director_phone)) {
             $user->phone = $request->director_phone;
             $user->save();
         }
 
-        // ── Auto Create Shared Room Quota for PT Eksklusif/Enterprise ─────────
-        if (in_array(strtolower($packageKey), ['eksklusif', 'eksekutif', 'enterprise'])) {
+        // ── Auto Create Shared Room Quota untuk paket Eksklusif/Enterprise ────
+        if (in_array($packageKey, ['eksklusif', 'eksekutif', 'enterprise'])) {
             UserRoomQuota::updateOrCreate(
                 ['user_id' => $user->id],
                 [
-                    'total_seconds'     => 216000, // 60 jam
-                    'used_seconds'      => \DB::raw('used_seconds'), // keep if exists, or defaults to 0 if new
-                    'remaining_seconds' => \DB::raw('216000 - used_seconds'), 
-                    'expired_at'        => now()->addYear()
+                    'total_seconds'     => 216000,
+                    'used_seconds'      => DB::raw('used_seconds'),
+                    'remaining_seconds' => DB::raw('216000 - used_seconds'),
+                    'expired_at'        => now()->addYear(),
                 ]
             );
         }
@@ -186,7 +195,7 @@ class UniversalOrderController extends Controller
     }
 
     /**
-     * Show the success page.
+     * Show success page.
      */
     public function success(Request $request)
     {
@@ -195,40 +204,37 @@ class UniversalOrderController extends Controller
         $orderNumber  = $request->query('order', '');
         $modalDasar   = $request->query('modal_dasar', '');
 
-        $serviceInfo  = self::$services[$serviceKey]
-            ?? ['label' => Str::title(str_replace('-', ' ', $serviceKey)), 'url' => '/'];
-        $packageLabel = self::$packages[$packageKey]
-            ?? Str::title(str_replace('-', ' ', $packageKey));
+        $serviceInfo  = self::$services[$serviceKey] ?? ['label' => Str::title(str_replace('-', ' ', $serviceKey)), 'url' => '/'];
+        $packageLabel = self::$packages[$packageKey] ?? Str::title(str_replace('-', ' ', $packageKey));
 
-        // Hitung total biaya khusus Pendirian PT
         $totalBiaya = null;
         if ($serviceKey === 'pendirian-pt' && $modalDasar && isset(self::$ptPricing[$modalDasar][$packageKey])) {
             $totalBiaya = self::$ptPricing[$modalDasar][$packageKey];
         }
 
-        return view('order.success', compact(
-            'serviceKey', 'packageKey', 'serviceInfo', 'packageLabel',
-            'orderNumber', 'modalDasar', 'totalBiaya'
-        ));
+        return view('order.success', compact('serviceKey', 'packageKey', 'serviceInfo', 'packageLabel', 'orderNumber', 'modalDasar', 'totalBiaya'));
     }
 
-    // ─── Helper ──────────────────────────────────────────────────────────────
+    // ─────────────────────────────────────────────────────────────────────────
+    // Helper: simpan satu file dokumen
+    // ─────────────────────────────────────────────────────────────────────────
 
-    private function storeDoc(Request $request, string $inputName, int $orderId, string $type): void
+    private function storeDocumentFile($file, int $orderId, string $documentType, ?int $serviceId): void
     {
-        $file     = $request->file($inputName);
         $clean    = Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
         $ext      = $file->getClientOriginalExtension();
-        $filename = time() . "_{$clean}.{$ext}";
+        $filename = time() . '_' . $clean . '.' . $ext;
         $path     = $file->storeAs('documents/user_' . auth()->id(), $filename, 'public');
 
         Document::create([
             'user_id'       => auth()->id(),
             'order_id'      => $orderId,
+            'service_id'    => $serviceId,
+            'document_type' => $documentType,
             'filename'      => $filename,
             'original_name' => $file->getClientOriginalName(),
             'path'          => $path,
-            'type'          => $type,
+            'type'          => strtolower($documentType), // backward-compat
             'status'        => 'pending',
         ]);
     }
