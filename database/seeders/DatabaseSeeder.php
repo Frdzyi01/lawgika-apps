@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             PeraturanKBLISeeder::class,
             EventUpComingSeeder::class,
             ServiceDocumentRequirementSeeder::class,
+            DocumentRequirementSeeder::class,
         ]);
     }
 }

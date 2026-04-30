@@ -33,31 +33,24 @@ class RoomBenefitService
             throw new \RuntimeException('Benefit untuk pesanan ini sudah pernah disetujui sebelumnya.');
         }
 
-        // ── Guard: eligible package ───────────────────────────────────────────
+        // ── Guard: eligible package + service ─────────────────────────────────
         //
-        // ROOT FIX: orders.service_name stores the *label* which may contain
-        // typos (e.g. "Paket Eksekutif" instead of "Paket Eksklusif").
+        // CRITICAL FIX: isEligibleForOrder() validates BOTH:
+        //   ✅ Service  = Pendirian PT (reguler) only
+        //   ✅ Package  = eksklusif or enterprise
         //
-        // The AUTHORITATIVE source is orders.form_data['package'] — the raw
-        // slug submitted by the order form (always "eksklusif" / "enterprise").
-        //
-        // We check BOTH sources so legacy orders that lack form_data still work.
-        $formData    = $order->form_data ?? [];
-        $rawSlug     = strtolower(trim($formData['package'] ?? ''));          // e.g. "eksklusif"
-        $serviceName = strtolower(trim($order->service_name                   // e.g. "pendirian pt – paket eksklusif"
-                       ?? ($order->service->name ?? '')));
-
-        $isEligible = RoomBenefit::isEligiblePackage($rawSlug)
-                   || RoomBenefit::isEligiblePackage($serviceName);
-
-        if (!$isEligible) {
+        // This prevents CV Eksklusif, Yayasan Enterprise, etc. from getting benefit.
+        if (! RoomBenefit::isEligibleForOrder($order)) {
             throw new \RuntimeException(
-                'Paket "' . ($order->service_name ?? $rawSlug) . '" tidak memenuhi syarat untuk benefit ruangan. ' .
-                'Hanya paket Eksklusif dan Enterprise yang berhak.'
+                'Paket "' . ($order->service_name ?? '-') . '" tidak memenuhi syarat untuk benefit ruangan. ' .
+                'Benefit HANYA untuk Pendirian PT – Paket Eksklusif atau Enterprise.'
             );
         }
 
         // Build a clean, human-readable label to store in the benefit record.
+        $formData = $order->form_data ?? [];
+        $rawSlug  = strtolower(trim($formData['package'] ?? ''));
+        
         $paketLabel = $rawSlug !== ''
             ? ucfirst($rawSlug)                             // "Eksklusif" / "Enterprise"
             : ($order->service_name ?? 'PT Package');       // fallback for legacy

@@ -174,7 +174,8 @@ class UniversalOrderController extends Controller
         }
 
         // ── Auto Create Shared Room Quota untuk paket Eksklusif/Enterprise ────
-        if (in_array($packageKey, ['eksklusif', 'eksekutif', 'enterprise'])) {
+        // Hanya untuk layanan Pendirian PT Reguler, jangan berikan ke PMA/CV dll
+        if (\App\Models\RoomBenefit::isEligibleForOrder($order)) {
             UserRoomQuota::updateOrCreate(
                 ['user_id' => $user->id],
                 [

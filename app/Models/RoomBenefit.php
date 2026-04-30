@@ -24,22 +24,110 @@ class RoomBenefit extends Model
         'expired_at' => 'datetime',
     ];
 
-    // ── Eligible PT packages ──────────────────────────────────────────────────
+    // ── Eligibility Rules ─────────────────────────────────────────────────────
 
-    /** PT package names that qualify for room benefits */
+    /**
+     * Package slugs that qualify for room benefits.
+     * Only these two packages are allowed — for ANY service.
+     * (The service must also match ELIGIBLE_SERVICES below.)
+     */
     public const ELIGIBLE_PACKAGES = ['eksklusif', 'enterprise'];
 
     /**
-     * Check whether a service/package name is eligible for a room benefit.
+     * Service slugs / name fragments that are eligible.
+     * Benefit ONLY applies to "Pendirian PT" (reguler).
+     * PT Perorangan, CV, Yayasan, Firma, PT PMA → NOT eligible.
      */
-    public static function isEligiblePackage(string $packageName): bool
+    public const ELIGIBLE_SERVICES = [
+        'pendirian-pt',    // slug in orders.form_data['service']
+        'pendirian pt',    // human-readable substring in service_name
+    ];
+
+    /**
+     * ✅  CANONICAL eligibility check — use this everywhere.
+     *
+     * An order is eligible only when:
+     *   - service is exactly "Pendirian PT" (not PT Perorangan / CV / etc.), AND
+     *   - package is "Eksklusif" or "Enterprise"
+     *
+     * Accepts an Order model and reads form_data + service_name.
+     */
+    public static function isEligibleForOrder(\App\Models\Order $order): bool
     {
-        $normalized = strtolower(trim($packageName));
+        $formData = $order->form_data ?? [];
+
+        // ── 1. Resolve package slug ───────────────────────────────────────────
+        $packageSlug = strtolower(trim($formData['package'] ?? ''));  // "eksklusif"
+
+        // ── 2. Resolve service slug ───────────────────────────────────────────
+        $serviceSlug = strtolower(trim($formData['service'] ?? ''));  // "pendirian-pt"
+        $serviceName = strtolower(trim(
+            $order->service_name ?? ($order->service?->name ?? '')
+        ));  // "pendirian pt – paket eksklusif"
+
+        // ── 3. Check package ──────────────────────────────────────────────────
+        $packageOk = self::isEligiblePackage($packageSlug);
+        if (!$packageOk) return false;
+
+        // ── 4. Check service: must be exactly "pendirian-pt" slug ─────────────
+        //      or the service_name contains "pendirian pt" but NOT followed by
+        //      "perorangan", "pma", "cv", "yayasan", "firma".
+        $serviceOk = self::isEligibleService($serviceSlug, $serviceName);
+
+        return $serviceOk;
+    }
+
+    /**
+     * Check if package slug is in the allowed list.
+     * (Used internally — prefer isEligibleForOrder() for full validation.)
+     */
+    public static function isEligiblePackage(string $packageSlug): bool
+    {
+        $normalized = strtolower(trim($packageSlug));
         foreach (self::ELIGIBLE_PACKAGES as $pkg) {
             if (str_contains($normalized, $pkg)) {
                 return true;
             }
         }
+        return false;
+    }
+
+    /**
+     * Check if service slug/name refers to "Pendirian PT" (reguler) only.
+     * Explicitly rejects: pt-perorangan, pt-pma, cv, yayasan, firma.
+     */
+    public static function isEligibleService(string $serviceSlug, string $serviceName = ''): bool
+    {
+        // Rejected slugs — regardless of package
+        $rejectedSlugs = [
+            'pt-perorangan', 'pendirian-pt-perorangan',
+            'pt-pma',        'pendirian-pt-pma',
+            'cv',            'pendirian-cv',
+            'yayasan',       'pendirian-yayasan',
+            'firma',         'pendirian-firma',
+        ];
+
+        if (in_array($serviceSlug, $rejectedSlugs, true)) {
+            return false;
+        }
+
+        // Allowed slug: exactly "pendirian-pt"
+        if ($serviceSlug === 'pendirian-pt') {
+            return true;
+        }
+
+        // Fallback: check service_name string for legacy orders without form_data
+        // Must contain "pendirian pt" but NOT contain disqualifying words
+        if (str_contains($serviceName, 'pendirian pt')) {
+            $disqualifiers = ['perorangan', 'pma', ' cv', 'yayasan', 'firma'];
+            foreach ($disqualifiers as $d) {
+                if (str_contains($serviceName, $d)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         return false;
     }
 
