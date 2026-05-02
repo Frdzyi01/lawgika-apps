@@ -1573,8 +1573,6 @@
                   <i class="far fa-check"></i>
                   Perizinan & dokumen hukum
                 </li>
-              </ul>
-              <ul>
                 <li>
                   <i class="far fa-check"></i>
                   Pembukuan & perpajakan
@@ -1585,7 +1583,7 @@
                 </li>
               </ul>
             </div>
-            <a href="#" class="theme-btn">Explore More <i class="fas fa-long-arrow-alt-right"></i>
+            <a href="{{ url('tentang-kami') }}" class="theme-btn">Explore More <i class="fas fa-long-arrow-alt-right"></i>
             </a>
           </div>
         </div>
@@ -1608,7 +1606,7 @@
 </section>
 
 <!-- Cta contact Section Start -->
-<section class="cta-contact-section">
+<!-- <section class="cta-contact-section">
   <div class="container">
     <div class="cta-contact-wrapper mb-0">
       <div class="cta-contact-image">
@@ -1622,7 +1620,7 @@
                         fa-long-arrow-alt-right"></i></a>
     </div>
   </div>
-</section>
+</section> -->
 
 
 <!-- ===== UPCOMING EVENT SECTION ===== -->

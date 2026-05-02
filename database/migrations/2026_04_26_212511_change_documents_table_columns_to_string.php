@@ -21,6 +21,15 @@ return new class extends Migration
      */
     public function down(): void
     {
+        // Prevent truncation errors by mapping unsupported values
+        DB::table('documents')
+            ->whereNotIn('type', ['ktp', 'npwp', 'company_nib', 'other'])
+            ->update(['type' => 'other']);
+            
+        DB::table('documents')
+            ->whereNotIn('status', ['pending', 'verified'])
+            ->update(['status' => 'pending']);
+
         // Revert kembali ke enum (dengan opsi default aslinya)
         DB::statement("ALTER TABLE documents MODIFY COLUMN type ENUM('ktp', 'npwp', 'company_nib', 'other') NOT NULL");
         DB::statement("ALTER TABLE documents MODIFY COLUMN status ENUM('pending', 'verified') NOT NULL DEFAULT 'pending'");

@@ -60,7 +60,7 @@
                         <li>Pengalaman min. 1 tahun (lebih disukai)</li>
                     </ul>
 
-                    <a href="#" class="btn mt-3" style="background:#800000; color:#fff; border-radius:10px; padding:10px 20px;">
+                    <a href="mailto: hiring@lawgika.co.id" class="btn mt-3" style="background:#800000; color:#fff; border-radius:10px; padding:10px 20px;">
                         Lamar Sekarang
                     </a>
 
@@ -88,7 +88,7 @@
                         <li>Mampu bekerja dalam tim</li>
                     </ul>
 
-                    <a href="#" class="btn mt-3" style="background:#800000; color:#fff; border-radius:10px; padding:10px 20px;">
+                <a href="mailto: hiring@lawgika.co.id" class="btn mt-3" style="background:#800000; color:#fff; border-radius:10px; padding:10px 20px;">
                         Lamar Sekarang
                     </a>
 

@@ -318,7 +318,7 @@
                           .lw-mega-sidebar {
                             width: 240px;
                             flex-shrink: 0;
-                            background: #fafafa;
+                            /* background: #fafafa; */
                             border-left: 1px solid #f0f0f0;
                             padding: 24px 18px;
                             display: flex;
@@ -438,8 +438,7 @@
                                   <li><a href="{{ url('/pendirian-cv') }}">Pendirian CV</a></li>
                                   <li><a href="{{ url('/pendirian-yayasan') }}">Pendirian Yayasan</a></li>
                                   <li><a href="{{ url('/pendirian-firma') }}">Pendirian Firma</a></li>
-                                  <hr>
-                                  <li><a href="{{ url('/perizinan-dan-hukum') }}">Perizinan dan Hukum</a></li>
+                                  
                                 </ul>
                               </div>
 
@@ -458,30 +457,24 @@
 
                             </div>
                             <div class="lw-mega-sidebar">
-                              <div class="lw-sidebar-label">Paket Populer</div>
-
-                              <a href="{{ url('/pendirian-pt') }}" class="lw-sidebar-card">
-                                <div class="lw-sidebar-card-title">Pendirian PT Lengkap</div>
-                                <div class="lw-sidebar-card-sub">Akta + NIB + NPWP Perusahaan</div>
-                                <div class="lw-sidebar-card-price">mulai Rp 5.950.000</div>
-                              </a>
-
-                              <a href="{{ url('/virtual-office') }}" class="lw-sidebar-card">
-                                <div class="lw-sidebar-card-title">Virtual Office</div>
-                                <div class="lw-sidebar-card-sub">Alamat bisnis prestisius Jakarta</div>
-                                <div class="lw-sidebar-card-price">mulai Rp 2.400.000 / thn</div>
-                              </a>
-
-                              <a href="{{ url('/haki') }}" class="lw-sidebar-card">
-                                <div class="lw-sidebar-card-title">Pendaftaran Merek (HAKI)</div>
-                                <div class="lw-sidebar-card-sub">Lindungi brand Anda sekarang</div>
-                                <div class="lw-sidebar-card-price">mulai Rp 2.000.000</div>
-                              </a>
-
-                              <a href="#layanan-kami-section" class="lw-sidebar-cta">
-                                Semua Layanan <i class="fas fa-arrow-right"></i>
-                              </a>
+                              <div class="lw-col">
+                                <div class="lw-col-title">
+                                  <i class="fas fa-building"></i> Perizinan Dan Hukum
+                                </div>
+                                <ul>
+                                  <li><a href="{{ url('/perizinan-dan-hukum') }}">NIB dan Oss</a></li>
+                                  <li><a href="{{ url('/perizinan-dan-hukum') }}">HAKI</a></li>
+                                  <li><a href="{{ url('/perizinan-dan-hukum') }}">Laporan LKPM</a></li>
+                                  <li><a href="{{ url('/perizinan-dan-hukum') }}">Sertifikat ISO</a></li>
+                                  <li><a href="{{ url('/perizinan-dan-hukum') }}">Surat Keterangan Tidak Pailit</a></li>
+                                  <li><a href="{{ url('/perizinan-dan-hukum') }}">Drafting Perjanjian Bisnis</a></li>
+                                </ul>
+                                <a href="#layanan-kami-section" class="lw-sidebar-cta">
+                                  Perizinan Lainnya <i class="fas fa-arrow-right"></i>
+                                </a>
+                              </div>
                             </div>
+
                           </div>
                         </div>
                       </div>
@@ -757,7 +750,7 @@
                     </li>
 
                     <li>
-                      <a href="{{ url('tentang-kami') }}">Kontak Kami</a>
+                      <a href="{{ url('#') }}"><span></span></a>
                     </li>
                   </ul>
                 </nav>

@@ -24,7 +24,12 @@ return new class extends Migration
 
     public function down(): void
     {
-        // Revert ke ENUM awal (hanya jika semua value ada di dalam daftar ini)
+        // Reset unsupported statuses to 'pending' to prevent truncation errors
+        DB::table('orders')
+            ->whereNotIn('status', ['pending', 'processing', 'completed', 'cancelled'])
+            ->update(['status' => 'pending']);
+
+        // Revert ke ENUM awal
         DB::statement("ALTER TABLE orders MODIFY COLUMN status ENUM('pending','processing','completed','cancelled') NOT NULL DEFAULT 'pending'");
     }
 };

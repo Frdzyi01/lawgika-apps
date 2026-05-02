@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('content')
-    
+
 {{-- Breadcrumb / Header Area --}}
 <section class="page-title-area position-relative" style="background: linear-gradient(135deg, #1a0208 0%, #2d0610 50%, #1a0208 100%); padding-top: 180px; padding-bottom: 80px;">
     <div class="container position-relative z-1">
@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="col-lg-6 text-lg-end mt-4 mt-lg-0">
-                 <nav aria-label="breadcrumb">
+                <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-lg-end justify-content-start mb-0">
                         <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none">Beranda</a></li>
                         <li class="breadcrumb-item active text-white-50" aria-current="page">Tentang Kami</li>
@@ -49,7 +49,7 @@
                     <p class="text-muted mb-4" style="line-height: 1.8">
                         Lawgika Bisnis Indonesia adalah platform digital yang berdedikasi untuk membantu para pelaku usaha di Indonesia dalam mengelola aspek legalitas dan bisnis secara efisien. Kami percaya bahwa setiap bisnis, besar maupun kecil, berhak mendapatkan akses layanan hukum yang profesional dan terjangkau.
                     </p>
-                    
+
                     <div class="row g-4 mt-2">
                         <div class="col-md-6">
                             <div class="vision-box p-4 rounded-4" style="background: #fff5f6; border-left: 4px solid #dc3545;">
@@ -78,7 +78,7 @@
             <h2 class="fw-bold mt-2">Mengapa Memilih Lawgika?</h2>
             <p class="text-muted">Kami menggabungkan keahlian profesional dengan teknologi digital untuk memberikan pengalaman terbaik bagi klien kami.</p>
         </div>
-        
+
         <div class="row g-4">
             <div class="col-lg-3 col-md-6">
                 <div class="feature-card-item p-4 bg-white rounded-4 shadow-sm h-100 text-center transition-all hover-translate-y">
@@ -126,19 +126,19 @@
         <div class="row g-4 text-center">
             <div class="col-md-4">
                 <div class="stat-item text-white">
-                    <h2 class="fw-bold display-5 mb-1 counter">500+</h2>
+                    <h2 class="fw-bold display-5 mb-1 counter" style="color: #fff;">500+</h2>
                     <p class="text-white-50 mb-0">Klien Terpercaya</p>
                 </div>
             </div>
             <div class="col-md-4 border-start border-end border-white-10">
                 <div class="stat-item text-white">
-                    <h2 class="fw-bold display-5 mb-1 counter">95.000+</h2>
+                    <h2 class="fw-bold display-5 mb-1 counter" style="color: #fff;">95.000+</h2>
                     <p class="text-white-50 mb-0">Database Peraturan</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="stat-item text-white">
-                    <h2 class="fw-bold display-5 mb-1 counter">24/7</h2>
+                    <h2 class="fw-bold display-5 mb-1 counter" style="color: #fff;">24/7</h2>
                     <p class="text-white-50 mb-0">Akses Layanan</p>
                 </div>
             </div>
@@ -157,7 +157,7 @@
                 <a href="{{ url('/') }}#layanan-kami-section" class="theme-btn">Lihat Semua Layanan <i class="fas fa-arrow-right ms-2"></i></a>
             </div>
         </div>
-        
+
         <div class="row g-4">
             <div class="col-lg-4">
                 <div class="service-card p-4 rounded-4 border hover-shadow transition-all h-100">
@@ -197,7 +197,14 @@
 </section>
 
 {{-- CTA Section --}}
-<section class="cta-about-area section-padding position-relative overflow-hidden" style="background: linear-gradient(135deg, #dc3545 0%, #a71d2a 100%);">
+<section class="cta-about-area section-padding position-relative overflow-hidden"
+    style="background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); 
+         background-size: cover; 
+         background-position: center; 
+         background-repeat: no-repeat;">
+
+    <!-- Overlay gelap opsional biar teks tetap terbaca -->
+    <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.4); z-index: 1;"></div>
     <div class="container position-relative z-1">
         <div class="row justify-content-center">
             <div class="col-lg-8 text-center text-white">
@@ -207,7 +214,7 @@
                     <a href="https://wa.me/628111111111" class="btn btn-light btn-lg px-5 py-3 rounded-pill fw-bold text-danger">
                         <i class="fab fa-whatsapp me-2"></i> Hubungi via WhatsApp
                     </a>
-                    <a href="{{ url('/') }}" class="btn btn-outline-light btn-lg px-5 py-3 rounded-pill fw-bold">
+                    <a href="{{ url('/') }}#layanan-kami-section" class="btn btn-outline-light btn-lg px-5 py-3 rounded-pill fw-bold">
                         Jelajahi Layanan
                     </a>
                 </div>
@@ -223,17 +230,20 @@
     .hover-translate-y:hover {
         transform: translateY(-10px);
     }
+
     .transition-all {
         transition: all 0.3s ease;
     }
+
     .border-white-10 {
-        border-color: rgba(255,255,255,0.1) !important;
+        border-color: rgba(255, 255, 255, 0.1) !important;
     }
+
     .hover-shadow:hover {
-        box-shadow: 0 1rem 3rem rgba(0,0,0,0.1) !important;
+        box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1) !important;
         border-color: transparent !important;
     }
 </style>
 
- 
+
 @endsection

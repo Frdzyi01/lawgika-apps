@@ -387,23 +387,7 @@
                 <div class="layanan-card-desc">Hemat biaya operasional hingga 90% dengan alamat kantor prestisius tanpa sewa fisik.</div>
                 <div class="layanan-card-price-label">Price Start From</div>
                 <div class="layanan-card-price">Rp 299.000/Bulan*</div>
-                <button type="button" class="layanan-card-btn" onclick="openOrderModal('Virtual Office')">Order Now</button>
-              </div>
-            </div>
-          </div>
-          {{-- Card 2: Serviced Office --}}
-          <div class="col-12 col-md-6 col-lg-3">
-            <div class="layanan-card">
-              <div class="layanan-card-img-wrap">
-                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=500&q=80"
-                  alt="Serviced Office – Ruang Kantor Siap Pakai" loading="lazy">
-              </div>
-              <div class="layanan-card-body">
-                <div class="layanan-card-title">Serviced Office</div>
-                <div class="layanan-card-desc">Ruang kantor siap pakai yang ideal untuk tim Anda, dilengkapi fasilitas lengkap.</div>
-                <div class="layanan-card-price-label">Price Start From</div>
-                <div class="layanan-card-price">Rp 4.500.000/Bulan*</div>
-                <button type="button" class="layanan-card-btn" onclick="openOrderModal('Serviced Office')">Order Now</button>
+               <button class="btn"><a href="{{ url('/virtual-office') }}" class="layanan-card-btn">Order Now</a></button>
               </div>
             </div>
           </div>
@@ -419,7 +403,7 @@
                 <div class="layanan-card-desc">Tempat yang cocok untuk melakukan pertemuan penting dengan klien atau mitra bisnis.</div>
                 <div class="layanan-card-price-label">Price Start From</div>
                 <div class="layanan-card-price">Rp 255.000/Jam*</div>
-                <button type="button" class="layanan-card-btn" onclick="openOrderModal('Meeting Room')">Order Now</button>
+                <button class="btn"><a href="{{ url('/sewa-meeting-room') }}" class="layanan-card-btn">Order Now</a></button>
               </div>
             </div>
           </div>
@@ -431,11 +415,11 @@
                   alt="Coworking Space – Ruang Kerja Bersama" loading="lazy">
               </div>
               <div class="layanan-card-body">
-                <div class="layanan-card-title">Coworking Space</div>
-                <div class="layanan-card-desc">Ruang kerja bersama yang fleksibel dan produktif untuk freelancer maupun startup.</div>
+                <div class="layanan-card-title">Podcast Studio</div>
+                <div class="layanan-card-desc">Ruang podcast profesional dengan peralatan lengkap untuk produksi audio berkualitas tinggi.</div>
                 <div class="layanan-card-price-label">Price Start From</div>
-                <div class="layanan-card-price">Rp 150.000/Hari*</div>
-                <button type="button" class="layanan-card-btn" onclick="openOrderModal('Coworking Space')">Order Now</button>
+                <div class="layanan-card-price">Rp 150.000/Jam*</div>
+                <button class="btn"><a href="{{ url('/sewa-ruang-podcast') }}" class="layanan-card-btn">Order Now</a></button>
               </div>
             </div>
           </div>
@@ -509,21 +493,6 @@
             </div>
           </div>
           {{-- Card 3 --}}
-          <div class="col-12 col-md-6 col-lg-3">
-            <div class="layanan-card">
-              <div class="layanan-card-img-wrap">
-                <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=500&q=80"
-                  alt="Tax Services – Layanan Pajak" loading="lazy">
-              </div>
-              <div class="layanan-card-body">
-                <div class="layanan-card-title">Tax Services</div>
-                <div class="layanan-card-desc">Pengurusan NPWP, pelaporan SPT Tahunan, dan konsultasi pajak bisnis yang akurat dan aman.</div>
-                <div class="layanan-card-price-label">Price Start From</div>
-                <div class="layanan-card-price">Rp 750.000/Laporan*</div>
-                <button type="button" class="layanan-card-btn" onclick="openOrderModal('Tax Services')">Order Now</button>
-              </div>
-            </div>
-          </div>
           {{-- Card 4 --}}
           <div class="col-12 col-md-6 col-lg-3">
             <div class="layanan-card">
@@ -583,7 +552,7 @@
                 <span class="layanan-card-badge">Terlaris</span>
               </div>
               <div class="layanan-card-body">
-                <div class="layanan-card-title">Visa Application</div>
+                <div class="layanan-card-title">Jasa Pembukuan & Perpajakan</div>
                 <div class="layanan-card-desc">Pengurusan visa kunjungan, bisnis, dan tinggal terbatas di Indonesia secara profesional.</div>
                 <div class="layanan-card-price-label">Price Start From</div>
                 <div class="layanan-card-price">Rp 1.500.000/Proses*</div>
@@ -599,7 +568,7 @@
                   alt="KITAS / KITAP – Izin Tinggal WNA" loading="lazy">
               </div>
               <div class="layanan-card-body">
-                <div class="layanan-card-title">KITAS / KITAP</div>
+                <div class="layanan-card-title">Pelaporan SPT Tahunan</div>
                 <div class="layanan-card-desc">Pengurusan izin tinggal terbatas dan tetap untuk warga negara asing di Indonesia.</div>
                 <div class="layanan-card-price-label">Price Start From</div>
                 <div class="layanan-card-price">Rp 3.500.000/Proses*</div>
@@ -615,7 +584,7 @@
                   alt="Passport Assistance – Bantuan Paspor" loading="lazy">
               </div>
               <div class="layanan-card-body">
-                <div class="layanan-card-title">Passport Assistance</div>
+                <div class="layanan-card-title">Pengurusan PKP</div>
                 <div class="layanan-card-desc">Bantuan persiapan, pengurusan, dan perpanjangan paspor untuk keperluan perjalanan internasional.</div>
                 <div class="layanan-card-price-label">Price Start From</div>
                 <div class="layanan-card-price">Rp 800.000/Proses*</div>
@@ -624,21 +593,23 @@
             </div>
           </div>
           {{-- Card 4 --}}
-          <div class="col-12 col-md-6 col-lg-3">
+          <!-- tax services -->
+           <div class="col-12 col-md-6 col-lg-3">
             <div class="layanan-card">
               <div class="layanan-card-img-wrap">
-                <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=500&q=80"
-                  alt="Immigration Consulting – Konsultasi Imigrasi" loading="lazy">
+                <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=500&q=80"
+                  alt="Tax Services – Layanan Pajak" loading="lazy">
               </div>
               <div class="layanan-card-body">
-                <div class="layanan-card-title">Immigration Consulting</div>
-                <div class="layanan-card-desc">Layanan konsultasi keimigrasian komprehensif untuk WNA yang akan tinggal atau bekerja di Indonesia.</div>
+                <div class="layanan-card-title">Tax Services</div>
+                <div class="layanan-card-desc">Pengurusan NPWP, pelaporan SPT Tahunan, dan konsultasi pajak bisnis yang akurat dan aman.</div>
                 <div class="layanan-card-price-label">Price Start From</div>
-                <div class="layanan-card-price">Rp 500.000/Sesi*</div>
-                <button type="button" class="layanan-card-btn" onclick="openOrderModal('Immigration Consulting')">Order Now</button>
+                <div class="layanan-card-price">Rp 750.000/Laporan*</div>
+                <button type="button" class="layanan-card-btn" onclick="openOrderModal('Tax Services')">Order Now</button>
               </div>
             </div>
           </div>
+          <!-- end tax service -->
         </div>{{-- /row --}}
       </div>{{-- /pane-foreign --}}
 

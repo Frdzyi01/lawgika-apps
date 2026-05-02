@@ -40,7 +40,7 @@
     <div class="container">
         <div class="row">
             <!-- MAIN CONTENT - KIRI (2/3) -->
-            <div class="col-lg-8">
+            <div class="col-lg-12">
                 <div class="event-header mb-4 d-flex justify-content-between align-items-center flex-wrap">
                     <h2 class="fw-bold mb-2 mb-lg-0">
                         <i class="fas fa-calendar-alt text-danger me-2"></i> Semua Event
@@ -126,40 +126,7 @@
             </div>
 
             <!-- SIDEBAR - KANAN (1/3) -->
-            <div class="col-lg-4">
-                <!-- Newsletter Card -->
-                <div class="card border-0 shadow-sm rounded-4 mb-4">
-                    <div class="card-body p-4">
-                        <div class="text-center mb-3">
-                            <i class="fas fa-envelope-open-text fa-2x text-danger mb-2"></i>
-                            <h4 class="fw-bold">Newsletter</h4>
-                            <p class="text-muted small">Dapatkan update event terbaru langsung ke email Anda.</p>
-                        </div>
-                        <form>
-                            <div class="mb-3">
-                                <input type="email" class="form-control rounded-pill" placeholder="Email Anda">
-                            </div>
-                            <button type="submit" class="btn btn-danger w-100 rounded-pill">
-                                <i class="fas fa-paper-plane me-2"></i> Daftar Sekarang
-                            </button>
-                        </form>
-                    </div>
-                </div>
-
-                <!-- Info Card -->
-                <div class="card border-0 shadow-sm rounded-4">
-                    <div class="card-body p-4">
-                        <div class="text-center">
-                            <i class="fas fa-info-circle fa-2x text-danger mb-2"></i>
-                            <h5 class="fw-bold">Tertarik Jadi Pembicara?</h5>
-                            <p class="text-muted small mb-3">Jika Anda ingin menjadi pembicara di event kami, silakan hubungi tim kami.</p>
-                            <a href="#" class="btn btn-outline-danger rounded-pill w-100">
-                                <i class="fas fa-headset me-2"></i> Hubungi Kami
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+           
         </div>
     </div>
 </section>

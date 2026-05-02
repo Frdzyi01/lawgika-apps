@@ -2403,7 +2403,7 @@ span {
 .header-main .main-menu ul li a {
   display: inline-block;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--header);
   padding: 20px 0;
   text-align: left;
@@ -6694,7 +6694,7 @@ input.main-search-input::placeholder {
 }
 
 .section-padding {
-  padding: 170px 0;
+  padding: 70px 0;
 }
 @media (max-width: 1199px) {
   .section-padding {
@@ -7055,7 +7055,7 @@ input.main-search-input::placeholder {
 
 .testimonial-card-items {
   position: relative;
-  padding: 40px;
+  padding: 19px;
   z-index: 9;
 }
 @media (max-width: 1399px) {
