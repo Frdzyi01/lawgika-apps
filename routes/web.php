@@ -191,6 +191,7 @@ Route::middleware(['auth', 'role:customer'])->prefix('dashboard')->name('custome
     Route::post('orders/{order}/payment-proof', [\App\Http\Controllers\Customer\OrderController::class, 'uploadPaymentProof'])->name('orders.payment-proof');
 
     Route::get('/meeting-room', [MeetingRoomController::class, 'customerIndex'])->name('meeting-room.index');
+    Route::get('/meeting-room/{id}/detail', [MeetingRoomController::class, 'customerDetail'])->name('meeting-room.detail');
     Route::post('/meeting-room/{id}/checkin', [MeetingRoomController::class, 'checkin']);
     Route::post('/meeting-room/{id}/checkout', [MeetingRoomController::class, 'checkout']);
 

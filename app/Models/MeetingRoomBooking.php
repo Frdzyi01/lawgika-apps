@@ -22,6 +22,11 @@ class MeetingRoomBooking extends Model
         'total_used_seconds',
         'payment_proof',
         'payment_status',
+        'nama_perusahaan',
+        'email',
+        'alamat_usaha',
+        'bidang_usaha',
+        'keperluan',
     ];
 
     protected $casts = [
@@ -38,6 +43,11 @@ class MeetingRoomBooking extends Model
     public function benefit()
     {
         return $this->belongsTo(\App\Models\RoomBenefit::class, 'benefit_id');
+    }
+
+    public function meetingRoomPackage()
+    {
+        return $this->belongsTo('App\Models\MeetingRoomPackage', 'meeting_room_package_id');
     }
 
     /**

@@ -137,12 +137,37 @@
                         placeholder="Masukkan nama Anda" value="{{ old('nama', auth()->user()->name ?? '') }}" readonly>
                 </div>
 
+                <div class="form-group">
+                    <label for="nama_perusahaan">Nama Perusahaan</label>
+                    <input type="text" id="nama_perusahaan" name="nama_perusahaan" class="form-control" required
+                        placeholder="Masukkan nama perusahaan" value="{{ old('nama_perusahaan') }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Alamat Email</label>
+                    <input type="email" id="email" name="email" class="form-control" required
+                        placeholder="Masukkan alamat email" value="{{ old('email') }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="alamat_usaha">Alamat Aktivitas Usaha</label>
+                    <textarea id="alamat_usaha" name="alamat_usaha" class="form-control" required
+                        placeholder="Masukkan alamat aktivitas usaha" rows="3">{{ old('alamat_usaha') }}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="bidang_usaha">Bidang Usaha</label>
+                    <input type="text" id="bidang_usaha" name="bidang_usaha" class="form-control" required
+                        placeholder="Masukkan bidang usaha" value="{{ old('bidang_usaha') }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="keperluan">Keperluan Meeting Room</label>
+                    <textarea id="keperluan" name="keperluan" class="form-control" required
+                        placeholder="Masukkan keperluan penggunaan meeting room" rows="3">{{ old('keperluan') }}</textarea>
+                </div>
+
                 @if (request('package') == 'paket')
-                    <div class="form-group">
-                        <label for="identitas_perusahaan">Identitas Perusahaan</label>
-                        <input type="text" id="identitas_perusahaan" name="identitas_perusahaan" class="form-control"
-                            required placeholder="Nama perusahaan Anda" value="{{ old('identitas_perusahaan') }}">
-                    </div>
 
                     <!-- Hidden fields for package purchase -->
                     <input type="hidden" name="package" value="paket">
@@ -319,20 +344,27 @@
 
         function sendWhatsApp() {
             const nama = document.getElementById('nama').value;
+            const nama_perusahaan = document.getElementById('nama_perusahaan').value;
+            const email = document.getElementById('email').value;
+            const alamat_usaha = document.getElementById('alamat_usaha').value;
+            const bidang_usaha = document.getElementById('bidang_usaha').value;
+            const keperluan = document.getElementById('keperluan').value;
             const packageType = document.getElementById('package').value;
 
             if (packageType === 'paket') {
-                const identitas = document.getElementById('identitas_perusahaan').value;
-
-                if (!identitas) {
-                    alert('Mohon lengkapi identitas perusahaan terlebih dahulu.');
+                if (!nama_perusahaan || !email || !alamat_usaha || !bidang_usaha || !keperluan) {
+                    alert('Mohon lengkapi semua data formulir terlebih dahulu.');
                     return;
                 }
 
                 const text = `Halo Admin Lawgika, saya ingin memverifikasi pembelian Paket Meeting Room:
 
 - Nama: ${nama || '-'}
-- Identitas Perusahaan: ${identitas}
+- Nama Perusahaan: ${nama_perusahaan}
+- Email: ${email}
+- Alamat Usaha: ${alamat_usaha}
+- Bidang Usaha: ${bidang_usaha}
+- Keperluan: ${keperluan}
 - Paket: 60 Jam Meeting Room
 - Harga: Rp 1.000.000
 - Masa Berlaku: 1 Tahun
@@ -348,21 +380,24 @@ Mohon konfirmasinya. Terima kasih.`;
                 const durasi = document.getElementById('durasi').value;
                 const peserta = document.getElementById('peserta').value;
 
-                if (!tanggal || !jam || !durasi) {
-                    alert('Mohon lengkapi tanggal, jam, dan durasi terlebih dahulu.');
+                if (!tanggal || !jam || !durasi || !nama_perusahaan || !email || !alamat_usaha || !bidang_usaha || !keperluan) {
+                    alert('Mohon lengkapi semua data formulir terlebih dahulu.');
                     return;
                 }
 
                 const text = `Halo Admin Lawgika, saya ingin memverifikasi pemesanan Meeting Room:
 
 - Nama: ${nama || '-'}
+- Nama Perusahaan: ${nama_perusahaan}
+- Email: ${email}
+- Alamat Usaha: ${alamat_usaha}
+- Bidang Usaha: ${bidang_usaha}
+- Keperluan: ${keperluan}
 - Tanggal: ${tanggal}
 - Jam: ${jam}
 - Durasi: ${durasi} Jam
 - Peserta: ${peserta} Orang
 - Tipe Pemesanan: Reservasi Reguler/Gunakan Kuota
-
-Mohon konfirmasinya. Terima kasih.`;
 
                 const phone = '628111234567';
                 const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;

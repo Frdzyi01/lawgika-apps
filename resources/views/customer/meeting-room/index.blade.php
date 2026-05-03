@@ -49,6 +49,7 @@
                                     <th>Waktu & Peserta</th>
                                     <th>Durasi Diajukan</th>
                                     <th>Status Pengajuan</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -74,6 +75,11 @@
                                             @else
                                                 <span class="badge bg-secondary">Selesai / Paused</span>
                                             @endif
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('customer.meeting-room.detail', $booking->id) }}" class="btn btn-sm btn-info text-white">
+                                                <i class="fas fa-eye"></i> Detail
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -106,90 +112,168 @@
                         </thead>
                         <tbody>
                             @forelse($manualBookings as $booking)
+                                @php
+                                    $isPackage = !is_null($booking->meeting_room_package_id) || $booking->type === 'meeting_room_package';
+                                @endphp
                                 <tr>
-                                    <td>{{ $booking->id }}</td>
-                                    <td>
+                                    @if($isPackage)
                                         @php
-                                            $isPackage = empty($booking->date) && empty($booking->start_time);
+                                            $package = $booking->meetingRoomPackage;
                                         @endphp
-
-                                        @if ($isPackage)
-                                            <span class="badge bg-success" style="font-size:0.9rem;">📦 Paket Meeting
-                                                Room</span>
+                                        <td>{{ $booking->id }}</td>
+                                        <td>
+                                            <span class="badge bg-success" style="font-size:0.9rem;">📦 Paket Meeting Room</span>
                                             <small class="d-block text-muted mt-1">60 Jam</small>
-                                        @else
-                                            {{ \Carbon\Carbon::parse($booking->date)->format('d M Y') }}
-                                            <small
-                                                class="d-block">{{ \Carbon\Carbon::parse($booking->start_time)->format('H:i') }}</small>
-                                            <small class="text-muted">{{ $booking->participants }} Orang |
-                                                {{ $booking->duration }} Jam</small>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if ($booking->payment_status === 'approved')
-                                            <span class="badge bg-success">✅ Pembayaran diterima</span>
-                                        @elseif($booking->payment_status === 'rejected')
-                                            <span class="badge bg-danger">❌ Pembayaran ditolak</span>
-                                        @else
-                                            <span class="badge bg-warning text-dark">⏳ Menunggu konfirmasi admin</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if ($booking->payment_status === 'approved')
-                                            <small class="d-block">Total:
-                                                {{ $booking->formatSeconds($booking->duration * 3600) }}</small>
-                                            <small class="d-block">Dipakai: <span class="used-time-display"
-                                                    data-status="{{ $booking->status }}"
-                                                    data-used="{{ $booking->used_seconds }}">{{ $booking->formatted_used_time }}</span></small>
+                                            @if($package && isset($package->last_used_date))
+                                                <small class="d-block text-muted mt-1">Terakhir digunakan: {{ \Carbon\Carbon::parse($package->last_used_date)->format('d M Y') }}</small>
+                                                <small class="d-block text-muted">{{ $package->last_participant_count ?? 1 }} Orang</small>
+                                            @endif
+                                        </td>
+                                        <td>
                                             @php
-                                                $sisa = $booking->formatted_remaining_time;
-                                                $bc = 'bg-success';
-                                                if ($booking->is_expired || $sisa === 'Waktu habis') {
-                                                    $bc = 'bg-danger';
-                                                }
+                                                $statusMap = [
+                                                    'pending' => '⏳ Menunggu Pembayaran',
+                                                    'approved' => '✅ Pembayaran diterima',
+                                                    'rejected' => '❌ Ditolak',
+                                                ];
+                                                $paymentStatusBadge = 'bg-secondary';
+                                                if ($booking->payment_status === 'approved') $paymentStatusBadge = 'bg-success';
+                                                elseif ($booking->payment_status === 'rejected') $paymentStatusBadge = 'bg-danger';
+                                                elseif ($booking->payment_status === 'pending') $paymentStatusBadge = 'bg-warning text-dark';
                                             @endphp
-                                            <span class="badge {{ $bc }} mt-1">Sisa: <span
-                                                    class="remaining-time-display" data-status="{{ $booking->status }}"
-                                                    data-remaining="{{ $booking->remaining_seconds }}">{{ $sisa }}</span></span>
-                                        @else
-                                            <span class="text-muted small">–</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if ($booking->payment_status !== 'approved')
-                                            <span class="badge bg-secondary">Belum aktif</span>
-                                        @elseif($booking->is_expired)
-                                            <span class="badge bg-danger"
-                                                title="Expired setelah 1 tahun dari reservasi dibuat">❌ Expired</span>
-                                        @elseif($booking->remaining_seconds <= 0)
-                                            <span class="badge bg-secondary">Selesai</span>
-                                        @elseif($booking->status === 'checkin')
-                                            <span class="badge bg-primary">Sedang Digunakan</span>
-                                        @elseif($booking->status === 'paused' || $booking->used_seconds > 0)
-                                            <span class="badge bg-warning text-dark">Berhenti sementara</span>
-                                        @else
-                                            <span class="badge bg-info text-dark">Siap digunakan</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if ($booking->payment_status !== 'approved')
-                                            <span class="text-muted small">Tunggu konfirmasi pembayaran</span>
-                                        @elseif($booking->is_expired)
-                                            <span class="text-muted small text-danger fw-bold">Expired</span>
-                                        @elseif($booking->remaining_seconds <= 0)
-                                            <span class="text-muted small text-danger fw-bold">Waktu Habis</span>
-                                        @elseif($booking->status === 'checkin')
-                                            <button class="btn btn-sm btn-primary" disabled
-                                                style="cursor: not-allowed;">Sedang Checkin</button>
-                                            <small class="d-block text-muted mt-1" style="font-size: 11px;">*Dikelola
-                                                Admin</small>
-                                        @else
-                                            <button class="btn btn-sm btn-secondary" disabled
-                                                style="cursor: not-allowed;">Sedang Checkout</button>
-                                            <small class="d-block text-muted mt-1" style="font-size: 11px;">*Dikelola
-                                                Admin</small>
-                                        @endif
-                                    </td>
+                                            <span class="badge {{ $paymentStatusBadge }}">{{ $statusMap[$booking->payment_status] ?? $booking->payment_status }}</span>
+                                        </td>
+                                        <td>
+                                            @if($package)
+                                                <small class="d-block">Total: {{ $package->total_hours }} jam</small>
+                                                <small class="d-block">Dipakai: {{ $package->total_hours - $package->remaining_hours }} jam</small>
+                                                <span class="badge bg-success mt-1">Sisa: {{ max(0, $package->remaining_hours) }} jam</span>
+                                            @else
+                                                <span class="text-muted small">–</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if($package)
+                                                @php
+                                                    $remaining = max(0, $package->remaining_hours);
+                                                    if (isset($package->expired_at) && now()->greaterThan($package->expired_at)) {
+                                                        $status = "Expired";
+                                                        $statusBadge = "bg-danger";
+                                                    } elseif ($remaining == $package->total_hours) {
+                                                        $status = "Belum digunakan";
+                                                        $statusBadge = "bg-info text-dark";
+                                                    } elseif ($remaining > 0) {
+                                                        $status = "Berhenti sementara";
+                                                        $statusBadge = "bg-warning text-dark";
+                                                    } else {
+                                                        $status = "Habis";
+                                                        $statusBadge = "bg-secondary";
+                                                    }
+                                                @endphp
+                                                <span class="badge {{ $statusBadge }}">{{ $status }}</span>
+                                            @else
+                                                <span class="badge bg-secondary">Unknown</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if(!$package)
+                                                <span class="text-muted small">Tunggu konfirmasi pembayaran</span>
+                                            @elseif(isset($package->expired_at) && now()->greaterThan($package->expired_at))
+                                                <span class="text-muted small text-danger fw-bold">❌ Paket Expired</span>
+                                            @elseif($package->remaining_hours <= 0)
+                                                <span class="text-muted small text-danger fw-bold">❌ Paket Habis</span>
+                                            @elseif($booking->status === 'checkin')
+                                                <button class="btn btn-sm btn-secondary" disabled style="cursor: not-allowed;">Sedang Checkout</button>
+                                                <small class="d-block text-muted mt-1" style="font-size: 11px;">(Dikelola Admin)</small>
+                                            @else
+                                                <a href="/meeting-room/reserve?type=package&package_id={{ $package->id }}" class="btn btn-sm btn-primary">
+                                                    Gunakan Paket
+                                                </a>
+                                            @endif
+                                            
+                                            <div class="mt-2">
+                                                <a href="{{ route('customer.meeting-room.detail', $booking->id) }}" class="btn btn-sm btn-info text-white w-100">
+                                                    <i class="fas fa-eye"></i> Detail Order
+                                                </a>
+                                            </div>
+                                        </td>
+                                    @else
+                                        <td>{{ $booking->id }}</td>
+                                        <td>
+                                            @php
+                                                $isPackageOld = empty($booking->date) && empty($booking->start_time);
+                                            @endphp
+
+                                            @if ($isPackageOld)
+                                                <span class="badge bg-success" style="font-size:0.9rem;">📦 Paket Meeting Room</span>
+                                                <small class="d-block text-muted mt-1">60 Jam</small>
+                                            @else
+                                                {{ \Carbon\Carbon::parse($booking->date)->format('d M Y') }}
+                                                <small class="d-block">{{ \Carbon\Carbon::parse($booking->start_time)->format('H:i') }}</small>
+                                                <small class="text-muted">{{ $booking->participants }} Orang | {{ $booking->duration }} Jam</small>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($booking->payment_status === 'approved')
+                                                <span class="badge bg-success">✅ Pembayaran diterima</span>
+                                            @elseif($booking->payment_status === 'rejected')
+                                                <span class="badge bg-danger">❌ Pembayaran ditolak</span>
+                                            @else
+                                                <span class="badge bg-warning text-dark">⏳ Menunggu konfirmasi admin</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($booking->payment_status === 'approved')
+                                                <small class="d-block">Total: {{ $booking->formatSeconds($booking->duration * 3600) }}</small>
+                                                <small class="d-block">Dipakai: <span class="used-time-display" data-status="{{ $booking->status }}" data-used="{{ $booking->used_seconds }}">{{ $booking->formatted_used_time }}</span></small>
+                                                @php
+                                                    $sisa = $booking->formatted_remaining_time;
+                                                    $bc = 'bg-success';
+                                                    if ($booking->is_expired || $sisa === 'Waktu habis') {
+                                                        $bc = 'bg-danger';
+                                                    }
+                                                @endphp
+                                                <span class="badge {{ $bc }} mt-1">Sisa: <span class="remaining-time-display" data-status="{{ $booking->status }}" data-remaining="{{ $booking->remaining_seconds }}">{{ $sisa }}</span></span>
+                                            @else
+                                                <span class="text-muted small">–</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($booking->payment_status !== 'approved')
+                                                <span class="badge bg-secondary">Belum aktif</span>
+                                            @elseif($booking->is_expired)
+                                                <span class="badge bg-danger" title="Expired setelah 1 tahun dari reservasi dibuat">❌ Expired</span>
+                                            @elseif($booking->remaining_seconds <= 0)
+                                                <span class="badge bg-secondary">Selesai</span>
+                                            @elseif($booking->status === 'checkin')
+                                                <span class="badge bg-primary">Sedang Digunakan</span>
+                                            @elseif($booking->status === 'paused' || $booking->used_seconds > 0)
+                                                <span class="badge bg-warning text-dark">Berhenti sementara</span>
+                                            @else
+                                                <span class="badge bg-info text-dark">Siap digunakan</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('customer.meeting-room.detail', $booking->id) }}" class="btn btn-sm btn-info text-white mb-2">
+                                                <i class="fas fa-eye"></i> Detail
+                                            </a>
+                                            <br>
+                                            @if ($booking->payment_status !== 'approved')
+                                                <span class="text-muted small">Tunggu konfirmasi pembayaran</span>
+                                            @elseif($booking->is_expired)
+                                                <span class="text-muted small text-danger fw-bold">Expired</span>
+                                            @elseif($booking->remaining_seconds <= 0)
+                                                <span class="text-muted small text-danger fw-bold">Waktu Habis</span>
+                                            @elseif($booking->status === 'checkin')
+                                                <button class="btn btn-sm btn-primary" disabled style="cursor: not-allowed;">Sedang Checkin</button>
+                                                <small class="d-block text-muted mt-1" style="font-size: 11px;">*Dikelola Admin</small>
+                                            @else
+                                                <button class="btn btn-sm btn-secondary" disabled style="cursor: not-allowed;">Sedang Checkout</button>
+                                                <small class="d-block text-muted mt-1" style="font-size: 11px;">*Dikelola Admin</small>
+                                            @endif
+
+                                        </td>
+                                    @endif
                                 </tr>
                             @empty
                                 <tr>

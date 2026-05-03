@@ -1,9 +1,9 @@
-@extends('layouts-admin.admin')
+@extends('layouts-customer.app')
 @section('content')
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Detail Reservasi Meeting Room</h1>
-        <a href="{{ url('admin/meeting-room') }}" class="btn btn-sm btn-secondary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Kembali</a>
+        <a href="{{ route('customer.meeting-room.index') }}" class="btn btn-sm btn-secondary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Kembali</a>
     </div>
 
     <div class="row">

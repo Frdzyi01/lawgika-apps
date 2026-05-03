@@ -60,7 +60,12 @@ class MeetingRoomController extends Controller
         if ($isPackage) {
             $rules = [
                 'nama'                   => 'required|string|max:255',
-                'identitas_perusahaan'   => 'required|string|max:255',
+                'identitas_perusahaan'   => 'nullable|string|max:255',
+                'nama_perusahaan'        => 'required|string|max:255',
+                'email'                  => 'required|email|max:255',
+                'alamat_usaha'           => 'required|string',
+                'bidang_usaha'           => 'required|string|max:255',
+                'keperluan'              => 'required|string',
                 'payment_proof'          => 'required|image|mimes:jpg,jpeg,png|max:2048',
             ];
 
@@ -87,6 +92,11 @@ class MeetingRoomController extends Controller
                 'status'         => 'pending',
                 'payment_proof'  => $request->file('payment_proof')->store('payment_proofs', 'public'),
                 'payment_status' => 'pending',
+                'nama_perusahaan' => $request->nama_perusahaan ?? $request->identitas_perusahaan,
+                'email'           => $request->email,
+                'alamat_usaha'    => $request->alamat_usaha,
+                'bidang_usaha'    => $request->bidang_usaha,
+                'keperluan'       => $request->keperluan,
             ]);
 
             return redirect()->route('customer.meeting-room.index')
@@ -95,12 +105,17 @@ class MeetingRoomController extends Controller
 
         // ── REGULAR RESERVATION FLOW ──────────────────────────────────────────
         $rules = [
-            'nama'      => 'required|string|max:255',
-            'tanggal'   => 'required|date',
-            'jam'       => 'required',
-            'peserta'   => 'required|integer|min:1',
-            'durasi'    => 'required|integer|min:1',
-            'use_quota' => 'nullable|boolean',
+            'nama'            => 'required|string|max:255',
+            'nama_perusahaan' => 'required|string|max:255',
+            'email'           => 'required|email|max:255',
+            'alamat_usaha'    => 'required|string',
+            'bidang_usaha'    => 'required|string|max:255',
+            'keperluan'       => 'required|string',
+            'tanggal'         => 'required|date',
+            'jam'             => 'required',
+            'peserta'         => 'required|integer|min:1',
+            'durasi'          => 'required|integer|min:1',
+            'use_quota'       => 'nullable|boolean',
         ];
 
         // Payment proof only required for manual reservations without quota/benefit
@@ -139,6 +154,11 @@ class MeetingRoomController extends Controller
                 'status'         => 'pending',         // admin must approve first
                 'payment_status' => 'approved',        // no payment needed
                 'payment_proof'  => null,
+                'nama_perusahaan' => $request->nama_perusahaan,
+                'email'           => $request->email,
+                'alamat_usaha'    => $request->alamat_usaha,
+                'bidang_usaha'    => $request->bidang_usaha,
+                'keperluan'       => $request->keperluan,
             ]);
 
             return redirect()->route('customer.meeting-room.index')
@@ -176,6 +196,11 @@ class MeetingRoomController extends Controller
             'status'         => 'pending',
             'payment_proof'  => $path,
             'payment_status' => $request->input('use_quota') ? 'approved' : 'pending',
+            'nama_perusahaan' => $request->nama_perusahaan,
+            'email'           => $request->email,
+            'alamat_usaha'    => $request->alamat_usaha,
+            'bidang_usaha'    => $request->bidang_usaha,
+            'keperluan'       => $request->keperluan,
         ]);
 
         $msg = $request->input('use_quota')
@@ -249,6 +274,22 @@ class MeetingRoomController extends Controller
 
     // ── Customer Index ────────────────────────────────────────────────────────
 
+    public function customerDetail($id)
+    {
+        $booking = MeetingRoomBooking::with('user')->findOrFail($id);
+        
+        if ($booking->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $logs = RoomUsageLog::where('reservation_id', $id)
+            ->where('room_type', 'meeting_room')
+            ->orderBy('timestamp', 'asc')
+            ->get();
+
+        return view('customer.meeting-room.detail', compact('booking', 'logs'));
+    }
+
     public function customerIndex()
     {
         $benefitBookings = MeetingRoomBooking::where('user_id', Auth::id())
@@ -256,7 +297,8 @@ class MeetingRoomController extends Controller
             ->latest()
             ->get();
 
-        $manualBookings = MeetingRoomBooking::where('user_id', Auth::id())
+        $manualBookings = MeetingRoomBooking::with('meetingRoomPackage')
+            ->where('user_id', Auth::id())
             ->where(function ($q) {
                 $q->where('source_type', 'manual')
                   ->orWhereNull('source_type');
