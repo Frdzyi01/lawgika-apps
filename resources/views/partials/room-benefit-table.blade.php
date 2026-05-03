@@ -144,6 +144,15 @@
                                     <i class="fa fa-eye me-1"></i>Lihat Detail
                                 </a>
 
+                                @php
+                                    $res = \App\Models\MeetingRoomBooking::where('benefit_id', $b->id)->orderBy('date', 'desc')->get();
+                                @endphp
+                                @if($res->count() > 0)
+                                    <button type="button" class="btn btn-sm btn-info text-white" data-bs-toggle="modal" data-bs-target="#modalBenefitBookings-{{ $b->id }}">
+                                        <i class="fa fa-ticket-alt me-1"></i> Reservasi ({{ $res->count() }})
+                                    </button>
+                                @endif
+
                                 {{-- Admin-only check-in / check-out buttons --}}
                                 @if($isAdmin ?? false)
                                     @if($statusLabel === 'Siap Digunakan' || $statusLabel === 'Sedang Digunakan')
@@ -175,6 +184,109 @@
                                 @endif
 
                             </div>
+
+                            @if($res->count() > 0)
+                            <!-- Modal Popup for Benefit Reservations -->
+                            <div class="modal fade" id="modalBenefitBookings-{{ $b->id }}" tabindex="-1" aria-labelledby="modalBenefitBookingsLabel-{{ $b->id }}" aria-hidden="true">
+                                <div class="modal-dialog modal-lg modal-dialog-centered">
+                                    <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
+                                        <div class="modal-header bg-primary text-white border-0 py-3" style="border-top-left-radius: 12px; border-top-right-radius: 12px;">
+                                            <h5 class="modal-title fw-bold fs-6 mb-0" id="modalBenefitBookingsLabel-{{ $b->id }}">
+                                                <i class="fa fa-ticket-alt me-2"></i> Reservasi Benefit - {{ $b->order->order_number ?? '#'.$b->order_id }}
+                                            </h5>
+                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body p-4" style="background-color: #f8fafc;">
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <div class="small text-muted">
+                                                    Daftar riwayat atau pengajuan reservasi yang dibuat menggunakan benefit ini.
+                                                </div>
+                                                <span class="badge bg-primary bg-opacity-10 text-primary">{{ $res->count() }} Booking</span>
+                                            </div>
+                                            <div class="table-responsive">
+                                                <table class="table table-sm table-hover mb-0 align-middle" style="font-size: 0.85rem; background-color: #fff; border: 1px solid #e2e8f0; border-radius: 6px; overflow: hidden;">
+                                                    <thead class="table-light">
+                                                        <tr>
+                                                            <th class="ps-3" style="width: 8%;">ID</th>
+                                                            @if($isAdmin ?? false)
+                                                            <th style="width: 25%;">Nama Pemesan</th>
+                                                            @endif
+                                                            <th style="width: 32%;">Waktu & Peserta</th>
+                                                            <th style="width: 20%;">Status</th>
+                                                            <th class="pe-3" style="width: 15%;">Aksi</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach($res as $booking)
+                                                        <tr>
+                                                            <td class="ps-3 text-muted fw-bold">#{{ $booking->id }}</td>
+                                                            @if($isAdmin ?? false)
+                                                            <td>
+                                                                <span class="fw-semibold text-dark">{{ $booking->name }}</span>
+                                                                @if($booking->user)
+                                                                    <br><small class="text-muted" style="font-size: 0.75rem;">{{ $booking->user->email }}</small>
+                                                                @endif
+                                                            </td>
+                                                            @endif
+                                                            <td>
+                                                                <i class="fa fa-calendar-day text-muted me-1"></i> {{ \Carbon\Carbon::parse($booking->date)->format('d M Y') }}
+                                                                <strong class="text-dark ms-1"><i class="fa fa-clock text-muted me-1"></i> {{ \Carbon\Carbon::parse($booking->start_time)->format('H:i') }}</strong>
+                                                                <small class="text-muted d-block mt-1" style="font-size: 0.75rem;"><i class="fa fa-users me-1"></i> {{ $booking->participants }} Orang</small>
+                                                            </td>
+                                                            <td>
+                                                                @if ($booking->status === 'pending')
+                                                                    <span class="badge bg-warning text-dark"><i class="fa fa-hourglass-half me-1"></i> Menunggu Approval</span>
+                                                                @elseif($booking->status === 'approved')
+                                                                    <span class="badge bg-success"><i class="fa fa-check-circle me-1"></i> Disetujui</span>
+                                                                @elseif($booking->status === 'rejected')
+                                                                    <span class="badge bg-danger"><i class="fa fa-times-circle me-1"></i> Ditolak</span>
+                                                                @elseif($booking->status === 'checkin')
+                                                                    <span class="badge bg-primary"><i class="fa fa-play-circle me-1"></i> Sedang Digunakan</span>
+                                                                @elseif($booking->status === 'paused')
+                                                                    <span class="badge bg-secondary"><i class="fa fa-pause-circle me-1"></i> Berhenti Sementara</span>
+                                                                @elseif($booking->status === 'selesai')
+                                                                    <span class="badge bg-dark"><i class="fa fa-flag-checkered me-1"></i> Selesai</span>
+                                                                @endif
+                                                            </td>
+                                                            <td class="pe-3">
+                                                                <div class="d-flex gap-1 flex-wrap">
+                                                                    <a href="{{ url(($isAdmin ?? false ? 'admin' : 'customer') . '/meeting-room/' . $booking->id . '/detail') }}"
+                                                                        class="btn btn-sm btn-info py-1 px-2 text-white" style="font-size:0.75rem;" target="_blank"><i class="fas fa-eye"></i> Detail</a>
+
+                                                                    @if($isAdmin ?? false)
+                                                                        @if ($booking->status === 'pending')
+                                                                            <form action="{{ url('admin/meeting-room/' . $booking->id . '/benefit-approve') }}" method="POST" style="display:inline;">
+                                                                                @csrf
+                                                                                <button class="btn btn-sm btn-success py-1 px-2" style="font-size:0.75rem;" onclick="return confirm('Setujui reservasi ini?')"><i class="fas fa-check"></i> Approve</button>
+                                                                            </form>
+                                                                            <form action="{{ url('admin/meeting-room/' . $booking->id . '/benefit-reject') }}" method="POST" style="display:inline;">
+                                                                                @csrf
+                                                                                <button class="btn btn-sm btn-danger py-1 px-2" style="font-size:0.75rem;" onclick="return confirm('Tolak reservasi ini?')"><i class="fas fa-times"></i> Reject</button>
+                                                                            </form>
+                                                                        @elseif($booking->status === 'approved' || $booking->status === 'paused')
+                                                                            <form action="{{ url('admin/meeting-room/' . $booking->id . '/checkin') }}" method="POST" style="display:inline;">
+                                                                                @csrf
+                                                                                <button class="btn btn-sm btn-success py-1 px-2" style="font-size:0.75rem;" onclick="return confirm('Check In?')">Check In</button>
+                                                                            </form>
+                                                                        @elseif($booking->status === 'checkin')
+                                                                            <form action="{{ url('admin/meeting-room/' . $booking->id . '/checkout') }}" method="POST" style="display:inline;">
+                                                                                @csrf
+                                                                                <button class="btn btn-sm btn-warning text-dark py-1 px-2" style="font-size:0.75rem;" onclick="return confirm('Check Out?')">Check Out</button>
+                                                                            </form>
+                                                                        @endif
+                                                                    @endif
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
                         </td>
                     </tr>
                     @endforeach
