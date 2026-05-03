@@ -68,6 +68,61 @@
             </div>
         </div>
 
+        @if($booking->benefit_id)
+        <!-- Riwayat Check In / Out (for benefit bookings) -->
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow h-100">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Riwayat Check In / Check Out</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>No</th>
+                                    <th>Tipe</th>
+                                    <th>Tanggal</th>
+                                    <th>Jam</th>
+                                    <th>Durasi Sesi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($logs as $index => $log)
+                                    <tr>
+                                        <td>{{ $index + 1 }}</td>
+                                        <td>
+                                            @if($log->type === 'checkin')
+                                                <span class="badge bg-success"><i class="fas fa-sign-in-alt"></i> Check In</span>
+                                            @else
+                                                <span class="badge bg-danger"><i class="fas fa-sign-out-alt"></i> Check Out</span>
+                                            @endif
+                                        </td>
+                                        <td>{{ \Carbon\Carbon::parse($log->timestamp)->format('d M Y') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($log->timestamp)->format('H:i:s') }}</td>
+                                        <td>
+                                            @if($log->type === 'checkout' && $index > 0 && $logs[$index-1]->type === 'checkin')
+                                                @php
+                                                    $diff = \Carbon\Carbon::parse($logs[$index-1]->timestamp)->diffInSeconds($log->timestamp);
+                                                @endphp
+                                                <span class="text-muted">{{ $booking->formatSeconds($diff) }}</span>
+                                            @else
+                                                <span class="text-muted">-</span>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="5" class="text-center py-4">Belum ada riwayat penggunaan.</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @else
         <!-- Pemakaian Waktu -->
         <div class="col-lg-6 mb-4">
             <div class="card shadow h-100">
@@ -94,8 +149,10 @@
                 </div>
             </div>
         </div>
+        @endif
     </div>
 
+    @if(!$booking->benefit_id)
     <!-- Riwayat Check In / Out -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -147,6 +204,7 @@
             </div>
         </div>
     </div>
+    @endif
 </div>
 @endsection
 

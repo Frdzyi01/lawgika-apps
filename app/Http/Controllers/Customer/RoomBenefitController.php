@@ -33,7 +33,13 @@ class RoomBenefitController extends Controller
 
         $sessions = $this->buildSessions($logs);
 
-        return view('customer.benefits.detail', compact('benefit', 'logs', 'sessions'));
+        $benefitBookings = \App\Models\MeetingRoomBooking::where('benefit_id', $benefit->id)
+            ->whereNotNull('date')
+            ->orderBy('date', 'desc')
+            ->orderBy('start_time', 'desc')
+            ->get();
+
+        return view('customer.benefits.detail', compact('benefit', 'logs', 'sessions', 'benefitBookings'));
     }
 
     // ── Private helpers ───────────────────────────────────────────────────────

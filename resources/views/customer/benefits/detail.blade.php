@@ -44,12 +44,35 @@
                     </h6>
                 </div>
                 <div class="card-body">
+                    @php
+                        $ptData = $benefit->order ? $benefit->order->form_data : [];
+                    @endphp
                     <table class="table table-borderless mb-0" style="font-size:.93rem;">
                         <tr>
                             <td class="text-muted ps-0" width="45%">No Order</td>
                             <td class="fw-semibold">
                                 <code>{{ $benefit->order->order_number ?? '#'.$benefit->order_id }}</code>
                             </td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted ps-0">Nama Pemesan / User</td>
+                            <td class="fw-semibold">{{ $ptData['pic_name'] ?? ($benefit->user->name ?? '-') }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted ps-0">Nama Perusahaan</td>
+                            <td class="fw-semibold">{{ $ptData['company_name'] ?? '-' }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted ps-0">Alamat Email</td>
+                            <td class="fw-semibold">{{ $ptData['company_email'] ?? '-' }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted ps-0">Alamat Aktivitas Usaha</td>
+                            <td class="fw-semibold">{{ $ptData['operational_address'] ?? '-' }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted ps-0">Bidang Usaha</td>
+                            <td class="fw-semibold">{{ $ptData['business_field'] ?? '-' }}</td>
                         </tr>
                         <tr>
                             <td class="text-muted ps-0">Nama Paket</td>
@@ -86,8 +109,16 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="text-muted ps-0">Berlaku s/d</td>
-                            <td>{{ $benefit->expired_at?->format('d M Y') ?? '–' }}</td>
+                            <td class="text-muted ps-0">Tanggal Order</td>
+                            <td class="fw-semibold">
+                                {{ $benefit->order ? \Carbon\Carbon::parse($benefit->order->created_at)->format('d M Y H:i:s') : '-' }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted ps-0">Tanggal Expired</td>
+                            <td class="fw-semibold text-danger">
+                                {{ $benefit->expired_at ? $benefit->expired_at->format('d M Y H:i:s') : ($benefit->order ? \Carbon\Carbon::parse($benefit->order->created_at)->addYear()->format('d M Y H:i:s') : '-') }}
+                            </td>
                         </tr>
                         <tr>
                             <td class="text-muted ps-0">Status</td>
@@ -100,8 +131,60 @@
             </div>
         </div>
 
-        {{-- ── RIGHT: Riwayat Penggunaan ── --}}
+        {{-- ── RIGHT: Riwayat Reservasi Benefit & Riwayat Penggunaan ── --}}
         <div class="col-lg-7">
+            {{-- 🎟️ Riwayat Reservasi Benefit --}}
+            @if ($benefitBookings->count() > 0)
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-info">🎟️ Riwayat Reservasi Benefit</h6>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0 align-middle" style="font-size:.88rem;">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th class="ps-4">ID</th>
+                                        <th>Waktu</th>
+                                        <th>Status Pengajuan</th>
+                                        <th class="pe-4">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($benefitBookings as $booking)
+                                        <tr>
+                                            <td class="ps-4 text-muted">{{ $booking->id }}</td>
+                                            <td>
+                                                {{ \Carbon\Carbon::parse($booking->date)->format('d M Y') }}
+                                                <small class="d-block"><strong>{{ \Carbon\Carbon::parse($booking->start_time)->format('H:i') }}</strong></small>
+                                            </td>
+                                            <td>
+                                                @if ($booking->status === 'pending_approval' || $booking->status === 'pending')
+                                                    <span class="badge bg-warning text-dark">⏳ Menunggu Persetujuan Admin</span>
+                                                @elseif($booking->status === 'approved')
+                                                    <span class="badge bg-success">✅ Disetujui (Silakan datang)</span>
+                                                @elseif($booking->status === 'rejected')
+                                                    <span class="badge bg-danger">❌ Ditolak Admin</span>
+                                                @elseif($booking->status === 'checkin')
+                                                    <span class="badge bg-primary">Sedang Digunakan</span>
+                                                @else
+                                                    <span class="badge bg-secondary">Selesai / Paused</span>
+                                                @endif
+                                            </td>
+                                            <td class="pe-4">
+                                                <a href="{{ route('customer.meeting-room.detail', $booking->id) }}" class="btn btn-sm btn-info text-white">
+                                                    <i class="fas fa-eye"></i> Detail
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">

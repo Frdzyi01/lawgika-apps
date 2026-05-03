@@ -32,63 +32,7 @@
             'roomType' => 'meeting',
         ])
 
-        {{-- ============================================================ --}}
-        {{-- TABLE 2 (NEW): Riwayat Reservasi Benefit                    --}}
-        {{-- ============================================================ --}}
-        @if ($benefitBookings->count() > 0)
-            <div class="card shadow mb-4 border-left-info">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-info">🎟️ Riwayat Reservasi Benefit</h6>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-hover">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Waktu & Peserta</th>
-                                    <th>Durasi Diajukan</th>
-                                    <th>Status Pengajuan</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($benefitBookings as $booking)
-                                    <tr>
-                                        <td>{{ $booking->id }}</td>
-                                        <td>
-                                            {{ \Carbon\Carbon::parse($booking->date)->format('d M Y') }}
-                                            <small
-                                                class="d-block">{{ \Carbon\Carbon::parse($booking->start_time)->format('H:i') }}</small>
-                                            <small class="text-muted">{{ $booking->participants }} Orang</small>
-                                        </td>
-                                        <td>{{ $booking->duration }} Jam</td>
-                                        <td>
-                                            @if ($booking->status === 'pending_approval')
-                                                <span class="badge bg-warning text-dark">⏳ Menunggu Persetujuan Admin</span>
-                                            @elseif($booking->status === 'approved')
-                                                <span class="badge bg-success">✅ Disetujui (Silakan datang)</span>
-                                            @elseif($booking->status === 'rejected')
-                                                <span class="badge bg-danger">❌ Ditolak Admin</span>
-                                            @elseif($booking->status === 'checkin')
-                                                <span class="badge bg-primary">Sedang Digunakan</span>
-                                            @else
-                                                <span class="badge bg-secondary">Selesai / Paused</span>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('customer.meeting-room.detail', $booking->id) }}" class="btn btn-sm btn-info text-white">
-                                                <i class="fas fa-eye"></i> Detail
-                                            </a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        @endif
+
 
         {{-- ============================================================ --}}
         {{-- TABLE 3 (EXISTING): Reservasi Manual — unchanged query/data --}}
