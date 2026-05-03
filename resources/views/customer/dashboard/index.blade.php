@@ -15,7 +15,7 @@
 {{-- Welcome Banner --}}
 <div class="row mb-4">
     <div class="col-12">
-        <div class="card border-0" style="background:linear-gradient(135deg,#dc3545 0%,#b91c1c 100%); border-radius:16px;">
+        <div class="card border-0" style="background:linear-gradient(135deg,#4e0616 0%,#b91c1c 100%); border-radius:16px;">
             <div class="card-body p-4 text-white">
                 <h5 class="fw-bold mb-1">Selamat Datang, {{ auth()->user()->name }}! 👋</h5>
                 <p class="mb-3 opacity-75 small">Kelola pesanan dan dokumen Anda dari satu tempat.</p>

@@ -27,8 +27,8 @@
     font-weight: 700;
     letter-spacing: 1.2px;
     text-transform: uppercase;
-    color: #dc3545;
-    background: rgba(220, 53, 69, 0.08);
+    color: #4e0616;
+    background: rgba(78, 6, 22, 0.08);
     padding: 4px 12px;
     border-radius: 999px;
     margin-bottom: 12px;
@@ -81,9 +81,9 @@
   }
 
   .dp-search-input:focus {
-    border-color: #dc3545;
+    border-color: #4e0616;
     background: #fff;
-    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.10);
+    box-shadow: 0 0 0 3px rgba(78, 6, 22, 0.10);
   }
 
   .dp-search-wrap {
@@ -120,15 +120,15 @@
   }
 
   .dp-select:focus {
-    border-color: #dc3545;
-    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.10);
+    border-color: #4e0616;
+    box-shadow: 0 0 0 3px rgba(78, 6, 22, 0.10);
   }
 
   .dp-filter-btn {
     display: inline-flex;
     align-items: center;
     gap: 7px;
-    background: #dc3545;
+    background: #4e0616;
     color: #fff;
     border: none;
     border-radius: 9px;
@@ -211,14 +211,14 @@
   }
 
   .dp-table thead th {
-    background: rgba(220, 53, 69, 0.04);
+    background: rgba(78, 6, 22, 0.04);
     color: #4b1c24;
     font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0.6px;
     text-transform: uppercase;
     padding: 12px 16px;
-    border-bottom: 1px solid rgba(220, 53, 69, 0.09);
+    border-bottom: 1px solid rgba(78, 6, 22, 0.09);
     white-space: nowrap;
   }
 
@@ -242,7 +242,7 @@
   }
 
   .dp-table tbody tr:hover {
-    background: rgba(220, 53, 69, 0.04);
+    background: rgba(78, 6, 22, 0.04);
   }
 
   .dp-table tbody td {
@@ -270,7 +270,7 @@
   /* KBLI Badge */
   .dp-kbli-badge {
     display: inline-block;
-    background: rgba(220, 53, 69, 0.08);
+    background: rgba(78, 6, 22, 0.08);
     color: #9b1c2c;
     font-size: 0.72rem;
     font-weight: 700;
@@ -297,7 +297,7 @@
   }
 
   .dp-judul-link:hover {
-    color: #dc3545;
+    color: #4e0616;
   }
 
   /* Date */
@@ -338,12 +338,12 @@
   }
 
   .dp-status-inactive {
-    background: rgba(220, 53, 69, 0.08);
+    background: rgba(78, 6, 22, 0.08);
     color: #b91c1c;
   }
 
   .dp-status-inactive::before {
-    background: #dc3545;
+    background: #4e0616;
   }
 
   /* Download button */
@@ -351,7 +351,7 @@
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    background: #dc3545;
+    background: #4e0616;
     color: #fff;
     border: none;
     border-radius: 7px;
@@ -362,14 +362,14 @@
     transition: transform 0.18s ease-out, background 0.18s ease-out, box-shadow 0.18s ease-out;
     cursor: pointer;
     white-space: nowrap;
-    box-shadow: 0 2px 8px rgba(220, 53, 69, 0.22);
+    box-shadow: 0 2px 8px rgba(78, 6, 22, 0.22);
   }
 
   .dp-download-btn:hover {
     background: #b91c1c;
     color: #fff;
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(220, 53, 69, 0.32);
+    box-shadow: 0 6px 16px rgba(78, 6, 22, 0.32);
   }
 
   .dp-no-file {
@@ -443,14 +443,14 @@
   }
 
   .dp-pagination-wrap .page-link:hover {
-    background: rgba(220, 53, 69, 0.06);
-    border-color: rgba(220, 53, 69, 0.25);
-    color: #dc3545;
+    background: rgba(78, 6, 22, 0.06);
+    border-color: rgba(78, 6, 22, 0.25);
+    color: #4e0616;
   }
 
   .dp-pagination-wrap .page-item.active .page-link {
-    background: #dc3545;
-    border-color: #dc3545;
+    background: #4e0616;
+    border-color: #4e0616;
     color: #fff;
   }
 
@@ -574,14 +574,14 @@
       {{-- Table Header Bar --}}
       <div class="dp-table-header-bar">
         <h2 class="dp-table-title">
-          <i class="fas fa-list-alt" style="color:#dc3545;margin-right:7px;font-size:0.9rem;"></i>
+          <i class="fas fa-list-alt" style="color:#4e0616;margin-right:7px;font-size:0.9rem;"></i>
           Daftar Peraturan
         </h2>
         <span class="dp-result-count">
           {{ $peraturan->total() }} peraturan ditemukan
           @if(request()->hasAny(['search','status','tahun']))
           &nbsp;·&nbsp;
-          <a href="{{ url('/database-peraturan') }}" style="color:#dc3545;text-decoration:none;font-weight:600;">Tampilkan semua</a>
+          <a href="{{ url('/database-peraturan') }}" style="color:#4e0616;text-decoration:none;font-weight:600;">Tampilkan semua</a>
           @endif
         </span>
       </div>
@@ -689,7 +689,7 @@
         <div class="dp-empty-title">Data peraturan belum tersedia</div>
         <p class="dp-empty-sub">
           @if(request()->hasAny(['search','status','tahun']))
-          Tidak ada data yang sesuai dengan filter. <a href="{{ url('/database-peraturan') }}" style="color:#dc3545;">Reset pencarian</a>
+          Tidak ada data yang sesuai dengan filter. <a href="{{ url('/database-peraturan') }}" style="color:#4e0616;">Reset pencarian</a>
           @else
           Belum ada peraturan yang terdaftar dalam database.
           @endif

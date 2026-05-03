@@ -47,12 +47,12 @@
   }
 
   .layanan-nav .nav-link:hover {
-    color: #dc3545;
+    color: #4e0616;
   }
 
   .layanan-nav .nav-link.active {
-    color: #dc3545;
-    border-bottom-color: #dc3545;
+    color: #4e0616;
+    border-bottom-color: #4e0616;
     background: transparent;
     font-weight: 600;
   }
@@ -131,8 +131,8 @@
   }
 
   .layanan-arrow-btn:hover {
-    border-color: #dc3545;
-    background: #dc3545;
+    border-color: #4e0616;
+    background: #4e0616;
     color: #fff;
   }
 
@@ -169,7 +169,7 @@
     position: absolute;
     top: 12px;
     right: 12px;
-    background: #dc3545;
+    background: #4e0616;
     color: #fff;
     font-size: 0.7rem;
     font-weight: 700;
@@ -215,12 +215,12 @@
   .layanan-card-price {
     font-size: 1rem;
     font-weight: 700;
-    color: #dc3545;
+    color: #4e0616;
     margin-bottom: 16px;
   }
 
   .layanan-card-btn {
-    background: #dc3545;
+    background: #4e0616;
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -658,46 +658,46 @@
     <button onclick="document.getElementById('orderModalOverlay').style.display='none'" style="position:absolute; top:14px; right:16px; background:none; border:none; font-size:1.5rem; line-height:1; cursor:pointer; color:#9ca3af;" aria-label="Tutup">&times;</button>
 
     <h4 style="font-weight:700; font-size:1.2rem; margin-bottom:4px; color:#111827;">Pesan Layanan</h4>
-    <p id="orderModalServiceLabel" style="color:#dc3545; font-weight:600; font-size:0.95rem; margin-bottom:20px;"></p>
+    <p id="orderModalServiceLabel" style="color:#4e0616; font-weight:600; font-size:0.95rem; margin-bottom:20px;"></p>
 
     <form id="orderForm" action="{{ route('public.order.store') }}" method="POST">
       @csrf
       <input type="hidden" name="service_name" id="orderServiceInput">
 
       <div style="margin-bottom:14px;">
-        <label style="display:block; font-size:0.82rem; font-weight:600; margin-bottom:6px; color:#374151;">Nama Lengkap <span style="color:#dc3545;">*</span></label>
+        <label style="display:block; font-size:0.82rem; font-weight:600; margin-bottom:6px; color:#374151;">Nama Lengkap <span style="color:#4e0616;">*</span></label>
         <input type="text" name="name" required placeholder="Masukkan nama lengkap Anda"
           value="{{ auth()->user()->name ?? '' }}"
           style="width:100%; border:1.5px solid #e5e7eb; border-radius:8px; padding:10px 14px; font-size:0.9rem; outline:none; transition:border-color .2s; color:#111827 !important; background:#fff !important;"
-          onfocus="this.style.borderColor='#dc3545'" onblur="this.style.borderColor='#e5e7eb'">
+          onfocus="this.style.borderColor='#4e0616'" onblur="this.style.borderColor='#e5e7eb'">
       </div>
 
       <div style="margin-bottom:14px;">
-        <label style="display:block; font-size:0.82rem; font-weight:600; margin-bottom:6px; color:#374151;">Email <span style="color:#dc3545;">*</span></label>
+        <label style="display:block; font-size:0.82rem; font-weight:600; margin-bottom:6px; color:#374151;">Email <span style="color:#4e0616;">*</span></label>
         <input type="email" name="email" required placeholder="email@domain.com"
           value="{{ auth()->user()->email ?? '' }}"
           style="width:100%; border:1.5px solid #e5e7eb; border-radius:8px; padding:10px 14px; font-size:0.9rem; outline:none; transition:border-color .2s; color:#111827 !important; background:#fff !important;"
-          onfocus="this.style.borderColor='#dc3545'" onblur="this.style.borderColor='#e5e7eb'">
+          onfocus="this.style.borderColor='#4e0616'" onblur="this.style.borderColor='#e5e7eb'">
       </div>
 
       <div style="margin-bottom:14px;">
-        <label style="display:block; font-size:0.82rem; font-weight:600; margin-bottom:6px; color:#374151;">Nomor WhatsApp <span style="color:#dc3545;">*</span></label>
+        <label style="display:block; font-size:0.82rem; font-weight:600; margin-bottom:6px; color:#374151;">Nomor WhatsApp <span style="color:#4e0616;">*</span></label>
         <input type="text" name="phone" required placeholder="08xx-xxxx-xxxx"
           value="{{ auth()->user()->phone ?? '' }}"
           style="width:100%; border:1.5px solid #e5e7eb; border-radius:8px; padding:10px 14px; font-size:0.9rem; outline:none; transition:border-color .2s; color:#111827 !important; background:#fff !important;"
-          onfocus="this.style.borderColor='#dc3545'" onblur="this.style.borderColor='#e5e7eb'">
+          onfocus="this.style.borderColor='#4e0616'" onblur="this.style.borderColor='#e5e7eb'">
       </div>
 
       <div style="margin-bottom:20px;">
         <label style="display:block; font-size:0.82rem; font-weight:600; margin-bottom:6px; color:#374151;">Catatan (opsional)</label>
         <textarea name="notes" rows="3" placeholder="Ceritakan kebutuhan Anda secara singkat…"
           style="width:100%; border:1.5px solid #e5e7eb; border-radius:8px; padding:10px 14px; font-size:0.9rem; outline:none; resize:none; transition:border-color .2s; color:#111827 !important; background:#fff !important;"
-          onfocus="this.style.borderColor='#dc3545'" onblur="this.style.borderColor='#e5e7eb'"></textarea>
+          onfocus="this.style.borderColor='#4e0616'" onblur="this.style.borderColor='#e5e7eb'"></textarea>
       </div>
 
       <button type="submit" id="orderSubmitBtn"
-        style="width:100%; background:#dc3545; color:#fff; border:none; border-radius:10px; padding:13px; font-size:1rem; font-weight:700; cursor:pointer; transition:background .2s;"
-        onmouseover="this.style.background='#b91c1c'" onmouseout="this.style.background='#dc3545'"
+        style="width:100%; background:#4e0616; color:#fff; border:none; border-radius:10px; padding:13px; font-size:1rem; font-weight:700; cursor:pointer; transition:background .2s;"
+        onmouseover="this.style.background='#b91c1c'" onmouseout="this.style.background='#4e0616'"
         onclick="this.disabled=true; this.textContent='Memproses…'; this.closest('form').submit();">
         Kirim Pesanan
       </button>
@@ -775,12 +775,12 @@
   style="display:none; opacity:0; position:fixed; top:24px; right:24px; z-index:999999;
          background:#fff; border-radius:14px; padding:16px 18px;
          min-width:280px; max-width:340px;
-         box-shadow:0 12px 40px rgba(0,0,0,0.16); border-left:4px solid #dc3545;
+         box-shadow:0 12px 40px rgba(0,0,0,0.16); border-left:4px solid #4e0616;
          align-items:flex-start; gap:12px; transition:opacity 0.3s ease;">
 
   {{-- Icon --}}
   <div style="flex-shrink:0; padding-top:2px;">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#dc3545" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4e0616" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
       <circle cx="12" cy="12" r="10" />
       <line x1="12" y1="8" x2="12" y2="12" />
       <line x1="12" y1="16" x2="12.01" y2="16" />
@@ -795,11 +795,11 @@
     </p>
     <div style="display:flex; gap:8px;">
       <button onclick="openLoginModal()"
-        style="background:#dc3545; color:#fff; border:none; padding:7px 16px;
+        style="background:#4e0616; color:#fff; border:none; padding:7px 16px;
                border-radius:8px; font-size:0.82rem; font-weight:700; cursor:pointer;
                transition:background .15s;"
         onmouseover="this.style.background='#b91c1c'"
-        onmouseout="this.style.background='#dc3545'">
+        onmouseout="this.style.background='#4e0616'">
         Login
       </button>
       <button onclick="hideLoginToast()"

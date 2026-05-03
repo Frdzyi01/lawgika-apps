@@ -53,6 +53,47 @@ class MeetingRoomController extends Controller
             $request->merge(['nama' => auth()->user()->name]);
         }
 
+        // ── DETECT PACKAGE MODE (from query string OR form input) ────────────
+        $isPackage = $request->query('package') === 'paket' || $request->input('package') === 'paket';
+
+        // ── PACKAGE PURCHASE FLOW ─────────────────────────────────────────────
+        if ($isPackage) {
+            $rules = [
+                'nama'                   => 'required|string|max:255',
+                'identitas_perusahaan'   => 'required|string|max:255',
+                'payment_proof'          => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            ];
+
+            $request->validate($rules);
+
+            // Set default values for package purchase
+            $request->merge([
+                'durasi'   => 60,
+                'tanggal'  => null,
+                'jam'      => null,
+                'peserta'  => 1,
+            ]);
+
+            // Create booking for package purchase (no scheduling needed)
+            MeetingRoomBooking::create([
+                'user_id'        => Auth::id(),
+                'source_type'    => 'manual',
+                'benefit_id'     => null,
+                'name'           => $request->nama,
+                'date'           => null,
+                'start_time'     => null,
+                'duration'       => 60,
+                'participants'   => 1,
+                'status'         => 'pending',
+                'payment_proof'  => $request->file('payment_proof')->store('payment_proofs', 'public'),
+                'payment_status' => 'pending',
+            ]);
+
+            return redirect()->route('customer.meeting-room.index')
+                ->with('success', 'Pembelian Paket Meeting Room (60 Jam) berhasil! Menunggu konfirmasi pembayaran dari admin.');
+        }
+
+        // ── REGULAR RESERVATION FLOW ──────────────────────────────────────────
         $rules = [
             'nama'      => 'required|string|max:255',
             'tanggal'   => 'required|date',
@@ -314,16 +355,34 @@ class MeetingRoomController extends Controller
         }
 
         $checkinAt      = $booking->checkin_at;
-        $sessionSeconds = $checkinAt->diffInSeconds(now());
+        $checkoutAt     = now();
+        
+        // ── VALIDATION: Prevent invalid duration ──────────────────────────────
+        if ($checkoutAt->lessThan($checkinAt)) {
+            return redirect()->back()->with('error', 'Checkout time tidak boleh lebih awal dari checkin time.');
+        }
+        
+        $sessionSeconds = $checkinAt->diffInSeconds($checkoutAt);
+        
+        // Prevent negative duration (additional safety check)
+        if ($sessionSeconds < 0) {
+            return redirect()->back()->with('error', 'Durasi tidak valid. Silakan hubungi administrator.');
+        }
+        
+        // ── BILLING ADJUSTMENT: Calculate rounded hours ───────────────────────
+        $billingHours = $booking->calculateBillingHours($sessionSeconds);
+        $billingSeconds = $billingHours * 3600;
+        
+        // Use ROUNDED billing seconds for all deductions and storage
         $prevUsed       = $booking->total_used_seconds > 0 ? $booking->total_used_seconds : ($booking->total_used_minutes * 60);
-        $newTotalUsed   = $prevUsed + $sessionSeconds;
+        $newTotalUsed   = $prevUsed + $billingSeconds;  // ✅ Use rounded seconds, not actual
         $totalSeconds   = $booking->duration * 3600;
         $newStatus      = ($newTotalUsed >= $totalSeconds) ? 'selesai' : 'paused';
-
+        
         $booking->update([
             'status'             => $newStatus,
-            'total_used_seconds' => $newTotalUsed,
-            'checkout_at'        => now(),
+            'total_used_seconds' => $newTotalUsed,  // ✅ Now stores rounded seconds
+            'checkout_at'        => $checkoutAt,
             'checkin_at'         => null,
         ]);
 
@@ -331,46 +390,53 @@ class MeetingRoomController extends Controller
             'reservation_id' => $booking->id,
             'room_type'      => 'meeting_room',
             'type'           => 'checkout',
-            'timestamp'      => now(),
+            'timestamp'      => $checkoutAt,
         ]);
 
         // ── Deduct from benefit pool + write session log (ONLY at checkout) ───
         if ($booking->source_type === 'benefit' && $booking->benefit_id) {
             $benefit = RoomBenefit::find($booking->benefit_id);
             if ($benefit) {
-                $durationMinutes = (int) ceil($sessionSeconds / 60);
-                $benefit->used_minutes = min($benefit->total_minutes, $benefit->used_minutes + $durationMinutes);
+                // Use rounded-up billing hours for benefit deduction
+                $billingMinutes = $billingHours * 60;
+                $benefit->used_minutes = min($benefit->total_minutes, $benefit->used_minutes + $billingMinutes);
                 $benefit->save();
 
                 // ONE row per session — contains both checkin and checkout times
                 RoomBenefitLog::create([
                     'benefit_id'       => $benefit->id,
                     'room_type'        => 'meeting',
-                    'duration_minutes' => $durationMinutes,
+                    'duration_minutes' => $billingMinutes,
                     'action'           => 'checkout',
-                    'action_at'        => now(),
+                    'action_at'        => $checkoutAt,
                     'checkin_at'       => $checkinAt,
-                    'checkout_at'      => now(),
+                    'checkout_at'      => $checkoutAt,
                 ]);
             }
         } else {
             // Existing: deduct UserRoomQuota if applicable
             $quota = UserRoomQuota::where('user_id', $booking->user_id)->first();
             if ($quota && !now()->greaterThan($quota->expired_at) && empty($booking->payment_proof)) {
-                $quota->used_seconds     += $sessionSeconds;
+                // Use rounded-up billing hours for quota deduction
+                $billingSeconds = $billingHours * 3600;
+                $quota->used_seconds     += $billingSeconds;
                 $quota->remaining_seconds = max(0, $quota->total_seconds - $quota->used_seconds);
                 $quota->save();
 
                 \App\Models\QuotaLog::create([
                     'user_id'   => $booking->user_id,
                     'room_type' => 'meeting_room',
-                    'duration'  => $sessionSeconds,
-                    'tanggal'   => now(),
+                    'duration'  => $billingSeconds,
+                    'tanggal'   => $checkoutAt,
                 ]);
             }
         }
 
-        return redirect()->back()->with('success', 'User berhasil Check Out dari ruangan. Durasi: ' . $booking->formatSeconds($sessionSeconds) . '.');
+        // Display actual duration but billing is based on rounded hours
+        $actualDuration = $booking->formatSeconds($sessionSeconds);
+        $billingInfo = ($billingHours > 1) ? " (Ditagih: {$billingHours} jam)" : " (Ditagih: {$billingHours} jam)";
+        
+        return redirect()->back()->with('success', "User berhasil Check Out dari ruangan. Durasi aktual: {$actualDuration}{$billingInfo}");
     }
 
     // ── Private helpers ───────────────────────────────────────────────────────

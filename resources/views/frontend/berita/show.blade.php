@@ -71,7 +71,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse 70% 80% at 60% 50%, rgba(220, 53, 69, 0.18) 0%, transparent 70%);
+      background: radial-gradient(ellipse 70% 80% at 60% 50%, rgba(78, 6, 22, 0.18) 0%, transparent 70%);
       pointer-events: none;
     }
 
@@ -256,7 +256,7 @@
     }
 
     .berita-detail-page-wrapper .berita-section-label i {
-      color: #dc3545;
+      color: #4e0616;
     }
 
     /* Deskripsi */
@@ -274,7 +274,7 @@
     }
 
     .berita-detail-page-wrapper .berita-desc-text a {
-      color: #dc3545;
+      color: #4e0616;
       text-decoration: underline;
     }
 
@@ -320,9 +320,9 @@
     }
 
     .berita-detail-page-wrapper .berita-btn-secondary:hover {
-      border-color: #dc3545;
+      border-color: #4e0616;
       background: #fff5f6;
-      color: #dc3545 !important;
+      color: #4e0616 !important;
     }
 
     /* ===== SIDEBAR ===== */
@@ -341,7 +341,7 @@
     }
 
     .berita-detail-page-wrapper .berita-sidebar-title i {
-      color: #dc3545;
+      color: #4e0616;
     }
 
     .berita-detail-page-wrapper .berita-sidebar-item {
@@ -359,8 +359,8 @@
     }
 
     .berita-detail-page-wrapper .berita-sidebar-item:hover {
-      border-color: rgba(220, 53, 69, 0.3);
-      box-shadow: 0 4px 14px rgba(220, 53, 69, 0.10);
+      border-color: rgba(78, 6, 22, 0.3);
+      box-shadow: 0 4px 14px rgba(78, 6, 22, 0.10);
       transform: translateY(-2px);
     }
 

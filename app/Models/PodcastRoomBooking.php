@@ -82,13 +82,53 @@ class PodcastRoomBooking extends Model
         return $this->formatSeconds($rem);
     }
 
-    /** Format helper for seconds → human */
+    /** Format helper for seconds → human (jam dan menit saja) */
     public function formatSeconds(int $seconds): string
     {
         $seconds = (int) max(0, floor($seconds));
         $h = (int) floor($seconds / 3600);
         $m = (int) floor(($seconds % 3600) / 60);
-        $s = $seconds % 60;
-        return "{$h} jam {$m} menit {$s} detik";
+        return "{$h} jam {$m} menit";
+    }
+
+    /**
+     * Calculate rounded-up duration in hours for billing purposes.
+     * Rounds up to nearest hour with minimum of 1 hour.
+     * 
+     * @param int $durationSeconds Duration in seconds
+     * @return int Rounded hours (minimum 1)
+     */
+    public function calculateBillingHours(int $durationSeconds): int
+    {
+        if ($durationSeconds <= 0) {
+            return 1; // Minimum 1 hour
+        }
+
+        $durationMinutes = $durationSeconds / 60;
+        $durationHours = (int) ceil($durationMinutes / 60);
+
+        return max(1, $durationHours); // Enforce minimum 1 hour
+    }
+
+    /**
+     * Calculate adjusted billing amount based on actual usage with rounding.
+     * 
+     * @param int $sessionSeconds Actual session duration in seconds
+     * @return float Adjusted total price
+     */
+    public function calculateAdjustedBilling(int $sessionSeconds): float
+    {
+        // Validation: prevent negative or invalid duration
+        if ($sessionSeconds <= 0) {
+            $sessionSeconds = 3600; // Default to 1 hour minimum
+        }
+
+        $billingHours = $this->calculateBillingHours($sessionSeconds);
+        
+        // Calculate price per hour from original booking
+        // Podcast room: 500k per 2 hours = 250k per hour
+        $pricePerHour = $this->duration > 0 ? ($this->total_price / $this->duration) : 250000;
+        
+        return $billingHours * $pricePerHour;
     }
 }

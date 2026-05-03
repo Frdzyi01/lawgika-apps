@@ -282,7 +282,7 @@
                           }
 
                           .lw-col-title i {
-                            color: #dc3545;
+                            color: #4e0616;
                             font-size: 0.75rem;
                           }
 
@@ -309,7 +309,7 @@
                           }
 
                           .lw-col ul li a:hover {
-                            color: #dc3545;
+                            color: #4e0616;
                             background: #fff5f6;
                             padding-left: 8px;
                           }
@@ -346,7 +346,7 @@
                           }
 
                           .lw-sidebar-card:hover {
-                            box-shadow: 0 4px 16px rgba(220, 53, 69, 0.1);
+                            box-shadow: 0 4px 16px rgba(78, 6, 22, 0.1);
                             border-color: #fca5a5;
                           }
 
@@ -365,7 +365,7 @@
                           .lw-sidebar-card-price {
                             font-size: 0.78rem;
                             font-weight: 700;
-                            color: #dc3545;
+                            color: #4e0616;
                             margin-top: 6px;
                           }
 
@@ -375,7 +375,7 @@
                             justify-content: center;
                             gap: 6px;
                             margin-top: 4px;
-                            background: #dc3545;
+                            background: #4e0616;
                             color: #fff;
                             border-radius: 8px;
                             padding: 9px 14px;
@@ -438,7 +438,7 @@
                                   <li><a href="{{ url('/pendirian-cv') }}">Pendirian CV</a></li>
                                   <li><a href="{{ url('/pendirian-yayasan') }}">Pendirian Yayasan</a></li>
                                   <li><a href="{{ url('/pendirian-firma') }}">Pendirian Firma</a></li>
-                                  
+
                                 </ul>
                               </div>
 
@@ -450,7 +450,6 @@
                                   <li><a href="{{ url('/jasa-pembukuan-perpajakan') }}">Jasa Pembukuan & Perpajakan</a></li>
                                   <!-- <li><a href="{{ url('/pendaftaran-npwp') }}">Pendaftaran NPWP</a></li> -->
                                   <li><a href="{{ url('/pelaporan-spt-tahunan') }}">Pelaporan SPT Tahunan</a></li>
-                                  <li><a href="{{ url('/pengurusan-pkp') }}">Pengurusan PKP</a></li>
                                 </ul>
 
                               </div>
@@ -468,6 +467,7 @@
                                   <li><a href="{{ url('/perizinan-dan-hukum') }}">Sertifikat ISO</a></li>
                                   <li><a href="{{ url('/perizinan-dan-hukum') }}">Surat Keterangan Tidak Pailit</a></li>
                                   <li><a href="{{ url('/perizinan-dan-hukum') }}">Drafting Perjanjian Bisnis</a></li>
+                                  <li><a href="{{ url('/pengurusan-pkp') }}">Pengurusan PKP</a></li>
                                 </ul>
                                 <a href="#layanan-kami-section" class="lw-sidebar-cta">
                                   Perizinan Lainnya <i class="fas fa-arrow-right"></i>
@@ -522,7 +522,6 @@
                               <li><a href="{{ url('/jasa-pembukuan-perpajakan') }}">Jasa Pembukuan & Perpajakan</a></li>
                               <!-- <li><a href="{{ url('/pendaftaran-npwp') }}">Pendaftaran NPWP</a></li> -->
                               <li><a href="{{ url('/pelaporan-spt-tahunan') }}">Pelaporan SPT Tahunan</a></li>
-                              <li><a href="{{ url('/pengurusan-pkp') }}">Pengurusan PKP</a></li>
                             </ul>
                           </div>
                         </div>
@@ -565,7 +564,7 @@
 
                       /* Saat menu utama terbuka (class active) */
                       .mobile-main-link.active {
-                        background-color: #dc3545 !important;
+                        background-color: #4e0616 !important;
                         color: #ffffff !important;
                       }
 
@@ -613,12 +612,12 @@
                       /* Saat kategori terbuka */
                       .mobile-cat-toggle.active {
                         background-color: #fceaea;
-                        color: #dc3545;
+                        color: #4e0616;
                       }
 
                       .mobile-cat-toggle.active::after {
                         transform: translateY(-50%) rotate(180deg);
-                        color: #dc3545;
+                        color: #4e0616;
                       }
 
                       /* === BODY SUBMENU (LEVEL 3) === */
@@ -652,7 +651,7 @@
 
                       .mobile-cat-body li a:hover {
                         background: #fff5f6;
-                        color: #dc3545;
+                        color: #4e0616;
                       }
                     </style>
 
@@ -836,7 +835,7 @@
   }
 
   .header-1 .header-button .theme-btn {
-    background-color: #dc3545 !important;
+    background-color: #4e0616 !important;
     color: #fff !important;
     border: none !important;
   }
@@ -853,7 +852,7 @@
 
   .header-1 .header-main .main-menu ul li ul.submenu a:hover,
   .header-1 .header-main .main-menu ul li .lw-mega-body a:hover {
-    color: #dc3545 !important;
+    color: #4e0616 !important;
   }
 
   /*
@@ -880,7 +879,7 @@
   }
 
   #header-sticky.scrolled .header-main .main-menu ul li>a:hover {
-    color: #dc3545 !important;
+    color: #4e0616 !important;
   }
 
   #header-sticky.scrolled .search-icon,
@@ -1077,8 +1076,8 @@
     gap: 12px;
     background: #fff;
     border-radius: 14px;
-    box-shadow: 0 8px 32px rgba(220, 53, 69, 0.18), 0 2px 8px rgba(0, 0, 0, 0.08);
-    border-left: 5px solid #dc3545;
+    box-shadow: 0 8px 32px rgba(78, 6, 22, 0.18), 0 2px 8px rgba(0, 0, 0, 0.08);
+    border-left: 5px solid #4e0616;
     padding: 16px 20px 16px 18px;
     min-width: 300px;
     max-width: 380px;
@@ -1122,7 +1121,7 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    color: #dc3545;
+    color: #4e0616;
     font-size: 1.1rem;
   }
 
@@ -1133,7 +1132,7 @@
   .lw-toast-title {
     font-size: 0.88rem;
     font-weight: 700;
-    color: #dc3545;
+    color: #4e0616;
     margin-bottom: 3px;
   }
 
@@ -1157,7 +1156,7 @@
   }
 
   .lw-toast-close:hover {
-    color: #dc3545;
+    color: #4e0616;
   }
 
   .lw-toast-progress {
@@ -1165,7 +1164,7 @@
     bottom: 0;
     left: 0;
     height: 3px;
-    background: #dc3545;
+    background: #4e0616;
     border-radius: 0 0 14px 14px;
     animation: lwProgress 5s linear forwards;
     width: 100%;
@@ -1225,7 +1224,7 @@
             {{-- Inline error di dalam modal --}}
             @if ($errors->any())
             <div id="lw-login-error-box" style="background:#fff0f1;border:1.5px solid #fca5a5;border-radius:10px;padding:11px 15px;margin-bottom:14px;display:flex;align-items:flex-start;gap:10px;">
-              <i class="fas fa-exclamation-circle" style="color:#dc3545;margin-top:2px;flex-shrink:0;"></i>
+              <i class="fas fa-exclamation-circle" style="color:#4e0616;margin-top:2px;flex-shrink:0;"></i>
               <div>
                 @foreach ($errors->all() as $error)
                 <p style="margin:0;font-size:0.82rem;color:#b91c1c;font-weight:500;line-height:1.5;">{{ $error }}</p>

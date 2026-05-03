@@ -198,7 +198,7 @@
     }
 
     .event-modal-close:hover {
-        background: #dc3545;
+        background: #4e0616;
         color: white;
     }
 
@@ -283,7 +283,7 @@
     }
     .ue-price {
         background: #fff5f5;
-        color: #dc3545;
+        color: #4e0616;
         border: 1px solid #feb2b2;
     }
     .ue-price-free {
@@ -318,7 +318,7 @@
 
     .modal-event-info-item i {
         width: 24px;
-        color: #dc3545;
+        color: #4e0616;
     }
 
     .modal-buttons {
@@ -343,7 +343,7 @@
     }
 
     .btn-lihat-semua {
-        background: #dc3545;
+        background: #4e0616;
         color: white;
         text-align: center;
         padding: 13px;

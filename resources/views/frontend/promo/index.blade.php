@@ -33,15 +33,15 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse 70% 80% at 60% 50%, rgba(220,53,69,0.18) 0%, transparent 70%);
+    background: radial-gradient(ellipse 70% 80% at 60% 50%, rgba(78, 6, 22,0.18) 0%, transparent 70%);
     pointer-events: none;
   }
   .promo-hero-eyebrow {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(220,53,69,0.18);
-    border: 1px solid rgba(220,53,69,0.4);
+    background: rgba(78, 6, 22,0.18);
+    border: 1px solid rgba(78, 6, 22,0.4);
     color: #ff8a99;
     font-size: 0.72rem;
     font-weight: 700;
@@ -92,7 +92,7 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    color: #dc3545;
+    color: #4e0616;
     font-size: 0.78rem;
     font-weight: 700;
     letter-spacing: 2px;
@@ -125,8 +125,8 @@
   }
   .promo-card:hover {
     transform: translateY(-6px);
-    box-shadow: 0 12px 36px rgba(220,53,69,0.14);
-    border-color: rgba(220,53,69,0.18);
+    box-shadow: 0 12px 36px rgba(78, 6, 22,0.14);
+    border-color: rgba(78, 6, 22,0.18);
   }
   .promo-card-img-wrap {
     position: relative;
@@ -148,7 +148,7 @@
     position: absolute;
     top: 14px;
     left: 14px;
-    background: #dc3545;
+    background: #4e0616;
     color: #fff;
     font-size: 0.73rem;
     font-weight: 700;
@@ -198,7 +198,7 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-    background: #dc3545;
+    background: #4e0616;
     color: #fff !important;
     font-weight: 700;
     font-size: 0.88rem;
@@ -206,14 +206,14 @@
     border-radius: 10px;
     text-decoration: none;
     transition: background 0.22s ease, transform 0.18s ease, box-shadow 0.22s ease;
-    box-shadow: 0 4px 14px rgba(220,53,69,0.30);
+    box-shadow: 0 4px 14px rgba(78, 6, 22,0.30);
     width: 100%;
   }
   .promo-card-btn:hover {
     background: #b91c1c;
     color: #fff !important;
     transform: translateY(-2px);
-    box-shadow: 0 8px 22px rgba(220,53,69,0.38);
+    box-shadow: 0 8px 22px rgba(78, 6, 22,0.38);
   }
   .promo-card-btn i { transition: transform 0.20s; }
   .promo-card-btn:hover i { transform: translateX(4px); }
@@ -227,12 +227,12 @@
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    background: rgba(220,53,69,0.08);
+    background: rgba(78, 6, 22,0.08);
     display: inline-flex;
     align-items: center;
     justify-content: center;
     font-size: 2rem;
-    color: #dc3545;
+    color: #4e0616;
     margin-bottom: 22px;
   }
   .promo-empty h3 {

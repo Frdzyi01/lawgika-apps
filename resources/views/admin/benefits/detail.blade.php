@@ -21,7 +21,7 @@
             'Siap Digunakan'   => ['bg' => '#0dcaf0', 'text' => '#000'],
             'Sedang Digunakan' => ['bg' => '#fd7e14', 'text' => '#fff'],
             'Selesai'          => ['bg' => '#198754', 'text' => '#fff'],
-            'Expired'          => ['bg' => '#dc3545', 'text' => '#fff'],
+            'Expired'          => ['bg' => '#4e0616', 'text' => '#fff'],
             'Nonaktif'         => ['bg' => '#6c757d', 'text' => '#fff'],
         ];
         $sc = $statusColors[$benefit->status_label] ?? ['bg' => '#6c757d', 'text' => '#fff'];

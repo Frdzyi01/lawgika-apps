@@ -1,216 +1,240 @@
 @extends('layouts-customer.app')
 
 @section('content')
-<div class="container-fluid">
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Histori Reservasi Meeting Room</h1>
-        <a href="{{ route('meeting-room.order') }}" class="btn btn-sm btn-primary shadow-sm">
-            <i class="fas fa-plus fa-sm text-white-50"></i> Buat Reservasi Baru
-        </a>
-    </div>
-
-    @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Histori Reservasi Meeting Room</h1>
+            <a href="{{ route('meeting-room.order') }}" class="btn btn-sm btn-primary shadow-sm">
+                <i class="fas fa-plus fa-sm text-white-50"></i> Buat Reservasi Baru
+            </a>
         </div>
-    @endif
-    @if(session('error'))
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            {{ session('error') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    @endif
 
-    {{-- ============================================================ --}}
-    {{-- TABLE 1 (NEW): Benefit dari Paket PT                        --}}
-    {{-- ============================================================ --}}
-    @include('partials.room-benefit-table', [
-        'benefits'  => $benefits,
-        'roomLabel' => 'Meeting Room',
-        'isAdmin'   => false,
-        'roomType'  => 'meeting',
-    ])
-
-    {{-- ============================================================ --}}
-    {{-- TABLE 2 (NEW): Riwayat Reservasi Benefit                    --}}
-    {{-- ============================================================ --}}
-    @if($benefitBookings->count() > 0)
-    <div class="card shadow mb-4 border-left-info">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-info">🎟️ Riwayat Reservasi Benefit</h6>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover">
-                    <thead class="table-light">
-                        <tr>
-                            <th>ID</th>
-                            <th>Waktu & Peserta</th>
-                            <th>Durasi Diajukan</th>
-                            <th>Status Pengajuan</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($benefitBookings as $booking)
-                            <tr>
-                                <td>{{ $booking->id }}</td>
-                                <td>
-                                    {{ \Carbon\Carbon::parse($booking->date)->format('d M Y') }}
-                                    <small class="d-block">{{ \Carbon\Carbon::parse($booking->start_time)->format('H:i') }}</small>
-                                    <small class="text-muted">{{ $booking->participants }} Orang</small>
-                                </td>
-                                <td>{{ $booking->duration }} Jam</td>
-                                <td>
-                                    @if($booking->status === 'pending_approval')
-                                        <span class="badge bg-warning text-dark">⏳ Menunggu Persetujuan Admin</span>
-                                    @elseif($booking->status === 'approved')
-                                        <span class="badge bg-success">✅ Disetujui (Silakan datang)</span>
-                                    @elseif($booking->status === 'rejected')
-                                        <span class="badge bg-danger">❌ Ditolak Admin</span>
-                                    @elseif($booking->status === 'checkin')
-                                        <span class="badge bg-primary">Sedang Digunakan</span>
-                                    @else
-                                        <span class="badge bg-secondary">Selesai / Paused</span>
-                                    @endif
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
-        </div>
-    </div>
-    @endif
+        @endif
+        @if (session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        @endif
 
-    {{-- ============================================================ --}}
-    {{-- TABLE 3 (EXISTING): Reservasi Manual — unchanged query/data --}}
-    {{-- ============================================================ --}}
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">📋 Reservasi Manual</h6>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover">
-                    <thead class="table-light">
-                        <tr>
-                            <th>ID</th>
-                            <th>Waktu & Peserta</th>
-                            <th>Status Pembayaran</th>
-                            <th>Pemakaian Waktu</th>
-                            <th>Status Ruangan</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse($manualBookings as $booking)
+        {{-- ============================================================ --}}
+        {{-- TABLE 1 (NEW): Benefit dari Paket PT                        --}}
+        {{-- ============================================================ --}}
+        @include('partials.room-benefit-table', [
+            'benefits' => $benefits,
+            'roomLabel' => 'Meeting Room',
+            'isAdmin' => false,
+            'roomType' => 'meeting',
+        ])
+
+        {{-- ============================================================ --}}
+        {{-- TABLE 2 (NEW): Riwayat Reservasi Benefit                    --}}
+        {{-- ============================================================ --}}
+        @if ($benefitBookings->count() > 0)
+            <div class="card shadow mb-4 border-left-info">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-info">🎟️ Riwayat Reservasi Benefit</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Waktu & Peserta</th>
+                                    <th>Durasi Diajukan</th>
+                                    <th>Status Pengajuan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($benefitBookings as $booking)
+                                    <tr>
+                                        <td>{{ $booking->id }}</td>
+                                        <td>
+                                            {{ \Carbon\Carbon::parse($booking->date)->format('d M Y') }}
+                                            <small
+                                                class="d-block">{{ \Carbon\Carbon::parse($booking->start_time)->format('H:i') }}</small>
+                                            <small class="text-muted">{{ $booking->participants }} Orang</small>
+                                        </td>
+                                        <td>{{ $booking->duration }} Jam</td>
+                                        <td>
+                                            @if ($booking->status === 'pending_approval')
+                                                <span class="badge bg-warning text-dark">⏳ Menunggu Persetujuan Admin</span>
+                                            @elseif($booking->status === 'approved')
+                                                <span class="badge bg-success">✅ Disetujui (Silakan datang)</span>
+                                            @elseif($booking->status === 'rejected')
+                                                <span class="badge bg-danger">❌ Ditolak Admin</span>
+                                            @elseif($booking->status === 'checkin')
+                                                <span class="badge bg-primary">Sedang Digunakan</span>
+                                            @else
+                                                <span class="badge bg-secondary">Selesai / Paused</span>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        @endif
+
+        {{-- ============================================================ --}}
+        {{-- TABLE 3 (EXISTING): Reservasi Manual — unchanged query/data --}}
+        {{-- ============================================================ --}}
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">📋 Reservasi Manual</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead class="table-light">
                             <tr>
-                                <td>{{ $booking->id }}</td>
-                                <td>
-                                    {{ \Carbon\Carbon::parse($booking->date)->format('d M Y') }}
-                                    <small class="d-block">{{ \Carbon\Carbon::parse($booking->start_time)->format('H:i') }}</small>
-                                    <small class="text-muted">{{ $booking->participants }} Orang | {{ $booking->duration }} Jam</small>
-                                </td>
-                                <td>
-                                    @if($booking->payment_status === 'approved')
-                                        <span class="badge bg-success">✅ Pembayaran diterima</span>
-                                    @elseif($booking->payment_status === 'rejected')
-                                        <span class="badge bg-danger">❌ Pembayaran ditolak</span>
-                                    @else
-                                        <span class="badge bg-warning text-dark">⏳ Menunggu konfirmasi admin</span>
-                                    @endif
-                                </td>
-                                <td>
-                                    @if($booking->payment_status === 'approved')
-                                        <small class="d-block">Total: {{ $booking->formatSeconds($booking->duration * 3600) }}</small>
-                                        <small class="d-block">Dipakai: <span class="used-time-display" data-status="{{ $booking->status }}" data-used="{{ $booking->used_seconds }}">{{ $booking->formatted_used_time }}</span></small>
+                                <th>ID</th>
+                                <th>Waktu & Peserta</th>
+                                <th>Status Pembayaran</th>
+                                <th>Pemakaian Waktu</th>
+                                <th>Status Ruangan</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($manualBookings as $booking)
+                                <tr>
+                                    <td>{{ $booking->id }}</td>
+                                    <td>
                                         @php
-                                            $sisa = $booking->formatted_remaining_time;
-                                            $bc = 'bg-success';
-                                            if ($booking->is_expired || $sisa === 'Waktu habis') {
-                                                $bc = 'bg-danger';
-                                            }
+                                            $isPackage = empty($booking->date) && empty($booking->start_time);
                                         @endphp
-                                        <span class="badge {{ $bc }} mt-1">Sisa: <span class="remaining-time-display" data-status="{{ $booking->status }}" data-remaining="{{ $booking->remaining_seconds }}">{{ $sisa }}</span></span>
-                                    @else
-                                        <span class="text-muted small">–</span>
-                                    @endif
-                                </td>
-                                <td>
-                                    @if($booking->payment_status !== 'approved')
-                                        <span class="badge bg-secondary">Belum aktif</span>
-                                    @elseif($booking->is_expired)
-                                        <span class="badge bg-danger" title="Expired setelah 1 tahun dari reservasi dibuat">❌ Expired</span>
-                                    @elseif($booking->remaining_seconds <= 0)
-                                        <span class="badge bg-secondary">Selesai</span>
-                                    @elseif($booking->status === 'checkin')
-                                        <span class="badge bg-primary">Sedang Digunakan</span>
-                                    @elseif($booking->status === 'paused' || $booking->used_seconds > 0)
-                                        <span class="badge bg-warning text-dark">Berhenti sementara</span>
-                                    @else
-                                        <span class="badge bg-info text-dark">Siap digunakan</span>
-                                    @endif
-                                </td>
-                                <td>
-                                    @if($booking->payment_status !== 'approved')
-                                        <span class="text-muted small">Tunggu konfirmasi pembayaran</span>
-                                    @elseif($booking->is_expired)
-                                        <span class="text-muted small text-danger fw-bold">Expired</span>
-                                    @elseif($booking->remaining_seconds <= 0)
-                                        <span class="text-muted small text-danger fw-bold">Waktu Habis</span>
-                                    @elseif($booking->status === 'checkin')
-                                        <button class="btn btn-sm btn-primary" disabled style="cursor: not-allowed;">Sedang Checkin</button>
-                                        <small class="d-block text-muted mt-1" style="font-size: 11px;">*Dikelola Admin</small>
-                                    @else
-                                        <button class="btn btn-sm btn-secondary" disabled style="cursor: not-allowed;">Sedang Checkout</button>
-                                        <small class="d-block text-muted mt-1" style="font-size: 11px;">*Dikelola Admin</small>
-                                    @endif
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="6" class="text-center">Anda belum memiliki histori reservasi meeting room.</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+
+                                        @if ($isPackage)
+                                            <span class="badge bg-success" style="font-size:0.9rem;">📦 Paket Meeting
+                                                Room</span>
+                                            <small class="d-block text-muted mt-1">60 Jam</small>
+                                        @else
+                                            {{ \Carbon\Carbon::parse($booking->date)->format('d M Y') }}
+                                            <small
+                                                class="d-block">{{ \Carbon\Carbon::parse($booking->start_time)->format('H:i') }}</small>
+                                            <small class="text-muted">{{ $booking->participants }} Orang |
+                                                {{ $booking->duration }} Jam</small>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($booking->payment_status === 'approved')
+                                            <span class="badge bg-success">✅ Pembayaran diterima</span>
+                                        @elseif($booking->payment_status === 'rejected')
+                                            <span class="badge bg-danger">❌ Pembayaran ditolak</span>
+                                        @else
+                                            <span class="badge bg-warning text-dark">⏳ Menunggu konfirmasi admin</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($booking->payment_status === 'approved')
+                                            <small class="d-block">Total:
+                                                {{ $booking->formatSeconds($booking->duration * 3600) }}</small>
+                                            <small class="d-block">Dipakai: <span class="used-time-display"
+                                                    data-status="{{ $booking->status }}"
+                                                    data-used="{{ $booking->used_seconds }}">{{ $booking->formatted_used_time }}</span></small>
+                                            @php
+                                                $sisa = $booking->formatted_remaining_time;
+                                                $bc = 'bg-success';
+                                                if ($booking->is_expired || $sisa === 'Waktu habis') {
+                                                    $bc = 'bg-danger';
+                                                }
+                                            @endphp
+                                            <span class="badge {{ $bc }} mt-1">Sisa: <span
+                                                    class="remaining-time-display" data-status="{{ $booking->status }}"
+                                                    data-remaining="{{ $booking->remaining_seconds }}">{{ $sisa }}</span></span>
+                                        @else
+                                            <span class="text-muted small">–</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($booking->payment_status !== 'approved')
+                                            <span class="badge bg-secondary">Belum aktif</span>
+                                        @elseif($booking->is_expired)
+                                            <span class="badge bg-danger"
+                                                title="Expired setelah 1 tahun dari reservasi dibuat">❌ Expired</span>
+                                        @elseif($booking->remaining_seconds <= 0)
+                                            <span class="badge bg-secondary">Selesai</span>
+                                        @elseif($booking->status === 'checkin')
+                                            <span class="badge bg-primary">Sedang Digunakan</span>
+                                        @elseif($booking->status === 'paused' || $booking->used_seconds > 0)
+                                            <span class="badge bg-warning text-dark">Berhenti sementara</span>
+                                        @else
+                                            <span class="badge bg-info text-dark">Siap digunakan</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($booking->payment_status !== 'approved')
+                                            <span class="text-muted small">Tunggu konfirmasi pembayaran</span>
+                                        @elseif($booking->is_expired)
+                                            <span class="text-muted small text-danger fw-bold">Expired</span>
+                                        @elseif($booking->remaining_seconds <= 0)
+                                            <span class="text-muted small text-danger fw-bold">Waktu Habis</span>
+                                        @elseif($booking->status === 'checkin')
+                                            <button class="btn btn-sm btn-primary" disabled
+                                                style="cursor: not-allowed;">Sedang Checkin</button>
+                                            <small class="d-block text-muted mt-1" style="font-size: 11px;">*Dikelola
+                                                Admin</small>
+                                        @else
+                                            <button class="btn btn-sm btn-secondary" disabled
+                                                style="cursor: not-allowed;">Sedang Checkout</button>
+                                            <small class="d-block text-muted mt-1" style="font-size: 11px;">*Dikelola
+                                                Admin</small>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="6" class="text-center">Anda belum memiliki histori reservasi meeting
+                                        room.</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</div>
 @endsection
 
 @push('scripts')
-<script>
-    function formatSecs(seconds) {
-        if (seconds <= 0) return 'Waktu habis';
-        const h = Math.floor(seconds / 3600);
-        const m = Math.floor((seconds % 3600) / 60);
-        const s = Math.floor(seconds % 60);
-        return h + " jam " + m + " menit " + s + " detik";
-    }
+    <script>
+        function formatSecs(seconds) {
+            if (seconds <= 0) return 'Waktu habis';
+            const h = Math.floor(seconds / 3600);
+            const m = Math.floor((seconds % 3600) / 60);
+            const s = Math.floor(seconds % 60);
+            return h + " jam " + m + " menit " + s + " detik";
+        }
 
-    setInterval(() => {
-        document.querySelectorAll('.used-time-display').forEach(el => {
-            if (el.dataset.status === 'checkin') {
-                let used = parseInt(el.dataset.used);
-                used++;
-                el.dataset.used = used;
-                el.innerText = formatSecs(used);
-            }
-        });
-        document.querySelectorAll('.remaining-time-display').forEach(el => {
-            if (el.dataset.status === 'checkin') {
-                let rem = parseInt(el.dataset.remaining);
-                if (rem > 0) {
-                    rem--;
-                    el.dataset.remaining = rem;
-                    el.innerText = formatSecs(rem);
-                    if (rem === 0) location.reload();
+        setInterval(() => {
+            document.querySelectorAll('.used-time-display').forEach(el => {
+                if (el.dataset.status === 'checkin') {
+                    let used = parseInt(el.dataset.used);
+                    used++;
+                    el.dataset.used = used;
+                    el.innerText = formatSecs(used);
                 }
-            }
-        });
-    }, 1000);
-</script>
+            });
+            document.querySelectorAll('.remaining-time-display').forEach(el => {
+                if (el.dataset.status === 'checkin') {
+                    let rem = parseInt(el.dataset.remaining);
+                    if (rem > 0) {
+                        rem--;
+                        el.dataset.remaining = rem;
+                        el.innerText = formatSecs(rem);
+                        if (rem === 0) location.reload();
+                    }
+                }
+            });
+        }, 1000);
+    </script>
 @endpush

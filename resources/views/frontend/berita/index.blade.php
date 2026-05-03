@@ -114,7 +114,7 @@
             transform: scale(1.05);
         }
         .berita-card-link:hover .hover-primary-heading {
-            color: #dc3545 !important;
+            color: #4e0616 !important;
             transition: color 0.2s ease;
         }
     }

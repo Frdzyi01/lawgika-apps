@@ -12,7 +12,9 @@
     <!-- ======== Page title ============ -->
     <title>Lawgika - Legal & Business Consulting Services</title>
     <!--<< Favcion >>-->
-    <link rel="shortcut icon" href="{{ asset('buyer-file/assets/img/favicon.svg')}}" />
+    <!-- <link rel="shortcut icon" href="{{ asset('buyer-file/assets/img/favicon.svg')}}" /> -->
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('buyer-file/assets/img/logo-remove-black.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('buyer-file/assets/img/logo-remove-black.png')}}">
     <!--<< Bootstrap min.css >>-->
     <link rel="stylesheet" href="{{ asset('buyer-file/assets/css/bootstrap.min.css')}}" />
     <!--<< All Min Css >>-->

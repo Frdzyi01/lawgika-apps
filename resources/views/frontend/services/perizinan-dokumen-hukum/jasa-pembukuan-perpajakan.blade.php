@@ -911,10 +911,10 @@
         <div class="pricing-toggle-wrapper">
             <div class="pricing-toggle">
                 <button class="toggle-btn active" data-pricing="pembukuan">
-                    <i class="fa-solid fa-calculator"></i> PEMBUKUAN DAN PAJAK (PER BULAN)
+                    <i class="fa-solid fa-calculator"></i> JASA PEMBUKUAN
                 </button>
                 <button class="toggle-btn" data-pricing="pajak">
-                    <i class="fa-solid fa-file-invoice"></i> BERLANGGANAN PAJAK (PER BULAN)
+                    <i class="fa-solid fa-file-invoice"></i> JASA PERPAJAKAN
                 </button>
             </div>
         </div>
@@ -993,6 +993,7 @@
                 </div>
             </div>
             <p class="text-center text-muted mt-4">* Harga belum termasuk PPN 11%. Transaksi di atas kuota akan dikenakan biaya tambahan per transaksi.</p>
+            <button class="btn-pricing">Minta Penawaran</button>
         </div>
 
         {{-- Pricing Table Container 2: BERLANGGANAN PAJAK (HIDDEN BY DEFAULT) --}}

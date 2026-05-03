@@ -91,7 +91,7 @@ class RoomBenefitService
     /**
      * Record a check-out event and deduct duration from the shared pool.
      *
-     * @param  int $durationMinutes  How many minutes this session consumed
+     * @param  int $durationMinutes  How many minutes this session consumed (MUST be pre-rounded by caller)
      * @throws \RuntimeException on validation failure
      */
     public function checkout(RoomBenefit $benefit, string $roomType, int $durationMinutes): void
@@ -100,6 +100,7 @@ class RoomBenefitService
 
         DB::transaction(function () use ($benefit, $roomType, $durationMinutes) {
             // Deduct from pool (clamp at total)
+            // NOTE: $durationMinutes should already be rounded up to nearest hour by the caller
             $benefit->used_minutes = min(
                 $benefit->total_minutes,
                 $benefit->used_minutes + $durationMinutes

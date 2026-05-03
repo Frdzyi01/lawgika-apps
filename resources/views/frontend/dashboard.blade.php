@@ -237,8 +237,8 @@
     display: inline-flex;
     align-items: center;
     gap: 7px;
-    background: rgba(220, 53, 69, 0.22);
-    border: 1px solid rgba(220, 53, 69, 0.45);
+    background: rgba(78, 6, 22, 0.22);
+    border: 1px solid rgba(78, 6, 22, 0.45);
     color: #ff8a99;
     font-size: 0.72rem;
     font-weight: 700;
@@ -277,7 +277,7 @@
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    background: #dc3545;
+    background: #4e0616;
     color: #fff !important;
     font-weight: 700;
     font-size: 0.95rem;
@@ -285,7 +285,7 @@
     border-radius: 50px;
     text-decoration: none;
     transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
-    box-shadow: 0 6px 20px rgba(220, 53, 69, 0.40);
+    box-shadow: 0 6px 20px rgba(78, 6, 22, 0.40);
     letter-spacing: 0.3px;
     border: none;
     will-change: transform;
@@ -293,7 +293,7 @@
 
   .hero-slide-cta:hover {
     transform: translateY(-3px);
-    box-shadow: 0 14px 32px rgba(220, 53, 69, 0.52);
+    box-shadow: 0 14px 32px rgba(78, 6, 22, 0.52);
     background: #c82333;
     color: #fff !important;
   }
@@ -579,7 +579,7 @@
     }
 
     .berita-card-link:hover .hover-primary-heading {
-      color: #dc3545 !important;
+      color: #4e0616 !important;
       transition: color 0.2s ease;
     }
   }
@@ -1257,7 +1257,7 @@
     align-items: center;
     gap: 6px;
     background: #fff1f3;
-    color: #dc3545;
+    color: #4e0616;
     font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 1.2px;
@@ -1277,15 +1277,15 @@
   }
 
   .sp-main-title span {
-    color: #dc3545;
+    color: #4e0616;
   }
 
   .sp-other-btn {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    border: 1.5px solid #dc3545;
-    color: #dc3545;
+    border: 1.5px solid #4e0616;
+    color: #4e0616;
     background: transparent;
     font-size: 0.875rem;
     font-weight: 600;
@@ -1297,7 +1297,7 @@
   }
 
   .sp-other-btn:hover {
-    background: #dc3545;
+    background: #4e0616;
     color: #fff;
   }
 
@@ -1346,7 +1346,7 @@
     position: absolute;
     top: 12px;
     left: 12px;
-    background: #dc3545;
+    background: #4e0616;
     color: #fff;
     font-size: 0.68rem;
     font-weight: 800;
@@ -1401,11 +1401,11 @@
   .sp-price-new {
     font-size: 1.1rem;
     font-weight: 700;
-    color: #dc3545;
+    color: #4e0616;
   }
 
   .sp-card-btn {
-    background: #dc3545;
+    background: #4e0616;
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -1652,8 +1652,8 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    border: 1.5px solid #dc3545;
-    color: #dc3545;
+    border: 1.5px solid #4e0616;
+    color: #4e0616;
     background: transparent;
     font-size: 0.875rem;
     font-weight: 600;
@@ -1665,7 +1665,7 @@
   }
 
   .ue-all-btn:hover {
-    background: #dc3545;
+    background: #4e0616;
     color: #fff;
   }
 
@@ -1722,7 +1722,7 @@
   }
 
   .ue-badge-upcoming {
-    background: #dc3545;
+    background: #4e0616;
     color: #fff;
   }
 
@@ -1773,7 +1773,7 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background: #dc3545;
+    background: #4e0616;
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -1845,7 +1845,7 @@
   }
 
   .event-modal-container::-webkit-scrollbar-thumb {
-    background: #dc3545;
+    background: #4e0616;
     border-radius: 10px;
   }
 
@@ -1869,7 +1869,7 @@
   }
 
   .event-modal-close:hover {
-    background: #dc3545;
+    background: #4e0616;
     color: white;
   }
 
@@ -1946,7 +1946,7 @@
 
   .ue-price {
     background: #fff5f5;
-    color: #dc3545;
+    color: #4e0616;
     border: 1px solid #feb2b2;
   }
 
@@ -1974,7 +1974,7 @@
   }
 
   .modal-event-date i {
-    color: #dc3545;
+    color: #4e0616;
     width: 20px;
     font-size: 1rem;
   }
@@ -1987,7 +1987,7 @@
     background: #fafbfc;
     padding: 18px;
     border-radius: 16px;
-    border-left: 4px solid #dc3545;
+    border-left: 4px solid #4e0616;
   }
 
   .modal-event-info {
@@ -2013,7 +2013,7 @@
 
   .modal-event-info-item i {
     width: 24px;
-    color: #dc3545;
+    color: #4e0616;
     font-size: 1.1rem;
     text-align: center;
   }
@@ -2062,7 +2062,7 @@
 
   .btn-lihat-semua {
     background: white;
-    color: #dc3545;
+    color: #4e0616;
     text-align: center;
     padding: 13px;
     border-radius: 50px;
@@ -2073,12 +2073,12 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
-    border: 2px solid #dc3545;
+    border: 2px solid #4e0616;
     cursor: pointer;
   }
 
   .btn-lihat-semua:hover {
-    background: #dc3545;
+    background: #4e0616;
     color: white;
   }
 
@@ -2090,7 +2090,7 @@
 
   .modal-loading i {
     font-size: 48px;
-    color: #dc3545;
+    color: #4e0616;
     margin-bottom: 16px;
   }
 
@@ -2107,12 +2107,12 @@
 
   .modal-error i {
     font-size: 48px;
-    color: #dc3545;
+    color: #4e0616;
     margin-bottom: 16px;
   }
 
   .modal-error p {
-    color: #dc3545;
+    color: #4e0616;
     margin-bottom: 20px;
   }
 
@@ -3043,7 +3043,7 @@
 
   .faq-info-label {
     font-size: 0.75rem;
-    color: #dc3545;
+    color: #4e0616;
     text-transform: uppercase;
     letter-spacing: 1.5px;
     font-weight: 700;

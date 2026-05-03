@@ -41,7 +41,7 @@ class MeetingRoomBooking extends Model
     }
 
     /**
-     * Helper: Format detik ke string "X jam Y menit Z detik"
+     * Helper: Format detik ke string "X jam Y menit" (tanpa detik)
      */
     public function formatSeconds($seconds)
     {
@@ -49,9 +49,8 @@ class MeetingRoomBooking extends Model
 
         $hours   = floor($seconds / 3600);
         $minutes = floor(($seconds % 3600) / 60);
-        $secs    = $seconds % 60;
 
-        return "{$hours} jam {$minutes} menit {$secs} detik";
+        return "{$hours} jam {$minutes} menit";
     }
 
     /**
@@ -110,5 +109,24 @@ class MeetingRoomBooking extends Model
         }
 
         return $this->formatSeconds($remaining);
+    }
+
+    /**
+     * Calculate rounded-up duration in hours for billing purposes.
+     * Rounds up to nearest hour with minimum of 1 hour.
+     * 
+     * @param int $durationSeconds Duration in seconds
+     * @return int Rounded hours (minimum 1)
+     */
+    public function calculateBillingHours(int $durationSeconds): int
+    {
+        if ($durationSeconds <= 0) {
+            return 1; // Minimum 1 hour
+        }
+
+        $durationMinutes = $durationSeconds / 60;
+        $durationHours = (int) ceil($durationMinutes / 60);
+
+        return max(1, $durationHours); // Enforce minimum 1 hour
     }
 }

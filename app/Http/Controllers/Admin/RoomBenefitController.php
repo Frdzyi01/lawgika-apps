@@ -82,16 +82,27 @@ class RoomBenefitController extends Controller
                 ->with('error', '❌ Tidak ada sesi Check In aktif yang ditemukan untuk benefit ini.');
         }
 
-        $durationMinutes = (int) ceil($lastLog->action_at->diffInMinutes(now()));
+        // ── BILLING ADJUSTMENT: Calculate actual and rounded duration ─────────
+        $actualMinutes = (int) ceil($lastLog->action_at->diffInMinutes(now()));
+        
+        // Round up to nearest hour (minimum 1 hour)
+        $billingHours = (int) ceil($actualMinutes / 60);
+        if ($billingHours < 1) {
+            $billingHours = 1; // Enforce minimum 1 hour
+        }
+        
+        $billingMinutes = $billingHours * 60;
 
         try {
-            $this->benefitService->checkout($benefit, $roomType, $durationMinutes);
+            // Pass ROUNDED minutes to service for deduction
+            $this->benefitService->checkout($benefit, $roomType, $billingMinutes);
 
             return redirect()
                 ->back()
                 ->with('success', sprintf(
-                    'Check Out berhasil. Durasi sesi: %s. Sisa benefit: %s.',
-                    RoomBenefit::formatMinutes($durationMinutes),
+                    'Check Out berhasil. Durasi aktual: %s (Ditagih: %d jam). Sisa benefit: %s.',
+                    RoomBenefit::formatMinutes($actualMinutes),
+                    $billingHours,
                     RoomBenefit::formatMinutes($benefit->fresh()->remaining_minutes)
                 ));
 

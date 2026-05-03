@@ -42,7 +42,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse 70% 80% at 60% 50%, rgba(220, 53, 69, 0.18) 0%, transparent 70%);
+    background: radial-gradient(ellipse 70% 80% at 60% 50%, rgba(78, 6, 22, 0.18) 0%, transparent 70%);
     pointer-events: none;
   }
 
@@ -167,7 +167,7 @@
 
   /* Diskon box */
   .promo-discount-box {
-    background: linear-gradient(90deg, #dc3545 0%, #9b1c2c 100%);
+    background: linear-gradient(90deg, #4e0616 0%, #9b1c2c 100%);
     border-radius: 12px;
     padding: 20px 24px;
     display: flex;
@@ -216,7 +216,7 @@
   }
 
   .promo-section-label i {
-    color: #dc3545;
+    color: #4e0616;
   }
 
   /* Deskripsi */
@@ -257,21 +257,21 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: #dc3545;
+    background: #4e0616;
     color: #fff !important;
     font-weight: 700;
     font-size: 0.9rem;
     padding: 12px 26px;
     border-radius: 10px;
     text-decoration: none;
-    box-shadow: 0 4px 14px rgba(220, 53, 69, 0.30);
+    box-shadow: 0 4px 14px rgba(78, 6, 22, 0.30);
     transition: background 0.22s, transform 0.18s, box-shadow 0.22s;
   }
 
   .promo-btn-primary:hover {
     background: #b91c1c;
     transform: translateY(-2px);
-    box-shadow: 0 8px 22px rgba(220, 53, 69, 0.38);
+    box-shadow: 0 8px 22px rgba(78, 6, 22, 0.38);
   }
 
   .promo-btn-secondary {
@@ -290,9 +290,9 @@
   }
 
   .promo-btn-secondary:hover {
-    border-color: #dc3545;
+    border-color: #4e0616;
     background: #fff5f6;
-    color: #dc3545 !important;
+    color: #4e0616 !important;
   }
 
   /* ===== SIDEBAR ===== */
@@ -311,7 +311,7 @@
   }
 
   .promo-sidebar-title i {
-    color: #dc3545;
+    color: #4e0616;
   }
 
   .promo-sidebar-item {
@@ -329,8 +329,8 @@
   }
 
   .promo-sidebar-item:hover {
-    border-color: rgba(220, 53, 69, 0.3);
-    box-shadow: 0 4px 14px rgba(220, 53, 69, 0.10);
+    border-color: rgba(78, 6, 22, 0.3);
+    box-shadow: 0 4px 14px rgba(78, 6, 22, 0.10);
     transform: translateY(-2px);
   }
 

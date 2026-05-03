@@ -52,7 +52,7 @@
 
                     <div class="row g-4 mt-2">
                         <div class="col-md-6">
-                            <div class="vision-box p-4 rounded-4" style="background: #fff5f6; border-left: 4px solid #dc3545;">
+                            <div class="vision-box p-4 rounded-4" style="background: #fff5f6; border-left: 4px solid #4e0616;">
                                 <h5 class="fw-bold mb-2">Visi Kami</h5>
                                 <p class="small text-muted mb-0">Menjadi katalisator utama dalam pertumbuhan ekosistem bisnis di Indonesia melalui solusi hukum digital terintegrasi.</p>
                             </div>
