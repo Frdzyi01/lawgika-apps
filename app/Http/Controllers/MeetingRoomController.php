@@ -35,6 +35,9 @@ class MeetingRoomController extends Controller
             ])->with('error', 'Anda belum memiliki Paket Badan Usaha aktif. Silakan Beli Paket Meeting Room.');
         }
 
+        $ptOrder = $benefit ? $benefit->order : null;
+        $ptData = $ptOrder ? $ptOrder->form_data : [];
+
         return view('meeting-room.order', [
             'tanggal'       => $request->get('tanggal'),
             'jam'           => $request->get('jam'),
@@ -42,6 +45,7 @@ class MeetingRoomController extends Controller
             'package'       => $package,
             'quota'         => $quota,
             'activeBenefit' => $benefit,
+            'ptData'        => $ptData,
         ]);
     }
 

@@ -146,25 +146,25 @@
                 <div class="form-group">
                     <label for="nama_perusahaan">Nama Perusahaan</label>
                     <input type="text" id="nama_perusahaan" name="nama_perusahaan" class="form-control" required
-                        placeholder="Masukkan nama perusahaan" value="{{ old('nama_perusahaan') }}">
+                        placeholder="Masukkan nama perusahaan" value="{{ old('nama_perusahaan', request('package') == 'reservasi' ? ($ptData['company_name'] ?? '') : '') }}" {{ request('package') == 'reservasi' ? 'readonly' : '' }}>
                 </div>
 
                 <div class="form-group">
                     <label for="email">Alamat Email</label>
                     <input type="email" id="email" name="email" class="form-control" required
-                        placeholder="Masukkan alamat email" value="{{ old('email') }}">
+                        placeholder="Masukkan alamat email" value="{{ old('email', request('package') == 'reservasi' ? ($ptData['company_email'] ?? '') : '') }}" {{ request('package') == 'reservasi' ? 'readonly' : '' }}>
                 </div>
 
                 <div class="form-group">
                     <label for="alamat_usaha">Alamat Aktivitas Usaha</label>
                     <textarea id="alamat_usaha" name="alamat_usaha" class="form-control" required
-                        placeholder="Masukkan alamat aktivitas usaha" rows="3">{{ old('alamat_usaha') }}</textarea>
+                        placeholder="Masukkan alamat aktivitas usaha" rows="3" {{ request('package') == 'reservasi' ? 'readonly' : '' }}>{{ old('alamat_usaha', request('package') == 'reservasi' ? ($ptData['operational_address'] ?? '') : '') }}</textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="bidang_usaha">Bidang Usaha</label>
                     <input type="text" id="bidang_usaha" name="bidang_usaha" class="form-control" required
-                        placeholder="Masukkan bidang usaha" value="{{ old('bidang_usaha') }}">
+                        placeholder="Masukkan bidang usaha" value="{{ old('bidang_usaha', request('package') == 'reservasi' ? ($ptData['business_field'] ?? '') : '') }}" {{ request('package') == 'reservasi' ? 'readonly' : '' }}>
                 </div>
 
                 <div class="form-group">
@@ -211,26 +211,44 @@
                             value="{{ old('jam', $jam ?? '') }}">
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="peserta">Jumlah Peserta</label>
-                                <input type="number" id="peserta" name="peserta" class="form-control" min="1"
-                                    required placeholder="Contoh: 8" value="{{ old('peserta') }}">
+                    @if (request('package') == 'reservasi')
+                        <input type="hidden" name="peserta" value="1">
+                        <input type="hidden" name="durasi" value="1">
+                    @else
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="peserta">Jumlah Peserta</label>
+                                    <input type="number" id="peserta" name="peserta" class="form-control" min="1"
+                                        required placeholder="Contoh: 8" value="{{ old('peserta') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="durasi">Durasi Sewa (Jam)</label>
+                                    <input type="number" id="durasi" name="durasi" class="form-control" min="1"
+                                        required placeholder="Contoh: 2" value="{{ old('durasi', $durasi ?? 1) }}"
+                                        onchange="updateTotal()">
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="durasi">Durasi Sewa (Jam)</label>
-                                <input type="number" id="durasi" name="durasi" class="form-control" min="1"
-                                    required placeholder="Contoh: 2" value="{{ old('durasi', $durasi ?? 1) }}"
-                                    onchange="updateTotal()">
-                            </div>
-                        </div>
-                    </div>
+                    @endif
                 @endif
 
-                @if (isset($quota) && !now()->greaterThan($quota->expired_at) && $quota->remaining_seconds > 0)
+                @if(request('package') == 'reservasi')
+                    <div
+                        style="background:#fdf2f8; border:1px solid #fbcfe8; border-radius:10px; padding:20px; margin-bottom:20px;">
+                        <h5 style="color:#be185d; font-weight:700; margin-bottom:10px;"><i class="fa-solid fa-gem"></i> Benefit Paket Pendirian PT</h5>
+                        <p style="margin-bottom:8px; color:#831843;">Anda memiliki benefit reservasi Meeting Room dari Paket Pendirian PT. Silakan lengkapi form reservasi atas waktu dan tanggal yang diinginkan, dan pesanan akan diteruskan ke admin.</p>
+                        @if(isset($activeBenefit))
+                            <p style="margin-bottom:0; color:#831843;">
+                                Sisa quota Anda: <strong>{{ \App\Models\RoomBenefit::formatMinutes($activeBenefit->remaining_minutes) }}</strong>
+                                (Berlaku hingga {{ $activeBenefit->expired_at ? $activeBenefit->expired_at->format('d M Y') : 'Tanpa Expired' }})
+                            </p>
+                        @endif
+                        <input type="hidden" name="use_quota" value="1">
+                    </div>
+                @elseif (isset($quota) && !now()->greaterThan($quota->expired_at) && $quota->remaining_seconds > 0)
                     <div
                         style="background:#fdf2f8; border:1px solid #fbcfe8; border-radius:10px; padding:20px; margin-bottom:20px;">
                         <h5 style="color:#be185d; font-weight:700; margin-bottom:10px;"><i class="fa-solid fa-gem"></i> Anda
@@ -249,67 +267,74 @@
                     </div>
                 @endif
 
-                <!-- Manual Transfer Instructions -->
-                <div id="payment-section">
+                @if(request('package') != 'reservasi')
+                    <!-- Manual Transfer Instructions -->
+                    <div id="payment-section">
+                        <div
+                            style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:20px; margin-bottom:20px;">
+                            <h5 style="font-size:1.05rem; font-weight:700; color:var(--dark); margin-bottom:15px;"><i
+                                    class="fa-solid fa-building-columns"></i> Instruksi Pembayaran (Transfer Bank)</h5>
+                            <p style="font-size:0.95rem; color:var(--gray); margin-bottom:10px;">Silakan lakukan pembayaran ke
+                                rekening berikut:</p>
+                            <div style="background:#fff; padding:15px; border-radius:8px; border:1px solid #e2e8f0;">
+                                <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                                    <span style="color:#64748b; font-size:0.9rem;">Bank</span>
+                                    <strong style="color:#1e1b2b;">BCA (Bank Central Asia)</strong>
+                                </div>
+                                <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                                    <span style="color:#64748b; font-size:0.9rem;">No. Rekening</span>
+                                    <strong style="color:#1e1b2b; font-size:1.1rem; letter-spacing:1px;">869 123 4567</strong>
+                                </div>
+                                <div
+                                    style="display:flex; justify-content:space-between; border-top:1px dashed #e2e8f0; padding-top:8px; margin-top:8px;">
+                                    <span style="color:#64748b; font-size:0.9rem;">Atas Nama</span>
+                                    <strong style="color:#1e1b2b;">PT Lawgika Associates</strong>
+                                </div>
+                            </div>
+
+                            <div style="margin-top:15px; text-align:right;">
+                                <span style="color:#64748b; font-size:0.95rem; margin-right:10px;">Total Tagihan:</span>
+                                <strong style="color:var(--primary); font-size:1.4rem;" id="totalAmountDisplay">
+                                    @if (request('package') == 'paket')
+                                        Rp 1.000.000
+                                    @else
+                                        Rp 150.000
+                                    @endif
+                                </strong>
+                                <input type="hidden" id="package" value="{{ request('package', 'reservasi') }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="payment_proof">Upload Bukti Pembayaran <span class="text-danger">*</span></label>
+                            <div style="border:2px dashed #e2e8f0; border-radius:10px; padding:20px; text-align:center; cursor:pointer;"
+                                onclick="document.getElementById('payment_proof').click()">
+                                <i class="fa-solid fa-cloud-arrow-up"
+                                    style="font-size:2rem; color:var(--primary); margin-bottom:8px; display:block;"></i>
+                                <p style="color:var(--gray); margin:0; font-size:0.9rem;">Klik untuk upload bukti transfer /
+                                    pembayaran</p>
+                                <p style="color:#94a3b8; margin:4px 0 0; font-size:0.8rem;">JPG, PNG, JPEG — Maks. 2MB</p>
+                                <p id="file-name"
+                                    style="color:var(--primary); font-weight:600; margin:8px 0 0; font-size:0.9rem; display:none;">
+                                </p>
+                            </div>
+                            <input type="file" id="payment_proof" name="payment_proof"
+                                accept="image/jpg,image/jpeg,image/png" required style="display:none;"
+                                onchange="showFileName(this)">
+                        </div>
+                    </div>
+
                     <div
-                        style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:20px; margin-bottom:20px;">
-                        <h5 style="font-size:1.05rem; font-weight:700; color:var(--dark); margin-bottom:15px;"><i
-                                class="fa-solid fa-building-columns"></i> Instruksi Pembayaran (Transfer Bank)</h5>
-                        <p style="font-size:0.95rem; color:var(--gray); margin-bottom:10px;">Silakan lakukan pembayaran ke
-                            rekening berikut:</p>
-                        <div style="background:#fff; padding:15px; border-radius:8px; border:1px solid #e2e8f0;">
-                            <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
-                                <span style="color:#64748b; font-size:0.9rem;">Bank</span>
-                                <strong style="color:#1e1b2b;">BCA (Bank Central Asia)</strong>
-                            </div>
-                            <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
-                                <span style="color:#64748b; font-size:0.9rem;">No. Rekening</span>
-                                <strong style="color:#1e1b2b; font-size:1.1rem; letter-spacing:1px;">869 123 4567</strong>
-                            </div>
-                            <div
-                                style="display:flex; justify-content:space-between; border-top:1px dashed #e2e8f0; padding-top:8px; margin-top:8px;">
-                                <span style="color:#64748b; font-size:0.9rem;">Atas Nama</span>
-                                <strong style="color:#1e1b2b;">PT Lawgika Associates</strong>
-                            </div>
-                        </div>
-
-                        <div style="margin-top:15px; text-align:right;">
-                            <span style="color:#64748b; font-size:0.95rem; margin-right:10px;">Total Tagihan:</span>
-                            <strong style="color:var(--primary); font-size:1.4rem;" id="totalAmountDisplay">
-                                @if (request('package') == 'paket')
-                                    Rp 1.000.000
-                                @else
-                                    Rp 150.000
-                                @endif
-                            </strong>
-                            <input type="hidden" id="package" value="{{ request('package', 'reservasi') }}">
-                        </div>
+                        style="background:#fef9c3; border:1px solid #fde047; border-radius:10px; padding:14px; margin-bottom:20px; font-size:0.9rem; color:#713f12;">
+                        <strong>⚡ Info:</strong> Setelah reservasi, admin akan mengkonfirmasi pembayaran Anda. Check In hanya
+                        bisa dilakukan setelah pembayaran <strong>disetujui</strong>.
                     </div>
-
-                    <div class="form-group">
-                        <label for="payment_proof">Upload Bukti Pembayaran <span class="text-danger">*</span></label>
-                        <div style="border:2px dashed #e2e8f0; border-radius:10px; padding:20px; text-align:center; cursor:pointer;"
-                            onclick="document.getElementById('payment_proof').click()">
-                            <i class="fa-solid fa-cloud-arrow-up"
-                                style="font-size:2rem; color:var(--primary); margin-bottom:8px; display:block;"></i>
-                            <p style="color:var(--gray); margin:0; font-size:0.9rem;">Klik untuk upload bukti transfer /
-                                pembayaran</p>
-                            <p style="color:#94a3b8; margin:4px 0 0; font-size:0.8rem;">JPG, PNG, JPEG — Maks. 2MB</p>
-                            <p id="file-name"
-                                style="color:var(--primary); font-weight:600; margin:8px 0 0; font-size:0.9rem; display:none;">
-                            </p>
-                        </div>
-                        <input type="file" id="payment_proof" name="payment_proof"
-                            accept="image/jpg,image/jpeg,image/png" required style="display:none;"
-                            onchange="showFileName(this)">
+                @else
+                    <div
+                        style="background:#fef9c3; border:1px solid #fde047; border-radius:10px; padding:14px; margin-bottom:20px; font-size:0.9rem; color:#713f12;">
+                        <strong>⚡ Info:</strong> Pesanan reservasi ini akan langsung diteruskan ke Admin untuk proses konfirmasi jadwal.
                     </div>
-                </div>
-
-                <div
-                    style="background:#fef9c3; border:1px solid #fde047; border-radius:10px; padding:14px; margin-bottom:20px; font-size:0.9rem; color:#713f12;">
-                    <strong>⚡ Info:</strong> Setelah reservasi, admin akan mengkonfirmasi pembayaran Anda. Check In hanya
-                    bisa dilakukan setelah pembayaran <strong>disetujui</strong>.
-                </div>
+                @endif
 
                 <div style="display:flex; gap:15px;">
                     <button type="submit" class="btn-submit" style="flex:1; margin-top:0;">
