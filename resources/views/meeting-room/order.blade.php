@@ -129,6 +129,12 @@
                 </div>
             @endif
 
+            @if (session('error'))
+                <div style="padding:15px;border-radius:10px;margin-bottom:20px;background:#fee2e2;color:#991b1b;border:1px solid #f87171;">
+                    {{ session('error') }}
+                </div>
+            @endif
+
             <form action="{{ route('meeting-room.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">

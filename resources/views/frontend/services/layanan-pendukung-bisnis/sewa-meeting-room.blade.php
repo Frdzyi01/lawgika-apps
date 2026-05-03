@@ -457,9 +457,15 @@
                             <li><i class="fa-solid fa-check"></i> Print, Scan, Copy</li>
                             <li><i class="fa-solid fa-check"></i> Ruang Tunggu &amp; Pantry</li>
                         </ul>
-                        <button type="button" class="btn-outline-brand mt-auto"
-                            style="border-radius:8px;width:100%;background:none;cursor:pointer;"
-                            onclick="openBookingModal('reservasi','Paket Badan Usaha','60 mnt')">Reservasi Sekarang</button>
+                        @if($hasBenefit)
+                            <button type="button" class="btn-outline-brand mt-auto"
+                                style="border-radius:8px;width:100%;background:none;cursor:pointer;"
+                                onclick="openBookingModal('reservasi','Paket Badan Usaha','60 mnt')">Reservasi Sekarang</button>
+                        @else
+                            <button type="button" class="btn-outline-brand mt-auto"
+                                style="border-radius:8px;width:100%;background:none;cursor:pointer;"
+                                onclick="showNoBenefitAlert()">Reservasi Sekarang</button>
+                        @endif
                     </div>
 
                     {{-- KANAN: Beli Paket --}}
@@ -895,6 +901,19 @@
             setTimeout(() => {
                 overlay.style.display = 'none';
             }, 300);
+        }
+
+        function showNoBenefitAlert() {
+            if (typeof Swal !== 'undefined') {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Akses Ditolak',
+                    text: 'Anda tidak memiliki Paket Badan Usaha aktif (Benefit dari Pendirian PT). Silakan Beli Paket Meeting Room terlebih dahulu.',
+                    confirmButtonColor: '#4e0516'
+                });
+            } else {
+                alert('Anda tidak memiliki Paket Badan Usaha aktif (Benefit dari Pendirian PT). Silakan Beli Paket Meeting Room terlebih dahulu.');
+            }
         }
 
         function changeMonth(dir) {

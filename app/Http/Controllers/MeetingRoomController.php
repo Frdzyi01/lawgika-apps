@@ -14,7 +14,8 @@ class MeetingRoomController extends Controller
 {
     public function index()
     {
-        return view('frontend.services.layanan-pendukung-bisnis.sewa-meeting-room');
+        $hasBenefit = $this->getActiveBenefit() ? true : false;
+        return view('frontend.services.layanan-pendukung-bisnis.sewa-meeting-room', compact('hasBenefit'));
     }
 
     public function order(Request $request)
@@ -22,11 +23,23 @@ class MeetingRoomController extends Controller
         $quota   = UserRoomQuota::where('user_id', Auth::id())->first();
         $benefit = $this->getActiveBenefit();
 
+        $package = $request->get('package', 'reservasi');
+
+        // Jika user tidak memiliki paket benefit (Paket Badan Usaha) dan mencoba akses 'reservasi', arahkan ke beli paket
+        if ($package === 'reservasi' && !$benefit) {
+            return redirect()->route('meeting-room.order', [
+                'package' => 'paket',
+                'tanggal' => $request->get('tanggal'),
+                'jam'     => $request->get('jam'),
+                'durasi'  => $request->get('durasi', 1)
+            ])->with('error', 'Anda belum memiliki Paket Badan Usaha aktif. Silakan Beli Paket Meeting Room.');
+        }
+
         return view('meeting-room.order', [
             'tanggal'       => $request->get('tanggal'),
             'jam'           => $request->get('jam'),
             'durasi'        => $request->get('durasi', 1),
-            'package'       => $request->get('package', 'reservasi'),
+            'package'       => $package,
             'quota'         => $quota,
             'activeBenefit' => $benefit,
         ]);
