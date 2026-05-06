@@ -161,7 +161,7 @@
                 <i class="fal fa-envelope"></i>
               </div>
               <div class="offcanvas__contact-text">
-                <a href="#"><span class="mailto:info@example.com">info@example.com</span></a>
+                <a href="#"><span class="mailto:lawgika@gmail.com">lawgika@gmail.com</span></a>
               </div>
             </li>
             <li class="d-flex align-items-center">
@@ -373,7 +373,7 @@
         <ul class="contact-list">
           <li>
             <i class="far fa-envelope"></i>
-            <a href="#">info@example.com</a>
+            <a href="#">lawgika@gmail.com</a>
           </li>
 
         </ul>
@@ -384,7 +384,7 @@
 
           <li>
             <i class="fa-regular fa-phone"></i>
-            <a href="#">+208-6666-0112</a>
+            <a href="#">+62 811-1208-8600</a>
           </li>
           <li>
             <i class="fa-light fa-comments"></i><a href="#">Live Chat</a>
@@ -1166,13 +1166,14 @@
     const urlParams = new URLSearchParams(window.location.search);
     const triggerLogin = urlParams.get('login') === '1';
     const triggerRegister = urlParams.get('register') === '1';
-    const hasError = document.getElementById('lw-login-error-box');
+    const hasLoginError = document.getElementById('lw-login-error-box');
+    const hasRegisterError = document.getElementById('lw-register-error-box');
 
     let targetModalId = null;
-    if (hasError || triggerLogin) {
+    if (hasLoginError || triggerLogin) {
       targetModalId = 'exampleModal';
-    } else if (triggerRegister) {
-      targetModalId = 'registerModal';
+    } else if (hasRegisterError || triggerRegister) {
+      targetModalId = 'exampleModal2';
     }
 
     if (!targetModalId) return;
@@ -1223,7 +1224,7 @@
 </script>
 
 {{-- ===== TOAST NOTIFIKASI LOGIN GAGAL ===== --}}
-@if ($errors->any() && old('_token'))
+@if ($errors->any() && old('login_attempt'))
 <style>
   /* Toast container */
   #lw-toast-wrap {
@@ -1390,7 +1391,7 @@
             <h2>welcome back!</h2>
 
             {{-- Inline error di dalam modal --}}
-            @if ($errors->any())
+            @if ($errors->any() && old('login_attempt'))
             <div id="lw-login-error-box" style="background:#fff0f1;border:1.5px solid #fca5a5;border-radius:10px;padding:11px 15px;margin-bottom:14px;display:flex;align-items:flex-start;gap:10px;">
               <i class="fas fa-exclamation-circle" style="color:#4e0616;margin-top:2px;flex-shrink:0;"></i>
               <div>
@@ -1403,6 +1404,7 @@
 
             <form action="{{ route('login') }}" method="POST" class="login-from">
               @csrf
+              <input type="hidden" name="login_attempt" value="1">
               <div class="form-grp cmn-mb">
                 <input type="email" name="email" placeholder="Email Address" value="{{ old('email') }}" />
               </div>
@@ -1486,8 +1488,22 @@
         <div class="modal-common-content">
           <div class="box">
             <h2>Create account</h2>
+
+            {{-- Inline error di dalam modal register --}}
+            @if ($errors->any() && old('register_attempt'))
+            <div id="lw-register-error-box" style="background:#fff0f1;border:1.5px solid #fca5a5;border-radius:10px;padding:11px 15px;margin-bottom:14px;display:flex;align-items:flex-start;gap:10px;">
+              <i class="fas fa-exclamation-circle" style="color:#4e0616;margin-top:2px;flex-shrink:0;"></i>
+              <div>
+                @foreach ($errors->all() as $error)
+                <p style="margin:0;font-size:0.82rem;color:#b91c1c;font-weight:500;line-height:1.5;">{{ $error }}</p>
+                @endforeach
+              </div>
+            </div>
+            @endif
+
             <form action="{{ route('register') }}" method="POST" id="register-form" class="login-from">
               @csrf
+              <input type="hidden" name="register_attempt" value="1">
               <div class="form-grp cmn-mb">
                 <input type="text" name="name" placeholder="User name" />
               </div>
