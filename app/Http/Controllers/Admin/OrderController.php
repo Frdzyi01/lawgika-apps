@@ -10,14 +10,26 @@ use App\Notifications\OrderStatusUpdated;
 
 class OrderController extends Controller
 {
-    public function __construct(protected DocumentService $documentService) {}
+    public function __construct(
+        protected DocumentService $documentService,
+        protected \App\Services\RoomBenefitService $benefitService
+    ) {}
 
     public function index(Request $request)
     {
-        $query = Order::with(['user', 'service'])->latest();
+        $query = Order::with(['user', 'service', 'roomBenefit'])->latest();
 
         if ($request->filled('status')) {
             $query->where('status', $request->status);
+        }
+
+        if ($request->filled('service')) {
+            $serviceSlug = $request->service;
+            $query->where(function($q) use ($serviceSlug) {
+                $q->whereHas('service', function($sq) use ($serviceSlug) {
+                    $sq->where('slug', $serviceSlug);
+                })->orWhere('form_data->service', $serviceSlug);
+            });
         }
 
         $orders = $query->paginate(20);
@@ -44,11 +56,23 @@ class OrderController extends Controller
         ]);
 
         // Kirim notifikasi email ke customer jika status berubah
-        if ($order->wasChanged('status') && $order->user) {
-            try {
-                $order->user->notify(new OrderStatusUpdated($order));
-            } catch (\Exception $e) {
-                // Silence mail errors in dev environment
+        if ($order->wasChanged('status')) {
+            // ── Benefit Activation ───────────────────────────────────────────
+            // Activate benefit automatically if status changed to 'approved'
+            if ($order->status === 'approved' && \App\Models\RoomBenefit::isEligibleForOrder($order)) {
+                try {
+                    $this->benefitService->approve($order);
+                } catch (\Exception $e) {
+                    // Benefit might already exist or other validation error
+                }
+            }
+
+            if ($order->user) {
+                try {
+                    $order->user->notify(new OrderStatusUpdated($order));
+                } catch (\Exception $e) {
+                    // Silence mail errors in dev environment
+                }
             }
         }
 

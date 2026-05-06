@@ -27,6 +27,7 @@ class UniversalOrderController extends Controller
         'yayasan'        => ['label' => 'Pendirian Yayasan',        'url' => '/pendirian-yayasan',        'db_slug' => 'pendirian-yayasan'],
         'pendirian-pt'   => ['label' => 'Pendirian PT',             'url' => '/pendirian-pt',             'db_slug' => 'pendirian-pt'],
         'pt-diatas-1m'   => ['label' => 'Pendirian PT (Legacy)',    'url' => '/pendirian-pt',             'db_slug' => 'pendirian-pt'],
+        'virtual-office' => ['label' => 'Virtual Office',           'url' => '/virtual-office',           'db_slug' => 'virtual-office'],
     ];
 
     public static array $packages = [
@@ -49,6 +50,7 @@ class UniversalOrderController extends Controller
         'firma'         => ['premium' => 6030000, 'eksklusif' => 7740000, 'enterprise' => 8640000],
         'yayasan'       => ['premium' => 6030000, 'eksklusif' => 7740000, 'enterprise' => 8640000],
         'pt-pma'        => ['premium' => 7830000, 'eksklusif' => 9540000, 'enterprise' => 10440000],
+        'virtual-office' => ['premium' => 2800000, 'eksklusif' => 5500000, 'enterprise' => 6800000],
     ];
 
     // ─────────────────────────────────────────────────────────────────────────
@@ -189,19 +191,7 @@ class UniversalOrderController extends Controller
             $user->save();
         }
 
-        // ── Auto Create Shared Room Quota untuk paket Eksklusif/Enterprise ────
-        // Hanya untuk layanan Pendirian PT Reguler, jangan berikan ke PMA/CV dll
-        if (\App\Models\RoomBenefit::isEligibleForOrder($order)) {
-            UserRoomQuota::updateOrCreate(
-                ['user_id' => $user->id],
-                [
-                    'total_seconds'     => 216000,
-                    'used_seconds'      => DB::raw('used_seconds'),
-                    'remaining_seconds' => DB::raw('216000 - used_seconds'),
-                    'expired_at'        => now()->addYear(),
-                ]
-            );
-        }
+        // Benefit activation is now handled ONLY upon admin approval in OrderController.
 
         return redirect()->route('order.success', [
             'order'       => $order->order_number,

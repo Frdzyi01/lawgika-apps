@@ -41,6 +41,8 @@ class RoomBenefit extends Model
     public const ELIGIBLE_SERVICES = [
         'pendirian-pt',    // slug in orders.form_data['service']
         'pendirian pt',    // human-readable substring in service_name
+        'virtual-office',  // slug for virtual office
+        'virtual office',  // human-readable for virtual office
     ];
 
     /**
@@ -111,14 +113,14 @@ class RoomBenefit extends Model
             return false;
         }
 
-        // Allowed slug: exactly "pendirian-pt"
-        if ($serviceSlug === 'pendirian-pt') {
+        // Allowed slug: exactly "pendirian-pt" or "virtual-office"
+        if ($serviceSlug === 'pendirian-pt' || $serviceSlug === 'virtual-office') {
             return true;
         }
 
         // Fallback: check service_name string for legacy orders without form_data
-        // Must contain "pendirian pt" but NOT contain disqualifying words
-        if (str_contains($serviceName, 'pendirian pt')) {
+        // Must contain "pendirian pt" or "virtual office" but NOT contain disqualifying words
+        if (str_contains($serviceName, 'pendirian pt') || str_contains($serviceName, 'virtual office')) {
             $disqualifiers = ['perorangan', 'pma', ' cv', 'yayasan', 'firma'];
             foreach ($disqualifiers as $d) {
                 if (str_contains($serviceName, $d)) {

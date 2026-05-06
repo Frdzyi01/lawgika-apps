@@ -16,6 +16,12 @@
                 <option value="{{ $s }}" {{ request('status') == $s ? 'selected' : '' }}>{{ ucfirst($s) }}</option>
             @endforeach
         </select>
+        <select name="service" class="form-select form-select-sm" onchange="this.form.submit()">
+            <option value="">Semua Layanan</option>
+            <option value="virtual-office" {{ request('service') == 'virtual-office' ? 'selected' : '' }}>Virtual Office</option>
+            <option value="pendirian-pt" {{ request('service') == 'pendirian-pt' ? 'selected' : '' }}>Pendirian PT</option>
+            <option value="pt-perorangan" {{ request('service') == 'pt-perorangan' ? 'selected' : '' }}>PT Perorangan</option>
+        </select>
     </form>
 </div>
 
@@ -35,7 +41,10 @@
                         <th class="ps-4">No Order</th>
                         <th>Customer</th>
                         <th>Layanan</th>
+                        <th>Paket</th>
                         <th>Status</th>
+                        <th>Podcast</th>
+                        <th>Meeting</th>
                         <th>Total</th>
                         <th>Tanggal</th>
                         <th class="text-center">Aksi</th>
@@ -53,6 +62,11 @@
                         </td>
                         <td>{{ $order->service_name ?? ($order->service->name ?? '—') }}</td>
                         <td>
+                            <span class="badge bg-light text-dark border">
+                                {{ ucfirst($order->form_data['package'] ?? '—') }}
+                            </span>
+                        </td>
+                        <td>
                             @php
                                 $badge = match($order->status) {
                                     'pending'    => 'warning',
@@ -67,6 +81,20 @@
                             <span class="badge bg-{{ $badge }} px-3 py-1 fw-semibold" style="color: {{ in_array($badge, ['warning', 'light', 'info']) ? '#000' : '#fff' }} !important;">
                                 {{ ucfirst($order->status) }}
                             </span>
+                        </td>
+                        <td>
+                            @if($order->roomBenefit && $order->roomBenefit->is_active)
+                                <span class="text-success fw-bold">{{ $order->roomBenefit->total_minutes / 60 }} Jam</span>
+                            @else
+                                <span class="text-muted small">0</span>
+                            @endif
+                        </td>
+                        <td>
+                            @if($order->roomBenefit && $order->roomBenefit->is_active)
+                                <span class="text-success fw-bold">{{ $order->roomBenefit->total_minutes / 60 }} Jam</span>
+                            @else
+                                <span class="text-muted small">0</span>
+                            @endif
                         </td>
                         <td>
                             @if($order->total_price > 0)

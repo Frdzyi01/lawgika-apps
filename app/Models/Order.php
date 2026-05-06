@@ -92,4 +92,9 @@ class Order extends Model
     {
         return $this->hasMany(Document::class);
     }
+
+    public function roomBenefit()
+    {
+        return $this->hasOne(RoomBenefit::class);
+    }
 }

@@ -857,7 +857,7 @@
                         <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Call Handling</li>
                         <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Call Forwarding</li>
                     </ul>
-                    <a href="https://wa.me/628123456789?text=Halo%20saya%20tertarik%20Paket%20PREMIUM%20Virtual%20Office" class="btn-pricing">Pilih Paket Premium</a>
+                    <a href="{{ route('order.create', ['service' => 'virtual-office', 'package' => 'premium']) }}" class="btn-pricing">Pilih Paket Premium</a>
                 </div>
             </div>
 
@@ -883,7 +883,7 @@
                         <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Call Handling</li>
                         <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Call Forwarding</li>
                     </ul>
-                    <a href="https://wa.me/628123456789?text=Halo%20saya%20tertarik%20Paket%20EKSKLUSIF%20Virtual%20Office" class="btn-pricing-primary">Pilih Paket Eksklusif</a>
+                    <a href="{{ route('order.create', ['service' => 'virtual-office', 'package' => 'eksklusif']) }}" class="btn-pricing-primary">Pilih Paket Eksklusif</a>
                 </div>
             </div>
 
@@ -908,7 +908,7 @@
                         <li><i class="fa-solid fa-check"></i> Layanan Call Handling</li>
                         <li><i class="fa-solid fa-check"></i> Layanan Call Forwarding</li>
                     </ul>
-                    <a href="https://wa.me/628123456789?text=Halo%20saya%20tertarik%20Paket%20ENTERPRISE%20Virtual%20Office" class="btn-pricing">Pilih Paket Enterprise</a>
+                    <a href="{{ route('order.create', ['service' => 'virtual-office', 'package' => 'enterprise']) }}" class="btn-pricing">Pilih Paket Enterprise</a>
                 </div>
             </div>
         </div>
