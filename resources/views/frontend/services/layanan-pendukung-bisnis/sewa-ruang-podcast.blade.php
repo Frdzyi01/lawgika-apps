@@ -314,6 +314,109 @@
         display: block;
         box-shadow: 0 10px 30px rgba(78, 5, 22, 0.08);
     }
+
+    /* ===== GALLERY SECTION STYLES ===== */
+    .gallery-section {
+        padding: 80px 0;
+        background: #fff;
+    }
+
+    .gallery-grid-podcast {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+        margin-top: 40px;
+    }
+
+    .gallery-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        aspect-ratio: 16 / 10;
+        cursor: pointer;
+    }
+
+    .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .gallery-item:hover img {
+        transform: scale(1.08);
+    }
+
+    .gallery-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, rgba(78, 5, 22, 0) 40%, rgba(78, 5, 22, 0.7) 100%);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        display: flex;
+        align-items: flex-end;
+        padding: 30px;
+    }
+
+    .gallery-item:hover .gallery-overlay {
+        opacity: 1;
+    }
+
+    .gallery-overlay .overlay-text {
+        color: #fff;
+        transform: translateY(20px);
+        transition: transform 0.4s ease;
+    }
+
+    .gallery-item:hover .gallery-overlay .overlay-text {
+        transform: translateY(0);
+    }
+
+    .gallery-overlay h5 {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+
+    .gallery-overlay p {
+        font-size: 0.9rem;
+        opacity: 0.9;
+        margin: 0;
+    }
+
+    @media (max-width: 768px) {
+        .gallery-grid-podcast {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* Lightbox Styles */
+    #lightbox-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.9);
+        z-index: 10000;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        padding: 40px;
+        backdrop-filter: blur(5px);
+    }
+    #lightbox-overlay img {
+        max-width: 100%;
+        max-height: 100%;
+        border-radius: 10px;
+        box-shadow: 0 0 50px rgba(0,0,0,0.5);
+    }
+    #lightbox-close {
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        color: #fff;
+        font-size: 2.5rem;
+        cursor: pointer;
+    }
 </style>
 
 {{-- Breadcrumb / Header Area --}}
@@ -368,6 +471,51 @@
         </div>
     </div>
 </section>
+
+{{-- ===== GALLERY SECTION PODCAST ===== --}}
+<section class="gallery-section">
+    <div class="container">
+        <div class="section-title text-center">
+            <span class="subtitle">Podcast Room</span>
+            <h2>Studio Gallery</h2>
+            <p>Ruang podcast profesional dengan fasilitas lengkap untuk kebutuhan konten Anda</p>
+        </div>
+
+        <div class="gallery-grid-podcast">
+            <div class="gallery-item" onclick="openLightbox('{{ asset('buyer-file/assets/img/podcastroom/ruangpodcast.jpg') }}')">
+                <img src="{{ asset('buyer-file/assets/img/podcastroom/ruangpodcast.jpg') }}" alt="Podcast Room 1">
+                <div class="gallery-overlay">
+                    <div class="overlay-text">
+                        <h5>Podcast Studio A</h5>
+                        <p>Professional Setup</p>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox('{{ asset('buyer-file/assets/img/podcastroom/ruangpodcast2.jpg') }}')">
+                <img src="{{ asset('buyer-file/assets/img/podcastroom/ruangpodcast2.jpg') }}" alt="Podcast Room 2">
+                <div class="gallery-overlay">
+                    <div class="overlay-text">
+                        <h5>Podcast Studio B</h5>
+                        <p>Comfortable Atmosphere</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{-- Lightbox --}}
+<div id="lightbox-overlay" onclick="this.style.display='none'">
+    <span id="lightbox-close">&times;</span>
+    <img id="lightbox-img" src="" alt="Full view">
+</div>
+
+<script>
+    function openLightbox(src) {
+        document.getElementById('lightbox-img').src = src;
+        document.getElementById('lightbox-overlay').style.display = 'flex';
+    }
+</script>
 
 {{-- ===== MANFAAT & FASILITAS ===== --}}
 <section class="why-us-section">

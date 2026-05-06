@@ -860,7 +860,7 @@
 
                     <li class="has-dropdown menu-thumb" id="mm-tentang-li">
                       <a href="#" id="mm-tentang-trigger" class="lw-mm-trigger" aria-expanded="false">
-                        Tentang Kami
+                         Profil & Legalitas
                         <i class="fas fa-angle-down" id="mm-tentang-arrow" style="transition:transform 0.22s ease;"></i>
                       </a>
                       <div class="lw-mega-wrap" id="lwMegaMenuTentang" role="navigation" aria-label="Tentang Kami Menu">
@@ -873,9 +873,9 @@
                                 </div>
                                 <ul>
                                   <li><a href="{{ url('tentang-kami') }}">Profil Perusahaan</a></li>
-                                  <li><a href="{{ url('tentang-kami') }}">Visi &amp; Misi</a></li>
-                                  <li><a href="{{ url('tentang-kami') }}">Tim Profesional</a></li>
-                                  <li><a href="{{ url('tentang-kami') }}">Legalitas Kami</a></li>
+                                  <li><a href="{{ url('promo') }}">Promo</a></li>
+                                  <li><a href="{{ url('karir') }}">Karir</a></li>
+                                  <li><a href="{{ url('kerjasama-bisnis') }}">Kerjasama <br> Bisnis</a></li>
                                 </ul>
                               </div>
                               <div class="lw-col">

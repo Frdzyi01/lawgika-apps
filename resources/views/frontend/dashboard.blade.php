@@ -1028,9 +1028,9 @@
   }
 
   .client-logo-card img {
-    max-height: 34px;
-    max-width: 110px;
-    width: auto;
+    /* max-height: 34px;
+    max-width: 110px; */
+    width: 100%;
     opacity: 0.55;
     transition: opacity 0.25s ease;
     display: block;
@@ -1102,51 +1102,51 @@
 
         <!-- Set 1 (original) -->
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/home/icons/icon-placed.svg')}}" alt="Placed"
+          <img src="{{('buyer-file/assets/img/brand/1.png')}}" alt="Placed"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>PLACED</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/home/icons/icon-cuebiq.svg')}}" alt="Cuebiq"
+          <img src="{{('buyer-file/assets/img/brand/2.png')}}" alt="Cuebiq"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>CUEBIQ</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/home/icons/icon-factual.svg')}}" alt="Factual"
+          <img src="{{('buyer-file/assets/img/brand/3.png')}}" alt="Factual"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>FACTUAL</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/home/icons/icon-place-iq.svg')}}" alt="PlaceIQ"
+          <img src="{{('buyer-file/assets/img/brand/4.png')}}" alt="PlaceIQ"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>PLACE IQ</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/home/icons/icon-airmeet.svg')}}" alt="Airmeet"
+          <img src="{{('buyer-file/assets/img/brand/5.png')}}" alt="Airmeet"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>AIRMEET</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/home/icons/icon-spendflo.svg')}}" alt="Spendflo"
+          <img src="{{('buyer-file/assets/img/brand/6.png')}}" alt="Spendflo"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>SPENDFLO</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/home/icons/icon-reed-elsevier.svg')}}" alt="Reed Elsevier"
+          <img src="{{('buyer-file/assets/img/brand/7.png')}}" alt="Reed Elsevier"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>REED</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/home/icons/icon-vuori.svg')}}" alt="Vuori"
+          <img src="{{('buyer-file/assets/img/brand/8.png')}}" alt="Vuori"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>VUORI</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/home/icons/icon-versed.svg')}}" alt="Versed"
+          <img src="{{('buyer-file/assets/img/brand/9.png')}}" alt="Versed"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>VERSED</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/home/icons/icon-matrixian.svg')}}" alt="Matrixian"
+          <img src="{{('buyer-file/assets/img/brand/10.png')}}" alt="Matrixian"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>MATRIXIAN</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/home/icons/icon-klippa.svg')}}" alt="Klippa"
+          <img src="{{('buyer-file/assets/img/brand/11.png')}}" alt="Klippa"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>KLIPPA</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/home/icons/icon-factual.svg')}}" alt="Factual 2"
+          <img src="{{('buyer-file/assets/img/brand/12.png')}}" alt="Factual 2"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>FACTUAL</span>'">
         </div>
 

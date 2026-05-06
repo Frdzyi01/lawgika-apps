@@ -331,6 +331,103 @@
             display: block;
             box-shadow: 0 10px 30px rgba(78, 5, 22, 0.08);
         }
+
+        /* ===== GALLERY SECTION STYLES ===== */
+        .gallery-section {
+            padding: 80px 0;
+            background: #fff;
+        }
+
+        .gallery-grid-meeting {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            aspect-ratio: 4 / 3;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(30, 27, 43, 0.4);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay i {
+            color: #fff;
+            font-size: 2rem;
+            transform: scale(0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay i {
+            transform: scale(1);
+        }
+
+        @media (max-width: 992px) {
+            .gallery-grid-meeting {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .gallery-grid-meeting {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Lightbox Styles */
+        #lightbox-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 10000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            backdrop-filter: blur(5px);
+        }
+        #lightbox-overlay img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 8px;
+        }
+        #lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #fff;
+            font-size: 2.5rem;
+            cursor: pointer;
+        }
     </style>
 
     {{-- Breadcrumb / Header Area --}}
@@ -391,6 +488,41 @@
             </div>
         </div>
     </section>
+
+    {{-- ===== GALLERY SECTION MEETING ===== --}}
+    <section class="gallery-section">
+        <div class="container">
+            <div class="section-title text-center">
+                <span class="subtitle">Meeting Room</span>
+                <h2>Ruang Meeting Kami</h2>
+                <p>Ruang meeting nyaman dan representatif untuk kebutuhan bisnis Anda</p>
+            </div>
+
+            <div class="gallery-grid-meeting">
+                @for ($i = 1; $i <= 5; $i++)
+                    <div class="gallery-item" onclick="openLightbox('{{ asset('buyer-file/assets/img/meetingroom/ruangmeeting' . ($i > 1 ? $i : '') . '.jpg') }}')">
+                        <img src="{{ asset('buyer-file/assets/img/meetingroom/ruangmeeting' . ($i > 1 ? $i : '') . '.jpg') }}" alt="Meeting Room {{ $i }}">
+                        <div class="gallery-overlay">
+                            <i class="fa-solid fa-magnifying-glass-plus"></i>
+                        </div>
+                    </div>
+                @endfor
+            </div>
+        </div>
+    </section>
+
+    {{-- Lightbox --}}
+    <div id="lightbox-overlay" onclick="this.style.display='none'">
+        <span id="lightbox-close">&times;</span>
+        <img id="lightbox-img" src="" alt="Full view">
+    </div>
+
+    <script>
+        function openLightbox(src) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox-overlay').style.display = 'flex';
+        }
+    </script>
 
     {{-- ===== MANFAAT & FASILITAS ===== --}}
     <section class="why-us-section">
