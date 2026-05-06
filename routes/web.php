@@ -122,6 +122,10 @@ Route::get('/database-peraturan', [PeraturanFrontendController::class, 'index'])
 
 Auth::routes();
 
+// Prevent direct access to /login and /register pages, redirecting to home with a trigger parameter
+Route::get('/login', function() { return redirect('/?login=1'); })->name('login');
+Route::get('/register', function() { return redirect('/?register=1'); })->name('register');
+
 // Public Order Route (guest + logged in) — modal quick form
 Route::post('/order-quick', [\App\Http\Controllers\PublicOrderController::class, 'store'])->name('public.order.store');
 

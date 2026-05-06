@@ -1161,16 +1161,33 @@
   })();
 
 
-  /* ── Auto-buka modal login jika ada error ── */
+  /* ── Auto-buka modal login/register jika ada error atau parameter URL ── */
   function lwAutoOpenLoginModal() {
-    var hasError = document.getElementById('lw-login-error-box');
-    if (!hasError) return;
-    var modalEl = document.getElementById('exampleModal');
+    const urlParams = new URLSearchParams(window.location.search);
+    const triggerLogin = urlParams.get('login') === '1';
+    const triggerRegister = urlParams.get('register') === '1';
+    const hasError = document.getElementById('lw-login-error-box');
+
+    let targetModalId = null;
+    if (hasError || triggerLogin) {
+      targetModalId = 'exampleModal';
+    } else if (triggerRegister) {
+      targetModalId = 'registerModal';
+    }
+
+    if (!targetModalId) return;
+
+    var modalEl = document.getElementById(targetModalId);
     if (!modalEl) return;
+
     setTimeout(function() {
       if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
         var m = bootstrap.Modal.getOrCreateInstance(modalEl);
         m.show();
+        
+        // Clean up URL parameter without refreshing
+        const newUrl = window.location.pathname + window.location.hash;
+        window.history.replaceState({}, document.title, newUrl);
       }
     }, 250);
   }

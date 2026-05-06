@@ -44,7 +44,7 @@
                 <div class="modal-body text-center p-5">
                     <h5 class="mb-4">Silakan login atau register untuk melanjutkan pemesanan.</h5>
                     <div class="d-flex justify-content-center gap-3">
-                        <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
+                        <a href="javascript:void(0)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Login</a>
                         <a href="{{ route('register') }}" class="btn btn-outline-primary">Register</a>
                     </div>
                     <button type="button" @click="isOpen = false" class="btn btn-link mt-3 text-muted text-decoration-none">Tutup</button>
