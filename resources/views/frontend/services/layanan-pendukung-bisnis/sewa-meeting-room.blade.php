@@ -2,19 +2,10 @@
 
 @section('content')
     <style>
-        /* ===== MINIMAL CSS ===== */
-        :root {
-            --primary: #4e0516;
-            --primary-light: #7a0a23;
-            --accent: #c9a03d;
-            --dark: #1e1b2b;
-            --gray: #64748b;
-            --bg-light: #fdf8f5;
-        }
+        /* ===== PAGE SPECIFIC STYLES ===== */
 
-        body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            color: var(--dark);
+        .container {
+            max-width: 1200px;
         }
 
         /* Solusi Section */
@@ -59,88 +50,97 @@
 
         .btn-outline-brand {
             display: inline-block;
-            padding: 12px 30px;
+            padding: 14px 36px;
             border: 2px solid var(--primary);
             color: var(--primary);
-            border-radius: 50px;
-            font-weight: 600;
+            border-radius: 999px;
+            font-weight: 700;
             text-decoration: none;
-            transition: background 0.15s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.9rem;
         }
 
         .btn-outline-brand:hover {
             background: var(--primary);
             color: #fff;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 20px rgba(78, 5, 22, 0.2);
         }
 
         /* Benefits / Why Us */
         .why-us-section {
-            padding: 80px 0;
-            background: linear-gradient(135deg, #fdf8f5 0%, #fff8f3 100%);
+            padding: 100px 0;
+            background: #f8f9fa;
             position: relative;
         }
 
         .why-us-section .section-header {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
         }
 
         .why-us-section .section-header h2 {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             font-weight: 800;
             color: #1e1b2b;
-            margin-bottom: 10px;
-        }
-
-        .why-us-section .section-header p {
-            color: #64748b;
-            font-size: 1.1rem;
+            margin-bottom: 15px;
         }
 
         .why-us-card {
             background: #fff;
-            padding: 35px 25px;
-            border-radius: 20px;
+            padding: 40px 30px;
+            border-radius: 16px;
             text-align: center;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
-            border: 1px solid #f5e6e8;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0,0,0,0.03);
+            transition: all 0.3s ease;
             height: 100%;
         }
 
         .why-us-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(78, 5, 22, 0.08);
-            border-color: #c9a03d;
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
         }
 
         .why-us-icon {
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 70px;
             margin: 0 auto 25px;
-            background: linear-gradient(135deg, #4e0516 0%, #7a0a23 100%);
+            background: rgba(78, 5, 22, 0.05);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .why-us-card:hover .why-us-icon {
+            background: var(--primary);
         }
 
         .why-us-icon i {
-            font-size: 2.2rem;
+            font-size: 1.8rem;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .why-us-card:hover .why-us-icon i {
             color: #fff;
         }
 
         .why-us-card h4 {
-            font-size: 1.25rem;
-            font-weight: 700;
+            font-size: 1.3rem;
+            font-weight: 800;
             color: #1e1b2b;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
         }
 
         .why-us-card p {
             color: #64748b;
             font-size: 0.95rem;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
         /* Pricing Table 2 Column */
@@ -311,16 +311,18 @@
 
         .section-title h2 {
             color: var(--dark);
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             font-weight: 800;
-            margin: 0 0 15px;
+            margin: 0 0 20px;
+            letter-spacing: -0.5px;
         }
 
         .section-title p {
             color: var(--gray);
             font-size: 1.1rem;
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto;
+            line-height: 1.6;
         }
 
         /* Utilities */
@@ -361,8 +363,31 @@
             transition: transform 0.6s ease;
         }
 
+        .page-title-area {
+            overflow: hidden;
+        }
+        .page-title-area::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(26, 2, 8, 0.4) 0%, rgba(26, 2, 8, 0.8) 100%);
+            z-index: 0;
+        }
+        .page-title-content h1 {
+            line-height: 1.1;
+            letter-spacing: -1px;
+        }
+        .btn-pricing {
+            border-radius: 999px !important;
+            transition: all 0.3s ease;
+        }
+        .btn-pricing:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
         .gallery-item:hover img {
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
 
         .gallery-overlay {

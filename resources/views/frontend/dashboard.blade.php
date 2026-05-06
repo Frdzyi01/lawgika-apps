@@ -591,8 +591,6 @@
   }
 </style>
 
-
-
 <script>
   /* ---- Dynamic header offset ---- */
   (function() {

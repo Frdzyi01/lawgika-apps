@@ -1,9 +1,7 @@
-<div class="fix-area">
   <div class="offcanvas__info">
     <div class="offcanvas__wrapper">
       <div class="offcanvas__content">
-        <div
-          class="offcanvas__top mb-5 d-flex justify-content-between align-items-center">
+        <div class="offcanvas__top d-flex justify-content-between align-items-center">
           <div class="offcanvas__logo">
             <a href="{{ url('/') }}">
               <img src="{{ asset('buyer-file/assets/img/logo-remove-black.png') }}" alt="logo-img" />
@@ -18,7 +16,135 @@
         <p class="text d-none d-xl-block">
           Lawgika Bisnis Indonesia adalah mitra terpercaya dalam layanan hukum dan bisnis, membantu perusahaan dalam pendirian usaha, perizinan, serta pengelolaan legalitas secara profesional.
         </p>
-        <div class="mobile-menu fix mb-3"></div>
+
+        <!-- START: Mobile Navigation Accordion -->
+        <div class="offcanvas__mobile-menu fix mb-3">
+          <div class="lw-mobile-nav">
+            <!-- Beranda -->
+            <div class="lw-nav-item">
+              <a href="{{ url('/') }}" class="lw-nav-link">
+                <span>Beranda</span>
+              </a>
+            </div>
+
+            <!-- Layanan -->
+            <div class="lw-nav-item has-submenu">
+              <a href="javascript:void(0)" class="lw-nav-link lw-toggle">
+                <span>Layanan</span>
+                <i class="fas fa-chevron-down"></i>
+              </a>
+              <div class="lw-submenu">
+                <!-- Kantor & Ruang Podcast -->
+                <div class="lw-sub-item has-submenu">
+                  <a href="javascript:void(0)" class="lw-sub-link lw-toggle">
+                    <span>Kantor & Ruang Podcast</span>
+                    <i class="fas fa-chevron-down"></i>
+                  </a>
+                  <ul class="lw-sub-list">
+                    <li><a href="{{ url('/virtual-office') }}">Virtual Office</a></li>
+                    <li><a href="{{ url('/sewa-meeting-room') }}">Sewa Meeting Room</a></li>
+                    <li><a href="{{ url('/sewa-ruang-podcast') }}">Sewa Ruang Podcast</a></li>
+                  </ul>
+                </div>
+                <!-- Layanan Bisnis -->
+                <div class="lw-sub-item has-submenu">
+                  <a href="javascript:void(0)" class="lw-sub-link lw-toggle">
+                    <span>Layanan Bisnis</span>
+                    <i class="fas fa-chevron-down"></i>
+                  </a>
+                  <ul class="lw-sub-list">
+                    <li><a href="{{ url('/pendirian-pt-perorangan') }}">Pendirian PT Perorangan</a></li>
+                    <li><a href="{{ url('/pendirian-pt') }}">Pendirian PT</a></li>
+                    <li><a href="{{ url('/pendirian-pt-pma') }}">Pendirian PT PMA</a></li>
+                    <li><a href="{{ url('/pendirian-cv') }}">Pendirian CV</a></li>
+                    <li><a href="{{ url('/pendirian-yayasan') }}">Pendirian Yayasan</a></li>
+                    <li><a href="{{ url('/pendirian-firma') }}">Pendirian Firma</a></li>
+                  </ul>
+                </div>
+                <!-- Pajak & Pembukuan -->
+                <div class="lw-sub-item has-submenu">
+                  <a href="javascript:void(0)" class="lw-sub-link lw-toggle">
+                    <span>Pajak & Pembukuan</span>
+                    <i class="fas fa-chevron-down"></i>
+                  </a>
+                  <ul class="lw-sub-list">
+                    <li><a href="{{ url('/jasa-pembukuan-perpajakan') }}">Jasa Pembukuan & Perpajakan</a></li>
+                    <li><a href="{{ url('/pelaporan-spt-tahunan') }}">Pelaporan SPT Tahunan</a></li>
+                  </ul>
+                </div>
+                <!-- Perizinan & Hukum -->
+                <div class="lw-sub-item has-submenu">
+                  <a href="javascript:void(0)" class="lw-sub-link lw-toggle">
+                    <span>Perizinan & Hukum</span>
+                    <i class="fas fa-chevron-down"></i>
+                  </a>
+                  <ul class="lw-sub-list">
+                    <li><a href="{{ url('/perizinan-dan-hukum') }}">NIB dan OSS</a></li>
+                    <li><a href="{{ url('/perizinan-dan-hukum') }}">HAKI</a></li>
+                    <li><a href="{{ url('/perizinan-dan-hukum') }}">Laporan LKPM</a></li>
+                    <li><a href="{{ url('/perizinan-dan-hukum') }}">Sertifikat ISO</a></li>
+                    <li><a href="{{ url('/perizinan-dan-hukum') }}">Surat Keterangan Tidak Pailit</a></li>
+                    <li><a href="{{ url('/perizinan-dan-hukum') }}">Drafting Perjanjian Bisnis</a></li>
+                    <li><a href="{{ url('/pengurusan-pkp') }}">Pengurusan PKP</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pusat Pelatihan -->
+            <div class="lw-nav-item has-submenu">
+              <a href="javascript:void(0)" class="lw-nav-link lw-toggle">
+                <span>Pusat Pelatihan</span>
+                <i class="fas fa-chevron-down"></i>
+              </a>
+              <div class="lw-submenu">
+                <!-- Edukasi & Pengembangan -->
+                <div class="lw-sub-item has-submenu">
+                  <a href="javascript:void(0)" class="lw-sub-link lw-toggle">
+                    <span>Edukasi & Pengembangan</span>
+                    <i class="fas fa-chevron-down"></i>
+                  </a>
+                  <ul class="lw-sub-list">
+                    <li><a href="{{ url('/upcoming-event') }}">Pelatihan & Seminar</a></li>
+                    <li><a href="{{ url('/berita') }}">Artikel & Wawasan</a></li>
+                    <li><a href="{{ route('peraturan.index') }}">Kumpulan Peraturan</a></li>
+                  </ul>
+                </div>
+                <!-- Sumber Daya Bisnis -->
+                <div class="lw-sub-item has-submenu">
+                  <a href="javascript:void(0)" class="lw-sub-link lw-toggle">
+                    <span>Sumber Daya Bisnis</span>
+                    <i class="fas fa-chevron-down"></i>
+                  </a>
+                  <ul class="lw-sub-list">
+                    <li><a href="{{ url('/karir') }}">Panduan Karir</a></li>
+                    <li><a href="{{ url('/kerjasama-bisnis') }}">Panduan Kerjasama Bisnis</a></li>
+                    <li><a href="{{ url('/database-peraturan') }}">E-Book Legalitas</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Profil & Legalitas -->
+            <div class="lw-nav-item has-submenu">
+              <a href="javascript:void(0)" class="lw-nav-link lw-toggle">
+                <span>Profil & Legalitas</span>
+                <i class="fas fa-chevron-down"></i>
+              </a>
+              <div class="lw-submenu">
+                <ul class="lw-sub-list" style="display: block; padding-left: 0;">
+                  <li><a href="{{ url('tentang-kami') }}">Profil Perusahaan</a></li>
+                  <li><a href="{{ url('promo') }}">Promo</a></li>
+                  <li><a href="{{ url('karir') }}">Karir</a></li>
+                  <li><a href="{{ url('kerjasama-bisnis') }}">Kerjasama Bisnis</a></li>
+                  <li><a href="{{ url('tentang-kami') }}">Hubungi Kami</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END: Mobile Navigation Accordion -->
+
         <div class="offcanvas__contact">
           <h4>Contact Info</h4>
           <ul>
@@ -60,29 +186,22 @@
             {{-- Jika belum login --}}
             @guest
             <div class="d-flex flex-column gap-2">
-
-              {{-- Login --}}
               <button class="theme-btn text-center"
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModal">
                 Masuk <i class="fa-solid fa-arrow-right-long"></i>
               </button>
-
-              {{-- Register --}}
               <button class="theme-btn text-center"
                 data-bs-toggle="modal"
                 data-bs-target="#registerModal">
                 Daftar <i class="fa-solid fa-user-plus"></i>
               </button>
-
             </div>
             @endguest
 
             {{-- Jika sudah login --}}
             @auth
             <div class="d-flex flex-column gap-2">
-
-              {{-- Dashboard --}}
               @if(Auth::user()->role === 'admin')
               <a href="/admin/dashboard" class="theme-btn text-center">
                 Dashboard <i class="fa-solid fa-arrow-right-long"></i>
@@ -92,15 +211,12 @@
                 Dashboard <i class="fa-solid fa-arrow-right-long"></i>
               </a>
               @endif
-
-              {{-- Logout --}}
               <form action="{{ route('logout') }}" method="POST">
                 @csrf
                 <button type="submit" class="theme-btn text-center w-100">
                   Keluar <i class="fa-solid fa-sign-out-alt"></i>
                 </button>
               </form>
-
             </div>
             @endauth
 
@@ -114,6 +230,138 @@
         </div>
       </div>
     </div>
+
+    <!-- Custom CSS for Mobile Accordion -->
+    <style>
+      .lw-mobile-nav {
+        margin-top: 15px;
+        border-top: 1px solid #f0f0f0;
+      }
+      .lw-nav-item {
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .lw-nav-link {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 5px;
+        font-size: 16px;
+        font-weight: 600;
+        color: #1a1a1a;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+      .lw-nav-link:hover, .lw-nav-link.active {
+        color: #4e0616;
+        background: #fff9f9;
+      }
+      .lw-nav-link i {
+        font-size: 12px;
+        color: #999;
+        transition: transform 0.3s ease;
+      }
+      .lw-nav-link.active i {
+        transform: rotate(180deg);
+        color: #4e0616;
+      }
+      .lw-submenu {
+        display: none;
+        padding-left: 15px;
+        background: #fcfcfc;
+        border-top: 1px solid #f9f9f9;
+      }
+      .lw-sub-item {
+        border-bottom: 1px solid #f5f5f5;
+      }
+      .lw-sub-item:last-child {
+        border-bottom: none;
+      }
+      .lw-sub-link {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 5px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #444;
+        text-decoration: none;
+        transition: all 0.2s ease;
+      }
+      .lw-sub-link.active {
+        color: #4e0616;
+        font-weight: 600;
+      }
+      .lw-sub-link i {
+        font-size: 10px;
+        color: #bbb;
+        transition: transform 0.3s ease;
+      }
+      .lw-sub-link.active i {
+        transform: rotate(180deg);
+        color: #4e0616;
+      }
+      .lw-sub-list {
+        display: none;
+        list-style: none;
+        padding: 0 0 10px 15px;
+        margin: 0;
+      }
+      .lw-sub-list li {
+        padding: 8px 0;
+      }
+      .lw-sub-list li a {
+        font-size: 13.5px;
+        color: #666;
+        text-decoration: none;
+        display: block;
+        transition: all 0.2s ease;
+      }
+      .lw-sub-list li a:hover {
+        color: #4e0616;
+        padding-left: 5px;
+      }
+      @media (min-width: 1200px) {
+        .mobile-menu {
+          display: none !important;
+        }
+      }
+    </style>
+
+    <!-- Custom JS for Mobile Accordion -->
+    <script>
+      (function() {
+        function initMobileAccordion() {
+          const toggles = document.querySelectorAll('.lw-toggle');
+          
+          toggles.forEach(toggle => {
+            toggle.addEventListener('click', function(e) {
+              e.preventDefault();
+              e.stopPropagation();
+              
+              const target = this.nextElementSibling;
+              
+              // Toggle active class on link
+              this.classList.toggle('active');
+              
+              // Toggle display of submenu/sublist
+              if (target && (target.classList.contains('lw-submenu') || target.classList.contains('lw-sub-list'))) {
+                if (target.style.display === 'block') {
+                  target.style.display = 'none';
+                } else {
+                  target.style.display = 'block';
+                }
+              }
+            });
+          });
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initMobileAccordion);
+        } else {
+          initMobileAccordion();
+        }
+      })();
+    </script>
   </div>
 </div>
 <div class="offcanvas__overlay"></div>
@@ -177,12 +425,7 @@
                       </a>
 
                     </li>
-                    <li class="has-dropdown active d-xl-none">
-                      <a href="{{('/')}}" class="border-none">
-                        Beranda
-                      </a>
 
-                    </li>
                     <li class="has-dropdown menu-thumb" id="mm-layanan-li">
                       <a href="#" id="mm-layanan-trigger" class="lw-mm-trigger" aria-expanded="false">
                         Layanan
@@ -509,280 +752,7 @@
                       </div>
                     </li>
 
-                    <li class="has-dropdown d-xl-none">
-                      <a href="#" class="mobile-main-link" id="mobileLayananToggle">Layanan</a>
-                      <div class="mobile-menu-wrapper" id="mobileLayananMenu" style="display: none;">
 
-                        <div class="mobile-cat-item">
-                          <a href="#" class="mobile-cat-toggle">
-                            <span>Kantor &amp; Ruang Podcast</span>
-                          </a>
-                          <div class="mobile-cat-body" style="display: none;">
-                            <ul>
-                              <li><a href="{{ url('/virtual-office') }}">Virtual Office</a></li>
-                              <li><a href="{{ url('/sewa-meeting-room') }}">Sewa Meeting Room</a></li>
-                              <li><a href="{{ url('/sewa-ruang-podcast') }}">Sewa Ruang Podcast</a></li>
-                            </ul>
-                          </div>
-                        </div>
-
-                        <div class="mobile-cat-item">
-                          <a href="#" class="mobile-cat-toggle">
-                            <span>Layanan BIsnis</span>
-                          </a>
-                          <div class="mobile-cat-body" style="display: none;">
-                            <ul>
-                              <li><a href="{{ url('/pendirian-pt-perorangan') }}">Pendirian PT Perorangan</a></li>
-                              <li><a href="{{ url('/pendirian-pt') }}">Pendirian PT</a></li>
-                              <li><a href="{{ url('/pendirian-pt-pma') }}">Pendirian PT PMA</a></li>
-                              <li><a href="{{ url('/pendirian-cv') }}">Pendirian CV</a></li>
-                              <li><a href="{{ url('/pendirian-yayasan') }}">Pendirian Yayasan</a></li>
-                              <li><a href="{{ url('/pendirian-firma') }}">Pendirian Firma</a></li>
-                            </ul>
-                          </div>
-                        </div>
-
-                        <div class="mobile-cat-item">
-                          <a href="#" class="mobile-cat-toggle">
-                            <span>Pajak & Pembukuan</span>
-                          </a>
-                          <div class="mobile-cat-body" style="display: none;">
-                            <ul>
-                              <li><a href="{{ url('/jasa-pembukuan-perpajakan') }}">Jasa Pembukuan & Perpajakan</a></li>
-                              <!-- <li><a href="{{ url('/pendaftaran-npwp') }}">Pendaftaran NPWP</a></li> -->
-                              <li><a href="{{ url('/pelaporan-spt-tahunan') }}">Pelaporan SPT Tahunan</a></li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li class="has-dropdown d-xl-none">
-                      <a href="#" class="mobile-main-link" id="mobilePelatihanToggle">Pusat Pelatihan</a>
-                      <div class="mobile-menu-wrapper" id="mobilePelatihanMenu" style="display: none;">
-                        <div class="mobile-cat-item">
-                          <a href="#" class="mobile-cat-toggle">
-                            <span>Edukasi &amp; Pengembangan</span>
-                          </a>
-                          <div class="mobile-cat-body" style="display: none;">
-                            <ul>
-                              <li><a href="{{ url('/upcoming-event') }}">Pelatihan & Seminar</a></li>
-                              <li><a href="{{ url('/berita') }}">Artikel &amp; Wawasan</a></li>
-                              <li><a href="{{ route('peraturan.index') }}">Kumpulan Peraturan</a></li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="mobile-cat-item">
-                          <a href="#" class="mobile-cat-toggle">
-                            <span>Sumber Daya Bisnis</span>
-                          </a>
-                          <div class="mobile-cat-body" style="display: none;">
-                            <ul>
-                              <li><a href="{{ url('/karir') }}">Panduan Karir</a></li>
-                              <li><a href="{{ url('/kerjasama-bisnis') }}">Panduan Kerjasama Bisnis</a></li>
-                              <li><a href="{{ url('/database-peraturan') }}">E-Book Legalitas</a></li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-
-                    <style>
-                      /* === RESET LIST STYLE === */
-                      .has-dropdown {
-                        list-style: none;
-                      }
-
-                      /* === TOMBOL UTAMA "LAYANAN" === */
-                      .mobile-main-link {
-                        display: block;
-                        padding: 14px 20px;
-                        background: #ffffff;
-                        color: #333333;
-                        text-decoration: none;
-                        font-weight: 600;
-                        font-size: 16px;
-                        border-bottom: 1px solid #e9ecef;
-                        transition: background 0.2s, color 0.2s;
-                        position: relative;
-                        cursor: pointer;
-                      }
-
-                      /* Tanda + default (sebelum dibuka) */
-                      .mobile-main-link::after {
-                        content: "+";
-                        position: absolute;
-                        right: 20px;
-                        top: 50%;
-                        transform: translateY(-50%);
-                        font-size: 22px;
-                        font-weight: 400;
-                        color: #6c757d;
-                        transition: transform 0.2s;
-                      }
-
-                      /* Saat menu utama terbuka (class active) */
-                      .mobile-main-link.active {
-                        background-color: #4e0616 !important;
-                        color: #ffffff !important;
-                      }
-
-                      .mobile-main-link.active::after {
-                        content: "−";
-                        color: #ffffff;
-                      }
-
-                      /* === WRAPPER MENU UTAMA === */
-                      .mobile-menu-wrapper {
-                        background: #ffffff;
-                        border-bottom: 1px solid #dee2e6;
-                      }
-
-                      /* === ITEM KATEGORI === */
-                      .mobile-cat-item {
-                        border-top: 1px solid #e9ecef;
-                      }
-
-                      .mobile-cat-toggle {
-                        display: block;
-                        padding: 12px 20px;
-                        background-color: #f8f9fa;
-                        color: #212529;
-                        text-decoration: none;
-                        font-weight: 500;
-                        font-size: 15px;
-                        position: relative;
-                        cursor: pointer;
-                        transition: background 0.2s, color 0.2s;
-                      }
-
-                      /* Tanda panah bawah untuk kategori */
-                      .mobile-cat-toggle::after {
-                        content: "▼";
-                        position: absolute;
-                        right: 20px;
-                        top: 50%;
-                        transform: translateY(-50%);
-                        font-size: 12px;
-                        color: #6c757d;
-                        transition: transform 0.3s;
-                      }
-
-                      /* Saat kategori terbuka */
-                      .mobile-cat-toggle.active {
-                        background-color: #fceaea;
-                        color: #4e0616;
-                      }
-
-                      .mobile-cat-toggle.active::after {
-                        transform: translateY(-50%) rotate(180deg);
-                        color: #4e0616;
-                      }
-
-                      /* === BODY SUBMENU (LEVEL 3) === */
-                      .mobile-cat-body {
-                        background: #ffffff;
-                      }
-
-                      .mobile-cat-body ul {
-                        list-style: none;
-                        margin: 0;
-                        padding: 0;
-                      }
-
-                      .mobile-cat-body li {
-                        border-bottom: 1px solid #f1f3f5;
-                      }
-
-                      .mobile-cat-body li:last-child {
-                        border-bottom: none;
-                      }
-
-                      .mobile-cat-body li a {
-                        display: block;
-                        padding: 12px 20px 12px 35px;
-                        /* indentasi kiri */
-                        color: #495057;
-                        text-decoration: none;
-                        font-size: 14px;
-                        transition: background 0.15s, color 0.15s;
-                      }
-
-                      .mobile-cat-body li a:hover {
-                        background: #fff5f6;
-                        color: #4e0616;
-                      }
-                    </style>
-
-                    <script>
-                      (function() {
-                        function initMobileMenu(toggleId, menuId) {
-                          const mainToggle = document.getElementById(toggleId);
-                          const mainMenu = document.getElementById(menuId);
-
-                          if (!mainToggle || !mainMenu) return;
-
-                          // --- Toggle Menu Utama ---
-                          mainToggle.addEventListener('click', function(e) {
-                            e.preventDefault();
-                            const isHidden = (mainMenu.style.display === 'none' || mainMenu.style.display === '');
-
-                            if (isHidden) {
-                              mainMenu.style.display = 'block';
-                              this.classList.add('active');
-                            } else {
-                              mainMenu.style.display = 'none';
-                              this.classList.remove('active');
-                              // Tutup semua subkategori di dalam menu ini
-                              mainMenu.querySelectorAll('.mobile-cat-body').forEach(body => body.style.display = 'none');
-                              mainMenu.querySelectorAll('.mobile-cat-toggle').forEach(toggle => toggle.classList.remove('active'));
-                            }
-                          });
-
-                          // --- Toggle Kategori (Akordeon) ---
-                          const catToggles = mainMenu.querySelectorAll('.mobile-cat-toggle');
-
-                          catToggles.forEach(toggle => {
-                            toggle.addEventListener('click', function(e) {
-                              e.preventDefault();
-
-                              const catBody = this.nextElementSibling;
-                              if (!catBody || !catBody.classList.contains('mobile-cat-body')) return;
-
-                              const isActive = this.classList.contains('active');
-
-                              // Tutup semua kategori lain di dalam menu ini (akordeon)
-                              mainMenu.querySelectorAll('.mobile-cat-body').forEach(body => {
-                                if (body !== catBody) body.style.display = 'none';
-                              });
-                              mainMenu.querySelectorAll('.mobile-cat-toggle').forEach(t => {
-                                if (t !== this) t.classList.remove('active');
-                              });
-
-                              // Toggle kategori saat ini
-                              if (!isActive) {
-                                catBody.style.display = 'block';
-                                this.classList.add('active');
-                              } else {
-                                catBody.style.display = 'none';
-                                this.classList.remove('active');
-                              }
-                            });
-                          });
-                        }
-
-                        function initAllMobileMenus() {
-                          initMobileMenu('mobileLayananToggle', 'mobileLayananMenu');
-                          initMobileMenu('mobilePelatihanToggle', 'mobilePelatihanMenu');
-                        }
-
-                        // Jalankan setelah DOM siap
-                        if (document.readyState === 'loading') {
-                          document.addEventListener('DOMContentLoaded', initAllMobileMenus);
-                        } else {
-                          initAllMobileMenus();
-                        }
-                      })();
-                    </script>
                     <li class="has-dropdown menu-thumb" id="mm-pelatihan-li">
                       <a href="#" id="mm-pelatihan-trigger" class="lw-mm-trigger" aria-expanded="false">
                         Pusat Pelatihan
