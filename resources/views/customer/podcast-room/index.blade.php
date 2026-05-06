@@ -40,7 +40,7 @@
                         <tr>
                             <th>No. Order</th>
                             <th>Judul Podcast</th>
-                            <th>Waktu & Peserta</th>
+                            <th>Waktu</th>
                             <th>Durasi Diajukan</th>
                             <th>Status Pengajuan</th>
                         </tr>
@@ -53,7 +53,6 @@
                                 <td>
                                     {{ \Carbon\Carbon::parse($booking->date)->format('d M Y') }}
                                     <small class="d-block">{{ \Carbon\Carbon::parse($booking->start_time)->format('H:i') }}</small>
-                                    <small class="text-muted">{{ $booking->participants }} Orang</small>
                                 </td>
                                 <td>{{ $booking->duration }} Jam</td>
                                 <td>
@@ -106,7 +105,7 @@
                             <td>
                                 {{ \Carbon\Carbon::parse($b->date)->format('d M Y') }}
                                 <small class="d-block">{{ \Carbon\Carbon::parse($b->start_time)->format('H:i') }}</small>
-                                <small class="text-muted">{{ $b->duration }} Jam | {{ $b->participants }} Orang</small>
+                                <small class="text-muted">{{ $b->duration }} Jam</small>
                             </td>
                             <td>{{ $b->podcast_title ?? '–' }}</td>
                             <td>Rp {{ number_format($b->total_price,0,',','.') }}</td>

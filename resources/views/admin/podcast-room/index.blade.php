@@ -39,7 +39,7 @@
                             <th>No. Order</th>
                             <th>Pemesan</th>
                             <th>Judul Podcast</th>
-                            <th>Waktu & Peserta</th>
+                            <th>Waktu</th>
                             <th>Durasi</th>
                             <th>Paket Asal</th>
                             <th>Status</th>
@@ -60,7 +60,6 @@
                                 <td>
                                     {{ \Carbon\Carbon::parse($booking->date)->format('d M Y') }}
                                     <small class="d-block">{{ \Carbon\Carbon::parse($booking->start_time)->format('H:i') }}</small>
-                                    <small class="text-muted">{{ $booking->participants }} Orang</small>
                                 </td>
                                 <td>{{ $booking->duration }} Jam</td>
                                 <td>
@@ -140,7 +139,6 @@
                             <th>Pemesan</th>
                             <th>Judul Podcast</th>
                             <th>Waktu & Durasi</th>
-                            <th>Peserta</th>
                             <th>Total</th>
                             <th>Bukti Bayar</th>
                             <th>Status Bayar</th>
@@ -163,7 +161,6 @@
                                 <small class="d-block">{{ \Carbon\Carbon::parse($b->start_time)->format('H:i') }}</small>
                                 <small class="text-muted">{{ $b->duration }} Jam</small>
                             </td>
-                            <td>{{ $b->participants }} Orang</td>
                             <td>Rp {{ number_format($b->total_price,0,',','.') }}</td>
                             <td>
                                 @if($b->payment_proof)
@@ -235,7 +232,7 @@
                             </td>
                         </tr>
                         @empty
-                        <tr><td colspan="11" class="text-center">Belum ada data reservasi ruang podcast.</td></tr>
+                        <tr><td colspan="10" class="text-center">Belum ada data reservasi ruang podcast.</td></tr>
                         @endforelse
                     </tbody>
                 </table>

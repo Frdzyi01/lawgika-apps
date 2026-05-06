@@ -63,8 +63,7 @@ class PodcastRoomController extends Controller
             'podcast_title' => 'nullable|string|max:255',
             'tanggal'       => 'required|date',
             'jam'           => 'required',
-            'durasi'        => 'required|integer|min:2',
-            'peserta'       => 'required|integer|min:1',
+            'durasi'        => 'required|integer|min:2|max:4',
             'use_quota'     => 'nullable|boolean',
         ];
 
@@ -104,7 +103,7 @@ class PodcastRoomController extends Controller
                 'date'           => $request->tanggal,
                 'start_time'     => $request->jam,
                 'duration'       => $durasi,
-                'participants'   => $request->peserta,
+                'participants'   => 1,
                 'package'        => $durasi . 'jam',
                 'total_price'    => 0,
                 'status'         => 'pending',         // admin must approve first
@@ -150,7 +149,7 @@ class PodcastRoomController extends Controller
             'date'           => $request->tanggal,
             'start_time'     => $request->jam,
             'duration'       => $durasi,
-            'participants'   => $request->peserta,
+            'participants'   => 1,
             'package'        => $durasi . 'jam',
             'total_price'    => $price,
             'status'         => 'pending',

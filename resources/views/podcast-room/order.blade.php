@@ -77,12 +77,6 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);}
                     <input type="hidden" id="durasi" name="durasi" value="{{ old('durasi', $durasi ?? 2) }}">
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="peserta">Jumlah Peserta <span class="text-danger">*</span></label>
-                    <input type="number" id="peserta" name="peserta" class="form-control" min="1" max="4" required placeholder="Maks. 4 orang" value="{{ old('peserta') }}">
-                </div>
-            </div>
         </div>
 
         @if(isset($quota) && !now()->greaterThan($quota->expired_at) && $quota->remaining_seconds > 0)
@@ -148,6 +142,7 @@ function updateDurasi(step){
     let val = parseInt(h.value) || 2;
     val += step;
     if(val < 2) val = 2; // Batas minimum 2 jam
+    if(val > 4) val = 4; // Batas maksimum 4 jam
     h.value = val;
     d.value = val;
     hitungTotal();
