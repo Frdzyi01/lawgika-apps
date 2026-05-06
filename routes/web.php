@@ -181,6 +181,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/surat-menyurat/{id}', [AdminCorrespondenceController::class, 'show'])->name('surat-menyurat.show');
     Route::post('/surat-menyurat/reply/{id}', [AdminCorrespondenceController::class, 'reply'])->name('surat-menyurat.reply');
     Route::post('/surat-menyurat/status/{id}', [AdminCorrespondenceController::class, 'updateStatus'])->name('surat-menyurat.status');
+    Route::resource('users', \App\Http\Controllers\Admin\UserController::class);
 });
 
 Route::middleware(['auth', 'role:customer'])->prefix('dashboard')->name('customer.')->group(function () {

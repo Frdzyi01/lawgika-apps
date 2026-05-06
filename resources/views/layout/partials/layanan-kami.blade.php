@@ -2,6 +2,22 @@
   /* ==============================
        LAYANAN KAMI – Custom Styles
     ============================== */
+
+  .harga-konsultasi {
+    font-size: 13px;
+    font-style: italic;
+    color: #6c757d;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+  }
+
+  .harga-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #999;
+    margin-top: 10px;
+  }
+
   #layanan-kami-section {
     background-color: #fff;
     padding: 72px 0 80px;
@@ -111,134 +127,168 @@
   .layanan-nav-arrows {
     display: flex;
     justify-content: flex-end;
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 12px;
+    margin-bottom: 24px;
   }
 
   .layanan-arrow-btn {
-    width: 38px;
-    height: 38px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
-    border: 1.5px solid #d1d5db;
+    border: 1.5px solid #e5e7eb;
     background: #fff;
     color: #111827;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    font-size: 0.9rem;
-    transition: border-color 0.2s, background 0.2s, color 0.2s;
+    font-size: 1rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
   }
 
-  .layanan-arrow-btn:hover {
+  .layanan-arrow-btn:hover:not(.swiper-button-disabled) {
     border-color: #4e0616;
     background: #4e0616;
     color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(78, 6, 22, 0.2);
   }
 
-  /* ------- Cards ------- */
+  .layanan-arrow-btn.swiper-button-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: grayscale(1);
+  }
+
+  /* ------- Cards & Slider ------- */
+  .layanan-swiper {
+    padding: 10px 4px 40px;
+    margin: -10px -4px -40px;
+  }
+
   .layanan-card {
     background: #fff;
-    border-radius: 16px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-    border: none;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    border: 1px solid #f3f4f6;
     overflow: hidden;
-    transition: box-shadow 0.28s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     height: 100%;
     display: flex;
     flex-direction: column;
   }
 
   .layanan-card:hover {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    border-color: rgba(78, 6, 22, 0.1);
   }
 
   .layanan-card-img-wrap {
     position: relative;
     overflow: hidden;
+    aspect-ratio: 16/10;
   }
 
   .layanan-card-img-wrap img {
     width: 100%;
-    height: 190px;
+    height: 100%;
     object-fit: cover;
     display: block;
+    transition: transform 0.6s ease;
+  }
+
+  .layanan-card:hover .layanan-card-img-wrap img {
+    transform: scale(1.1);
   }
 
   .layanan-card-badge {
     position: absolute;
-    top: 12px;
-    right: 12px;
+    top: 16px;
+    right: 16px;
     background: #4e0616;
     color: #fff;
-    font-size: 0.7rem;
-    font-weight: 700;
-    padding: 3px 10px;
-    border-radius: 20px;
-    letter-spacing: 0.3px;
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 5px 12px;
+    border-radius: 30px;
+    letter-spacing: 1px;
     text-transform: uppercase;
+    z-index: 2;
+    box-shadow: 0 4px 10px rgba(78, 6, 22, 0.3);
   }
 
   .layanan-card-body {
-    padding: 20px 20px 24px;
+    padding: 24px;
     flex: 1;
     display: flex;
     flex-direction: column;
   }
 
   .layanan-card-title {
-    font-size: 1.05rem;
+    font-size: 1.15rem;
     font-weight: 700;
     color: #111827;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    margin-bottom: 12px;
+    line-height: 1.4;
   }
 
   .layanan-card-desc {
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     color: #6b7280;
     line-height: 1.6;
     flex: 1;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
   }
 
   .layanan-card-price-label {
-    font-size: 0.72rem;
+    font-size: 0.75rem;
     color: #9ca3af;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 2px;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+    font-weight: 600;
   }
 
   .layanan-card-price {
-    font-size: 1rem;
-    font-weight: 700;
+    font-size: 1.1rem;
+    font-weight: 800;
     color: #4e0616;
-    margin-bottom: 16px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+
+  .layanan-card-price span {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #6b7280;
   }
 
   .layanan-card-btn {
     background: #4e0616;
     color: #fff;
     border: none;
-    border-radius: 8px;
-    padding: 10px 0;
-    font-size: 0.875rem;
-    font-weight: 600;
+    border-radius: 12px;
+    padding: 12px 24px;
+    font-size: 0.95rem;
+    font-weight: 700;
     width: 100%;
     cursor: pointer;
-    transition: background 0.22s, transform 0.15s;
+    transition: all 0.3s ease;
     text-align: center;
-    display: block;
+    display: inline-block;
     text-decoration: none;
+    box-shadow: 0 4px 12px rgba(78, 6, 22, 0.15);
   }
 
   .layanan-card-btn:hover {
-    background: #b91c1c;
+    background: #3a0410;
     color: #fff;
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(78, 6, 22, 0.25);
   }
 
   /* ------- Tab Content: single fade on container only ------- */
@@ -248,45 +298,46 @@
 
   .layanan-tab-pane.active-visible {
     display: block;
-    animation: layananFadeIn 0.32s ease both;
-  }
-
-  @keyframes layananFadeIn {
-    from {
-      opacity: 0;
-    }
-
-    to {
-      opacity: 1;
-    }
   }
 
   /* ------- Responsive ------- */
+  @media (max-width: 991.98px) {
+    .layanan-card-title {
+      font-size: 1.05rem;
+    }
+  }
+
   @media (max-width: 767.98px) {
     #layanan-kami-section {
-      padding: 48px 0 56px;
+      padding: 56px 0 64px;
     }
 
     .layanan-banner {
       flex-direction: column;
       align-items: flex-start;
-      padding: 28px 24px;
+      padding: 32px 24px;
+      gap: 16px;
     }
 
     .layanan-banner-icon svg {
-      width: 80px;
-      height: 80px;
+      width: 70px;
+      height: 70px;
     }
 
     .layanan-section-title {
-      font-size: 1.6rem;
+      font-size: 1.75rem;
+    }
+
+    .layanan-nav-arrows {
+      display: none; /* Hide arrows on mobile, use swipe */
     }
   }
 
   @media (max-width: 575.98px) {
     .layanan-nav .nav-link {
-      font-size: 0.85rem;
-      margin-right: 20px;
+      font-size: 0.875rem;
+      margin-right: 24px;
+      padding-bottom: 8px;
     }
   }
 </style>
@@ -368,14 +419,18 @@
 
         {{-- Arrow Controls --}}
         <div class="layanan-nav-arrows">
-          <button class="layanan-arrow-btn" title="Previous" aria-label="Previous">&#8592;</button>
-          <button class="layanan-arrow-btn" title="Next" aria-label="Next">&#8594;</button>
+          <button class="layanan-arrow-btn layanan-prev-office" title="Previous" aria-label="Previous">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+          <button class="layanan-arrow-btn layanan-next-office" title="Next" aria-label="Next">
+            <i class="bi bi-chevron-right"></i>
+          </button>
         </div>
 
-        {{-- Cards Grid --}}
-        <div class="row g-4">
-          {{-- Card 1: Virtual Office --}}
-          <div class="col-12 col-md-6 col-lg-3">
+        {{-- Cards Slider --}}
+        <div class="swiper layanan-swiper" id="swiper-office">
+          <div class="swiper-wrapper">
+          <div class="swiper-slide">
             <div class="layanan-card">
               <div class="layanan-card-img-wrap">
                 <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=500&q=80"
@@ -386,13 +441,13 @@
                 <div class="layanan-card-title">Virtual Office</div>
                 <div class="layanan-card-desc">Hemat biaya operasional hingga 90% dengan alamat kantor prestisius tanpa sewa fisik.</div>
                 <div class="layanan-card-price-label">Price Start From</div>
-                <div class="layanan-card-price">Rp 299.000/Bulan*</div>
-               <button class="btn"><a href="{{ url('/virtual-office') }}" class="layanan-card-btn">Order Now</a></button>
+                <div class="layanan-card-price">2.580.000<span>/Tahun*</span></div>
+                <a href="{{ url('/virtual-office') }}" class="layanan-card-btn">Order Now</a>
               </div>
             </div>
           </div>
           {{-- Card 3: Meeting Room --}}
-          <div class="col-12 col-md-6 col-lg-3">
+          <div class="swiper-slide">
             <div class="layanan-card">
               <div class="layanan-card-img-wrap">
                 <img src="https://images.unsplash.com/photo-1517502884422-41eaead166d4?w=500&q=80"
@@ -402,13 +457,13 @@
                 <div class="layanan-card-title">Meeting Room</div>
                 <div class="layanan-card-desc">Tempat yang cocok untuk melakukan pertemuan penting dengan klien atau mitra bisnis.</div>
                 <div class="layanan-card-price-label">Price Start From</div>
-                <div class="layanan-card-price">Rp 255.000/Jam*</div>
-                <button class="btn"><a href="{{ url('/sewa-meeting-room') }}" class="layanan-card-btn">Order Now</a></button>
+                <div class="layanan-card-price">Rp 1.000.000<span>/60 Jam*</span></div>
+                <a href="{{ url('/sewa-meeting-room') }}" class="layanan-card-btn">Order Now</a>
               </div>
             </div>
           </div>
           {{-- Card 4: Coworking Space --}}
-          <div class="col-12 col-md-6 col-lg-3">
+          <div class="swiper-slide">
             <div class="layanan-card">
               <div class="layanan-card-img-wrap">
                 <img src="https://images.unsplash.com/photo-1600508774634-4e11d34730e2?w=500&q=80"
@@ -418,12 +473,13 @@
                 <div class="layanan-card-title">Podcast Studio</div>
                 <div class="layanan-card-desc">Ruang podcast profesional dengan peralatan lengkap untuk produksi audio berkualitas tinggi.</div>
                 <div class="layanan-card-price-label">Price Start From</div>
-                <div class="layanan-card-price">Rp 150.000/Jam*</div>
-                <button class="btn"><a href="{{ url('/sewa-ruang-podcast') }}" class="layanan-card-btn">Order Now</a></button>
+                <div class="layanan-card-price">Rp 500.000<span>/2 Jam*</span></div>
+                <a href="{{ url('/sewa-ruang-podcast') }}" class="layanan-card-btn">Order Now</a>
               </div>
             </div>
           </div>
-        </div>{{-- /row --}}
+        </div>{{-- /swiper-wrapper --}}
+      </div>{{-- /swiper --}}
       </div>{{-- /pane-office --}}
 
 
@@ -454,62 +510,121 @@
         </div>
 
         <div class="layanan-nav-arrows">
-          <button class="layanan-arrow-btn" title="Previous" aria-label="Previous">&#8592;</button>
-          <button class="layanan-arrow-btn" title="Next" aria-label="Next">&#8594;</button>
+          <button class="layanan-arrow-btn layanan-prev-business" title="Previous" aria-label="Previous">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+          <button class="layanan-arrow-btn layanan-next-business" title="Next" aria-label="Next">
+            <i class="bi bi-chevron-right"></i>
+          </button>
         </div>
 
-        <div class="row g-4">
-          {{-- Card 1 --}}
-          <div class="col-12 col-md-6 col-lg-3">
+        <div class="swiper layanan-swiper" id="swiper-business">
+          <div class="swiper-wrapper">
+
+          {{-- 1. PT Perorangan --}}
+          <div class="swiper-slide">
             <div class="layanan-card">
               <div class="layanan-card-img-wrap">
                 <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=500&q=80"
-                  alt="Company Registration – Pendirian Perusahaan" loading="lazy">
+                  alt="Pendirian PT Perorangan" loading="lazy">
                 <span class="layanan-card-badge">Populer</span>
               </div>
               <div class="layanan-card-body">
-                <div class="layanan-card-title">Company Registration</div>
-                <div class="layanan-card-desc">Proses pendirian badan usaha PT, CV, Firma dengan cepat dan sesuai regulasi yang berlaku.</div>
-                <div class="layanan-card-price-label">Price Start From</div>
-                <div class="layanan-card-price">Rp 2.500.000/Paket*</div>
-                <button type="button" class="layanan-card-btn" onclick="openOrderModal('Company Registration')">Order Now</button>
+                <div class="layanan-card-title">Pendirian PT Perorangan</div>
+                <div class="layanan-card-desc">Layanan pendirian PT Perorangan dengan proses cepat dan sesuai regulasi.</div>
+                <div class="layanan-card-price-label">Price</div>
+                <div class="layanan-card-price"><span>Start From</span> Rp. 2.000.000</div>
+                <a href="{{ url('/pendirian-pt-perorangan') }}" class="layanan-card-btn">Order Now</a>
               </div>
             </div>
           </div>
-          {{-- Card 2 --}}
-          <div class="col-12 col-md-6 col-lg-3">
+
+          {{-- 2. PT --}}
+          <div class="swiper-slide">
             <div class="layanan-card">
               <div class="layanan-card-img-wrap">
                 <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=500&q=80"
-                  alt="Legal Consulting – Konsultasi Hukum Bisnis" loading="lazy">
+                  alt="Pendirian PT" loading="lazy">
               </div>
               <div class="layanan-card-body">
-                <div class="layanan-card-title">Legal Consulting</div>
-                <div class="layanan-card-desc">Konsultasi hukum profesional untuk melindungi bisnis Anda dari risiko hukum yang merugikan.</div>
-                <div class="layanan-card-price-label">Price Start From</div>
-                <div class="layanan-card-price">Rp 500.000/Sesi*</div>
-                <button type="button" class="layanan-card-btn" onclick="openOrderModal('Legal Consulting')">Order Now</button>
+                <div class="layanan-card-title">Pendirian PT</div>
+                <div class="layanan-card-desc">Pendirian Perseroan Terbatas (PT) lengkap dengan legalitas resmi.</div>
+                <div class="layanan-card-price-label">Price</div>
+                <div class="layanan-card-price"><span>Start From</span> Rp. 6.030.000</div>
+                <a href="{{ url('/pendirian-pt') }}" class="layanan-card-btn">Order Now</a>
               </div>
             </div>
           </div>
-          {{-- Card 3 --}}
-          {{-- Card 4 --}}
-          <div class="col-12 col-md-6 col-lg-3">
+
+          {{-- 3. PT PMA --}}
+          <div class="swiper-slide">
             <div class="layanan-card">
               <div class="layanan-card-img-wrap">
                 <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&q=80"
-                  alt="Business Licensing – Perizinan Usaha" loading="lazy">
+                  alt="Pendirian PT PMA" loading="lazy">
               </div>
               <div class="layanan-card-body">
-                <div class="layanan-card-title">Business Licensing</div>
-                <div class="layanan-card-desc">Pengurusan NIB, OSS, SIUP, dan berbagai izin usaha lainnya secara cepat dan terpercaya.</div>
-                <div class="layanan-card-price-label">Price Start From</div>
-                <div class="layanan-card-price">Rp 1.200.000/Izin*</div>
-                <button type="button" class="layanan-card-btn" onclick="openOrderModal('Business Licensing')">Order Now</button>
+                <div class="layanan-card-title">Pendirian PT PMA</div>
+                <div class="layanan-card-desc">Layanan pendirian PT Penanaman Modal Asing (PMA) untuk investor asing.</div>
+                <div class="layanan-card-price-label">Price</div>
+                <div class="layanan-card-price"><span>Start From</span> Rp. 7.830.000</div>
+                <a href="{{ url('/pendirian-pt-pma') }}" class="layanan-card-btn">Order Now</a>
               </div>
             </div>
           </div>
-        </div>{{-- /row --}}
+
+          {{-- 4. CV --}}
+          <div class="swiper-slide">
+            <div class="layanan-card">
+              <div class="layanan-card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=500&q=80"
+                  alt="Pendirian CV" loading="lazy">
+              </div>
+              <div class="layanan-card-body">
+                <div class="layanan-card-title">Pendirian CV</div>
+                <div class="layanan-card-desc">Pengurusan pendirian CV dengan proses mudah dan biaya terjangkau.</div>
+                <div class="layanan-card-price-label">Price</div>
+                <div class="layanan-card-price"><span>Start From</span> Rp. 6.030.000</div>
+                <a href="{{ url('/pendirian-cv') }}" class="layanan-card-btn">Order Now</a>
+              </div>
+            </div>
+          </div>
+
+          {{-- 5. Yayasan --}}
+          <div class="swiper-slide">
+            <div class="layanan-card">
+              <div class="layanan-card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=500&q=80"
+                  alt="Pendirian Yayasan" loading="lazy">
+              </div>
+              <div class="layanan-card-body">
+                <div class="layanan-card-title">Pendirian Yayasan</div>
+                <div class="layanan-card-desc">Layanan pendirian yayasan untuk kegiatan sosial dan pendidikan.</div>
+                <div class="layanan-card-price-label">Price</div>
+                <div class="layanan-card-price"><span>Start From</span> Rp. 6.030.000</div>
+                <a href="{{ url('/pendirian-yayasan') }}" class="layanan-card-btn">Order Now</a>
+              </div>
+            </div>
+          </div>
+
+          {{-- 6. Firma --}}
+          <div class="swiper-slide">
+            <div class="layanan-card">
+              <div class="layanan-card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&q=80"
+                  alt="Pendirian Firma" loading="lazy">
+              </div>
+              <div class="layanan-card-body">
+                <div class="layanan-card-title">Pendirian Firma</div>
+                <div class="layanan-card-desc">Pengurusan pendirian Firma untuk usaha bersama dengan legalitas lengkap.</div>
+                <div class="layanan-card-price-label">Price</div>
+                <div class="layanan-card-price"><span>Start From</span> Rp. 6.030.000</div>
+                <a href="{{ url('/pendirian-firma') }}" class="layanan-card-btn">Order Now</a>
+              </div>
+            </div>
+          </div>
+        </div>{{-- /swiper-wrapper --}}
+      </div>{{-- /swiper --}}
       </div>{{-- /pane-business --}}
 
 
@@ -538,79 +653,97 @@
         </div>
 
         <div class="layanan-nav-arrows">
-          <button class="layanan-arrow-btn" title="Previous" aria-label="Previous">&#8592;</button>
-          <button class="layanan-arrow-btn" title="Next" aria-label="Next">&#8594;</button>
+          <button class="layanan-arrow-btn layanan-prev-foreign" title="Previous" aria-label="Previous">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+          <button class="layanan-arrow-btn layanan-next-foreign" title="Next" aria-label="Next">
+            <i class="bi bi-chevron-right"></i>
+          </button>
         </div>
 
-        <div class="row g-4">
-          {{-- Card 1 --}}
-          <div class="col-12 col-md-6 col-lg-3">
-            <div class="layanan-card">
-              <div class="layanan-card-img-wrap">
-                <img src="https://images.unsplash.com/photo-1551009175-15bdf9dcb580?w=500&q=80"
-                  alt="Visa Application – Permohonan Visa" loading="lazy">
-                <span class="layanan-card-badge">Terlaris</span>
-              </div>
-              <div class="layanan-card-body">
-                <div class="layanan-card-title">Jasa Pembukuan & Perpajakan</div>
-                <div class="layanan-card-desc">Pengurusan visa kunjungan, bisnis, dan tinggal terbatas di Indonesia secara profesional.</div>
-                <div class="layanan-card-price-label">Price Start From</div>
-                <div class="layanan-card-price">Rp 1.500.000/Proses*</div>
-                <button type="button" class="layanan-card-btn" onclick="openOrderModal('Visa Application')">Order Now</button>
-              </div>
-            </div>
+       <div class="swiper layanan-swiper" id="swiper-foreign">
+  <div class="swiper-wrapper">
+
+    {{-- Card 1 --}}
+    <div class="swiper-slide">
+      <div class="layanan-card">
+        <div class="layanan-card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1551009175-15bdf9dcb580?w=500&q=80"
+            alt="Jasa Pembukuan & Perpajakan" loading="lazy">
+          <span class="layanan-card-badge">Terlaris</span>
+        </div>
+        <div class="layanan-card-body">
+          <div class="layanan-card-title">Jasa Pembukuan & Perpajakan</div>
+          <div class="layanan-card-desc">
+            Layanan pembukuan dan pajak bisnis profesional, rapi, dan sesuai regulasi.
           </div>
-          {{-- Card 2 --}}
-          <div class="col-12 col-md-6 col-lg-3">
-            <div class="layanan-card">
-              <div class="layanan-card-img-wrap">
-                <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&q=80"
-                  alt="KITAS / KITAP – Izin Tinggal WNA" loading="lazy">
-              </div>
-              <div class="layanan-card-body">
-                <div class="layanan-card-title">Pelaporan SPT Tahunan</div>
-                <div class="layanan-card-desc">Pengurusan izin tinggal terbatas dan tetap untuk warga negara asing di Indonesia.</div>
-                <div class="layanan-card-price-label">Price Start From</div>
-                <div class="layanan-card-price">Rp 3.500.000/Proses*</div>
-                <button type="button" class="layanan-card-btn" onclick="openOrderModal('KITAS / KITAP')">Order Now</button>
-              </div>
-            </div>
+          <div class="harga-label">Harga</div>
+      <div class="harga-konsultasi">Hubungi kami untuk penawaran</div>
+          <a href="{{ url('/jasa-pembukuan-perpajakan') }}" class="layanan-card-btn">Konsultasi Sekarang</a>
+        </div>
+      </div>
+    </div>
+
+    {{-- Card 2 --}}
+    <div class="swiper-slide">
+      <div class="layanan-card">
+        <div class="layanan-card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&q=80"
+            alt="Pelaporan SPT Tahunan" loading="lazy">
+        </div>
+        <div class="layanan-card-body">
+          <div class="layanan-card-title">Pelaporan SPT Tahunan</div>
+          <div class="layanan-card-desc">
+            Pengurusan dan pelaporan SPT Tahunan individu maupun perusahaan secara tepat dan aman.
           </div>
-          {{-- Card 3 --}}
-          <div class="col-12 col-md-6 col-lg-3">
-            <div class="layanan-card">
-              <div class="layanan-card-img-wrap">
-                <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=500&q=80"
-                  alt="Passport Assistance – Bantuan Paspor" loading="lazy">
-              </div>
-              <div class="layanan-card-body">
-                <div class="layanan-card-title">Pengurusan PKP</div>
-                <div class="layanan-card-desc">Bantuan persiapan, pengurusan, dan perpanjangan paspor untuk keperluan perjalanan internasional.</div>
-                <div class="layanan-card-price-label">Price Start From</div>
-                <div class="layanan-card-price">Rp 800.000/Proses*</div>
-                <button type="button" class="layanan-card-btn" onclick="openOrderModal('Passport Assistance')">Order Now</button>
-              </div>
-            </div>
+          <div class="harga-label">Harga</div>
+      <div class="harga-konsultasi">Hubungi kami untuk penawaran</div>
+          <a href="{{ url('/pelaporan-spt-tahunan') }}" class="layanan-card-btn">Konsultasi Sekarang</a>
+        </div>
+      </div>
+    </div>
+
+    {{-- Card 3 --}}
+    <div class="swiper-slide">
+      <div class="layanan-card">
+        <div class="layanan-card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=500&q=80"
+            alt="Pengurusan PKP" loading="lazy">
+        </div>
+        <div class="layanan-card-body">
+          <div class="layanan-card-title">Pengurusan PKP</div>
+          <div class="layanan-card-desc">
+            Layanan pengurusan Pengusaha Kena Pajak (PKP) untuk kebutuhan legalitas usaha Anda.
           </div>
-          {{-- Card 4 --}}
-          <!-- tax services -->
-           <div class="col-12 col-md-6 col-lg-3">
-            <div class="layanan-card">
-              <div class="layanan-card-img-wrap">
-                <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=500&q=80"
-                  alt="Tax Services – Layanan Pajak" loading="lazy">
-              </div>
-              <div class="layanan-card-body">
-                <div class="layanan-card-title">Tax Services</div>
-                <div class="layanan-card-desc">Pengurusan NPWP, pelaporan SPT Tahunan, dan konsultasi pajak bisnis yang akurat dan aman.</div>
-                <div class="layanan-card-price-label">Price Start From</div>
-                <div class="layanan-card-price">Rp 750.000/Laporan*</div>
-                <button type="button" class="layanan-card-btn" onclick="openOrderModal('Tax Services')">Order Now</button>
-              </div>
-            </div>
+          <div class="harga-label">Harga</div>
+      <div class="harga-konsultasi">Hubungi kami untuk penawaran</div>
+          <a href="{{ url('/pengurusan-pkp') }}" class="layanan-card-btn">Konsultasi Sekarang</a>
+        </div>
+      </div>
+    </div>
+
+    {{-- Card 4 --}}
+    <div class="swiper-slide">
+      <div class="layanan-card">
+        <div class="layanan-card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=500&q=80"
+            alt="Konsultasi Pajak" loading="lazy">
+        </div>
+        <div class="layanan-card-body">
+          <div class="layanan-card-title">Konsultasi Pajak</div>
+          <div class="layanan-card-desc">
+            Konsultasi pajak bisnis untuk membantu Anda memahami dan mengoptimalkan kewajiban perpajakan.
           </div>
-          <!-- end tax service -->
-        </div>{{-- /row --}}
+          <div class="harga-label">Harga</div>
+      <div class="harga-konsultasi">Hubungi kami untuk penawaran</div>
+          <a href="{{ url('/konsultasi-pajak') }}" class="layanan-card-btn">Konsultasi Sekarang</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>{{-- /swiper-wrapper --}}
+      </div>{{-- /swiper --}}
       </div>{{-- /pane-foreign --}}
 
     </div>{{-- /#layananTabContent --}}
@@ -618,35 +751,84 @@
 </section>
 
 {{-- =================== JAVASCRIPT (TAB) =================== --}}
+{{-- =================== JAVASCRIPT (TAB & SLIDER) =================== --}}
 <script>
-  (function() {
+  document.addEventListener('DOMContentLoaded', function() {
     'use strict';
+
+    // --- Swiper Configuration Helper ---
+    const getSwiperConfig = (prevEl, nextEl) => ({
+      slidesPerView: 1,
+      spaceBetween: 24,
+      grabCursor: true,
+      loop: false,
+      speed: 600,
+      watchSlidesProgress: true,
+      observer: true,
+      observeParents: true,
+      navigation: {
+        nextEl: nextEl,
+        prevEl: prevEl,
+      },
+      breakpoints: {
+        576: {
+          slidesPerView: 2,
+          spaceBetween: 20
+        },
+        992: {
+          slidesPerView: 3,
+          spaceBetween: 24
+        },
+        1200: {
+          slidesPerView: 4,
+          spaceBetween: 30
+        }
+      }
+    });
+
+    // Initialize Swipers
+    const swiperOffice = new Swiper('#swiper-office', getSwiperConfig('.layanan-prev-office', '.layanan-next-office'));
+    const swiperBusiness = new Swiper('#swiper-business', getSwiperConfig('.layanan-prev-business', '.layanan-next-business'));
+    const swiperForeign = new Swiper('#swiper-foreign', getSwiperConfig('.layanan-prev-foreign', '.layanan-next-foreign'));
+
+    // --- Tab Switching Logic ---
     const tabBtns = document.querySelectorAll('[data-layanan-tab]');
     const tabPanes = document.querySelectorAll('.layanan-tab-pane');
+
     tabBtns.forEach(function(btn) {
       btn.addEventListener('click', function() {
         const target = btn.getAttribute('data-layanan-tab');
-        tabBtns.forEach(function(b) {
+
+        // Update active buttons
+        tabBtns.forEach(b => {
           b.classList.remove('active');
           b.setAttribute('aria-selected', 'false');
         });
         btn.classList.add('active');
         btn.setAttribute('aria-selected', 'true');
-        tabPanes.forEach(function(pane) {
-          if (pane.classList.contains('active-visible')) {
-            pane.classList.remove('active-visible');
-            pane.style.display = 'none';
-          }
+
+        // Update active panes
+        tabPanes.forEach(pane => {
+          pane.classList.remove('active-visible');
+          pane.style.display = 'none';
         });
+
         const targetPane = document.getElementById('pane-' + target);
         if (targetPane) {
           targetPane.style.display = 'block';
+          // Trigger a tiny reflow for animation if needed
           void targetPane.offsetWidth;
           targetPane.classList.add('active-visible');
+
+          // Swiper update is handled by observer: true, but we can force it if needed
+          const swiperInstance = target === 'office' ? swiperOffice :
+                                 target === 'business' ? swiperBusiness :
+                                 swiperForeign;
+          if (swiperInstance) swiperInstance.update();
         }
       });
     });
-  })();
+  });
 </script>
 
 {{-- =================== ORDER MODAL =================== --}}

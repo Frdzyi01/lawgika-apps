@@ -254,8 +254,30 @@
                             padding: 28px 24px;
                           }
 
+                          .lw-mega-cols-5 {
+                            flex: 1;
+                            display: flex;
+                            align-items: stretch;
+                          }
+
+                          .lw-col-group-2 {
+                            display: grid;
+                            grid-template-columns: repeat(2, 1fr);
+                            flex: 0 0 40%;
+                            padding: 28px 24px;
+                            background: #fdfdfd;
+                            border-right: 1px solid #f3f4f6;
+                          }
+
+                          .lw-col-group-3 {
+                            display: grid;
+                            grid-template-columns: repeat(3, 1fr);
+                            flex: 0 0 60%;
+                            padding: 28px 24px;
+                          }
+
                           .lw-col {
-                            padding: 0 18px;
+                            padding: 0 20px;
                             border-right: 1px solid #f3f4f6;
                           }
 
@@ -268,17 +290,17 @@
                           }
 
                           .lw-col-title {
-                            font-size: 0.68rem;
-                            font-weight: 800;
-                            letter-spacing: 1.4px;
+                            font-size: 0.7rem;
+                            font-weight: 700;
+                            letter-spacing: 0.08em;
                             text-transform: uppercase;
-                            color: #6b7280;
-                            margin-bottom: 14px;
-                            padding-bottom: 10px;
-                            border-bottom: 2px solid #f3f4f6;
+                            color: #8c0c1e; /* Darker red for professional look */
+                            margin-bottom: 16px;
+                            padding-bottom: 8px;
+                            border-bottom: 1px solid #f0f0f0;
                             display: flex;
                             align-items: center;
-                            gap: 7px;
+                            gap: 8px;
                           }
 
                           .lw-col-title i {
@@ -298,14 +320,14 @@
 
                           .lw-col ul li a {
                             display: block;
-                            font-size: 0.84rem;
+                            font-size: 0.88rem; /* Slightly larger for professionalism */
                             font-weight: 500;
-                            color: #374151;
-                            padding: 6px 8px 6px 0;
+                            color: #2c3e50; /* Deep gray-blue for better contrast */
+                            padding: 8px 12px 8px 0;
                             text-decoration: none;
                             border-radius: 6px;
-                            transition: color 0.15s, background 0.15s;
-                            line-height: 1.4;
+                            transition: all 0.2s ease;
+                            line-height: 1.5;
                           }
 
                           .lw-col ul li a:hover {
@@ -327,65 +349,72 @@
                           }
 
                           .lw-sidebar-label {
-                            font-size: 0.65rem;
-                            font-weight: 800;
-                            letter-spacing: 1.2px;
+                            font-size: 0.68rem;
+                            font-weight: 700;
+                            letter-spacing: 0.1em;
                             text-transform: uppercase;
-                            color: #9ca3af;
-                            margin-bottom: 6px;
+                            color: #94a3b8;
+                            margin-bottom: 8px;
                           }
 
                           .lw-sidebar-card {
                             display: block;
-                            background: #fff;
-                            border: 1px solid #f0f0f0;
-                            border-radius: 10px;
-                            padding: 12px 13px;
+                            background: #f8fafc;
+                            border: 1px solid #e2e8f0;
+                            border-radius: 12px;
+                            padding: 16px;
                             text-decoration: none;
-                            transition: box-shadow 0.18s, border-color 0.18s;
+                            transition: all 0.2s ease-in-out;
                           }
 
                           .lw-sidebar-card:hover {
-                            box-shadow: 0 4px 16px rgba(78, 6, 22, 0.1);
-                            border-color: #fca5a5;
+                            background: #ffffff;
+                            box-shadow: 0 4px 20px rgba(78, 6, 22, 0.08);
+                            border-color: #4e0616;
+                            transform: translateY(-2px);
                           }
 
                           .lw-sidebar-card-title {
-                            font-size: 0.83rem;
+                            font-size: 0.9rem;
                             font-weight: 700;
-                            color: #111827;
-                            margin-bottom: 2px;
+                            color: #1e293b;
+                            margin-bottom: 4px;
                           }
 
                           .lw-sidebar-card-sub {
-                            font-size: 0.72rem;
-                            color: #9ca3af;
+                            font-size: 0.75rem;
+                            color: #64748b;
+                            line-height: 1.4;
                           }
 
                           .lw-sidebar-card-price {
-                            font-size: 0.78rem;
+                            font-size: 0.8rem;
                             font-weight: 700;
-                            color: #4e0616;
-                            margin-top: 6px;
+                            color: #8c0c1e;
+                            margin-top: 8px;
                           }
 
                           .lw-sidebar-cta {
                             display: flex;
                             align-items: center;
                             justify-content: center;
-                            gap: 6px;
-                            margin-top: 4px;
-                            background: #4e0616;
-                            color: #fff;
-                            border-radius: 8px;
-                            padding: 9px 14px;
-                            font-size: 0.8rem;
-                            font-weight: 700;
+                            gap: 8px;
+                            margin-top: 8px;
+                            background: linear-gradient(135deg, #4e0616 0%, #8c0c1e 100%);
+                            color: #fff !important;
+                            border-radius: 10px;
+                            padding: 12px 14px;
+                            font-size: 0.85rem;
+                            font-weight: 600;
                             text-decoration: none;
-                            transition: background 0.18s;
+                            transition: all 0.2s ease;
+                            box-shadow: 0 4px 12px rgba(78, 6, 22, 0.2);
                           }
 
                           .lw-sidebar-cta:hover {
+                            transform: scale(1.02);
+                            box-shadow: 0 6px 16px rgba(78, 6, 22, 0.3);
+                          }
                             background: #b91c1c;
                             color: #fff;
                           }
@@ -469,7 +498,7 @@
                                   <li><a href="{{ url('/perizinan-dan-hukum') }}">Drafting Perjanjian Bisnis</a></li>
                                   <li><a href="{{ url('/pengurusan-pkp') }}">Pengurusan PKP</a></li>
                                 </ul>
-                                <a href="#layanan-kami-section" class="lw-sidebar-cta">
+                                <a href="{{ url('/perizinan-dan-hukum') }}" class="lw-sidebar-cta">
                                   Perizinan Lainnya <i class="fas fa-arrow-right"></i>
                                 </a>
                               </div>
@@ -522,6 +551,35 @@
                               <li><a href="{{ url('/jasa-pembukuan-perpajakan') }}">Jasa Pembukuan & Perpajakan</a></li>
                               <!-- <li><a href="{{ url('/pendaftaran-npwp') }}">Pendaftaran NPWP</a></li> -->
                               <li><a href="{{ url('/pelaporan-spt-tahunan') }}">Pelaporan SPT Tahunan</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="has-dropdown d-xl-none">
+                      <a href="#" class="mobile-main-link" id="mobilePelatihanToggle">Pusat Pelatihan</a>
+                      <div class="mobile-menu-wrapper" id="mobilePelatihanMenu" style="display: none;">
+                        <div class="mobile-cat-item">
+                          <a href="#" class="mobile-cat-toggle">
+                            <span>Edukasi &amp; Pengembangan</span>
+                          </a>
+                          <div class="mobile-cat-body" style="display: none;">
+                            <ul>
+                              <li><a href="{{ url('/upcoming-event') }}">Pelatihan & Seminar</a></li>
+                              <li><a href="{{ url('/berita') }}">Artikel &amp; Wawasan</a></li>
+                              <li><a href="{{ route('peraturan.index') }}">Kumpulan Peraturan</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="mobile-cat-item">
+                          <a href="#" class="mobile-cat-toggle">
+                            <span>Sumber Daya Bisnis</span>
+                          </a>
+                          <div class="mobile-cat-body" style="display: none;">
+                            <ul>
+                              <li><a href="{{ url('/karir') }}">Panduan Karir</a></li>
+                              <li><a href="{{ url('/kerjasama-bisnis') }}">Panduan Kerjasama Bisnis</a></li>
+                              <li><a href="{{ url('/database-peraturan') }}">E-Book Legalitas</a></li>
                             </ul>
                           </div>
                         </div>
@@ -657,16 +715,13 @@
 
                     <script>
                       (function() {
-                        function initMobileMenu() {
-                          const mainToggle = document.getElementById('mobileLayananToggle');
-                          const mainMenu = document.getElementById('mobileLayananMenu');
+                        function initMobileMenu(toggleId, menuId) {
+                          const mainToggle = document.getElementById(toggleId);
+                          const mainMenu = document.getElementById(menuId);
 
-                          if (!mainToggle || !mainMenu) {
-                            console.warn('Elemen mobileLayananToggle atau mobileLayananMenu tidak ditemukan.');
-                            return;
-                          }
+                          if (!mainToggle || !mainMenu) return;
 
-                          // --- Toggle Menu Utama "Layanan" ---
+                          // --- Toggle Menu Utama ---
                           mainToggle.addEventListener('click', function(e) {
                             e.preventDefault();
                             const isHidden = (mainMenu.style.display === 'none' || mainMenu.style.display === '');
@@ -677,14 +732,14 @@
                             } else {
                               mainMenu.style.display = 'none';
                               this.classList.remove('active');
-                              // Tutup semua subkategori saat menu utama ditutup
-                              document.querySelectorAll('.mobile-cat-body').forEach(body => body.style.display = 'none');
-                              document.querySelectorAll('.mobile-cat-toggle').forEach(toggle => toggle.classList.remove('active'));
+                              // Tutup semua subkategori di dalam menu ini
+                              mainMenu.querySelectorAll('.mobile-cat-body').forEach(body => body.style.display = 'none');
+                              mainMenu.querySelectorAll('.mobile-cat-toggle').forEach(toggle => toggle.classList.remove('active'));
                             }
                           });
 
                           // --- Toggle Kategori (Akordeon) ---
-                          const catToggles = document.querySelectorAll('.mobile-cat-toggle');
+                          const catToggles = mainMenu.querySelectorAll('.mobile-cat-toggle');
 
                           catToggles.forEach(toggle => {
                             toggle.addEventListener('click', function(e) {
@@ -695,11 +750,11 @@
 
                               const isActive = this.classList.contains('active');
 
-                              // Tutup semua kategori lain (akordeon)
-                              document.querySelectorAll('.mobile-cat-body').forEach(body => {
+                              // Tutup semua kategori lain di dalam menu ini (akordeon)
+                              mainMenu.querySelectorAll('.mobile-cat-body').forEach(body => {
                                 if (body !== catBody) body.style.display = 'none';
                               });
-                              document.querySelectorAll('.mobile-cat-toggle').forEach(t => {
+                              mainMenu.querySelectorAll('.mobile-cat-toggle').forEach(t => {
                                 if (t !== this) t.classList.remove('active');
                               });
 
@@ -715,37 +770,150 @@
                           });
                         }
 
+                        function initAllMobileMenus() {
+                          initMobileMenu('mobileLayananToggle', 'mobileLayananMenu');
+                          initMobileMenu('mobilePelatihanToggle', 'mobilePelatihanMenu');
+                        }
+
                         // Jalankan setelah DOM siap
                         if (document.readyState === 'loading') {
-                          document.addEventListener('DOMContentLoaded', initMobileMenu);
+                          document.addEventListener('DOMContentLoaded', initAllMobileMenus);
                         } else {
-                          initMobileMenu();
+                          initAllMobileMenus();
                         }
                       })();
                     </script>
-                    <li>
-                      <a href="#">
+                    <li class="has-dropdown menu-thumb" id="mm-pelatihan-li">
+                      <a href="#" id="mm-pelatihan-trigger" class="lw-mm-trigger" aria-expanded="false">
                         Pusat Pelatihan
-                        <i class="fas fa-angle-down"></i>
+                        <i class="fas fa-angle-down" id="mm-pelatihan-arrow" style="transition:transform 0.22s ease;"></i>
                       </a>
-                      <ul class="submenu">
-                        <li><a href="{{ url('/upcoming-event') }}">Pelatihan & Seminar</a></li>
-                        <li><a href="{{ url('/berita') }}">Artikel</a></li>
-                        <li><a href="{{ route('peraturan.index') }}">Kumpulan Peraturan</a></li>
-                      </ul>
+                      <div class="lw-mega-wrap" id="lwMegaMenuPelatihan" role="navigation" aria-label="Pusat Pelatihan Menu">
+                        <div class="container p-0">
+                          <div class="lw-mega-body">
+                            <div class="lw-mega-cols-5">
+                              {{-- Group 1: 2 Columns --}}
+                              <div class="lw-col-group-2">
+                                <div class="lw-col">
+                                  <div class="lw-col-title">
+                                    <i class="fas fa-graduation-cap"></i> Program Edukasi
+                                  </div>
+                                  <ul>
+                                    <li><a href="{{ url('/upcoming-event') }}">Pelatihan <br> Webinar</a></li>
+                                    <li><a href="{{ url('/database-peraturan') }}">Kumparan <br> Peraturan</a></li>
+                                    <li><a href="{{ url('/berita') }}">Artikel <br> Berita</a></li>
+                                  </ul>
+                                </div>
+                                <div class="lw-col">
+                                  <div class="lw-col-title">
+                                    <i class="fas fa-book"></i> Referensi Legal
+                                  </div>
+                                  <ul>
+                                    <li><a href="{{ route('peraturan.index') }}">Kumpulan Peraturan</a></li>
+                                    <li><a href="{{ url('/database-peraturan') }}">E-Book Legalitas</a></li>
+                                  </ul>
+                                </div>
+                              </div>
+
+                              {{-- Group 2: 3 Columns --}}
+                              <div class="lw-col-group-3">
+                                <div class="lw-col">
+                                  <div class="lw-col-title">
+                                    <i class="fas fa-newspaper"></i> Wawasan
+                                  </div>
+                                  <ul>
+                                    <li><a href="{{ url('/berita') }}">Artikel Hukum</a></li>
+                                    <li><a href="{{ url('/berita') }}">Studi Kasus</a></li>
+                                  </ul>
+                                </div>
+                                <div class="lw-col">
+                                  <div class="lw-col-title">
+                                    <i class="fas fa-users"></i> Komunitas
+                                  </div>
+                                  <ul>
+                                    <li><a href="{{ url('/karir') }}">Lowongan Kerja</a></li>
+                                    <li><a href="{{ url('/kerjasama-bisnis') }}">Kemitraan</a></li>
+                                  </ul>
+                                </div>
+                                <div class="lw-col">
+                                  <div class="lw-col-title">
+                                    <i class="fas fa-life-ring"></i> Bantuan
+                                  </div>
+                                  <ul>
+                                    <li><a href="{{ url('/tentang-kami') }}">Bantuan &amp; FAQ</a></li>
+                                    <li><a href="{{ url('/promo') }}">Promo</a></li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="lw-mega-sidebar">
+                              <div class="lw-sidebar-label">Rekomendasi</div>
+                              <a href="{{ url('/upcoming-event') }}" class="lw-sidebar-card">
+                                <div class="lw-sidebar-card-title">Seminar 2026</div>
+                                <div class="lw-sidebar-card-sub">Daftar sekarang, slot terbatas!</div>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </li>
 
-                    <li>
-                      <a href="#">
+                    <li class="has-dropdown menu-thumb" id="mm-tentang-li">
+                      <a href="#" id="mm-tentang-trigger" class="lw-mm-trigger" aria-expanded="false">
                         Tentang Kami
-                        <i class="fas fa-angle-down"></i>
+                        <i class="fas fa-angle-down" id="mm-tentang-arrow" style="transition:transform 0.22s ease;"></i>
                       </a>
-                      <ul class="submenu">
-                        <li><a href="{{ url('promo') }}">Promo</a></li>
-                        <li><a href="{{ url('tentang-kami') }}">Profile Perusahaann</a></li>
-                        <li><a href="{{ url('karir') }}">Karir</a></li>
-                        <li><a href="{{ url('kerjasama-bisnis') }}">Kerjasama Bisnis</a></li>
-                      </ul>
+                      <div class="lw-mega-wrap" id="lwMegaMenuTentang" role="navigation" aria-label="Tentang Kami Menu">
+                        <div class="container p-0">
+                          <div class="lw-mega-body">
+                            <div class="lw-mega-cols">
+                              <div class="lw-col">
+                                <div class="lw-col-title">
+                                  <i class="fas fa-building"></i> Profil &amp; Legalitas
+                                </div>
+                                <ul>
+                                  <li><a href="{{ url('tentang-kami') }}">Profil Perusahaan</a></li>
+                                  <li><a href="{{ url('tentang-kami') }}">Visi &amp; Misi</a></li>
+                                  <li><a href="{{ url('tentang-kami') }}">Tim Profesional</a></li>
+                                  <li><a href="{{ url('tentang-kami') }}">Legalitas Kami</a></li>
+                                </ul>
+                              </div>
+                              <div class="lw-col">
+                                <div class="lw-col-title">
+                                  <i class="fas fa-handshake"></i> Peluang &amp; Kerjasama
+                                </div>
+                                <ul>
+                                  <li><a href="{{ url('kerjasama-bisnis') }}">Kerjasama Bisnis</a></li>
+                                  <li><a href="{{ url('karir') }}">Karir &amp; Lowongan</a></li>
+                                  <li><a href="{{ url('karir') }}">Program Magang</a></li>
+                                  <li><a href="{{ url('kerjasama-bisnis') }}">Kemitraan Strategis</a></li>
+                                </ul>
+                              </div>
+                              <div class="lw-col">
+                                <div class="lw-col-title">
+                                  <i class="fas fa-info-circle"></i> Informasi &amp; Promo
+                                </div>
+                                <ul>
+                                  <li><a href="{{ url('promo') }}">Promo Berjalan <span class="badge bg-danger ms-1" style="font-size: 10px;">Hot</span></a></li>
+                                  <li><a href="{{ url('tentang-kami') }}">Pusat Bantuan (FAQ)</a></li>
+                                  <li><a href="{{ url('tentang-kami') }}">Hubungi Kami</a></li>
+                                  <li><a href="{{ url('tentang-kami') }}">Testimoni Klien</a></li>
+                                </ul>
+                              </div>
+                            </div>
+                            <div class="lw-mega-sidebar">
+                              <div class="lw-sidebar-label">Ingin Bergabung?</div>
+                              <a href="{{ url('karir') }}" class="lw-sidebar-card mb-3">
+                                <div class="lw-sidebar-card-title">Karir di Lawgika</div>
+                                <div class="lw-sidebar-card-sub">Temukan peluang terbaik untuk masa depan Anda</div>
+                              </a>
+                              <a href="{{ url('tentang-kami') }}" class="lw-sidebar-cta mt-auto">
+                                Hubungi Tim Kami <i class="fas fa-arrow-right"></i>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </li>
 
                     <li>
@@ -920,12 +1088,16 @@
   }
 
   /* Arrow rotasi saat aktif */
-  #mm-layanan-arrow {
+  #mm-layanan-arrow, #mm-pelatihan-arrow, #mm-tentang-arrow {
     display: inline-block;
   }
 
   .lw-mm-trigger[aria-expanded="true"] #mm-layanan-arrow,
-  .lw-mm-trigger.active #mm-layanan-arrow {
+  .lw-mm-trigger.active #mm-layanan-arrow,
+  .lw-mm-trigger[aria-expanded="true"] #mm-pelatihan-arrow,
+  .lw-mm-trigger.active #mm-pelatihan-arrow,
+  .lw-mm-trigger[aria-expanded="true"] #mm-tentang-arrow,
+  .lw-mm-trigger.active #mm-tentang-arrow {
     transform: rotate(180deg);
   }
 </style>
@@ -933,16 +1105,25 @@
 <script>
   (function() {
     /* Tunggu DOM siap */
-    function initMegaMenu() {
-      var trigger = document.getElementById('mm-layanan-trigger');
-      var menu = document.getElementById('lwMegaMenu');
-      var arrow = document.getElementById('mm-layanan-arrow');
+    function initMegaMenu(triggerId, menuId) {
+      var trigger = document.getElementById(triggerId);
+      var menu = document.getElementById(menuId);
       if (!trigger || !menu) return;
 
       var isOpen = false;
 
-      /* ── Toggle buka/tutup ── */
       function openMenu() {
+        // Tutup mega menu lain
+        document.querySelectorAll('.lw-mega-wrap').forEach(function(m) {
+          if (m !== menu) m.classList.remove('lw-mm-open');
+        });
+        document.querySelectorAll('.lw-mm-trigger').forEach(function(t) {
+          if (t !== trigger) {
+             t.classList.remove('active');
+             t.setAttribute('aria-expanded', 'false');
+          }
+        });
+
         isOpen = true;
         menu.classList.add('lw-mm-open');
         trigger.setAttribute('aria-expanded', 'true');
@@ -956,24 +1137,20 @@
         trigger.classList.remove('active');
       }
 
-      /* ── Klik pada trigger ── */
       trigger.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
         isOpen ? closeMenu() : openMenu();
       });
 
-      /* ── Klik di dalam menu tidak menutup ── */
       menu.addEventListener('click', function(e) {
         e.stopPropagation();
       });
 
-      /* ── Klik di luar → tutup ── */
       document.addEventListener('click', function() {
         if (isOpen) closeMenu();
       });
 
-      /* ── Escape key → tutup ── */
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && isOpen) closeMenu();
       });
@@ -1000,11 +1177,15 @@
     /* DOMContentLoaded atau langsung jika sudah ready */
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', function() {
-        initMegaMenu();
+        initMegaMenu('mm-layanan-trigger', 'lwMegaMenu');
+        initMegaMenu('mm-pelatihan-trigger', 'lwMegaMenuPelatihan');
+        initMegaMenu('mm-tentang-trigger', 'lwMegaMenuTentang');
         initNavbarScroll();
       });
     } else {
-      initMegaMenu();
+      initMegaMenu('mm-layanan-trigger', 'lwMegaMenu');
+      initMegaMenu('mm-pelatihan-trigger', 'lwMegaMenuPelatihan');
+      initMegaMenu('mm-tentang-trigger', 'lwMegaMenuTentang');
       initNavbarScroll();
     }
   })();

@@ -941,7 +941,6 @@
                             <li><i class="fa-solid fa-check"></i> Laporan SPT Tahunan Badan</li>
                             <li><i class="fa-solid fa-check"></i> Konsultasi perpajakan</li>
                         </ul>
-                        <a href="/order/jasa-pembukuan-perpajakan/pembukuan-pajak/premium" class="btn-pricing">Pilih Paket Premium</a>
                     </div>
                 </div>
 
@@ -965,7 +964,6 @@
                             <li><i class="fa-solid fa-check"></i> Laporan SPT Tahunan Badan</li>
                             <li><i class="fa-solid fa-check"></i> Konsultasi perpajakan</li>
                         </ul>
-                        <a href="/order/jasa-pembukuan-perpajakan/pembukuan-pajak/eksklusif" class="btn-pricing-primary">Pilih Paket Eksklusif</a>
                     </div>
                 </div>
 
@@ -988,12 +986,15 @@
                             <li><i class="fa-solid fa-check"></i> Laporan SPT Tahunan Badan</li>
                             <li><i class="fa-solid fa-check"></i> Konsultasi perpajakan</li>
                         </ul>
-                        <a href="/order/jasa-pembukuan-perpajakan/pembukuan-pajak/enterprise" class="btn-pricing">Pilih Paket Enterprise</a>
                     </div>
                 </div>
             </div>
             <p class="text-center text-muted mt-4">* Harga belum termasuk PPN 11%. Transaksi di atas kuota akan dikenakan biaya tambahan per transaksi.</p>
-            <button class="btn-pricing">Minta Penawaran</button>
+            <div class="text-center mt-5">
+                <a href="/order/jasa-pembukuan-perpajakan/pembukuan-pajak/eksklusif" class="btn-minta-penawaran">
+                    <i class="fa-solid fa-file-signature me-2"></i> Minta Penawaran & Konsultasi Sekarang
+                </a>
+            </div>
         </div>
 
         {{-- Pricing Table Container 2: BERLANGGANAN PAJAK (HIDDEN BY DEFAULT) --}}
@@ -1018,7 +1019,6 @@
                             <li><i class="fa-solid fa-check"></i> Laporan SPT Tahunan Badan</li>
                             <li><i class="fa-solid fa-check"></i> Konsultasi perpajakan</li>
                         </ul>
-                        <a href="/order/jasa-pembukuan-perpajakan/berlangganan-pajak/premium" class="btn-pricing">Pilih Paket Premium</a>
                     </div>
                 </div>
 
@@ -1042,7 +1042,6 @@
                             <li><i class="fa-solid fa-check"></i> Laporan SPT Tahunan Badan</li>
                             <li><i class="fa-solid fa-check"></i> Konsultasi perpajakan</li>
                         </ul>
-                        <a href="/order/jasa-pembukuan-perpajakan/berlangganan-pajak/eksklusif" class="btn-pricing-primary">Pilih Paket Eksklusif</a>
                     </div>
                 </div>
 
@@ -1065,11 +1064,15 @@
                             <li><i class="fa-solid fa-check"></i> Laporan SPT Tahunan Badan</li>
                             <li><i class="fa-solid fa-check"></i> Konsultasi perpajakan</li>
                         </ul>
-                        <a href="/order/jasa-pembukuan-perpajakan/berlangganan-pajak/enterprise" class="btn-pricing">Pilih Paket Enterprise</a>
                     </div>
                 </div>
             </div>
             <p class="text-center text-muted mt-4">* Harga belum termasuk PPN 11%. Layanan pajak mencakup perhitungan dan pelaporan, tidak termasuk pembayaran pokok pajak.</p>
+            <div class="text-center mt-5">
+                <a href="/order/jasa-pembukuan-perpajakan/berlangganan-pajak/eksklusif" class="btn-minta-penawaran">
+                    <i class="fa-solid fa-file-signature me-2"></i> Minta Penawaran & Konsultasi Sekarang
+                </a>
+            </div>
         </div>
     </div>
 </section>
@@ -1324,7 +1327,32 @@
     .benefits-section {
         padding: 60px 0;
     }
-}</style>
+}
+
+.btn-minta-penawaran {
+    display: inline-flex;
+    align-items: center;
+    background: linear-gradient(135deg, #4a0000 0%, #800000 100%);
+    color: #fff;
+    padding: 18px 45px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: none;
+    box-shadow: 0 10px 25px rgba(128, 0, 0, 0.25);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-minta-penawaran:hover {
+    background: linear-gradient(135deg, #800000 0%, #4a0000 100%);
+    color: #fff;
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(128, 0, 0, 0.35);
+}
+</style>
 
 {{-- Visual Break --}}
 <section class="visual-break-agency">

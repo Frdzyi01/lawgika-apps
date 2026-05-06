@@ -101,6 +101,12 @@
             <div class="menu-title">Surat Menyurat</div>
           </a>
         </li>
+        <li>
+          <a href="{{ route('admin.users.index') }}">
+            <div class="parent-icon"><ion-icon name="people-outline"></ion-icon></div>
+            <div class="menu-title">Data Akun</div>
+          </a>
+        </li>
        
         <li class="menu-label">Berita dan Artikel</li>
         <li>
