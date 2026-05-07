@@ -837,11 +837,11 @@
         </div>
 
         <div class="row g-4 justify-content-center">
-            {{-- PREMIUM --}}
-            <div class="col-lg-4 col-md-6">
+            {{-- Izin --}}
+            <div class="col-lg-5 col-md-6">
                 <div class="pricing-card">
-                    <h4>PREMIUM</h4>
-                    <div class="price">Rp 6.030.000</div>
+                    <h4>IZIN</h4>
+                    <div class="price">Rp 4.500.000</div>
                     <ul class="feature-list">
                         <li><i class="fa-solid fa-check"></i> Pengecekan Nama Yayasan</li>
                         <li><i class="fa-solid fa-check"></i> Pemesanan Nama Yayasan</li>
@@ -865,48 +865,16 @@
                         <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Call Handling</li>
                         <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Call Forwarding</li>
                     </ul>
-                    <button onclick="goOrder('yayasan','premium')" class="btn-pricing w-100">Pilih Paket Premium</button>
+                    <button onclick="goOrder('yayasan','premium')" class="btn-pricing w-100">Pilih Paket Izin</button>
                 </div>
             </div>
 
-            {{-- EKSKLUSIF (Recommended) --}}
-            <div class="col-lg-4 col-md-6">
+            {{-- Bundling --}}
+            <div class="col-lg-5 col-md-6">
                 <div class="pricing-card featured">
                     <span class="badge">REKOMENDASI</span>
-                    <h4>EKSKLUSIF</h4>
-                    <div class="price">Rp 7.740.000</div>
-                    <ul class="feature-list">
-                        <li><i class="fa-solid fa-check"></i> Pengecekan Nama Yayasan</li>
-                        <li><i class="fa-solid fa-check"></i> Pemesanan Nama Yayasan</li>
-                        <li><i class="fa-solid fa-check"></i> Akta Pendirian Yayasan</li>
-                        <li><i class="fa-solid fa-check"></i> SK Menkumham</li>
-                        <li><i class="fa-solid fa-check"></i> NPWP & SKT & EFIN*</li>
-                        <li><i class="fa-solid fa-check"></i> NIB & Sertifikat Standar* & PKKPR*</li>
-                        <li><i class="fa-solid fa-check"></i> Alamat Bisnis Eksklusif</li>
-                        <li><i class="fa-solid fa-check"></i> Fasilitas Ruang Meeting atau podcast 60 jam / tahun</li>
-                        <li><i class="fa-solid fa-check"></i> Akses Wifi dan Smart TV</li>
-                        <li><i class="fa-solid fa-check"></i> Layanan Print, Scan dan Fotocopy</li>
-                        <li><i class="fa-solid fa-check"></i> Pengelolaan surat/paket masuk</li>
-                        <li><i class="fa-solid fa-check"></i> Notifikasi Surat/Paket Masuk</li>
-                        <li><i class="fa-solid fa-check"></i> Surat Keterangan Domisili</li>
-                        <li><i class="fa-solid fa-check"></i> Gratis akses komunitas bisnis</li>
-                        <li><i class="fa-solid fa-check"></i> Layanan Resepsionis</li>
-                        <li><i class="fa-solid fa-check"></i> Dashboard Login Klien</li>
-                        <li><i class="fa-solid fa-check"></i> Storage cloud dokumen</li>
-                        <li><i class="fa-solid fa-check"></i> Rekening PT Bank OCBC/BCA/MANDIRI</li>
-                        <li><i class="fa-solid fa-check"></i> Signage Display</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Call Handling</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Call Forwarding</li>
-                    </ul>
-                    <button onclick="goOrder('yayasan','eksklusif')" class="btn-pricing-primary w-100">Pilih Paket Eksklusif</button>
-                </div>
-            </div>
-
-            {{-- ENTERPRISE --}}
-            <div class="col-lg-4 col-md-6">
-                <div class="pricing-card">
-                    <h4>ENTERPRISE</h4>
-                    <div class="price">Rp 8.640.000</div>
+                    <h4>BUNDLING</h4>
+                    <div class="price">Rp 8.500.000</div>
                     <ul class="feature-list">
                         <li><i class="fa-solid fa-check"></i> Pengecekan Nama Yayasan</li>
                         <li><i class="fa-solid fa-check"></i> Pemesanan Nama Yayasan</li>
@@ -930,7 +898,7 @@
                         <li><i class="fa-solid fa-check"></i> Layanan Call Handling</li>
                         <li><i class="fa-solid fa-check"></i> Layanan Call Forwarding</li>
                     </ul>
-                    <button onclick="goOrder('yayasan','enterprise')" class="btn-pricing w-100">Pilih Paket Enterprise</button>
+                    <button onclick="goOrder('yayasan','enterprise')" class="btn-pricing-primary w-100">Pilih Paket Bundling</button>
                 </div>
             </div>
         </div>

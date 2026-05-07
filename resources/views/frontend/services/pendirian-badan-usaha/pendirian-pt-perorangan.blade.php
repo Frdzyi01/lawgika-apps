@@ -847,11 +847,11 @@
         </div>
 
         <div class="row g-4 justify-content-center">
-            {{-- Basic --}}
-            <div class="col-lg-4 col-md-6">
+            {{-- Izin --}}
+            <div class="col-lg-5 col-md-6">
                 <div class="pricing-card">
-                    <h4>Paket Basic</h4>
-                    <div class="price">Rp 2.000.000</div>
+                    <h4>Paket Izin</h4>
+                    <div class="price">Rp 1.500.000</div>
                     <ul class="feature-list">
                         <li><i class="fa-solid fa-check"></i> Pengecekan Nama PT</li>
                         <li><i class="fa-solid fa-check"></i> Pemesanan Nama PT</li>
@@ -872,16 +872,16 @@
                         <li class="disabled"><i class="fa-solid fa-minus"></i> SIGNAGE DISPLAY</li>
                         <li class="disabled"><i class="fa-solid fa-minus"></i> LAYANAN CALL HANDLING</li>
                     </ul>
-                    <button onclick="goOrder('pt-perorangan','basic')" class="btn-pricing w-100">Pilih Paket Basic</button>
+                    <button onclick="goOrder('pt-perorangan','basic')" class="btn-pricing w-100">Pilih Paket Izin</button>
                 </div>
             </div>
 
-            {{-- Professional (Recommended) --}}
-            <div class="col-lg-4 col-md-6">
+            {{-- Bundling (Recommended) --}}
+            <div class="col-lg-5 col-md-6">
                 <div class="pricing-card featured">
                     <span class="badge">REKOMENDASI</span>
-                    <h4>Paket Professional</h4>
-                    <div class="price">Rp 6.000.000</div>
+                    <h4>Paket Bundling</h4>
+                    <div class="price">Rp 5.800.000</div>
                     <ul class="feature-list">
                         <li><i class="fa-solid fa-check"></i> Pengecekan Nama PT</li>
                         <li><i class="fa-solid fa-check"></i> Pemesanan Nama PT</li>
@@ -902,36 +902,7 @@
                         <li><i class="fa-solid fa-check"></i> SIGNAGE DISPLAY</li>
                         <li><i class="fa-solid fa-check"></i> LAYANAN CALL HANDLING</li>
                     </ul>
-                    <button onclick="goOrder('pt-perorangan','professional')" class="btn-pricing-primary w-100">Pilih Paket Professional</button>
-                </div>
-            </div>
-
-            {{-- Enterprise --}}
-            <div class="col-lg-4 col-md-6">
-                <div class="pricing-card">
-                    <h4>Paket Enterprise</h4>
-                    <div class="price">Rp 8.000.000</div>
-                    <ul class="feature-list">
-                        <li><i class="fa-solid fa-check"></i> Pengecekan Nama PT</li>
-                        <li><i class="fa-solid fa-check"></i> Pemesanan Nama PT</li>
-                        <li><i class="fa-solid fa-check"></i> PERNYATAAN PENDAFTARAN</li>
-                        <li><i class="fa-solid fa-check"></i> SERTIFIKAT PENDAFATARAN MENKUMHAM </li>
-                        <li><i class="fa-solid fa-check"></i> NPWP & SKT</li>
-                        <li><i class="fa-solid fa-check"></i> NOMOR INDUK BERUSAHA</li>
-                        <li><i class="fa-solid fa-check"></i> ALAMAT BISNIS EKSKLUSIF</li>
-                        <li><i class="fa-solid fa-check"></i> MEETING ROOM (48 JAM) & PODCAST ROOM (12 JAM)</li>
-                        <li><i class="fa-solid fa-check"></i> AKSES WIFI & SMART TV</li>
-                        <li><i class="fa-solid fa-check"></i> LAYANAN PRINT, SCAN & FOTOCOPY</li>
-                        <li><i class="fa-solid fa-check"></i> PENGELOLAAN SURAT DAN PAKET</li>
-                        <li><i class="fa-solid fa-check"></i> NOTIFIKASI SURAT DAN PAKET MASUK</li>
-                        <li><i class="fa-solid fa-check"></i> SURAT KETERANGAN DOMISILI</li>
-                        <li><i class="fa-solid fa-check"></i> AKSES KOMUNITAS BUSINESS</li>
-                        <li><i class="fa-solid fa-check"></i> LAYANAN RESEPSIONIS</li>
-                        <li><i class="fa-solid fa-check"></i> DASHBOARD LOGIN CUSTOMER</li>
-                        <li><i class="fa-solid fa-check"></i> SIGNAGE DISPLAY</li>
-                        <li><i class="fa-solid fa-check"></i> LAYANAN CALL HANDLING</li>
-                    </ul>
-                    <button onclick="goOrder('pt-perorangan','enterprise')" class="btn-pricing w-100">Pilih Paket Enterprise</button>
+                    <button onclick="goOrder('pt-perorangan','professional')" class="btn-pricing-primary w-100">Pilih Paket Bundling</button>
                 </div>
             </div>
         </div>
