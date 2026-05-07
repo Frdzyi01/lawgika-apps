@@ -823,81 +823,130 @@
         </div>
 
         <div class="row g-4 justify-content-center">
+
             {{-- PREMIUM --}}
             <div class="col-lg-4 col-md-6">
                 <div class="pricing-card">
                     <h4>PREMIUM</h4>
-                    <div class="price">Rp 2.580.000</div>
+                    <div class="price">Rp 2.800.000</div>
+
                     <ul class="feature-list">
-                        <li><i class="fa-solid fa-check"></i> Alamat Bisnis Eksklusif</li>
-                        <li><i class="fa-solid fa-check"></i> Pengelolaan surat/paket masuk</li>
-                        <li><i class="fa-solid fa-check"></i> Notifikasi Surat/Paket Masuk</li>
-                        <li><i class="fa-solid fa-check"></i> Surat Keterangan Domisili</li>
-                        <li><i class="fa-solid fa-check"></i> Gratis akses komunitas bisnis</li>
-                        <li><i class="fa-solid fa-check"></i> Layanan Resepsionis</li>
-                        <li><i class="fa-solid fa-check"></i> Dashboard Login Klien</li>
-                        <li><i class="fa-solid fa-check"></i> Storage cloud dokumen</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Fasilitas Ruang Meeting atau podcast</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Akses Wifi</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Print, Scan dan Fotocopy</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Signage Display</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Call Handling</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Call Forwarding</li>
+                        <li><i class="fa-solid fa-check"></i> ALAMAT BISNIS EKSKLUSIF</li>
+                        <li><i class="fa-solid fa-check"></i> PENGELOLAAN SURAT & PAKET MASUK</li>
+                        <li><i class="fa-solid fa-check"></i> NOTIFIKASI SURAT & PAKET MASUK</li>
+                        <li><i class="fa-solid fa-check"></i> SURAT KETERANGAN DOMISILI</li>
+                        <li><i class="fa-solid fa-check"></i> AKSES KOMUNITAS BISNIS</li>
+                        <li><i class="fa-solid fa-check"></i> LAYANAN RESEPSIONIS</li>
+                        <li><i class="fa-solid fa-check"></i> DASHBOARD LOGIN KLIEN</li>
+
+                        <li><i class="fa-solid fa-check"></i> RUANG MEETING 12 JAM / TAHUN</li>
+
+                        <li class="disabled">
+                            <i class="fa-solid fa-minus"></i> RUANG PODCAST
+                        </li>
+
+                        <li><i class="fa-solid fa-check"></i> AKSES WIFI & SMART TV</li>
+
+                        <li class="disabled">
+                            <i class="fa-solid fa-minus"></i> LAYANAN PRINT, SCAN & FOTOCOPY
+                        </li>
+
+                        <li class="disabled">
+                            <i class="fa-solid fa-minus"></i> SIGNAGE DISPLAY
+                        </li>
+
+                        <li class="disabled">
+                            <i class="fa-solid fa-minus"></i> CALL HANDLING
+                        </li>
                     </ul>
-                    <a href="{{ route('order.create', ['service' => 'virtual-office', 'package' => 'premium']) }}" class="btn-pricing" style="background-color: #A0522D; color: #ffffff; font-weight: bold; border: 2px solid #facc15; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">Pilih Paket Premium</a>
+
+                    <a href="{{ route('order.create', ['service' => 'virtual-office', 'package' => 'premium']) }}"
+                        class="btn-pricing" style="background-color: #A0522D; color: #ffffff; font-weight: bold; border: 2px solid #facc15; box-shadow: 0 4px 12px rgba(0,0,0,0.15); ">
+                        Pilih Paket Premium
+                    </a>
                 </div>
             </div>
 
-            {{-- EKSKLUSIF (Recommended) --}}
-            <div class="col-lg-4 col-md-6">
+            {{-- EKSKLUSIF --}}
+            <div class=" col-lg-4 col-md-6">
                 <div class="pricing-card featured">
                     <span class="badge">REKOMENDASI</span>
+
                     <h4>EKSKLUSIF</h4>
-                    <div class="price">Rp 5.000.000</div>
+
+                    <div class="price">Rp 4.800.000</div>
+
                     <ul class="feature-list">
-                        <li><i class="fa-solid fa-check"></i> Alamat Bisnis Eksklusif</li>
-                        <li><i class="fa-solid fa-check"></i> Pengelolaan surat/paket masuk</li>
-                        <li><i class="fa-solid fa-check"></i> Notifikasi Surat/Paket Masuk</li>
-                        <li><i class="fa-solid fa-check"></i> Surat Keterangan Domisili</li>
-                        <li><i class="fa-solid fa-check"></i> Gratis akses komunitas bisnis</li>
-                        <li><i class="fa-solid fa-check"></i> Layanan Resepsionis</li>
-                        <li><i class="fa-solid fa-check"></i> Dashboard Login Klien</li>
-                        <li><i class="fa-solid fa-check"></i> Storage cloud dokumen</li>
-                        <li><i class="fa-solid fa-check"></i> Fasilitas Ruang Meeting atau podcast 60 jam / tahun</li>
-                        <li><i class="fa-solid fa-check"></i> Akses Wifi</li>
-                        <li><i class="fa-solid fa-check"></i> Layanan Print, Scan dan Fotocopy</li>
-                        <li><i class="fa-solid fa-check"></i> Signage Display</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Call Handling</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Call Forwarding</li>
+                        <li><i class="fa-solid fa-check"></i> ALAMAT BISNIS EKSKLUSIF</li>
+                        <li><i class="fa-solid fa-check"></i> PENGELOLAAN SURAT & PAKET MASUK</li>
+                        <li><i class="fa-solid fa-check"></i> NOTIFIKASI SURAT & PAKET MASUK</li>
+                        <li><i class="fa-solid fa-check"></i> SURAT KETERANGAN DOMISILI</li>
+                        <li><i class="fa-solid fa-check"></i> AKSES KOMUNITAS BISNIS</li>
+                        <li><i class="fa-solid fa-check"></i> LAYANAN RESEPSIONIS</li>
+                        <li><i class="fa-solid fa-check"></i> DASHBOARD LOGIN KLIEN</li>
+
+                        <li><i class="fa-solid fa-check"></i> RUANG MEETING 48 JAM / TAHUN</li>
+
+                        <li><i class="fa-solid fa-check"></i> RUANG PODCAST 12 JAM / TAHUN</li>
+
+                        <li><i class="fa-solid fa-check"></i> AKSES WIFI & SMART TV</li>
+
+                        <li class="disabled">
+                            <i class="fa-solid fa-minus"></i> LAYANAN PRINT, SCAN & FOTOCOPY
+                        </li>
+
+                        <li class="disabled">
+                            <i class="fa-solid fa-minus"></i> SIGNAGE DISPLAY
+                        </li>
+
+                        <li class="disabled">
+                            <i class="fa-solid fa-minus"></i> CALL HANDLING
+                        </li>
                     </ul>
-                    <a href="{{ route('order.create', ['service' => 'virtual-office', 'package' => 'eksklusif']) }}" class="btn-pricing-primary" style="background-color: #A0522D; color: #ffffff; font-weight: bold; border: 2px solid #facc15; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">Pilih Paket Eksklusif</a>
+
+                    <a href="{{ route('order.create', ['service' => 'virtual-office', 'package' => 'eksklusif']) }}"
+                        class="btn-pricing-primary" style="background-color: #A0522D; color: #ffffff; font-weight: bold; border: 2px solid #facc15; box-shadow: 0 4px 12px rgba(0,0,0,0.15); ">
+                        Pilih Paket Eksklusif
+                    </a>
                 </div>
             </div>
 
             {{-- ENTERPRISE --}}
-            <div class="col-lg-4 col-md-6">
+            <div class=" col-lg-4 col-md-6">
                 <div class="pricing-card">
                     <h4>ENTERPRISE</h4>
-                    <div class="price">Rp 6.250.000</div>
+
+                    <div class="price">Rp 5.800.000</div>
+
                     <ul class="feature-list">
-                        <li><i class="fa-solid fa-check"></i> Alamat Bisnis Eksklusif</li>
-                        <li><i class="fa-solid fa-check"></i> Pengelolaan surat/paket masuk</li>
-                        <li><i class="fa-solid fa-check"></i> Notifikasi Surat/Paket Masuk</li>
-                        <li><i class="fa-solid fa-check"></i> Surat Keterangan Domisili</li>
-                        <li><i class="fa-solid fa-check"></i> Gratis akses komunitas bisnis</li>
-                        <li><i class="fa-solid fa-check"></i> Layanan Resepsionis</li>
-                        <li><i class="fa-solid fa-check"></i> Dashboard Login Klien</li>
-                        <li><i class="fa-solid fa-check"></i> Storage cloud dokumen</li>
-                        <li><i class="fa-solid fa-check"></i> Fasilitas Ruang Meeting atau podcast 60 jam / tahun</li>
-                        <li><i class="fa-solid fa-check"></i> Akses Wifi</li>
-                        <li><i class="fa-solid fa-check"></i> Layanan Print, Scan dan Fotocopy</li>
-                        <li><i class="fa-solid fa-check"></i> Signage Display</li>
-                        <li><i class="fa-solid fa-check"></i> Layanan Call Handling</li>
-                        <li><i class="fa-solid fa-check"></i> Layanan Call Forwarding</li>
+                        <li><i class="fa-solid fa-check"></i> ALAMAT BISNIS EKSKLUSIF</li>
+                        <li><i class="fa-solid fa-check"></i> PENGELOLAAN SURAT & PAKET MASUK</li>
+                        <li><i class="fa-solid fa-check"></i> NOTIFIKASI SURAT & PAKET MASUK</li>
+                        <li><i class="fa-solid fa-check"></i> SURAT KETERANGAN DOMISILI</li>
+                        <li><i class="fa-solid fa-check"></i> AKSES KOMUNITAS BISNIS</li>
+                        <li><i class="fa-solid fa-check"></i> LAYANAN RESEPSIONIS</li>
+                        <li><i class="fa-solid fa-check"></i> DASHBOARD LOGIN KLIEN</li>
+
+                        <li><i class="fa-solid fa-check"></i> RUANG MEETING 48 JAM / TAHUN</li>
+
+                        <li><i class="fa-solid fa-check"></i> RUANG PODCAST 12 JAM / TAHUN</li>
+
+                        <li><i class="fa-solid fa-check"></i> AKSES WIFI & SMART TV</li>
+
+                        <li><i class="fa-solid fa-check"></i> LAYANAN PRINT, SCAN & FOTOCOPY</li>
+
+                        <li><i class="fa-solid fa-check"></i> SIGNAGE DISPLAY</li>
+
+                        <li><i class="fa-solid fa-check"></i> CALL HANDLING</li>
                     </ul>
-                   <a href="{{ route('order.create', ['service' => 'virtual-office', 'package' => 'enterprise']) }}" class="btn-pricing" style="background-color: #A0522D; color: #ffffff; font-weight: bold; border: 2px solid #facc15; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">Pilih Paket Enterprise</a>
+
+                    <a href="{{ route('order.create', ['service' => 'virtual-office', 'package' => 'enterprise']) }}"
+                        class="btn-pricing" style="background-color: #A0522D; color: #ffffff; font-weight: bold; border: 2px solid #facc15; box-shadow: 0 4px 12px rgba(0,0,0,0.15); ">
+                        Pilih Paket Enterprise
+                    </a>
                 </div>
             </div>
+
         </div>
     </div>
 </section>
@@ -910,7 +959,7 @@
 
 
 {{-- ===== FAQ SECTION ===== --}}
-<section class="pt-faq">
+<section class=" pt-faq">
     <div class="container">
         <div class="section-title text-center mb-5">
             <span class="subtitle">Bantuan Sentral</span>

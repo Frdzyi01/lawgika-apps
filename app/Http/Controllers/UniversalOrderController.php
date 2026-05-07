@@ -50,7 +50,7 @@ class UniversalOrderController extends Controller
         'firma'         => ['premium' => 4500000, 'eksklusif' => 4500000, 'enterprise' => 8500000],
         'yayasan'       => ['premium' => 4500000, 'eksklusif' => 4500000, 'enterprise' => 8500000],
         'pt-pma'        => ['premium' => 7830000, 'eksklusif' => 7830000, 'enterprise' => 10440000],
-        'virtual-office' => ['premium' => 2800000, 'eksklusif' => 5500000, 'enterprise' => 6800000],
+        'virtual-office' => ['premium' => 2800000, 'eksklusif' => 4800000, 'enterprise' => 5800000],
     ];
 
     // ─────────────────────────────────────────────────────────────────────────
@@ -63,8 +63,20 @@ class UniversalOrderController extends Controller
         $service = strtolower($service);
         $package = strtolower($package);
 
-        $serviceInfo  = self::$services[$service] ?? ['label' => Str::title(str_replace('-', ' ', $service)), 'url' => '/', 'db_slug' => $service];
-        $packageLabel = self::$packages[$package] ?? Str::title(str_replace('-', ' ', $package));
+        $serviceInfo = self::$services[$service] ?? ['label' => Str::title(str_replace('-', ' ', $service)), 'url' => '/', 'db_slug' => $service];
+
+        // Virtual Office keeps original package names (Premium / Eksklusif / Enterprise)
+        // Other services use the rebranded labels (Paket Izin / Paket Bundling)
+        if ($service === 'virtual-office') {
+            $packageLabel = match($package) {
+                'premium'    => 'Paket Premium',
+                'eksklusif'  => 'Paket Eksklusif',
+                'enterprise' => 'Paket Enterprise',
+                default      => Str::title(str_replace('-', ' ', $package)),
+            };
+        } else {
+            $packageLabel = self::$packages[$package] ?? Str::title(str_replace('-', ' ', $package));
+        }
 
         // Ambil requirements dari DB berdasarkan slug layanan
         $dbService    = Service::where('slug', $serviceInfo['db_slug'])->first();
@@ -211,8 +223,19 @@ class UniversalOrderController extends Controller
         $orderNumber  = $request->query('order', '');
         $modalDasar   = $request->query('modal_dasar', '');
 
-        $serviceInfo  = self::$services[$serviceKey] ?? ['label' => Str::title(str_replace('-', ' ', $serviceKey)), 'url' => '/'];
-        $packageLabel = self::$packages[$packageKey] ?? Str::title(str_replace('-', ' ', $packageKey));
+        $serviceInfo = self::$services[$serviceKey] ?? ['label' => Str::title(str_replace('-', ' ', $serviceKey)), 'url' => '/'];
+
+        // Virtual Office keeps original package names
+        if ($serviceKey === 'virtual-office') {
+            $packageLabel = match($packageKey) {
+                'premium'    => 'Paket Premium',
+                'eksklusif'  => 'Paket Eksklusif',
+                'enterprise' => 'Paket Enterprise',
+                default      => Str::title(str_replace('-', ' ', $packageKey)),
+            };
+        } else {
+            $packageLabel = self::$packages[$packageKey] ?? Str::title(str_replace('-', ' ', $packageKey));
+        }
 
         $totalBiaya = null;
         if ($serviceKey === 'pendirian-pt' && $modalDasar && isset(self::$ptPricing[$modalDasar][$packageKey])) {
