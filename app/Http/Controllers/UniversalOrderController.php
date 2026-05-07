@@ -31,8 +31,8 @@ class UniversalOrderController extends Controller
     ];
 
     public static array $packages = [
-        'basic'        => 'Paket Basic',
-        'professional' => 'Paket Professional',
+        'basic'        => 'Paket Izin',
+        'professional' => 'Paket Bundling',
         'enterprise'   => 'Paket Bundling',
         'premium'      => 'Paket Izin',
         'eksklusif'    => 'Paket Izin (Lama)',

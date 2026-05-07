@@ -378,7 +378,7 @@
             <span class="mx-2">›</span>
             <a href="{{ url($serviceInfo['url']) }}">{{ $serviceInfo['label'] }}</a>
             <span class="mx-2">›</span>
-            <span>Form Order – Paket Professional</span>
+            <span>Form Order – {{ $packageLabel }}</span>
         </nav>
     </div>
 </section>
