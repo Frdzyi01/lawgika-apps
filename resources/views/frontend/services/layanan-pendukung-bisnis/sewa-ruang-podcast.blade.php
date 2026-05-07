@@ -582,35 +582,283 @@
 </section>
 
 {{-- ===== PRICING TABLE PODCAST ROOM ===== --}}
-<section class="pt-pricing" id="pricing">
+<section class="pt-pricing" id="pricing" style="padding: 80px 0; background: #fff;">
     <div class="container">
         <div class="section-title text-center mb-5">
-            <span class="subtitle">Harga Spesial</span>
-            <h2>Paket Sewa Studio Podcast</h2>
-            <p>Pilih jadwal dan mulai produksi karya Anda sekarang</p>
+            <span class="subtitle">Harga & Paket</span>
+            <h2>Podcast Room</h2>
+            <p>Tarif profesional, fasilitas lengkap — mulai produksi konten Anda hari ini</p>
         </div>
 
-        <div class="pricing-table-container">
-            <div class="pricing-table-header">
-                {{-- Tengah: Beli Paket Podcast --}}
-                <div class="pricing-column pricing-column-right h-100">
-                    <h3 class="pricing-title">PAKET PODCAST ROOM</h3>
-                    <div class="pricing-subtitle">DURASI 2 JAM</div>
-                    <div class="pricing-price">Rp 500.000</div>
-                    <ul class="pricing-benefit-list">
-                        <li><i class="fa-solid fa-check"></i> Ruang Podcast yang proper & kedap suara</li>
-                        <li><i class="fa-solid fa-check"></i> Peralatan podcast profesional</li>
-                        <li><i class="fa-solid fa-check"></i> Akses Wifi & Ruangan ber-AC</li>
-                        <li><i class="fa-solid fa-check"></i> Layanan Print, Scan, dan Fotocopy</li>
-                        <li><i class="fa-solid fa-check"></i> Ruang Tunggu dan Pantry</li>
-                    </ul>
-                    <button type="button" class="btn-outline-brand mt-auto" style="border-radius:8px;max-width:300px;width:100%;background:none;cursor:pointer;"
-                        onclick="openBookingModal(2, 500000)">Pilih Jadwal & Pesan</button>
+        {{-- ===== CORPORATE TABLE LAYOUT ===== --}}
+        <style>
+            /* Podcast Pricing Table */
+            .podcast-pricing-wrap {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                border: 2px solid #1a1a1a;
+                font-family: 'Inter', sans-serif;
+            }
+
+            @media (max-width: 768px) {
+                .podcast-pricing-wrap {
+                    grid-template-columns: 1fr;
+                }
+                .podcast-col-right {
+                    border-left: none !important;
+                    border-top: 2px solid #1a1a1a;
+                }
+            }
+
+            /* Left Column */
+            .podcast-col-left {
+                padding: 0;
+            }
+
+            .podcast-col-left-header {
+                padding: 16px 20px;
+                border-bottom: 2px solid #1a1a1a;
+                font-size: 1.05rem;
+                font-weight: 800;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                color: #1a1a1a;
+            }
+
+            .podcast-price-row {
+                display: flex;
+                align-items: center;
+                padding: 12px 20px;
+                border-bottom: 1px solid #d1d5db;
+                font-size: 0.88rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.3px;
+                color: #1a1a1a;
+                min-height: 44px;
+            }
+
+            .podcast-benefit-header {
+                padding: 12px 20px;
+                border-bottom: 1px solid #d1d5db;
+                font-size: 0.88rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                color: #1a1a1a;
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+            }
+
+            .podcast-benefit-item {
+                padding: 11px 20px 11px 48px;
+                border-bottom: 1px solid #e5e7eb;
+                font-size: 0.85rem;
+                font-weight: 500;
+                text-transform: uppercase;
+                letter-spacing: 0.2px;
+                color: #374151;
+                min-height: 42px;
+                display: flex;
+                align-items: center;
+            }
+
+            .podcast-benefit-item:last-child {
+                border-bottom: none;
+            }
+
+            /* Right Column */
+            .podcast-col-right {
+                border-left: 2px solid #1a1a1a;
+                padding: 0;
+            }
+
+            .podcast-col-right-header {
+                padding: 16px 20px;
+                border-bottom: 2px solid #1a1a1a;
+                font-size: 1.05rem;
+                font-weight: 800;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                color: #1a1a1a;
+                text-align: center;
+            }
+
+            .podcast-col-right-sub {
+                padding: 10px 20px;
+                border-bottom: 2px solid #1a1a1a;
+                font-size: 0.92rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                text-align: center;
+                color: #1a1a1a;
+                background: #f9f9f9;
+            }
+
+            .podcast-price-cell {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 12px 20px;
+                border-bottom: 1px solid #d1d5db;
+                min-height: 44px;
+            }
+
+            .podcast-price-cell .rp-label {
+                font-weight: 700;
+                font-size: 0.9rem;
+                color: #1a1a1a;
+                flex-shrink: 0;
+            }
+
+            .podcast-price-cell .rp-amount {
+                font-weight: 800;
+                font-size: 0.95rem;
+                color: #1a1a1a;
+                text-align: right;
+            }
+
+            .podcast-empty-cell {
+                min-height: 44px;
+                border-bottom: 1px solid #d1d5db;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .podcast-empty-cell:last-child {
+                border-bottom: none;
+            }
+
+            .podcast-check {
+                font-size: 1.1rem;
+                font-weight: 900;
+                color: #1a1a1a;
+            }
+
+            .podcast-cta-wrap {
+                padding: 24px 20px 20px;
+                border-top: 2px solid #1a1a1a;
+                display: flex;
+                justify-content: center;
+            }
+
+            .podcast-cta-btn {
+                display: inline-block;
+                padding: 13px 32px;
+                background: #1a1a1a;
+                color: #fff;
+                font-size: 0.92rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                border: 2px solid #1a1a1a;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                border-radius: 0;
+                text-decoration: none;
+                text-align: center;
+            }
+
+            .podcast-cta-btn:hover {
+                background: #4e0616;
+                border-color: #4e0616;
+                color: #fff;
+                transform: translateY(-2px);
+            }
+
+            .podcast-note-wrap {
+                margin-top: 24px;
+                border: 1px solid #e5e7eb;
+                background: #fafafa;
+                padding: 16px 20px;
+            }
+
+            .podcast-note-wrap p {
+                margin: 0 0 6px;
+                font-size: 0.85rem;
+                color: #374151;
+                line-height: 1.5;
+            }
+
+            .podcast-note-wrap p:last-child {
+                margin-bottom: 0;
+            }
+
+            .podcast-note-wrap strong {
+                color: #1a1a1a;
+            }
+        </style>
+
+        <div class="podcast-pricing-wrap">
+            {{-- KOLOM KIRI --}}
+            <div class="podcast-col-left">
+                <div class="podcast-col-left-header">Podcast Room</div>
+
+                <div class="podcast-price-row">Harga 1 Jam Pertama</div>
+                <div class="podcast-price-row">Harga 2 Jam Pertama</div>
+                <div class="podcast-price-row">Harga Per Jam Selanjutnya</div>
+
+                <div class="podcast-benefit-header">Benefit</div>
+
+                <div class="podcast-benefit-item">Ruang Podcast Profesional</div>
+                <div class="podcast-benefit-item">Peralatan Podcast Lengkap</div>
+                <div class="podcast-benefit-item">Akses Wifi</div>
+                <div class="podcast-benefit-item">Ruangan Ber-AC</div>
+                <div class="podcast-benefit-item">Operator Podcast</div>
+                <div class="podcast-benefit-item">Ruang Tunggu &amp; Pantry</div>
+            </div>
+
+            {{-- KOLOM KANAN --}}
+            <div class="podcast-col-right">
+                <div class="podcast-col-right-header">Paket Podcast Room</div>
+                <div class="podcast-col-right-sub">Durasi 2 Jam</div>
+
+                {{-- Baris Harga --}}
+                <div class="podcast-price-cell">
+                    <span class="rp-label">Rp</span>
+                    <span class="rp-amount">500.000</span>
+                </div>
+                <div class="podcast-price-cell">
+                    <span class="rp-label">Rp</span>
+                    <span class="rp-amount">800.000</span>
+                </div>
+                <div class="podcast-price-cell">
+                    <span class="rp-label">Rp</span>
+                    <span class="rp-amount">300.000</span>
+                </div>
+
+                {{-- Spacer: benefit header --}}
+                <div class="podcast-empty-cell" style="min-height:44px; border-bottom:1px solid #d1d5db;"></div>
+
+                {{-- Checklist Benefit --}}
+                <div class="podcast-empty-cell"><span class="podcast-check">✓</span></div>
+                <div class="podcast-empty-cell"><span class="podcast-check">✓</span></div>
+                <div class="podcast-empty-cell"><span class="podcast-check">✓</span></div>
+                <div class="podcast-empty-cell"><span class="podcast-check">✓</span></div>
+                <div class="podcast-empty-cell"><span class="podcast-check">✓</span></div>
+                <div class="podcast-empty-cell" style="border-bottom:none;"><span class="podcast-check">✓</span></div>
+
+                {{-- CTA Button --}}
+                <div class="podcast-cta-wrap">
+                    <button type="button" class="podcast-cta-btn"
+                        onclick="openPodcastBookingModal()">
+                        <i class="fa-solid fa-calendar-check me-2"></i>Pilih Jadwal &amp; Pesan
+                    </button>
                 </div>
             </div>
         </div>
+
+        {{-- Note Harga --}}
+        <div class="podcast-note-wrap">
+            <p>📌 <strong>Aturan Harga:</strong> Durasi 2 jam pertama menggunakan harga paket <strong>Rp 800.000</strong>.
+                Setelah melewati 2 jam, akan dikenakan tambahan <strong>Rp 300.000 per jam</strong>.</p>
+            <p>⏰ <strong>Harap datang 15 menit sebelum jadwal dimulai</strong> untuk persiapan dan pengecekan peralatan.</p>
+        </div>
+
     </div>
 </section>
+
 
 @include('layout.partials.layanan-kami')
 
@@ -983,6 +1231,22 @@
 
     const SLOTS = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'];
     const MONTHS = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+
+    // === Podcast Dynamic Pricing Formula ===
+    function calcPodcastPrice(jam) {
+        if (jam <= 0) return 0;
+        if (jam === 1) return 500000;
+        if (jam === 2) return 800000;
+        return 800000 + ((jam - 2) * 300000);
+    }
+
+    function formatRupiah(amount) {
+        return 'Rp ' + amount.toLocaleString('id-ID');
+    }
+
+    function openPodcastBookingModal() {
+        openBookingModal(2, 800000);
+    }
 
     function openBookingModal(durasi, price) {
         selDurasi = durasi;
