@@ -837,34 +837,78 @@
         </div>
 
         <div class="row g-4 justify-content-center">
+
             {{-- Izin --}}
             <div class="col-lg-5 col-md-6">
                 <div class="pricing-card">
                     <h4>IZIN</h4>
+
                     <div class="price">Rp 4.500.000</div>
+
                     <ul class="feature-list">
-                        <li><i class="fa-solid fa-check"></i> Pengecekan Nama CV</li>
-                        <li><i class="fa-solid fa-check"></i> Pemesanan Nama CV</li>
-                        <li><i class="fa-solid fa-check"></i> Akta Pendirian CV</li>
-                        <li><i class="fa-solid fa-check"></i> Sertifikat Pendaftaran Menkumham</li>
-                        <li><i class="fa-solid fa-check"></i> NPWP & SKT & EFIN*</li>
-                        <li><i class="fa-solid fa-check"></i> NIB & Sertifikat Standar* & PKKPR*</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Alamat Bisnis Eksklusif</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Fasilitas Ruang Meeting atau podcast 60 jam / tahun</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Akses Wifi dan Smart TV</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Print, Scan dan Fotocopy</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Pengelolaan surat/paket masuk</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Notifikasi Surat/Paket Masuk</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Surat Keterangan Domisili</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Gratis akses komunitas bisnis</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Resepsionis</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Dashboard Login Klien</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Storage cloud dokumen</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Rekening PT Bank OCBC/BCA/MANDIRI</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Signage Display</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Call Handling</li>
+                        <li><i class="fa-solid fa-check"></i> PENGECEKAN NAMA CV</li>
+                        <li><i class="fa-solid fa-check"></i> PEMESANAN NAMA CV</li>
+                        <li><i class="fa-solid fa-check"></i> AKTA PENDIRIAN CV</li>
+                        <li><i class="fa-solid fa-check"></i> SERTIFIKAT PENDAFTARAN MENKUMHAM</li>
+                        <li><i class="fa-solid fa-check"></i> NPWP & SKT</li>
+                        <li><i class="fa-solid fa-check"></i> NOMOR INDUK BERUSAHA</li>
+
+                        <li class="disabled">
+                            <i class="fa-solid fa-minus"></i> ALAMAT BISNIS EKSKLUSIF
+                        </li>
+
+                        <li class="disabled">
+                            <i class="fa-solid fa-minus"></i> MEETING ROOM (48 JAM) & PODCAST ROOM (12 JAM)
+                        </li>
+
+                        <li class="disabled">
+                            <i class="fa-solid fa-minus"></i> AKSES WIFI & SMART TV
+                        </li>
+
+                        <li class="disabled">
+                            <i class="fa-solid fa-minus"></i> LAYANAN PRINT, SCAN & FOTOCOPY
+                        </li>
+
+                        <li class="disabled">
+                            <i class="fa-solid fa-minus"></i> PENGELOLAAN SURAT DAN PAKET
+                        </li>
+
+                        <li class="disabled">
+                            <i class="fa-solid fa-minus"></i> NOTIFIKASI SURAT DAN PAKET MASUK
+                        </li>
+
+                        <li class="disabled">
+                            <i class="fa-solid fa-minus"></i> SURAT KETERANGAN DOMISILI
+                        </li>
+
+                        <li class="disabled">
+                            <i class="fa-solid fa-minus"></i> AKSES KOMUNITAS BUSINESS
+                        </li>
+
+                        <li class="disabled">
+                            <i class="fa-solid fa-minus"></i> LAYANAN RESEPSIONIS
+                        </li>
+
+                        <li class="disabled">
+                            <i class="fa-solid fa-minus"></i> DASHBOARD LOGIN CUSTOMER
+                        </li>
+
+                        <li class="disabled">
+                            <i class="fa-solid fa-minus"></i> REKENING PERUSAHAAN BANK MANDIRI/OCBC/BCA
+                        </li>
+
+                        <li class="disabled">
+                            <i class="fa-solid fa-minus"></i> SIGNAGE DISPLAY
+                        </li>
+
+                        <li class="disabled">
+                            <i class="fa-solid fa-minus"></i> LAYANAN CALL HANDLING
+                        </li>
                     </ul>
-                    <button onclick="goOrder('cv','premium')" class="btn-pricing w-100">Pilih Paket Izin</button>
+
+                    <button onclick="goOrder('cv','premium')" class="btn-pricing w-100">
+                        Pilih Paket Izin
+                    </button>
                 </div>
             </div>
 
@@ -872,33 +916,39 @@
             <div class="col-lg-5 col-md-6">
                 <div class="pricing-card featured">
                     <span class="badge">REKOMENDASI</span>
+
                     <h4>BUNDLING</h4>
+
                     <div class="price">Rp 8.500.000</div>
+
                     <ul class="feature-list">
-                        <li><i class="fa-solid fa-check"></i> Pengecekan Nama CV</li>
-                        <li><i class="fa-solid fa-check"></i> Pemesanan Nama CV</li>
-                        <li><i class="fa-solid fa-check"></i> Akta Pendirian CV</li>
-                        <li><i class="fa-solid fa-check"></i> SK Menkumham</li>
-                        <li><i class="fa-solid fa-check"></i> NPWP & SKT & EFIN*</li>
-                        <li><i class="fa-solid fa-check"></i> NIB & Sertifikat Standar* & PKKPR*</li>
-                        <li><i class="fa-solid fa-check"></i> Alamat Bisnis Eksklusif</li>
-                        <li><i class="fa-solid fa-check"></i> Fasilitas Ruang Meeting atau podcast 60 jam / tahun</li>
-                        <li><i class="fa-solid fa-check"></i> Akses Wifi dan Smart TV</li>
-                        <li><i class="fa-solid fa-check"></i> Layanan Print, Scan dan Fotocopy</li>
-                        <li><i class="fa-solid fa-check"></i> Pengelolaan surat/paket masuk</li>
-                        <li><i class="fa-solid fa-check"></i> Notifikasi Surat/Paket Masuk</li>
-                        <li><i class="fa-solid fa-check"></i> Surat Keterangan Domisili</li>
-                        <li><i class="fa-solid fa-check"></i> Gratis akses komunitas bisnis</li>
-                        <li><i class="fa-solid fa-check"></i> Layanan Resepsionis</li>
-                        <li><i class="fa-solid fa-check"></i> Dashboard Login Klien</li>
-                        <li><i class="fa-solid fa-check"></i> Storage cloud dokumen</li>
-                        <li><i class="fa-solid fa-check"></i> Rekening PT Bank OCBC/BCA/MANDIRI</li>
-                        <li><i class="fa-solid fa-check"></i> Signage Display</li>
-                        <li><i class="fa-solid fa-check"></i> Layanan Call Handling</li>
+                        <li><i class="fa-solid fa-check"></i> PENGECEKAN NAMA CV</li>
+                        <li><i class="fa-solid fa-check"></i> PEMESANAN NAMA CV</li>
+                        <li><i class="fa-solid fa-check"></i> AKTA PENDIRIAN CV</li>
+                        <li><i class="fa-solid fa-check"></i> SERTIFIKAT PENDAFTARAN MENKUMHAM</li>
+                        <li><i class="fa-solid fa-check"></i> NPWP & SKT</li>
+                        <li><i class="fa-solid fa-check"></i> NOMOR INDUK BERUSAHA</li>
+                        <li><i class="fa-solid fa-check"></i> ALAMAT BISNIS EKSKLUSIF</li>
+                        <li><i class="fa-solid fa-check"></i> MEETING ROOM (48 JAM) & PODCAST ROOM (12 JAM)</li>
+                        <li><i class="fa-solid fa-check"></i> AKSES WIFI & SMART TV</li>
+                        <li><i class="fa-solid fa-check"></i> LAYANAN PRINT, SCAN & FOTOCOPY</li>
+                        <li><i class="fa-solid fa-check"></i> PENGELOLAAN SURAT DAN PAKET</li>
+                        <li><i class="fa-solid fa-check"></i> NOTIFIKASI SURAT DAN PAKET MASUK</li>
+                        <li><i class="fa-solid fa-check"></i> SURAT KETERANGAN DOMISILI</li>
+                        <li><i class="fa-solid fa-check"></i> AKSES KOMUNITAS BUSINESS</li>
+                        <li><i class="fa-solid fa-check"></i> LAYANAN RESEPSIONIS</li>
+                        <li><i class="fa-solid fa-check"></i> DASHBOARD LOGIN CUSTOMER</li>
+                        <li><i class="fa-solid fa-check"></i> REKENING PERUSAHAAN BANK MANDIRI/OCBC/BCA</li>
+                        <li><i class="fa-solid fa-check"></i> SIGNAGE DISPLAY</li>
+                        <li><i class="fa-solid fa-check"></i> LAYANAN CALL HANDLING</li>
                     </ul>
-                    <button onclick="goOrder('cv','enterprise')" class="btn-pricing-primary w-100">Pilih Paket Bundling</button>
+
+                    <button onclick="goOrder('cv','enterprise')" class="btn-pricing-primary w-100">
+                        Pilih Paket Bundling
+                    </button>
                 </div>
             </div>
+
         </div>
     </div>
 </section>

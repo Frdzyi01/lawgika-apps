@@ -97,4 +97,10 @@ class Order extends Model
     {
         return $this->hasOne(RoomBenefit::class);
     }
+
+    /** All benefit records for this order (meeting + podcast as separate records) */
+    public function roomBenefits()
+    {
+        return $this->hasMany(RoomBenefit::class);
+    }
 }

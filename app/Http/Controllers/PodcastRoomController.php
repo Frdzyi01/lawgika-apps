@@ -183,8 +183,10 @@ class PodcastRoomController extends Controller
             ->latest()
             ->get();
 
-        // Benefit pool cards
-        $benefits = RoomBenefit::with(['user', 'order'])->latest()->get();
+        // Benefit pool cards — only podcast-type benefits
+        $benefits = RoomBenefit::with(['user', 'order'])
+            ->whereIn('type', ['podcast', 'shared'])
+            ->latest()->get();
 
         return view('admin.podcast-room.index', compact('bookings', 'benefits', 'benefitBookings'));
     }
@@ -399,8 +401,10 @@ class PodcastRoomController extends Controller
             ->latest()
             ->get();
 
+        // Only podcast-type benefits for this user
         $benefits = RoomBenefit::with('order')
             ->where('user_id', Auth::id())
+            ->whereIn('type', ['podcast', 'shared'])
             ->latest()
             ->get();
 
@@ -415,6 +419,7 @@ class PodcastRoomController extends Controller
 
         return RoomBenefit::where('user_id', Auth::id())
             ->where('is_active', true)
+            ->whereIn('type', ['podcast', 'shared'])   // podcast-specific benefit
             ->where(function ($q) {
                 $q->whereNull('expired_at')
                   ->orWhere('expired_at', '>', now());

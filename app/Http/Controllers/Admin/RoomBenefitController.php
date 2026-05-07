@@ -31,7 +31,7 @@ class RoomBenefitController extends Controller
 
             return redirect()
                 ->back()
-                ->with('success', '✅ Benefit ruangan (60 jam) berhasil diaktifkan untuk customer ini.');
+                ->with('success', '✅ Benefit ruangan berhasil diaktifkan: Meeting Room (48 Jam) & Podcast Room (12 Jam).');
 
         } catch (\RuntimeException $e) {
             return redirect()

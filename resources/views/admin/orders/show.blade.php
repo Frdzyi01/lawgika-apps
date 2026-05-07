@@ -401,8 +401,9 @@
         {{-- Room Benefit --}}
         @php
         use App\Models\RoomBenefit;
-        $packageName = $order->service_name ?? ($order->service?->name ?? '');
-        $existingBenefit = RoomBenefit::where('order_id', $order->id)->first();
+        $packageName     = $order->service_name ?? ($order->service?->name ?? '');
+        $existingBenefits = RoomBenefit::where('order_id', $order->id)->get();
+        $hasAnyBenefit    = $existingBenefits->isNotEmpty();
 
         // ✅ FIXED: use isEligibleForOrder() which validates BOTH service AND package.
         // Previously only checked package slug (causing CV Eksklusif to pass).
@@ -415,22 +416,34 @@
                 <h6 class="fw-bold mb-0">Approve Benefit Ruangan</h6>
             </div>
             <div class="card-body px-4 pb-4">
-                <p class="text-muted small mb-3">Paket <strong>{{ $packageName }}</strong> berhak mendapatkan <strong>60 jam</strong> akses ruangan (Meeting + Podcast) berlaku 1 tahun.</p>
-                @if($existingBenefit)
-                <div class="alert alert-success py-2 px-3 mb-0" style="font-size:.88rem">
+                <p class="text-muted small mb-3">Paket <strong>{{ $packageName }}</strong> berhak mendapatkan akses ruangan berlaku 1 tahun: <strong>Meeting Room 48 Jam</strong> & <strong>Podcast Room 12 Jam</strong>.</p>
+                @if($hasAnyBenefit)
+                <div class="alert alert-success py-3 px-3 mb-0" style="font-size:.88rem">
                     <i class="fa fa-circle-check me-1"></i><strong>Benefit sudah diaktifkan</strong><br>
-                    <span class="text-muted">
-                        Disetujui: {{ $existingBenefit->created_at->format('d M Y, H:i') }}<br>
-                        Dipakai: {{ RoomBenefit::formatMinutes($existingBenefit->used_minutes) }}<br>
-                        Sisa: <strong>{{ RoomBenefit::formatMinutes($existingBenefit->remaining_minutes) }}</strong><br>
-                        Berlaku hingga: {{ $existingBenefit->expired_at?->format('d M Y') ?? '–' }}
-                    </span>
+                    <div class="mt-2 d-flex flex-column gap-2">
+                        @foreach($existingBenefits as $eb)
+                        <div class="d-flex align-items-center justify-content-between border-top pt-2">
+                            <span class="text-muted">
+                                <i class="fa fa-{{ $eb->type === 'meeting' ? 'door-open' : 'microphone' }} me-1"></i>
+                                <strong>{{ $eb->type === 'meeting' ? 'Meeting Room' : 'Podcast Room' }}</strong>
+                            </span>
+                            <span>
+                                Sisa: <strong class="text-success">{{ RoomBenefit::formatMinutes($eb->remaining_minutes) }}</strong>
+                                / {{ RoomBenefit::formatMinutes($eb->total_minutes) }}
+                            </span>
+                        </div>
+                        @endforeach
+                        <div class="text-muted pt-1" style="font-size:.82rem">
+                            Disetujui: {{ $existingBenefits->first()->created_at->format('d M Y, H:i') }}
+                            &nbsp;·&nbsp; Berlaku hingga: {{ $existingBenefits->first()->expired_at?->format('d M Y') ?? '–' }}
+                        </div>
+                    </div>
                 </div>
                 @else
                 <form action="{{ route('admin.orders.approve-benefit', $order->id) }}" method="POST">
                     @csrf
                     <button type="submit" class="btn btn-success w-100"
-                        onclick="return confirm('Aktifkan benefit 60 jam untuk customer ini?\nTindakan ini tidak dapat dibatalkan.')">
+                        onclick="return confirm('Aktifkan benefit Meeting Room (48 Jam) & Podcast Room (12 Jam) untuk customer ini?\nTindakan ini tidak dapat dibatalkan.')">
                         <i class="fa fa-unlock me-1"></i>Approve Benefit
                     </button>
                 </form>

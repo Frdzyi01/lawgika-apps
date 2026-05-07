@@ -87,17 +87,19 @@
                             </span>
                         </td>
                         <td>
-                            @if($order->roomBenefit && $order->roomBenefit->is_active)
-                                <span class="text-success fw-bold">{{ $order->roomBenefit->total_minutes / 60 }} Jam</span>
+                            @php $podcastB = $order->roomBenefits->where('type','podcast')->first(); @endphp
+                            @if($podcastB && $podcastB->is_active)
+                                <span class="text-success fw-bold">{{ $podcastB->remaining_minutes / 60 }} Jam</span>
                             @else
-                                <span class="text-muted small">0</span>
+                                <span class="text-muted small">–</span>
                             @endif
                         </td>
                         <td>
-                            @if($order->roomBenefit && $order->roomBenefit->is_active)
-                                <span class="text-success fw-bold">{{ $order->roomBenefit->total_minutes / 60 }} Jam</span>
+                            @php $meetingB = $order->roomBenefits->where('type','meeting')->first(); @endphp
+                            @if($meetingB && $meetingB->is_active)
+                                <span class="text-success fw-bold">{{ $meetingB->remaining_minutes / 60 }} Jam</span>
                             @else
-                                <span class="text-muted small">0</span>
+                                <span class="text-muted small">–</span>
                             @endif
                         </td>
                         <td>

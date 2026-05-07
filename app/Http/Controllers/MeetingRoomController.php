@@ -246,8 +246,10 @@ class MeetingRoomController extends Controller
             ->latest()
             ->get();
 
-        // Benefit pool cards (existing partial)
-        $benefits = RoomBenefit::with(['user', 'order'])->latest()->get();
+        // Benefit pool cards — only meeting-type benefits
+        $benefits = RoomBenefit::with(['user', 'order'])
+            ->whereIn('type', ['meeting', 'shared'])
+            ->latest()->get();
 
         return view('admin.meeting-room.index', compact('bookings', 'benefits', 'benefitBookings'));
     }
@@ -323,8 +325,10 @@ class MeetingRoomController extends Controller
             ->latest()
             ->get();
 
+        // Only meeting-type benefits for this user
         $benefits = RoomBenefit::with('order')
             ->where('user_id', Auth::id())
+            ->whereIn('type', ['meeting', 'shared'])
             ->latest()
             ->get();
 
@@ -506,6 +510,7 @@ class MeetingRoomController extends Controller
 
         return RoomBenefit::where('user_id', Auth::id())
             ->where('is_active', true)
+            ->whereIn('type', ['meeting', 'shared'])   // meeting-specific benefit
             ->where(function ($q) {
                 $q->whereNull('expired_at')
                   ->orWhere('expired_at', '>', now());

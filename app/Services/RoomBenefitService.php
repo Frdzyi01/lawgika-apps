@@ -15,8 +15,9 @@ use Illuminate\Support\Facades\DB;
  * Contains ALL business logic — controllers remain thin.
  *
  * Rules:
- *  - One order → one benefit (enforced by DB unique + guard here)
- *  - Shared 60-hour pool across Meeting Room + Podcast Room
+ *  - One order → two benefit records (meeting + podcast, separate quotas)
+ *  - Meeting Room: 48 jam (2880 menit)
+ *  - Podcast Room: 12 jam (720 menit)
  *  - Time only deducted at CHECK-OUT, never at booking creation
  */
 class RoomBenefitService
@@ -26,46 +27,58 @@ class RoomBenefitService
      *
      * @throws \RuntimeException when a benefit already exists or order is ineligible
      */
-    public function approve(Order $order): RoomBenefit
+    public function approve(Order $order): array
     {
-        // ── Guard: already approved ───────────────────────────────────────────
-        if (RoomBenefit::where('order_id', $order->id)->exists()) {
+        // ── Guard: already approved (2 records = meeting + podcast) ──────────
+        if (RoomBenefit::where('order_id', $order->id)->count() >= 2) {
             throw new \RuntimeException('Benefit untuk pesanan ini sudah pernah disetujui sebelumnya.');
         }
 
         // ── Guard: eligible package + service ─────────────────────────────────
-        //
-        // CRITICAL FIX: isEligibleForOrder() validates BOTH:
-        //   ✅ Service  = Pendirian PT (reguler) only
-        //   ✅ Package  = eksklusif or enterprise
-        //
-        // This prevents CV Eksklusif, Yayasan Enterprise, etc. from getting benefit.
         if (! RoomBenefit::isEligibleForOrder($order)) {
             throw new \RuntimeException(
                 'Paket "' . ($order->service_name ?? '-') . '" tidak memenuhi syarat untuk benefit ruangan. ' .
-                'Benefit HANYA untuk Pendirian PT – Paket Eksklusif atau Enterprise.'
+                'Benefit HANYA untuk Pendirian PT – Paket Bundling (Enterprise).'
             );
         }
 
         // Build a clean, human-readable label to store in the benefit record.
-        $formData = $order->form_data ?? [];
-        $rawSlug  = strtolower(trim($formData['package'] ?? ''));
-        
+        $formData   = $order->form_data ?? [];
+        $rawSlug    = strtolower(trim($formData['package'] ?? ''));
         $paketLabel = $rawSlug !== ''
-            ? ucfirst($rawSlug)                             // "Eksklusif" / "Enterprise"
-            : ($order->service_name ?? 'PT Package');       // fallback for legacy
+            ? ucfirst($rawSlug)                          // "Enterprise" / "Eksklusif"
+            : ($order->service_name ?? 'PT Package');    // fallback for legacy
 
+        // ── Create TWO separate benefit records in one transaction ────────────
         return DB::transaction(function () use ($order, $paketLabel) {
-            return RoomBenefit::create([
+
+            $expiredAt = Carbon::now()->addYear();
+
+            // 1. Meeting Room — 48 jam = 2880 menit
+            $meetingBenefit = RoomBenefit::create([
                 'user_id'       => $order->user_id,
                 'order_id'      => $order->id,
-                'paket'         => $paketLabel,
-                'total_minutes' => 3600,        // 60 hours
+                'paket'         => $paketLabel . ' – Meeting Room',
+                'total_minutes' => 2880,        // 48 hours
                 'used_minutes'  => 0,
-                'type'          => 'shared',
+                'type'          => 'meeting',
                 'is_active'     => true,
-                'expired_at'    => Carbon::now()->addYear(),
+                'expired_at'    => $expiredAt,
             ]);
+
+            // 2. Podcast Room — 12 jam = 720 menit
+            $podcastBenefit = RoomBenefit::create([
+                'user_id'       => $order->user_id,
+                'order_id'      => $order->id,
+                'paket'         => $paketLabel . ' – Podcast Room',
+                'total_minutes' => 720,         // 12 hours
+                'used_minutes'  => 0,
+                'type'          => 'podcast',
+                'is_active'     => true,
+                'expired_at'    => $expiredAt,
+            ]);
+
+            return [$meetingBenefit, $podcastBenefit];
         });
     }
 
