@@ -1149,54 +1149,55 @@
         </div>
 
         <!-- Set 2 (duplicate for seamless loop) -->
-        <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/home/icons/icon-placed.svg')}}" alt="Placed"
+       <div class="client-logo-card">
+          <img src="{{('buyer-file/assets/img/brand/1.png')}}" alt="Placed"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>PLACED</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/home/icons/icon-cuebiq.svg')}}" alt="Cuebiq"
+          <img src="{{('buyer-file/assets/img/brand/2.png')}}" alt="Cuebiq"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>CUEBIQ</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/home/icons/icon-factual.svg')}}" alt="Factual"
+          <img src="{{('buyer-file/assets/img/brand/3.png')}}" alt="Factual"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>FACTUAL</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/home/icons/icon-place-iq.svg')}}" alt="PlaceIQ"
+          <img src="{{('buyer-file/assets/img/brand/4.png')}}" alt="PlaceIQ"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>PLACE IQ</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/home/icons/icon-airmeet.svg')}}" alt="Airmeet"
+          <img src="{{('buyer-file/assets/img/brand/5.png')}}" alt="Airmeet"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>AIRMEET</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/home/icons/icon-spendflo.svg')}}" alt="Spendflo"
+          <img src="{{('buyer-file/assets/img/brand/6.png')}}" alt="Spendflo"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>SPENDFLO</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/home/icons/icon-reed-elsevier.svg')}}" alt="Reed Elsevier"
+          <img src="{{('buyer-file/assets/img/brand/7.png')}}" alt="Reed Elsevier"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>REED</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/home/icons/icon-vuori.svg')}}" alt="Vuori"
+          <img src="{{('buyer-file/assets/img/brand/8.png')}}" alt="Vuori"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>VUORI</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/home/icons/icon-versed.svg')}}" alt="Versed"
+          <img src="{{('buyer-file/assets/img/brand/9.png')}}" alt="Versed"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>VERSED</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/home/icons/icon-matrixian.svg')}}" alt="Matrixian"
+          <img src="{{('buyer-file/assets/img/brand/10.png')}}" alt="Matrixian"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>MATRIXIAN</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/home/icons/icon-klippa.svg')}}" alt="Klippa"
+          <img src="{{('buyer-file/assets/img/brand/11.png')}}" alt="Klippa"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>KLIPPA</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/home/icons/icon-factual.svg')}}" alt="Factual 2"
+          <img src="{{('buyer-file/assets/img/brand/12.png')}}" alt="Factual 2"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>FACTUAL</span>'">
         </div>
+
 
       </div><!-- end track -->
     </div><!-- end outer -->
@@ -2872,6 +2873,71 @@
   </div>
 </section>
 
+<!-- News Section Start -->
+<section class="news-section fix section-padding section-bg">
+  <div class="container">
+    <div class="section-title-area">
+      <div class="section-title">
+        <span>Our News</span>
+        <h2>
+          Explore Latest News
+        </h2>
+      </div>
+      <a
+        href="{{ route('berita.index') }}"
+        class="theme-btn">See All More <i class="fas fa-long-arrow-alt-right"></i></a>
+    </div>
+    <div class="row">
+      @foreach($beritas as $item)
+      <div class="col-lg-4 col-md-6">
+        <a href="{{ route('berita.show', $item->slug) }}" class="berita-card-link text-decoration-none" aria-label="Baca berita: {{ $item->judul }}">
+          <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden blog-card text-dark">
+            {{-- Thumbnail --}}
+            <div class="position-relative overflow-hidden" style="height: 250px;">
+              @if($item->gambar)
+              <img src="{{ asset('storage/' . $item->gambar) }}" class="w-100 h-100 object-fit-cover hover-scale transition-all" alt="{{ $item->judul }}">
+              @else
+              <div class="w-100 h-100 bg-secondary d-flex align-items-center justify-content-center text-white-50">
+                <i class="fas fa-image fa-3x"></i>
+              </div>
+              @endif
+            </div>
+
+            {{-- Card Body --}}
+            <div class="card-body p-4 d-flex flex-column">
+              <div class="d-flex align-items-center gap-3 mb-3">
+                <span class="text-primary fw-bold text-uppercase" style="font-size: 0.8rem; letter-spacing: 0.5px;">{{ $item->kategori }}</span>
+                <span class="text-muted" style="font-size: 0.8rem;">
+                  <i class="far fa-calendar-alt me-1"></i>
+                  {{ strtoupper($item->published_at->translatedFormat('F d, Y')) }}
+                </span>
+              </div>
+
+              <h4 class="card-title fw-bold mb-3 hover-primary-heading">
+                {{ $item->judul }}
+              </h4>
+
+              <p class="card-text text-muted mb-auto">
+                {{ $item->excerpt ?: Str::limit(strip_tags($item->konten), 100) }}
+              </p>
+
+              <div class="mt-4 pt-3 border-top d-flex align-items-center">
+                <div class="rounded-circle bg-danger text-white d-flex align-items-center justify-content-center fw-bold me-3 shadow-sm" style="width: 40px; height: 40px; font-size: 0.9rem;">
+                  {{ substr(strtoupper($item->penulis), 0, 1) }}
+                </div>
+                <div>
+                  <h6 class="mb-0 fw-bold fs-6">{{ $item->penulis }} <span class="text-muted fw-normal">· {{ $item->jabatan_penulis }}</span></h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+      @endforeach
+    </div>
+  </div>
+</section>
+
 
 <!-- Testimonial Section Start -->
 <section
@@ -3281,70 +3347,6 @@
 
         </div>
       </div>
-    </div>
-  </div>
-</section>
-<!-- News Section Start -->
-<section class="news-section fix section-padding section-bg">
-  <div class="container">
-    <div class="section-title-area">
-      <div class="section-title">
-        <span>Our News</span>
-        <h2>
-          Explore Latest News
-        </h2>
-      </div>
-      <a
-        href="{{ route('berita.index') }}"
-        class="theme-btn">See All More <i class="fas fa-long-arrow-alt-right"></i></a>
-    </div>
-    <div class="row">
-      @foreach($beritas as $item)
-      <div class="col-lg-4 col-md-6">
-        <a href="{{ route('berita.show', $item->slug) }}" class="berita-card-link text-decoration-none" aria-label="Baca berita: {{ $item->judul }}">
-          <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden blog-card text-dark">
-            {{-- Thumbnail --}}
-            <div class="position-relative overflow-hidden" style="height: 250px;">
-              @if($item->gambar)
-              <img src="{{ asset('storage/' . $item->gambar) }}" class="w-100 h-100 object-fit-cover hover-scale transition-all" alt="{{ $item->judul }}">
-              @else
-              <div class="w-100 h-100 bg-secondary d-flex align-items-center justify-content-center text-white-50">
-                <i class="fas fa-image fa-3x"></i>
-              </div>
-              @endif
-            </div>
-
-            {{-- Card Body --}}
-            <div class="card-body p-4 d-flex flex-column">
-              <div class="d-flex align-items-center gap-3 mb-3">
-                <span class="text-primary fw-bold text-uppercase" style="font-size: 0.8rem; letter-spacing: 0.5px;">{{ $item->kategori }}</span>
-                <span class="text-muted" style="font-size: 0.8rem;">
-                  <i class="far fa-calendar-alt me-1"></i>
-                  {{ strtoupper($item->published_at->translatedFormat('F d, Y')) }}
-                </span>
-              </div>
-
-              <h4 class="card-title fw-bold mb-3 hover-primary-heading">
-                {{ $item->judul }}
-              </h4>
-
-              <p class="card-text text-muted mb-auto">
-                {{ $item->excerpt ?: Str::limit(strip_tags($item->konten), 100) }}
-              </p>
-
-              <div class="mt-4 pt-3 border-top d-flex align-items-center">
-                <div class="rounded-circle bg-danger text-white d-flex align-items-center justify-content-center fw-bold me-3 shadow-sm" style="width: 40px; height: 40px; font-size: 0.9rem;">
-                  {{ substr(strtoupper($item->penulis), 0, 1) }}
-                </div>
-                <div>
-                  <h6 class="mb-0 fw-bold fs-6">{{ $item->penulis }} <span class="text-muted fw-normal">· {{ $item->jabatan_penulis }}</span></h6>
-                </div>
-              </div>
-            </div>
-          </div>
-        </a>
-      </div>
-      @endforeach
     </div>
   </div>
 </section>

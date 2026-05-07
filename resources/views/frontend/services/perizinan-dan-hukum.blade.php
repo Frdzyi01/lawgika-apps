@@ -393,14 +393,14 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="why-us-card">
-                    <div class="why-us-icon">
-                        <i class="fa-solid fa-file-shield"></i>
-                    </div>
-                    <h4>Proses Transparan</h4>
-                    <p>Alur pengurusan yang jelas, waktu pengerjaan terukur, dan progres yang selalu kami laporkan secara berkala.</p>
-                </div>
-            </div>
+    <div class="why-us-card">
+        <div class="why-us-icon">
+            <i class="fa-solid fa-eye"></i>
+        </div>
+        <h4>Proses Transparan</h4>
+        <p>Alur pengurusan yang jelas, waktu pengerjaan terukur, dan progres yang selalu kami laporkan secara berkala.</p>
+    </div>
+</div>
             <div class="col-md-4">
                 <div class="why-us-card">
                     <div class="why-us-icon">

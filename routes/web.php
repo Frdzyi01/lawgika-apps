@@ -240,3 +240,28 @@ Route::middleware('auth')->group(function () {
     Route::get('/order/pt-perorangan/success', [\App\Http\Controllers\PtPeroranganOrderController::class, 'success'])
         ->name('order.pt-perorangan.success');
 });
+
+Route::get('/buat-jembatan', function () {
+    // 1. Folder sumber (tempat gambar asli disimpan di lawgika-apps)
+    $targetFolder = storage_path('app/public');
+    
+    // Jika foldernya belum ada, sistem akan otomatis membuatkannya
+    if (!file_exists($targetFolder)) {
+        mkdir($targetFolder, 0755, true);
+    }
+
+    // 2. Folder tujuan (menggunakan pendeteksi otomatis document root server)
+    $linkFolder = $_SERVER['DOCUMENT_ROOT'] . '/storage';
+
+    // Bersihkan dulu jika ada jembatan lama yang rusak atau nyangkut
+    if (file_exists($linkFolder) || is_link($linkFolder)) {
+        @unlink($linkFolder);
+    }
+
+    try {
+        symlink($targetFolder, $linkFolder);
+        return 'Sukses! Jembatan gambar berhasil dibuat ke: ' . $linkFolder;
+    } catch (\Exception $e) {
+        return 'Gagal lagi: ' . $e->getMessage();
+    }
+});

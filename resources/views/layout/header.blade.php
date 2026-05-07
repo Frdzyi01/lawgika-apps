@@ -1,4 +1,11 @@
-  <div class="offcanvas__info">
+ <style> /* Sembunyikan hamburger menu di desktop (layar >= 992px) */
+@media (min-width: 992px) {
+    .header__hamburger {
+        display: none !important;
+    }
+}
+</style>
+<div class="offcanvas__info">
     <div class="offcanvas__wrapper">
       <div class="offcanvas__content">
         <div class="offcanvas__top d-flex justify-content-between align-items-center">
@@ -79,13 +86,13 @@
                     <i class="fas fa-chevron-down"></i>
                   </a>
                   <ul class="lw-sub-list">
-                    <li><a href="{{ url('/perizinan-dan-hukum') }}">NIB dan OSS</a></li>
-                    <li><a href="{{ url('/perizinan-dan-hukum') }}">HAKI</a></li>
-                    <li><a href="{{ url('/perizinan-dan-hukum') }}">Laporan LKPM</a></li>
-                    <li><a href="{{ url('/perizinan-dan-hukum') }}">Sertifikat ISO</a></li>
-                    <li><a href="{{ url('/perizinan-dan-hukum') }}">Surat Keterangan Tidak Pailit</a></li>
-                    <li><a href="{{ url('/perizinan-dan-hukum') }}">Drafting Perjanjian Bisnis</a></li>
-                    <li><a href="{{ url('/pengurusan-pkp') }}">Pengurusan PKP</a></li>
+                    <li><a href="{{ url('/nib-dan-oss') }}">NIB dan OSS</a></li>
+    <li><a href="{{ url('/haki') }}">HAKI</a></li>
+    <li><a href="{{ url('/laporan-lkpm') }}">Laporan LKPM</a></li>
+    <li><a href="{{ url('/sertifikat-iso') }}">Sertifikat ISO</a></li>
+    <li><a href="{{ url('/surat-keterangan-tidak-pailit') }}">Surat Keterangan Tidak Pailit</a></li>
+    <li><a href="{{ url('/drafting-review-perjanjian-bisnis') }}">Drafting Perjanjian Bisnis</a></li>
+    <li><a href="{{ url('/pengurusan-pkp') }}">Pengurusan PKP</a></li>
                   </ul>
                 </div>
               </div>
@@ -153,7 +160,7 @@
                 <i class="fal fa-map-marker-alt"></i>
               </div>
               <div class="offcanvas__contact-text">
-                <a target="_blank" href="#">Main Street, Melbourne, Australia</a>
+                <a target="_blank" href="#">World Capital Tower Lt 38 unit 06-07, Kuningan, Mega Kuningan, Kecamatan Setiabudi, Kota Jakarta Selatan</a>
               </div>
             </li>
             <li class="d-flex align-items-center">
@@ -161,7 +168,7 @@
                 <i class="fal fa-envelope"></i>
               </div>
               <div class="offcanvas__contact-text">
-                <a href="#"><span class="mailto:lawgika@gmail.com">lawgika@gmail.com</span></a>
+                <a href="#"><span class="mailto:informasi@lawgika.co.id">informasi@lawgika.co.id</span></a>
               </div>
             </li>
             <li class="d-flex align-items-center">
@@ -177,7 +184,7 @@
                 <i class="far fa-phone"></i>
               </div>
               <div class="offcanvas__contact-text">
-                <a href="#">+11002345909</a>
+                <a href="#">+62 811-1208-8600</a>
               </div>
             </li>
           </ul>
@@ -373,7 +380,7 @@
         <ul class="contact-list">
           <li>
             <i class="far fa-envelope"></i>
-            <a href="#">lawgika@gmail.com</a>
+            <a href="#">informasi@lawgika.co.id</a>
           </li>
 
         </ul>
@@ -733,15 +740,15 @@
                                   <i class="fas fa-building"></i> Perizinan Dan Hukum
                                 </div>
                                 <ul>
-                                  <li><a href="{{ url('/perizinan-dan-hukum') }}">NIB dan Oss</a></li>
-                                  <li><a href="{{ url('/perizinan-dan-hukum') }}">HAKI</a></li>
-                                  <li><a href="{{ url('/perizinan-dan-hukum') }}">Laporan LKPM</a></li>
-                                  <li><a href="{{ url('/perizinan-dan-hukum') }}">Sertifikat ISO</a></li>
-                                  <li><a href="{{ url('/perizinan-dan-hukum') }}">Surat Keterangan Tidak Pailit</a></li>
-                                  <li><a href="{{ url('/perizinan-dan-hukum') }}">Drafting Perjanjian Bisnis</a></li>
-                                  <li><a href="{{ url('/pengurusan-pkp') }}">Pengurusan PKP</a></li>
+                                 <li><a href="{{ url('/nib-dan-oss') }}">NIB dan OSS</a></li>
+    <li><a href="{{ url('/haki') }}">HAKI</a></li>
+    <li><a href="{{ url('/laporan-lkpm') }}">Laporan LKPM</a></li>
+    <li><a href="{{ url('/sertifikat-iso') }}">Sertifikat ISO</a></li>
+    <li><a href="{{ url('/surat-keterangan-tidak-pailit') }}">Surat Keterangan Tidak Pailit</a></li>
+    <li><a href="{{ url('/drafting-review-perjanjian-bisnis') }}">Drafting Perjanjian Bisnis</a></li>
+    <li><a href="{{ url('/pengurusan-pkp') }}">Pengurusan PKP</a></li>
                                 </ul>
-                                <a href="{{ url('/perizinan-dan-hukum') }}" class="lw-sidebar-cta">
+                                <a href="{{ url('/perizinan-dan-hukum') }}" class="lw-sidebar-cta" style="color:white !important">
                                   Perizinan Lainnya <i class="fas fa-arrow-right"></i>
                                 </a>
                               </div>
@@ -894,11 +901,11 @@
               </div>
             </div>
             <a href="#" class="search-trigger search-icon"><i class="fal fa-search"></i></a>
-            <div class="header__hamburger d-xl-block my-auto">
-              <div class="sidebar__toggle">
-                <i class="fas fa-bars"></i>
-              </div>
-            </div>
+           <div class="header__hamburger d-xl-block my-auto">
+    <div class="sidebar__toggle">
+        <i class="fas fa-bars"></i>
+    </div>
+</div>
             <div class="header-button">
               @guest
               <a href="#" class="theme-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -973,8 +980,8 @@
   }
 
   .header-1 .header-button .theme-btn {
-    background-color: #4e0616 !important;
-    color: #fff !important;
+    background-color: #fff !important;
+    color: #000 !important;
     border: none !important;
   }
 

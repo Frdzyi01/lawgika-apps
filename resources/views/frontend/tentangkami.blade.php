@@ -64,6 +64,12 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="mt-5">
+                        <a href="{{ asset('Company Profile.pdf') }}" download class="theme-btn py-3 px-4">
+                            <i class="fas fa-file-download me-2"></i> Unduh Company Profile (PDF)
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -208,7 +214,7 @@
     <div class="container position-relative z-1">
         <div class="row justify-content-center">
             <div class="col-lg-8 text-center text-white">
-                <h2 class="fw-bold mb-4 display-6">Siap Mewujudkan Bisnis Impian Anda?</h2>
+                <h2 class="fw-bold mb-4 display-6" style="color: #fff">Siap Mewujudkan Bisnis Impian Anda?</h2>
                 <p class="mb-5 opacity-75">Bergabunglah dengan ratusan pengusaha lainnya yang telah sukses membangun bisnis mereka bersama Lawgika. Konsultasikan kebutuhan Anda sekarang gratis!</p>
                 <div class="d-flex flex-wrap justify-content-center gap-3">
                     <a href="https://wa.me/628111111111" class="btn btn-light btn-lg px-5 py-3 rounded-pill fw-bold text-danger">

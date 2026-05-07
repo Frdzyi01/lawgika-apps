@@ -462,7 +462,7 @@
     }
 
     .pricing-card .price {
-        font-size: 2rem;
+        font-size: 1.8rem;
         font-weight: 800;
         color: var(--primary);
         text-align: center;
@@ -849,7 +849,7 @@
                         .start-text {
                             font-size: 14px;
                             color: #888;
-                            margin-left: -50px;
+                            margin-left: -20px;
                             font-weight: normal;
                         }
                     </style>

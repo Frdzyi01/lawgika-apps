@@ -684,7 +684,7 @@
                 <ul class="solution-list">
                     <li><i class="fa-regular fa-circle-check"></i> Alamat bisnis di kawasan strategis</li>
                     <li><i class="fa-regular fa-circle-check"></i> Pengelolaan surat & paket profesional</li>
-                    <li><i class="fa-regular fa-circle-check"></i> Fasilitas meeting room & coworking space</li>
+                    <li><i class="fa-regular fa-circle-check"></i> Fasilitas meeting room & podcast room</li>
                 </ul>
                 <a href="#pricing" class="btn-outline-brand">Lihat Pilihan Paket →</a>
             </div>
@@ -844,7 +844,7 @@
                         <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Call Handling</li>
                         <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Call Forwarding</li>
                     </ul>
-                    <a href="{{ route('order.create', ['service' => 'virtual-office', 'package' => 'premium']) }}" class="btn-pricing">Pilih Paket Premium</a>
+                    <a href="{{ route('order.create', ['service' => 'virtual-office', 'package' => 'premium']) }}" class="btn-pricing" style="background-color: #A0522D; color: #ffffff; font-weight: bold; border: 2px solid #facc15; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">Pilih Paket Premium</a>
                 </div>
             </div>
 
@@ -870,7 +870,7 @@
                         <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Call Handling</li>
                         <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Call Forwarding</li>
                     </ul>
-                    <a href="{{ route('order.create', ['service' => 'virtual-office', 'package' => 'eksklusif']) }}" class="btn-pricing-primary">Pilih Paket Eksklusif</a>
+                    <a href="{{ route('order.create', ['service' => 'virtual-office', 'package' => 'eksklusif']) }}" class="btn-pricing-primary" style="background-color: #A0522D; color: #ffffff; font-weight: bold; border: 2px solid #facc15; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">Pilih Paket Eksklusif</a>
                 </div>
             </div>
 
@@ -895,7 +895,7 @@
                         <li><i class="fa-solid fa-check"></i> Layanan Call Handling</li>
                         <li><i class="fa-solid fa-check"></i> Layanan Call Forwarding</li>
                     </ul>
-                    <a href="{{ route('order.create', ['service' => 'virtual-office', 'package' => 'enterprise']) }}" class="btn-pricing">Pilih Paket Enterprise</a>
+                   <a href="{{ route('order.create', ['service' => 'virtual-office', 'package' => 'enterprise']) }}" class="btn-pricing" style="background-color: #A0522D; color: #ffffff; font-weight: bold; border: 2px solid #facc15; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">Pilih Paket Enterprise</a>
                 </div>
             </div>
         </div>
