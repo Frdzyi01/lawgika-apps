@@ -447,7 +447,7 @@
             <div class="card-body px-4 pb-4">
                 <p class="text-muted small mb-0">
                     Paket <strong>{{ $packageName ?: '–' }}</strong> tidak termasuk benefit ruangan.<br>
-                    Hanya paket <b> Pendirian PT</b> <strong>Eksklusif</strong> dan <strong>Enterprise</strong> yang berhak.
+                    Hanya paket <b> Pendirian PT</b> <strong>Bundling</strong> (Enterprise) yang berhak.
                 </p>
             </div>
         </div>

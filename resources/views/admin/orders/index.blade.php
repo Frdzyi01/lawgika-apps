@@ -62,8 +62,12 @@
                         </td>
                         <td>{{ $order->service_name ?? ($order->service->name ?? '—') }}</td>
                         <td>
+                            @php
+                                $pkgSlug  = $order->form_data['package'] ?? '';
+                                $pkgLabel = \App\Http\Controllers\UniversalOrderController::$packages[$pkgSlug] ?? ucfirst($pkgSlug) ?: '—';
+                            @endphp
                             <span class="badge bg-light text-dark border">
-                                {{ ucfirst($order->form_data['package'] ?? '—') }}
+                                {{ $pkgLabel }}
                             </span>
                         </td>
                         <td>

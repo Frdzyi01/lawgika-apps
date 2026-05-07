@@ -33,23 +33,23 @@ class UniversalOrderController extends Controller
     public static array $packages = [
         'basic'        => 'Paket Basic',
         'professional' => 'Paket Professional',
-        'enterprise'   => 'Paket Enterprise',
-        'premium'      => 'Paket Premium',
-        'eksklusif'    => 'Paket Eksklusif',
+        'enterprise'   => 'Paket Bundling',
+        'premium'      => 'Paket Izin',
+        'eksklusif'    => 'Paket Izin (Lama)',
         'eksekutif'    => 'Paket Eksekutif',
     ];
 
     public static array $ptPricing = [
-        'Di bawah 1 Miliar' => ['premium' => 6030000, 'eksklusif' => 7740000, 'eksekutif' => 7740000, 'enterprise' => 8640000],
-        'Di atas 1 Miliar'  => ['premium' => 6930000, 'eksklusif' => 8640000, 'eksekutif' => 8640000, 'enterprise' => 9540000],
+        'Di bawah 1 Miliar' => ['premium' => 5000000, 'eksklusif' => 5000000, 'eksekutif' => 5000000, 'enterprise' => 9300000],
+        'Di atas 1 Miliar'  => ['premium' => 6000000, 'eksklusif' => 6000000, 'eksekutif' => 6000000, 'enterprise' => 10000000],
     ];
 
     public static array $otherPricing = [
-        'pt-perorangan' => ['basic' => 2000000, 'professional' => 6000000, 'enterprise' => 8000000],
-        'cv'            => ['premium' => 6030000, 'eksklusif' => 7740000, 'enterprise' => 8640000],
-        'firma'         => ['premium' => 6030000, 'eksklusif' => 7740000, 'enterprise' => 8640000],
-        'yayasan'       => ['premium' => 6030000, 'eksklusif' => 7740000, 'enterprise' => 8640000],
-        'pt-pma'        => ['premium' => 7830000, 'eksklusif' => 9540000, 'enterprise' => 10440000],
+        'pt-perorangan' => ['basic' => 1500000, 'professional' => 5800000, 'enterprise' => 5800000],
+        'cv'            => ['premium' => 4500000, 'eksklusif' => 4500000, 'enterprise' => 8500000],
+        'firma'         => ['premium' => 4500000, 'eksklusif' => 4500000, 'enterprise' => 8500000],
+        'yayasan'       => ['premium' => 4500000, 'eksklusif' => 4500000, 'enterprise' => 8500000],
+        'pt-pma'        => ['premium' => 7830000, 'eksklusif' => 7830000, 'enterprise' => 10440000],
         'virtual-office' => ['premium' => 2800000, 'eksklusif' => 5500000, 'enterprise' => 6800000],
     ];
 
