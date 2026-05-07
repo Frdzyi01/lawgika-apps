@@ -416,7 +416,16 @@
                 <h6 class="fw-bold mb-0">Approve Benefit Ruangan</h6>
             </div>
             <div class="card-body px-4 pb-4">
-                <p class="text-muted small mb-3">Paket <strong>{{ $packageName }}</strong> berhak mendapatkan akses ruangan berlaku 1 tahun: <strong>Meeting Room 48 Jam</strong> & <strong>Podcast Room 12 Jam</strong>.</p>
+                @php
+                    $benefitType = \App\Models\RoomBenefit::benefitTypeForOrder($order);
+                    $benefitDesc = $benefitType === 'meeting_only_12'
+                        ? '<strong>Meeting Room 12 Jam</strong>'
+                        : '<strong>Meeting Room 48 Jam</strong> &amp; <strong>Podcast Room 12 Jam</strong>';
+                    $confirmMsg  = $benefitType === 'meeting_only_12'
+                        ? 'Aktifkan benefit Meeting Room (12 Jam) untuk customer ini?\nTindakan ini tidak dapat dibatalkan.'
+                        : 'Aktifkan benefit Meeting Room (48 Jam) & Podcast Room (12 Jam) untuk customer ini?\nTindakan ini tidak dapat dibatalkan.';
+                @endphp
+                <p class="text-muted small mb-3">Paket <strong>{{ $packageName }}</strong> berhak mendapatkan akses ruangan berlaku 1 tahun: {!! $benefitDesc !!}.</p>
                 @if($hasAnyBenefit)
                 <div class="alert alert-success py-3 px-3 mb-0" style="font-size:.88rem">
                     <i class="fa fa-circle-check me-1"></i><strong>Benefit sudah diaktifkan</strong><br>
@@ -443,7 +452,7 @@
                 <form action="{{ route('admin.orders.approve-benefit', $order->id) }}" method="POST">
                     @csrf
                     <button type="submit" class="btn btn-success w-100"
-                        onclick="return confirm('Aktifkan benefit Meeting Room (48 Jam) & Podcast Room (12 Jam) untuk customer ini?\nTindakan ini tidak dapat dibatalkan.')">
+                        onclick="return confirm('{{ $confirmMsg }}')">
                         <i class="fa fa-unlock me-1"></i>Approve Benefit
                     </button>
                 </form>

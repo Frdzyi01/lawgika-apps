@@ -204,7 +204,7 @@
            @auth
            <div class="d-flex flex-column gap-2">
              @if(Auth::user()->role === 'admin')
-             <a href="/admin/dashboard" class="theme-btn text-center">
+             <a href="{{ route('admin.dashboard') }}" class="theme-btn text-center">
                Dashboard <i class="fa-solid fa-arrow-right-long"></i>
              </a>
              @else
@@ -936,7 +936,7 @@
                  </button>
                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                    @if(Auth::user()->role === 'admin')
-                   <li><a class="dropdown-item" href="/admin/dashboard">Dashboard</a></li>
+                   <li><a class="dropdown-item" href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                    @else
                    <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
                    @endif

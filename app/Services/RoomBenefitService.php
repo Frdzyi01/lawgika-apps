@@ -52,43 +52,63 @@ class RoomBenefitService
             'enterprise'   => 'Bundling',
             'professional' => 'Bundling',
             'eksklusif'    => 'Eksklusif',
-            'premium'      => 'Izin',
+            'premium'      => 'Premium',
             'basic'        => 'Izin',
         ];
 
         // Map service slug → friendly service name
         $serviceNameMap = [
-            'pendirian-pt'           => 'PT',
-            'pendirian-cv'           => 'CV',
-            'cv'                     => 'CV',
-            'pendirian-firma'        => 'Firma',
-            'firma'                  => 'Firma',
-            'pendirian-yayasan'      => 'Yayasan',
-            'yayasan'                => 'Yayasan',
-            'pendirian-pt-pma'       => 'PT PMA',
-            'pt-pma'                 => 'PT PMA',
-            'pt-perorangan'          => 'PT Perorangan',
-            'pendirian-pt-perorangan'=> 'PT Perorangan',
-            'virtual-office'         => 'Virtual Office',
+            'pendirian-pt'            => 'PT',
+            'pendirian-cv'            => 'CV',
+            'cv'                      => 'CV',
+            'pendirian-firma'         => 'Firma',
+            'firma'                   => 'Firma',
+            'pendirian-yayasan'       => 'Yayasan',
+            'yayasan'                 => 'Yayasan',
+            'pendirian-pt-pma'        => 'PT PMA',
+            'pt-pma'                  => 'PT PMA',
+            'pt-perorangan'           => 'PT Perorangan',
+            'pendirian-pt-perorangan' => 'PT Perorangan',
+            'virtual-office'          => 'Virtual Office',
         ];
 
-        $pkgLabel  = $packageLabelMap[$rawSlug] ?? ucfirst($rawSlug ?: 'Bundling');
-        $svcLabel  = $serviceNameMap[$serviceSlug] ?? '';
-
-        // Compose: "Bundling PT" / "Bundling Firma" / "Bundling CV" etc.
+        $pkgLabel   = $packageLabelMap[$rawSlug] ?? ucfirst($rawSlug ?: 'Bundling');
+        $svcLabel   = $serviceNameMap[$serviceSlug] ?? '';
         $paketLabel = $svcLabel !== '' ? "{$pkgLabel} {$svcLabel}" : $pkgLabel;
 
-        // ── Create TWO separate benefit records in one transaction ────────────
-        return DB::transaction(function () use ($order, $paketLabel) {
+        // ── Determine benefit type ────────────────────────────────────────────
+        $benefitType = RoomBenefit::benefitTypeForOrder($order);
+
+        // ── Create benefit records in one transaction ─────────────────────────
+        return DB::transaction(function () use ($order, $paketLabel, $benefitType) {
 
             $expiredAt = Carbon::now()->addYear();
+
+            if ($benefitType === 'meeting_only_12') {
+                // Virtual Office Premium → Meeting Room ONLY 12 jam
+                $meetingBenefit = RoomBenefit::create([
+                    'user_id'       => $order->user_id,
+                    'order_id'      => $order->id,
+                    'paket'         => $paketLabel . ' – Meeting Room',
+                    'total_minutes' => 720,         // 12 jam
+                    'used_minutes'  => 0,
+                    'type'          => 'meeting',
+                    'is_active'     => true,
+                    'expired_at'    => $expiredAt,
+                ]);
+
+                return [$meetingBenefit];
+            }
+
+            // Default: Bundling (enterprise / professional / eksklusif)
+            // → Meeting Room 48 jam + Podcast Room 12 jam
 
             // 1. Meeting Room — 48 jam = 2880 menit
             $meetingBenefit = RoomBenefit::create([
                 'user_id'       => $order->user_id,
                 'order_id'      => $order->id,
                 'paket'         => $paketLabel . ' – Meeting Room',
-                'total_minutes' => 2880,        // 48 hours
+                'total_minutes' => 2880,        // 48 jam
                 'used_minutes'  => 0,
                 'type'          => 'meeting',
                 'is_active'     => true,
@@ -100,7 +120,7 @@ class RoomBenefitService
                 'user_id'       => $order->user_id,
                 'order_id'      => $order->id,
                 'paket'         => $paketLabel . ' – Podcast Room',
-                'total_minutes' => 720,         // 12 hours
+                'total_minutes' => 720,         // 12 jam
                 'used_minutes'  => 0,
                 'type'          => 'podcast',
                 'is_active'     => true,

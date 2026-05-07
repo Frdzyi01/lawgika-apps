@@ -59,28 +59,60 @@ class RoomBenefit extends Model
     /**
      * ✅  CANONICAL eligibility check — use this everywhere.
      *
-     * An order is eligible when package is Bundling (enterprise / professional)
-     * for ANY pendirian badan usaha service.
-     *
-     * Accepts an Order model and reads form_data + service_name.
+     * Eligible combinations:
+     *   - virtual-office + premium   → Meeting Room 12 jam ONLY
+     *   - Any service  + enterprise  → Meeting 48 jam + Podcast 12 jam
+     *   - Any service  + professional → Meeting 48 jam + Podcast 12 jam
+     *   - Any service  + eksklusif   → Meeting 48 jam + Podcast 12 jam (legacy)
      */
     public static function isEligibleForOrder(\App\Models\Order $order): bool
     {
-        $formData = $order->form_data ?? [];
-
-        // ── 1. Resolve package slug ───────────────────────────────────────────
+        $formData    = $order->form_data ?? [];
         $packageSlug = strtolower(trim($formData['package'] ?? ''));
-
-        // ── 2. Check package first (fast rejection) ───────────────────────────
-        if (! self::isEligiblePackage($packageSlug)) return false;
-
-        // ── 3. Resolve service slug ───────────────────────────────────────────
         $serviceSlug = strtolower(trim($formData['service'] ?? ''));
         $serviceName = strtolower(trim(
             $order->service_name ?? ($order->service?->name ?? '')
         ));
 
+        // ── Special case: Virtual Office Premium → meeting-only benefit ─────────
+        $isVirtualOffice = $serviceSlug === 'virtual-office'
+            || str_contains($serviceName, 'virtual office');
+
+        if ($isVirtualOffice && $packageSlug === 'premium') {
+            return true;
+        }
+
+        // ── Standard Bundling packages ────────────────────────────────────────
+        if (! self::isEligiblePackage($packageSlug)) return false;
+
         return self::isEligibleService($serviceSlug, $serviceName);
+    }
+
+    /**
+     * Returns the benefit type for this order:
+     *   'meeting_only_12'  → Virtual Office Premium (meeting room 12 jam)
+     *   'meeting_podcast'  → Bundling semua layanan (meeting 48 + podcast 12 jam)
+     *   null               → Not eligible
+     */
+    public static function benefitTypeForOrder(\App\Models\Order $order): ?string
+    {
+        if (! self::isEligibleForOrder($order)) return null;
+
+        $formData    = $order->form_data ?? [];
+        $packageSlug = strtolower(trim($formData['package'] ?? ''));
+        $serviceSlug = strtolower(trim($formData['service'] ?? ''));
+        $serviceName = strtolower(trim(
+            $order->service_name ?? ($order->service?->name ?? '')
+        ));
+
+        $isVirtualOffice = $serviceSlug === 'virtual-office'
+            || str_contains($serviceName, 'virtual office');
+
+        if ($isVirtualOffice && $packageSlug === 'premium') {
+            return 'meeting_only_12';
+        }
+
+        return 'meeting_podcast';
     }
 
     /**
