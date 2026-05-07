@@ -5,9 +5,7 @@
 <style>
     /* ===== PAGE SPECIFIC STYLES ===== */
 
-    .container {
-        max-width: 1200px;
-    }
+
 
     /* Solusi Section */
     .pt-solution {

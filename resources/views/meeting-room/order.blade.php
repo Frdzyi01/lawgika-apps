@@ -195,7 +195,7 @@
                         <div
                             style="display:flex; justify-content:space-between; border-top:1px dashed #86efac; padding-top:8px; margin-top:8px;">
                             <span style="color:#166534;">Harga Paket</span>
-                            <strong style="color:#15803d; font-size:1.2rem;">Rp 1.000.000</strong>
+                            <strong style="color:#15803d; font-size:1.2rem;">Rp 4.800.000</strong>
                         </div>
                     </div>
                 @else
@@ -296,7 +296,7 @@
                                 <span style="color:#64748b; font-size:0.95rem; margin-right:10px;">Total Tagihan:</span>
                                 <strong style="color:var(--primary); font-size:1.4rem;" id="totalAmountDisplay">
                                     @if (request('package') == 'paket')
-                                        Rp 1.000.000
+                                        Rp 4.800.000
                                     @else
                                         Rp 150.000
                                     @endif
@@ -359,7 +359,7 @@
         }
 
         const hargaPerJam = 150000;
-        const hargaPaket = 1000000;
+        const hargaPaket = 4800000;
 
         function updateTotal() {
             const packageType = document.getElementById('package').value;
@@ -397,7 +397,7 @@
 - Bidang Usaha: ${bidang_usaha}
 - Keperluan: ${keperluan}
 - Paket: 60 Jam Meeting Room
-- Harga: Rp 1.000.000
+- Harga: Rp 4.800.000
 - Masa Berlaku: 1 Tahun
 
 Mohon konfirmasinya. Terima kasih.`;
