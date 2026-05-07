@@ -27,30 +27,40 @@ class RoomBenefit extends Model
     // ── Eligibility Rules ─────────────────────────────────────────────────────
 
     /**
-     * Package slugs that qualify for room benefits.
-     * Only these two packages are allowed — for ANY service.
-     * (The service must also match ELIGIBLE_SERVICES below.)
+     * Package slugs that qualify for room benefits (Meeting 48 Jam + Podcast 12 Jam).
+     * - 'enterprise'   → Bundling paket untuk PT, CV, Firma, Yayasan, PT PMA
+     * - 'professional' → Bundling paket untuk PT Perorangan
+     * - 'eksklusif'    → Legacy (lama), backward-compat
      */
-    public const ELIGIBLE_PACKAGES = ['eksklusif', 'enterprise'];
+    public const ELIGIBLE_PACKAGES = ['eksklusif', 'enterprise', 'professional'];
 
     /**
-     * Service slugs / name fragments that are eligible.
-     * Benefit ONLY applies to "Pendirian PT" (reguler).
-     * PT Perorangan, CV, Yayasan, Firma, PT PMA → NOT eligible.
+     * All service slugs eligible for room benefits.
+     * Any service with Paket Bundling (enterprise/professional) is now eligible.
      */
     public const ELIGIBLE_SERVICES = [
-        'pendirian-pt',    // slug in orders.form_data['service']
-        'pendirian pt',    // human-readable substring in service_name
-        'virtual-office',  // slug for virtual office
-        'virtual office',  // human-readable for virtual office
+        'pendirian-pt',
+        'pendirian-cv',
+        'pendirian-firma',
+        'pendirian-yayasan',
+        'pendirian-pt-pma',
+        'pt-perorangan',
+        'pendirian-pt-perorangan',
+        'virtual-office',
+        // human-readable fallback substrings
+        'pendirian pt',
+        'pendirian cv',
+        'pendirian firma',
+        'pendirian yayasan',
+        'pt perorangan',
+        'virtual office',
     ];
 
     /**
      * ✅  CANONICAL eligibility check — use this everywhere.
      *
-     * An order is eligible only when:
-     *   - service is exactly "Pendirian PT" (not PT Perorangan / CV / etc.), AND
-     *   - package is "Eksklusif" or "Enterprise"
+     * An order is eligible when package is Bundling (enterprise / professional)
+     * for ANY pendirian badan usaha service.
      *
      * Accepts an Order model and reads form_data + service_name.
      */
@@ -59,29 +69,22 @@ class RoomBenefit extends Model
         $formData = $order->form_data ?? [];
 
         // ── 1. Resolve package slug ───────────────────────────────────────────
-        $packageSlug = strtolower(trim($formData['package'] ?? ''));  // "eksklusif"
+        $packageSlug = strtolower(trim($formData['package'] ?? ''));
 
-        // ── 2. Resolve service slug ───────────────────────────────────────────
-        $serviceSlug = strtolower(trim($formData['service'] ?? ''));  // "pendirian-pt"
+        // ── 2. Check package first (fast rejection) ───────────────────────────
+        if (! self::isEligiblePackage($packageSlug)) return false;
+
+        // ── 3. Resolve service slug ───────────────────────────────────────────
+        $serviceSlug = strtolower(trim($formData['service'] ?? ''));
         $serviceName = strtolower(trim(
             $order->service_name ?? ($order->service?->name ?? '')
-        ));  // "pendirian pt – paket eksklusif"
+        ));
 
-        // ── 3. Check package ──────────────────────────────────────────────────
-        $packageOk = self::isEligiblePackage($packageSlug);
-        if (!$packageOk) return false;
-
-        // ── 4. Check service: must be exactly "pendirian-pt" slug ─────────────
-        //      or the service_name contains "pendirian pt" but NOT followed by
-        //      "perorangan", "pma", "cv", "yayasan", "firma".
-        $serviceOk = self::isEligibleService($serviceSlug, $serviceName);
-
-        return $serviceOk;
+        return self::isEligibleService($serviceSlug, $serviceName);
     }
 
     /**
      * Check if package slug is in the allowed list.
-     * (Used internally — prefer isEligibleForOrder() for full validation.)
      */
     public static function isEligiblePackage(string $packageSlug): bool
     {
@@ -95,43 +98,43 @@ class RoomBenefit extends Model
     }
 
     /**
-     * Check if service slug/name refers to "Pendirian PT" (reguler) only.
-     * Explicitly rejects: pt-perorangan, pt-pma, cv, yayasan, firma.
+     * Check if service slug/name is any eligible pendirian badan usaha service.
+     * All services are now eligible as long as they have the right package.
      */
     public static function isEligibleService(string $serviceSlug, string $serviceName = ''): bool
     {
-        // Rejected slugs — regardless of package
-        $rejectedSlugs = [
-            'pt-perorangan', 'pendirian-pt-perorangan',
-            'pt-pma',        'pendirian-pt-pma',
-            'cv',            'pendirian-cv',
-            'yayasan',       'pendirian-yayasan',
-            'firma',         'pendirian-firma',
+        // Allowed slugs (all pendirian badan usaha + virtual office)
+        $allowedSlugs = [
+            'pendirian-pt',
+            'pendirian-cv',
+            'pendirian-firma',
+            'pendirian-yayasan',
+            'pendirian-pt-pma',
+            'pt-perorangan',
+            'pendirian-pt-perorangan',
+            'virtual-office',
+            // Universal order slugs (as stored in form_data['service'])
+            'cv', 'firma', 'yayasan', 'pt-pma',
         ];
 
-        if (in_array($serviceSlug, $rejectedSlugs, true)) {
-            return false;
-        }
-
-        // Allowed slug: exactly "pendirian-pt" or "virtual-office"
-        if ($serviceSlug === 'pendirian-pt' || $serviceSlug === 'virtual-office') {
+        if (in_array($serviceSlug, $allowedSlugs, true)) {
             return true;
         }
 
         // Fallback: check service_name string for legacy orders without form_data
-        // Must contain "pendirian pt" or "virtual office" but NOT contain disqualifying words
-        if (str_contains($serviceName, 'pendirian pt') || str_contains($serviceName, 'virtual office')) {
-            $disqualifiers = ['perorangan', 'pma', ' cv', 'yayasan', 'firma'];
-            foreach ($disqualifiers as $d) {
-                if (str_contains($serviceName, $d)) {
-                    return false;
-                }
+        $allowedFragments = [
+            'pendirian pt', 'pendirian cv', 'pendirian firma',
+            'pendirian yayasan', 'pt perorangan', 'virtual office',
+        ];
+        foreach ($allowedFragments as $fragment) {
+            if (str_contains($serviceName, $fragment)) {
+                return true;
             }
-            return true;
         }
 
         return false;
     }
+
 
     // ── Relationships ─────────────────────────────────────────────────────────
 

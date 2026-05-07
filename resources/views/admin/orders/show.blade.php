@@ -460,7 +460,7 @@
             <div class="card-body px-4 pb-4">
                 <p class="text-muted small mb-0">
                     Paket <strong>{{ $packageName ?: '–' }}</strong> tidak termasuk benefit ruangan.<br>
-                    Hanya paket <b> Pendirian PT</b> <strong>Bundling</strong> (Enterprise) yang berhak.
+                    Benefit ruangan hanya untuk <strong>Paket Bundling</strong> (semua layanan Pendirian Badan Usaha).
                 </p>
             </div>
         </div>

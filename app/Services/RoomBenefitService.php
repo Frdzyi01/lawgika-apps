@@ -38,16 +38,45 @@ class RoomBenefitService
         if (! RoomBenefit::isEligibleForOrder($order)) {
             throw new \RuntimeException(
                 'Paket "' . ($order->service_name ?? '-') . '" tidak memenuhi syarat untuk benefit ruangan. ' .
-                'Benefit HANYA untuk Pendirian PT – Paket Bundling (Enterprise).'
+                'Benefit hanya untuk Paket Bundling (semua layanan Pendirian Badan Usaha).'
             );
         }
 
-        // Build a clean, human-readable label to store in the benefit record.
-        $formData   = $order->form_data ?? [];
-        $rawSlug    = strtolower(trim($formData['package'] ?? ''));
-        $paketLabel = $rawSlug !== ''
-            ? ucfirst($rawSlug)                          // "Enterprise" / "Eksklusif"
-            : ($order->service_name ?? 'PT Package');    // fallback for legacy
+        // ── Build a descriptive, human-readable label ─────────────────────────
+        $formData    = $order->form_data ?? [];
+        $rawSlug     = strtolower(trim($formData['package'] ?? ''));
+        $serviceSlug = strtolower(trim($formData['service'] ?? ''));
+
+        // Map package slug → friendly label
+        $packageLabelMap = [
+            'enterprise'   => 'Bundling',
+            'professional' => 'Bundling',
+            'eksklusif'    => 'Eksklusif',
+            'premium'      => 'Izin',
+            'basic'        => 'Izin',
+        ];
+
+        // Map service slug → friendly service name
+        $serviceNameMap = [
+            'pendirian-pt'           => 'PT',
+            'pendirian-cv'           => 'CV',
+            'cv'                     => 'CV',
+            'pendirian-firma'        => 'Firma',
+            'firma'                  => 'Firma',
+            'pendirian-yayasan'      => 'Yayasan',
+            'yayasan'                => 'Yayasan',
+            'pendirian-pt-pma'       => 'PT PMA',
+            'pt-pma'                 => 'PT PMA',
+            'pt-perorangan'          => 'PT Perorangan',
+            'pendirian-pt-perorangan'=> 'PT Perorangan',
+            'virtual-office'         => 'Virtual Office',
+        ];
+
+        $pkgLabel  = $packageLabelMap[$rawSlug] ?? ucfirst($rawSlug ?: 'Bundling');
+        $svcLabel  = $serviceNameMap[$serviceSlug] ?? '';
+
+        // Compose: "Bundling PT" / "Bundling Firma" / "Bundling CV" etc.
+        $paketLabel = $svcLabel !== '' ? "{$pkgLabel} {$svcLabel}" : $pkgLabel;
 
         // ── Create TWO separate benefit records in one transaction ────────────
         return DB::transaction(function () use ($order, $paketLabel) {
