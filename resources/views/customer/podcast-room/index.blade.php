@@ -65,7 +65,7 @@
                                     @elseif($booking->status === 'checkin')
                                         <span class="badge bg-primary">Sedang Digunakan</span>
                                     @else
-                                        <span class="badge bg-secondary">Selesai / Paused</span>
+                                        <span class="badge bg-secondary">Menunggu Approved Admin</span>
                                     @endif
                                 </td>
                             </tr>

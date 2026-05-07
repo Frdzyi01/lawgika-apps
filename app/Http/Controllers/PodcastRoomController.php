@@ -63,7 +63,7 @@ class PodcastRoomController extends Controller
             'podcast_title' => 'nullable|string|max:255',
             'tanggal'       => 'required|date',
             'jam'           => 'required',
-            'durasi'        => 'required|integer|min:2|max:4',
+            'durasi'        => 'required|integer|min:1|max:12',
             'use_quota'     => 'nullable|boolean',
         ];
 
@@ -134,9 +134,17 @@ class PodcastRoomController extends Controller
             $path = $request->file('payment_proof')->store('payment_proofs/podcast', 'public');
         }
 
-        $durasi   = (int) $request->durasi;
-        if ($durasi < 2 || $durasi % 2 !== 0) $durasi = 2;
-        $price    = ($durasi / 2) * 500000;
+        $durasi = (int) $request->durasi;
+        if ($durasi < 1) $durasi = 1;
+
+        // Podcast Pricing: 1 jam = 500.000, 2 jam = 800.000, >2 jam = 800.000 + (n-2) * 300.000
+        if ($durasi === 1) {
+            $price = 500000;
+        } elseif ($durasi === 2) {
+            $price = 800000;
+        } else {
+            $price = 800000 + (($durasi - 2) * 300000);
+        }
         $orderNum = 'PODCAST-' . date('Ymd') . '-' . strtoupper(Str::random(5));
 
         PodcastRoomBooking::create([
