@@ -914,14 +914,22 @@
                     <ul class="feature-list">
                         <li><i class="fa-solid fa-check"></i> Pengecekan Nama PT</li>
                         <li><i class="fa-solid fa-check"></i> Pemesanan Nama PT</li>
-                        <li><i class="fa-solid fa-check"></i> Akta Pendirian Elektronik</li>
-                        <li><i class="fa-solid fa-check"></i> SK Kemenkumham Terbit</li>
-                        <li><i class="fa-solid fa-check"></i> NPWP Badan Usaha</li>
-                        <li><i class="fa-solid fa-check"></i> NIB & Izin Usaha</li>
-                        <li><i class="fa-solid fa-check"></i> Rekening Bank PT</li>
-                        <li><i class="fa-solid fa-check"></i> Konsultasi Legal VIP</li>
-                        <li><i class="fa-solid fa-check"></i> Pendampingan 6 Bulan</li>
-                        <li><i class="fa-solid fa-check"></i> Review Kontrak Bisnis</li>
+                        <li><i class="fa-solid fa-check"></i> PERNYATAAN PENDAFTARAN</li>
+                        <li><i class="fa-solid fa-check"></i> SERTIFIKAT PENDAFATARAN MENKUMHAM </li>
+                        <li><i class="fa-solid fa-check"></i> NPWP & SKT</li>
+                        <li><i class="fa-solid fa-check"></i> NOMOR INDUK BERUSAHA</li>
+                        <li><i class="fa-solid fa-check"></i> ALAMAT BISNIS EKSKLUSIF</li>
+                        <li><i class="fa-solid fa-check"></i> MEETING ROOM (48 JAM) & PODCAST ROOM (12 JAM)</li>
+                        <li><i class="fa-solid fa-check"></i> AKSES WIFI & SMART TV</li>
+                        <li><i class="fa-solid fa-check"></i> LAYANAN PRINT, SCAN & FOTOCOPY</li>
+                        <li><i class="fa-solid fa-check"></i> PENGELOLAAN SURAT DAN PAKET</li>
+                        <li><i class="fa-solid fa-check"></i> NOTIFIKASI SURAT DAN PAKET MASUK</li>
+                        <li><i class="fa-solid fa-check"></i> SURAT KETERANGAN DOMISILI</li>
+                        <li><i class="fa-solid fa-check"></i> AKSES KOMUNITAS BUSINESS</li>
+                        <li><i class="fa-solid fa-check"></i> LAYANAN RESEPSIONIS</li>
+                        <li><i class="fa-solid fa-check"></i> DASHBOARD LOGIN CUSTOMER</li>
+                        <li><i class="fa-solid fa-check"></i> SIGNAGE DISPLAY</li>
+                        <li><i class="fa-solid fa-check"></i> LAYANAN CALL HANDLING</li>
                     </ul>
                     <button onclick="goOrder('pt-perorangan','enterprise')" class="btn-pricing w-100">Pilih Paket Enterprise</button>
                 </div>
