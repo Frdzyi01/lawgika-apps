@@ -507,7 +507,7 @@
                     <a href="#pricing" class="btn-outline-brand">Lihat Harga Layanan →</a>
                 </div>
                 <div class="col-lg-6">
-                    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&auto=format"
+                    <img src="{{ asset('buyer-file/assets/img/meetingroom/ruang.png') }}"
                         alt="Meeting Room" class="img-fluid-rounded">
                 </div>
             </div>

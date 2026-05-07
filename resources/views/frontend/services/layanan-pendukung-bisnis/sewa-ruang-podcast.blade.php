@@ -95,7 +95,7 @@
         border-radius: 16px;
         text-align: center;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-        border: 1px solid rgba(0,0,0,0.03);
+        border: 1px solid rgba(0, 0, 0, 0.03);
         transition: all 0.3s ease;
         height: 100%;
     }
@@ -349,6 +349,7 @@
     .page-title-area {
         overflow: hidden;
     }
+
     .page-title-area::before {
         content: '';
         position: absolute;
@@ -356,17 +357,20 @@
         background: linear-gradient(180deg, rgba(26, 2, 8, 0.4) 0%, rgba(26, 2, 8, 0.8) 100%);
         z-index: 0;
     }
+
     .page-title-content h1 {
         line-height: 1.1;
         letter-spacing: -1px;
     }
+
     .btn-pricing {
         border-radius: 999px !important;
         transition: all 0.3s ease;
     }
+
     .btn-pricing:hover {
         transform: translateY(-3px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     }
 
     .gallery-overlay {
@@ -416,7 +420,7 @@
     #lightbox-overlay {
         position: fixed;
         inset: 0;
-        background: rgba(0,0,0,0.9);
+        background: rgba(0, 0, 0, 0.9);
         z-index: 10000;
         display: none;
         justify-content: center;
@@ -424,12 +428,14 @@
         padding: 40px;
         backdrop-filter: blur(5px);
     }
+
     #lightbox-overlay img {
         max-width: 100%;
         max-height: 100%;
         border-radius: 10px;
-        box-shadow: 0 0 50px rgba(0,0,0,0.5);
+        box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
     }
+
     #lightbox-close {
         position: absolute;
         top: 30px;
@@ -487,7 +493,7 @@
                 <a href="#pricing" class="btn-outline-brand">Lihat Harga Paket →</a>
             </div>
             <div class="col-lg-6">
-                <img src="https://images.unsplash.com/photo-1598550874175-4d0ef436c909?w=800&auto=format" alt="Podcast Studio" class="img-fluid-rounded">
+                <img src="{{ asset('buyer-file/assets/img/podcastroom/ruang.png') }}" alt="Podcast Studio" class="img-fluid-rounded">
             </div>
         </div>
     </div>

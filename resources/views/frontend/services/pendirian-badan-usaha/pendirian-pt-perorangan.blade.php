@@ -855,14 +855,22 @@
                     <ul class="feature-list">
                         <li><i class="fa-solid fa-check"></i> Pengecekan Nama PT</li>
                         <li><i class="fa-solid fa-check"></i> Pemesanan Nama PT</li>
-                        <li><i class="fa-solid fa-check"></i> Akta Pendirian Elektronik</li>
-                        <li><i class="fa-solid fa-check"></i> SK Kemenkumham Terbit</li>
-                        <li><i class="fa-solid fa-check"></i> NPWP Badan Usaha</li>
-                        <li><i class="fa-solid fa-check"></i> NIB & Izin Usaha</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Rekening Bank PT</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Konsultasi Legal VIP</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Pendampingan 6 Bulan</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Review Kontrak Bisnis</li>
+                        <li><i class="fa-solid fa-check"></i> PERNYATAAN PENDAFTARAN</li>
+                        <li><i class="fa-solid fa-check"></i> SERTIFIKAT PENDAFATARAN MENKUMHAM </li>
+                        <li><i class="fa-solid fa-check"></i> NPWP & SKT</li>
+                        <li><i class="fa-solid fa-check"></i> NOMOR INDUK BERUSAHA</li>
+                        <li class="disabled"><i class="fa-solid fa-minus"></i> ALAMAT BISNIS EKSKLUSIF</li>
+                        <li class="disabled"><i class="fa-solid fa-minus"></i> MEETING ROOM (48 JAM) & PODCAST ROOM (12 JAM)</li>
+                        <li class="disabled"><i class="fa-solid fa-minus"></i> AKSES WIFI & SMART TV</li>
+                        <li class="disabled"><i class="fa-solid fa-minus"></i> LAYANAN PRINT, SCAN & FOTOCOPY</li>
+                        <li class="disabled"><i class="fa-solid fa-minus"></i> PENGELOLAAN SURAT DAN PAKET</li>
+                        <li class="disabled"><i class="fa-solid fa-minus"></i> NOTIFIKASI SURAT DAN PAKET MASUK</li>
+                        <li class="disabled"><i class="fa-solid fa-minus"></i> SURAT KETERANGAN DOMISILI</li>
+                        <li class="disabled"><i class="fa-solid fa-minus"></i> AKSES KOMUNITAS BUSINESS</li>
+                        <li class="disabled"><i class="fa-solid fa-minus"></i> LAYANAN RESEPSIONIS</li>
+                        <li class="disabled"><i class="fa-solid fa-minus"></i> DASHBOARD LOGIN CUSTOMER</li>
+                        <li class="disabled"><i class="fa-solid fa-minus"></i> SIGNAGE DISPLAY</li>
+                        <li class="disabled"><i class="fa-solid fa-minus"></i> LAYANAN CALL HANDLING</li>
                     </ul>
                     <button onclick="goOrder('pt-perorangan','basic')" class="btn-pricing w-100">Pilih Paket Basic</button>
                 </div>
@@ -877,14 +885,22 @@
                     <ul class="feature-list">
                         <li><i class="fa-solid fa-check"></i> Pengecekan Nama PT</li>
                         <li><i class="fa-solid fa-check"></i> Pemesanan Nama PT</li>
-                        <li><i class="fa-solid fa-check"></i> Akta Pendirian Elektronik</li>
-                        <li><i class="fa-solid fa-check"></i> SK Kemenkumham Terbit</li>
-                        <li><i class="fa-solid fa-check"></i> NPWP Badan Usaha</li>
-                        <li><i class="fa-solid fa-check"></i> NIB & Izin Usaha</li>
-                        <li><i class="fa-solid fa-check"></i> Rekening Bank PT</li>
-                        <li><i class="fa-solid fa-check"></i> Konsultasi Legal VIP</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Pendampingan 6 Bulan</li>
-                        <li class="disabled"><i class="fa-solid fa-minus"></i> Review Kontrak Bisnis</li>
+                        <li><i class="fa-solid fa-check"></i> PERNYATAAN PENDAFTARAN</li>
+                        <li><i class="fa-solid fa-check"></i> SERTIFIKAT PENDAFATARAN MENKUMHAM </li>
+                        <li><i class="fa-solid fa-check"></i> NPWP & SKT</li>
+                        <li><i class="fa-solid fa-check"></i> NOMOR INDUK BERUSAHA</li>
+                        <li><i class="fa-solid fa-check"></i> ALAMAT BISNIS EKSKLUSIF</li>
+                        <li><i class="fa-solid fa-check"></i> MEETING ROOM (48 JAM) & PODCAST ROOM (12 JAM)</li>
+                        <li><i class="fa-solid fa-check"></i> AKSES WIFI & SMART TV</li>
+                        <li><i class="fa-solid fa-check"></i> LAYANAN PRINT, SCAN & FOTOCOPY</li>
+                        <li><i class="fa-solid fa-check"></i> PENGELOLAAN SURAT DAN PAKET</li>
+                        <li><i class="fa-solid fa-check"></i> NOTIFIKASI SURAT DAN PAKET MASUK</li>
+                        <li><i class="fa-solid fa-check"></i> SURAT KETERANGAN DOMISILI</li>
+                        <li><i class="fa-solid fa-check"></i> AKSES KOMUNITAS BUSINESS</li>
+                        <li><i class="fa-solid fa-check"></i> LAYANAN RESEPSIONIS</li>
+                        <li><i class="fa-solid fa-check"></i> DASHBOARD LOGIN CUSTOMER</li>
+                        <li><i class="fa-solid fa-check"></i> SIGNAGE DISPLAY</li>
+                        <li><i class="fa-solid fa-check"></i> LAYANAN CALL HANDLING</li>
                     </ul>
                     <button onclick="goOrder('pt-perorangan','professional')" class="btn-pricing-primary w-100">Pilih Paket Professional</button>
                 </div>
@@ -954,13 +970,13 @@
     // ── Universal goOrder ──────────────────────────────────────────────────
     function goOrder(service, pkg) {
         @guest
-            const loginModal = new bootstrap.Modal(document.getElementById('exampleModal'));
-            loginModal.show();
-            return;
+        const loginModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+        loginModal.show();
+        return;
         @endguest
 
         @auth
-            window.location.href = '/order/' + service + '/' + pkg;
+        window.location.href = '/order/' + service + '/' + pkg;
         @endauth
     }
 

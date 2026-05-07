@@ -627,7 +627,7 @@
               <div class="hero-slide-badge"><i class="fas fa-star"></i> Layanan Unggulan</div>
               <h1 class="hero-slide-title">Konsultasi <span>Bisnis &amp; Legal</span><br>Profesional</h1>
               <p class="hero-slide-desc">Dapatkan panduan hukum dan bisnis dari para ahli berpengalaman. Kami membantu Anda mengelola regulasi, risiko hukum, dan strategi bisnis secara komprehensif.</p>
-              <a href="/layanan-konsultasi-bisnis" class="hero-slide-cta">Mulai Konsultasi <i class="fas fa-arrow-right"></i></a>
+              <a href="/perizinan-dan-hukum" class="hero-slide-cta">Mulai Konsultasi <i class="fas fa-arrow-right"></i></a>
               <div class="hero-trust">
                 <div class="hero-trust-item"><i class="fas fa-check-circle"></i> 500+ Klien</div>
                 <div class="hero-trust-item"><i class="fas fa-check-circle"></i> Konsultan Profesional</div>
@@ -2408,7 +2408,7 @@
       DATABASE PERATURAN — PREMIUM UPGRADE
    ================================================================ */
   .data-center-section {
-    background: linear-gradient(145deg, #f0f4ff 0%, #e8ecff 40%, #f5f0ff 70%, #eef2ff 100%) !important;
+    background: linear-gradient(145deg, #fff5f5 0%, #fdeeee 40%, #fff0f0 70%, #fff5f5 100%) !important;
     position: relative;
     overflow: hidden;
     transform: translateZ(0);
@@ -2422,7 +2422,7 @@
     position: absolute;
     width: 520px;
     height: 520px;
-    background: radial-gradient(circle, rgba(99, 102, 241, 0.10) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(128, 0, 0, 0.08) 0%, transparent 70%);
     top: -120px;
     right: -100px;
     border-radius: 50%;
@@ -2436,7 +2436,7 @@
     position: absolute;
     width: 400px;
     height: 400px;
-    background: radial-gradient(circle, rgba(139, 92, 246, 0.09) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(139, 0, 0, 0.07) 0%, transparent 70%);
     bottom: -80px;
     left: -80px;
     border-radius: 50%;
@@ -2447,11 +2447,11 @@
 
   .peraturan-container {
     background: rgba(255, 255, 255, 0.92);
-    border: 1px solid rgba(99, 102, 241, 0.13);
+    border: 1px solid rgba(128, 0, 0, 0.10);
     border-radius: 24px;
     box-shadow:
       0 4px 6px rgba(0, 0, 0, 0.04),
-      0 20px 60px rgba(99, 102, 241, 0.13),
+      0 20px 60px rgba(128, 0, 0, 0.08),
       0 40px 80px rgba(0, 0, 0, 0.06);
     padding: 52px 48px 48px;
     position: relative;
@@ -2464,18 +2464,18 @@
   .data-center-section .section-title h2 {
     font-size: 2.1rem;
     font-weight: 800;
-    color: #1e1b4b;
+    color: #2d0404;
     letter-spacing: -0.5px;
     margin-top: 10px;
   }
 
   .data-center-section .section-title .style-bg {
-    color: #6366f1;
+    color: #800000;
     font-size: 0.8rem;
     font-weight: 700;
     letter-spacing: 1px;
     text-transform: uppercase;
-    background: rgba(99, 102, 241, 0.09);
+    background: rgba(128, 0, 0, 0.07);
     padding: 4px 14px;
     border-radius: 20px;
   }
@@ -2497,7 +2497,7 @@
   .dc-stat-num {
     font-size: 1.55rem;
     font-weight: 800;
-    color: #4f46e5;
+    color: #800000;
     line-height: 1.1;
   }
 
@@ -2513,7 +2513,7 @@
   .dc-stat-divider {
     width: 1px;
     height: 36px;
-    background: rgba(99, 102, 241, 0.15);
+    background: rgba(128, 0, 0, 0.12);
   }
 
   /* Logo trust row */
@@ -2525,8 +2525,8 @@
     gap: 24px;
     margin: 28px 0 32px;
     padding: 20px 24px;
-    background: rgba(99, 102, 241, 0.04);
-    border: 1px solid rgba(99, 102, 241, 0.09);
+    background: rgba(128, 0, 0, 0.03);
+    border: 1px solid rgba(128, 0, 0, 0.07);
     border-radius: 16px;
   }
 
@@ -2570,7 +2570,7 @@
   .dc-logo-divider {
     width: 1px;
     height: 38px;
-    background: rgba(99, 102, 241, 0.15);
+    background: rgba(128, 0, 0, 0.12);
     flex-shrink: 0;
   }
 
@@ -2586,9 +2586,9 @@
   .dc-tag {
     display: inline-flex;
     align-items: center;
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(139, 92, 246, 0.08) 100%);
-    border: 1px solid rgba(99, 102, 241, 0.20);
-    color: #4f46e5;
+    background: linear-gradient(135deg, rgba(128, 0, 0, 0.06) 0%, rgba(180, 0, 0, 0.06) 100%);
+    border: 1px solid rgba(128, 0, 0, 0.15);
+    color: #800000;
     font-size: 0.72rem;
     font-weight: 600;
     padding: 5px 13px;
@@ -2600,9 +2600,9 @@
   }
 
   .dc-tag:hover {
-    background: rgba(99, 102, 241, 0.14);
-    border-color: #6366f1;
-    color: #3730a3;
+    background: rgba(128, 0, 0, 0.12);
+    border-color: #800000;
+    color: #600000;
   }
 
   .dc-tag.dc-tag-hidden {
@@ -2618,8 +2618,8 @@
     align-items: center;
     gap: 4px;
     background: transparent;
-    border: 1.5px dashed rgba(99, 102, 241, 0.35);
-    color: #6366f1;
+    border: 1.5px dashed rgba(128, 0, 0, 0.30);
+    color: #800000;
     font-size: 0.72rem;
     font-weight: 600;
     padding: 5px 13px;
@@ -2629,9 +2629,9 @@
   }
 
   .dc-show-more:hover {
-    border-color: #6366f1;
-    color: #4f46e5;
-    background: rgba(99, 102, 241, 0.07);
+    border-color: #800000;
+    color: #800000;
+    background: rgba(128, 0, 0, 0.05);
   }
 
   /* CTA Button */
@@ -2639,14 +2639,14 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #3b82f6 100%);
+    background: linear-gradient(135deg, #800000 0%, #a52a2a 50%, #4e0616 100%);
     color: #fff !important;
     border: none;
     border-radius: 12px;
     padding: 14px 36px;
     font-size: 1rem;
     font-weight: 700;
-    box-shadow: 0 4px 16px rgba(99, 102, 241, 0.30);
+    box-shadow: 0 4px 16px rgba(128, 0, 0, 0.25);
     cursor: pointer;
     transition: transform 0.15s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.15s ease-out;
     transform: translateZ(0);
@@ -2665,7 +2665,7 @@
 
   .peraturan-btn:hover {
     transform: translateY(-2px) translateZ(0);
-    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.38);
+    box-shadow: 0 8px 24px rgba(128, 0, 0, 0.35);
     color: #fff !important;
   }
 

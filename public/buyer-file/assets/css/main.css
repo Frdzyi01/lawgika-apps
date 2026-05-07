@@ -2579,7 +2579,7 @@ span {
   transform: translateY(0px);
 }
 .header-main .header-right {
-  gap: 40px;
+  gap: 82px;
 }
 @media (max-width: 1399px) {
   .header-main .header-right {
