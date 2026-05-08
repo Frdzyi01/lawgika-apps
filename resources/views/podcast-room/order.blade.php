@@ -240,6 +240,33 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);}
             </div>
         @endif
 
+        {{-- Benefit Choice (jika user punya active benefit dari paket PT) --}}
+        @if(isset($activeBenefit) && $activeBenefit)
+            <div id="benefitChoiceBox" style="background:#f0fdf4; border:1px solid #86efac; border-radius:10px; padding:20px; margin-bottom:20px;">
+                <h5 style="color:#15803d; font-weight:700; margin-bottom:8px;"><i class="fa-solid fa-gift"></i> Anda Memiliki Benefit Paket</h5>
+                <p style="color:#166534; margin-bottom:14px; font-size:.9rem;">
+                    Benefit: <strong>{{ $activeBenefit->paket }}</strong> — Sisa:
+                    <strong>{{ \App\Models\RoomBenefit::formatMinutes($activeBenefit->remaining_minutes) }}</strong>
+                    (Berlaku hingga {{ $activeBenefit->expired_at ? $activeBenefit->expired_at->format('d M Y') : 'Tanpa Expired' }})
+                </p>
+                <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                    <label style="cursor:pointer; padding:10px 18px; border:2px solid #16a34a; border-radius:8px; font-weight:600; font-size:.88rem; display:flex; align-items:center; gap:6px;">
+                        <input type="radio" name="benefit_choice" value="use_benefit" id="useBenefitRadio"
+                            {{ old('benefit_choice','use_benefit') === 'use_benefit' ? 'checked' : '' }}
+                            onchange="onBenefitChoiceChange()" style="margin:0;">
+                        <span style="color:#15803d;">✅ Gunakan Benefit Gratis</span>
+                    </label>
+                    <label style="cursor:pointer; padding:10px 18px; border:2px solid #94a3b8; border-radius:8px; font-weight:600; font-size:.88rem; display:flex; align-items:center; gap:6px;">
+                        <input type="radio" name="benefit_choice" value="pay_manual" id="payManualRadio"
+                            {{ old('benefit_choice') === 'pay_manual' ? 'checked' : '' }}
+                            onchange="onBenefitChoiceChange()" style="margin:0;">
+                        <span style="color:#374151;">💳 Bayar Mandiri (Upload Bukti Transfer)</span>
+                    </label>
+                </div>
+            </div>
+            <input type="hidden" name="pay_manually" id="payManuallyInput" value="{{ old('benefit_choice') === 'pay_manual' ? '1' : '0' }}">
+        @endif
+
         {{-- Payment Info --}}
         <div id="payment-section">
             <div class="bank-box">
@@ -373,9 +400,18 @@ function showFile(input) {
 }
 
 function togglePaymentProof() {
-    const useQuota         = document.getElementById('use_quota');
-    const paymentSection   = document.getElementById('payment-section');
+    const useQuota          = document.getElementById('use_quota');
+    const payManualRadio    = document.getElementById('payManualRadio');
+    const paymentSection    = document.getElementById('payment-section');
     const paymentProofInput = document.getElementById('payment_proof');
+
+    // Jika user memilih bayar mandiri (meski punya benefit)
+    if (payManualRadio && payManualRadio.checked) {
+        paymentSection.style.display = 'block';
+        paymentProofInput.required   = true;
+        return;
+    }
+    // Jika menggunakan quota lama
     if (useQuota && useQuota.checked) {
         paymentSection.style.display = 'none';
         paymentProofInput.required   = false;
@@ -385,8 +421,29 @@ function togglePaymentProof() {
     }
 }
 
+function onBenefitChoiceChange() {
+    const useBenefit     = document.getElementById('useBenefitRadio');
+    const payManually    = document.getElementById('payManualRadio');
+    const payManInput    = document.getElementById('payManuallyInput');
+    const paySection     = document.getElementById('payment-section');
+    const payProofInput  = document.getElementById('payment_proof');
+
+    if (payManually && payManually.checked) {
+        // Pilih bayar mandiri
+        if (payManInput) payManInput.value = '1';
+        paySection.style.display  = 'block';
+        payProofInput.required    = true;
+    } else {
+        // Pilih pakai benefit gratis
+        if (payManInput) payManInput.value = '0';
+        paySection.style.display  = 'none';
+        payProofInput.required    = false;
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     updateSummary();
+    onBenefitChoiceChange();
     togglePaymentProof();
 
     // Min date = today

@@ -93,6 +93,7 @@
                             <th>Waktu & Paket</th>
                             <th>Judul Podcast</th>
                             <th>Total</th>
+                            <th>Bukti Bayar</th>
                             <th>Status Pembayaran</th>
                             <th>Pemakaian</th>
                             <th>Status Ruangan</th>
@@ -109,6 +110,27 @@
                             </td>
                             <td>{{ $b->podcast_title ?? '–' }}</td>
                             <td>Rp {{ number_format($b->total_price,0,',','.') }}</td>
+                            {{-- Bukti Bayar (Customer View) --}}
+                            <td>
+                                @if($b->payment_proof)
+                                    <a href="{{ asset('storage/'.$b->payment_proof) }}" target="_blank">
+                                        <img src="{{ asset('storage/'.$b->payment_proof) }}"
+                                            style="width:60px;height:60px;object-fit:cover;border-radius:8px;border:1px solid #e2e8f0;"
+                                            title="Klik untuk melihat bukti bayar">
+                                    </a>
+                                    <div style="font-size:.75rem;margin-top:4px;">
+                                        @if($b->payment_status==='approved')
+                                            <span class="text-success fw-bold">✅ Diterima</span>
+                                        @elseif($b->payment_status==='rejected')
+                                            <span class="text-danger fw-bold">❌ Ditolak</span>
+                                        @else
+                                            <span class="text-warning fw-bold">⏳ Menunggu</span>
+                                        @endif
+                                    </div>
+                                @else
+                                    <span class="text-muted small">Belum upload</span>
+                                @endif
+                            </td>
                             <td>
                                 @if($b->payment_status==='approved')
                                     <span class="badge bg-success">✅ Pembayaran diterima</span>
@@ -143,7 +165,7 @@
                             </td>
                         </tr>
                         @empty
-                        <tr><td colspan="7" class="text-center">Anda belum memiliki reservasi ruang podcast.</td></tr>
+                        <tr><td colspan="8" class="text-center">Anda belum memiliki reservasi ruang podcast.</td></tr>
                         @endforelse
                     </tbody>
                 </table>

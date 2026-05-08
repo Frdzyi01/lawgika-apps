@@ -71,6 +71,11 @@ class PodcastRoomController extends Controller
             $rules['payment_proof'] = 'required|image|mimes:jpg,jpeg,png|max:2048';
         }
 
+        // Jika user punya benefit tapi memilih bayar mandiri
+        if (!$request->input('use_quota') && $request->input('pay_manually') == '1') {
+            $rules['payment_proof'] = 'required|image|mimes:jpg,jpeg,png|max:2048';
+        }
+
         $request->validate($rules);
 
         // Double-booking guard
@@ -85,6 +90,11 @@ class PodcastRoomController extends Controller
         }
 
         $benefit = $this->getActiveBenefit();
+
+        // Jika user sengaja memilih bayar mandiri (skip benefit)
+        if ($request->input('pay_manually') == '1') {
+            $benefit = null; // Paksa masuk manual flow
+        }
 
         if ($benefit) {
             // ── BENEFIT FLOW ──────────────────────────────────────────────────
