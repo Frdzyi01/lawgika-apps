@@ -113,7 +113,7 @@
           <ul class="navbar-nav align-items-center">
             <li class="nav-item">
               <a class="nav-link" style="margin: 45px;" href="{{ url('/') }}" title="Kembali ke Landing Utama">
-                <span>landingpage</span>
+                <div class=""><ion-icon name="globe-outline"></ion-icon></div>
               </a>
             </li>
 
