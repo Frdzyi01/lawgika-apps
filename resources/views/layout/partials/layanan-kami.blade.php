@@ -534,7 +534,7 @@
                   <div class="layanan-card-title">Pendirian PT Perorangan</div>
                   <div class="layanan-card-desc">Layanan pendirian PT Perorangan dengan proses cepat dan sesuai regulasi.</div>
                   <div class="layanan-card-price-label">Price</div>
-                  <div class="layanan-card-price"><span>Start From</span> Rp. 2.000.000</div>
+                  <div class="layanan-card-price"><span>Start From</span> Rp. 1.500.000</div>
                   <a href="{{ url('/pendirian-pt-perorangan') }}" class="layanan-card-btn">Order Now</a>
                 </div>
               </div>
@@ -551,7 +551,7 @@
                   <div class="layanan-card-title">Pendirian PT</div>
                   <div class="layanan-card-desc">Pendirian Perseroan Terbatas (PT) lengkap dengan legalitas resmi.</div>
                   <div class="layanan-card-price-label">Price</div>
-                  <div class="layanan-card-price"><span>Start From</span> Rp. 6.030.000</div>
+                  <div class="layanan-card-price"><span>Start From</span> Rp. 5.000.000</div>
                   <a href="{{ url('/pendirian-pt') }}" class="layanan-card-btn">Order Now</a>
                 </div>
               </div>
@@ -585,7 +585,7 @@
                   <div class="layanan-card-title">Pendirian CV</div>
                   <div class="layanan-card-desc">Pengurusan pendirian CV dengan proses mudah dan biaya terjangkau.</div>
                   <div class="layanan-card-price-label">Price</div>
-                  <div class="layanan-card-price"><span>Start From</span> Rp. 6.030.000</div>
+                  <div class="layanan-card-price"><span>Start From</span> Rp. 4.500.000</div>
                   <a href="{{ url('/pendirian-cv') }}" class="layanan-card-btn">Order Now</a>
                 </div>
               </div>
@@ -602,7 +602,7 @@
                   <div class="layanan-card-title">Pendirian Yayasan</div>
                   <div class="layanan-card-desc">Layanan pendirian yayasan untuk kegiatan sosial dan pendidikan.</div>
                   <div class="layanan-card-price-label">Price</div>
-                  <div class="layanan-card-price"><span>Start From</span> Rp. 6.030.000</div>
+                  <div class="layanan-card-price"><span>Start From</span> Rp. 4.500.000</div>
                   <a href="{{ url('/pendirian-yayasan') }}" class="layanan-card-btn">Order Now</a>
                 </div>
               </div>
@@ -619,7 +619,7 @@
                   <div class="layanan-card-title">Pendirian Firma</div>
                   <div class="layanan-card-desc">Pengurusan pendirian Firma untuk usaha bersama dengan legalitas lengkap.</div>
                   <div class="layanan-card-price-label">Price</div>
-                  <div class="layanan-card-price"><span>Start From</span> Rp. 6.030.000</div>
+                  <div class="layanan-card-price"><span>Start From</span> Rp. 4.500.000</div>
                   <a href="{{ url('/pendirian-firma') }}" class="layanan-card-btn">Order Now</a>
                 </div>
               </div>
