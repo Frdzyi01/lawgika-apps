@@ -526,7 +526,7 @@
             <div class="swiper-slide">
               <div class="layanan-card">
                 <div class="layanan-card-img-wrap">
-                  <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=500&q=80"
+                  <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=500&q=80"
                     alt="Pendirian PT Perorangan" loading="lazy">
                   <span class="layanan-card-badge">Populer</span>
                 </div>
@@ -544,7 +544,7 @@
             <div class="swiper-slide">
               <div class="layanan-card">
                 <div class="layanan-card-img-wrap">
-                  <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=500&q=80"
+                  <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=500&q=80"
                     alt="Pendirian PT" loading="lazy">
                 </div>
                 <div class="layanan-card-body">
@@ -561,7 +561,7 @@
             <div class="swiper-slide">
               <div class="layanan-card">
                 <div class="layanan-card-img-wrap">
-                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&q=80"
+                  <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=500&q=80"
                     alt="Pendirian PT PMA" loading="lazy">
                 </div>
                 <div class="layanan-card-body">
@@ -578,7 +578,7 @@
             <div class="swiper-slide">
               <div class="layanan-card">
                 <div class="layanan-card-img-wrap">
-                  <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=500&q=80"
+                  <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=500&q=80"
                     alt="Pendirian CV" loading="lazy">
                 </div>
                 <div class="layanan-card-body">
@@ -595,7 +595,7 @@
             <div class="swiper-slide">
               <div class="layanan-card">
                 <div class="layanan-card-img-wrap">
-                  <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=500&q=80"
+                  <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=500&q=80"
                     alt="Pendirian Yayasan" loading="lazy">
                 </div>
                 <div class="layanan-card-body">
@@ -612,7 +612,7 @@
             <div class="swiper-slide">
               <div class="layanan-card">
                 <div class="layanan-card-img-wrap">
-                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&q=80"
+                  <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=500&q=80"
                     alt="Pendirian Firma" loading="lazy">
                 </div>
                 <div class="layanan-card-body">
@@ -669,7 +669,7 @@
             <div class="swiper-slide">
               <div class="layanan-card">
                 <div class="layanan-card-img-wrap">
-                  <img src="https://images.unsplash.com/photo-1551009175-15bdf9dcb580?w=500&q=80"
+                  <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=500&q=80"
                     alt="Jasa Pembukuan & Perpajakan" loading="lazy">
                   <span class="layanan-card-badge">Terlaris</span>
                 </div>
@@ -689,7 +689,7 @@
             <div class="swiper-slide">
               <div class="layanan-card">
                 <div class="layanan-card-img-wrap">
-                  <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&q=80"
+                  <img src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=500&q=80"
                     alt="Pelaporan SPT Tahunan" loading="lazy">
                 </div>
                 <div class="layanan-card-body">
@@ -708,7 +708,7 @@
             <div class="swiper-slide">
               <div class="layanan-card">
                 <div class="layanan-card-img-wrap">
-                  <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=500&q=80"
+                  <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=500&q=80"
                     alt="Pengurusan PKP" loading="lazy">
                 </div>
                 <div class="layanan-card-body">
@@ -727,7 +727,7 @@
             <div class="swiper-slide">
               <div class="layanan-card">
                 <div class="layanan-card-img-wrap">
-                  <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=500&q=80"
+                  <img src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=500&q=80"
                     alt="Konsultasi Pajak" loading="lazy">
                 </div>
                 <div class="layanan-card-body">
