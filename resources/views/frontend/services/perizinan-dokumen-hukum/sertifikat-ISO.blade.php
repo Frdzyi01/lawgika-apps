@@ -1,4 +1,8 @@
 @extends('layout.app')
+@section('title', 'Sertifikat Iso | Lawgika - Konsultan Legal & Bisnis')
+@section('meta_description', 'Layanan Sertifikat Iso terbaik dan terpercaya di Indonesia oleh Lawgika.co.id. Proses cepat, legal, dan aman untuk kebutuhan bisnis Anda.')
+@section('meta_keywords', 'Sertifikat Iso, Jasa Sertifikat Iso, Konsultan Sertifikat Iso, Lawgika, Legalitas Usaha, Jasa Hukum Bisnis')
+
 
 @section('content')
 <style>

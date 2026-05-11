@@ -1,4 +1,8 @@
 @extends('layout.app')
+@section('title', 'Sewa Ruang Podcast Studio | Lawgika')
+@section('meta_description', 'Sewa studio podcast profesional dengan peralatan lengkap, soundproofing, dan operator. Mulai produksi konten Anda sekarang.')
+@section('meta_keywords', 'Sewa Ruang Podcast, Jasa Sewa Ruang Podcast, Konsultan Sewa Ruang Podcast, Lawgika, Legalitas Usaha, Jasa Hukum Bisnis')
+
 
 @section('content')
 

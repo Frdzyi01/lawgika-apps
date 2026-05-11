@@ -1,4 +1,8 @@
 @extends('layout.app')
+@section('title', 'Pendirian Cv | Lawgika - Konsultan Legal & Bisnis')
+@section('meta_description', 'Layanan Pendirian Cv terbaik dan terpercaya di Indonesia oleh Lawgika.co.id. Proses cepat, legal, dan aman untuk kebutuhan bisnis Anda.')
+@section('meta_keywords', 'Pendirian Cv, Jasa Pendirian Cv, Konsultan Pendirian Cv, Lawgika, Legalitas Usaha, Jasa Hukum Bisnis')
+
 
 @section('content')
 

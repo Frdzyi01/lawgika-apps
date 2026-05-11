@@ -1,4 +1,8 @@
 @extends('layout.app')
+@section('title', 'Karir & Lowongan Kerja | Lawgika')
+@section('meta_description', 'Bergabunglah dengan Lawgika. Kami mencari talenta terbaik untuk berkembang bersama di ekosistem hukum dan bisnis digital.')
+@section('meta_keywords', 'Karir, Jasa Karir, Konsultan Karir, Lawgika, Legalitas Usaha, Jasa Hukum Bisnis')
+
 
 @section('content')
 

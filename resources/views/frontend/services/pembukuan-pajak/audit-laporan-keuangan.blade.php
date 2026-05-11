@@ -1,4 +1,8 @@
 @extends('layout.app')
+@section('title', 'Audit Laporan Keuangan | Lawgika - Konsultan Legal & Bisnis')
+@section('meta_description', 'Layanan Audit Laporan Keuangan terbaik dan terpercaya di Indonesia oleh Lawgika.co.id. Proses cepat, legal, dan aman untuk kebutuhan bisnis Anda.')
+@section('meta_keywords', 'Audit Laporan Keuangan, Jasa Audit Laporan Keuangan, Konsultan Audit Laporan Keuangan, Lawgika, Legalitas Usaha, Jasa Hukum Bisnis')
+
 
 @section('content')
 

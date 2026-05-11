@@ -1,4 +1,8 @@
 @extends('layout.app')
+@section('title', 'Jasa Jasa Pembukuan Perpajakan & Konsultan Pajak | Lawgika')
+@section('meta_description', 'Layanan Jasa Pembukuan Perpajakan profesional untuk mengurus administrasi dan kepatuhan pajak perusahaan Anda dengan tepat waktu.')
+@section('meta_keywords', 'Jasa Pembukuan Perpajakan, Konsultan Pajak, Jasa Pembukuan, Lapor Pajak, Tax Accounting Lawgika')
+
 
 @section('content')
 <style>

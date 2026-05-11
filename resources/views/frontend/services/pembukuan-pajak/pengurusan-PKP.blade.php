@@ -1,4 +1,8 @@
 @extends('layout.app')
+@section('title', 'Jasa Pengurusan Pkp & Konsultan Pajak | Lawgika')
+@section('meta_description', 'Layanan Pengurusan Pkp profesional untuk mengurus administrasi dan kepatuhan pajak perusahaan Anda dengan tepat waktu.')
+@section('meta_keywords', 'Pengurusan Pkp, Konsultan Pajak, Jasa Pembukuan, Lapor Pajak, Tax Accounting Lawgika')
+
 
 @section('content')
 

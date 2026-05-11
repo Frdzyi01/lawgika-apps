@@ -1,4 +1,8 @@
 @extends('layout.app')
+@section('title', 'Surat Keterangan Tidak Pailit | Lawgika - Konsultan Legal & Bisnis')
+@section('meta_description', 'Layanan Surat Keterangan Tidak Pailit terbaik dan terpercaya di Indonesia oleh Lawgika.co.id. Proses cepat, legal, dan aman untuk kebutuhan bisnis Anda.')
+@section('meta_keywords', 'Surat Keterangan Tidak Pailit, Jasa Surat Keterangan Tidak Pailit, Konsultan Surat Keterangan Tidak Pailit, Lawgika, Legalitas Usaha, Jasa Hukum Bisnis')
+
 
 @section('content')
 <style>

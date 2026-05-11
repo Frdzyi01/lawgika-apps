@@ -1,4 +1,8 @@
 @extends('layout.app')
+@section('title', 'Berita Detail | Lawgika - Konsultan Legal & Bisnis')
+@section('meta_description', 'Layanan Berita Detail terbaik dan terpercaya di Indonesia oleh Lawgika.co.id. Proses cepat, legal, dan aman untuk kebutuhan bisnis Anda.')
+@section('meta_keywords', 'Berita Detail, Jasa Berita Detail, Konsultan Berita Detail, Lawgika, Legalitas Usaha, Jasa Hukum Bisnis')
+
 
 @section('content')
 <div class="berita-detail-page-wrapper">

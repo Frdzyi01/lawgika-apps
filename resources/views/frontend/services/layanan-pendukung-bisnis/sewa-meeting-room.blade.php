@@ -1,4 +1,8 @@
 @extends('layout.app')
+@section('title', 'Sewa Meeting Room Profesional & Nyaman | Lawgika')
+@section('meta_description', 'Sewa ruang meeting untuk keperluan rapat bisnis, negosiasi, atau presentasi. Dilengkapi dengan fasilitas modern dan Smart TV.')
+@section('meta_keywords', 'Sewa Meeting Room, Jasa Sewa Meeting Room, Konsultan Sewa Meeting Room, Lawgika, Legalitas Usaha, Jasa Hukum Bisnis')
+
 
 @section('content')
 <style>

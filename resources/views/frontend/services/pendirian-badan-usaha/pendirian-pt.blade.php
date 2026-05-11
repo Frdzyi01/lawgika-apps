@@ -1,4 +1,8 @@
 @extends('layout.app')
+@section('title', 'Jasa Pendirian Pendirian Pt | Lawgika')
+@section('meta_description', 'Butuh jasa Pendirian Pendirian Pt? Lawgika siap membantu pengurusan legalitas perusahaan Anda dengan proses cepat dan harga transparan.')
+@section('meta_keywords', 'Pendirian Pt, Jasa Pendirian Pt, Konsultan Pendirian Pt, Lawgika, Legalitas Usaha, Jasa Hukum Bisnis')
+
 
 @section('content')
 

@@ -1,4 +1,8 @@
 @extends('layout.app')
+@section('title', 'Jasa Pendirian Pelaporan Spt Badan | Lawgika')
+@section('meta_description', 'Butuh jasa Pendirian Pelaporan Spt Badan? Lawgika siap membantu pengurusan legalitas perusahaan Anda dengan proses cepat dan harga transparan.')
+@section('meta_keywords', 'Pelaporan Spt Badan, Jasa Pelaporan Spt Badan, Konsultan Pelaporan Spt Badan, Lawgika, Legalitas Usaha, Jasa Hukum Bisnis')
+
 
 @section('content')
 

@@ -1,4 +1,8 @@
 @extends('layout.app')
+@section('title', 'Tentangkami | Lawgika - Konsultan Legal & Bisnis')
+@section('meta_description', 'Layanan Tentangkami terbaik dan terpercaya di Indonesia oleh Lawgika.co.id. Proses cepat, legal, dan aman untuk kebutuhan bisnis Anda.')
+@section('meta_keywords', 'Tentangkami, Jasa Tentangkami, Konsultan Tentangkami, Lawgika, Legalitas Usaha, Jasa Hukum Bisnis')
+
 
 @section('content')
 

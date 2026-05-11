@@ -1,4 +1,8 @@
 @extends('layout.app')
+@section('title', 'Sewa Virtual Office Murah & Prestisius | Lawgika')
+@section('meta_description', 'Sewa Virtual Office dengan alamat bergengsi untuk pendirian perusahaan Anda. Fasilitas lengkap, surat domisili, dan resepsionis.')
+@section('meta_keywords', 'Virtual office jakarta, sewa virtual office, alamat bisnis, domisili perusahaan, Lawgika')
+
 
 @section('content')
 

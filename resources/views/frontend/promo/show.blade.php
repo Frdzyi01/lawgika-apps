@@ -1,5 +1,9 @@
 
 @extends('layout.app')
+@section('title', 'Promo Detail | Lawgika - Konsultan Legal & Bisnis')
+@section('meta_description', 'Layanan Promo Detail terbaik dan terpercaya di Indonesia oleh Lawgika.co.id. Proses cepat, legal, dan aman untuk kebutuhan bisnis Anda.')
+@section('meta_keywords', 'Promo Detail, Jasa Promo Detail, Konsultan Promo Detail, Lawgika, Legalitas Usaha, Jasa Hukum Bisnis')
+
 
 @section('content')
 {{-- ===== PERFORMANCE OVERRIDE ===== --}}

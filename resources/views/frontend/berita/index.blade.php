@@ -1,4 +1,8 @@
 @extends('layout.app')
+@section('title', 'Beranda | Lawgika - Konsultan Legal & Bisnis')
+@section('meta_description', 'Layanan Beranda terbaik dan terpercaya di Indonesia oleh Lawgika.co.id. Proses cepat, legal, dan aman untuk kebutuhan bisnis Anda.')
+@section('meta_keywords', 'Beranda, Jasa Beranda, Konsultan Beranda, Lawgika, Legalitas Usaha, Jasa Hukum Bisnis')
+
 
 @section('content')
 

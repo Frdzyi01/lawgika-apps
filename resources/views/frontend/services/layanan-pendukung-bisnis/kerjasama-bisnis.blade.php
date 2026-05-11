@@ -1,4 +1,8 @@
 @extends('layout.app')
+@section('title', 'Kerjasama Bisnis | Lawgika - Konsultan Legal & Bisnis')
+@section('meta_description', 'Layanan Kerjasama Bisnis terbaik dan terpercaya di Indonesia oleh Lawgika.co.id. Proses cepat, legal, dan aman untuk kebutuhan bisnis Anda.')
+@section('meta_keywords', 'Kerjasama Bisnis, Jasa Kerjasama Bisnis, Konsultan Kerjasama Bisnis, Lawgika, Legalitas Usaha, Jasa Hukum Bisnis')
+
 
 @section('content')
 

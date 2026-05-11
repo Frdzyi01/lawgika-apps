@@ -1,4 +1,8 @@
 @extends('layout.app')
+@section('title', 'Jasa Pendirian Pelaporan Spt Tahunan | Lawgika')
+@section('meta_description', 'Butuh jasa Pendirian Pelaporan Spt Tahunan? Lawgika siap membantu pengurusan legalitas perusahaan Anda dengan proses cepat dan harga transparan.')
+@section('meta_keywords', 'Pelaporan Spt Tahunan, Jasa Pelaporan Spt Tahunan, Konsultan Pelaporan Spt Tahunan, Lawgika, Legalitas Usaha, Jasa Hukum Bisnis')
+
 @section('content')
 <style>
   :root {

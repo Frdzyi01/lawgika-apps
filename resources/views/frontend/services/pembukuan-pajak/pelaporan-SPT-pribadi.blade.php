@@ -1,4 +1,8 @@
 @extends('layout.app')
+@section('title', 'Jasa Pendirian Pelaporan Spt Pribadi | Lawgika')
+@section('meta_description', 'Butuh jasa Pendirian Pelaporan Spt Pribadi? Lawgika siap membantu pengurusan legalitas perusahaan Anda dengan proses cepat dan harga transparan.')
+@section('meta_keywords', 'Pelaporan Spt Pribadi, Jasa Pelaporan Spt Pribadi, Konsultan Pelaporan Spt Pribadi, Lawgika, Legalitas Usaha, Jasa Hukum Bisnis')
+
 
 @section('content')
 

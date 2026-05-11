@@ -6,11 +6,30 @@
     <!-- ========== Meta Tags ========== -->
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="author" content="gramentheme" />
-    <meta name="description" content="Lawgika - Legal & Business Consulting Services " />
-    <!-- ======== Page title ============ -->
-    <title>Lawgika - Legal & Business Consulting Services</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    
+    <!-- ======== SEO Optimization ======== -->
+    <title>@yield('title', 'Lawgika - Legal, Tax, Accounting & Virtual Office Terpercaya')</title>
+    <meta name="description" content="@yield('meta_description', 'Lawgika.co.id adalah konsultan profesional yang melayani pendirian PT, CV, Yayasan, Virtual Office, Jasa Pembukuan, dan Pelaporan Pajak di Indonesia. Proses cepat, legal, dan aman.')" />
+    <meta name="keywords" content="@yield('meta_keywords', 'Jasa Pendirian PT, Pendirian CV, Pendirian Yayasan, Virtual Office Jakarta, Jasa Pembukuan, Konsultan Pajak, Pelaporan SPT Tahunan, Pengurusan PKP, Sewa Meeting Room, Sewa Podcast Room, Legalitas Usaha, Lawgika')" />
+    <meta name="author" content="Lawgika" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="{{ url()->current() }}" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ url()->current() }}" />
+    <meta property="og:title" content="@yield('title', 'Lawgika - Legal, Tax, Accounting & Virtual Office Terpercaya')" />
+    <meta property="og:description" content="@yield('meta_description', 'Lawgika.co.id adalah konsultan profesional yang melayani pendirian PT, CV, Yayasan, Virtual Office, Jasa Pembukuan, dan Pelaporan Pajak di Indonesia. Proses cepat, legal, dan aman.')" />
+    <meta property="og:image" content="{{ asset('buyer-file/assets/img/logo-removebg.png') }}" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="{{ url()->current() }}" />
+    <meta property="twitter:title" content="@yield('title', 'Lawgika - Legal, Tax, Accounting & Virtual Office Terpercaya')" />
+    <meta property="twitter:description" content="@yield('meta_description', 'Lawgika.co.id adalah konsultan profesional yang melayani pendirian PT, CV, Yayasan, Virtual Office, Jasa Pembukuan, dan Pelaporan Pajak di Indonesia. Proses cepat, legal, dan aman.')" />
+    <meta property="twitter:image" content="{{ asset('buyer-file/assets/img/logo-removebg.png') }}" />
+
     <!--<< Favcion >>-->
     <!-- <link rel="shortcut icon" href="{{ asset('buyer-file/assets/img/favicon.svg')}}" /> -->
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('buyer-file/assets/img/logo-removebg.png')}}">
