@@ -600,259 +600,165 @@
 
         {{-- ===== CORPORATE TABLE LAYOUT ===== --}}
         <style>
-            /* Podcast Pricing Table */
-            .podcast-pricing-wrap {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                border: 2px solid #1a1a1a;
-                font-family: 'Inter', sans-serif;
+            .pricing-card {
+                background: #fff;
+                border-radius: 20px;
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+                border: 2px solid var(--primary);
+                position: relative;
+                overflow: hidden;
+                transition: transform 0.3s ease;
             }
 
-            @media (max-width: 768px) {
-                .podcast-pricing-wrap {
-                    grid-template-columns: 1fr;
-                }
-                .podcast-col-right {
-                    border-left: none !important;
-                    border-top: 2px solid #1a1a1a;
-                }
+            .pricing-card:hover {
+                transform: translateY(-5px);
             }
 
-            /* Left Column */
-            .podcast-col-left {
-                padding: 0;
-            }
-
-            .podcast-col-left-header {
-                padding: 16px 20px;
-                border-bottom: 2px solid #1a1a1a;
-                font-size: 1.05rem;
-                font-weight: 800;
-                text-transform: uppercase;
-                letter-spacing: 0.5px;
-                color: #1a1a1a;
-            }
-
-            .podcast-price-row {
-                display: flex;
-                align-items: center;
-                padding: 12px 20px;
-                border-bottom: 1px solid #d1d5db;
-                font-size: 0.88rem;
-                font-weight: 600;
-                text-transform: uppercase;
-                letter-spacing: 0.3px;
-                color: #1a1a1a;
-                min-height: 44px;
-            }
-
-            .podcast-benefit-header {
-                padding: 12px 20px;
-                border-bottom: 1px solid #d1d5db;
-                font-size: 0.88rem;
-                font-weight: 700;
-                text-transform: uppercase;
-                color: #1a1a1a;
-                min-height: 44px;
-                display: flex;
-                align-items: center;
-            }
-
-            .podcast-benefit-item {
-                padding: 11px 20px 11px 48px;
-                border-bottom: 1px solid #e5e7eb;
-                font-size: 0.85rem;
-                font-weight: 500;
-                text-transform: uppercase;
-                letter-spacing: 0.2px;
-                color: #374151;
-                min-height: 42px;
-                display: flex;
-                align-items: center;
-            }
-
-            .podcast-benefit-item:last-child {
-                border-bottom: none;
-            }
-
-            /* Right Column */
-            .podcast-col-right {
-                border-left: 2px solid #1a1a1a;
-                padding: 0;
-            }
-
-            .podcast-col-right-header {
-                padding: 16px 20px;
-                border-bottom: 2px solid #1a1a1a;
-                font-size: 1.05rem;
-                font-weight: 800;
-                text-transform: uppercase;
-                letter-spacing: 0.5px;
-                color: #1a1a1a;
-                text-align: center;
-            }
-
-            .podcast-col-right-sub {
-                padding: 10px 20px;
-                border-bottom: 2px solid #1a1a1a;
-                font-size: 0.92rem;
-                font-weight: 700;
-                text-transform: uppercase;
-                text-align: center;
-                color: #1a1a1a;
-                background: #f9f9f9;
-            }
-
-            .podcast-price-cell {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                padding: 12px 20px;
-                border-bottom: 1px solid #d1d5db;
-                min-height: 44px;
-            }
-
-            .podcast-price-cell .rp-label {
-                font-weight: 700;
-                font-size: 0.9rem;
-                color: #1a1a1a;
-                flex-shrink: 0;
-            }
-
-            .podcast-price-cell .rp-amount {
-                font-weight: 800;
-                font-size: 0.95rem;
-                color: #1a1a1a;
-                text-align: right;
-            }
-
-            .podcast-empty-cell {
-                min-height: 44px;
-                border-bottom: 1px solid #d1d5db;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .podcast-empty-cell:last-child {
-                border-bottom: none;
-            }
-
-            .podcast-check {
-                font-size: 1.1rem;
-                font-weight: 900;
-                color: #1a1a1a;
-            }
-
-            .podcast-cta-wrap {
-                padding: 24px 20px 20px;
-                border-top: 2px solid #1a1a1a;
-                display: flex;
-                justify-content: center;
-            }
-
-            .podcast-cta-btn {
-                display: inline-block;
-                padding: 13px 32px;
-                background: #1a1a1a;
+            .pricing-header {
+                background: var(--primary);
                 color: #fff;
-                font-size: 0.92rem;
-                font-weight: 700;
-                text-transform: uppercase;
-                letter-spacing: 0.5px;
-                border: 2px solid #1a1a1a;
-                cursor: pointer;
-                transition: all 0.2s ease;
-                border-radius: 0;
-                text-decoration: none;
+                padding: 30px 20px;
                 text-align: center;
             }
 
-            .podcast-cta-btn:hover {
-                background: #4e0616;
-                border-color: #4e0616;
+            .pricing-header h3 {
+                font-size: 1.6rem;
+                font-weight: 800;
+                margin: 0 0 5px;
+                color: #fff;
+            }
+
+            .pricing-header p {
+                font-size: 0.95rem;
+                opacity: 0.9;
+                margin: 0;
+            }
+
+            .pricing-body {
+                padding: 40px 30px;
+                text-align: center;
+            }
+
+            .pricing-price {
+                font-size: 3rem;
+                font-weight: 800;
+                color: var(--dark);
+                margin-bottom: 5px;
+                line-height: 1;
+            }
+
+            .pricing-desc {
+                color: var(--gray);
+                font-size: 0.95rem;
+                margin-bottom: 30px;
+                font-weight: 500;
+            }
+
+            .feature-list {
+                list-style: none;
+                padding: 0;
+                margin: 0 0 40px;
+                text-align: left;
+            }
+
+            .feature-list li {
+                padding: 12px 0;
+                border-bottom: 1px solid #f0f0f0;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                font-weight: 500;
+                color: #334155;
+            }
+
+            .feature-list li:last-child {
+                border-bottom: none;
+            }
+
+            .feature-list li i {
+                color: var(--primary);
+                font-size: 1.1rem;
+            }
+
+            .btn-pricing-primary {
+                display: block;
+                width: 100%;
+                text-align: center;
+                padding: 16px;
+                background: var(--primary);
+                border-radius: 50px;
+                color: #fff;
+                font-weight: 700;
+                font-size: 1.05rem;
+                text-decoration: none;
+                border: none;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 8px 20px rgba(78, 5, 22, 0.2);
+            }
+
+            .btn-pricing-primary:hover {
+                background: var(--primary-light);
                 color: #fff;
                 transform: translateY(-2px);
+                box-shadow: 0 12px 25px rgba(78, 5, 22, 0.3);
             }
 
-            .podcast-note-wrap {
-                margin-top: 24px;
-                border: 1px solid #e5e7eb;
-                background: #fafafa;
-                padding: 16px 20px;
+            .short-rental-box {
+                background: var(--bg-light);
+                border: 1px dashed var(--accent);
+                padding: 15px;
+                border-radius: 12px;
+                margin-bottom: 30px;
+                text-align: center;
             }
 
-            .podcast-note-wrap p {
-                margin: 0 0 6px;
+            .short-rental-box .title {
+                font-size: 0.9rem;
+                font-weight: 700;
+                color: var(--dark);
+                margin-bottom: 5px;
+            }
+
+            .short-rental-box .desc {
                 font-size: 0.85rem;
-                color: #374151;
-                line-height: 1.5;
-            }
-
-            .podcast-note-wrap p:last-child {
-                margin-bottom: 0;
-            }
-
-            .podcast-note-wrap strong {
-                color: #1a1a1a;
+                color: var(--gray);
+                margin: 0;
             }
         </style>
 
-        <div class="podcast-pricing-wrap">
-            {{-- KOLOM KIRI --}}
-            <div class="podcast-col-left">
-                <div class="podcast-col-left-header">Podcast Room</div>
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-md-8">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>PAKET PODCAST ROOM</h3>
+                        <p>Fasilitas lengkap untuk rekaman Anda</p>
+                    </div>
+                    <div class="pricing-body">
+                        <div class="pricing-price">Rp 800.000</div>
+                        <div class="pricing-desc">
+                            Durasi 2 Jam Pertama <br>
+                            <span style="color: var(--primary); font-size: 0.85rem;">(+ Rp 300.000 / jam berikutnya)</span>
+                        </div>
 
-                <div class="podcast-price-row">Harga 1 Jam Pertama</div>
-                <div class="podcast-price-row">Harga 2 Jam Pertama</div>
-                <div class="podcast-price-row">Harga Per Jam Selanjutnya</div>
+                        <div class="short-rental-box">
+                            <div class="title">Butuh Waktu Singkat?</div>
+                            <div class="desc">Harga sewa untuk <strong>1 Jam Pertama</strong> hanya <strong>Rp 500.000</strong>.</div>
+                        </div>
 
-                <div class="podcast-benefit-header">Benefit</div>
+                        <ul class="feature-list">
+                            <li><i class="fa-solid fa-check"></i> Ruang Podcast Profesional</li>
+                            <li><i class="fa-solid fa-check"></i> Peralatan Podcast Lengkap</li>
+                            <li><i class="fa-solid fa-check"></i> Akses Wifi Berkecepatan Tinggi</li>
+                            <li><i class="fa-solid fa-check"></i> Ruangan Ber-AC yang Nyaman</li>
+                            <li><i class="fa-solid fa-check"></i> Didampingi Operator Podcast</li>
+                            <li><i class="fa-solid fa-check"></i> Akses Ruang Tunggu & Pantry</li>
+                        </ul>
 
-                <div class="podcast-benefit-item">Ruang Podcast Profesional</div>
-                <div class="podcast-benefit-item">Peralatan Podcast Lengkap</div>
-                <div class="podcast-benefit-item">Akses Wifi</div>
-                <div class="podcast-benefit-item">Ruangan Ber-AC</div>
-                <div class="podcast-benefit-item">Operator Podcast</div>
-                <div class="podcast-benefit-item">Ruang Tunggu &amp; Pantry</div>
-            </div>
-
-            {{-- KOLOM KANAN --}}
-            <div class="podcast-col-right">
-                <div class="podcast-col-right-header">Paket Podcast Room</div>
-                <div class="podcast-col-right-sub">Durasi 2 Jam</div>
-
-                {{-- Baris Harga --}}
-                <div class="podcast-price-cell">
-                    <span class="rp-label">Rp</span>
-                    <span class="rp-amount">500.000</span>
-                </div>
-                <div class="podcast-price-cell">
-                    <span class="rp-label">Rp</span>
-                    <span class="rp-amount">800.000</span>
-                </div>
-                <div class="podcast-price-cell">
-                    <span class="rp-label">Rp</span>
-                    <span class="rp-amount">300.000</span>
-                </div>
-
-                {{-- Spacer: benefit header --}}
-                <div class="podcast-empty-cell" style="min-height:44px; border-bottom:1px solid #d1d5db;"></div>
-
-                {{-- Checklist Benefit --}}
-                <div class="podcast-empty-cell"><span class="podcast-check">✓</span></div>
-                <div class="podcast-empty-cell"><span class="podcast-check">✓</span></div>
-                <div class="podcast-empty-cell"><span class="podcast-check">✓</span></div>
-                <div class="podcast-empty-cell"><span class="podcast-check">✓</span></div>
-                <div class="podcast-empty-cell"><span class="podcast-check">✓</span></div>
-                <div class="podcast-empty-cell" style="border-bottom:none;"><span class="podcast-check">✓</span></div>
-
-                {{-- CTA Button --}}
-                <div class="podcast-cta-wrap">
-                    <button type="button" class="podcast-cta-btn"
-                        onclick="openPodcastBookingModal()">
-                        <i class="fa-solid fa-calendar-check me-2"></i>Pilih Jadwal &amp; Pesan
-                    </button>
+                        <button type="button" class="btn-pricing-primary" onclick="openPodcastBookingModal()">
+                            <i class="fa-solid fa-calendar-check me-2"></i> Pilih Jadwal & Pesan
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
