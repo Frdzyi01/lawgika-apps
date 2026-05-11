@@ -516,6 +516,14 @@
                              padding: 28px 24px;
                            }
 
+                           .lw-mega-cols-4 {
+                             display: grid;
+                             grid-template-columns: repeat(4, 1fr);
+                             gap: 0;
+                             flex: 1;
+                             padding: 28px 24px;
+                           }
+
                            .lw-mega-cols-5 {
                              flex: 1;
                              display: flex;
@@ -695,6 +703,10 @@
                                grid-template-columns: repeat(3, 1fr);
                              }
 
+                             .lw-mega-cols-4 {
+                               grid-template-columns: repeat(3, 1fr);
+                             }
+
                              .lw-mega-wrap {
                                width: min(900px, 96vw);
                              }
@@ -704,13 +716,15 @@
                              .lw-mega-cols {
                                grid-template-columns: repeat(2, 1fr);
                              }
+                             .lw-mega-cols-4 {
+                               grid-template-columns: repeat(2, 1fr);
+                             }
                            }
                          </style>
 
                          <div class="container p-0">
                            <div class="lw-mega-body">
-
-                             <div class="lw-mega-cols">
+                             <div class="lw-mega-cols-4">
                                <div class="lw-col">
                                  <div class="lw-col-title">
                                    <i class="fas fa-file-contract"></i> Kantor &amp; Ruang Podcast
@@ -749,18 +763,16 @@
 
                                </div>
 
-                             </div>
-                             <div class="lw-mega-sidebar">
                                <div class="lw-col">
                                  <div class="lw-col-title">
                                    <i class="fas fa-building"></i> Perizinan Dan Hukum
                                  </div>
                                  <ul>
                                    <li><a href="{{ url('/nib-dan-oss') }}">NIB dan OSS</a></li>
-                                   <li><a href="{{ url('/haki') }}">HAKI</a></li>
+                                   <li><a href="{{ url('/haki') }}">Daftar HAKI</a></li>
                                    <li><a href="{{ url('/laporan-lkpm') }}">Laporan LKPM</a></li>
                                    <li><a href="{{ url('/sertifikat-iso') }}">Sertifikat ISO</a></li>
-                                   <li><a href="{{ url('/surat-keterangan-tidak-pailit') }}">Surat Keterangan Tidak Pailit</a></li>
+                                   <li><a href="{{ url('/surat-keterangan-tidak-pailit') }}">Surat Keterangan Tidak <br> Pailit</a></li>
                                    <li><a href="{{ url('/drafting-review-perjanjian-bisnis') }}">Drafting Perjanjian Bisnis</a></li>
                                    <li><a href="{{ url('/pengurusan-pkp') }}">Pengurusan PKP</a></li>
                                  </ul>
@@ -769,7 +781,6 @@
                                  </a>
                                </div>
                              </div>
-
                            </div>
                          </div>
                        </div>

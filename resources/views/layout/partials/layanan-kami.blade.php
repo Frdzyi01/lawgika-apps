@@ -329,7 +329,8 @@
     }
 
     .layanan-nav-arrows {
-      display: none; /* Hide arrows on mobile, use swipe */
+      display: none;
+      /* Hide arrows on mobile, use swipe */
     }
   }
 
@@ -430,56 +431,56 @@
         {{-- Cards Slider --}}
         <div class="swiper layanan-swiper" id="swiper-office">
           <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <div class="layanan-card">
-              <div class="layanan-card-img-wrap">
-                <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=500&q=80"
-                  alt="Virtual Office – Gedung Perkantoran Modern" loading="lazy">
-                <span class="layanan-card-badge">Best Seller</span>
-              </div>
-              <div class="layanan-card-body">
-                <div class="layanan-card-title">Virtual Office</div>
-                <div class="layanan-card-desc">Hemat biaya operasional hingga 90% dengan alamat kantor prestisius tanpa sewa fisik.</div>
-                <div class="layanan-card-price-label">Price Start From</div>
-                <div class="layanan-card-price">2.580.000<span>/Tahun*</span></div>
-                <a href="{{ url('/virtual-office') }}" class="layanan-card-btn">Order Now</a>
-              </div>
-            </div>
-          </div>
-          {{-- Card 3: Meeting Room --}}
-          <div class="swiper-slide">
-            <div class="layanan-card">
-              <div class="layanan-card-img-wrap">
-                <img src="https://images.unsplash.com/photo-1517502884422-41eaead166d4?w=500&q=80"
-                  alt="Meeting Room – Ruang Rapat Profesional" loading="lazy">
-              </div>
-              <div class="layanan-card-body">
-                <div class="layanan-card-title">Meeting Room</div>
-                <div class="layanan-card-desc">Tempat yang cocok untuk melakukan pertemuan penting dengan klien atau mitra bisnis.</div>
-                <div class="layanan-card-price-label">Price Start From</div>
-                <div class="layanan-card-price">Rp 1.000.000<span>/60 Jam*</span></div>
-                <a href="{{ url('/sewa-meeting-room') }}" class="layanan-card-btn">Order Now</a>
+            <div class="swiper-slide">
+              <div class="layanan-card">
+                <div class="layanan-card-img-wrap">
+                  <img src="{{ asset('buyer-file/assets/img/meetingroom/ruang.png') }}"
+                    alt="Virtual Office – Gedung Perkantoran Modern" loading="lazy">
+                  <span class="layanan-card-badge">Best Seller</span>
+                </div>
+                <div class="layanan-card-body">
+                  <div class="layanan-card-title">Virtual Office</div>
+                  <div class="layanan-card-desc">Hemat biaya operasional hingga 90% dengan alamat kantor prestisius tanpa sewa fisik.</div>
+                  <div class="layanan-card-price-label">Price Start From</div>
+                  <div class="layanan-card-price">2.580.000<span>/Tahun*</span></div>
+                  <a href="{{ url('/virtual-office') }}" class="layanan-card-btn">Order Now</a>
+                </div>
               </div>
             </div>
-          </div>
-          {{-- Card 4: Coworking Space --}}
-          <div class="swiper-slide">
-            <div class="layanan-card">
-              <div class="layanan-card-img-wrap">
-                <img src="https://images.unsplash.com/photo-1600508774634-4e11d34730e2?w=500&q=80"
-                  alt="Coworking Space – Ruang Kerja Bersama" loading="lazy">
-              </div>
-              <div class="layanan-card-body">
-                <div class="layanan-card-title">Podcast Studio</div>
-                <div class="layanan-card-desc">Ruang podcast profesional dengan peralatan lengkap untuk produksi audio berkualitas tinggi.</div>
-                <div class="layanan-card-price-label">Price Start From</div>
-                <div class="layanan-card-price">Rp 500.000<span>/2 Jam*</span></div>
-                <a href="{{ url('/sewa-ruang-podcast') }}" class="layanan-card-btn">Order Now</a>
+            {{-- Card 3: Meeting Room --}}
+            <div class="swiper-slide">
+              <div class="layanan-card">
+                <div class="layanan-card-img-wrap">
+                  <img src="{{ asset('buyer-file/assets/img/meetingroom/ruangmeeting4.jpg') }}"
+                    alt="Meeting Room – Ruang Rapat Profesional" loading="lazy">
+                </div>
+                <div class="layanan-card-body">
+                  <div class="layanan-card-title">Meeting Room</div>
+                  <div class="layanan-card-desc">Tempat yang cocok untuk melakukan pertemuan penting dengan klien atau mitra bisnis.</div>
+                  <div class="layanan-card-price-label">Price Start From</div>
+                  <div class="layanan-card-price">Rp 1.000.000<span>/60 Jam*</span></div>
+                  <a href="{{ url('/sewa-meeting-room') }}" class="layanan-card-btn">Order Now</a>
+                </div>
               </div>
             </div>
-          </div>
-        </div>{{-- /swiper-wrapper --}}
-      </div>{{-- /swiper --}}
+            {{-- Card 4: Coworking Space --}}
+            <div class="swiper-slide">
+              <div class="layanan-card">
+                <div class="layanan-card-img-wrap">
+                  <img src="{{ asset('buyer-file/assets/img/podcastroom/ruang.png') }}"
+                    alt="Coworking Space – Ruang Kerja Bersama" loading="lazy">
+                </div>
+                <div class="layanan-card-body">
+                  <div class="layanan-card-title">Podcast Studio</div>
+                  <div class="layanan-card-desc">Ruang podcast profesional dengan peralatan lengkap untuk produksi audio berkualitas tinggi.</div>
+                  <div class="layanan-card-price-label">Price Start From</div>
+                  <div class="layanan-card-price">Rp 500.000<span>/2 Jam*</span></div>
+                  <a href="{{ url('/sewa-ruang-podcast') }}" class="layanan-card-btn">Order Now</a>
+                </div>
+              </div>
+            </div>
+          </div>{{-- /swiper-wrapper --}}
+        </div>{{-- /swiper --}}
       </div>{{-- /pane-office --}}
 
 
@@ -521,110 +522,110 @@
         <div class="swiper layanan-swiper" id="swiper-business">
           <div class="swiper-wrapper">
 
-          {{-- 1. PT Perorangan --}}
-          <div class="swiper-slide">
-            <div class="layanan-card">
-              <div class="layanan-card-img-wrap">
-                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=500&q=80"
-                  alt="Pendirian PT Perorangan" loading="lazy">
-                <span class="layanan-card-badge">Populer</span>
-              </div>
-              <div class="layanan-card-body">
-                <div class="layanan-card-title">Pendirian PT Perorangan</div>
-                <div class="layanan-card-desc">Layanan pendirian PT Perorangan dengan proses cepat dan sesuai regulasi.</div>
-                <div class="layanan-card-price-label">Price</div>
-                <div class="layanan-card-price"><span>Start From</span> Rp. 2.000.000</div>
-                <a href="{{ url('/pendirian-pt-perorangan') }}" class="layanan-card-btn">Order Now</a>
+            {{-- 1. PT Perorangan --}}
+            <div class="swiper-slide">
+              <div class="layanan-card">
+                <div class="layanan-card-img-wrap">
+                  <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=500&q=80"
+                    alt="Pendirian PT Perorangan" loading="lazy">
+                  <span class="layanan-card-badge">Populer</span>
+                </div>
+                <div class="layanan-card-body">
+                  <div class="layanan-card-title">Pendirian PT Perorangan</div>
+                  <div class="layanan-card-desc">Layanan pendirian PT Perorangan dengan proses cepat dan sesuai regulasi.</div>
+                  <div class="layanan-card-price-label">Price</div>
+                  <div class="layanan-card-price"><span>Start From</span> Rp. 2.000.000</div>
+                  <a href="{{ url('/pendirian-pt-perorangan') }}" class="layanan-card-btn">Order Now</a>
+                </div>
               </div>
             </div>
-          </div>
 
-          {{-- 2. PT --}}
-          <div class="swiper-slide">
-            <div class="layanan-card">
-              <div class="layanan-card-img-wrap">
-                <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=500&q=80"
-                  alt="Pendirian PT" loading="lazy">
-              </div>
-              <div class="layanan-card-body">
-                <div class="layanan-card-title">Pendirian PT</div>
-                <div class="layanan-card-desc">Pendirian Perseroan Terbatas (PT) lengkap dengan legalitas resmi.</div>
-                <div class="layanan-card-price-label">Price</div>
-                <div class="layanan-card-price"><span>Start From</span> Rp. 6.030.000</div>
-                <a href="{{ url('/pendirian-pt') }}" class="layanan-card-btn">Order Now</a>
+            {{-- 2. PT --}}
+            <div class="swiper-slide">
+              <div class="layanan-card">
+                <div class="layanan-card-img-wrap">
+                  <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=500&q=80"
+                    alt="Pendirian PT" loading="lazy">
+                </div>
+                <div class="layanan-card-body">
+                  <div class="layanan-card-title">Pendirian PT</div>
+                  <div class="layanan-card-desc">Pendirian Perseroan Terbatas (PT) lengkap dengan legalitas resmi.</div>
+                  <div class="layanan-card-price-label">Price</div>
+                  <div class="layanan-card-price"><span>Start From</span> Rp. 6.030.000</div>
+                  <a href="{{ url('/pendirian-pt') }}" class="layanan-card-btn">Order Now</a>
+                </div>
               </div>
             </div>
-          </div>
 
-          {{-- 3. PT PMA --}}
-          <div class="swiper-slide">
-            <div class="layanan-card">
-              <div class="layanan-card-img-wrap">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&q=80"
-                  alt="Pendirian PT PMA" loading="lazy">
-              </div>
-              <div class="layanan-card-body">
-                <div class="layanan-card-title">Pendirian PT PMA</div>
-                <div class="layanan-card-desc">Layanan pendirian PT Penanaman Modal Asing (PMA) untuk investor asing.</div>
-                <div class="layanan-card-price-label">Price</div>
-                <div class="layanan-card-price"><span>Start From</span> Rp. 7.830.000</div>
-                <a href="{{ url('/pendirian-pt-pma') }}" class="layanan-card-btn">Order Now</a>
+            {{-- 3. PT PMA --}}
+            <div class="swiper-slide">
+              <div class="layanan-card">
+                <div class="layanan-card-img-wrap">
+                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&q=80"
+                    alt="Pendirian PT PMA" loading="lazy">
+                </div>
+                <div class="layanan-card-body">
+                  <div class="layanan-card-title">Pendirian PT PMA</div>
+                  <div class="layanan-card-desc">Layanan pendirian PT Penanaman Modal Asing (PMA) untuk investor asing.</div>
+                  <div class="layanan-card-price-label">Price</div>
+                  <div class="layanan-card-price"><span>Start From</span> Rp. 7.830.000</div>
+                  <a href="{{ url('/pendirian-pt-pma') }}" class="layanan-card-btn">Order Now</a>
+                </div>
               </div>
             </div>
-          </div>
 
-          {{-- 4. CV --}}
-          <div class="swiper-slide">
-            <div class="layanan-card">
-              <div class="layanan-card-img-wrap">
-                <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=500&q=80"
-                  alt="Pendirian CV" loading="lazy">
-              </div>
-              <div class="layanan-card-body">
-                <div class="layanan-card-title">Pendirian CV</div>
-                <div class="layanan-card-desc">Pengurusan pendirian CV dengan proses mudah dan biaya terjangkau.</div>
-                <div class="layanan-card-price-label">Price</div>
-                <div class="layanan-card-price"><span>Start From</span> Rp. 6.030.000</div>
-                <a href="{{ url('/pendirian-cv') }}" class="layanan-card-btn">Order Now</a>
+            {{-- 4. CV --}}
+            <div class="swiper-slide">
+              <div class="layanan-card">
+                <div class="layanan-card-img-wrap">
+                  <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=500&q=80"
+                    alt="Pendirian CV" loading="lazy">
+                </div>
+                <div class="layanan-card-body">
+                  <div class="layanan-card-title">Pendirian CV</div>
+                  <div class="layanan-card-desc">Pengurusan pendirian CV dengan proses mudah dan biaya terjangkau.</div>
+                  <div class="layanan-card-price-label">Price</div>
+                  <div class="layanan-card-price"><span>Start From</span> Rp. 6.030.000</div>
+                  <a href="{{ url('/pendirian-cv') }}" class="layanan-card-btn">Order Now</a>
+                </div>
               </div>
             </div>
-          </div>
 
-          {{-- 5. Yayasan --}}
-          <div class="swiper-slide">
-            <div class="layanan-card">
-              <div class="layanan-card-img-wrap">
-                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=500&q=80"
-                  alt="Pendirian Yayasan" loading="lazy">
-              </div>
-              <div class="layanan-card-body">
-                <div class="layanan-card-title">Pendirian Yayasan</div>
-                <div class="layanan-card-desc">Layanan pendirian yayasan untuk kegiatan sosial dan pendidikan.</div>
-                <div class="layanan-card-price-label">Price</div>
-                <div class="layanan-card-price"><span>Start From</span> Rp. 6.030.000</div>
-                <a href="{{ url('/pendirian-yayasan') }}" class="layanan-card-btn">Order Now</a>
+            {{-- 5. Yayasan --}}
+            <div class="swiper-slide">
+              <div class="layanan-card">
+                <div class="layanan-card-img-wrap">
+                  <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=500&q=80"
+                    alt="Pendirian Yayasan" loading="lazy">
+                </div>
+                <div class="layanan-card-body">
+                  <div class="layanan-card-title">Pendirian Yayasan</div>
+                  <div class="layanan-card-desc">Layanan pendirian yayasan untuk kegiatan sosial dan pendidikan.</div>
+                  <div class="layanan-card-price-label">Price</div>
+                  <div class="layanan-card-price"><span>Start From</span> Rp. 6.030.000</div>
+                  <a href="{{ url('/pendirian-yayasan') }}" class="layanan-card-btn">Order Now</a>
+                </div>
               </div>
             </div>
-          </div>
 
-          {{-- 6. Firma --}}
-          <div class="swiper-slide">
-            <div class="layanan-card">
-              <div class="layanan-card-img-wrap">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&q=80"
-                  alt="Pendirian Firma" loading="lazy">
-              </div>
-              <div class="layanan-card-body">
-                <div class="layanan-card-title">Pendirian Firma</div>
-                <div class="layanan-card-desc">Pengurusan pendirian Firma untuk usaha bersama dengan legalitas lengkap.</div>
-                <div class="layanan-card-price-label">Price</div>
-                <div class="layanan-card-price"><span>Start From</span> Rp. 6.030.000</div>
-                <a href="{{ url('/pendirian-firma') }}" class="layanan-card-btn">Order Now</a>
+            {{-- 6. Firma --}}
+            <div class="swiper-slide">
+              <div class="layanan-card">
+                <div class="layanan-card-img-wrap">
+                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&q=80"
+                    alt="Pendirian Firma" loading="lazy">
+                </div>
+                <div class="layanan-card-body">
+                  <div class="layanan-card-title">Pendirian Firma</div>
+                  <div class="layanan-card-desc">Pengurusan pendirian Firma untuk usaha bersama dengan legalitas lengkap.</div>
+                  <div class="layanan-card-price-label">Price</div>
+                  <div class="layanan-card-price"><span>Start From</span> Rp. 6.030.000</div>
+                  <a href="{{ url('/pendirian-firma') }}" class="layanan-card-btn">Order Now</a>
+                </div>
               </div>
             </div>
-          </div>
-        </div>{{-- /swiper-wrapper --}}
-      </div>{{-- /swiper --}}
+          </div>{{-- /swiper-wrapper --}}
+        </div>{{-- /swiper --}}
       </div>{{-- /pane-business --}}
 
 
@@ -661,92 +662,92 @@
           </button>
         </div>
 
-       <div class="swiper layanan-swiper" id="swiper-foreign">
-  <div class="swiper-wrapper">
+        <div class="swiper layanan-swiper" id="swiper-foreign">
+          <div class="swiper-wrapper">
 
-    {{-- Card 1 --}}
-    <div class="swiper-slide">
-      <div class="layanan-card">
-        <div class="layanan-card-img-wrap">
-          <img src="https://images.unsplash.com/photo-1551009175-15bdf9dcb580?w=500&q=80"
-            alt="Jasa Pembukuan & Perpajakan" loading="lazy">
-          <span class="layanan-card-badge">Terlaris</span>
-        </div>
-        <div class="layanan-card-body">
-          <div class="layanan-card-title">Jasa Pembukuan & Perpajakan</div>
-          <div class="layanan-card-desc">
-            Layanan pembukuan dan pajak bisnis profesional, rapi, dan sesuai regulasi.
+            {{-- Card 1 --}}
+            <div class="swiper-slide">
+              <div class="layanan-card">
+                <div class="layanan-card-img-wrap">
+                  <img src="https://images.unsplash.com/photo-1551009175-15bdf9dcb580?w=500&q=80"
+                    alt="Jasa Pembukuan & Perpajakan" loading="lazy">
+                  <span class="layanan-card-badge">Terlaris</span>
+                </div>
+                <div class="layanan-card-body">
+                  <div class="layanan-card-title">Jasa Pembukuan & Perpajakan</div>
+                  <div class="layanan-card-desc">
+                    Layanan pembukuan dan pajak bisnis profesional, rapi, dan sesuai regulasi.
+                  </div>
+                  <div class="harga-label">Harga</div>
+                  <div class="harga-konsultasi">Hubungi kami untuk penawaran</div>
+                  <a href="{{ url('/jasa-pembukuan-perpajakan') }}" class="layanan-card-btn">Konsultasi Sekarang</a>
+                </div>
+              </div>
+            </div>
+
+            {{-- Card 2 --}}
+            <div class="swiper-slide">
+              <div class="layanan-card">
+                <div class="layanan-card-img-wrap">
+                  <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&q=80"
+                    alt="Pelaporan SPT Tahunan" loading="lazy">
+                </div>
+                <div class="layanan-card-body">
+                  <div class="layanan-card-title">Pelaporan SPT Tahunan</div>
+                  <div class="layanan-card-desc">
+                    Pengurusan dan pelaporan SPT Tahunan individu maupun perusahaan secara tepat dan aman.
+                  </div>
+                  <div class="harga-label">Harga</div>
+                  <div class="harga-konsultasi">Hubungi kami untuk penawaran</div>
+                  <a href="{{ url('/pelaporan-spt-tahunan') }}" class="layanan-card-btn">Konsultasi Sekarang</a>
+                </div>
+              </div>
+            </div>
+
+            {{-- Card 3 --}}
+            <div class="swiper-slide">
+              <div class="layanan-card">
+                <div class="layanan-card-img-wrap">
+                  <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=500&q=80"
+                    alt="Pengurusan PKP" loading="lazy">
+                </div>
+                <div class="layanan-card-body">
+                  <div class="layanan-card-title">Pengurusan PKP</div>
+                  <div class="layanan-card-desc">
+                    Layanan pengurusan Pengusaha Kena Pajak (PKP) untuk kebutuhan legalitas usaha Anda.
+                  </div>
+                  <div class="harga-label">Harga</div>
+                  <div class="harga-konsultasi">Hubungi kami untuk penawaran</div>
+                  <a href="{{ url('/pengurusan-pkp') }}" class="layanan-card-btn">Konsultasi Sekarang</a>
+                </div>
+              </div>
+            </div>
+
+            {{-- Card 4 --}}
+            <div class="swiper-slide">
+              <div class="layanan-card">
+                <div class="layanan-card-img-wrap">
+                  <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=500&q=80"
+                    alt="Konsultasi Pajak" loading="lazy">
+                </div>
+                <div class="layanan-card-body">
+                  <div class="layanan-card-title">Konsultasi Pajak</div>
+                  <div class="layanan-card-desc">
+                    Konsultasi pajak bisnis untuk membantu Anda memahami dan mengoptimalkan kewajiban perpajakan.
+                  </div>
+                  <div class="harga-label">Harga</div>
+                  <div class="harga-konsultasi">Hubungi kami untuk penawaran</div>
+                  <a href="{{ url('/konsultasi-pajak') }}" class="layanan-card-btn">Konsultasi Sekarang</a>
+                </div>
+              </div>
+            </div>
+
           </div>
-          <div class="harga-label">Harga</div>
-      <div class="harga-konsultasi">Hubungi kami untuk penawaran</div>
-          <a href="{{ url('/jasa-pembukuan-perpajakan') }}" class="layanan-card-btn">Konsultasi Sekarang</a>
-        </div>
-      </div>
-    </div>
-
-    {{-- Card 2 --}}
-    <div class="swiper-slide">
-      <div class="layanan-card">
-        <div class="layanan-card-img-wrap">
-          <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&q=80"
-            alt="Pelaporan SPT Tahunan" loading="lazy">
-        </div>
-        <div class="layanan-card-body">
-          <div class="layanan-card-title">Pelaporan SPT Tahunan</div>
-          <div class="layanan-card-desc">
-            Pengurusan dan pelaporan SPT Tahunan individu maupun perusahaan secara tepat dan aman.
-          </div>
-          <div class="harga-label">Harga</div>
-      <div class="harga-konsultasi">Hubungi kami untuk penawaran</div>
-          <a href="{{ url('/pelaporan-spt-tahunan') }}" class="layanan-card-btn">Konsultasi Sekarang</a>
-        </div>
-      </div>
-    </div>
-
-    {{-- Card 3 --}}
-    <div class="swiper-slide">
-      <div class="layanan-card">
-        <div class="layanan-card-img-wrap">
-          <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=500&q=80"
-            alt="Pengurusan PKP" loading="lazy">
-        </div>
-        <div class="layanan-card-body">
-          <div class="layanan-card-title">Pengurusan PKP</div>
-          <div class="layanan-card-desc">
-            Layanan pengurusan Pengusaha Kena Pajak (PKP) untuk kebutuhan legalitas usaha Anda.
-          </div>
-          <div class="harga-label">Harga</div>
-      <div class="harga-konsultasi">Hubungi kami untuk penawaran</div>
-          <a href="{{ url('/pengurusan-pkp') }}" class="layanan-card-btn">Konsultasi Sekarang</a>
-        </div>
-      </div>
-    </div>
-
-    {{-- Card 4 --}}
-    <div class="swiper-slide">
-      <div class="layanan-card">
-        <div class="layanan-card-img-wrap">
-          <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=500&q=80"
-            alt="Konsultasi Pajak" loading="lazy">
-        </div>
-        <div class="layanan-card-body">
-          <div class="layanan-card-title">Konsultasi Pajak</div>
-          <div class="layanan-card-desc">
-            Konsultasi pajak bisnis untuk membantu Anda memahami dan mengoptimalkan kewajiban perpajakan.
-          </div>
-          <div class="harga-label">Harga</div>
-      <div class="harga-konsultasi">Hubungi kami untuk penawaran</div>
-          <a href="{{ url('/konsultasi-pajak') }}" class="layanan-card-btn">Konsultasi Sekarang</a>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>{{-- /swiper-wrapper --}}
+        </div>{{-- /swiper-wrapper --}}
       </div>{{-- /swiper --}}
-      </div>{{-- /pane-foreign --}}
+    </div>{{-- /pane-foreign --}}
 
-    </div>{{-- /#layananTabContent --}}
+  </div>{{-- /#layananTabContent --}}
   </div>{{-- /.container --}}
 </section>
 
@@ -822,8 +823,8 @@
 
           // Swiper update is handled by observer: true, but we can force it if needed
           const swiperInstance = target === 'office' ? swiperOffice :
-                                 target === 'business' ? swiperBusiness :
-                                 swiperForeign;
+            target === 'business' ? swiperBusiness :
+            swiperForeign;
           if (swiperInstance) swiperInstance.update();
         }
       });
