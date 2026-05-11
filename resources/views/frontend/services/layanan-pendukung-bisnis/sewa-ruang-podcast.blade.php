@@ -3,9 +3,17 @@
 @section('content')
 
 <style>
+    /* ===== MINIMAL CSS ===== */
+    :root {
+        --primary: #4e0516;
+        --primary-light: #7a0a23;
+        --accent: #c9a03d;
+        --dark: #1e1b2b;
+        --gray: #64748b;
+        --bg-light: #fdf8f5;
+    }
+
     /* ===== PAGE SPECIFIC STYLES ===== */
-
-
 
     /* Solusi Section */
     .pt-solution {
