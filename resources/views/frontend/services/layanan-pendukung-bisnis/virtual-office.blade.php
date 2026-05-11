@@ -3,6 +3,16 @@
 @section('content')
 
 <style>
+    /* ===== MINIMAL CSS ===== */
+    :root {
+        --primary: #4e0516;
+        --primary-light: #7a0a23;
+        --accent: #c9a03d;
+        --dark: #1e1b2b;
+        --gray: #64748b;
+        --bg-light: #fdf8f5;
+    }
+
     /* ===== PAGE SPECIFIC STYLES ===== */
 
     /* Solusi Section */
@@ -861,7 +871,7 @@
                     </ul>
 
                     <a href="{{ route('order.create', ['service' => 'virtual-office', 'package' => 'premium']) }}"
-                        class="btn-pricing" style="background-color: #A0522D; color: #ffffff; font-weight: bold; border: 2px solid #facc15; box-shadow: 0 4px 12px rgba(0,0,0,0.15); ">
+                        class="btn-pricing">
                         Pilih Paket Premium
                     </a>
                 </div>
@@ -905,7 +915,7 @@
                     </ul>
 
                     <a href="{{ route('order.create', ['service' => 'virtual-office', 'package' => 'eksklusif']) }}"
-                        class="btn-pricing-primary" style="background-color: #A0522D; color: #ffffff; font-weight: bold; border: 2px solid #facc15; box-shadow: 0 4px 12px rgba(0,0,0,0.15); ">
+                        class="btn-pricing-primary">
                         Pilih Paket Eksklusif
                     </a>
                 </div>
@@ -941,7 +951,7 @@
                     </ul>
 
                     <a href="{{ route('order.create', ['service' => 'virtual-office', 'package' => 'enterprise']) }}"
-                        class="btn-pricing" style="background-color: #A0522D; color: #ffffff; font-weight: bold; border: 2px solid #facc15; box-shadow: 0 4px 12px rgba(0,0,0,0.15); ">
+                        class="btn-pricing">
                         Pilih Paket Enterprise
                     </a>
                 </div>
