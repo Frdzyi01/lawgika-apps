@@ -38,6 +38,7 @@
 
 <body>
     <!-- Preloader Start -->
+    @if (request()->is('/'))
     <div id="preloader" class="preloader">
         <div class="animation-preloader">
             <div class="spinner"></div>
@@ -69,6 +70,7 @@
             </div>
         </div>
     </div>
+    @endif
 
     <!--<< Mouse Cursor Start >>-->
     <div class="mouse-cursor cursor-outer"></div>

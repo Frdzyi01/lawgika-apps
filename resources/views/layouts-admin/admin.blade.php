@@ -5,9 +5,6 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <!-- loader-->
-  <link href="{{ asset('template-admin/assets/css/pace.min.css') }}" rel="stylesheet" />
-  <script src="{{ asset('template-admin/assets/js/pace.min.js') }}"></script>
-  <!--plugins-->
   <link href="{{ asset('template-admin/assets/plugins/simplebar/css/simplebar.css') }}" rel="stylesheet" />
   <link href="{{ asset('template-admin/assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css') }}" rel="stylesheet" />
   <link href="{{ asset('template-admin/assets/plugins/metismenu/css/metisMenu.min.css') }}" rel="stylesheet" />
