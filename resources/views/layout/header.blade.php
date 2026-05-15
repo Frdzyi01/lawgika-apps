@@ -393,8 +393,8 @@
           <li>
             <i class="far fa-envelope"></i>
             <a href="mailto:informasi@lawgika.co.id">
-  informasi@lawgika.co.id
-</a>
+              informasi@lawgika.co.id
+            </a>
           </li>
 
         </ul>
@@ -405,12 +405,13 @@
 
           <li>
             <i class="fa-regular fa-phone"></i>
-            <a href="https://wa.me/6281112088600" target="_blank">
-              +62 811-1208-8600
+            <a href="tel:+622139706065">
+              021-3970-6065
+            </a>
           </li>
-          <li>
+          <!-- <li>
             <i class="fa-light fa-comments"></i><a href="#">Live Chat</a>
-          </li>
+          </li> -->
         </ul>
       </div>
     </div>
