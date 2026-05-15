@@ -357,7 +357,7 @@
           data-layanan-tab="office"
           type="button" role="tab"
           aria-controls="pane-office" aria-selected="true">
-          Office &amp; Work Space
+          Kantor & Ruang Podcast
           <span class="nav-arrow">→</span>
         </button>
       </li>
@@ -366,7 +366,7 @@
           data-layanan-tab="business"
           type="button" role="tab"
           aria-controls="pane-business" aria-selected="false">
-          Business Services
+          Legalitas Perusahaan 
           <span class="nav-arrow">→</span>
         </button>
       </li>
@@ -375,7 +375,7 @@
           data-layanan-tab="foreign"
           type="button" role="tab"
           aria-controls="pane-foreign" aria-selected="false">
-          Accounting Tax
+         Akuntansi dan Pajak
           <span class="nav-arrow">→</span>
         </button>
       </li>
@@ -676,7 +676,7 @@
                 <div class="layanan-card-body">
                   <div class="layanan-card-title">Jasa Pembukuan & Perpajakan</div>
                   <div class="layanan-card-desc">
-                    Layanan pembukuan dan pajak bisnis profesional, rapi, dan sesuai regulasi.
+                    Layanan pembukuan dan pajak bisnis profesional, rapi, </br>dan sesuai regulasi.
                   </div>
                   <div class="harga-label">Harga</div>
                   <div class="harga-konsultasi">Hubungi kami untuk penawaran</div>

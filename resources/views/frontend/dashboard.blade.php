@@ -1033,7 +1033,7 @@
     /* max-height: 34px;
     max-width: 110px; */
     width: 100%;
-    opacity: 0.55;
+    opacity: 1;
     transition: opacity 0.25s ease;
     display: block;
     margin: 0 auto;
@@ -1153,7 +1153,7 @@
         </div>
 
         <!-- Set 2 (duplicate for seamless loop) -->
-       <div class="client-logo-card">
+        <div class="client-logo-card">
           <img src="{{('buyer-file/assets/img/brand/1.png')}}" alt="Placed"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>PLACED</span>'">
         </div>
@@ -1598,8 +1598,8 @@
             <div class="icon-box-2">
               <img src="{{('buyer-file/assets/img/hosting/icon-3.png')}}" alt="img" loading="lazy">
             </div>
-            <div class="thumb">
-              <img src="https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=800&q=80" alt="img" style="border-radius: 10px;" loading="lazy">
+            <div class="thumb" style="max-width: 600px; margin-left: 0; margin-right: auto;">
+              <img src="buyer-file/assets/img/home/gambar-kantor.png" alt="img" style="border-radius: 10px; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; object-position: left center;" loading="lazy">
             </div>
           </div>
         </div>
@@ -2457,7 +2457,7 @@
       0 4px 6px rgba(0, 0, 0, 0.04),
       0 20px 60px rgba(128, 0, 0, 0.08),
       0 40px 80px rgba(0, 0, 0, 0.06);
-    padding: 52px 48px 48px;
+    padding: 105px 60px 80px;
     position: relative;
     z-index: 1;
     transform: translateZ(0);
@@ -2723,12 +2723,12 @@
   }
 </style>
 <section class="data-center-section fix section-padding section-bg">
-  <div class="container">
+  <div class="container" style="max-width: 1450px;">
     <div class="section-title text-center">
       <span class="style-bg">Database Peraturan Peraturan</span>
       <h2>Our Data Center </h2>
     </div>
-    <div class="container">
+    <div style="width: 100%;">
       <div class="peraturan-container">
 
         <!-- Stats bar -->
