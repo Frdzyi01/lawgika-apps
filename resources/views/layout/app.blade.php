@@ -7,15 +7,16 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    
+
     <!-- ======== SEO Optimization ======== -->
     <title>@yield('title', 'Lawgika - Legal, Tax, Accounting & Virtual Office Terpercaya')</title>
     <meta name="description" content="@yield('meta_description', 'Lawgika.co.id adalah konsultan profesional yang melayani pendirian PT, CV, Yayasan, Virtual Office, Jasa Pembukuan, dan Pelaporan Pajak di Indonesia. Proses cepat, legal, dan aman.')" />
     <meta name="keywords" content="@yield('meta_keywords', 'Jasa Pendirian PT, Pendirian CV, Pendirian Yayasan, Virtual Office Jakarta, Jasa Pembukuan, Konsultan Pajak, Pelaporan SPT Tahunan, Pengurusan PKP, Sewa Meeting Room, Sewa Podcast Room, Legalitas Usaha, Lawgika')" />
+    <meta name="google-site-verification" content="4SifO5KpxUTqWPbYNR5_n02fvRYEikrp8D7nTz2X5D0" />
     <meta name="author" content="Lawgika" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="{{ url()->current() }}" />
-    
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{ url()->current() }}" />
@@ -56,9 +57,10 @@
 </head>
 
 <body>
+    
     <!-- Preloader Start -->
     @if (request()->is('/'))
-    <div id="preloader" class="preloader">
+    <!-- <div id="preloader" class="preloader">
         <div class="animation-preloader">
             <div class="spinner"></div>
             <div class="txt-loading">
@@ -88,7 +90,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     @endif
 
     <!--<< Mouse Cursor Start >>-->
@@ -98,5 +100,42 @@
     @include('layout.header')
 
     @yield('content')
+
+    <!-- Floating WhatsApp -->
+    <a href="https://wa.me/6281112088600" target="_blank" class="floating-whatsapp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <style>
+        .floating-whatsapp {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: #25d366;
+            color: white;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 35px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .floating-whatsapp:hover {
+            background-color: #128C7E;
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        .floating-whatsapp i {
+            margin-top: 2px;
+        }
+    </style>
 
     @include('layout.footer')

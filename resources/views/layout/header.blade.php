@@ -177,7 +177,8 @@
               <i class="far fa-phone"></i>
             </div>
             <div class="offcanvas__contact-text">
-              <a href="#">+62 811-1208-8600</a>
+              <a href="https://wa.me/6281112088600" target="_blank">
+                +62 811-1208-8600
             </div>
           </li>
         </ul>
@@ -391,7 +392,9 @@
         <ul class="contact-list">
           <li>
             <i class="far fa-envelope"></i>
-            <a href="#">informasi@lawgika.co.id</a>
+            <a href="mailto:informasi@lawgika.co.id">
+  informasi@lawgika.co.id
+</a>
           </li>
 
         </ul>
@@ -402,7 +405,8 @@
 
           <li>
             <i class="fa-regular fa-phone"></i>
-            <a href="#">+62 811-1208-8600</a>
+            <a href="https://wa.me/6281112088600" target="_blank">
+              +62 811-1208-8600
           </li>
           <li>
             <i class="fa-light fa-comments"></i><a href="#">Live Chat</a>
