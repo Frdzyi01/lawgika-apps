@@ -255,6 +255,54 @@
         transform: scale(1.05);
     }
 
+    /* Hero CTA Buttons */
+    .btn-white {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background-color: #ffffff;
+        color: #800000;
+        border: 2px solid #ffffff;
+        padding: 14px 30px;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 0.95rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+
+    .btn-white:hover {
+        background-color: #800000;
+        color: #ffffff;
+        border-color: #800000;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(128,0,0,0.35);
+    }
+
+    .btn-outline-white {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background-color: transparent;
+        color: #ffffff;
+        border: 2px solid rgba(255,255,255,0.75);
+        padding: 14px 30px;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 0.95rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .btn-outline-white:hover {
+        background-color: #ffffff;
+        color: #800000;
+        border-color: #ffffff;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(255,255,255,0.2);
+    }
+
     /* Animations */
     .fade-up {
         opacity: 0;
@@ -374,8 +422,12 @@
                 Menyediakan layanan penerbitan sertifikasi ISO untuk membantu perusahaan mempersiapkan dan memperoleh sertifikat standar manajemen sesuai dengan ketentuan yang berlaku.
             </p>
             <div class="d-flex flex-wrap gap-3 mt-4">
-                <a href="https://wa.me/628123456789" class="btn-white">Konsultasi Gratis</a>
-                <a href="#iso-details" class="btn-outline-white">Pelajari Selengkapnya</a>
+                <a href="https://wa.me/6281112088600" class="btn-white" target="_blank" rel="noopener noreferrer">
+                    <i class="fa-brands fa-whatsapp"></i> Konsultasi Gratis
+                </a>
+                <a href="#iso-details" class="btn-outline-white">
+                    <i class="fa-solid fa-circle-info"></i> Pelajari Selengkapnya
+                </a>
             </div>
         </div>
     </div>
@@ -504,18 +556,6 @@
     </div>
 </section>
 
-{{-- Visual Break --}}
-<section class="visual-break-agency">
-    <div class="container position-relative z-1">
-        <div class="row">
-            <div class="col-lg-7 fade-up">
-                <span class="badge-premium bg-white shadow-sm mb-3">Jaminan Mutu & Kepercayaan</span>
-                <h2 class="display-3 fw-bold text-white mb-3">Sertifikasi ISO, Investasi untuk Masa Depan Bisnis Anda</h2>
-                <p class="text-white-50 lead mb-0">Dapatkan pengakuan internasional dan unggul dalam persaingan global dengan standar manajemen yang diakui dunia.</p>
-            </div>
-        </div>
-    </div>
-</section>
 
 
 @include('layout.partials.layanan-kami')

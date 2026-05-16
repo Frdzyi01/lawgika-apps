@@ -1012,7 +1012,7 @@
     background: #ffffff;
     border-radius: 16px;
     border: 1.5px solid #f0eaec;
-    width: 148px;
+    width: 275px;
     height: 82px;
     display: flex;
     align-items: center;
@@ -1083,7 +1083,7 @@
     }
 
     .client-logo-card {
-      width: 130px;
+      width: 215px;
       height: 72px;
     }
   }
@@ -1151,6 +1151,10 @@
           <img src="{{('buyer-file/assets/img/brand/12.png')}}" alt="Factual 2"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>FACTUAL</span>'">
         </div>
+ <div class="client-logo-card">
+          <img src="{{('buyer-file/assets/img/brand/13.png')}}" alt="Factual 3"
+            onerror="this.outerHTML='<span class=\'client-logo-text\'>FACTUAL3</span>'">
+        </div>
 
         <!-- Set 2 (duplicate for seamless loop) -->
         <div class="client-logo-card">
@@ -1200,6 +1204,10 @@
         <div class="client-logo-card">
           <img src="{{('buyer-file/assets/img/brand/12.png')}}" alt="Factual 2"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>FACTUAL</span>'">
+        </div>
+  <div class="client-logo-card">
+          <img src="{{('buyer-file/assets/img/brand/13.png')}}" alt="Factual 3"
+            onerror="this.outerHTML='<span class=\'client-logo-text\'>FACTUAL3</span>'">
         </div>
 
 

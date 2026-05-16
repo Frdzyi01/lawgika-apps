@@ -13,9 +13,9 @@ class PtPeroranganOrderController extends Controller
      * Daftar paket yang valid beserta harganya.
      */
     private array $packages = [
-        'basic'        => ['label' => 'Paket Izin',     'price' => 'Rp 1.500.000'],
-        'professional' => ['label' => 'Paket Bundling', 'price' => 'Rp 5.800.000'],
-        'enterprise'   => ['label' => 'Paket Bundling', 'price' => 'Rp 5.800.000'],
+        'basic'        => ['label' => 'Basic Package',     'price' => 'Rp 1.500.000'],
+        'professional' => ['label' => 'Business Package', 'price' => 'Rp 5.800.000'],
+        'enterprise'   => ['label' => 'Business Package', 'price' => 'Rp 5.800.000'],
     ];
 
     /**

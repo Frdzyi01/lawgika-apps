@@ -845,7 +845,7 @@
             {{-- Izin --}}
             <div class="col-lg-5 col-md-6">
                 <div class="pricing-card">
-                    <h4>IZIN</h4>
+                    <h4> Basic Package</h4>
                     <div class="price">
                         <span class="start-text">start form</span> Rp 5.000.000
                     </div>
@@ -918,7 +918,7 @@
                             <i class="fa-solid fa-minus"></i> LAYANAN CALL HANDLING
                         </li>
                     </ul>
-                    <button onclick="goOrder('pendirian-PT','premium')" class="btn-pricing w-100">Pilih Paket Izin</button>
+                    <button onclick="goOrder('pendirian-PT','premium')" class="btn-pricing w-100">Pilih Basic Package</button>
                 </div>
             </div>
 
@@ -926,7 +926,7 @@
             <div class="col-lg-5 col-md-6">
                 <div class="pricing-card featured">
                     <span class="badge">REKOMENDASI</span>
-                    <h4>BUNDLING</h4>
+                   <h4>Business Pack </h4>
                     <div class="price"><span class="start-text">start form</span> Rp 9.300.000</div>
                     <ul class="feature-list">
                         <li><i class="fa-solid fa-check"></i> PENGECEKAN NAMA PT</li>
@@ -975,7 +975,7 @@
                         <li><i class="fa-solid fa-check"></i> LAYANAN CALL HANDLING
                         </li>
                     </ul>
-                    <button onclick="goOrder('pendirian-PT','enterprise')" class="btn-pricing-primary w-100">Pilih Paket Bundling</button>
+                    <button onclick="goOrder('pendirian-PT','enterprise')" class="btn-pricing-primary w-100">Pilih Business Package</button>
                 </div>
             </div>
         </div>

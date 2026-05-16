@@ -255,6 +255,54 @@
         transform: scale(1.05);
     }
 
+    /* Hero CTA Buttons */
+    .btn-white {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background-color: #ffffff;
+        color: #800000;
+        border: 2px solid #ffffff;
+        padding: 14px 30px;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 0.95rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+
+    .btn-white:hover {
+        background-color: #800000;
+        color: #ffffff;
+        border-color: #800000;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(128,0,0,0.35);
+    }
+
+    .btn-outline-white {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background-color: transparent;
+        color: #ffffff;
+        border: 2px solid rgba(255,255,255,0.75);
+        padding: 14px 30px;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 0.95rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .btn-outline-white:hover {
+        background-color: #ffffff;
+        color: #800000;
+        border-color: #ffffff;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(255,255,255,0.2);
+    }
+
     /* Animations */
     .fade-up {
         opacity: 0;
@@ -374,8 +422,12 @@
                 Menyediakan layanan pendaftaran HAKI (Hak Kekayaan Intelektual) untuk membantu melindungi merek, karya, atau aset intelektual bisnis Anda secara resmi sesuai ketentuan yang berlaku.
             </p>
             <div class="d-flex flex-wrap gap-3 mt-4">
-                <a href="https://wa.me/628123456789" class="btn-white">Konsultasi Gratis</a>
-                <a href="#haki-details" class="btn-outline-white">Pelajari Selengkapnya</a>
+                <a href="https://wa.me/6281112088600" class="btn-white" target="_blank" rel="noopener noreferrer">
+                    <i class="fa-brands fa-whatsapp"></i> Konsultasi Gratis
+                </a>
+                <a href="#haki-details" class="btn-outline-white">
+                    <i class="fa-solid fa-circle-info"></i> Pelajari Selengkapnya
+                </a>
             </div>
         </div>
     </div>
@@ -423,7 +475,7 @@
         <div class="row align-items-center mb-5 pb-lg-5">
             <div class="col-lg-6 mb-4 mb-lg-0">
                 <div class="zigzag-image-container">
-                    <img src="https://images.unsplash.com/photo-1589578527966-fdac0f44566c?auto=format&fit=crop&q=80&w=1000" class="w-100" alt="Pendaftaran Merek Dagang">
+                    <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=1000&h=1000&q=80" class="w-100 haki-image" style="aspect-ratio: 1/1; object-fit: cover;" alt="Logo Brand Besar">
                 </div>
             </div>
             <div class="col-lg-6">
@@ -443,10 +495,29 @@
         </div>
 
         {{-- Section 2 --}}
+        <style>.tech-image{
+    max-width: 100%;
+    height: 320px;
+    object-fit: cover;
+}
+
+.haki-image{
+    max-width: 100%;
+    height: 320px;
+    object-fit: cover;
+}
+.zigzag-image-container{
+    max-width: 480px;
+    margin: 0 auto;
+}</style>
         <div class="row align-items-center flex-row-reverse">
             <div class="col-lg-6 mb-4 mb-lg-0">
-                <div class="zigzag-image-container">
-                    <img src="https://images.unsplash.com/photo-1627398242454-45a1465c2479?auto=format&fit=crop&q=80&w=1000" class="w-100" alt="Hak Cipta">
+                <div class="zigzag-image-container text-center">
+                    <img 
+            src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=900" 
+            class="img-fluid rounded-4 shadow-lg tech-image" 
+            alt="Teknologi Robot AI"
+        >
                 </div>
             </div>
             <div class="col-lg-6">
@@ -503,18 +574,7 @@
     </div>
 </section>
 
-{{-- Visual Break --}}
-<section class="visual-break-agency">
-    <div class="container position-relative z-1">
-        <div class="row">
-            <div class="col-lg-7 fade-up">
-                <span class="badge-premium bg-white shadow-sm mb-3">Perlindungan Aset Intelektual</span>
-                <h2 class="display-3 fw-bold text-white mb-3">Jangan Biarkan Ide & Merek Anda Diklaim Pihak Lain</h2>
-                <p class="text-white-50 lead mb-0">HAKI adalah aset tak berwujud yang sangat berharga. Amankan hak eksklusif Anda sekarang juga sebelum terlambat.</p>
-            </div>
-        </div>
-    </div>
-</section>
+
 
 
 @include('layout.partials.layanan-kami')

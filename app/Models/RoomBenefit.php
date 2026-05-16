@@ -36,7 +36,7 @@ class RoomBenefit extends Model
 
     /**
      * All service slugs eligible for room benefits.
-     * Any service with Paket Bundling (enterprise/professional) is now eligible.
+     * Any service with Business Package (enterprise/professional) is now eligible.
      */
     public const ELIGIBLE_SERVICES = [
         'pendirian-pt',

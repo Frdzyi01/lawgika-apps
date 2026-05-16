@@ -802,27 +802,153 @@
             padding: 12px 10px;
         }
     }
+
+    /* Hero Section - Immersive (from Haki) */
+    .hero-agency {
+        height: 85vh;
+        min-height: 600px;
+        background: url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=2000') center center / cover no-repeat;
+        position: relative;
+        display: flex;
+        align-items: center;
+        margin-top: 0;
+    }
+
+    .hero-agency::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 60%, rgba(0, 0, 0, 0.2) 100%);
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 650px;
+    }
+
+    .hero-title {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 800;
+        line-height: 1.1;
+        letter-spacing: -1.5px;
+        margin-bottom: 24px;
+        color: #fff;
+    }
+
+    .hero-subtitle {
+        font-size: 1.15rem;
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 35px;
+        line-height: 1.6;
+    }
+
+    .section-label {
+        color: var(--law-maroon);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 0.85rem;
+        margin-bottom: 12px;
+        display: block;
+    }
+
+    /* Hero CTA Buttons */
+    .btn-white {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background-color: #ffffff;
+        color: #800000;
+        border: 2px solid #ffffff;
+        padding: 14px 30px;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 0.95rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+
+    .btn-white:hover {
+        background-color: #800000;
+        color: #ffffff;
+        border-color: #800000;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(128,0,0,0.35);
+    }
+
+    .btn-outline-white {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background-color: transparent;
+        color: #ffffff;
+        border: 2px solid rgba(255,255,255,0.75);
+        padding: 14px 30px;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 0.95rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .btn-outline-white:hover {
+        background-color: #ffffff;
+        color: #800000;
+        border-color: #ffffff;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(255,255,255,0.2);
+    }
+    
+    .text-maroon {
+        color: var(--law-maroon) !important;
+    }
+
+    @media (max-width: 991px) {
+        .hero-agency {
+            height: 70vh;
+        }
+
+        .hero-content {
+            text-align: center;
+            margin: 0 auto;
+        }
+    }
 </style>
 
-{{-- Breadcrumb / Header Area (Style Berita) --}}
-<section class="page-title-area position-relative" style="background: linear-gradient(135deg, #1a0208 0%, #2d0610 50%, #1a0208 100%); padding-top: 180px; padding-bottom: 80px;">
-    <div class="container position-relative z-1">
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <div class="page-title-content">
-                    <span class="text-white bg-danger rounded-pill px-3 py-1 fw-medium mb-3 d-inline-block shadow-sm" style="font-size: 0.85rem">Layanan Perpajakan</span>
-                    <h1 class="text-white fw-bold mb-3 display-4">Pengurusan PKP Profesional</h1>
-                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem">Layanan pengurusan Pengukuhan PKP (Pengusaha Kena Pajak) untuk membantu perusahaan memperoleh status PKP secara resmi sesuai ketentuan perpajakan yang berlaku.</p>
-                </div>
-            </div>
-            <div class="col-lg-6 text-lg-end mt-4 mt-lg-0">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb justify-content-lg-end justify-content-start mb-0">
-                        <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none">Beranda</a></li>
-                        <li class="breadcrumb-item"><a href="#" class="text-white text-decoration-none">Layanan</a></li>
-                        <li class="breadcrumb-item active text-white-50" aria-current="page">Pengurusan PKP</li>
-                    </ol>
-                </nav>
+{{-- Breadcrumb --}}
+<section class="bg-white py-3 border-bottom overflow-hidden mt-5 pt-1">
+    <div class="container pt-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-maroon text-decoration-none small">Home</a></li>
+                <li class="breadcrumb-item"><a href="#" class="text-maroon text-decoration-none small">Layanan</a></li>
+                <li class="breadcrumb-item active small" aria-current="page">Pengurusan PKP</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+{{-- Hero Section --}}
+<section class="hero-agency">
+    <div class="container">
+        <div class="hero-content fade-up">
+            <span class="section-label" style="color: rgba(255,255,255,0.7)">Layanan Perpajakan</span>
+            <h1 class="hero-title">Pengurusan PKP Profesional</h1>
+            <p class="hero-subtitle">
+                Layanan pengurusan Pengukuhan PKP (Pengusaha Kena Pajak) untuk membantu perusahaan memperoleh status PKP secara resmi sesuai ketentuan perpajakan yang berlaku.
+            </p>
+            <div class="d-flex flex-wrap gap-3 mt-4">
+                <a href="https://wa.me/6281112088600" class="btn-white" target="_blank" rel="noopener noreferrer">
+                    <i class="fa-brands fa-whatsapp"></i> Konsultasi Gratis
+                </a>
+                <a href="#service-overview" class="btn-outline-white">
+                    <i class="fa-solid fa-circle-info"></i> Pelajari Selengkapnya
+                </a>
             </div>
         </div>
     </div>

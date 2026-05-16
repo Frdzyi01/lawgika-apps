@@ -38,7 +38,7 @@ class RoomBenefitService
         if (! RoomBenefit::isEligibleForOrder($order)) {
             throw new \RuntimeException(
                 'Paket "' . ($order->service_name ?? '-') . '" tidak memenuhi syarat untuk benefit ruangan. ' .
-                'Benefit hanya untuk Paket Bundling (semua layanan Pendirian Badan Usaha).'
+                'Benefit hanya untuk Business Package (semua layanan Pendirian Badan Usaha).'
             );
         }
 

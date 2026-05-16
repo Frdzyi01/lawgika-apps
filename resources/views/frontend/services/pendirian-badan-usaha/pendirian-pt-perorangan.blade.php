@@ -854,7 +854,7 @@
             {{-- Izin --}}
             <div class="col-lg-5 col-md-6">
                 <div class="pricing-card">
-                    <h4>Paket Izin</h4>
+                    <h4>Basic Package</h4>
                     <div class="price">Rp 1.500.000</div>
                    <ul class="feature-list">
     <li><i class="fa-solid fa-check"></i> Pengecekan Nama PT</li>
@@ -876,7 +876,7 @@
     <li class="disabled"><i class="fa-solid fa-minus"></i> Signage Display</li>
     <li class="disabled"><i class="fa-solid fa-minus"></i> Layanan Call Handling</li>
 </ul>
-                    <button onclick="goOrder('pt-perorangan','basic')" class="btn-pricing w-100">Pilih Paket Izin</button>
+                    <button onclick="goOrder('pt-perorangan','basic')" class="btn-pricing w-100">Pilih Basic Package</button>
                 </div>
             </div>
 
@@ -884,7 +884,7 @@
             <div class="col-lg-5 col-md-6">
                 <div class="pricing-card featured">
                     <span class="badge">REKOMENDASI</span>
-                    <h4>Paket Bundling</h4>
+                    <h4>Business Package</h4>
                     <div class="price">Rp 5.800.000</div>
                    <ul class="feature-list">
     <li><i class="fa-solid fa-check"></i> Pengecekan Nama PT</li>
@@ -906,7 +906,7 @@
     <li><i class="fa-solid fa-check"></i> Signage Display</li>
     <li><i class="fa-solid fa-check"></i> Layanan Call Handling</li>
 </ul>
-                    <button onclick="goOrder('pt-perorangan','professional')" class="btn-pricing-primary w-100">Pilih Paket Bundling</button>
+                    <button onclick="goOrder('pt-perorangan','professional')" class="btn-pricing-primary w-100">Pilih Business Package</button>
                 </div>
             </div>
         </div>

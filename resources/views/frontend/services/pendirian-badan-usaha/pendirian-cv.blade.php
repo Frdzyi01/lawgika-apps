@@ -845,7 +845,7 @@
             {{-- Izin --}}
             <div class="col-lg-5 col-md-6">
                 <div class="pricing-card">
-                    <h4>IZIN</h4>
+                    <h4> Basic Package</h4>
 
                     <div class="price">Rp 4.500.000</div>
 
@@ -911,7 +911,7 @@
                     </ul>
 
                     <button onclick="goOrder('cv','premium')" class="btn-pricing w-100">
-                        Pilih Paket Izin
+                        Pilih Basic Package
                     </button>
                 </div>
             </div>
@@ -921,7 +921,7 @@
                 <div class="pricing-card featured">
                     <span class="badge">REKOMENDASI</span>
 
-                    <h4>BUNDLING</h4>
+                   <h4>Business Pack </h4>
 
                     <div class="price">Rp 8.500.000</div>
 
@@ -948,7 +948,7 @@
                     </ul>
 
                     <button onclick="goOrder('cv','enterprise')" class="btn-pricing-primary w-100">
-                        Pilih Paket Bundling
+                        Pilih Business Package
                     </button>
                 </div>
             </div>

@@ -31,11 +31,11 @@ class UniversalOrderController extends Controller
     ];
 
     public static array $packages = [
-        'basic'        => 'Paket Izin',
-        'professional' => 'Paket Bundling',
-        'enterprise'   => 'Paket Bundling',
-        'premium'      => 'Paket Izin',
-        'eksklusif'    => 'Paket Izin (Lama)',
+        'basic'        => 'Basic Package',
+        'professional' => 'Business Package',
+        'enterprise'   => 'Business Package',
+        'premium'      => 'Basic Package',
+        'eksklusif'    => 'Basic Package (Lama)',
         'eksekutif'    => 'Paket Eksekutif',
     ];
 
@@ -66,7 +66,7 @@ class UniversalOrderController extends Controller
         $serviceInfo = self::$services[$service] ?? ['label' => Str::title(str_replace('-', ' ', $service)), 'url' => '/', 'db_slug' => $service];
 
         // Virtual Office keeps original package names (Premium / Eksklusif / Enterprise)
-        // Other services use the rebranded labels (Paket Izin / Paket Bundling)
+        // Other services use the rebranded labels (Basic Package / Business Package)
         if ($service === 'virtual-office') {
             $packageLabel = match($package) {
                 'premium'    => 'Paket Premium',

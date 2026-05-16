@@ -844,7 +844,7 @@
             {{-- Izin --}}
             <div class="col-lg-5 col-md-6">
                 <div class="pricing-card">
-                    <h4>IZIN</h4>
+                    <h4> Basic Package</h4>
                     <div class="price">Rp 4.500.000</div>
                     <ul class="feature-list">
                         <li><i class="fa-solid fa-check"></i> PENGECEKAN NAMA YAYASAN</li>
@@ -906,7 +906,7 @@
                             <i class="fa-solid fa-minus"></i> LAYANAN CALL HANDLING
                         </li>
                     </ul>
-                    <button onclick="goOrder('yayasan','premium')" class="btn-pricing w-100">Pilih Paket Izin</button>
+                    <button onclick="goOrder('yayasan','premium')" class="btn-pricing w-100">Pilih Basic Package</button>
                 </div>
             </div>
 
@@ -914,7 +914,7 @@
             <div class="col-lg-5 col-md-6">
                 <div class="pricing-card featured">
                     <span class="badge">REKOMENDASI</span>
-                    <h4>BUNDLING</h4>
+                   <h4>Business Pack </h4>
                     <div class="price">Rp 8.500.000</div>
                     <ul class="feature-list">
                         <li><i class="fa-solid fa-check"></i> PENGECEKAN NAMA YAYASAN</li>
@@ -937,7 +937,7 @@
                         <li><i class="fa-solid fa-check"></i> SIGNAGE DISPLAY</li>
                         <li><i class="fa-solid fa-check"></i> LAYANAN CALL HANDLING</li>
                     </ul>
-                    <button onclick="goOrder('yayasan','enterprise')" class="btn-pricing-primary w-100">Pilih Paket Bundling</button>
+                    <button onclick="goOrder('yayasan','enterprise')" class="btn-pricing-primary w-100">Pilih Business Package</button>
                 </div>
             </div>
         </div>
