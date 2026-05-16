@@ -164,7 +164,7 @@
               <i class="fal fa-clock"></i>
             </div>
             <div class="offcanvas__contact-text">
-              <span class="text">Mon-Friday, 09am - 05pm</span>
+              <span class="text">Monday-Friday, 08.00 - 17.00</span>
             </div>
           </li>
           <li class="d-flex align-items-center mb-4">
@@ -182,14 +182,14 @@
           {{-- Jika belum login --}}
           @guest
           <div class="d-flex flex-column gap-2">
-            <button class="theme-btn text-center fw-normal"
+            <button class="theme-btn text-center fw-normal offcanvas-close-trigger"
               data-bs-toggle="modal"
               data-bs-target="#exampleModal">
               Masuk <i class="fa-solid fa-arrow-right-long ms-2"></i>
             </button>
-            <button class="theme-btn text-center fw-normal"
+            <button class="theme-btn text-center fw-normal offcanvas-close-trigger"
               data-bs-toggle="modal"
-              data-bs-target="#registerModal">
+              data-bs-target="#exampleModal2">
               Daftar <i class="fa-solid fa-user-plus ms-2"></i>
             </button>
           </div>
@@ -368,10 +368,26 @@
         });
       }
 
+      function initOffcanvasAutoClose() {
+        const closeTriggers = document.querySelectorAll('.offcanvas-close-trigger');
+        closeTriggers.forEach(trigger => {
+          trigger.addEventListener('click', function() {
+            const offcanvas = document.querySelector('.offcanvas__info');
+            const overlay = document.querySelector('.offcanvas__overlay');
+            if (offcanvas) offcanvas.classList.remove('info-open');
+            if (overlay) overlay.classList.remove('overlay-open');
+          });
+        });
+      }
+
       if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initMobileAccordion);
+        document.addEventListener('DOMContentLoaded', () => {
+          initMobileAccordion();
+          initOffcanvasAutoClose();
+        });
       } else {
         initMobileAccordion();
+        initOffcanvasAutoClose();
       }
     })();
   </script>
