@@ -442,7 +442,7 @@
                   <div class="layanan-card-title">Virtual Office</div>
                   <div class="layanan-card-desc">Hemat biaya operasional hingga 90% dengan alamat kantor prestisius tanpa sewa fisik.</div>
                   <div class="layanan-card-price-label">Price Start From</div>
-                  <div class="layanan-card-price">2.580.000<span>/Tahun*</span></div>
+                  <div class="layanan-card-price">2.800.000<span>/Tahun*</span></div>
                   <a href="{{ url('/virtual-office') }}" class="layanan-card-btn">Order Now</a>
                 </div>
               </div>
@@ -458,7 +458,7 @@
                   <div class="layanan-card-title">Meeting Room</div>
                   <div class="layanan-card-desc">Tempat yang cocok untuk melakukan pertemuan penting dengan klien atau mitra bisnis.</div>
                   <div class="layanan-card-price-label">Price Start From</div>
-                  <div class="layanan-card-price">Rp 1.000.000<span>/60 Jam*</span></div>
+                  <div class="layanan-card-price">Rp 4.800.000<span>/60 Jam*</span></div>
                   <a href="{{ url('/sewa-meeting-room') }}" class="layanan-card-btn">Order Now</a>
                 </div>
               </div>
@@ -474,7 +474,7 @@
                   <div class="layanan-card-title">Podcast Studio</div>
                   <div class="layanan-card-desc">Ruang podcast profesional dengan peralatan lengkap untuk produksi audio berkualitas tinggi.</div>
                   <div class="layanan-card-price-label">Price Start From</div>
-                  <div class="layanan-card-price">Rp 500.000<span>/2 Jam*</span></div>
+                  <div class="layanan-card-price">Rp 700.000<span>/2 Jam*</span></div>
                   <a href="{{ url('/sewa-ruang-podcast') }}" class="layanan-card-btn">Order Now</a>
                 </div>
               </div>
@@ -558,7 +558,7 @@
             </div>
 
             {{-- 3. PT PMA --}}
-            <div class="swiper-slide">
+            <!-- <div class="swiper-slide">
               <div class="layanan-card">
                 <div class="layanan-card-img-wrap">
                   <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=500&q=80"
@@ -572,7 +572,7 @@
                   <a href="{{ url('/pendirian-pt-pma') }}" class="layanan-card-btn">Order Now</a>
                 </div>
               </div>
-            </div>
+            </div> -->
 
             {{-- 4. CV --}}
             <div class="swiper-slide">

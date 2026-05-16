@@ -431,41 +431,58 @@
             <div class="col-lg-9 col-md-11">
                 <div class="d-flex flex-column gap-3">
 
-                    {{-- NIB & OSS --}}
-                    <a href="{{ url('/nib-dan-oss') }}" class="service-card">
-                        <h3 class="service-title">NIB & OSS</h3>
+                
+                    <a href="https://wa.me/6281112088600" class="service-card">
+                        <h3 class="service-title">Surat Izin Usaha Jasa Konstruksi (SIUJK)</h3>
                         <span class="btn-detail">Lebih Detail <i class="fa-solid fa-arrow-right"></i></span>
                     </a>
 
-                    {{-- HAKI / Pendaftaran Merek --}}
-                    <a href="{{ url('/haki') }}" class="service-card">
-                        <h3 class="service-title">HAKI / Pendaftaran Merek</h3>
+                    <a href="https://wa.me/6281112088600" class="service-card">
+                        <h3 class="service-title">izin Import</h3>
+                        <span class="btn-detail">Lebih Detail <i class="fa-solid fa-arrow-right"></i></span>
+                    </a>
+                    
+                    <a href="https://wa.me/6281112088600" class="service-card">
+                        <h3 class="service-title">Izin Klinik</h3>
                         <span class="btn-detail">Lebih Detail <i class="fa-solid fa-arrow-right"></i></span>
                     </a>
 
-                    {{-- Laporan LKPM --}}
-                    <a href="{{ url('/laporan-lkpm') }}" class="service-card">
-                        <h3 class="service-title">Laporan LKPM</h3>
+                    <a href="https://wa.me/6281112088600" class="service-card">
+                        <h3 class="service-title">Pendaftaran NPWP</h3>
                         <span class="btn-detail">Lebih Detail <i class="fa-solid fa-arrow-right"></i></span>
                     </a>
 
-                    {{-- Sertifikat ISO --}}
-                    <a href="{{ url('/sertifikat-iso') }}" class="service-card">
-                        <h3 class="service-title">Sertifikat ISO</h3>
-                        <span class="btn-detail">Lebih Detail <i class="fa-solid fa-arrow-right"></i></span>
-                    </a>
-
-                    {{-- Surat Keterangan Tidak Pailit --}}
-                    <a href="{{ url('/surat-keterangan-tidak-pailit') }}" class="service-card">
+                    <a href="https://wa.me/6281112088600" class="service-card">
                         <h3 class="service-title">Surat Keterangan Tidak Pailit</h3>
                         <span class="btn-detail">Lebih Detail <i class="fa-solid fa-arrow-right"></i></span>
                     </a>
 
-                    {{-- Drafting Perjanjian Bisnis --}}
-                    <a href="{{ url('/drafting-review-perjanjian-bisnis') }}" class="service-card">
-                        <h3 class="service-title">Drafting Perjanjian Bisnis</h3>
+                    <a href="https://wa.me/6281112088600" class="service-card">
+                        <h3 class="service-title">Kartu Izin Tinggal Terbatas (KItAS)</h3>
                         <span class="btn-detail">Lebih Detail <i class="fa-solid fa-arrow-right"></i></span>
                     </a>
+
+                    <a href="https://wa.me/6281112088600" class="service-card">
+                        <h3 class="service-title">Kartu Izin Tinggal Tetap (KITAP)</h3>
+                        <span class="btn-detail">Lebih Detail <i class="fa-solid fa-arrow-right"></i></span>
+                    </a>
+
+                    <a href="https://wa.me/6281112088600" class="service-card">
+                        <h3 class="service-title">Pengurusan VISA</h3>
+                        <span class="btn-detail">Lebih Detail <i class="fa-solid fa-arrow-right"></i></span>
+                    </a>
+
+                    <a href="https://wa.me/6281112088600" class="service-card">
+                        <h3 class="service-title">Penyusunan Perjanjian Bisnis</h3>
+                        <span class="btn-detail">Lebih Detail <i class="fa-solid fa-arrow-right"></i></span>
+                    </a>
+
+                    <a href="https://wa.me/6281112088600" class="service-card">
+                        <h3 class="service-title">Surat Izin Usaha perusahaan Angkutan Laut(SIUPAL)</h3>
+                        <span class="btn-detail">Lebih Detail <i class="fa-solid fa-arrow-right"></i></span>
+                    </a>
+
+                  
 
                 </div>
             </div>

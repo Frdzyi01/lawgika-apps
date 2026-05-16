@@ -22,19 +22,19 @@
     <meta property="og:url" content="{{ url()->current() }}" />
     <meta property="og:title" content="@yield('title', 'Lawgika - Legal, Tax, Accounting & Virtual Office Terpercaya')" />
     <meta property="og:description" content="@yield('meta_description', 'Lawgika.co.id adalah konsultan profesional yang melayani pendirian PT, CV, Yayasan, Virtual Office, Jasa Pembukuan, dan Pelaporan Pajak di Indonesia. Proses cepat, legal, dan aman.')" />
-    <meta property="og:image" content="{{ asset('buyer-file/assets/img/logo-removebg.png') }}" />
+    <meta property="og:image" content="{{ asset('buyer-file/assets/img/logo.png') }}" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="{{ url()->current() }}" />
     <meta property="twitter:title" content="@yield('title', 'Lawgika - Legal, Tax, Accounting & Virtual Office Terpercaya')" />
     <meta property="twitter:description" content="@yield('meta_description', 'Lawgika.co.id adalah konsultan profesional yang melayani pendirian PT, CV, Yayasan, Virtual Office, Jasa Pembukuan, dan Pelaporan Pajak di Indonesia. Proses cepat, legal, dan aman.')" />
-    <meta property="twitter:image" content="{{ asset('buyer-file/assets/img/logo-removebg.png') }}" />
+    <meta property="twitter:image" content="{{ asset('buyer-file/assets/img/logo.png') }}" />
 
     <!--<< Favcion >>-->
     <!-- <link rel="shortcut icon" href="{{ asset('buyer-file/assets/img/favicon.svg')}}" /> -->
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('buyer-file/assets/img/logo-removebg.png')}}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('buyer-file/assets/img/logo-removebg.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('buyer-file/assets/img/logo.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('buyer-file/assets/img/logo.png')}}">
     <!--<< Bootstrap min.css >>-->
     <link rel="stylesheet" href="{{ asset('buyer-file/assets/css/bootstrap.min.css')}}" />
     <!--<< All Min Css >>-->

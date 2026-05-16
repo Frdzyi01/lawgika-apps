@@ -73,12 +73,12 @@ class ServicesController extends Controller
 
     public function laporanLkpm()
     {
-        return view('frontend.services.perizinan-dokumen-hukum.laporan-lkpm');
+        return view('frontend.services.perizinan-dokumen-hukum.laporan-LKPM');
     }
 
     public function sertifikatIso()
     {
-        return view('frontend.services.perizinan-dokumen-hukum.sertifikat-iso');
+        return view('frontend.services.perizinan-dokumen-hukum.sertifikat-ISO');
     }
 
     public function suratKeteranganTidakPailit()
@@ -134,7 +134,7 @@ class ServicesController extends Controller
 
     public function pengurusanPkp()
     {
-        return view('frontend.services.pembukuan-pajak.pengurusan-pkp');
+        return view('frontend.services.pembukuan-pajak.pengurusan-PKP');
     }
 
     public function pelaporanSptTahunan()

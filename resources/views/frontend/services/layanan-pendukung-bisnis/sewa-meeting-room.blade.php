@@ -153,109 +153,168 @@
         line-height: 1.7;
     }
 
-    /* Pricing Table 2 Column */
+    /* Pricing Table Redesign */
     .pt-pricing {
-        padding: 80px 0;
+        padding: 100px 0;
+        background: #fcfcfc;
+    }
+
+    .pricing-grid {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        flex-wrap: wrap;
+    }
+
+    .pricing-card-modern {
         background: #fff;
-    }
-
-    .pricing-table-container {
-        max-width: 1000px;
-        margin: 0 auto;
-        background: #fff;
-        border-radius: 20px;
-        border: 1px solid #f0e4e8;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
-        overflow: hidden;
-    }
-
-    .pricing-table-header {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        background: var(--bg-light);
-        border-bottom: 1px solid #f0e4e8;
-    }
-
-    @media (max-width: 768px) {
-
-        .pricing-table-header,
-        .pricing-table-body {
-            grid-template-columns: 1fr !important;
-        }
-
-        .pricing-column-right {
-            border-left: none !important;
-            border-top: 1px solid #f0e4e8;
-        }
-    }
-
-    .pricing-column {
-        padding: 40px;
-    }
-
-    .pricing-column-right {
-        border-left: 1px solid #f0e4e8;
-        text-align: center;
+        border-radius: 24px;
+        padding: 30px 40px 50px 40px;
+        width: 100%;
+        max-width: 450px;
+        position: relative;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border: 1px solid #f1f5f9;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        background: #fff;
-        cursor: pointer;
-        transition: background 0.3s ease;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
     }
 
-    .pricing-column-right:hover {
-        background: #fafafa;
+    .pricing-card-modern:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 25px 50px -12px rgba(78, 5, 22, 0.12);
+    }
+
+    .pricing-card-modern.featured {
+        background: linear-gradient(145deg, #4e0516 0%, #2d030d 100%);
+        color: #fff;
+        border: none;
+    }
+
+    .pricing-card-modern.featured .pricing-title,
+    .pricing-card-modern.featured .pricing-price,
+    .pricing-card-modern.featured .pricing-benefit-list li {
+        color: #fff;
+    }
+
+    .pricing-card-modern.featured .pricing-subtitle {
+        color: var(--accent);
+        background: rgba(201, 160, 61, 0.15);
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 8px;
+    }
+
+    .pricing-badge-popular {
+        position: absolute;
+        top: -15px;
+        right: 30px;
+        background: var(--accent);
+        color: var(--dark);
+        padding: 6px 18px;
+        border-radius: 50px;
+        font-size: 0.75rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0 10px 20px rgba(201, 160, 61, 0.3);
     }
 
     .pricing-title {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
         font-weight: 800;
+        margin-bottom: 8px;
         color: var(--dark);
-        margin-bottom: 5px;
     }
 
     .pricing-subtitle {
-        color: var(--accent);
+        font-size: 0.85rem;
         font-weight: 700;
+        color: var(--gray);
         text-transform: uppercase;
-        font-size: 0.9rem;
         letter-spacing: 1px;
-        margin-bottom: 20px;
+        margin-bottom: 25px;
+        display: block;
+    }
+
+    .pricing-price-wrap {
+        margin-bottom: 35px;
     }
 
     .pricing-price {
-        font-size: 2.5rem;
+        font-size: 2.8rem;
         font-weight: 800;
+        line-height: 1;
+        margin-bottom: 5px;
         color: var(--primary);
-        margin-bottom: 20px;
+    }
+
+    .pricing-card-modern.featured .pricing-price {
+        color: #fff;
     }
 
     .pricing-benefit-list {
         list-style: none;
         padding: 0;
-        margin: 0;
+        margin: 0 0 40px 0;
+        flex-grow: 1;
     }
 
     .pricing-benefit-list li {
         display: flex;
-        align-items: center;
-        gap: 12px;
-        margin-bottom: 15px;
-        font-size: 1.05rem;
-        color: #334155;
+        align-items: flex-start;
+        gap: 15px;
+        margin-bottom: 18px;
+        font-size: 1rem;
+        color: #475569;
+        line-height: 1.4;
     }
 
     .pricing-benefit-list li i {
-        color: var(--primary);
-        font-size: 1.2rem;
+        color: #10b981;
+        margin-top: 4px;
+        font-size: 1.1rem;
     }
 
-    .pricing-column-right .pricing-benefit-list {
-        display: inline-block;
-        text-align: left;
-        margin-bottom: 30px;
+    .pricing-card-modern.featured .pricing-benefit-list li i {
+        color: var(--accent);
+    }
+
+    .btn-pricing-modern {
+        width: 100%;
+        padding: 16px 30px;
+        border-radius: 14px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+        text-align: center;
+        text-decoration: none;
+        display: block;
+        border: 2px solid var(--primary);
+        background: transparent;
+        color: var(--primary);
+    }
+
+    .pricing-card-modern.featured .btn-pricing-modern {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: var(--dark);
+    }
+
+    .btn-pricing-modern:hover {
+        background: var(--primary);
+        color: #fff;
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(78, 5, 22, 0.2);
+    }
+
+    .pricing-card-modern.featured .btn-pricing-modern:hover {
+        background: #fff;
+        border-color: #fff;
+        color: var(--primary);
+        box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
     }
 
     /* FAQ */
@@ -430,16 +489,53 @@
         transform: scale(1);
     }
 
-    @media (max-width: 992px) {
-        .gallery-grid-meeting {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
-
     @media (max-width: 576px) {
         .gallery-grid-meeting {
             grid-template-columns: 1fr;
         }
+    }
+
+    /* Meeting Room Slider Custom Styles */
+    .gallery-swiper-meeting {
+        padding: 10px 4px 20px;
+        position: relative;
+    }
+
+    .gallery-nav-wrap {
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .gallery-arrow-btn {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        border: 1.5px solid #e5e7eb;
+        background: #fff;
+        color: #111827;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    }
+
+    .gallery-arrow-btn:hover:not(.swiper-button-disabled) {
+        border-color: var(--primary);
+        background: var(--primary);
+        color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(78, 6, 22, 0.2);
+    }
+
+    .gallery-arrow-btn.swiper-button-disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+        filter: grayscale(1);
     }
 
     /* Lightbox Styles */
@@ -539,16 +635,31 @@
             <p>Ruang meeting nyaman dan representatif untuk kebutuhan bisnis Anda</p>
         </div>
 
-        <div class="gallery-grid-meeting">
-            @for ($i = 1; $i <= 5; $i++)
-                <div class="gallery-item" onclick="openLightbox('{{ asset('buyer-file/assets/img/meetingroom/ruangmeeting' . ($i > 1 ? $i : '') . '.jpg') }}')">
-                <img src="{{ asset('buyer-file/assets/img/meetingroom/ruangmeeting' . ($i > 1 ? $i : '') . '.jpg') }}" alt="Meeting Room {{ $i }}">
-                <div class="gallery-overlay">
-                    <i class="fa-solid fa-magnifying-glass-plus"></i>
-                </div>
+        {{-- Slider Navigation --}}
+        <div class="gallery-nav-wrap">
+            <button class="gallery-arrow-btn gallery-prev-meeting" title="Previous" aria-label="Previous">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button class="gallery-arrow-btn gallery-next-meeting" title="Next" aria-label="Next">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
         </div>
-        @endfor
-    </div>
+
+        {{-- Swiper Slider --}}
+        <div class="swiper gallery-swiper-meeting">
+            <div class="swiper-wrapper">
+                @for ($i = 1; $i <= 5; $i++)
+                    <div class="swiper-slide">
+                        <div class="gallery-item" onclick="openLightbox('{{ asset('buyer-file/assets/img/meetingroom/ruangmeeting' . ($i > 1 ? $i : '') . '.jpg') }}')">
+                            <img src="{{ asset('buyer-file/assets/img/meetingroom/ruangmeeting' . ($i > 1 ? $i : '') . '.jpg') }}" alt="Meeting Room {{ $i }}">
+                            <div class="gallery-overlay">
+                                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                            </div>
+                        </div>
+                    </div>
+                @endfor
+            </div>
+        </div>
     </div>
 </section>
 
@@ -563,6 +674,30 @@
         document.getElementById('lightbox-img').src = src;
         document.getElementById('lightbox-overlay').style.display = 'flex';
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof Swiper !== 'undefined') {
+            new Swiper('.gallery-swiper-meeting', {
+                slidesPerView: 1,
+                spaceBetween: 20,
+                loop: false,
+                navigation: {
+                    nextEl: '.gallery-next-meeting',
+                    prevEl: '.gallery-prev-meeting',
+                },
+                breakpoints: {
+                    576: {
+                        slidesPerView: 2,
+                        spaceBetween: 20
+                    },
+                    992: {
+                        slidesPerView: 3,
+                        spaceBetween: 24
+                    }
+                }
+            });
+        }
+    });
 </script>
 
 {{-- ===== MANFAAT & FASILITAS ===== --}}
@@ -614,50 +749,44 @@
             <p>Reservasi sekarang dan dapatkan penawaran terbaik</p>
         </div>
 
-        <div class="pricing-table-container">
-            <div class="pricing-table-header">
-                {{-- KIRI: Reservasi Sekarang --}}
-                <div class="pricing-column pricing-column-right h-100"
-                    style="border-left:none; background-color:#e0e2e5;">
-                    <h3 class="pricing-title">RESERVASI MEETING ROOM</h3>
-                    <div class="pricing-subtitle">60 JAM / TAHUN</div>
-                    <div class="pricing-price">Paket Badan Usaha</div>
-                    <ul class="pricing-benefit-list">
-                        <li><i class="fa-solid fa-check"></i> RUANG MEETING NYAMAN & PROFESIONAL</li>
-                        <li><i class="fa-solid fa-check"></i> SMART TV</li>
-                        <li><i class="fa-solid fa-check"></i> AKSES WIFI</li>
-                        <li><i class="fa-solid fa-check"></i> LAYANAN PRINT, SCAN DAN FOTOCOPY</li>
-                        <li><i class="fa-solid fa-check"></i> RUANG TUNGGU DAN PANTRY</li>
-                        <li><i class="fa-solid fa-check"></i> RUANG MEETING 60 JAM/TAHUN</li>
-                    </ul>
+        <div class="pricing-grid">
+            {{-- KIRI: Booking Card --}}
+            <div class="pricing-card-modern">
+                <h3 class="pricing-title" style="margin-top: 0; text-align: center;">BOOKING MEETING ROOM</h3>
+                <div class="pricing-price-wrap" style="text-align: center; margin-bottom: 20px;">
+                    <div class="pricing-price" style="font-size: 1.3rem; color: var(--primary);">Prosedur Reservasi</div>
+                </div>
+                <ul class="pricing-benefit-list">
+                    <li><i class="fa-solid fa-circle-check"></i> Booking selambat-lambatnya 1 hari sebelumnya</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Jadwal mengikuti ketersediaan ruangan</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Pembatalan mohon diinformasikan minimal 12 jam sebelumnya</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Akses fasilitas premium Lawgika Office</li>
+                </ul>
+                <div class="mt-auto">
                     @if($hasBenefit)
-                    <button type="button" class="btn-outline-brand mt-auto"
-                        style="border-radius:8px;width:100%;background:none;cursor:pointer;"
-                        onclick="openBookingModal('reservasi','Paket Badan Usaha','60 mnt')">Reservasi Sekarang</button>
+                        <button type="button" class="btn-pricing-modern" onclick="openBookingModal('reservasi','Paket Badan Usaha','60 mnt')">Booking Sekarang</button>
                     @else
-                    <button type="button" class="btn-outline-brand mt-auto"
-                        style="border-radius:8px;width:100%;background:none;cursor:pointer;"
-                        onclick="showNoBenefitAlert()">Reservasi Sekarang</button>
+                        <button type="button" class="btn-pricing-modern" onclick="showNoBenefitAlert()">Booking Sekarang</button>
                     @endif
                 </div>
+            </div>
 
-                {{-- KANAN: Beli Paket --}}
-                <div class="pricing-column pricing-column-right h-100">
-                    <h3 class="pricing-title">PAKET MEETING ROOM</h3>
-                    <div class="pricing-subtitle">60 JAM / TAHUN</div>
-                    <div class="pricing-price">Rp 4.800.000</div>
-                    <ul class="pricing-benefit-list">
-                        <li><i class="fa-solid fa-check"></i> RUANG MEETING NYAMAN & PROFESIONAL</li>
-                        <li><i class="fa-solid fa-check"></i> SMART TV</li>
-                        <li><i class="fa-solid fa-check"></i> AKSES WIFI</li>
-                        <li><i class="fa-solid fa-check"></i> LAYANAN PRINT, SCAN DAN FOTOCOPY</li>
-                        <li><i class="fa-solid fa-check"></i> RUANG TUNGGU DAN PANTRY</li>
-                        <li><i class="fa-solid fa-check"></i> RUANG MEETING 60 JAM/TAHUN</li>
-                    </ul>
-                    <a href="{{ route('meeting-room.order', ['package' => 'paket']) }}"
-                        class="btn-outline-brand mt-auto"
-                        style="border-radius:8px;width:100%;background:none;cursor:pointer;display:inline-block;text-align:center;text-decoration:none;">Beli
-                        Paket</a>
+            {{-- KANAN: Premium Packet Card --}}
+            <div class="pricing-card-modern featured">
+                <h3 class="pricing-title" style="margin-top: 0; text-align: center; color: #fff; background-color: initial !important;">PAKET MEETING ROOM</h3>
+                <div class="pricing-price-wrap" style="text-align: center; margin-bottom: 20px;">
+                    <div class="pricing-price" style="color: var(--accent); font-size: 2.5rem;">Rp 4.800.000</div>
+                    <p class="text-white-50 small mt-1">Investasi Profesional untuk Bisnis Anda</p>
+                </div>
+                <ul class="pricing-benefit-list">
+                    <li><i class="fa-solid fa-circle-check"></i> Ruang Meeting Nyaman & Profesional</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Smart TV & High Speed WiFi</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Layanan Print, Scan dan Fotocopy</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Free Flow Mineral Water & Pantry</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Kuota 60 Jam / Tahun (Fleksibel)</li>
+                </ul>
+                <div class="mt-auto">
+                    <a href="{{ route('meeting-room.order', ['package' => 'paket']) }}" class="btn-pricing-modern">Beli Paket Sekarang</a>
                 </div>
             </div>
         </div>

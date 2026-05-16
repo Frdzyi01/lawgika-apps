@@ -2944,9 +2944,7 @@
 
 
 <!-- Testimonial Section Start -->
-<section
-  class="testimonial-section fix section-padding bg-cover"
-  style="background-image: url('{{ asset('buyer-file/assets/img/hero/hero-bg-1.jpg') }}')">
+<section class="testimonial-section fix section-padding bg-cover" style="background-image: url('{{ asset('buyer-file/assets/img/hero/hero-bg-1.jpg') }}')">
   <div class="container">
     <div class="section-title-area">
       <div class="section-title">
@@ -2966,127 +2964,23 @@
     </div>
     <div class="tesimonial-wrapper">
       <div class="swiper testimonial-slider">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
+        <div class="swiper-wrapper" id="google-reviews-wrapper">
+          <!-- Loading State Dummy Slide -->
+          <div class="swiper-slide fallback-slide">
             <div class="testimonial-card-items">
               <div class="star">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-                <i class="fa-regular fa-star"></i>
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
               </div>
               <div class="icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="44"
-                  height="33"
-                  viewBox="0 0 44 33"
-                  fill="none">
-                  <path
-                    d="M16 16.2929L0.5 31.7929V0.5H16V16.2929ZM43.5 16.2929L28 31.7929V0.5H43.5V16.2929Z"
-                    stroke="white" />
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="44" height="33" viewBox="0 0 44 33" fill="none"><path d="M16 16.2929L0.5 31.7929V0.5H16V16.2929ZM43.5 16.2929L28 31.7929V0.5H43.5V16.2929Z" stroke="white" /></svg>
               </div>
-              <div
-                class="client-image bg-cover"
-                style="
-                      background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80');
-                    ">
-                <div class="circle-shape">
-                  <img src="{{('buyer-file/assets/img/testimonial/circle.png')}}" alt="" loading="lazy" />
-                </div>
+              <div class="client-image bg-cover" style="background-image: url('{{ asset('buyer-file/assets/img/testimonial/circle.png') }}');">
+                <div class="circle-shape"><img src="{{ asset('buyer-file/assets/img/testimonial/circle.png') }}" alt="" loading="lazy" /></div>
               </div>
-              <p>
-                Pendampingan dari Lawgika membuat proses legalitas bisnis menjadi rapi
-                dan sesuai tenggat waktu yang ditentukan. Keahlian tim tentang regulasi
-                memberikan jaminan keamanan bagi operasional perusahaan kami secara penuh
-              </p>
+              <p>Sedang memuat ulasan terbaru dari pelanggan kami langsung melalui Google Maps...</p>
               <div class="client-info">
-                <h4>Cameron Williamson</h4>
-                <span>Marketing Coordinator</span>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="testimonial-card-items">
-              <div class="star">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-              </div>
-              <div class="icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="44"
-                  height="33"
-                  viewBox="0 0 44 33"
-                  fill="none">
-                  <path
-                    d="M16 16.2929L0.5 31.7929V0.5H16V16.2929ZM43.5 16.2929L28 31.7929V0.5H43.5V16.2929Z"
-                    stroke="white" />
-                </svg>
-              </div>
-              <div
-                class="client-image bg-cover"
-                style="
-                      background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80');
-                    ">
-                <div class="circle-shape">
-                  <img src="{{('buyer-file/assets/img/testimonial/circle.png')}}" alt="" loading="lazy" />
-                </div>
-              </div>
-              <p>
-                Pendampingan dari Lawgika membuat proses legalitas bisnis menjadi rapi
-                dan sesuai tenggat waktu yang ditentukan. Keahlian tim tentang regulasi
-                memberikan jaminan keamanan bagi operasional perusahaan kami secara penuh
-              </p>
-              <div class="client-info">
-                <h4>Cameron Williamson</h4>
-                <span>Marketing Coordinator</span>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="testimonial-card-items">
-              <div class="star">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-              </div>
-              <div class="icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="44"
-                  height="33"
-                  viewBox="0 0 44 33"
-                  fill="none">
-                  <path
-                    d="M16 16.2929L0.5 31.7929V0.5H16V16.2929ZM43.5 16.2929L28 31.7929V0.5H43.5V16.2929Z"
-                    stroke="white" />
-                </svg>
-              </div>
-              <div
-                class="client-image bg-cover"
-                style="
-                      background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80');
-                    ">
-                <div class="circle-shape">
-                  <img src="{{('buyer-file/assets/img/testimonial/circle.png')}}" alt="" loading="lazy" />
-                </div>
-              </div>
-              <p>
-                Pendampingan dari Lawgika membuat proses legalitas bisnis menjadi rapi
-                dan sesuai tenggat waktu yang ditentukan. Keahlian tim tentang regulasi
-                memberikan jaminan keamanan bagi operasional perusahaan kami secara penuh
-              </p>
-              <div class="client-info">
-                <h4>Cameron Williamson</h4>
-                <span>Marketing Coordinator</span>
+                <h4>Memuat Review...</h4>
+                <span>Google Maps</span>
               </div>
             </div>
           </div>
@@ -3095,8 +2989,200 @@
     </div>
   </div>
 </section>
+
+<!-- Google Places API Script -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCr2JuXdyrJPsvzmcGRtuukJQAsJT9q_2Y&libraries=places"></script>
+<script>
+(function() {
+    function initGoogleReviews() {
+        // ---------------------------------------------------------
+        // KONFIGURASI GOOGLE REVIEWS
+        // ---------------------------------------------------------
+        const PLACE_ID = 'ChIJWXlW0i8dai4RKRssNdgO7r4'; // Place ID: Lawgika Office
+        
+        const wrapper = document.getElementById('google-reviews-wrapper');
+        if (!wrapper) return;
+        
+        const fallbackHTML = `
+          <div class="swiper-slide">
+            <div class="testimonial-card-items">
+              <div class="star">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+              <div class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="44" height="33" viewBox="0 0 44 33" fill="none"><path d="M16 16.2929L0.5 31.7929V0.5H16V16.2929ZM43.5 16.2929L28 31.7929V0.5H43.5V16.2929Z" stroke="white" /></svg>
+              </div>
+              <div class="client-image bg-cover" style="background-image: url('{{ asset('buyer-file/assets/img/testimonial/circle.png') }}');">
+                <div class="circle-shape"><img src="{{ asset('buyer-file/assets/img/testimonial/circle.png') }}" alt="" loading="lazy" /></div>
+              </div>
+              <p>Pendampingan dari Lawgika membuat proses legalitas bisnis menjadi rapi dan sesuai tenggat waktu. Tim sangat profesional!</p>
+              <div class="client-info">
+                <h4>Klien Setia</h4>
+                <span>Lawgika</span>
+              </div>
+            </div>
+          </div>
+        `;
+
+        function renderReviews(reviews) {
+            try {
+                if (!reviews || reviews.length === 0) {
+                    wrapper.innerHTML = fallbackHTML;
+                    reinitSwiper();
+                    return;
+                }
+
+                const topReviews = reviews.slice(0, 5);
+                let html = '';
+
+                topReviews.forEach(review => {
+                    let stars = '';
+                    for(let i = 0; i < 5; i++) {
+                        stars += (i < (review.rating || 5)) ? '<i class="fa-solid fa-star"></i>' : '<i class="fa-regular fa-star"></i>';
+                    }
+                    
+                    let text = review.text || 'Memberikan rating bintang tanpa teks ulasan.';
+                    text = text.length > 200 ? text.substring(0, 200) + '...' : text;
+                    
+                    const photoUrl = review.profile_photo_url || '{{ asset('buyer-file/assets/img/testimonial/circle.png') }}';
+                    const authorName = review.author_name || 'Pelanggan';
+                    const timeDesc = review.relative_time_description || 'Google Maps';
+
+                    html += `
+                      <div class="swiper-slide">
+                        <div class="testimonial-card-items" style="height: 100%;">
+                          <div class="star">${stars}</div>
+                          <div class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="44" height="33" viewBox="0 0 44 33" fill="none"><path d="M16 16.2929L0.5 31.7929V0.5H16V16.2929ZM43.5 16.2929L28 31.7929V0.5H43.5V16.2929Z" stroke="white" /></svg>
+                          </div>
+                          <div class="client-image bg-cover" style="background-image: url('${photoUrl}');">
+                            <div class="circle-shape"><img src="{{ asset('buyer-file/assets/img/testimonial/circle.png') }}" alt="" loading="lazy" /></div>
+                          </div>
+                          <p>${text}</p>
+                          <div class="client-info">
+                            <h4>${authorName}</h4>
+                            <span>${timeDesc}</span>
+                          </div>
+                        </div>
+                      </div>
+                    `;
+                });
+
+                wrapper.innerHTML = html.trim() === '' ? fallbackHTML : html;
+                reinitSwiper();
+            } catch (err) {
+                console.error('Error saat render ulasan:', err);
+                wrapper.innerHTML = fallbackHTML;
+                reinitSwiper();
+            }
+        }
+
+        function reinitSwiper() {
+            setTimeout(() => {
+                try {
+                    if (typeof Swiper !== 'undefined') {
+                        const swiperEl = document.querySelector('.testimonial-slider');
+                        if (swiperEl && swiperEl.swiper) {
+                            swiperEl.swiper.destroy(true, true);
+                        }
+                        new Swiper(".testimonial-slider", {
+                            spaceBetween: 20,
+                            speed: 3000,
+                            loop: true,
+                            centeredSlides: true,
+                            autoplay: { delay: 2000, disableOnInteraction: false },
+                            navigation: { nextEl: ".array-prev", prevEl: ".array-next" },
+                            breakpoints: {
+                                1199: { slidesPerView: 3 },
+                                991: { slidesPerView: 2 },
+                                767: { slidesPerView: 2 },
+                                575: { slidesPerView: 1 },
+                                0: { slidesPerView: 1 },
+                            },
+                        });
+                    }
+                } catch(e) {
+                    console.error("Swiper Re-init error:", e);
+                }
+            }, 300);
+        }
+
+        try {
+            // Memastikan script API maps sudah ter-load
+            if (typeof google === 'undefined' || typeof google.maps === 'undefined') {
+                console.warn('Google Maps API belum ter-load sepenuhnya. Menampilkan fallback.');
+                wrapper.innerHTML = fallbackHTML;
+                reinitSwiper();
+                return;
+            }
+
+            const dummyMap = document.createElement('div');
+            dummyMap.style.display = 'none';
+            document.body.appendChild(dummyMap); // Harus di dalam DOM untuk bbrp kasus
+
+            const service = new google.maps.places.PlacesService(dummyMap);
+
+            service.getDetails({
+                placeId: PLACE_ID,
+                fields: ['reviews']
+            }, function(place, status) {
+                try {
+                    if (status === google.maps.places.PlacesServiceStatus.OK && place && place.reviews) {
+                        let sortedReviews = place.reviews;
+                        if (sortedReviews.length > 0 && sortedReviews[0].time) {
+                            sortedReviews = sortedReviews.sort((a, b) => b.time - a.time);
+                        }
+                        renderReviews(sortedReviews);
+                    } else {
+                        console.warn('Google Reviews: Gagal memuat atau tidak ada ulasan. Status:', status);
+                        // Tampilkan status error ke layar langsung agar user tahu
+                        wrapper.innerHTML = fallbackHTML.replace('Klien Setia', 'ERROR: ' + status);
+                        reinitSwiper();
+                    }
+                } catch(err) {
+                    console.error('Error saat memproses response Google Maps:', err);
+                    wrapper.innerHTML = fallbackHTML.replace('Klien Setia', 'JS Error');
+                    reinitSwiper();
+                }
+            });
+        } catch (e) {
+            console.error('Google Maps API Init Error:', e);
+            wrapper.innerHTML = fallbackHTML;
+            reinitSwiper();
+        }
+    }
+
+    // Hindari trap DOMContentLoaded dengan mengecek readyState
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initGoogleReviews);
+    } else {
+        // Jika DOM sudah ready (misal script di-load via AJAX/Turbolinks) jalankan langsung
+        initGoogleReviews();
+    }
+})();
+</script>
 <!-- Faq Section Start -->
 <style>
+  /* Menyamakan tinggi kotak testimonial */
+  .testimonial-slider .swiper-slide {
+    height: auto;
+    display: flex;
+  }
+
+  .testimonial-slider .testimonial-card-items {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  /* Memastikan teks review mengambil ruang sisa agar info klien rata bawah */
+  .testimonial-slider .testimonial-card-items p {
+    flex-grow: 1;
+    margin-bottom: 20px;
+  }
+
   /* Styling for the new FAQ section */
   .faq-modern-section {
     background-color: #ffffff;
@@ -3354,6 +3440,77 @@
     </div>
   </div>
 </section>
+
+<!-- Pastikan script Google Maps dengan parameter libraries=places tetap ada -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCr2JuXdyrJPsvzmcGRtuukJQAsJT9q_2Y&libraries=places"></script>
+
+<script>
+(function() {
+    // Fungsi utama untuk mengambil Google Reviews
+    function fetchGoogleReviews() {
+        const PLACE_ID = 'ChIJWXlW0i8dai4RKRssNdgO7r4'; // Place ID bisnis Anda
+
+        // 1. Validasi apakah library Google Maps API dan "places" sudah ter-load dengan benar
+        if (typeof google === 'undefined' || typeof google.maps === 'undefined' || typeof google.maps.places === 'undefined') {
+            console.error('❌ Google Maps API belum ter-load atau library "places" tidak disertakan.');
+            return;
+        }
+
+        try {
+            // 2. Buat elemen dummy map (syarat mutlak dari Google untuk menjalankan PlacesService)
+            // Elemen ini harus di-append sementara ke dalam document.body agar tidak silent fail.
+            const dummyMap = document.createElement('div');
+            dummyMap.style.display = 'none';
+            document.body.appendChild(dummyMap);
+
+            // 3. Inisialisasi Google PlacesService
+            const service = new google.maps.places.PlacesService(dummyMap);
+
+            // 4. Request detail API berdasarkan Place ID (Fokus hanya pada field 'reviews' agar lebih cepat dan hemat)
+            service.getDetails({
+                placeId: PLACE_ID,
+                fields: ['reviews']
+            }, function(place, status) {
+                
+                // 5. Cek apakah response status OK dan data review benar-benar tersedia
+                if (status === google.maps.places.PlacesServiceStatus.OK && place && place.reviews) {
+                    
+                    // 6. Mapping hasil data mentah dari Google menjadi Array Object yang bersih
+                    const cleanReviewsArray = place.reviews.map(function(review) {
+                        return {
+                            author_name: review.author_name || 'Anonymous', // Fallback jika nama tidak ada
+                            rating: review.rating || 0, // Bintang (1-5)
+                            text: review.text || '', // Handle kasus jika orang hanya memberi bintang tanpa tulisan
+                            profile_photo_url: review.profile_photo_url || null, // Avatar
+                            relative_time_description: review.relative_time_description || 'Baru-baru ini' // Cth: "2 weeks ago"
+                        };
+                    });
+
+                    // 7. Outputkan array bersih ke dalam Console Log
+                    console.log('✅ BERHASIL - Data Google Reviews:', cleanReviewsArray);
+
+                } else {
+                    // Handle ketika request di-banned, limit terlampaui, atau Place ID tidak punya review
+                    console.warn('⚠️ PERINGATAN - Gagal memuat ulasan. Status dari Google API:', status);
+                    console.log('Jika status adalah "REQUEST_DENIED", pastikan "Places API" (Legacy) telah di-enable di Google Cloud Console untuk API Key Anda.');
+                }
+            });
+
+        } catch (error) {
+            // Menangkap error logic Javascript secara internal
+            console.error('❌ ERROR - Terjadi kesalahan internal saat memproses Google Places API:', error);
+        }
+    }
+
+    // 8. Eksekusi ekstrim aman (Menghindari "DOMContentLoaded trap")
+    // Jika script diload asinkronus (Turbolinks, Livewire, dll), readyState sudah complete dan aman dijalankan
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', fetchGoogleReviews);
+    } else {
+        fetchGoogleReviews();
+    }
+})();
+</script>
 
 
 @endsection

@@ -46,15 +46,15 @@
                   <li><a href="{{ url('/sewa-ruang-podcast') }}">Sewa Ruang Podcast</a></li>
                 </ul>
               </div>
-              <!-- Layanan Bisnis -->
+              <!-- Legalitas Perusahaan -->
               <div class="lw-sub-item has-submenu">
                 <a href="javascript:void(0)" class="lw-sub-link lw-toggle">
-                  <span>Layanan Bisnis</span>
+                  <span>Legalitas Perusahaan</span>
                   <i class="fas fa-chevron-down"></i>
                 </a>
                 <ul class="lw-sub-list">
                   <li><a href="{{ url('/pendirian-pt-perorangan') }}">Pendirian PT Perorangan</a></li>
-                  <li><a href="{{ url('/pendirian-pt') }}">Pendirian PT</a></li>
+                  <li><a href="{{ url('/pendirian-pt') }}">Pendirian PT Perseroan</a></li>
                   <li><a href="{{ url('/pendirian-pt-pma') }}">Pendirian PT PMA</a></li>
                   <li><a href="{{ url('/pendirian-cv') }}">Pendirian CV</a></li>
                   <li><a href="{{ url('/pendirian-yayasan') }}">Pendirian Yayasan</a></li>
@@ -79,12 +79,10 @@
                   <i class="fas fa-chevron-down"></i>
                 </a>
                 <ul class="lw-sub-list">
+                  <li><a href="{{ url('/haki') }}">Hak Kekayaan Intelektual</a></li>
                   <li><a href="{{ url('/nib-dan-oss') }}">NIB dan OSS</a></li>
-                  <li><a href="{{ url('/haki') }}">HAKI</a></li>
                   <li><a href="{{ url('/laporan-lkpm') }}">Laporan LKPM</a></li>
                   <li><a href="{{ url('/sertifikat-iso') }}">Sertifikat ISO</a></li>
-                  <li><a href="{{ url('/surat-keterangan-tidak-pailit') }}">Surat Keterangan Tidak Pailit</a></li>
-                  <li><a href="{{ url('/drafting-review-perjanjian-bisnis') }}">Drafting Perjanjian Bisnis</a></li>
                   <li><a href="{{ url('/pengurusan-pkp') }}">Pengurusan PKP</a></li>
                 </ul>
               </div>
@@ -426,13 +424,13 @@
                 <img
                   src="{{ asset('buyer-file/assets/img/logo-removebg.png') }}"
                   alt="logo-img"
-                  style="width: 13pc" />
+                  style="width: 16pc" />
               </a>
               <a href="{{ url('/') }}" class="header-logo-2">
                 <img
-                  src="{{ asset('buyer-file/assets/img/logo-remove-black.png') }}"
+                  src="{{ asset('buyer-file/assets/img/lowo-turun-removebg-preview.png') }}"
                   alt="logo-img"
-                  style="width: 13pc" />
+                  style="width: 16pc" />
               </a>
             </div>
           </div>
@@ -744,11 +742,11 @@
 
                               <div class="lw-col">
                                 <div class="lw-col-title">
-                                  <i class="fas fa-building"></i> Layanan BIsnis
+                                  <i class="fas fa-building"></i> Legalitas Perusahaan
                                 </div>
                                 <ul>
                                   <li><a href="{{ url('/pendirian-pt-perorangan') }}">Pendirian PT Perorangan</a></li>
-                                  <li><a href="{{ url('/pendirian-pt') }}">Pendirian PT</a></li>
+                                  <li><a href="{{ url('/pendirian-pt') }}">Pendirian PT Perseroan</a></li>
                                   <li><a href="{{ url('/pendirian-pt-pma') }}">Pendirian PT PMA</a></li>
                                   <li><a href="{{ url('/pendirian-cv') }}">Pendirian CV</a></li>
                                   <li><a href="{{ url('/pendirian-yayasan') }}">Pendirian Yayasan</a></li>
@@ -774,15 +772,13 @@
                                   <i class="fas fa-building"></i> Perizinan Dan Hukum
                                 </div>
                                 <ul>
+                                  <li><a href="{{ url('/haki') }}">Hak Kekayaan Intelektual</a></li> 
                                   <li><a href="{{ url('/nib-dan-oss') }}">NIB dan OSS</a></li>
-                                  <li><a href="{{ url('/haki') }}">Daftar HAKI</a></li>
                                   <li><a href="{{ url('/laporan-lkpm') }}">Laporan LKPM</a></li>
                                   <li><a href="{{ url('/sertifikat-iso') }}">Sertifikat ISO</a></li>
-                                  <li><a href="{{ url('/surat-keterangan-tidak-pailit') }}">Surat Keterangan Tidak <br> Pailit</a></li>
-                                  <li><a href="{{ url('/drafting-review-perjanjian-bisnis') }}">Drafting Perjanjian Bisnis</a></li>
                                   <li><a href="{{ url('/pengurusan-pkp') }}">Pengurusan PKP</a></li>
                                 </ul>
-                                <a href="{{ url('/perizinan-dan-hukum') }}" class="lw-sidebar-cta" style="color:white !important">
+                                <a href="{{ url('/perizinan-dan-hukum') }}" class="lw-sidebar-cta" style="padding:13px !important; color:white !important">
                                   Perizinan Lainnya <i class="fas fa-arrow-right"></i>
                                 </a>
                               </div>
@@ -792,78 +788,36 @@
                       </div>
                     </li>
 
-
+<style>
+  /* Fix Pusat Pelatihan & Profil Legalitas: compact, center di bawah trigger */
+  #mm-pelatihan-li, #mm-tentang-li { position: relative !important; }
+  #lwMegaMenuPelatihan, #lwMegaMenuTentang {
+    width: auto !important;
+    min-width: 220px !important;
+    max-width: 300px !important;
+    left: 50% !important;
+    transform: translate(-50%, 8px) !important;
+  }
+  #lwMegaMenuPelatihan.lw-mm-open, #lwMegaMenuTentang.lw-mm-open {
+    transform: translate(-50%, 0) !important;
+  }
+  #lwMegaMenuPelatihan .lw-mega-body, #lwMegaMenuTentang .lw-mega-body { display: block !important; }
+</style>
                     <li class="has-dropdown menu-thumb" id="mm-pelatihan-li">
                       <a href="#" id="mm-pelatihan-trigger" class="lw-mm-trigger" aria-expanded="false">
                         Pusat Pelatihan
                         <i class="fas fa-angle-down" id="mm-pelatihan-arrow" style="transition:transform 0.22s ease;"></i>
                       </a>
                       <div class="lw-mega-wrap" id="lwMegaMenuPelatihan" role="navigation" aria-label="Pusat Pelatihan Menu">
-                        <div class="container p-0">
-                          <div class="lw-mega-body">
-                            <div class="lw-mega-cols-5">
-                              {{-- Group 1: 2 Columns --}}
-                              <div class="lw-col-group-2">
-                                <div class="lw-col">
-                                  <div class="lw-col-title">
-                                    <i class="fas fa-graduation-cap"></i> Program Edukasi
-                                  </div>
-                                  <ul>
-                                    <li><a href="{{ url('/upcoming-event') }}">Pelatihan <br> Webinar</a></li>
-                                    <li><a href="{{ url('/database-peraturan') }}">Kumparan <br> Peraturan</a></li>
-                                    <li><a href="{{ url('/berita') }}">Artikel <br> Berita</a></li>
-                                  </ul>
-                                </div>
-                                <div class="lw-col">
-                                  <div class="lw-col-title">
-                                    <i class="fas fa-book"></i> Referensi Legal
-                                  </div>
-                                  <ul>
-                                    <li><a href="{{ route('peraturan.index') }}">Kumpulan Peraturan</a></li>
-                                    <li><a href="{{ url('/database-peraturan') }}">E-Book Legalitas</a></li>
-                                  </ul>
-                                </div>
-                              </div>
-
-                              {{-- Group 2: 3 Columns --}}
-                              <div class="lw-col-group-3">
-                                <div class="lw-col">
-                                  <div class="lw-col-title">
-                                    <i class="fas fa-newspaper"></i> Wawasan
-                                  </div>
-                                  <ul>
-                                    <li><a href="{{ url('/berita') }}">Artikel Hukum</a></li>
-                                    <li><a href="{{ url('/berita') }}">Studi Kasus</a></li>
-                                  </ul>
-                                </div>
-                                <div class="lw-col">
-                                  <div class="lw-col-title">
-                                    <i class="fas fa-users"></i> Komunitas
-                                  </div>
-                                  <ul>
-                                    <li><a href="{{ url('/karir') }}">Lowongan Kerja</a></li>
-                                    <li><a href="{{ url('/kerjasama-bisnis') }}">Kemitraan</a></li>
-                                  </ul>
-                                </div>
-                                <div class="lw-col">
-                                  <div class="lw-col-title">
-                                    <i class="fas fa-life-ring"></i> Bantuan
-                                  </div>
-                                  <ul>
-                                    <li><a href="{{ url('/tentang-kami') }}">Bantuan &amp; FAQ</a></li>
-                                    <li><a href="{{ url('/promo') }}">Promo</a></li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="lw-mega-sidebar">
-                              <div class="lw-sidebar-label">Rekomendasi</div>
-                              <a href="{{ url('/upcoming-event') }}" class="lw-sidebar-card">
-                                <div class="lw-sidebar-card-title">Seminar 2026</div>
-                                <div class="lw-sidebar-card-sub">Daftar sekarang, slot terbatas!</div>
-                              </a>
-                            </div>
+                        <div style="padding: 20px 24px;">
+                          <div class="lw-col-title">
+                            <i class="fas fa-graduation-cap"></i> Program Edukasi
                           </div>
+                          <ul style="list-style:none;padding:0;margin:0;">
+                            <li><a href="{{ url('/upcoming-event') }}" class="lw-col ul li a" style="color:black !important;">Pelatihan Webinar</a></li>
+                            <li><a href="{{ url('/berita') }}" class="lw-col ul li a" style="color:black !important;">Artikel Berita</a></li>
+                            <li><a href="{{ url('/database-peraturan') }}" class="lw-col ul li a" style="color:black !important;">Kumpulan Peraturan</a></li>
+                          </ul>
                         </div>
                       </div>
                     </li>
@@ -874,54 +828,16 @@
                         <i class="fas fa-angle-down" id="mm-tentang-arrow" style="transition:transform 0.22s ease;"></i>
                       </a>
                       <div class="lw-mega-wrap" id="lwMegaMenuTentang" role="navigation" aria-label="Tentang Kami Menu">
-                        <div class="container p-0">
-                          <div class="lw-mega-body">
-                            <div class="lw-mega-cols">
-                              <div class="lw-col">
-                                <div class="lw-col-title">
-                                  <i class="fas fa-building"></i> Profil &amp; Legalitas
-                                </div>
-                                <ul>
-                                  <li><a href="{{ url('tentang-kami') }}">Profil Perusahaan</a></li>
-                                  <li><a href="{{ url('promo') }}">Promo</a></li>
-                                  <li><a href="{{ url('karir') }}">Karir</a></li>
-                                  <li><a href="{{ url('kerjasama-bisnis') }}">Kerjasama <br> Bisnis</a></li>
-                                </ul>
-                              </div>
-                              <div class="lw-col">
-                                <div class="lw-col-title">
-                                  <i class="fas fa-handshake"></i> Peluang &amp; Kerjasama
-                                </div>
-                                <ul>
-                                  <li><a href="{{ url('kerjasama-bisnis') }}">Kerjasama Bisnis</a></li>
-                                  <li><a href="{{ url('karir') }}">Karir &amp; Lowongan</a></li>
-                                  <li><a href="{{ url('karir') }}">Program Magang</a></li>
-                                  <li><a href="{{ url('kerjasama-bisnis') }}">Kemitraan Strategis</a></li>
-                                </ul>
-                              </div>
-                              <div class="lw-col">
-                                <div class="lw-col-title">
-                                  <i class="fas fa-info-circle"></i> Informasi &amp; Promo
-                                </div>
-                                <ul>
-                                  <li><a href="{{ url('promo') }}">Promo Berjalan <span class="badge bg-danger ms-1" style="font-size: 10px;">Hot</span></a></li>
-                                  <li><a href="{{ url('tentang-kami') }}">Pusat Bantuan (FAQ)</a></li>
-                                  <li><a href="{{ url('tentang-kami') }}">Hubungi Kami</a></li>
-                                  <li><a href="{{ url('tentang-kami') }}">Testimoni Klien</a></li>
-                                </ul>
-                              </div>
-                            </div>
-                            <div class="lw-mega-sidebar">
-                              <div class="lw-sidebar-label">Ingin Bergabung?</div>
-                              <a href="{{ url('karir') }}" class="lw-sidebar-card mb-3">
-                                <div class="lw-sidebar-card-title">Karir di Lawgika</div>
-                                <div class="lw-sidebar-card-sub">Temukan peluang terbaik untuk masa depan Anda</div>
-                              </a>
-                              <a href="{{ url('tentang-kami') }}" class="lw-sidebar-cta mt-auto">
-                                Hubungi Tim Kami <i class="fas fa-arrow-right"></i>
-                              </a>
-                            </div>
+                        <div style="padding: 20px 24px;">
+                          <div class="lw-col-title">
+                            <i class="fas fa-building"></i> Profil &amp; Legalitas
                           </div>
+                          <ul style="list-style:none;padding:0;margin:0;">
+                            <li><a href="{{ url('tentang-kami') }}" class="lw-col ul li a" style="color:black !important;">Profil Perusahaan</a></li>
+                            <li><a href="{{ url('karir') }}" class="lw-col ul li a" style="color:black !important;">Karir</a></li>
+                            <li><a href="{{ url('kerjasama-bisnis') }}" class="lw-col ul li a" style="color:black !important;">Kerjasama Bisnis</a></li>
+                              <li><a href="{{ url('promo') }}" class="lw-col ul li a" style="color:black !important;">Promo </a></li> 
+                          </ul>
                         </div>
                       </div>
                     </li>
@@ -934,6 +850,7 @@
               </div>
             </div>
             <a href="#" class="search-trigger search-icon"><i class="fal fa-search"></i></a>
+            
             <div class="header__hamburger d-lg-none my-auto">
               <div class="sidebar__toggle">
                 <i class="fas fa-bars"></i>
@@ -997,7 +914,7 @@
 
   /* Nav link & icon putih, konsisten transisi */
   .header-1 .header-main .main-menu ul li>a {
-    color: #ffffff !important;
+    color: white;
     transition: color 0.3s ease;
   }
 

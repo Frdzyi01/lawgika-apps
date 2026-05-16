@@ -833,113 +833,33 @@
 {{-- ===== PRICING TABLE PT PMA (SESUAI FOTO) ===== --}}
 <section class="pt-pricing" id="pricing">
     <div class="container">
-        <div class="section-title text-center mb-5">
-            <span class="subtitle">Pilihan Paket PMA</span>
-            <h2>Paket Pendirian PT PMA</h2>
-            <p>Pilih paket yang sesuai dengan kebutuhan investasi Anda di Indonesia</p>
-        </div>
-
-        <div class="row g-4 justify-content-center">
-            {{-- Izin --}}
-            <div class="col-lg-5 col-md-6">
-                <div class="pricing-card">
-                    <h4>IZIN</h4>
-                    <div class="price">Rp 7.830.000</div>
-                    <ul class="feature-list">
-                        <li><i class="fa-solid fa-check"></i> PENGECEKAN NAMA PT PMA</li>
-                        <li><i class="fa-solid fa-check"></i> PEMESANAN NAMA PT PMA</li>
-                        <li><i class="fa-solid fa-check"></i> AKTA PENDIRIAN PT PMA</li>
-                        <li><i class="fa-solid fa-check"></i> SERTIFIKAT PENDAFTARAN MENKUMHAM</li>
-                        <li><i class="fa-solid fa-check"></i> NPWP & SKT</li>
-                        <li><i class="fa-solid fa-check"></i> NOMOR INDUK BERUSAHA</li>
-
-                        <li class="disabled">
-                            <i class="fa-solid fa-minus"></i> ALAMAT BISNIS EKSKLUSIF
-                        </li>
-
-                        <li class="disabled">
-                            <i class="fa-solid fa-minus"></i> MEETING ROOM (48 JAM) & PODCAST ROOM (12 JAM)
-                        </li>
-
-                        <li class="disabled">
-                            <i class="fa-solid fa-minus"></i> AKSES WIFI & SMART TV
-                        </li>
-
-                        <li class="disabled">
-                            <i class="fa-solid fa-minus"></i> LAYANAN PRINT, SCAN & FOTOCOPY
-                        </li>
-
-                        <li class="disabled">
-                            <i class="fa-solid fa-minus"></i> PENGELOLAAN SURAT DAN PAKET
-                        </li>
-
-                        <li class="disabled">
-                            <i class="fa-solid fa-minus"></i> NOTIFIKASI SURAT DAN PAKET MASUK
-                        </li>
-
-                        <li class="disabled">
-                            <i class="fa-solid fa-minus"></i> SURAT KETERANGAN DOMISILI
-                        </li>
-
-                        <li class="disabled">
-                            <i class="fa-solid fa-minus"></i> AKSES KOMUNITAS BUSINESS
-                        </li>
-
-                        <li class="disabled">
-                            <i class="fa-solid fa-minus"></i> LAYANAN RESEPSIONIS
-                        </li>
-
-                        <li class="disabled">
-                            <i class="fa-solid fa-minus"></i> DASHBOARD LOGIN CUSTOMER
-                        </li>
-
-                        <li class="disabled">
-                            <i class="fa-solid fa-minus"></i> REKENING PERUSAHAAN BANK MANDIRI/OCBC/BCA
-                        </li>
-
-                        <li class="disabled">
-                            <i class="fa-solid fa-minus"></i> SIGNAGE DISPLAY
-                        </li>
-
-                        <li class="disabled">
-                            <i class="fa-solid fa-minus"></i> LAYANAN CALL HANDLING
-                        </li>
-                    </ul>
-                    <button onclick="goOrder('pt-pma','premium')" class="btn-pricing w-100">Pilih Paket Izin</button>
-                </div>
+        <div class="row align-items-center g-5 mb-5 pb-4">
+            <div class="col-lg-6">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&auto=format&fit=crop&q=80" alt="Jasa Pendirian PT PMA" class="img-fluid-rounded shadow-lg">
             </div>
-
-            {{-- Bundling --}}
-            <div class="col-lg-5 col-md-6">
-                <div class="pricing-card featured">
-                    <span class="badge">REKOMENDASI</span>
-                    <h4>BUNDLING</h4>
-                    <div class="price">Rp 10.440.000</div>
-                    <ul class="feature-list">
-                        <li><i class="fa-solid fa-check"></i> PENGECEKAN NAMA PT PMA</li>
-                        <li><i class="fa-solid fa-check"></i> PEMESANAN NAMA PT PMA</li>
-                        <li><i class="fa-solid fa-check"></i> AKTA PENDIRIAN PT PMA</li>
-                        <li><i class="fa-solid fa-check"></i> SERTIFIKAT PENDAFTARAN MENKUMHAM</li>
-                        <li><i class="fa-solid fa-check"></i> NPWP & SKT</li>
-                        <li><i class="fa-solid fa-check"></i> NOMOR INDUK BERUSAHA</li>
-                        <li><i class="fa-solid fa-check"></i> ALAMAT BISNIS EKSKLUSIF</li>
-                        <li><i class="fa-solid fa-check"></i> MEETING ROOM (48 JAM) & PODCAST ROOM (12 JAM)</li>
-                        <li><i class="fa-solid fa-check"></i> AKSES WIFI & SMART TV</li>
-                        <li><i class="fa-solid fa-check"></i> LAYANAN PRINT, SCAN & FOTOCOPY</li>
-                        <li><i class="fa-solid fa-check"></i> PENGELOLAAN SURAT DAN PAKET</li>
-                        <li><i class="fa-solid fa-check"></i> NOTIFIKASI SURAT DAN PAKET MASUK</li>
-                        <li><i class="fa-solid fa-check"></i> SURAT KETERANGAN DOMISILI</li>
-                        <li><i class="fa-solid fa-check"></i> AKSES KOMUNITAS BUSINESS</li>
-                        <li><i class="fa-solid fa-check"></i> LAYANAN RESEPSIONIS</li>
-                        <li><i class="fa-solid fa-check"></i> DASHBOARD LOGIN CUSTOMER</li>
-                        <li><i class="fa-solid fa-check"></i> REKENING PERUSAHAAN BANK MANDIRI/OCBC/BCA</li>
-                        <li><i class="fa-solid fa-check"></i> SIGNAGE DISPLAY</li>
-                        <li><i class="fa-solid fa-check"></i> LAYANAN CALL HANDLING</li>
-                    </ul>
-                    <button onclick="goOrder('pt-pma','enterprise')" class="btn-pricing-primary w-100">Pilih Paket Bundling</button>
+            <div class="col-lg-6">
+                <div class="section-title mb-4">
+                    <span class="subtitle">Informasi PT PMA</span>
+                    <h2 class="mb-3">Mengenal Pendirian PT PMA</h2>
+                    <p class="ms-0 text-start">PT PMA (Penanaman Modal Asing) adalah badan hukum perseroan terbatas yang didirikan untuk investor asing yang ingin menjalankan bisnis di Indonesia dengan kepemilikan modal asing penuh maupun sebagian.</p>
                 </div>
+                
+                <h5 class="fw-bold mb-3" style="color: var(--primary);">Syarat Utama PT PMA:</h5>
+                <ul class="solution-list mb-4">
+                    <li><i class="fa-solid fa-circle-check"></i> Rencana investasi minimal Rp 10 Miliar</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Modal disetor minimal Rp 2.5 Miliar</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Minimal 2 pemegang saham (Asing/Lokal)</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Struktur Direksi & Komisaris yang jelas</li>
+                </ul>
+                
+                <a href="https://wa.me/6281112088600?text=Halo%20Lawgika,%20saya%20ingin%20berkonsultasi%20mengenai%20pendirian%20PT%20PMA." 
+                   target="_blank" class="btn-pricing-primary px-5 d-inline-block shadow-sm">
+                    Minta Penawaran Via WhatsApp <i class="fa-brands fa-whatsapp ms-2"></i>
+                </a>
             </div>
         </div>
+
+      
     </div>
 </section>
 

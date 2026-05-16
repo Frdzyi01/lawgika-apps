@@ -66,48 +66,7 @@
         padding: 100px 0;
     }
 
-    /* Hero Section - Immersive */
-    .hero-agency {
-        height: 85vh;
-        min-height: 600px;
-        background: url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=2000') center center / cover no-repeat;
-        position: relative;
-        display: flex;
-        align-items: center;
-        margin-top: 0;
-    }
-
-    .hero-agency::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 60%, rgba(0, 0, 0, 0.2) 100%);
-    }
-
-    .hero-content {
-        position: relative;
-        z-index: 2;
-        max-width: 650px;
-    }
-
-    .hero-title {
-        font-size: clamp(2.5rem, 5vw, 4rem);
-        font-weight: 800;
-        line-height: 1.1;
-        letter-spacing: -1.5px;
-        margin-bottom: 24px;
-        color: #fff;
-    }
-
-    .hero-subtitle {
-        font-size: 1.15rem;
-        color: rgba(255, 255, 255, 0.8);
-        margin-bottom: 35px;
-        line-height: 1.6;
-    }
+    /* Trust Feature Bar */
 
     /* Trust Feature Bar */
     .trust-bar {
@@ -740,23 +699,42 @@
         font-size: 0.95rem;
     }
 }</style>
-{{-- Hero Section --}}
-<section class="hero-agency">
-    <div class="container">
-        <div class="hero-content fade-up">
-            <span class="section-label" style="color: rgba(255,255,255,0.7)">Jasa Pembukuan & Perpajakan Profesional</span>
-            <h1 class="hero-title">Kelola Keuangan & Pajak Bisnis Tanpa Stres</h1>
-            <p class="hero-subtitle">
-                Layanan pembukuan akurat dan pelaporan pajak tepat waktu untuk UMKM, CV, dan PT. Fokus mengembangkan bisnis, serahkan urusan administrasi keuangan pada ahlinya.
-            </p>
-            <div class="d-flex flex-wrap gap-3 mt-4">
-    <a href="https://wa.me/628123456789" class="btn-white">
-        <i class="fa-brands fa-whatsapp me-2"></i>Konsultasi Gratis
-    </a>
-    <a href="#services" class="btn-outline-white">
-        Lihat Layanan <i class="fa-solid fa-arrow-right ms-2"></i>
-    </a>
-</div>
+{{-- Breadcrumb / Header Area --}}
+<section class="page-title-area position-relative"
+    style="
+    background-image: linear-gradient(135deg, rgba(26, 2, 8, 0.7) 0%, rgba(45, 6, 16, 0.7) 50%, rgba(26, 2, 8, 0.7) 100%), 
+                      url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=1200');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding-top: 200px;
+    padding-bottom: 100px;
+  ">
+    <div class="container position-relative z-1">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="page-title-content">
+                    <span class="text-white bg-danger rounded-pill px-3 py-1 fw-medium mb-3 d-inline-block shadow-sm" style="font-size: 0.85rem">Lawgika | Accounting & Tax</span>
+                    <h1 class="text-white fw-bold mb-3 display-4">Jasa Pembukuan & Perpajakan</h1>
+                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem">Layanan pembukuan akurat dan pelaporan pajak tepat waktu untuk UMKM, CV, dan PT. Fokus mengembangkan bisnis, serahkan urusan administrasi keuangan pada ahlinya.</p>
+                    <div class="d-flex flex-wrap gap-3 mt-4">
+                        <a href="https://wa.me/6281112088600?text=Halo%20Lawgika,%20saya%20ingin%20berkonsultasi%20mengenai%20jasa%20pembukuan%20dan%20perpajakan." class="btn-white">
+                            <i class="fa-brands fa-whatsapp me-2"></i>Konsultasi Gratis
+                        </a>
+                        <a href="#services" class="btn-outline-white">
+                            Lihat Layanan <i class="fa-solid fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 text-lg-end mt-4 mt-lg-0">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-lg-end justify-content-start mb-0">
+                        <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none">Beranda</a></li>
+                        <li class="breadcrumb-item active text-white-50" aria-current="page">Jasa Pembukuan & Perpajakan</li>
+                    </ol>
+                </nav>
+            </div>
         </div>
     </div>
 </section>
@@ -852,7 +830,7 @@
     <div class="container">
         <div class="section-header">
             <span class="badge">Siapkan Dokumen</span>
-            <h2>DOKUMEN YANG DIPERLUKAN</h2>
+            <h2>DOKUMEN YANG DIPERLUKAN</h2>    
             <p>Hanya menyiapkan berkas berikut untuk memulai kerjasama</p>
         </div>
         <div class="row g-4 justify-content-center">
@@ -870,7 +848,7 @@
                         <li><i class="fa-solid fa-circle-check"></i> PKP (Jika Pengusaha Kena Pajak)</li>
                         <li><i class="fa-solid fa-circle-check"></i> Rekening Koran 3 Bulan Terakhir</li>
                         <li><i class="fa-solid fa-circle-check"></i> Bukti Setor Pajak (SSP) Sebelumnya</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Username & Password DJP Online</li>
+                        <li><i class="fa-solid fa-circle-check"></i> Username & Password Coretax</li>
                     </ul>
                     <a href="#" class="requirement-cta">
                         Konsultasi Data <i class="fa-solid fa-arrow-right"></i>
@@ -905,297 +883,74 @@
 {{-- ===== PRICING TABLE - JASA PEMBUKUAN & PERPAJAKAN ===== --}}
 <section class="pt-pricing" id="pricing">
     <div class="container">
-        <div class="section-title text-center mb-4">
-            <span class="subtitle">Pilihan Paket Layanan</span>
-            <h2>Paket Jasa Pembukuan & Perpajakan</h2>
-            <p>Pilih paket yang sesuai dengan skala dan kebutuhan bisnis Anda. Harga transparan tanpa biaya tersembunyi.</p>
-        </div>
-
-        {{-- Toggle Switch --}}
-        <div class="pricing-toggle-wrapper">
-            <div class="pricing-toggle">
-                <button class="toggle-btn active" data-pricing="pembukuan">
-                    <i class="fa-solid fa-calculator"></i> JASA PEMBUKUAN
-                </button>
-                <button class="toggle-btn" data-pricing="pajak">
-                    <i class="fa-solid fa-file-invoice"></i> JASA PERPAJAKAN
-                </button>
+        <div class="row align-items-center g-5 mb-5 pb-4">
+            <div class="col-lg-6">
+                <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&auto=format" alt="Jasa Pembukuan dan Perpajakan" class="img-fluid-rounded shadow-lg">
             </div>
-        </div>
-
-        {{-- Pricing Table Container 1: PEMBUKUAN DAN PAJAK --}}
-        <div class="pricing-container" id="pricing-pembukuan">
-            <div class="row g-4 justify-content-center">
-                {{-- PAKET BASIC / UMKM --}}
-                <div class="col-lg-4 col-md-6">
-                    <div class="pricing-card">
-                        <div class="pricing-header-icon">
-                            <i class="fa-solid fa-store"></i>
-                        </div>
-                        <h4>PREMIUM</h4>
-                        <div class="price">Rp 4.500.000<small>/Bulan</small></div>
-                        <ul class="feature-list">
-                            <li><i class="fa-solid fa-check"></i> Skala Bisnis (Mikro) </li>
-                            <li><i class="fa-solid fa-check"></i> Accurate Online</li>
-                            <li><i class="fa-solid fa-check"></i> Pembuatan Laporan Keuangan meliputi : Laba/Rugi, Neraca</li>
-                            <li><i class="fa-solid fa-check"></i> Buku Besar</li>
-                            <li><i class="fa-solid fa-check"></i> Laporan Pph</li>
-                            <li><i class="fa-solid fa-check"></i> Laporan PPn (Jika PKP)</li>
-                            <li><i class="fa-solid fa-check"></i> Perhitungan Pph 21</li>
-                            <li><i class="fa-solid fa-check"></i> Laporan SPT Tahunan Badan</li>
-                            <li><i class="fa-solid fa-check"></i> Konsultasi perpajakan</li>
-                        </ul>
-                    </div>
+            <div class="col-lg-6">
+                <div class="section-title mb-4">
+                    <span class="subtitle">Informasi Layanan</span>
+                    <h2 class="mb-3 text-start">Solusi Pembukuan & Pajak Terpercaya</h2>
+                    <p class="ms-0 text-start">Kelola administrasi keuangan dan kewajiban perpajakan Anda dengan lebih efisien bersama Lawgika. Kami hadir untuk memastikan bisnis Anda patuh hukum dan memiliki laporan keuangan yang akurat.</p>
                 </div>
-
-                {{-- PAKET PROFESSIONAL (RECOMMENDED) --}}
-                <div class="col-lg-4 col-md-6">
-                    <div class="pricing-card featured">
-                        <span class="badge">PALING POPULER</span>
-                        <div class="pricing-header-icon">
-                            <i class="fa-solid fa-building"></i>
-                        </div>
-                        <h4>EKSKLUSIF</h4>
-                        <div class="price">Rp 6.030.000<small>/Bulan</small></div>
-                        <ul class="feature-list">
-                            <li><i class="fa-solid fa-check"></i> Skala Bisnis (Kecil) </li>
-                            <li><i class="fa-solid fa-check"></i> Accurate Online</li>
-                            <li><i class="fa-solid fa-check"></i> Pembuatan Laporan Keuangan meliputi : Laba/Rugi, Neraca</li>
-                            <li><i class="fa-solid fa-check"></i> Buku Besar</li>
-                            <li><i class="fa-solid fa-check"></i> Laporan Pph</li>
-                            <li><i class="fa-solid fa-check"></i> Laporan PPn (Jika PKP)</li>
-                            <li><i class="fa-solid fa-check"></i> Perhitungan Pph 21</li>
-                            <li><i class="fa-solid fa-check"></i> Laporan SPT Tahunan Badan</li>
-                            <li><i class="fa-solid fa-check"></i> Konsultasi perpajakan</li>
-                        </ul>
-                    </div>
-                </div>
-
-                {{-- PAKET ENTERPRISE / PREMIUM --}}
-                <div class="col-lg-4 col-md-6">
-                    <div class="pricing-card">
-                        <div class="pricing-header-icon">
-                            <i class="fa-solid fa-chart-line"></i>
-                        </div>
-                        <h4>ENTERPRISE</h4>
-                        <div class="price">Rp 8.972.500<small>/Bulan</small></div>
-                        <ul class="feature-list">
-                            <li><i class="fa-solid fa-check"></i> Skala Bisnis (Menengah) </li>
-                            <li><i class="fa-solid fa-check"></i> Accurate Online</li>
-                            <li><i class="fa-solid fa-check"></i> Pembuatan Laporan Keuangan meliputi : Laba/Rugi, Neraca</li>
-                            <li><i class="fa-solid fa-check"></i> Buku Besar</li>
-                            <li><i class="fa-solid fa-check"></i> Laporan Pph</li>
-                            <li><i class="fa-solid fa-check"></i> Laporan PPn (Jika PKP)</li>
-                            <li><i class="fa-solid fa-check"></i> Perhitungan Pph 21</li>
-                            <li><i class="fa-solid fa-check"></i> Laporan SPT Tahunan Badan</li>
-                            <li><i class="fa-solid fa-check"></i> Konsultasi perpajakan</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <p class="text-center text-muted mt-4">* Harga belum termasuk PPN 11%. Transaksi di atas kuota akan dikenakan biaya tambahan per transaksi.</p>
-            <div class="text-center mt-5">
-                <a href="/order/jasa-pembukuan-perpajakan/pembukuan-pajak/eksklusif" class="btn-minta-penawaran">
-                    <i class="fa-solid fa-file-signature me-2"></i> Minta Penawaran & Konsultasi Sekarang
+                
+                <h5 class="fw-bold mb-3" style="color: var(--primary);">Layanan Yang Anda Dapatkan:</h5>
+                <ul class="solution-list mb-4">
+                    <li><i class="fa-solid fa-circle-check"></i> Penyusunan Laporan Keuangan (Neraca & Laba Rugi)</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Perhitungan & Pelaporan SPT Masa (PPh & PPN)</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Review Kepatuhan Pajak (Tax Compliance)</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Konsultasi Akuntansi & Perpajakan Terpadu</li>
+                </ul>
+                
+                <a href="https://wa.me/6281112088600?text=Halo%20Lawgika,%20saya%20ingin%20berkonsultasi%20mengenai%20jasa%20pembukuan%20dan%20perpajakan." 
+                   target="_blank" class="btn-pricing-primary px-5 d-inline-block shadow-sm">
+                    Minta Penawaran Via WhatsApp <i class="fa-brands fa-whatsapp ms-2"></i>
                 </a>
             </div>
         </div>
 
-        {{-- Pricing Table Container 2: BERLANGGANAN PAJAK (HIDDEN BY DEFAULT) --}}
-        <div class="pricing-container" id="pricing-pajak" style="display: none;">
-            <div class="row g-4 justify-content-center">
-                {{-- PAKET PAJAK BASIC --}}
-                <div class="col-lg-4 col-md-6">
-                    <div class="pricing-card">
-                        <div class="pricing-header-icon">
-                            <i class="fa-solid fa-file-invoice"></i>
-                        </div>
-                        <h4>PREMIUM</h4>
-                        <div class="price">Rp 2.700.000<small>/Bulan</small></div>
-                        <ul class="feature-list">
-                            <li><i class="fa-solid fa-check"></i> Skala Bisnis (Mikro) </li>
-                            <li><i class="fa-solid fa-check"></i> Accurate Online</li>
-                            <li><i class="fa-solid fa-check"></i> Pembuatan Laporan Keuangan meliputi : Laba/Rugi, Neraca</li>
-                            <li><i class="fa-solid fa-check"></i> Buku Besar</li>
-                            <li><i class="fa-solid fa-check"></i> Laporan Pph</li>
-                            <li><i class="fa-solid fa-check"></i> Laporan PPn (Jika PKP)</li>
-                            <li><i class="fa-solid fa-check"></i> Perhitungan Pph 21</li>
-                            <li><i class="fa-solid fa-check"></i> Laporan SPT Tahunan Badan</li>
-                            <li><i class="fa-solid fa-check"></i> Konsultasi perpajakan</li>
-                        </ul>
-                    </div>
-                </div>
+        <hr class="my-5 opacity-0">
 
-                {{-- PAKET PAJAK PROFESSIONAL (RECOMMENDED) --}}
-                <div class="col-lg-4 col-md-6">
-                    <div class="pricing-card featured">
-                        <span class="badge">PALING POPULER</span>
-                        <div class="pricing-header-icon">
-                            <i class="fa-solid fa-file-invoice"></i>
-                        </div>
-                        <h4>EKSKLUSIF</h4>
-                        <div class="price">Rp 4.140.000<small>/Bulan</small></div>
-                        <ul class="feature-list">
-                            <li><i class="fa-solid fa-check"></i> Skala Bisnis (Kecil) </li>
-                            <li><i class="fa-solid fa-check"></i> Accurate Online</li>
-                            <li><i class="fa-solid fa-check"></i> Pembuatan Laporan Keuangan meliputi : Laba/Rugi, Neraca</li>
-                            <li><i class="fa-solid fa-check"></i> Buku Besar</li>
-                            <li><i class="fa-solid fa-check"></i> Laporan Pph</li>
-                            <li><i class="fa-solid fa-check"></i> Laporan PPn (Jika PKP)</li>
-                            <li><i class="fa-solid fa-check"></i> Perhitungan Pph 21</li>
-                            <li><i class="fa-solid fa-check"></i> Laporan SPT Tahunan Badan</li>
-                            <li><i class="fa-solid fa-check"></i> Konsultasi perpajakan</li>
-                        </ul>
-                    </div>
-                </div>
-
-                {{-- PAKET PAJAK ENTERPRISE --}}
-                <div class="col-lg-4 col-md-6">
-                    <div class="pricing-card">
-                        <div class="pricing-header-icon">
-                            <i class="fa-solid fa-scale-balanced"></i>
-                        </div>
-                        <h4>ENTERPRISE</h4>
-                        <div class="price">Rp 6.475.000 <small>/Bulan</small></div>
-                        <ul class="feature-list">
-                            <li><i class="fa-solid fa-check"></i> Skala Bisnis (Menengah) </li>
-                            <li><i class="fa-solid fa-check"></i> Accurate Online</li>
-                            <li><i class="fa-solid fa-check"></i> Pembuatan Laporan Keuangan meliputi : Laba/Rugi, Neraca</li>
-                            <li><i class="fa-solid fa-check"></i> Buku Besar</li>
-                            <li><i class="fa-solid fa-check"></i> Laporan Pph</li>
-                            <li><i class="fa-solid fa-check"></i> Laporan PPn (Jika PKP)</li>
-                            <li><i class="fa-solid fa-check"></i> Perhitungan Pph 21</li>
-                            <li><i class="fa-solid fa-check"></i> Laporan SPT Tahunan Badan</li>
-                            <li><i class="fa-solid fa-check"></i> Konsultasi perpajakan</li>
-                        </ul>
-                    </div>
-                </div>
+        {{-- ROW 2: JASA PAJAK (GAMBAR KANAN, TEKS KIRI) --}}
+        <div class="row align-items-center g-5 mb-5 pb-4">
+            <div class="col-lg-6 order-lg-2">
+                <img src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800&auto=format" alt="Jasa Perpajakan Profesional" class="img-fluid-rounded shadow-lg">
             </div>
-            <p class="text-center text-muted mt-4">* Harga belum termasuk PPN 11%. Layanan pajak mencakup perhitungan dan pelaporan, tidak termasuk pembayaran pokok pajak.</p>
-            <div class="text-center mt-5">
-                <a href="/order/jasa-pembukuan-perpajakan/berlangganan-pajak/eksklusif" class="btn-minta-penawaran">
-                    <i class="fa-solid fa-file-signature me-2"></i> Minta Penawaran & Konsultasi Sekarang
+            <div class="col-lg-6 order-lg-1">
+                <div class="section-title mb-4">
+                    <span class="subtitle">Kepatuhan Pajak</span>
+                    <h2 class="mb-3">Jasa Perpajakan Profesional</h2>
+                    <p class="ms-0 text-start">Maksimalkan efisiensi fiskal bisnis Anda dengan layanan perpajakan yang komprehensif. Kami membantu Anda menavigasi regulasi pajak yang kompleks agar bisnis tetap patuh dan aman dari risiko sanksi.</p>
+                </div>
+                
+                <h5 class="fw-bold mb-3" style="color: var(--primary);">Keunggulan Layanan Pajak:</h5>
+                <ul class="solution-list mb-4">
+                    <li><i class="fa-solid fa-circle-check"></i> Perencanaan Pajak Strategis (Tax Planning)</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Pengurusan PKP & Administrasi NPWP</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Pendampingan Audit & Sengketa Pajak</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Pelaporan SPT Tahunan Badan & Pribadi</li>
+                </ul>
+                
+                <a href="https://wa.me/6281112088600?text=Halo%20Lawgika,%20saya%20ingin%20berkonsultasi%20mengenai%20jasa%20perpajakan." 
+                   target="_blank" class="btn-pricing-primary px-5 d-inline-block shadow-sm">
+                    Konsultasi Pajak Via WhatsApp <i class="fa-brands fa-whatsapp ms-2"></i>
                 </a>
             </div>
         </div>
+
+     
     </div>
 </section>
 
-{{-- Toggle Switch Styles --}}
-<style>
-    .pricing-toggle-wrapper {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 40px;
-    }
 
-    .pricing-toggle {
-        display: inline-flex;
-        background: #f1f5f9;
-        padding: 6px;
-        border-radius: 60px;
-        gap: 8px;
-    }
 
-    .toggle-btn {
-        padding: 14px 32px;
-        border-radius: 50px;
-        border: none;
-        background: transparent;
-        color: #64748b;
-        font-weight: 600;
-        font-size: 0.95rem;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        white-space: nowrap;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
 
-    .toggle-btn i {
-        font-size: 1rem;
-    }
-
-    .toggle-btn.active {
-        background: #570707ff;
-        color: #fff;
-        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
-    }
-
-    .toggle-btn:hover:not(.active) {
-        background: #e2e8f0;
-        color: #1e293b;
-    }
-
-    @media (max-width: 768px) {
-        .pricing-toggle {
-            flex-direction: column;
-            width: 100%;
-            background: transparent;
-            padding: 0;
-            gap: 12px;
-        }
-
-        .toggle-btn {
-            justify-content: center;
-            background: #f1f5f9;
-            padding: 16px 20px;
-        }
-
-        .toggle-btn.active {
-            background: #4a0000;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .toggle-btn {
-            font-size: 0.85rem;
-            padding: 12px 16px;
-            white-space: normal;
-            text-align: center;
-        }
-    }
-</style>
-
-{{-- Toggle JavaScript --}}
-<script>
-    (function() {
-        'use strict';
-
-        const toggleBtns = document.querySelectorAll('.toggle-btn');
-        const pricingPembukuan = document.getElementById('pricing-pembukuan');
-        const pricingPajak = document.getElementById('pricing-pajak');
-
-        toggleBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const target = this.getAttribute('data-pricing');
-
-                // Update active state pada tombol
-                toggleBtns.forEach(b => {
-                    b.classList.remove('active');
-                });
-                this.classList.add('active');
-
-                // Toggle visibility container pricing
-                if (target === 'pembukuan') {
-                    pricingPembukuan.style.display = 'block';
-                    pricingPajak.style.display = 'none';
-                } else if (target === 'pajak') {
-                    pricingPembukuan.style.display = 'none';
-                    pricingPajak.style.display = 'block';
-                }
-            });
-        });
-    })();
-</script>
 
 {{-- ===== KEUNTUNGAN MENGGUNAKAN JASA LAYANAN PAJAK & PEMBUKUAN ===== --}}
 <section class="benefits-section">
     <div class="container">
         <div class="section-header text-center mb-5">
             <span class="section-tag">Mengapa Memilih Kami?</span>
-            <h2>Keuntungan Menggunakan Jasa Layanan Pajak & Pembukuan dari Lawgika.co.id</h2>
             <p>Kami berkomitmen memberikan layanan terbaik untuk memastikan bisnis Anda berjalan lancar dan patuh hukum</p>
         </div>
         <div class="row g-4">
@@ -1241,7 +996,7 @@
             </div>
         </div>
         <div class="text-center mt-5">
-            <a href="https://wa.me/628123456789" class="btn-benefit-assessment">
+            <a href="https://wa.me/6281112088600?text=Halo%20Lawgika,%20saya%20ingin%20berkonsultasi%20mengenai%20jasa%20pembukuan%20dan%20perpajakan." class="btn-benefit-assessment">
                 <i class="fa-brands fa-whatsapp me-2"></i> Dapatkan Assessment Gratis
             </a>
         </div>
@@ -1358,18 +1113,6 @@
 }
 </style>
 
-{{-- Visual Break --}}
-<section class="visual-break-agency">
-    <div class="container position-relative z-1">
-        <div class="row">
-            <div class="col-lg-7 fade-up">
-                <span class="badge-premium bg-white shadow-sm mb-3">Partner Keuangan Terpercaya</span>
-                <h2 class="display-3 fw-bold text-white mb-3">Wujudkan Laporan Keuangan Akurat & Pajak Aman</h2>
-                <p class="text-white-50 lead mb-0">Kami bantu proses pembukuan dan pelaporan pajak dengan cepat, aman, dan tanpa biaya tersembunyi. Fokus saja pada bisnis Anda, biar kami yang urus administrasinya.</p>
-            </div>
-        </div>
-    </div>
-</section>
 
 {{-- ===== FAQ SECTION ===== --}}
 <section class="pt-faq">
