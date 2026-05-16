@@ -4,7 +4,7 @@
       <div class="offcanvas__top d-flex justify-content-between align-items-center">
         <div class="offcanvas__logo">
           <a href="{{ url('/') }}">
-            <img src="{{ asset('buyer-file/assets/img/logo-remove-black.png') }}" alt="logo-img" />
+            <img src="{{ asset('buyer-file/assets/img/lowo-turun-removebg-preview.png') }}" alt="logo-img" />
           </a>
         </div>
         <div class="offcanvas__close">
@@ -95,32 +95,30 @@
               <span>Pusat Pelatihan</span>
               <i class="fas fa-chevron-down"></i>
             </a>
-            <div class="lw-submenu">
-              <!-- Edukasi & Pengembangan -->
-              <div class="lw-sub-item has-submenu">
-                <a href="javascript:void(0)" class="lw-sub-link lw-toggle">
-                  <span>Edukasi & Pengembangan</span>
-                  <i class="fas fa-chevron-down"></i>
-                </a>
-                <ul class="lw-sub-list">
-                  <li><a href="{{ url('/upcoming-event') }}">Pelatihan & Seminar</a></li>
-                  <li><a href="{{ url('/berita') }}">Artikel & Wawasan</a></li>
-                  <li><a href="{{ route('peraturan.index') }}">Kumpulan Peraturan</a></li>
-                </ul>
-              </div>
-              <!-- Sumber Daya Bisnis -->
-              <div class="lw-sub-item has-submenu">
-                <a href="javascript:void(0)" class="lw-sub-link lw-toggle">
-                  <span>Sumber Daya Bisnis</span>
-                  <i class="fas fa-chevron-down"></i>
-                </a>
-                <ul class="lw-sub-list">
-                  <li><a href="{{ url('/karir') }}">Panduan Karir</a></li>
-                  <li><a href="{{ url('/kerjasama-bisnis') }}">Panduan Kerjasama Bisnis</a></li>
-                  <li><a href="{{ url('/database-peraturan') }}">E-Book Legalitas</a></li>
-                </ul>
-              </div>
-            </div>
+           <div class="lw-submenu">
+
+    <!-- Pelatihan Webinar -->
+    <div class="lw-sub-item">
+        <a href="{{ url('/upcoming-event') }}" class="lw-sub-link">
+            Pelatihan Webinar
+        </a>
+    </div>
+
+    <!-- Artikel -->
+    <div class="lw-sub-item">
+        <a href="{{ url('/berita') }}" class="lw-sub-link">
+            Artikel
+        </a>
+    </div>
+
+    <!-- Kumparan Peraturan -->
+    <div class="lw-sub-item">
+        <a href="{{ url('/database-peraturan') }}" class="lw-sub-link">
+            Kumparan Peraturan
+        </a>
+    </div>
+
+</div>
           </div>
 
           <!-- Profil & Legalitas -->
@@ -132,10 +130,9 @@
             <div class="lw-submenu">
               <ul class="lw-sub-list" style="display: block; padding-left: 0;">
                 <li><a href="{{ url('tentang-kami') }}">Profil Perusahaan</a></li>
-                <li><a href="{{ url('promo') }}">Promo</a></li>
                 <li><a href="{{ url('karir') }}">Karir</a></li>
                 <li><a href="{{ url('kerjasama-bisnis') }}">Kerjasama Bisnis</a></li>
-                <li><a href="{{ url('tentang-kami') }}">Hubungi Kami</a></li>
+                <li><a href="{{ url('promo') }}">Promo</a></li>
               </ul>
             </div>
           </div>
@@ -144,56 +141,56 @@
       <!-- END: Mobile Navigation Accordion -->
 
       <div class="offcanvas__contact">
-        <h4>Contact Info</h4>
-        <ul>
-          <li class="d-flex align-items-center">
-            <div class="offcanvas__contact-icon">
+        <h4 class="fw-normal">Contact Info</h4>
+        <ul class="ps-0">
+          <li class="d-flex align-items-start mb-3">
+            <div class="offcanvas__contact-icon me-3">
               <i class="fal fa-map-marker-alt"></i>
             </div>
             <div class="offcanvas__contact-text">
-              <a target="_blank" href="#">World Capital Tower Lt 38 unit 06-07, Kuningan, Mega Kuningan, Kecamatan Setiabudi, Kota Jakarta Selatan</a>
+              <a target="_blank" href="#" class="text text-decoration-none">World Capital Tower Lt 38 unit 06-07, Kuningan, Mega Kuningan, Kecamatan Setiabudi, Kota Jakarta Selatan</a>
             </div>
           </li>
-          <li class="d-flex align-items-center">
-            <div class="offcanvas__contact-icon mr-15">
+          <li class="d-flex align-items-center mb-3">
+            <div class="offcanvas__contact-icon me-3">
               <i class="fal fa-envelope"></i>
             </div>
             <div class="offcanvas__contact-text">
-              <a href="#"><span class="mailto:informasi@lawgika.co.id">informasi@lawgika.co.id</span></a>
+              <a href="mailto:informasi@lawgika.co.id" class="text text-decoration-none">informasi@lawgika.co.id</a>
             </div>
           </li>
-          <li class="d-flex align-items-center">
-            <div class="offcanvas__contact-icon mr-15">
+          <li class="d-flex align-items-center mb-3">
+            <div class="offcanvas__contact-icon me-3">
               <i class="fal fa-clock"></i>
             </div>
             <div class="offcanvas__contact-text">
-              <a target="_blank" href="#">Mod-friday, 09am -05pm</a>
+              <span class="text">Mon-Friday, 09am - 05pm</span>
             </div>
           </li>
-          <li class="d-flex align-items-center">
-            <div class="offcanvas__contact-icon mr-15">
+          <li class="d-flex align-items-center mb-4">
+            <div class="offcanvas__contact-icon me-3">
               <i class="far fa-phone"></i>
             </div>
             <div class="offcanvas__contact-text">
-              <a href="https://wa.me/6281112088600" target="_blank">
+              <a href="https://wa.me/6281112088600" target="_blank" class="text text-decoration-none">
                 +62 811-1208-8600
+              </a>
             </div>
           </li>
         </ul>
-        <div class="header-button mt-4">
-
+        <div class="header-button mb-4">
           {{-- Jika belum login --}}
           @guest
           <div class="d-flex flex-column gap-2">
-            <button class="theme-btn text-center"
+            <button class="theme-btn text-center fw-normal"
               data-bs-toggle="modal"
               data-bs-target="#exampleModal">
-              Masuk <i class="fa-solid fa-arrow-right-long"></i>
+              Masuk <i class="fa-solid fa-arrow-right-long ms-2"></i>
             </button>
-            <button class="theme-btn text-center"
+            <button class="theme-btn text-center fw-normal"
               data-bs-toggle="modal"
               data-bs-target="#registerModal">
-              Daftar <i class="fa-solid fa-user-plus"></i>
+              Daftar <i class="fa-solid fa-user-plus ms-2"></i>
             </button>
           </div>
           @endguest
@@ -202,29 +199,28 @@
           @auth
           <div class="d-flex flex-column gap-2">
             @if(Auth::user()->role === 'admin')
-            <a href="{{ route('admin.dashboard') }}" class="theme-btn text-center">
-              Dashboard <i class="fa-solid fa-arrow-right-long"></i>
+            <a href="{{ route('admin.dashboard') }}" class="theme-btn text-center fw-normal">
+              Dashboard <i class="fa-solid fa-arrow-right-long ms-2"></i>
             </a>
             @else
-            <a href="/dashboard" class="theme-btn text-center">
-              Dashboard <i class="fa-solid fa-arrow-right-long"></i>
+            <a href="/dashboard" class="theme-btn text-center fw-normal">
+              Dashboard <i class="fa-solid fa-arrow-right-long ms-2"></i>
             </a>
             @endif
             <form action="{{ route('logout') }}" method="POST">
               @csrf
-              <button type="submit" class="theme-btn text-center w-100">
-                Keluar <i class="fa-solid fa-sign-out-alt"></i>
+              <button type="submit" class="theme-btn text-center w-100 fw-normal">
+                Keluar <i class="fa-solid fa-sign-out-alt ms-2"></i>
               </button>
             </form>
           </div>
           @endauth
-
         </div>
-        <div class="social-icon d-flex align-items-center">
-          <a href="#"><i class="fab fa-facebook-f"></i></a>
-          <a href="#"><i class="fab fa-twitter"></i></a>
-          <a href="#"><i class="fab fa-youtube"></i></a>
-          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        <div class="social-icon d-flex align-items-center gap-3">
+          <a href="#" class="text-decoration-none" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/lawgika.co.id?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="text-decoration-none" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.tiktok.com/@lawgika.co.id?is_from_webapp=1&sender_device=pc" target="_blank" class="text-decoration-none" title="TikTok"><i class="fab fa-tiktok"></i></a>
+          <a href="https://id.linkedin.com/company/lawgika-associates-law-firm" target="_blank" class="text-decoration-none" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
         </div>
       </div>
     </div>
