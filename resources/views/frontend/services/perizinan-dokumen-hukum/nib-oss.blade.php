@@ -117,9 +117,15 @@
         border-radius: 20px;
         overflow: hidden;
         box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+        aspect-ratio: 16 / 10;
+        display: block;
     }
 
     .zigzag-image-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
         transition: transform 0.8s ease;
     }
 
