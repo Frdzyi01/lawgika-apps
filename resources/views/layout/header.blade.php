@@ -1069,6 +1069,14 @@
   .lw-mm-trigger.active #mm-tentang-arrow {
     transform: rotate(180deg);
   }
+
+  /* Prevent background scrolling when Bootstrap modals are active */
+  html:has(body.modal-open),
+  html.modal-open,
+  body.modal-open {
+    overflow: hidden !important;
+    height: 100vh !important;
+  }
 </style>
 
 <script>
@@ -1211,14 +1219,34 @@
     });
   }
 
+  /* Lock body scroll when any bootstrap modal is shown */
+  function lwInitModalScrollLock() {
+    document.addEventListener('show.bs.modal', function() {
+      document.documentElement.style.setProperty('overflow', 'hidden', 'important');
+      document.body.style.setProperty('overflow', 'hidden', 'important');
+      document.documentElement.classList.add('modal-open');
+    });
+
+    document.addEventListener('hidden.bs.modal', function() {
+      var openModals = document.querySelectorAll('.modal.show');
+      if (openModals.length === 0) {
+        document.documentElement.style.removeProperty('overflow');
+        document.body.style.removeProperty('overflow');
+        document.documentElement.classList.remove('modal-open');
+      }
+    });
+  }
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() {
       lwAutoOpenLoginModal();
       lwAutoDismissToasts();
+      lwInitModalScrollLock();
     });
   } else {
     lwAutoOpenLoginModal();
     lwAutoDismissToasts();
+    lwInitModalScrollLock();
   }
 </script>
 
