@@ -1077,6 +1077,19 @@
     overflow: hidden !important;
     height: 100vh !important;
   }
+
+  /* Styling khusus button create account di modal login */
+  #btn-go-register.theme-create.style-border {
+    border-width: 2px !important;
+    border-color: #fff !important;
+    color: #4e0516 !important;
+    font-weight: 700 !important;
+  }
+
+  #btn-go-register.theme-create.style-border:hover {
+    background-color: #4e0516 !important;
+    color: #ffffff !important;
+  }
 </style>
 
 <script>
@@ -1478,7 +1491,7 @@
           </div>
         </div>
         <div class="modal-right-thumb position-relative">
-          <img src="{{ asset('buyer-file/assets/img/sign/login.png') }}" alt="img" />
+                  <img src="{{ asset('buyer-file/assets/img/sign/login.png') }}" alt="img" />
           <div class="signlogin-btnwrap">
             <button
               id="btn-go-register"
@@ -1567,16 +1580,16 @@
           </div>
         </div>
         <div class="modal-right-thumb position-relative">
-          <img src="{{ asset('buyer-file/assets/img/sign/create.png') }}" alt="img" />
+                  <img src="{{ asset('buyer-file/assets/img/sign/create.png') }}" alt="img" />
           <div class="signlogin-btnwrap">
             <button
               id="btn-stay-register"
-              class="theme-create style-border">
+              class="theme-btn">
               create account
             </button>
             <button
               id="btn-go-login"
-              class="theme-btn">
+              class="theme-create style-border">
               Log In
             </button>
           </div>
