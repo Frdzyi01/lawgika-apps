@@ -40,13 +40,13 @@
       }
 
       .lw-footer-logo img {
-        max-width: 210px;
+        max-width: 250px;
         height: auto;
         display: block;
       }
 
       .lw-footer-desc {
-        font-size: 15px;
+        font-size: 16px;
         line-height: 1.7;
         color: rgba(255, 255, 255, 0.8);
         margin-bottom: 32px;
@@ -128,7 +128,7 @@
       .lw-footer-links li a {
         display: inline-flex;
         align-items: center;
-        font-size: 15px;
+        font-size: 17px;
         color: rgba(255, 255, 255, 0.8) !important;
         text-decoration: none;
         transition: all 0.25s ease;
@@ -195,7 +195,7 @@
       }
 
       .lw-footer-contact-info li .lw-contact-label {
-        font-size: 11px;
+        font-size: 13px;
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.05em;
@@ -209,7 +209,7 @@
       }
 
       .lw-footer-contact-info li .lw-contact-text a {
-        font-size: 14.5px;
+        font-size: 16.5px;
         color: rgba(255, 255, 255, 0.85) !important;
         text-decoration: none;
         transition: color 0.2s ease;
@@ -289,6 +289,7 @@
         display: flex;
         align-items: center;
         gap: 16px;
+        padding-right: 90px; /* Shifts links slightly left to avoid floating WhatsApp button */
       }
 
       .lw-footer-bottom-links a {
@@ -422,6 +423,7 @@
           justify-content: flex-start;
           gap: 10px 20px;
           width: 100%;
+          padding-right: 80px; /* Shift links left on mobile to avoid overlapping with floating WhatsApp */
         }
         .lw-footer-bottom-dot {
           display: none;
@@ -457,9 +459,10 @@
             <ul class="lw-footer-links">
               <li><a href="{{ url('/tentang-kami') }}"><i class="fa-regular fa-chevrons-right"></i>Tentang Kami</a></li>
               <li><a href="https://wa.me/6281112088600" target="_blank"><i class="fa-regular fa-chevrons-right"></i>Hubungi Kami</a></li>
-              <li><a href="#"><i class="fa-regular fa-chevrons-right"></i>FAQ</a></li>
-              <li><a href="#"><i class="fa-regular fa-chevrons-right"></i>Kebijakan Privasi</a></li>
-              <li><a href="#"><i class="fa-regular fa-chevrons-right"></i>Layanan Kami</a></li>
+              <li><a href="{{ url('/kerjasama-bisnis') }}"><i class="fa-regular fa-chevrons-right"></i>Kerjasama Bisnis</a></li>
+              <li><a href="{{ url('/database-peraturan') }}"><i class="fa-regular fa-chevrons-right"></i>Database KBLI</a></li>
+              <li><a href="{{ url('/karir') }}"><i class="fa-regular fa-chevrons-right"></i>Karir</a></li>
+              <li><a href="{{ url('/perizinan-dan-hukum') }}"><i class="fa-regular fa-chevrons-right"></i>Layanan Perizinan & Hukum</a></li>
             </ul>
           </div>
 
@@ -467,14 +470,15 @@
           <div class="lw-footer-col">
             <h4 class="lw-footer-title">Layanan Utama</h4>
             <ul class="lw-footer-links">
-              <li><a href="{{ url('/pendirian-pt') }}"><i class="fa-regular fa-chevrons-right"></i>Pendirian PT</a></li>
-              <li><a href="{{ url('/nib-dan-oss') }}"><i class="fa-regular fa-chevrons-right"></i>Legalitas Usaha</a></li>
-              <li><a href="{{ url('/perizinan-dan-hukum') }}"><i class="fa-regular fa-chevrons-right"></i>Perizinan</a></li>
-              <li><a href="{{ url('/jasa-pembukuan-perpajakan') }}"><i class="fa-regular fa-chevrons-right"></i>Perpajakan</a></li>
-              <li><a href="{{ url('/virtual-office') }}"><i class="fa-regular fa-chevrons-right"></i>Konsultasi Bisnis</a></li>
-              <li><a href="{{ url('/drafting-review-perjanjian-bisnis') }}"><i class="fa-regular fa-chevrons-right"></i>Legal Drafting</a></li>
+              <li><a href="{{ url('/pendirian-pt') }}"><i class="fa-regular fa-chevrons-right"></i>Pendirian PT Perseroan</a></li>
+              <li><a href="{{ url('/pendirian-pt-perorangan') }}"><i class="fa-regular fa-chevrons-right"></i>Pendirian PT Perorangan</a></li>
+              <li><a href="{{ url('/pendirian-pt-pma') }}"><i class="fa-regular fa-chevrons-right"></i>Pendirian PT PMA</a></li>
+              <li><a href="{{ url('/pendirian-cv') }}"><i class="fa-regular fa-chevrons-right"></i>Pendirian CV</a></li>
+              <li><a href="{{ url('/pendirian-firma') }}"><i class="fa-regular fa-chevrons-right"></i>Pendirian Firma</a></li>
+              <li><a href="{{ url('/pendirian-yayasan') }}"><i class="fa-regular fa-chevrons-right"></i>Pendirian Yayasan</a></li>
             </ul>
           </div>
+           
 
           <!-- 4️⃣ CONTACT SECTION -->
           <div class="lw-footer-col lw-footer-contact">
