@@ -2,166 +2,554 @@
   <footer
     class="footer-section fix bg-cover"
     style="background-image: url('{{ asset('buyer-file/assets/img/hero/hero-bg-1.jpg') }}')">
-    <div class="footer-widgets-wrapper">
+    
+    <style>
+      /* ==========================================================================
+         Lawgika Premium Modern Footer Redesign Styles
+         ========================================================================== */
+      
+      .lw-footer-wrapper {
+        padding-top: 100px;
+        padding-bottom: 50px;
+        position: relative;
+        z-index: 2;
+      }
+
+      /* 4-Column Modern Grid for Desktop */
+      .lw-footer-main {
+        display: grid;
+        grid-template-columns: 1.3fr 0.8fr 0.9fr 1.1fr;
+        gap: 60px;
+        align-items: start;
+      }
+
+      .lw-footer-col {
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Column 1: Brand & Logo */
+      .lw-footer-logo {
+        margin-bottom: 24px;
+        display: inline-block;
+        transition: transform 0.3s ease;
+      }
+
+      .lw-footer-logo:hover {
+        transform: translateY(-2px);
+      }
+
+      .lw-footer-logo img {
+        max-width: 210px;
+        height: auto;
+        display: block;
+      }
+
+      .lw-footer-desc {
+        font-size: 15px;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 32px;
+        font-weight: 400;
+      }
+
+      /* Premium Startup CTA Button */
+      .lw-footer-cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        align-self: flex-start;
+        padding: 14px 30px;
+        font-size: 14.5px;
+        font-weight: 600;
+        color: #ffffff;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 50px;
+        text-decoration: none;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      }
+
+      .lw-footer-cta i {
+        margin-left: 10px;
+        font-size: 13px;
+        transition: transform 0.3s ease;
+      }
+
+      .lw-footer-cta:hover {
+        color: #4e0516; /* Brand Deep Red */
+        background: #ffffff;
+        border-color: #ffffff;
+        transform: translateY(-3px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+      }
+
+      .lw-footer-cta:hover i {
+        transform: translateX(6px);
+      }
+
+      /* Elegant Column Headings */
+      .lw-footer-title {
+        font-size: 16px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #ffffff !important;
+        margin-bottom: 30px;
+        position: relative;
+        display: inline-block;
+        line-height: 1.2;
+      }
+
+      .lw-footer-title::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -8px;
+        width: 30px;
+        height: 2px;
+        background-color: #ffa31a; /* Existing Gold Accent */
+        border-radius: 2px;
+      }
+
+      /* Clean Navigation Links */
+      .lw-footer-links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .lw-footer-links li a {
+        display: inline-flex;
+        align-items: center;
+        font-size: 15px;
+        color: rgba(255, 255, 255, 0.8) !important;
+        text-decoration: none;
+        transition: all 0.25s ease;
+        font-weight: 450;
+      }
+
+      .lw-footer-links li a i {
+        font-size: 10px;
+        margin-right: 12px;
+        opacity: 0.5;
+        transition: all 0.25s ease;
+      }
+
+      .lw-footer-links li a:hover {
+        color: #ffa31a !important;
+        transform: translateX(6px);
+      }
+
+      .lw-footer-links li a:hover i {
+        color: #ffa31a !important;
+        opacity: 1;
+      }
+
+      /* Modern Contact Info Layout */
+      .lw-footer-contact-info {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .lw-footer-contact-info li {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .lw-footer-contact-info li .lw-contact-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 34px;
+        height: 34px;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 50%;
+        color: #ffa31a;
+        font-size: 14px;
+        flex-shrink: 0;
+        margin-top: 2px;
+        transition: all 0.3s ease;
+      }
+
+      .lw-footer-contact-info li:hover .lw-contact-icon {
+        background: #ffa31a;
+        color: #4e0516;
+      }
+
+      .lw-footer-contact-info li .lw-contact-text {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .lw-footer-contact-info li .lw-contact-label {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      .lw-footer-contact-info li .lw-contact-text span:not(.lw-contact-label) {
+        font-size: 14.5px;
+        color: rgba(255, 255, 255, 0.85);
+        line-height: 1.5;
+      }
+
+      .lw-footer-contact-info li .lw-contact-text a {
+        font-size: 14.5px;
+        color: rgba(255, 255, 255, 0.85) !important;
+        text-decoration: none;
+        transition: color 0.2s ease;
+        font-weight: 500;
+      }
+
+      .lw-footer-contact-info li .lw-contact-text a:hover {
+        color: #ffa31a !important;
+      }
+
+      /* Premium Social Media Links */
+      .lw-footer-social {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: 28px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .lw-footer-social a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.07);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: #ffffff !important;
+        font-size: 15px;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        text-decoration: none;
+      }
+
+      .lw-footer-social a:hover {
+        background: #ffffff;
+        color: #4e0516 !important;
+        border-color: #ffffff;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      /* Modern Bottom Divider & Footer Bottom */
+      .lw-footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 30px 0;
+        position: relative;
+        z-index: 2;
+      }
+
+      .lw-footer-bottom-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      .lw-footer-copyright {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.6);
+        margin: 0;
+      }
+
+      .lw-footer-copyright a {
+        color: rgba(255, 255, 255, 0.85) !important;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s ease;
+      }
+
+      .lw-footer-copyright a:hover {
+        color: #ffa31a !important;
+      }
+
+      .lw-footer-bottom-links {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .lw-footer-bottom-links a {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.6) !important;
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+
+      .lw-footer-bottom-links a:hover {
+        color: #ffa31a !important;
+      }
+
+      .lw-footer-bottom-dot {
+        color: rgba(255, 255, 255, 0.25);
+        font-size: 10px;
+        user-select: none;
+      }
+
+      /* Custom Scroll-up Override to Align with Modern Theme */
+      .footer-bottom .scroll-icon {
+        background-color: #ffa31a !important;
+        border: 4px solid #ffffff !important;
+        color: #4e0516 !important;
+        width: 54px !important;
+        height: 54px !important;
+        line-height: 46px !important;
+        position: fixed !important;
+        bottom: 110px !important;
+        right: 30px !important;
+        left: auto !important;
+        top: auto !important;
+        transform: none !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2) !important;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        border-radius: 50% !important;
+        z-index: 999 !important;
+      }
+
+      .footer-bottom .scroll-icon:hover {
+        background-color: #ffffff !important;
+        color: #8c0c1e !important;
+        border-color: #ffa31a !important;
+        transform: translateY(-4px) !important;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3) !important;
+      }
+
+      /* ==========================================================================
+         Responsive Breakpoints
+         ========================================================================== */
+
+      @media (max-width: 1199px) {
+        .lw-footer-main {
+          grid-template-columns: 1.2fr 0.8fr 0.9fr 1.1fr;
+          gap: 40px;
+        }
+      }
+
+      @media (max-width: 991px) {
+        .lw-footer-wrapper {
+          padding-top: 80px;
+          padding-bottom: 40px;
+        }
+        .lw-footer-main {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 50px 30px;
+        }
+      }
+
+      @media (max-width: 575px) {
+        .lw-footer-wrapper {
+          padding-top: 60px;
+          padding-bottom: 40px;
+        }
+        .lw-footer-main {
+          grid-template-columns: 1fr;
+          gap: 45px;
+          text-align: left;
+        }
+        .lw-footer-col {
+          align-items: flex-start;
+        }
+        .lw-footer-logo {
+          margin-bottom: 18px;
+        }
+        .lw-footer-desc {
+          margin-bottom: 24px;
+          text-align: left;
+        }
+        .lw-footer-cta {
+          align-self: flex-start;
+        }
+        .lw-footer-title {
+          margin-bottom: 24px;
+        }
+        .lw-footer-title::after {
+          left: 0;
+          transform: none;
+        }
+        .lw-footer-links {
+          gap: 14px;
+        }
+        .lw-footer-contact-info {
+          gap: 20px;
+          width: 100%;
+          max-width: none;
+        }
+        .lw-footer-contact-info li {
+          flex-direction: row;
+          align-items: flex-start;
+          text-align: left;
+          gap: 16px;
+        }
+        .lw-footer-contact-info li .lw-contact-icon {
+          margin-top: 2px;
+        }
+        .lw-footer-social {
+          width: 100%;
+          justify-content: flex-start;
+          margin-top: 24px;
+        }
+        .lw-footer-bottom-wrapper {
+          flex-direction: column;
+          align-items: flex-start;
+          text-align: left;
+          gap: 20px;
+        }
+        .lw-footer-bottom-links {
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: flex-start;
+          gap: 10px 20px;
+          width: 100%;
+        }
+        .lw-footer-bottom-dot {
+          display: none;
+        }
+        .footer-bottom .scroll-icon {
+          bottom: 110px !important;
+          right: 25px !important;
+        }
+      }
+    </style>
+
+    <div class="lw-footer-wrapper">
       <div class="container">
-        <div class="row">
-          <div
-            class="col-xl-3 col-lg-4 col-md-6">
-            <div class="single-footer-widget">
-              <div class="widget-head">
-                <a href="#">
-                  <img src="{{ asset('buyer-file/assets/img/logo-removebg.png')}}" alt="logo-img" />
-                </a>
-              </div>
-              <div class="footer-content">
-                <p>
-                  Lawgika Bisnis Indonesia siap mendampingi perjalanan bisnis dan legalitas perusahaan Anda dengan layanan profesional dan terpercaya.
-                </p>
-                <ul class="contact-info">
-                  <li>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"><g clip-path="url(#clip0_4461_529)"><path d="M18.7719 14.1213C18.7388 14.0938 14.9913 11.4275 13.9794 11.5906C13.4913 11.6769 13.2125 12.01 12.6531 12.6762C12.4985 12.8617 12.3403 13.0443 12.1788 13.2238C11.8252 13.1086 11.4804 12.9682 11.1469 12.8038C9.42533 11.9656 8.03437 10.5747 7.19625 8.85312C7.03179 8.51964 6.89143 8.1748 6.77625 7.82125C6.96 7.65312 7.2175 7.43625 7.3275 7.34375C7.99062 6.7875 8.32312 6.50812 8.40938 6.01937C8.58625 5.0075 5.90625 1.26125 5.87875 1.2275C5.7567 1.05441 5.59775 0.910578 5.41336 0.806386C5.22897 0.702193 5.02374 0.640241 4.8125 0.625C3.72625 0.625 0.625 4.6475 0.625 5.32562C0.625 5.365 0.681875 9.3675 5.6175 14.3881C10.6325 19.3181 14.635 19.375 14.6744 19.375C15.3519 19.375 19.375 16.2737 19.375 15.1875C19.3596 14.9762 19.2975 14.771 19.1932 14.5866C19.0889 14.4022 18.945 14.2433 18.7719 14.1213Z" fill="white" /><path d="M17.5 9.375H18.75C18.7475 7.22088 17.8907 5.15569 16.3675 3.6325C14.8443 2.1093 12.7791 1.25248 10.625 1.25V2.5C12.4477 2.50215 14.1951 3.22717 15.484 4.51602C16.7728 5.80486 17.4978 7.5523 17.5 9.375Z" fill="white" /></g><defs><clipPath id="clip0_4461_529"><rect width="20" height="20" fill="white" /></clipPath></defs></svg>
-                    <a href="https://wa.me/6281112088600" target="_blank">+62 811-1208-8600 (WhatsApp)</a>
-                  </li>
-                  <li>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"><g clip-path="url(#clip0_4461_529)"><path d="M18.7719 14.1213C18.7388 14.0938 14.9913 11.4275 13.9794 11.5906C13.4913 11.6769 13.2125 12.01 12.6531 12.6762C12.4985 12.8617 12.3403 13.0443 12.1788 13.2238C11.8252 13.1086 11.4804 12.9682 11.1469 12.8038C9.42533 11.9656 8.03437 10.5747 7.19625 8.85312C7.03179 8.51964 6.89143 8.1748 6.77625 7.82125C6.96 7.65312 7.2175 7.43625 7.3275 7.34375C7.99062 6.7875 8.32312 6.50812 8.40938 6.01937C8.58625 5.0075 5.90625 1.26125 5.87875 1.2275C5.7567 1.05441 5.59775 0.910578 5.41336 0.806386C5.22897 0.702193 5.02374 0.640241 4.8125 0.625C3.72625 0.625 0.625 4.6475 0.625 5.32562C0.625 5.365 0.681875 9.3675 5.6175 14.3881C10.6325 19.3181 14.635 19.375 14.6744 19.375C15.3519 19.375 19.375 16.2737 19.375 15.1875C19.3596 14.9762 19.2975 14.771 19.1932 14.5866C19.0889 14.4022 18.945 14.2433 18.7719 14.1213Z" fill="white" /><path d="M17.5 9.375H18.75C18.7475 7.22088 17.8907 5.15569 16.3675 3.6325C14.8443 2.1093 12.7791 1.25248 10.625 1.25V2.5C12.4477 2.50215 14.1951 3.22717 15.484 4.51602C16.7728 5.80486 17.4978 7.5523 17.5 9.375Z" fill="white" /></g></svg>
-                    <a href="tel:02139706065">021-3970-6065 (Kantor)</a>
-                  </li>
-                  <li>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M18.0812 13.1941C18.0812 14.883 16.7074 16.2547 15.0206 16.2547H4.97935C3.2926 16.2547 1.91873 14.883 1.91873 13.1941V6.805C1.91835 6.26068 2.06418 5.72624 2.34096 5.25754L7.24049 10.1571C7.9735 10.8922 8.9551 11.2973 10.001 11.2973C11.0448 11.2973 12.0264 10.8922 12.7594 10.1571L17.659 5.25754C17.9358 5.72623 18.0816 6.26067 18.0812 6.805V13.1941H18.0812ZM15.0206 3.74441H4.97935C4.28279 3.74441 3.63978 3.98016 3.12541 4.37238L8.07424 9.32336C8.5865 9.83344 9.27017 10.1164 10.001 10.1164C10.7297 10.1164 11.4135 9.83344 11.9257 9.32336L16.8745 4.37238C16.3602 3.98016 15.7172 3.74441 15.0206 3.74441ZM15.0206 2.56348H4.97935C2.64103 2.56348 0.737793 4.46672 0.737793 6.80504V13.1942C0.737793 15.5346 2.64103 17.4357 4.97935 17.4357H15.0206C17.3589 17.4357 19.2622 15.5346 19.2622 13.1942V6.805C19.2622 4.46668 17.3589 2.56348 15.0206 2.56348Z" fill="white" /></svg>
-                    <a href="mailto:informasi@lawgika.co.id">informasi@lawgika.co.id</a>
-                  </li>
-                  <li style="align-items: flex-start;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" style="min-width:20px;margin-top:3px;"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z" fill="white"/></svg>
-                    <span style="color:rgba(255,255,255,0.8); font-size:0.85rem; line-height:1.5;">World Capital Tower Lt. 38 Unit 06-07, Jl. DR. Ide Anak Agung Gde Agung Lot. D, Mega Kuningan, Kec. Setiabudi, Jakarta Selatan 12950</span>
-                  </li>
-                </ul>
-              </div>
+        <div class="lw-footer-main">
+          
+          <!-- 1️⃣ LEFT BRAND SECTION -->
+          <div class="lw-footer-col lw-footer-brand">
+            <a href="{{ url('/') }}" class="lw-footer-logo">
+              <img src="{{ asset('buyer-file/assets/img/logo-removebg.png') }}" alt="Lawgika Logo" />
+            </a>
+            <p class="lw-footer-desc">
+              Lawgika Bisnis Indonesia siap mendampingi perjalanan bisnis dan legalitas perusahaan Anda dengan layanan profesional dan terpercaya.
+            </p>
+            <a href="https://wa.me/6281112088600" target="_blank" class="lw-footer-cta">
+              <span>Konsultasi Sekarang</span>
+              <i class="fa-solid fa-arrow-right-long"></i>
+            </a>
+          </div>
+
+          <!-- 2️⃣ COMPANY MENU -->
+          <div class="lw-footer-col">
+            <h4 class="lw-footer-title">Perusahaan</h4>
+            <ul class="lw-footer-links">
+              <li><a href="{{ url('/tentang-kami') }}"><i class="fa-regular fa-chevrons-right"></i>Tentang Kami</a></li>
+              <li><a href="https://wa.me/6281112088600" target="_blank"><i class="fa-regular fa-chevrons-right"></i>Hubungi Kami</a></li>
+              <li><a href="#"><i class="fa-regular fa-chevrons-right"></i>FAQ</a></li>
+              <li><a href="#"><i class="fa-regular fa-chevrons-right"></i>Kebijakan Privasi</a></li>
+              <li><a href="#"><i class="fa-regular fa-chevrons-right"></i>Layanan Kami</a></li>
+            </ul>
+          </div>
+
+          <!-- 3️⃣ SERVICES MENU -->
+          <div class="lw-footer-col">
+            <h4 class="lw-footer-title">Layanan Utama</h4>
+            <ul class="lw-footer-links">
+              <li><a href="{{ url('/pendirian-pt') }}"><i class="fa-regular fa-chevrons-right"></i>Pendirian PT</a></li>
+              <li><a href="{{ url('/nib-dan-oss') }}"><i class="fa-regular fa-chevrons-right"></i>Legalitas Usaha</a></li>
+              <li><a href="{{ url('/perizinan-dan-hukum') }}"><i class="fa-regular fa-chevrons-right"></i>Perizinan</a></li>
+              <li><a href="{{ url('/jasa-pembukuan-perpajakan') }}"><i class="fa-regular fa-chevrons-right"></i>Perpajakan</a></li>
+              <li><a href="{{ url('/virtual-office') }}"><i class="fa-regular fa-chevrons-right"></i>Konsultasi Bisnis</a></li>
+              <li><a href="{{ url('/drafting-review-perjanjian-bisnis') }}"><i class="fa-regular fa-chevrons-right"></i>Legal Drafting</a></li>
+            </ul>
+          </div>
+
+          <!-- 4️⃣ CONTACT SECTION -->
+          <div class="lw-footer-col lw-footer-contact">
+            <h4 class="lw-footer-title">Hubungi Kami</h4>
+            <ul class="lw-footer-contact-info">
+              <li>
+                <div class="lw-contact-icon">
+                  <i class="fab fa-whatsapp"></i>
+                </div>
+                <div class="lw-contact-text">
+                  <span class="lw-contact-label">WhatsApp</span>
+                  <a href="https://wa.me/6281112088600" target="_blank">+62 811-1208-8600</a>
+                </div>
+              </li>
+              <li>
+                <div class="lw-contact-icon">
+                  <i class="far fa-phone"></i>
+                </div>
+                <div class="lw-contact-text">
+                  <span class="lw-contact-label">Telepon Kantor</span>
+                  <a href="tel:02139706065">021-3970-6065</a>
+                </div>
+              </li>
+              <li>
+                <div class="lw-contact-icon">
+                  <i class="far fa-envelope"></i>
+                </div>
+                <div class="lw-contact-text">
+                  <span class="lw-contact-label">Email</span>
+                  <a href="mailto:informasi@lawgika.co.id">informasi@lawgika.co.id</a>
+                </div>
+              </li>
+              <li>
+                <div class="lw-contact-icon">
+                  <i class="far fa-map-marker-alt"></i>
+                </div>
+                <div class="lw-contact-text">
+                  <span class="lw-contact-label">Alamat</span>
+                  <span>World Capital Tower Lt. 38 Unit 06-07, Mega Kuningan, Jakarta Selatan 12950</span>
+                </div>
+              </li>
+            </ul>
+
+            <div class="lw-footer-social">
+              <a href="https://www.instagram.com/lawgika.co.id?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="https://www.tiktok.com/@lawgika.co.id?is_from_webapp=1&sender_device=pc" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+              <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="https://id.linkedin.com/company/lawgika-associates-law-firm" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
             </div>
           </div>
-          <div
-            class="col-xl-2 col-lg-4 col-md-3 ps-lg-3">
-            <div class="single-footer-widget">
-              <div class="widget-head">
-                <h3>Perusahaan</h3>
-              </div>
-              <ul class="list-area">
-                <li>
-                  <a href="#">
-                    <i class="fa-regular fa-chevrons-right"></i>
-                    Tentang Kami
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i class="fa-regular fa-chevrons-right"></i>
-                    Hubungi Kami
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i class="fa-regular fa-chevrons-right"></i>
-                    Layanan Kami
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i class="fa-regular fa-chevrons-right"></i>
-                    FAQ
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i class="fa-regular fa-chevrons-right"></i>
-                    Kebijakan Privasi
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div
-            class="col-xl-2 col-lg-4 col-md-3 ps-lg-4">
-            <div class="single-footer-widget style-margin">
-              <div class="widget-head">
-                <h3>Layanan Utama</h3>
-              </div>
-              <ul class="list-area">
-                <li>
-                  <a href="#">
-                    <i class="fa-regular fa-chevrons-right"></i>
-                    Pendirian Badan Usaha
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i class="fa-regular fa-chevrons-right"></i>
-                    Perizinan & Dokumen Hukum
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i class="fa-regular fa-chevrons-right"></i>
-                    Pembukuan & Perpajakan
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i class="fa-regular fa-chevrons-right"></i>
-                    Konsultasi Bisnis
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i class="fa-regular fa-chevrons-right"></i>
-                    Legal Drafting
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          </div>
+
         </div>
       </div>
     </div>
-    <div class="footer-bottom">
+
+    <div class="lw-footer-bottom">
       <div class="container">
-        <div
-          class="footer-wrapper d-flex align-items-center justify-content-between">
-          <p>
-            © Hak Cipta 2026 oleh <a href="#">Lawgika Bisnis Indonesia</a>
+        <div class="lw-footer-bottom-wrapper">
+          <p class="lw-footer-copyright">
+            © Hak Cipta 2026 oleh <a href="{{ url('/') }}">Lawgika Bisnis Indonesia</a>. Seluruh Hak Cipta Dilindungi.
           </p>
-          <style>
-            .custom-social-icon a {
-              display: inline-flex;
-              align-items: center;
-              justify-content: center;
-              width: 45px;
-              height: 45px;
-              border-radius: 50%;
-              background-color: rgba(255, 255, 255, 0.1);
-              color: #ffffff;
-              font-size: 1.3rem;
-              transition: all 0.3s ease;
-              text-decoration: none;
-            }
-            .custom-social-icon a:hover {
-              background-color: #ffffff;
-              color: #800000;
-              transform: translateY(-3px);
-              box-shadow: 0 5px 15px rgba(255,255,255,0.2);
-            }
-          </style>
-          <div class="custom-social-icon d-flex align-items-center gap-3">
-            <a href="https://www.instagram.com/lawgika.co.id?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.tiktok.com/@lawgika.co.id?is_from_webapp=1&sender_device=pc" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
-            <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://id.linkedin.com/company/lawgika-associates-law-firm" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <div class="lw-footer-bottom-links">
+            <a href="#">Ketentuan Layanan</a>
+            <span class="lw-footer-bottom-dot">•</span>
+            <a href="#">Kebijakan Privasi</a>
+            <span class="lw-footer-bottom-dot">•</span>
+            <a href="https://wa.me/6281112088600" target="_blank">Hubungi Kami</a>
           </div>
         </div>
       </div>
-      <a href="#" id="scrollUp" class="scroll-icon">
-        <i class="far fa-arrow-up"></i>
-      </a>
     </div>
+
+    <a href="#" id="scrollUp" class="scroll-icon">
+      <i class="far fa-arrow-up"></i>
+    </a>
   </footer>
   <!--<< All JS Plugins >>-->
   <script src="{{ asset('buyer-file/assets/js/jquery-3.7.1.min.js')}}"></script>
