@@ -639,12 +639,12 @@
             }
 
             .pricing-body {
-                padding: 40px 30px;
+                padding: 30px 24px;
                 text-align: center;
             }
 
             .pricing-price {
-                font-size: 3rem;
+                font-size: 2.6rem;
                 font-weight: 800;
                 color: var(--dark);
                 margin-bottom: 5px;
@@ -654,14 +654,14 @@
             .pricing-desc {
                 color: var(--gray);
                 font-size: 0.95rem;
-                margin-bottom: 30px;
+                margin-bottom: 25px;
                 font-weight: 500;
             }
 
             .feature-list {
                 list-style: none;
                 padding: 0;
-                margin: 0 0 40px;
+                margin: 0 0 30px;
                 text-align: left;
             }
 
@@ -729,10 +729,63 @@
                 color: var(--gray);
                 margin: 0;
             }
+
+            /* Premium Podcast Note Wrap */
+            .podcast-note-wrap {
+                max-width: 500px;
+                margin: 22px auto 0;
+                background: #fdfdfd;
+                border: 1px solid #f0f1f3;
+                border-radius: 14px;
+                padding: 24px;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+            }
+
+            .podcast-note-item {
+                display: flex;
+                align-items: flex-start;
+                gap: 16px;
+                margin-bottom: 20px;
+            }
+
+            .podcast-note-item:last-child {
+                margin-bottom: 0;
+            }
+
+            .podcast-note-icon {
+                font-size: 1.1rem;
+                color: var(--primary);
+                background: #fff0f1;
+                width: 38px;
+                height: 38px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+
+            .podcast-note-content {
+                flex: 1;
+            }
+
+            .podcast-note-content h5 {
+                font-size: 0.95rem;
+                font-weight: 700;
+                color: var(--dark);
+                margin: 0 0 4px;
+            }
+
+            .podcast-note-content p {
+                font-size: 0.88rem;
+                color: var(--gray);
+                line-height: 1.6;
+                margin: 0;
+            }
         </style>
 
         <div class="row justify-content-center">
-            <div class="col-lg-5 col-md-8">
+            <div class="col-lg-4 col-md-7">
                 <div class="pricing-card">
                     <div class="pricing-header">
                         <h3>PAKET PODCAST ROOM</h3>
@@ -769,9 +822,25 @@
 
         {{-- Note Harga --}}
         <div class="podcast-note-wrap">
-            <p>📌 <strong>Aturan Harga:</strong> Durasi 2 jam pertama menggunakan harga paket <strong>Rp 800.000</strong>.
-                Setelah melewati 2 jam, akan dikenakan tambahan <strong>Rp 300.000 per jam</strong>.</p>
-            <p>⏰ <strong>Harap datang 15 menit sebelum jadwal dimulai</strong> untuk persiapan dan pengecekan peralatan.</p>
+            <div class="podcast-note-item">
+                <div class="podcast-note-icon">
+                    <i class="fa-solid fa-circle-info"></i>
+                </div>
+                <div class="podcast-note-content">
+                    <h5>Aturan Harga</h5>
+                    <p>Durasi 2 jam pertama menggunakan harga paket <strong>Rp 700.000</strong>. Setelah melewati 2 jam, dikenakan tambahan <strong>Rp 300.000 / jam</strong> berikutnya.</p>
+                </div>
+            </div>
+
+            <div class="podcast-note-item">
+                <div class="podcast-note-icon">
+                    <i class="fa-solid fa-clock"></i>
+                </div>
+                <div class="podcast-note-content">
+                    <h5>Persiapan Sesi</h5>
+                    <p>Harap tiba di lokasi <strong>15 menit sebelum</strong> jadwal dimulai untuk persiapan dan pengecekan teknis peralatan studio.</p>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -1154,8 +1223,8 @@
     function calcPodcastPrice(jam) {
         if (jam <= 0) return 0;
         if (jam === 1) return 500000;
-        if (jam === 2) return 800000;
-        return 800000 + ((jam - 2) * 300000);
+        if (jam === 2) return 700000;
+        return 700000 + ((jam - 2) * 300000);
     }
 
     function formatRupiah(amount) {
@@ -1163,7 +1232,7 @@
     }
 
     function openPodcastBookingModal() {
-        openBookingModal(2, 800000);
+        openBookingModal(2, 700000);
     }
 
     function openBookingModal(durasi, price) {
