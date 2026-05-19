@@ -458,10 +458,11 @@
             <h4 class="lw-footer-title">Perusahaan</h4>
             <ul class="lw-footer-links">
               <li><a href="{{ url('/tentang-kami') }}"><i class="fa-regular fa-chevrons-right"></i>Tentang Kami</a></li>
-              <li><a href="https://wa.me/6281112088600" target="_blank"><i class="fa-regular fa-chevrons-right"></i>Hubungi Kami</a></li>
+              <!-- <li><a href="https://wa.me/6281112088600" target="_blank"><i class="fa-regular fa-chevrons-right"></i>Hubungi Kami</a></li> -->
               <li><a href="{{ url('/kerjasama-bisnis') }}"><i class="fa-regular fa-chevrons-right"></i>Kerjasama Bisnis</a></li>
               <li><a href="{{ url('/database-peraturan') }}"><i class="fa-regular fa-chevrons-right"></i>Database KBLI</a></li>
               <li><a href="{{ url('/karir') }}"><i class="fa-regular fa-chevrons-right"></i>Karir</a></li>
+              <li><a href="{{ url('/upcoming-event') }}"><i class="fa-regular fa-chevrons-right"></i>Event Lawgika</a></li>
               <li><a href="{{ url('/perizinan-dan-hukum') }}"><i class="fa-regular fa-chevrons-right"></i>Layanan Perizinan & Hukum</a></li>
             </ul>
           </div>

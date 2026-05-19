@@ -952,13 +952,16 @@
   }
 
   .header-1 .header-button .theme-btn {
-    background-color: #fff !important;
-    color: #000 !important;
-    border: none !important;
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border: 1px solid #ffffff !important;
+    transition: all 0.3s ease !important;
   }
 
   .header-1 .header-button .theme-btn:hover {
-    background-color: #b91c1c !important;
+    background-color: #f3f4f6 !important;
+    color: #000000 !important;
+    border-color: #f3f4f6 !important;
   }
 
   /* Pastikan dropdown / mega menu textnya tetap gelap */
@@ -1022,6 +1025,21 @@
   #header-sticky.sticky .search-icon,
   #header-sticky.sticky .sidebar__toggle {
     color: #000000 !important;
+  }
+
+  /* Scrolled/Sticky state button styling */
+  #header-sticky.scrolled .header-button .theme-btn,
+  #header-sticky.sticky .header-button .theme-btn {
+    background-color: #4e0516 !important;
+    color: #ffffff !important;
+    border: 1px solid #4e0516 !important;
+  }
+
+  #header-sticky.scrolled .header-button .theme-btn:hover,
+  #header-sticky.sticky .header-button .theme-btn:hover {
+    background-color: #8c0c1e !important;
+    color: #ffffff !important;
+    border-color: #8c0c1e !important;
   }
 
   /*
