@@ -84,6 +84,7 @@
                   <li><a href="{{ url('/laporan-lkpm') }}">Laporan LKPM</a></li>
                   <li><a href="{{ url('/sertifikat-iso') }}">Sertifikat ISO</a></li>
                   <li><a href="{{ url('/pengurusan-pkp') }}">Pengurusan PKP</a></li>
+                  <li><a href="{{ url('/perizinan-dan-hukum') }}">Perizinan Lainnya</a></li>
                 </ul>
               </div>
             </div>
@@ -142,42 +143,51 @@
 
       <div class="offcanvas__contact">
         <h4 class="fw-normal">Contact Info</h4>
-        <ul class="ps-0">
-          <li class="d-flex align-items-start mb-3">
-            <div class="offcanvas__contact-icon me-3">
-              <i class="fal fa-map-marker-alt"></i>
-            </div>
-            <div class="offcanvas__contact-text">
-              <a target="_blank" href="#" class="text text-decoration-none">World Capital Tower Lt 38 unit 06-07, Kuningan, Mega Kuningan, Kecamatan Setiabudi, Kota Jakarta Selatan</a>
-            </div>
-          </li>
-          <li class="d-flex align-items-center mb-3">
-            <div class="offcanvas__contact-icon me-3">
-              <i class="fal fa-envelope"></i>
-            </div>
-            <div class="offcanvas__contact-text">
-              <a href="mailto:informasi@lawgika.co.id" class="text text-decoration-none">informasi@lawgika.co.id</a>
-            </div>
-          </li>
-          <li class="d-flex align-items-center mb-3">
-            <div class="offcanvas__contact-icon me-3">
-              <i class="fal fa-clock"></i>
-            </div>
-            <div class="offcanvas__contact-text">
-              <span class="text">Monday-Friday, 08.00 - 17.00</span>
-            </div>
-          </li>
-          <li class="d-flex align-items-center mb-4">
-            <div class="offcanvas__contact-icon me-3">
-              <i class="far fa-phone"></i>
-            </div>
-            <div class="offcanvas__contact-text">
-              <a href="https://wa.me/6281112088600" target="_blank" class="text text-decoration-none">
-                +62 811-1208-8600
-              </a>
-            </div>
-          </li>
-        </ul>
+      <ul class="ps-0" style="font-weight: normal;">
+  <li class="d-flex align-items-start mb-3">
+    <div class="offcanvas__contact-icon me-3">
+      <i class="fal fa-map-marker-alt"></i>
+    </div>
+    <div class="offcanvas__contact-text">
+      <a target="_blank" href="#" class="text text-decoration-none" style="font-weight: normal;">
+        World Capital Tower Lt 38 unit 06-07, Kuningan, Mega Kuningan, Kecamatan Setiabudi, Kota Jakarta Selatan
+      </a>
+    </div>
+  </li>
+
+  <li class="d-flex align-items-center mb-3">
+    <div class="offcanvas__contact-icon me-3">
+      <i class="fal fa-envelope"></i>
+    </div>
+    <div class="offcanvas__contact-text">
+      <a href="mailto:informasi@lawgika.co.id" class="text text-decoration-none" style="font-weight: normal;">
+        informasi@lawgika.co.id
+      </a>
+    </div>
+  </li>
+
+  <li class="d-flex align-items-center mb-3">
+    <div class="offcanvas__contact-icon me-3">
+      <i class="fal fa-clock"></i>
+    </div>
+    <div class="offcanvas__contact-text">
+      <span class="text" style="font-weight: normal;">
+        Monday-Friday, 08.00 - 17.00
+      </span>
+    </div>
+  </li>
+
+  <li class="d-flex align-items-center mb-4">
+    <div class="offcanvas__contact-icon me-3">
+      <i class="far fa-phone"></i>
+    </div>
+    <div class="offcanvas__contact-text">
+      <a href="https://wa.me/6281112088600" target="_blank" class="text text-decoration-none" style="font-weight: normal;">
+        +62 811-1208-8600
+      </a>
+    </div>
+  </li>
+</ul>
         <div class="header-button mb-4">
           {{-- Jika belum login --}}
           @guest

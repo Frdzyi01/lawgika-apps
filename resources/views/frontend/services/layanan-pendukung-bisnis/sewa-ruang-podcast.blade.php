@@ -739,7 +739,7 @@
                         <p>Fasilitas lengkap untuk rekaman Anda</p>
                     </div>
                     <div class="pricing-body">
-                        <div class="pricing-price">Rp 800.000</div>
+                        <div class="pricing-price">Rp 700.000</div>
                         <div class="pricing-desc">
                             Durasi 2 Jam Pertama <br>
                             <span style="color: var(--primary); font-size: 0.85rem;">(+ Rp 300.000 / jam berikutnya)</span>

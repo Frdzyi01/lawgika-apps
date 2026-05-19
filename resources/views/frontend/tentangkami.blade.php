@@ -53,16 +53,16 @@
             <div class="col-lg-6 animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
                 <div class="section-title mb-4">
                     <h5 class="text-danger fw-bold text-uppercase mb-2" style="letter-spacing: 2px;">Kata Pengantar</h5>
-                    <h2 class="fw-bold display-6 mb-4">Komitmen Kami Untuk <span class="text-danger">Kesuksesan Anda</span></h2>
+                    <h2 class="fw-bold display-6 mb-4">Komitmen Kami Untuk Kesuksesan Anda</h2>
                 </div>
                 <div class="intro-text" style="text-align: justify;">
                     <p class="text-muted mb-4 fs-5" style="line-height: 1.8;">
                         Dinamika iklim usaha saat ini menuntut para pelaku bisnis untuk tidak hanya fokus pada ekspansi, tetapi juga pada ketajaman aspek legalitas, kepatuhan pajak, dan tata kelola keuangan yang presisi. Kami memahami bahwa membangun tim internal untuk menangani seluruh spektrum tersebut memerlukan investasi waktu dan biaya yang besar.
                     </p>
-                    <p class="text-muted mb-4" style="line-height: 1.7;">
+                    <p class="text-muted mb-4 fs-5" style="line-height: 1.8;">
                         <strong>PT Lawgika Bisnis Indonesia</strong> hadir sebagai solusi bisnis terpadu yang berfokus pada layanan penyewaan alamat virtual, ruang meeting, layanan legalitas, perizinan usaha, pembukuan, perpajakan, serta fasilitas penunjang operasional bisnis lainnya.
                     </p>
-                    <p class="text-muted" style="line-height: 1.7;">
+                    <p class="text-muted mb-4 fs-5" style="line-height: 1.8;">
                         Beroperasi dengan brand <strong>Lawgika.co.id</strong>, kami berkomitmen memberikan layanan yang tepat sesuai kebutuhan klien, dapat dipercaya, dan profesional agar bisnis Anda dapat bertumbuh pesat di tengah persaingan pasar Indonesia.
                     </p>
                 </div>
@@ -163,7 +163,7 @@
             <div class="col-lg-5 animate__animated animate__fadeInLeft">
                 <div class="section-title mb-5">
                     <h5 class="text-danger fw-bold text-uppercase mb-2" style="letter-spacing: 2px;">Hubungi Kami</h5>
-                    <h2 class="fw-bold display-6">Siap Melayani <span class="text-danger">Kebutuhan Bisnis Anda</span></h2>
+                    <h2 class="fw-bold display-6">Siap Melayani Kebutuhan Bisnis Anda</h2>
                 </div>
 
                 <div class="contact-info-wrap">
@@ -238,7 +238,7 @@
 {{-- CTA Section --}}
 <section class="cta-section py-5 position-relative overflow-hidden" style="background: #1a0208;">
     <div class="container py-lg-5 text-center text-white z-1 position-relative">
-        <h2 class="fw-bold mb-4 display-5">Siap Berkolaborasi Bersama Lawgika?</h2>
+        <h2 class="fw-bold mb-4 display-5" style="color:white;">Siap Berkolaborasi Bersama Lawgika?</h2>
         <p class="lead opacity-75 mb-5 max-w-700 mx-auto">Kami siap membantu mewujudkan visi bisnis Anda dengan dukungan legalitas dan operasional yang profesional.</p>
         <div class="d-flex flex-wrap justify-content-center gap-3">
             <a href="https://wa.me/6281112088600" class="theme-btn btn-lg px-5 py-3">Konsultasi Sekarang</a>

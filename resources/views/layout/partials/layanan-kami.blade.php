@@ -393,9 +393,12 @@
         {{-- Sub-banner --}}
         <div class="layanan-banner">
           <div class="layanan-banner-text">
-            <h2>Saatnya Membuat Bisnis Anda Lebih Besar</h2>
-            <p>Akan sangat disayangkan jika bisnis Anda tidak memiliki kantor dan ruang kerja
-              yang mampu membuat Anda menjalankan bisnis secara efektif.</p>
+          <h2>Ruang Kerja Fleksibel untuk Produktivitas Bisnis Anda</h2>
+<p>
+    Lawgika menyediakan layanan Virtual Office, Sewa Meeting Room,
+    dan Sewa Ruang Podcast untuk mendukung kebutuhan bisnis,
+    meeting profesional, hingga produksi konten Anda secara nyaman dan fleksibel.
+</p>
           </div>
           <div class="layanan-banner-icon d-none d-md-block">
             {{-- Office SVG Illustration --}}
@@ -493,9 +496,12 @@
         {{-- Sub-banner --}}
         <div class="layanan-banner" style="background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 100%);">
           <div class="layanan-banner-text">
-            <h2>Wujudkan Bisnis Impian Anda Bersama Kami</h2>
-            <p>Kami hadir untuk membantu Anda mengurus seluruh kebutuhan legalitas dan administrasi
-              bisnis dengan cepat, tepat, dan terpercaya.</p>
+           <h2>Solusi Legalitas Perusahaan untuk Bisnis Anda</h2>
+<p>
+    Lawgika membantu proses legalitas usaha mulai dari Pendirian PT Perorangan,
+    PT Perseroan, PT PMA, CV, Yayasan, hingga Firma secara profesional,
+    cepat, dan sesuai ketentuan hukum yang berlaku di Indonesia.
+</p>
           </div>
           <div class="layanan-banner-icon d-none d-md-block">
             <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -638,9 +644,12 @@
         {{-- Sub-banner --}}
         <div class="layanan-banner" style="background: linear-gradient(135deg, #eff6ff 0%, #e0e7ff 100%);">
           <div class="layanan-banner-text">
-            <h2>Solusi Lengkap untuk Kebutuhan Imigrasi Anda</h2>
-            <p>Kami membantu WNA dan ekspatriat mengurus seluruh dokumen keimigrasian
-              di Indonesia dengan mudah, cepat, dan sesuai prosedur resmi.</p>
+           <h2>Solusi Accounting & Pajak untuk Bisnis Anda</h2>
+<p>
+    Lawgika membantu perusahaan mengelola kebutuhan accounting, perpajakan,
+    laporan keuangan, hingga kepatuhan pajak secara profesional, tepat waktu,
+    dan sesuai regulasi yang berlaku di Indonesia.
+</p>
           </div>
           <div class="layanan-banner-icon d-none d-md-block">
             <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
