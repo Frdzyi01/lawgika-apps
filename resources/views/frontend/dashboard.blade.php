@@ -1012,12 +1012,12 @@
     background: #ffffff;
     border-radius: 16px;
     border: 1.5px solid #f0eaec;
-    width: 275px;
-    height: 82px;
+    width: 300px;
+    height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 18px 22px;
+    padding: 14px 20px;
     box-shadow: 0 2px 12px rgba(78, 5, 22, 0.05);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
     cursor: default;
@@ -1030,9 +1030,11 @@
   }
 
   .client-logo-card img {
-    /* max-height: 34px;
-    max-width: 110px; */
     width: 100%;
+    height: 100%;
+    object-fit: contain;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
     opacity: 1;
     transition: opacity 0.25s ease;
     display: block;
@@ -1083,8 +1085,8 @@
     }
 
     .client-logo-card {
-      width: 215px;
-      height: 72px;
+      width: 240px;
+      height: 86px;
     }
   }
 </style>
