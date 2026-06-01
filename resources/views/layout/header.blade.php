@@ -227,7 +227,7 @@
           @endauth
         </div>
         <div class="social-icon d-flex align-items-center gap-3">
-          <a href="#" class="text-decoration-none" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://web.facebook.com/lawgika.co.id/" class="text-decoration-none" title="Facebook"><i class="fab fa-facebook-f"></i></a>
           <a href="https://www.instagram.com/lawgika.co.id?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="text-decoration-none" title="Instagram"><i class="fab fa-instagram"></i></a>
           <a href="https://www.tiktok.com/@lawgika.co.id?is_from_webapp=1&sender_device=pc" target="_blank" class="text-decoration-none" title="TikTok"><i class="fab fa-tiktok"></i></a>
           <a href="https://id.linkedin.com/company/lawgika-associates-law-firm" target="_blank" class="text-decoration-none" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
@@ -1491,7 +1491,7 @@
           </div>
         </div>
         <div class="modal-right-thumb position-relative">
-                  <img src="{{ asset('buyer-file/assets/img/sign/login.png') }}" alt="img" />
+                  <img src="{{ asset('lawgika/masuk.jpeg') }}" alt="img" />
           <div class="signlogin-btnwrap">
             <button
               id="btn-go-register"
@@ -1580,7 +1580,7 @@
           </div>
         </div>
         <div class="modal-right-thumb position-relative">
-                  <img src="{{ asset('buyer-file/assets/img/sign/create.png') }}" alt="img" />
+                  <img src="{{ asset('lawgika/meeting.jpeg') }}" alt="img" />
           <div class="signlogin-btnwrap">
             <button
               id="btn-stay-register"

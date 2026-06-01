@@ -8,9 +8,9 @@
 {{-- Hero / Breadcrumb Area --}}
 <section class="page-title-area position-relative" style="background: linear-gradient(135deg, #1a0208 0%, #4e0516 50%, #1a0208 100%); padding-top: 180px; padding-bottom: 100px; overflow: hidden;">
     {{-- Decorative Background Elements --}}
-    <div class="position-absolute top-0 start-0 w-100 h-100 opacity-10" style="background-image: url('https://www.transparenttextures.com/patterns/cubes.png');"></div>
+    <div class="position-absolute top-0 start-0 w-100 h-100 opacity-10"></div>
     <div class="position-absolute bottom-0 end-0 p-5 opacity-20 d-none d-lg-block">
-        <i class="fas fa-balance-scale text-white" style="font-size: 200px; transform: rotate(-15deg);"></i>
+        <!-- <i class="fas fa-balance-scale text-white" style="font-size: 200px; transform: rotate(-15deg);"></i> -->
     </div>
 
     <div class="container position-relative z-1">
@@ -43,7 +43,7 @@
                     <div class="position-absolute top-0 start-0 translate-middle p-4 bg-danger rounded-4 shadow-lg d-none d-md-block" style="z-index: 2; margin-top: 50px; margin-left: 50px;">
                         <i class="fas fa-quote-left text-white fa-2x"></i>
                     </div>
-                    <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1000&q=80" alt="Lawgika Office" class="img-fluid rounded-5 shadow-2xl">
+                    <img src="{{ asset('lawgika/tentangkami.jpeg') }}" alt="Lawgika Office" class="img-fluid rounded-5 shadow-2xl">
                     <div class="position-absolute bottom-0 end-0 m-4 p-4 bg-white rounded-4 shadow-lg d-none d-lg-block border-start border-5 border-danger">
                         <h4 class="fw-bold mb-1">Dinamis & Terpercaya</h4>
                         <p class="text-muted small mb-0">Solusi Bisnis Terintegrasi</p>
@@ -74,82 +74,69 @@
 {{-- Vision & Mission Section --}}
 <section class="vision-mission-section py-5 position-relative overflow-hidden" style="background: linear-gradient(to bottom, #ffffff, #fff5f6);">
     {{-- Decorative Shapes --}}
-    <div class="position-absolute top-0 end-0 m-n5 opacity-5 d-none d-lg-block" style="width: 400px; height: 400px; background: #a6a6a6ff; border-radius: 50%; filter: blur(80px);"></div>
-    <div class="position-absolute bottom-0 start-0 m-n5 opacity-5 d-none d-lg-block" style="width: 300px; height: 300px; background: #a6a6a6ff; border-radius: 50%; filter: blur(60px);"></div>
+    <div class="position-absolute top-0 end-0 m-n5 opacity-5 d-none d-lg-block" style="width: 400px; height: 400px;border-radius: 50%; filter: blur(80px);"></div>
+    <div class="position-absolute bottom-0 start-0 m-n5 opacity-5 d-none d-lg-block" style="width: 300px; height: 300px;border-radius: 50%; filter: blur(60px);"></div>
 
     <div class="container py-lg-5 position-relative z-1">
         <div class="text-center mb-5 animate__animated animate__fadeIn">
-            <h5 class="text-danger fw-bold text-uppercase mb-2" style="letter-spacing: 3px; font-size: 0.8rem;">Filosofi Kami</h5>
-            <h2 class="fw-bold display-5">Visi & <span class="text-danger">Misi</span></h2>
-            <div class="mx-auto bg-danger mt-3" style="width: 60px; height: 4px; border-radius: 2px;"></div>
+            <h5 class="text-danger fw-bold text-uppercase mb-2" style="letter-spacing: 2px; font-size: 0.85rem;">FILOSOFI KAMI</h5>
+            <h2 class="fw-bold display-6 text-dark">Visi & Misi</h2>
         </div>
 
         <div class="row g-5 align-items-stretch">
             {{-- Vision Side --}}
-            <div class="col-lg-5 animate__animated animate__fadeInLeft">
-                <div class="vision-card-premium h-100 p-5 rounded-5 shadow-2xl position-relative overflow-hidden" style="background: #1a0208; color: white;">
-                    <div class="position-absolute top-0 end-0 p-4 opacity-10">
-                        <i class="fas fa-bullseye fa-6x"></i>
-                    </div>
-                    <div class="icon-box-glass mb-4 d-inline-flex align-items-center justify-content-center rounded-4" style="width: 80px; height: 80px; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);">
-                        <i class="fas fa-eye fa-2x text-white"></i>
-                    </div>
-                    <h3 class="fw-bold mb-4" style="color: white;">Visi Kami</h3>
-                    <p class="lead mb-0" style="line-height: 1.8; font-weight: 300; letter-spacing: 0.5px;">
-                        "Menjadi mitra terpercaya bagi pebisnis dalam membangun dan mengembangkan bisnis yang <span class="text-danger fw-bold" style="color: white !important;">efisien</span>, <span class="text-danger fw-bold" style="color: white !important;">patuh regulasi</span>, dan dikelola secara <span class="text-danger fw-bold" style="color: white !important;">profesional</span> di Indonesia."
-                    </p>
-                    <div class="mt-5 pt-4 border-top border-white-10">
-                        <div class="d-flex align-items-center gap-3">
-                            <div class="avatar-group d-flex">
-                                <div class="bg-danger rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; border: 2px solid #1a0208;">
-                                    <i class="fas fa-check text-white small"></i>
-                                </div>
-                                <div class="bg-white rounded-circle d-flex align-items-center justify-content-center ms-n2" style="width: 40px; height: 40px; border: 2px solid #1a0208;">
-                                    <i class="fas fa-star text-danger small"></i>
-                                </div>
-                            </div>
-                            <span class="small opacity-75">Dipercaya oleh 500+ Klien</span>
+            <div class="col-lg-6 animate__animated animate__fadeInLeft">
+                <div class="vision-box-clean p-4 p-md-5 rounded-4 h-100 bg-white border border-light shadow-sm transition-all hover-shadow-md" style="border-left: 5px solid #4e0516 !important;">
+                    <div class="d-flex align-items-center gap-3 mb-4">
+                        <div class="icon-wrap bg-danger-subtle text-danger rounded-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+                            <i class="fas fa-eye fa-lg"></i>
                         </div>
+                        <h4 class="fw-bold mb-0 text-dark" style="font-size: 1.4rem; letter-spacing: 0.5px;">Visi Kami</h4>
                     </div>
+                    <p class="fs-5 text-muted mb-0" style="line-height: 1.8; text-align: justify; font-weight: 300;">
+                        "Menjadi mitra terpercaya bagi pebisnis dalam membangun dan mengembangkan bisnis yang <span class="text-danger fw-bold">efisien</span>, <span class="text-danger fw-bold">patuh regulasi</span>, dan dikelola secara <span class="text-danger fw-bold">profesional</span> di Indonesia."
+                    </p>
                 </div>
             </div>
 
             {{-- Mission Side --}}
-            <div class="col-lg-7">
-                <div class="row g-4 h-100">
-                    <div class="col-12 animate__animated animate__fadeInRight" style="animation-delay: 0.1s;">
-                        <div class="mission-item-premium p-4 rounded-4 bg-white shadow-sm border border-light h-100 transition-all hover-shadow-lg d-flex align-items-start gap-4">
-                            <div class="mission-icon-wrap flex-shrink-0 bg-danger-subtle text-danger rounded-4 d-flex align-items-center justify-content-center" style="width: 65px; height: 65px;">
-                                <i class="fas fa-layer-group fa-xl"></i>
+            <div class="col-lg-6 animate__animated animate__fadeInRight">
+                <div class="mission-box-clean p-4 p-md-5 rounded-4 h-100 bg-white border border-light shadow-sm transition-all hover-shadow-md" style="border-left: 5px solid #4e0516 !important;">
+                    <div class="d-flex align-items-center gap-3 mb-4">
+                        <div class="icon-wrap bg-danger-subtle text-danger rounded-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+                            <i class="fas fa-bullseye fa-lg"></i>
+                        </div>
+                        <h4 class="fw-bold mb-0 text-dark" style="font-size: 1.4rem; letter-spacing: 0.5px;">Misi Kami</h4>
+                    </div>
+                    <ul class="list-unstyled mb-0 d-flex flex-column gap-4">
+                        <li class="d-flex align-items-start gap-3">
+                            <div class="check-icon-wrap bg-danger-subtle text-danger rounded-circle d-flex align-items-center justify-content-center flex-shrink-0 mt-1" style="width: 28px; height: 28px;">
+                                <i class="fas fa-check fa-xs"></i>
                             </div>
                             <div>
-                                <h5 class="fw-bold mb-2">Solusi Terintegrasi</h5>
-                                <p class="text-muted mb-0 small" style="line-height: 1.6;">Menyediakan solusi terintegrasi dalam pendirian usaha, legalitas, akuntansi, dan perpajakan secara praktis dan efisien.</p>
+                                <h5 class="fw-bold mb-1 text-dark" style="font-size: 1.1rem;">Solusi Terintegrasi</h5>
+                                <p class="text-muted mb-0" style="line-height: 1.6; text-align: justify; font-size: 0.95rem;">Menyediakan solusi terintegrasi dalam pendirian usaha, legalitas, akuntansi, dan perpajakan secara praktis dan efisien.</p>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-12 animate__animated animate__fadeInRight" style="animation-delay: 0.2s;">
-                        <div class="mission-item-premium p-4 rounded-4 bg-white shadow-sm border border-light h-100 transition-all hover-shadow-lg d-flex align-items-start gap-4">
-                            <div class="mission-icon-wrap flex-shrink-0 bg-danger-subtle text-danger rounded-4 d-flex align-items-center justify-content-center" style="width: 65px; height: 65px;">
-                                <i class="fas fa-chart-line fa-xl"></i>
+                        </li>
+                        <li class="d-flex align-items-start gap-3">
+                            <div class="check-icon-wrap bg-danger-subtle text-danger rounded-circle d-flex align-items-center justify-content-center flex-shrink-0 mt-1" style="width: 28px; height: 28px;">
+                                <i class="fas fa-check fa-xs"></i>
                             </div>
                             <div>
-                                <h5 class="fw-bold mb-2">Dukungan Pertumbuhan</h5>
-                                <p class="text-muted mb-0 small" style="line-height: 1.6;">Mendukung pertumbuhan bisnis klien melalui layanan yang akurat, tepat waktu, dan berorientasi pada hasil yang nyata.</p>
+                                <h5 class="fw-bold mb-1 text-dark" style="font-size: 1.1rem;">Dukungan Pertumbuhan</h5>
+                                <p class="text-muted mb-0" style="line-height: 1.6; text-align: justify; font-size: 0.95rem;">Mendukung pertumbuhan bisnis klien melalui layanan yang akurat, tepat waktu, dan berorientasi pada hasil yang nyata.</p>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-12 animate__animated animate__fadeInRight" style="animation-delay: 0.3s;">
-                        <div class="mission-item-premium p-4 rounded-4 bg-white shadow-sm border border-light h-100 transition-all hover-shadow-lg d-flex align-items-start gap-4">
-                            <div class="mission-icon-wrap flex-shrink-0 bg-danger-subtle text-danger rounded-4 d-flex align-items-center justify-content-center" style="width: 65px; height: 65px;">
-                                <i class="fas fa-user-shield fa-xl"></i>
+                        </li>
+                        <li class="d-flex align-items-start gap-3">
+                            <div class="check-icon-wrap bg-danger-subtle text-danger rounded-circle d-flex align-items-center justify-content-center flex-shrink-0 mt-1" style="width: 28px; height: 28px;">
+                                <i class="fas fa-check fa-xs"></i>
                             </div>
                             <div>
-                                <h5 class="fw-bold mb-2">Layanan Profesional</h5>
-                                <p class="text-muted mb-0 small" style="line-height: 1.6;">Memberikan layanan profesional melalui tim yang kompeten, berpengalaman, dan menjunjung tinggi integritas dalam setiap prosesnya.</p>
+                                <h5 class="fw-bold mb-1 text-dark" style="font-size: 1.1rem;">Layanan Profesional</h5>
+                                <p class="text-muted mb-0" style="line-height: 1.6; text-align: justify; font-size: 0.95rem;">Memberikan layanan profesional melalui tim yang kompeten, berpengalaman, dan menjunjung tinggi integritas dalam setiap prosesnya.</p>
                             </div>
-                        </div>
-                    </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -212,7 +199,7 @@
                         <div class="d-flex gap-3">
                             <a href="https://www.instagram.com/lawgika.co.id" target="_blank" class="btn btn-outline-danger rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;"><i class="fab fa-instagram"></i></a>
                             <a href="https://id.linkedin.com/company/lawgika-associates-law-firm" target="_blank" class="btn btn-outline-danger rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#" class="btn btn-outline-danger rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;"><i class="fab fa-facebook-f"></i></a>
+                            <a href="https://web.facebook.com/lawgika.co.id/" class="btn btn-outline-danger rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;"><i class="fab fa-facebook-f"></i></a>
                         </div>
                     </div>
                 </div>
@@ -236,18 +223,84 @@
 </section>
 
 {{-- CTA Section --}}
-<section class="cta-section py-5 position-relative overflow-hidden" style="background: #1a0208;">
-    <div class="container py-lg-5 text-center text-white z-1 position-relative">
-        <h2 class="fw-bold mb-4 display-5" style="color:white;">Siap Berkolaborasi Bersama Lawgika?</h2>
-        <p class="lead opacity-75 mb-5 max-w-700 mx-auto">Kami siap membantu mewujudkan visi bisnis Anda dengan dukungan legalitas dan operasional yang profesional.</p>
-        <div class="d-flex flex-wrap justify-content-center gap-3">
-            <a href="https://wa.me/6281112088600" class="theme-btn btn-lg px-5 py-3">Konsultasi Sekarang</a>
-            <a href="{{ asset('Company Profile.pdf') }}" download class="btn btn-outline-light btn-lg px-5 py-3 rounded-pill">Unduh Company Profile</a>
-        </div>
+<section class="cta-premium-section py-5 py-lg-6 position-relative overflow-hidden" style="background: linear-gradient(135deg, #150106 0%, #4e0516 50%, #150106 100%);">
+    <!-- Background SVG Pattern Overlay -->
+    <div class="position-absolute top-0 start-0 w-100 h-100 opacity-15 pointer-events-none" style="z-index: 0;">
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <pattern id="cta-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255, 255, 255, 0.07)" stroke-width="1" />
+                </pattern>
+                <linearGradient id="gold-glow-line" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#ffa31a" stop-opacity="0.35"/>
+                    <stop offset="50%" stop-color="#D4AF37" stop-opacity="0.15"/>
+                    <stop offset="100%" stop-color="#ffa31a" stop-opacity="0.0"/>
+                </linearGradient>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#cta-grid)" />
+            <!-- Abstract luxury geometric paths -->
+            <path d="M-100,220 C320,80 520,420 920,120 C1220,-80 1520,320 2020,170" fill="none" stroke="url(#gold-glow-line)" stroke-width="2" />
+            <path d="M-50,270 C370,120 570,470 970,170 C1270,-30 1570,370 2070,220" fill="none" stroke="url(#gold-glow-line)" stroke-width="1" />
+        </svg>
     </div>
-    {{-- Background Decoration --}}
-    <div class="position-absolute top-0 end-0 p-5 opacity-10">
-        <i class="fas fa-rocket fa-10x" style="transform: rotate(15deg);"></i>
+    
+    <!-- Subtle Radial Glow Overlay -->
+    <div class="position-absolute top-50 start-50 translate-middle w-100 h-100 pointer-events-none" 
+         style="background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.04) 0%, transparent 70%); z-index: 0;">
+    </div>
+    
+    <div class="container position-relative z-1 py-lg-4">
+        <div class="row align-items-center g-5">
+            <!-- Left Side: Content -->
+            <div class="col-lg-7 text-start">
+                <span class="cta-badge">KONSULTASI BISNIS & LEGALITAS</span>
+                <h2 class="cta-headline display-6">Wujudkan Bisnis yang Legal, Profesional, dan Siap Berkembang</h2>
+                <p class="cta-description">Lawgika siap mendampingi kebutuhan legalitas, perizinan, perpajakan, hingga pengembangan bisnis Anda melalui layanan yang terintegrasi dan profesional.</p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="https://wa.me/6281112088600" target="_blank" class="cta-btn-primary">
+                        <i class="fab fa-whatsapp fs-5"></i>
+                        <span>Konsultasi Gratis</span>
+                    </a>
+                    <a href="{{ asset('Company Profile.pdf') }}" download class="cta-btn-secondary">
+                        <i class="fas fa-file-download"></i>
+                        <span>Unduh Company Profile</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Right Side: Trust points / stats -->
+            <div class="col-lg-5">
+                <div class="cta-trust-card">
+                    <h4 class="cta-trust-title">Kemitraan Terpercaya</h4>
+                    <ul class="cta-trust-list">
+                        <li class="cta-trust-item">
+                            <div class="cta-trust-icon-wrap">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <span>Tim Profesional & Berlisensi</span>
+                        </li>
+                        <li class="cta-trust-item">
+                            <div class="cta-trust-icon-wrap">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <span>Layanan Terintegrasi Satu Atap</span>
+                        </li>
+                        <li class="cta-trust-item">
+                            <div class="cta-trust-icon-wrap">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <span>Pendampingan Hukum Berpengalaman</span>
+                        </li>
+                        <li class="cta-trust-item">
+                            <div class="cta-trust-icon-wrap">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <span>Respon Cepat, Akurat & Konsultatif</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -266,6 +319,142 @@
     }
     .hover-opacity-100:hover {
         opacity: 1 !important;
+    }
+    .hover-shadow-md {
+        transition: all 0.3s ease-in-out;
+    }
+    .hover-shadow-md:hover {
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.08) !important;
+        transform: translateY(-3px);
+    }
+
+    /* Premium CTA Redesign Styles */
+    .cta-premium-section {
+        position: relative;
+        z-index: 1;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .cta-badge {
+        font-size: 0.85rem;
+        letter-spacing: 2px;
+        font-weight: 700;
+        color: #ffa31a; /* Gold Accent */
+        text-transform: uppercase;
+        margin-bottom: 16px;
+        display: inline-block;
+    }
+    .cta-headline {
+        color: #ffffff;
+        font-weight: 800;
+        line-height: 1.25;
+        letter-spacing: -0.5px;
+        margin-bottom: 20px;
+    }
+    .cta-description {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 1.05rem;
+        line-height: 1.7;
+        margin-bottom: 35px;
+        max-width: 600px;
+    }
+    .cta-btn-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: linear-gradient(135deg, #ffa31a 0%, #D4AF37 100%);
+        color: #1a0208 !important;
+        font-weight: 700;
+        padding: 15px 35px;
+        border-radius: 50px;
+        text-decoration: none;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: 0 8px 20px rgba(250, 163, 26, 0.2);
+        border: none;
+    }
+    .cta-btn-primary:hover {
+        background: linear-gradient(135deg, #ffa31a 0%, #ffd480 100%);
+        transform: translateY(-3px);
+        box-shadow: 0 15px 30px rgba(250, 163, 26, 0.4);
+    }
+    .cta-btn-secondary {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(255, 255, 255, 0.05);
+        color: #ffffff !important;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        font-weight: 600;
+        padding: 15px 35px;
+        border-radius: 50px;
+        text-decoration: none;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+    }
+    .cta-btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.12);
+        border-color: rgba(255, 255, 255, 0.5);
+        transform: translateY(-3px);
+    }
+    .cta-trust-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        border-radius: 24px;
+        padding: 35px;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        position: relative;
+    }
+    .cta-trust-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 24px;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 100%);
+        pointer-events: none;
+    }
+    .cta-trust-title {
+        color: #ffffff;
+        font-size: 1.15rem;
+        font-weight: 700;
+        margin-bottom: 25px;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding-bottom: 15px;
+    }
+    .cta-trust-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+    }
+    .cta-trust-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 1rem;
+        font-weight: 500;
+    }
+    .cta-trust-icon-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: rgba(250, 163, 26, 0.1);
+        border: 1px solid rgba(250, 163, 26, 0.25);
+        color: #ffa31a;
+        font-size: 0.85rem;
+        flex-shrink: 0;
     }
 </style>
 
