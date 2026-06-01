@@ -989,7 +989,11 @@
     width: max-content;
     animation: clientsScroll 32s linear infinite;
     padding: 12px 0;
+    /* GPU-composited animation — avoids blurring images during scroll */
     will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
   }
 
   .clients-marquee-track.paused {
@@ -998,11 +1002,11 @@
 
   @keyframes clientsScroll {
     from {
-      transform: translateX(0);
+      transform: translateX(0) translateZ(0);
     }
 
     to {
-      transform: translateX(-50%);
+      transform: translateX(-50%) translateZ(0);
     }
   }
 
@@ -1021,6 +1025,8 @@
     box-shadow: 0 2px 12px rgba(78, 5, 22, 0.05);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
     cursor: default;
+    /* Prevent hover transform from re-triggering compositing blur */
+    isolation: isolate;
   }
 
   .client-logo-card:hover {
@@ -1033,16 +1039,17 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
+    /* Use high-quality bicubic downscaling — crisp-edges causes pixelation on anti-aliased logos */
     image-rendering: -webkit-optimize-contrast;
-    image-rendering: crisp-edges;
+    image-rendering: auto;
+    /* Promote each image to its own compositing layer for crisp subpixel rendering */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    /* Prevent opacity transition from triggering compositing repaints that blur images */
     opacity: 1;
-    transition: opacity 0.25s ease;
     display: block;
     margin: 0 auto;
-  }
-
-  .client-logo-card:hover img {
-    opacity: 1;
   }
 
   /* ---- Fallback text logo (if SVG fails) ---- */

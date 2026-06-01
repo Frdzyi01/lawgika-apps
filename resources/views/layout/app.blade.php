@@ -33,8 +33,8 @@
 
     <!--<< Favcion >>-->
     <!-- <link rel="shortcut icon" href="{{ asset('buyer-file/assets/img/favicon.svg')}}" /> -->
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('buyer-file/assets/img/logo.png')}}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('buyer-file/assets/img/logo.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('lawgika/logo.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('lawgika/logo.png')}}">
     <!--<< Bootstrap min.css >>-->
     <link rel="stylesheet" href="{{ asset('buyer-file/assets/css/bootstrap.min.css')}}" />
     <!--<< All Min Css >>-->
