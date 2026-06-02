@@ -127,15 +127,41 @@
     /* Update document lang attribute */
     document.documentElement.setAttribute('lang', currentLang);
 
-    /* Update meta title & description */
+    /* Update meta title, description & keywords */
     var pageKey = document.body.getAttribute('data-page') || 'home';
     var metaTitleKey = 'meta.' + pageKey + '.title';
     var metaDescKey = 'meta.' + pageKey + '.desc';
+    var metaKeywordsKey = 'meta.' + pageKey + '.keywords';
+
     var metaTitle = translations[currentLang] && translations[currentLang][metaTitleKey];
     var metaDesc = translations[currentLang] && translations[currentLang][metaDescKey];
-    if (metaTitle) document.title = metaTitle;
-    var descTag = document.querySelector('meta[name="description"]');
-    if (descTag && metaDesc) descTag.setAttribute('content', metaDesc);
+    var metaKeywords = translations[currentLang] && translations[currentLang][metaKeywordsKey];
+
+    if (metaTitle) {
+      document.title = metaTitle;
+      
+      // Update Open Graph & Twitter Titles
+      var ogTitle = document.querySelector('meta[property="og:title"]');
+      if (ogTitle) ogTitle.setAttribute('content', metaTitle);
+      var twitterTitle = document.querySelector('meta[property="twitter:title"]');
+      if (twitterTitle) twitterTitle.setAttribute('content', metaTitle);
+    }
+
+    if (metaDesc) {
+      var descTag = document.querySelector('meta[name="description"]');
+      if (descTag) descTag.setAttribute('content', metaDesc);
+      
+      // Update Open Graph & Twitter Descriptions
+      var ogDesc = document.querySelector('meta[property="og:description"]');
+      if (ogDesc) ogDesc.setAttribute('content', metaDesc);
+      var twitterDesc = document.querySelector('meta[property="twitter:description"]');
+      if (twitterDesc) twitterDesc.setAttribute('content', metaDesc);
+    }
+
+    if (metaKeywords) {
+      var keywordsTag = document.querySelector('meta[name="keywords"]');
+      if (keywordsTag) keywordsTag.setAttribute('content', metaKeywords);
+    }
 
     /* Update language switcher active state */
     updateSwitcherUI();

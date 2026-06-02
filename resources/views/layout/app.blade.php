@@ -1,5 +1,99 @@
+@php
+  // Determine pageKey based on current path
+  $path = request()->path();
+  $pageKey = 'home';
+  if ($path === '/') {
+      $pageKey = 'home';
+  } elseif ($path === 'tentang-kami') {
+      $pageKey = 'tentang';
+  } elseif ($path === 'karir') {
+      $pageKey = 'karir';
+  } elseif ($path === 'promo') {
+      $pageKey = 'promo';
+  } elseif ($path === 'upcoming-event') {
+      $pageKey = 'event';
+  } elseif ($path === 'database-peraturan') {
+      $pageKey = 'peraturan';
+  } elseif ($path === 'berita') {
+      $pageKey = 'berita';
+  } elseif (strpos($path, 'berita/') === 0) {
+      $pageKey = 'berita_detail';
+  } elseif (strpos($path, 'promo/') === 0) {
+      $pageKey = 'promo_detail';
+  } elseif ($path === 'perizinan-dan-hukum') {
+      $pageKey = 'perizinan_hukum';
+  } elseif ($path === 'virtual-office') {
+      $pageKey = 'virtual_office';
+  } elseif ($path === 'sewa-meeting-room') {
+      $pageKey = 'meeting_room';
+  } elseif ($path === 'sewa-ruang-podcast') {
+      $pageKey = 'podcast_room';
+  } elseif ($path === 'kerjasama-bisnis') {
+      $pageKey = 'kerjasama';
+  } elseif ($path === 'pendirian-pt-perorangan') {
+      $pageKey = 'pt_perorangan';
+  } elseif ($path === 'pendirian-pt') {
+      $pageKey = 'pt';
+  } elseif ($path === 'pendirian-pt-pma') {
+      $pageKey = 'pt_pma';
+  } elseif ($path === 'pendirian-cv') {
+      $pageKey = 'cv';
+  } elseif ($path === 'pendirian-firma') {
+      $pageKey = 'firma';
+  } elseif ($path === 'pendirian-yayasan') {
+      $pageKey = 'yayasan';
+  } elseif ($path === 'haki') {
+      $pageKey = 'haki';
+  } elseif ($path === 'nib-dan-oss') {
+      $pageKey = 'nib';
+  } elseif ($path === 'laporan-lkpm') {
+      $pageKey = 'lkpm';
+  } elseif ($path === 'sertifikat-iso') {
+      $pageKey = 'iso';
+  } elseif ($path === 'surat-keterangan-tidak-pailit') {
+      $pageKey = 'pailit';
+  } elseif ($path === 'jasa-pembukuan-perpajakan') {
+      $pageKey = 'jasa_pembukuan';
+  } elseif ($path === 'drafting&review-perjanjian-bisnis' || $path === 'drafting-review-perjanjian-bisnis') {
+      $pageKey = 'drafting';
+  } elseif ($path === 'pendaftaran-npwp') {
+      $pageKey = 'npwp';
+  } elseif ($path === 'pengurusan-pkp') {
+      $pageKey = 'pkp';
+  } elseif ($path === 'pelaporan-spt-tahunan') {
+      $pageKey = 'spt_tahunan';
+  } elseif ($path === 'pelaporan-spt-tahunan-success') {
+      $pageKey = 'spt_tahunan_success';
+  } elseif ($path === 'pelaporan-spt-pribadi') {
+      $pageKey = 'spt_pribadi';
+  } elseif ($path === 'pelaporan-spt-badan') {
+      $pageKey = 'spt_badan';
+  } elseif ($path === 'layanan-payroll') {
+      $pageKey = 'payroll';
+  } elseif ($path === 'audit-laporan-keuangan') {
+      $pageKey = 'audit';
+  }
+
+  $titleKey = 'meta.' . $pageKey . '.title';
+  $title = __($titleKey);
+  if ($title === $titleKey) {
+      $title = View::hasSection('title') ? View::yieldContent('title') : 'Lawgika - Legal, Tax, Accounting & Virtual Office Terpercaya';
+  }
+
+  $descKey = 'meta.' . $pageKey . '.desc';
+  $description = __($descKey);
+  if ($description === $descKey) {
+      $description = View::hasSection('meta_description') ? View::yieldContent('meta_description') : 'Lawgika.co.id adalah konsultan profesional yang melayani pendirian PT, CV, Yayasan, Virtual Office, Jasa Pembukuan, dan Pelaporan Pajak di Indonesia. Proses cepat, legal, dan aman.';
+  }
+
+  $keywordsKey = 'meta.' . $pageKey . '.keywords';
+  $keywords = __($keywordsKey);
+  if ($keywords === $keywordsKey) {
+      $keywords = View::hasSection('meta_keywords') ? View::yieldContent('meta_keywords') : 'Jasa Pendirian PT, Pendirian CV, Pendirian Yayasan, Virtual Office Jakarta, Jasa Pembukuan, Konsultan Pajak, Pelaporan SPT Tahunan, Pengurusan PKP, Sewa Meeting Room, Sewa Podcast Room, Legalitas Usaha, Lawgika';
+  }
+@endphp
 <!doctype html>
-<html lang="id" id="lw-html-root">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" id="lw-html-root">
 <!--<< Header Area >>-->
 
 <head>
@@ -9,9 +103,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
     <!-- ======== SEO Optimization ======== -->
-    <title>@yield('title', 'Lawgika - Legal, Tax, Accounting & Virtual Office Terpercaya')</title>
-    <meta name="description" content="@yield('meta_description', 'Lawgika.co.id adalah konsultan profesional yang melayani pendirian PT, CV, Yayasan, Virtual Office, Jasa Pembukuan, dan Pelaporan Pajak di Indonesia. Proses cepat, legal, dan aman.')" />
-    <meta name="keywords" content="@yield('meta_keywords', 'Jasa Pendirian PT, Pendirian CV, Pendirian Yayasan, Virtual Office Jakarta, Jasa Pembukuan, Konsultan Pajak, Pelaporan SPT Tahunan, Pengurusan PKP, Sewa Meeting Room, Sewa Podcast Room, Legalitas Usaha, Lawgika')" />
+    <title>{{ $title }}</title>
+    <meta name="description" content="{{ $description }}" />
+    <meta name="keywords" content="{{ $keywords }}" />
     <meta name="google-site-verification" content="4SifO5KpxUTqWPbYNR5_n02fvRYEikrp8D7nTz2X5D0" />
     <meta name="author" content="Lawgika" />
     <meta name="robots" content="index, follow" />
@@ -26,15 +120,15 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{ url()->current() }}" />
-    <meta property="og:title" content="@yield('title', 'Lawgika - Legal, Tax, Accounting & Virtual Office Terpercaya')" />
-    <meta property="og:description" content="@yield('meta_description', 'Lawgika.co.id adalah konsultan profesional yang melayani pendirian PT, CV, Yayasan, Virtual Office, Jasa Pembukuan, dan Pelaporan Pajak di Indonesia. Proses cepat, legal, dan aman.')" />
+    <meta property="og:title" content="{{ $title }}" />
+    <meta property="og:description" content="{{ $description }}" />
     <meta property="og:image" content="{{ asset('buyer-file/assets/img/logo.png') }}" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="{{ url()->current() }}" />
-    <meta property="twitter:title" content="@yield('title', 'Lawgika - Legal, Tax, Accounting & Virtual Office Terpercaya')" />
-    <meta property="twitter:description" content="@yield('meta_description', 'Lawgika.co.id adalah konsultan profesional yang melayani pendirian PT, CV, Yayasan, Virtual Office, Jasa Pembukuan, dan Pelaporan Pajak di Indonesia. Proses cepat, legal, dan aman.')" />
+    <meta property="twitter:title" content="{{ $title }}" />
+    <meta property="twitter:description" content="{{ $description }}" />
     <meta property="twitter:image" content="{{ asset('buyer-file/assets/img/logo.png') }}" />
 
     <!--<< Favcion >>-->
@@ -224,7 +318,7 @@
     </style>
 </head>
 
-<body>
+<body data-page="{{ $pageKey }}">
     
     <!-- Preloader Start -->
     @if (request()->is('/'))
