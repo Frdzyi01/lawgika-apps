@@ -155,6 +155,25 @@
     <link rel="stylesheet" href="{{ asset('buyer-file/assets/css/main.css')}}" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <style>
+      /* Fix Language Switcher dropdown clipping and stack context on header elements */
+      .header-section-1,
+      #header-sticky,
+      .header-section-1 .container,
+      .mega-menu-wrapper,
+      .header-main,
+      .header-right {
+        overflow: visible !important;
+      }
+      
+      .header-section-1 {
+        z-index: 9999 !important;
+      }
+      
+      #header-sticky,
+      #header-sticky.sticky {
+        z-index: 9999 !important;
+      }
+
       /* Language Switcher Styles */
       .lw-lang-switcher {
         position: relative;
