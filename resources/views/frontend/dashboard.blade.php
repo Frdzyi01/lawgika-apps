@@ -623,7 +623,7 @@
 
       <!-- Slide 1: Konsultasi Bisnis -->
       <div class="hero-slide active" id="heroSlide0">
-        <div class="hero-slide-bg" style="background-image:url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1400&q=75&auto=format&fit=crop');"></div>
+        <div class="hero-slide-bg" style="background-image:url('{{ asset("lawgika/home/hero-business.webp") }}');"></div>
         <div class="hero-slide-overlay"></div>
         <div class="hero-slide-inner">
           <div class="container" style="max-width:1200px;">
@@ -644,7 +644,7 @@
 
       <!-- Slide 2: Pendirian PT/CV -->
       <div class="hero-slide" id="heroSlide1">
-        <div class="hero-slide-bg" style="background-image:url('https://images.unsplash.com/photo-1531973576160-7125cd663d86?w=1400&q=75&auto=format&fit=crop');"></div>
+        <div class="hero-slide-bg" style="background-image:url('{{ asset("lawgika/home/hero-company.webp") }}');"></div>
         <div class="hero-slide-overlay"></div>
         <div class="hero-slide-inner">
           <div class="container" style="max-width:1200px;">
@@ -665,7 +665,7 @@
 
       <!-- Slide 3: Virtual Office -->
       <div class="hero-slide" id="heroSlide2">
-        <div class="hero-slide-bg" style="background-image:url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=1400&q=75&auto=format&fit=crop');"></div>
+        <div class="hero-slide-bg" style="background-image:url('{{ asset("lawgika/home/hero-virtual-office.webp") }}');"></div>
         <div class="hero-slide-overlay"></div>
         <div class="hero-slide-inner">
           <div class="container" style="max-width:1200px;">
@@ -686,8 +686,8 @@
 
       <!-- Slide 4: Perizinan & Legal -->
       <div class="hero-slide" id="heroSlide3">
-        <div class="hero-slide-bg" style="background-image:url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1400&q=75');"></div>
-        <div class="hero-slide-overlay"></div>
+        <div class="hero-slide-bg" style="background-image:url('{{ asset("lawgika/home/hero-legal.webp") }}');"></div>
+        <div class="hero-slide-overlay"></div>ay"></div>
         <div class="hero-slide-inner">
           <div class="container" style="max-width:1200px;">
             <div class="hero-slide-text">
@@ -1492,7 +1492,7 @@
             @if($promo->gambar)
             <img src="{{ asset('storage/' . $promo->gambar) }}" alt="{{ $promo->judul }}" loading="lazy">
             @else
-            <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=500&q=80" alt="{{ $promo->judul }}" loading="lazy">
+            <img src="{{ asset('lawgika/home/promo-placeholder.webp') }}" alt="{{ $promo->judul }}" loading="lazy">
             @endif
             <span class="sp-img-badge">
               @if($promo->tipe_diskon === 'persen')
@@ -1630,7 +1630,7 @@
   <div class="container">
     <div class="cta-contact-wrapper mb-0">
       <div class="cta-contact-image">
-        <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="img" style="margin-top: 20px;width: 36%;border-radius: 10px;" loading="lazy">
+        <img src="{{ asset('lawgika/home/cta-contact.webp') }}" alt="img" style="margin-top: 20px;width: 36%;border-radius: 10px;" loading="lazy">
       </div>
       <div class="section-title mb-0">
         <span class="white-text">Ingin berkonsultasi dengan ahli hukum atau bisnis?</span>
@@ -2189,7 +2189,7 @@
             @if($event->banner)
             <img src="{{ asset('storage/' . $event->banner) }}" alt="{{ $event->nama_event }}" loading="lazy">
             @else
-            <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=500&q=75&auto=format&fit=crop"
+            <img src="{{ asset('lawgika/home/event-placeholder.webp') }}"
               alt="{{ $event->nama_event }}" loading="lazy">
             @endif
             @if($event->status_aktif)
@@ -2296,7 +2296,7 @@
         if (event.banner) {
           bannerHtml = `<img src="/storage/${event.banner}" alt="${event.nama_event}" class="modal-event-img">`;
         } else {
-          bannerHtml = `<img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=80&auto=format&fit=crop" alt="${event.nama_event}" class="modal-event-img">`;
+          bannerHtml = `<img src="{{ asset('lawgika/home/event-placeholder.webp') }}" alt="${event.nama_event}" class="modal-event-img">`;
         }
 
         // STATUS CHECK — metode paling aman, cek semua kemungkinan tipe

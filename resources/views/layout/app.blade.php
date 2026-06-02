@@ -135,6 +135,8 @@
     <!-- <link rel="shortcut icon" href="{{ asset('buyer-file/assets/img/favicon.svg')}}" /> -->
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('lawgika/logo.png')}}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('lawgika/logo.png')}}">
+    <!-- Preload Hero Image -->
+    <link rel="preload" as="image" href="{{ asset('lawgika/home/hero-business.webp') }}">
     <!--<< Bootstrap min.css >>-->
     <link rel="stylesheet" href="{{ asset('buyer-file/assets/css/bootstrap.min.css')}}" />
     <!--<< All Min Css >>-->
