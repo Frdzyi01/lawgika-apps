@@ -23,21 +23,21 @@
           <!-- Beranda -->
           <div class="lw-nav-item">
             <a href="{{ url('/') }}" class="lw-nav-link">
-              <span>Beranda</span>
+              <span data-i18n="nav.home">Beranda</span>
             </a>
           </div>
 
           <!-- Layanan -->
           <div class="lw-nav-item has-submenu">
             <a href="javascript:void(0)" class="lw-nav-link lw-toggle">
-              <span>Layanan</span>
+              <span data-i18n="nav.services">Layanan</span>
               <i class="fas fa-chevron-down"></i>
             </a>
             <div class="lw-submenu">
               <!-- Kantor & Ruang Podcast -->
               <div class="lw-sub-item has-submenu">
                 <a href="javascript:void(0)" class="lw-sub-link lw-toggle">
-                  <span>Kantor & Ruang Podcast</span>
+                  <span data-i18n="nav.services.office_title">Kantor & Ruang Podcast</span>
                   <i class="fas fa-chevron-down"></i>
                 </a>
                 <ul class="lw-sub-list">
@@ -49,7 +49,7 @@
               <!-- Legalitas Perusahaan -->
               <div class="lw-sub-item has-submenu">
                 <a href="javascript:void(0)" class="lw-sub-link lw-toggle">
-                  <span>Legalitas Perusahaan</span>
+                  <span data-i18n="nav.services.legal_title">Legalitas Perusahaan</span>
                   <i class="fas fa-chevron-down"></i>
                 </a>
                 <ul class="lw-sub-list">
@@ -64,7 +64,7 @@
               <!-- Pajak & Pembukuan -->
               <div class="lw-sub-item has-submenu">
                 <a href="javascript:void(0)" class="lw-sub-link lw-toggle">
-                  <span>Pajak & Pembukuan</span>
+                  <span data-i18n="nav.services.tax_title">Pajak & Pembukuan</span>
                   <i class="fas fa-chevron-down"></i>
                 </a>
                 <ul class="lw-sub-list">
@@ -75,7 +75,7 @@
               <!-- Perizinan & Hukum -->
               <div class="lw-sub-item has-submenu">
                 <a href="javascript:void(0)" class="lw-sub-link lw-toggle">
-                  <span>Perizinan & Hukum</span>
+                  <span data-i18n="nav.services.perizinan_title">Perizinan & Hukum</span>
                   <i class="fas fa-chevron-down"></i>
                 </a>
                 <ul class="lw-sub-list">
@@ -93,30 +93,24 @@
           <!-- Pusat Pelatihan -->
           <div class="lw-nav-item has-submenu">
             <a href="javascript:void(0)" class="lw-nav-link lw-toggle">
-              <span>Pusat Pelatihan</span>
+              <span data-i18n="nav.training">Pusat Pelatihan</span>
               <i class="fas fa-chevron-down"></i>
             </a>
            <div class="lw-submenu">
 
     <!-- Pelatihan Webinar -->
     <div class="lw-sub-item">
-        <a href="{{ url('/upcoming-event') }}" class="lw-sub-link">
-            Pelatihan Webinar
-        </a>
+        <a href="{{ url('/upcoming-event') }}" class="lw-sub-link" data-i18n="nav.training.webinar">Pelatihan Webinar</a>
     </div>
 
     <!-- Artikel -->
     <div class="lw-sub-item">
-        <a href="{{ url('/berita') }}" class="lw-sub-link">
-            Artikel
-        </a>
+        <a href="{{ url('/berita') }}" class="lw-sub-link" data-i18n="nav.training.artikel">Artikel</a>
     </div>
 
     <!-- Kumparan Peraturan -->
     <div class="lw-sub-item">
-        <a href="{{ url('/database-peraturan') }}" class="lw-sub-link">
-            Kumparan Peraturan
-        </a>
+        <a href="{{ url('/database-peraturan') }}" class="lw-sub-link" data-i18n="nav.training.peraturan">Kumparan Peraturan</a>
     </div>
 
 </div>
@@ -125,15 +119,15 @@
           <!-- Profil & Legalitas -->
           <div class="lw-nav-item has-submenu">
             <a href="javascript:void(0)" class="lw-nav-link lw-toggle">
-              <span>Profil & Legalitas</span>
+              <span data-i18n="nav.profile">Profil & Legalitas</span>
               <i class="fas fa-chevron-down"></i>
             </a>
             <div class="lw-submenu">
               <ul class="lw-sub-list" style="display: block; padding-left: 0;">
-                <li><a href="{{ url('tentang-kami') }}">Profil Perusahaan</a></li>
-                <li><a href="{{ url('karir') }}">Karir</a></li>
-                <li><a href="{{ url('kerjasama-bisnis') }}">Kerjasama Bisnis</a></li>
-                <li><a href="{{ url('promo') }}">Promo</a></li>
+                <li><a href="{{ url('tentang-kami') }}" data-i18n="nav.profile.perusahaan">Profil Perusahaan</a></li>
+                <li><a href="{{ url('karir') }}" data-i18n="nav.profile.karir">Karir</a></li>
+                <li><a href="{{ url('kerjasama-bisnis') }}" data-i18n="nav.profile.kerjasama">Kerjasama Bisnis</a></li>
+                <li><a href="{{ url('promo') }}" data-i18n="nav.profile.promo">Promo</a></li>
               </ul>
             </div>
           </div>
@@ -141,8 +135,29 @@
       </div>
       <!-- END: Mobile Navigation Accordion -->
 
+      <!-- START: Mobile Language Switcher -->
+      <div class="lw-lang-mobile-wrap">
+        <div class="lw-lang-mobile-label" data-i18n="lang.switcher.label">Bahasa</div>
+        <button class="lw-lang-mobile-btn" id="lw-lang-mobile-trigger" type="button">
+          <span><span id="lw-lang-mobile-flag">🇮🇩</span> <span id="lw-lang-mobile-current" data-i18n="lang.id">Bahasa Indonesia</span></span>
+          <i class="fas fa-chevron-down" style="font-size:11px;"></i>
+        </button>
+        <div class="lw-lang-mobile-dropdown" id="lw-lang-mobile-dropdown">
+          <div class="lw-lang-mobile-item" data-lw-lang="id">
+            <span class="lw-lang-flag">🇮🇩</span> <span data-i18n="lang.id">Bahasa Indonesia</span>
+          </div>
+          <div class="lw-lang-mobile-item" data-lw-lang="en">
+            <span class="lw-lang-flag">🇺🇸</span> <span data-i18n="lang.en">English</span>
+          </div>
+          <div class="lw-lang-mobile-item" data-lw-lang="zh">
+            <span class="lw-lang-flag">🇨🇳</span> <span data-i18n="lang.zh">中文</span>
+          </div>
+        </div>
+      </div>
+      <!-- END: Mobile Language Switcher -->
+
       <div class="offcanvas__contact">
-        <h4 class="fw-normal">Contact Info</h4>
+        <h4 class="fw-normal" data-i18n="offcanvas.contact_title">Informasi Kontak</h4>
       <ul class="ps-0" style="font-weight: normal;">
   <li class="d-flex align-items-start mb-3">
     <div class="offcanvas__contact-icon me-3">
@@ -171,9 +186,7 @@
       <i class="fal fa-clock"></i>
     </div>
     <div class="offcanvas__contact-text">
-      <span class="text" style="font-weight: normal;">
-        Monday-Friday, 08.00 - 17.00
-      </span>
+      <span class="text" style="font-weight: normal;" data-i18n="offcanvas.hours">Senin-Jumat, 08.00 - 17.00</span>
     </div>
   </li>
 
@@ -195,12 +208,12 @@
             <button class="theme-btn text-center fw-normal offcanvas-close-trigger"
               data-bs-toggle="modal"
               data-bs-target="#exampleModal">
-              Masuk <i class="fa-solid fa-arrow-right-long ms-2"></i>
+              <span data-i18n="nav.login">Masuk</span> <i class="fa-solid fa-arrow-right-long ms-2"></i>
             </button>
             <button class="theme-btn text-center fw-normal offcanvas-close-trigger"
               data-bs-toggle="modal"
               data-bs-target="#exampleModal2">
-              Daftar <i class="fa-solid fa-user-plus ms-2"></i>
+              <span data-i18n="nav.register">Daftar</span> <i class="fa-solid fa-user-plus ms-2"></i>
             </button>
           </div>
           @endguest
@@ -220,7 +233,7 @@
             <form action="{{ route('logout') }}" method="POST">
               @csrf
               <button type="submit" class="theme-btn text-center w-100 fw-normal">
-                Keluar <i class="fa-solid fa-sign-out-alt ms-2"></i>
+                <span data-i18n="nav.logout">Keluar</span> <i class="fa-solid fa-sign-out-alt ms-2"></i>
               </button>
             </form>
           </div>
@@ -418,7 +431,7 @@
           </li>
 
         </ul>
-        <p>
+        <p data-i18n="header.top_promo">
           Dapatkan konsultasi awal gratis untuk pendirian perusahaan Anda.
         </p>
         <ul class="list">
@@ -464,14 +477,14 @@
                   <ul>
                     <li class="has-dropdown active menu-thumb">
                       <a href="{{('/')}}">
-                        Beranda
+                        <span data-i18n="nav.home">Beranda</span>
                       </a>
 
                     </li>
 
                     <li class="has-dropdown menu-thumb" id="mm-layanan-li">
                       <a href="#" id="mm-layanan-trigger" class="lw-mm-trigger" aria-expanded="false">
-                        Layanan
+                        <span data-i18n="nav.services">Layanan</span>
                         <i class="fas fa-angle-down" id="mm-layanan-arrow" style="transition:transform 0.22s ease;"></i>
                       </a>
 
@@ -753,7 +766,7 @@
                             <div class="lw-mega-cols-4">
                               <div class="lw-col">
                                 <div class="lw-col-title">
-                                  <i class="fas fa-file-contract"></i> Kantor &amp; Ruang Podcast
+                                  <i class="fas fa-file-contract"></i> <span data-i18n="nav.services.office_title">Kantor &amp; Ruang Podcast</span>
                                 </div>
                                 <ul>
                                   <li><a href="{{ url('/virtual-office') }}">Virtual Office</a></li>
@@ -764,7 +777,7 @@
 
                               <div class="lw-col">
                                 <div class="lw-col-title">
-                                  <i class="fas fa-building"></i> Legalitas Perusahaan
+                                  <i class="fas fa-building"></i> <span data-i18n="nav.services.legal_title">Legalitas Perusahaan</span>
                                 </div>
                                 <ul>
                                   <li><a href="{{ url('/pendirian-pt-perorangan') }}">Pendirian PT Perorangan</a></li>
@@ -779,7 +792,7 @@
 
                               <div class="lw-col">
                                 <div class="lw-col-title">
-                                  <i class="fas fa-calculator"></i> Pajak &amp; Pembukuan
+                                  <i class="fas fa-calculator"></i> <span data-i18n="nav.services.tax_title">Pajak &amp; Pembukuan</span>
                                 </div>
                                 <ul>
                                   <li><a href="{{ url('/jasa-pembukuan-perpajakan') }}">Jasa Pembukuan & Perpajakan</a></li>
@@ -791,7 +804,7 @@
 
                               <div class="lw-col">
                                 <div class="lw-col-title">
-                                  <i class="fas fa-building"></i> Perizinan Dan Hukum
+                                  <i class="fas fa-building"></i> <span data-i18n="nav.services.perizinan_title">Perizinan Dan Hukum</span>
                                 </div>
                                 <ul>
                                   <li><a href="{{ url('/haki') }}">Hak Kekayaan Intelektual</a></li> 
@@ -827,18 +840,18 @@
 </style>
                     <li class="has-dropdown menu-thumb" id="mm-pelatihan-li">
                       <a href="#" id="mm-pelatihan-trigger" class="lw-mm-trigger" aria-expanded="false">
-                        Pusat Pelatihan
+                        <span data-i18n="nav.training">Pusat Pelatihan</span>
                         <i class="fas fa-angle-down" id="mm-pelatihan-arrow" style="transition:transform 0.22s ease;"></i>
                       </a>
                       <div class="lw-mega-wrap" id="lwMegaMenuPelatihan" role="navigation" aria-label="Pusat Pelatihan Menu">
                         <div style="padding: 20px 24px;">
                           <div class="lw-col-title">
-                            <i class="fas fa-graduation-cap"></i> Program Edukasi
+                            <i class="fas fa-graduation-cap"></i> <span data-i18n="nav.training.section_title">Program Edukasi</span>
                           </div>
                           <ul style="list-style:none;padding:0;margin:0;">
-                            <li><a href="{{ url('/upcoming-event') }}" class="lw-col ul li a" style="color:black !important;">Pelatihan Webinar</a></li>
-                            <li><a href="{{ url('/berita') }}" class="lw-col ul li a" style="color:black !important;">Artikel Berita</a></li>
-                            <li><a href="{{ url('/database-peraturan') }}" class="lw-col ul li a" style="color:black !important;">Kumpulan Peraturan</a></li>
+                            <li><a href="{{ url('/upcoming-event') }}" class="lw-col ul li a" style="color:black !important;" data-i18n="nav.training.webinar">Pelatihan Webinar</a></li>
+                            <li><a href="{{ url('/berita') }}" class="lw-col ul li a" style="color:black !important;" data-i18n="nav.training.artikel">Artikel Berita</a></li>
+                            <li><a href="{{ url('/database-peraturan') }}" class="lw-col ul li a" style="color:black !important;" data-i18n="nav.training.peraturan">Kumpulan Peraturan</a></li>
                           </ul>
                         </div>
                       </div>
@@ -846,19 +859,19 @@
 
                     <li class="has-dropdown menu-thumb" id="mm-tentang-li">
                       <a href="#" id="mm-tentang-trigger" class="lw-mm-trigger" aria-expanded="false">
-                        Profil & Legalitas
+                        <span data-i18n="nav.profile">Profil &amp; Legalitas</span>
                         <i class="fas fa-angle-down" id="mm-tentang-arrow" style="transition:transform 0.22s ease;"></i>
                       </a>
                       <div class="lw-mega-wrap" id="lwMegaMenuTentang" role="navigation" aria-label="Tentang Kami Menu">
                         <div style="padding: 20px 24px;">
                           <div class="lw-col-title">
-                            <i class="fas fa-building"></i> Profil &amp; Legalitas
+                            <i class="fas fa-building"></i> <span data-i18n="nav.profile.section_title">Profil &amp; Legalitas</span>
                           </div>
                           <ul style="list-style:none;padding:0;margin:0;">
-                            <li><a href="{{ url('tentang-kami') }}" class="lw-col ul li a" style="color:black !important;">Profil Perusahaan</a></li>
-                            <li><a href="{{ url('karir') }}" class="lw-col ul li a" style="color:black !important;">Karir</a></li>
-                            <li><a href="{{ url('kerjasama-bisnis') }}" class="lw-col ul li a" style="color:black !important;">Kerjasama Bisnis</a></li>
-                              <li><a href="{{ url('promo') }}" class="lw-col ul li a" style="color:black !important;">Promo </a></li> 
+                            <li><a href="{{ url('tentang-kami') }}" class="lw-col ul li a" style="color:black !important;" data-i18n="nav.profile.perusahaan">Profil Perusahaan</a></li>
+                            <li><a href="{{ url('karir') }}" class="lw-col ul li a" style="color:black !important;" data-i18n="nav.profile.karir">Karir</a></li>
+                            <li><a href="{{ url('kerjasama-bisnis') }}" class="lw-col ul li a" style="color:black !important;" data-i18n="nav.profile.kerjasama">Kerjasama Bisnis</a></li>
+                              <li><a href="{{ url('promo') }}" class="lw-col ul li a" style="color:black !important;" data-i18n="nav.profile.promo">Promo </a></li> 
                           </ul>
                         </div>
                       </div>
@@ -872,7 +885,30 @@
               </div>
             </div>
             <a href="#" class="search-trigger search-icon"><i class="fal fa-search"></i></a>
-            
+
+            <!-- Language Switcher Desktop -->
+            <div class="lw-lang-switcher d-none d-lg-flex" id="lw-lang-switcher-desktop">
+              <button class="lw-lang-btn" id="lw-lang-trigger" type="button">
+                <span id="lw-lang-current-flag">🇮🇩</span>
+                <span id="lw-lang-current-name">Indonesia</span>
+                <i class="fas fa-angle-down lw-lang-arrow"></i>
+              </button>
+              <div class="lw-lang-dropdown" id="lw-lang-dropdown">
+                <div class="lw-lang-item" data-lw-lang="id">
+                  <span class="lw-lang-flag">🇮🇩</span>
+                  <span data-i18n="lang.id">Bahasa Indonesia</span>
+                </div>
+                <div class="lw-lang-item" data-lw-lang="en">
+                  <span class="lw-lang-flag">🇺🇸</span>
+                  <span data-i18n="lang.en">English</span>
+                </div>
+                <div class="lw-lang-item" data-lw-lang="zh">
+                  <span class="lw-lang-flag">🇨🇳</span>
+                  <span data-i18n="lang.zh">中文</span>
+                </div>
+              </div>
+            </div>
+
             <div class="header__hamburger d-lg-none my-auto">
               <div class="sidebar__toggle">
                 <i class="fas fa-bars"></i>
@@ -881,7 +917,7 @@
             <div class="header-button">
               @guest
               <a href="#" class="theme-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Masuk
+                <span data-i18n="nav.login">Masuk</span>
               </a>
               @endguest
 
@@ -900,7 +936,7 @@
                   <li>
                     <form action="{{ route('logout') }}" method="POST" style="display:inline;">
                       @csrf
-                      <button type="submit" class="dropdown-item">Keluar</button>
+                      <button type="submit" class="dropdown-item" data-i18n="nav.logout">Keluar</button>
                     </form>
                   </li>
                 </ul>
@@ -1428,7 +1464,7 @@
         class="modal-body d-md-flex d-grid gap-md-0 gap-5 align-items-center">
         <div class="modal-common-content">
           <div class="box">
-            <h2>welcome back!</h2>
+            <h2 data-i18n="modal.login.title">welcome back!</h2>
 
             {{-- Inline error di dalam modal --}}
             @if ($errors->any() && old('login_attempt'))
@@ -1446,10 +1482,10 @@
               @csrf
               <input type="hidden" name="login_attempt" value="1">
               <div class="form-grp cmn-mb">
-                <input type="email" name="email" placeholder="Email Address" value="{{ old('email') }}" />
+                <input type="email" name="email" data-i18n-placeholder="modal.login.email" placeholder="Email Address" value="{{ old('email') }}" />
               </div>
               <div class="form-grp">
-                <input type="password" name="password" placeholder="Enter Password" value="" />
+                <input type="password" name="password" data-i18n-placeholder="modal.login.password" placeholder="Enter Password" value="" />
               </div>
               <div
                 class="d-flex forgot-inner-area cmn-mb justify-content-between gap-2 flex-wrap align-items-center">
@@ -1460,23 +1496,24 @@
                     name="remember"
                     id="flexCheckChecked"
                     checked />
-                  <label class="form-check-label" for="flexCheckChecked">
+                  <label class="form-check-label" for="flexCheckChecked" data-i18n="modal.login.remember">
                     Remember me
                   </label>
                 </div>
                 @if (Route::has('password.request'))
                 <a class="forgot btn btn-link"
                   data-bs-toggle="modal"
-                  data-bs-target="#exampleModal3">
+                  data-bs-target="#exampleModal3"
+                  data-i18n="modal.login.forgot">
                   Forgot Your Password?
                 </a>
                 @endif
               </div>
               <button type="submit" class="theme-btn w-100">
-                <span> Log in </span>
+                <span data-i18n="modal.login.submit"> Log in </span>
               </button>
             </form>
-            <span class="orting-badge"> Or </span>
+            <span class="orting-badge" data-i18n="modal.login.or"> Or </span>
             <div
               class="form-check d-flex align-items-center gap-2 from-customradio">
               <input
@@ -1484,8 +1521,8 @@
                 type="radio"
                 name="flexRadioDefault"
                 id="flexRadioDefault1" />
-              <label class="form-check-label" for="flexRadioDefault1">
-                i accept your terms & conditions
+              <label class="form-check-label" for="flexRadioDefault1" data-i18n="modal.login.terms">
+                i accept your terms &amp; conditions
               </label>
             </div>
           </div>
@@ -1495,12 +1532,14 @@
           <div class="signlogin-btnwrap">
             <button
               id="btn-go-register"
-              class="theme-create style-border">
+              class="theme-create style-border"
+              data-i18n="modal.login.create_account">
               create account
             </button>
             <button
               id="btn-stay-login"
-              class="theme-btn">
+              class="theme-btn"
+              data-i18n="modal.login.submit">
               Log In
             </button>
           </div>
@@ -1527,7 +1566,7 @@
         class="modal-body d-md-flex d-grid gap-md-0 gap-5 align-items-center">
         <div class="modal-common-content">
           <div class="box">
-            <h2>Create account</h2>
+            <h2 data-i18n="modal.register.title">Create account</h2>
 
             {{-- Inline error di dalam modal register --}}
             @if ($errors->any() && old('register_attempt'))
@@ -1545,16 +1584,16 @@
               @csrf
               <input type="hidden" name="register_attempt" value="1">
               <div class="form-grp cmn-mb">
-                <input type="text" name="name" placeholder="User name" />
+                <input type="text" name="name" data-i18n-placeholder="modal.register.name" placeholder="User name" />
               </div>
               <div class="form-grp cmn-mb">
-                <input type="email" name="email" placeholder="Email Address" />
+                <input type="email" name="email" data-i18n-placeholder="modal.register.email" placeholder="Email Address" />
               </div>
               <div class="form-grp cmn-mb">
-                <input type="password" name="password" placeholder="Enter Password" />
+                <input type="password" name="password" data-i18n-placeholder="modal.register.password" placeholder="Enter Password" />
               </div>
               <div class="form-grp">
-                <input type="password" name="password_confirmation" placeholder="Enter Confirm password" />
+                <input type="password" name="password_confirmation" data-i18n-placeholder="modal.register.confirm_password" placeholder="Enter Confirm password" />
               </div>
             </form>
 
@@ -1567,14 +1606,14 @@
                   type="radio"
                   name="flexRadioDefault"
                   id="flexRadioDefault11" />
-                <label class="form-check-label" for="flexRadioDefault11">
+                <label class="form-check-label" for="flexRadioDefault11" data-i18n="modal.register.terms">
                   i accept your terms & conditions
                 </label>
               </div>
             </div>
             <div class="mt-4">
               <button type="submit" form="register-form" class="theme-btn w-100">
-                <span> Log in </span>
+                <span data-i18n="modal.register.submit"> Daftar </span>
               </button>
             </div>
           </div>
@@ -1617,17 +1656,17 @@
         class="modal-body d-md-flex d-grid gap-md-0 gap-5 align-items-center">
         <div class="modal-common-content">
           <div class="box">
-            <h2>Forgot Password</h2>
+            <h2 data-i18n="modal.forgot.title">Forgot Password</h2>
             <form action="{{ route('password.email') }}" method="POST" id="forgot-password-form" class="login-from">
               @csrf
               <div class="form-grp cmn-mb">
-                <input type="email" name="email" placeholder="Email Address" />
+                <input type="email" name="email" data-i18n-placeholder="modal.forgot.email" placeholder="Email Address" />
               </div>
             </form>
 
             <div class="mt-4">
               <button type="submit" form="forgot-password-form" class="theme-btn w-100">
-                <span> Send Password Reset Link </span>
+                <span data-i18n="modal.forgot.submit"> Send Password Reset Link </span>
               </button>
             </div>
           </div>
@@ -1730,6 +1769,7 @@
           <input
             type="search"
             class="main-search-input"
+            data-i18n-placeholder="search.placeholder"
             placeholder="Search..." />
         </div>
       </form>

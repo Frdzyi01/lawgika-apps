@@ -628,10 +628,10 @@
         <div class="hero-slide-inner">
           <div class="container" style="max-width:1200px;">
             <div class="hero-slide-text">
-              <div class="hero-slide-badge"><i class="fas fa-star"></i> Layanan Unggulan</div>
+              <div class="hero-slide-badge" data-i18n="hero.slide1.badge"><i class="fas fa-star"></i> Layanan Unggulan</div>
               <h1 class="hero-slide-title">Konsultasi <span>Bisnis &amp; Legal</span><br>Profesional</h1>
-              <p class="hero-slide-desc">Dapatkan panduan hukum dan bisnis dari para ahli berpengalaman. Kami membantu Anda mengelola regulasi, risiko hukum, dan strategi bisnis secara komprehensif.</p>
-              <a href="/perizinan-dan-hukum" class="hero-slide-cta">Mulai Konsultasi <i class="fas fa-arrow-right"></i></a>
+              <p class="hero-slide-desc" data-i18n="hero.slide1.desc">Dapatkan panduan hukum dan bisnis dari para ahli berpengalaman. Kami membantu Anda mengelola regulasi, risiko hukum, dan strategi bisnis secara komprehensif.</p>
+              <a href="/perizinan-dan-hukum" class="hero-slide-cta"><span data-i18n="hero.slide1.cta">Mulai Konsultasi</span> <i class="fas fa-arrow-right"></i></a>
               <div class="hero-trust">
                 <div class="hero-trust-item"><i class="fas fa-check-circle"></i> 500+ Klien</div>
                 <div class="hero-trust-item"><i class="fas fa-check-circle"></i> Konsultan Profesional</div>
@@ -649,10 +649,10 @@
         <div class="hero-slide-inner">
           <div class="container" style="max-width:1200px;">
             <div class="hero-slide-text">
-              <div class="hero-slide-badge"><i class="fas fa-building"></i> Pendirian Badan Usaha</div>
+              <div class="hero-slide-badge" data-i18n="hero.slide2.badge"><i class="fas fa-building"></i> Pendirian Badan Usaha</div>
               <h1 class="hero-slide-title">Pendirian <span>PT / CV</span><br>Mudah &amp; Cepat</h1>
-              <p class="hero-slide-desc">Kami mengurus seluruh proses pendirian perusahaan Anda dari awal hingga dokumen resmi siap. Mulai dari pembuatan akta, NIB, hingga izin usaha lengkap.</p>
-              <a href="/pendirian-pt" class="hero-slide-cta">Daftarkan Perusahaan <i class="fas fa-arrow-right"></i></a>
+              <p class="hero-slide-desc" data-i18n="hero.slide2.desc">Kami mengurus seluruh proses pendirian perusahaan Anda dari awal hingga dokumen resmi siap. Mulai dari pembuatan akta, NIB, hingga izin usaha lengkap.</p>
+              <a href="/pendirian-pt" class="hero-slide-cta"><span data-i18n="hero.slide2.cta">Daftarkan Perusahaan</span> <i class="fas fa-arrow-right"></i></a>
               <div class="hero-trust">
                 <div class="hero-trust-item"><i class="fas fa-check-circle"></i> 500+ Klien</div>
                 <div class="hero-trust-item"><i class="fas fa-check-circle"></i> Konsultan Profesional</div>
@@ -670,10 +670,10 @@
         <div class="hero-slide-inner">
           <div class="container" style="max-width:1200px;">
             <div class="hero-slide-text">
-              <div class="hero-slide-badge"><i class="fas fa-map-marker-alt"></i> Layanan Pendukung</div>
+              <div class="hero-slide-badge" data-i18n="hero.slide3.badge"><i class="fas fa-map-marker-alt"></i> Layanan Pendukung</div>
               <h1 class="hero-slide-title">Virtual Office <span>Premium</span><br>Lokasi Strategis</h1>
-              <p class="hero-slide-desc">Miliki alamat kantor prestisius di pusat bisnis tanpa biaya sewa kantoran besar. Paket lengkap dengan layanan penanganan surat, telepon, dan ruang rapat.</p>
-              <a href="/virtual-office" class="hero-slide-cta">Lihat Paket VO <i class="fas fa-arrow-right"></i></a>
+              <p class="hero-slide-desc" data-i18n="hero.slide3.desc">Miliki alamat kantor prestisius di pusat bisnis tanpa biaya sewa kantoran besar. Paket lengkap dengan layanan penanganan surat, telepon, dan ruang rapat.</p>
+              <a href="/virtual-office" class="hero-slide-cta"><span data-i18n="hero.slide3.cta">Lihat Paket VO</span> <i class="fas fa-arrow-right"></i></a>
               <div class="hero-trust">
                 <div class="hero-trust-item"><i class="fas fa-check-circle"></i> 500+ Klien</div>
                 <div class="hero-trust-item"><i class="fas fa-check-circle"></i> Konsultan Profesional</div>
@@ -691,10 +691,10 @@
         <div class="hero-slide-inner">
           <div class="container" style="max-width:1200px;">
             <div class="hero-slide-text">
-              <div class="hero-slide-badge"><i class="fas fa-balance-scale"></i> Perizinan &amp; Hukum</div>
+              <div class="hero-slide-badge" data-i18n="hero.slide4.badge"><i class="fas fa-balance-scale"></i> Perizinan &amp; Hukum</div>
               <h1 class="hero-slide-title">Perizinan &amp; <span>Layanan Hukum</span></h1>
-              <p class="hero-slide-desc">Kami membantu pengurusan NIB, HAKI, perubahan anggaran dasar, drafting perjanjian bisnis, dan berbagai kebutuhan legal perusahaan Anda secara profesional.</p>
-              <a href="/nib-dan-oss" class="hero-slide-cta">Urus Perizinan <i class="fas fa-arrow-right"></i></a>
+              <p class="hero-slide-desc" data-i18n="hero.slide4.desc">Kami membantu pengurusan NIB, HAKI, perubahan anggaran dasar, drafting perjanjian bisnis, dan berbagai kebutuhan legal perusahaan Anda secara profesional.</p>
+              <a href="/nib-dan-oss" class="hero-slide-cta"><span data-i18n="hero.slide4.cta">Urus Perizinan</span> <i class="fas fa-arrow-right"></i></a>
               <div class="hero-trust">
                 <div class="hero-trust-item"><i class="fas fa-check-circle"></i> 500+ Klien</div>
                 <div class="hero-trust-item"><i class="fas fa-check-circle"></i> Konsultan Profesional</div>
@@ -726,31 +726,31 @@
           <div class="quick-access-icon">
             <i class="fas fa-calculator"></i>
           </div>
-          <span class="quick-access-label">Pembukuan & Perpajakan</span>
+          <span class="quick-access-label" data-i18n="quick.pembukuan">Pembukuan & Perpajakan</span>
         </a>
         <a href="/pendirian-pt" class="quick-access-item">
           <div class="quick-access-icon">
             <i class="fas fa-building"></i>
           </div>
-          <span class="quick-access-label">Pendirian Perusahaan</span>
+          <span class="quick-access-label" data-i18n="quick.pendirian">Pendirian Perusahaan</span>
         </a>
         <a href="/virtual-office" class="quick-access-item">
           <div class="quick-access-icon">
             <i class="fas fa-door-open"></i>
           </div>
-          <span class="quick-access-label">Sewa Meeting Room</span>
+          <span class="quick-access-label" data-i18n="quick.meeting_room">Sewa Meeting Room</span>
         </a>
         <a href="/promo" class="quick-access-item">
           <div class="quick-access-icon">
             <i class="fas fa-tags"></i>
           </div>
-          <span class="quick-access-label">Promo Spesial</span>
+          <span class="quick-access-label" data-i18n="quick.promo">Promo Spesial</span>
         </a>
         <a href="/event" class="quick-access-item">
           <div class="quick-access-icon">
             <i class="fas fa-calendar-alt"></i>
           </div>
-          <span class="quick-access-label">Event Upcoming</span>
+          <span class="quick-access-label" data-i18n="quick.event">Event Upcoming</span>
         </a>
       </div>
     </div>

@@ -444,53 +444,53 @@
             <a href="{{ url('/') }}" class="lw-footer-logo">
               <img src="{{ asset('buyer-file/assets/img/logo-removebg.png') }}" alt="Lawgika Logo" />
             </a>
-            <p class="lw-footer-desc">
+            <p class="lw-footer-desc" data-i18n="footer.brand_desc">
               Lawgika Bisnis Indonesia siap mendampingi perjalanan bisnis dan legalitas perusahaan Anda dengan layanan profesional dan terpercaya.
             </p>
             <a href="https://wa.me/6281112088600" target="_blank" class="lw-footer-cta">
-              <span>Konsultasi Sekarang</span>
+              <span data-i18n="footer.cta">Konsultasi Sekarang</span>
               <i class="fa-solid fa-arrow-right-long"></i>
             </a>
           </div>
 
           <!-- 2️⃣ COMPANY MENU -->
           <div class="lw-footer-col">
-            <h4 class="lw-footer-title">Perusahaan</h4>
+            <h4 class="lw-footer-title" data-i18n="footer.company_col">Perusahaan</h4>
             <ul class="lw-footer-links">
-              <li><a href="{{ url('/tentang-kami') }}"><i class="fa-regular fa-chevrons-right"></i>Tentang Kami</a></li>
+              <li><a href="{{ url('/tentang-kami') }}"><i class="fa-regular fa-chevrons-right"></i><span data-i18n="footer.about">Tentang Kami</span></a></li>
               <!-- <li><a href="https://wa.me/6281112088600" target="_blank"><i class="fa-regular fa-chevrons-right"></i>Hubungi Kami</a></li> -->
-              <li><a href="{{ url('/kerjasama-bisnis') }}"><i class="fa-regular fa-chevrons-right"></i>Kerjasama Bisnis</a></li>
-              <li><a href="{{ url('/database-peraturan') }}"><i class="fa-regular fa-chevrons-right"></i>Database KBLI</a></li>
-              <li><a href="{{ url('/karir') }}"><i class="fa-regular fa-chevrons-right"></i>Karir</a></li>
-              <li><a href="{{ url('/upcoming-event') }}"><i class="fa-regular fa-chevrons-right"></i>Event Lawgika</a></li>
-              <li><a href="{{ url('/perizinan-dan-hukum') }}"><i class="fa-regular fa-chevrons-right"></i>Layanan Perizinan & Hukum</a></li>
+              <li><a href="{{ url('/kerjasama-bisnis') }}"><i class="fa-regular fa-chevrons-right"></i><span data-i18n="footer.kerjasama">Kerjasama Bisnis</span></a></li>
+              <li><a href="{{ url('/database-peraturan') }}"><i class="fa-regular fa-chevrons-right"></i><span data-i18n="footer.database">Database KBLI</span></a></li>
+              <li><a href="{{ url('/karir') }}"><i class="fa-regular fa-chevrons-right"></i><span data-i18n="footer.karir">Karir</span></a></li>
+              <li><a href="{{ url('/upcoming-event') }}"><i class="fa-regular fa-chevrons-right"></i><span data-i18n="footer.event">Event Lawgika</span></a></li>
+              <li><a href="{{ url('/perizinan-dan-hukum') }}"><i class="fa-regular fa-chevrons-right"></i><span data-i18n="footer.perizinan">Layanan Perizinan & Hukum</span></a></li>
             </ul>
           </div>
 
           <!-- 3️⃣ SERVICES MENU -->
           <div class="lw-footer-col">
-            <h4 class="lw-footer-title">Layanan Utama</h4>
+            <h4 class="lw-footer-title" data-i18n="footer.services_col">Layanan Utama</h4>
             <ul class="lw-footer-links">
-              <li><a href="{{ url('/pendirian-pt') }}"><i class="fa-regular fa-chevrons-right"></i>Pendirian PT Perseroan</a></li>
-              <li><a href="{{ url('/pendirian-pt-perorangan') }}"><i class="fa-regular fa-chevrons-right"></i>Pendirian PT Perorangan</a></li>
-              <li><a href="{{ url('/pendirian-pt-pma') }}"><i class="fa-regular fa-chevrons-right"></i>Pendirian PT PMA</a></li>
-              <li><a href="{{ url('/pendirian-cv') }}"><i class="fa-regular fa-chevrons-right"></i>Pendirian CV</a></li>
-              <li><a href="{{ url('/pendirian-firma') }}"><i class="fa-regular fa-chevrons-right"></i>Pendirian Firma</a></li>
-              <li><a href="{{ url('/pendirian-yayasan') }}"><i class="fa-regular fa-chevrons-right"></i>Pendirian Yayasan</a></li>
+              <li><a href="{{ url('/pendirian-pt') }}"><i class="fa-regular fa-chevrons-right"></i><span data-i18n="footer.pt_perseroan">Pendirian PT Perseroan</span></a></li>
+              <li><a href="{{ url('/pendirian-pt-perorangan') }}"><i class="fa-regular fa-chevrons-right"></i><span data-i18n="footer.pt_perorangan">Pendirian PT Perorangan</span></a></li>
+              <li><a href="{{ url('/pendirian-pt-pma') }}"><i class="fa-regular fa-chevrons-right"></i><span data-i18n="footer.pt_pma">Pendirian PT PMA</span></a></li>
+              <li><a href="{{ url('/pendirian-cv') }}"><i class="fa-regular fa-chevrons-right"></i><span data-i18n="footer.cv">Pendirian CV</span></a></li>
+              <li><a href="{{ url('/pendirian-firma') }}"><i class="fa-regular fa-chevrons-right"></i><span data-i18n="footer.firma">Pendirian Firma</span></a></li>
+              <li><a href="{{ url('/pendirian-yayasan') }}"><i class="fa-regular fa-chevrons-right"></i><span data-i18n="footer.yayasan">Pendirian Yayasan</span></a></li>
             </ul>
           </div>
            
 
           <!-- 4️⃣ CONTACT SECTION -->
           <div class="lw-footer-col lw-footer-contact">
-            <h4 class="lw-footer-title">Hubungi Kami</h4>
+            <h4 class="lw-footer-title" data-i18n="footer.contact_col">Hubungi Kami</h4>
             <ul class="lw-footer-contact-info">
               <li>
                 <div class="lw-contact-icon">
                   <i class="fab fa-whatsapp"></i>
                 </div>
                 <div class="lw-contact-text">
-                  <span class="lw-contact-label">WhatsApp</span>
+                <span class="lw-contact-label" data-i18n="footer.contact.wa_label">WhatsApp</span>
                   <a href="https://wa.me/6281112088600" target="_blank">+62 811-1208-8600</a>
                 </div>
               </li>
@@ -499,7 +499,7 @@
                   <i class="far fa-phone"></i>
                 </div>
                 <div class="lw-contact-text">
-                  <span class="lw-contact-label">Telepon Kantor</span>
+                  <span class="lw-contact-label" data-i18n="footer.contact.phone_label">Telepon Kantor</span>
                   <a href="tel:02139706065">021-3970-6065</a>
                 </div>
               </li>
@@ -508,7 +508,7 @@
                   <i class="far fa-envelope"></i>
                 </div>
                 <div class="lw-contact-text">
-                  <span class="lw-contact-label">Email</span>
+                  <span class="lw-contact-label" data-i18n="footer.contact.email_label">Email</span>
                   <a href="mailto:informasi@lawgika.co.id">informasi@lawgika.co.id</a>
                 </div>
               </li>
@@ -517,8 +517,8 @@
                   <i class="far fa-map-marker-alt"></i>
                 </div>
                 <div class="lw-contact-text">
-                  <span class="lw-contact-label">Alamat</span>
-                  <span>World Capital Tower Lt. 38 Unit 06-07, Mega Kuningan, Jakarta Selatan 12950</span>
+                  <span class="lw-contact-label" data-i18n="footer.contact.address_label">Alamat</span>
+                  <span data-i18n="footer.contact.address_val">World Capital Tower Lt. 38 Unit 06-07, Mega Kuningan, Jakarta Selatan 12950</span>
                 </div>
               </li>
             </ul>
@@ -539,14 +539,14 @@
       <div class="container">
         <div class="lw-footer-bottom-wrapper">
           <p class="lw-footer-copyright">
-            © Hak Cipta 2026 oleh <a href="{{ url('/') }}">Lawgika Bisnis Indonesia</a>. Seluruh Hak Cipta Dilindungi.
+            <span data-i18n="footer.copyright">© Hak Cipta 2026 oleh </span><a href="{{ url('/') }}">Lawgika Bisnis Indonesia</a>.
           </p>
           <div class="lw-footer-bottom-links">
-            <a href="#">Ketentuan Layanan</a>
+            <a href="#" data-i18n="footer.tos">Ketentuan Layanan</a>
             <span class="lw-footer-bottom-dot">•</span>
-            <a href="#">Kebijakan Privasi</a>
+            <a href="#" data-i18n="footer.privacy">Kebijakan Privasi</a>
             <span class="lw-footer-bottom-dot">•</span>
-            <a href="https://wa.me/6281112088600" target="_blank">Hubungi Kami</a>
+            <a href="https://wa.me/6281112088600" target="_blank" data-i18n="footer.contact_us">Hubungi Kami</a>
           </div>
         </div>
       </div>
@@ -578,6 +578,19 @@
   <script src="{{ asset('buyer-file/assets/js/wow.min.js')}}"></script>
   <!--<< Main.js >>-->
   <script src="{{ asset('buyer-file/assets/js/main.js')}}"></script>
+
+  <!-- ======== i18n Engine: inline translations ======== -->
+  <script>
+  (function() {
+    var _id = @json(json_decode(file_get_contents(resource_path('lang/id.json')), true));
+    var _en = @json(json_decode(file_get_contents(resource_path('lang/en.json')), true));
+    var _zh = @json(json_decode(file_get_contents(resource_path('lang/zh.json')), true));
+    window.__lwTranslations = { id: _id, en: _en, zh: _zh };
+  })();
+  </script>
+  <script src="{{ asset('buyer-file/assets/js/i18n.js') }}"></script>
+  <!-- ======== End i18n ======== -->
+
   </body>
 
   </html>
