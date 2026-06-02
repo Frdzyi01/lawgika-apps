@@ -781,7 +781,7 @@
         <div class="row align-items-center mb-5 pb-lg-5">
             <div class="col-lg-6 mb-4 mb-lg-0">
                 <div class="zigzag-image-container">
-                    <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=1000" class="w-100" alt="Jasa Pembukuan Profesional">
+                    <img loading="lazy" src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=1000" class="w-100" alt="Jasa Pembukuan Profesional">
                 </div>
             </div>
             <div class="col-lg-6">
@@ -804,7 +804,7 @@
         <div class="row align-items-center flex-row-reverse">
             <div class="col-lg-6 mb-4 mb-lg-0">
                 <div class="zigzag-image-container">
-                    <img src="https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&q=80&w=1000" class="w-100" alt="Jasa Perpajakan">
+                    <img loading="lazy" src="https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&q=80&w=1000" class="w-100" alt="Jasa Perpajakan">
                 </div>
             </div>
             <div class="col-lg-6">
@@ -885,7 +885,7 @@
     <div class="container">
         <div class="row align-items-center g-5 mb-5 pb-4">
             <div class="col-lg-6">
-                <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&auto=format" alt="Jasa Pembukuan dan Perpajakan" class="img-fluid-rounded shadow-lg">
+                <img loading="lazy" src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&auto=format" alt="Jasa Pembukuan dan Perpajakan" class="img-fluid-rounded shadow-lg">
             </div>
             <div class="col-lg-6">
                 <div class="section-title mb-4">
@@ -914,7 +914,7 @@
         {{-- ROW 2: JASA PAJAK (GAMBAR KANAN, TEKS KIRI) --}}
         <div class="row align-items-center g-5 mb-5 pb-4">
             <div class="col-lg-6 order-lg-2">
-                <img src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800&auto=format" alt="Jasa Perpajakan Profesional" class="img-fluid-rounded shadow-lg">
+                <img loading="lazy" src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800&auto=format" alt="Jasa Perpajakan Profesional" class="img-fluid-rounded shadow-lg">
             </div>
             <div class="col-lg-6 order-lg-1">
                 <div class="section-title mb-4">

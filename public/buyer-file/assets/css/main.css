@@ -3884,7 +3884,7 @@ span {
   left: 0;
   content: "";
   background-repeat: no-repeat;
-  background-image: url(../../assets/img/hero/line.png);
+  background-image: url(../../assets/img/hero/line.webp);
   width: 210px;
   height: 13px;
 }
@@ -3962,7 +3962,7 @@ span {
   left: 0;
   content: "";
   background-repeat: no-repeat;
-  background-image: url(../../assets/img/hero/line.png);
+  background-image: url(../../assets/img/hero/line.webp);
   width: 210px;
   height: 13px;
 }

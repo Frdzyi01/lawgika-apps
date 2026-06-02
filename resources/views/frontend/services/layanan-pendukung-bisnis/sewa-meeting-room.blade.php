@@ -619,7 +619,7 @@
                 <a href="#pricing" class="btn-outline-brand" data-i18n="meeting.solusi.cta">Lihat Harga Layanan →</a>
             </div>
             <div class="col-lg-6">
-                <img src="{{ asset('buyer-file/assets/img/meetingroom/ruang.png') }}"
+                <img loading="lazy" src="{{ asset('buyer-file/assets/img/meetingroom/ruang.webp') }}"
                     alt="Meeting Room" class="img-fluid-rounded">
             </div>
         </div>
@@ -650,8 +650,8 @@
             <div class="swiper-wrapper">
                 @for ($i = 1; $i <= 5; $i++)
                     <div class="swiper-slide">
-                        <div class="gallery-item" onclick="openLightbox('{{ asset('buyer-file/assets/img/meetingroom/ruangmeeting' . ($i > 1 ? $i : '') . '.jpg') }}')">
-                            <img src="{{ asset('buyer-file/assets/img/meetingroom/ruangmeeting' . ($i > 1 ? $i : '') . '.jpg') }}" alt="Meeting Room {{ $i }}">
+                        <div class="gallery-item" onclick="openLightbox('{{ asset('buyer-file/assets/img/meetingroom/ruangmeeting' . ($i > 1 ? $i : '') . '.webp') }}')">
+                            <img loading="lazy" src="{{ asset('buyer-file/assets/img/meetingroom/ruangmeeting' . ($i > 1 ? $i : '') . '.webp') }}" alt="Meeting Room {{ $i }}">
                             <div class="gallery-overlay">
                                 <i class="fa-solid fa-magnifying-glass-plus"></i>
                             </div>
@@ -666,7 +666,7 @@
 {{-- Lightbox --}}
 <div id="lightbox-overlay" onclick="this.style.display='none'">
     <span id="lightbox-close">&times;</span>
-    <img id="lightbox-img" src="" alt="Full view">
+    <img loading="lazy" id="lightbox-img" src="" alt="Full view">
 </div>
 
 <script>

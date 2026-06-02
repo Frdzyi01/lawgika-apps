@@ -706,7 +706,7 @@
                 <a href="#pricing" class="btn-outline-brand" data-i18n="ui.see_packages">Lihat Pilihan Paket →</a>
             </div>
             <div class="col-lg-6">
-                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format" alt="Tim kerja sedang berdiskusi" class="img-fluid-rounded">
+                <img loading="lazy" src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format" alt="Tim kerja sedang berdiskusi" class="img-fluid-rounded">
             </div>
         </div>
     </div>

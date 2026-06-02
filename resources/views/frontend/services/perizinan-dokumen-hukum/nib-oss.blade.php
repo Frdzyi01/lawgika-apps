@@ -481,7 +481,7 @@
         <div class="row align-items-center mb-5 pb-lg-5">
             <div class="col-lg-6 mb-4 mb-lg-0">
                 <div class="zigzag-image-container">
-                    <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&q=80&w=1000" class="w-100" alt="Pengurusan NIB">
+                    <img loading="lazy" src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&q=80&w=1000" class="w-100" alt="Pengurusan NIB">
                 </div>
             </div>
             <div class="col-lg-6">
@@ -504,7 +504,7 @@
         <div class="row align-items-center flex-row-reverse">
             <div class="col-lg-6 mb-4 mb-lg-0">
                 <div class="zigzag-image-container">
-                    <img src="https://images.unsplash.com/photo-1570126618953-d437176e8c79?auto=format&fit=crop&q=80&w=1000" class="w-100" alt="Pendaftaran OSS">
+                    <img loading="lazy" src="https://images.unsplash.com/photo-1570126618953-d437176e8c79?auto=format&fit=crop&q=80&w=1000" class="w-100" alt="Pendaftaran OSS">
                 </div>
             </div>
             <div class="col-lg-6">

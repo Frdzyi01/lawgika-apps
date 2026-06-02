@@ -438,7 +438,7 @@
                 @if($berita->gambar)
                 <div class="post-featured-thumb bg-cover" style="background-image: url('{{ asset('storage/' . $berita->gambar) }}');"></div>
                 @else
-                <div class="post-featured-thumb bg-cover" style="background-image: url('{{ asset('buyer-file/assets/img/news/post-4.jpg') }}');"></div>
+                <div class="post-featured-thumb bg-cover" style="background-image: url('{{ asset('buyer-file/assets/img/news/post-4.webp') }}');"></div>
                 @endif
                 <div class="post-content">
                   <ul class="post-list d-flex align-items-center">
@@ -508,9 +508,9 @@
                   <div class="recent-items">
                     <div class="recent-thumb">
                       @if($item->gambar)
-                      <img src="{{ asset('storage/' . $item->gambar) }}" alt="{{ $item->judul }}">
+                      <img loading="lazy" src="{{ asset('storage/' . $item->gambar) }}" alt="{{ $item->judul }}">
                       @else
-                      <img src="{{ asset('buyer-file/assets/img/news/pp3.jpg') }}" alt="placeholder">
+                      <img loading="lazy" src="{{ asset('buyer-file/assets/img/news/pp3.webp') }}" alt="placeholder">
                       @endif
                     </div>
                     <div class="recent-content">

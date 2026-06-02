@@ -932,7 +932,7 @@
             </div>
             <div class="col-lg-4">
                 <div class="text-center">
-                    <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=400&q=80" alt="SPT Badan Illustration" class="img-fluid rounded-4 shadow-lg" style="border: 4px solid rgba(255,255,255,0.2);">
+                    <img loading="lazy" src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=400&q=80" alt="SPT Badan Illustration" class="img-fluid rounded-4 shadow-lg" style="border: 4px solid rgba(255,255,255,0.2);">
                 </div>
             </div>
         </div>

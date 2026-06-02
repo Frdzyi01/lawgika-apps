@@ -687,7 +687,7 @@
       <!-- Slide 4: Perizinan & Legal -->
       <div class="hero-slide" id="heroSlide3">
         <div class="hero-slide-bg" style="background-image:url('{{ asset("lawgika/home/hero-legal.webp") }}');"></div>
-        <div class="hero-slide-overlay"></div>ay"></div>
+        <div class="hero-slide-overlay"></div>
         <div class="hero-slide-inner">
           <div class="container" style="max-width:1200px;">
             <div class="hero-slide-text">
@@ -1113,109 +1113,109 @@
 
         <!-- Set 1 (original) -->
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/brand/1.png')}}" alt="Placed"
+          <img loading="lazy" src="{{('buyer-file/assets/img/brand/1.webp')}}" alt="Placed"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>PLACED</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/brand/2.png')}}" alt="Cuebiq"
+          <img loading="lazy" src="{{('buyer-file/assets/img/brand/2.webp')}}" alt="Cuebiq"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>CUEBIQ</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/brand/3.png')}}" alt="Factual"
+          <img loading="lazy" src="{{('buyer-file/assets/img/brand/3.webp')}}" alt="Factual"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>FACTUAL</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/brand/4.png')}}" alt="PlaceIQ"
+          <img loading="lazy" src="{{('buyer-file/assets/img/brand/4.webp')}}" alt="PlaceIQ"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>PLACE IQ</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/brand/5.png')}}" alt="Airmeet"
+          <img loading="lazy" src="{{('buyer-file/assets/img/brand/5.webp')}}" alt="Airmeet"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>AIRMEET</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/brand/6.png')}}" alt="Spendflo"
+          <img loading="lazy" src="{{('buyer-file/assets/img/brand/6.webp')}}" alt="Spendflo"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>SPENDFLO</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/brand/7.png')}}" alt="Reed Elsevier"
+          <img loading="lazy" src="{{('buyer-file/assets/img/brand/7.webp')}}" alt="Reed Elsevier"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>REED</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/brand/8.png')}}" alt="Vuori"
+          <img loading="lazy" src="{{('buyer-file/assets/img/brand/8.webp')}}" alt="Vuori"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>VUORI</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/brand/9.png')}}" alt="Versed"
+          <img loading="lazy" src="{{('buyer-file/assets/img/brand/9.webp')}}" alt="Versed"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>VERSED</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/brand/10.png')}}" alt="Matrixian"
+          <img loading="lazy" src="{{('buyer-file/assets/img/brand/10.webp')}}" alt="Matrixian"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>MATRIXIAN</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/brand/11.png')}}" alt="Klippa"
+          <img loading="lazy" src="{{('buyer-file/assets/img/brand/11.webp')}}" alt="Klippa"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>KLIPPA</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/brand/12.png')}}" alt="Factual 2"
+          <img loading="lazy" src="{{('buyer-file/assets/img/brand/12.webp')}}" alt="Factual 2"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>FACTUAL</span>'">
         </div>
  <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/brand/13.png')}}" alt="Factual 3"
+          <img loading="lazy" src="{{('buyer-file/assets/img/brand/13.webp')}}" alt="Factual 3"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>FACTUAL3</span>'">
         </div>
 
         <!-- Set 2 (duplicate for seamless loop) -->
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/brand/1.png')}}" alt="Placed"
+          <img loading="lazy" src="{{('buyer-file/assets/img/brand/1.webp')}}" alt="Placed"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>PLACED</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/brand/2.png')}}" alt="Cuebiq"
+          <img loading="lazy" src="{{('buyer-file/assets/img/brand/2.webp')}}" alt="Cuebiq"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>CUEBIQ</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/brand/3.png')}}" alt="Factual"
+          <img loading="lazy" src="{{('buyer-file/assets/img/brand/3.webp')}}" alt="Factual"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>FACTUAL</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/brand/4.png')}}" alt="PlaceIQ"
+          <img loading="lazy" src="{{('buyer-file/assets/img/brand/4.webp')}}" alt="PlaceIQ"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>PLACE IQ</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/brand/5.png')}}" alt="Airmeet"
+          <img loading="lazy" src="{{('buyer-file/assets/img/brand/5.webp')}}" alt="Airmeet"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>AIRMEET</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/brand/6.png')}}" alt="Spendflo"
+          <img loading="lazy" src="{{('buyer-file/assets/img/brand/6.webp')}}" alt="Spendflo"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>SPENDFLO</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/brand/7.png')}}" alt="Reed Elsevier"
+          <img loading="lazy" src="{{('buyer-file/assets/img/brand/7.webp')}}" alt="Reed Elsevier"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>REED</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/brand/8.png')}}" alt="Vuori"
+          <img loading="lazy" src="{{('buyer-file/assets/img/brand/8.webp')}}" alt="Vuori"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>VUORI</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/brand/9.png')}}" alt="Versed"
+          <img loading="lazy" src="{{('buyer-file/assets/img/brand/9.webp')}}" alt="Versed"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>VERSED</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/brand/10.png')}}" alt="Matrixian"
+          <img loading="lazy" src="{{('buyer-file/assets/img/brand/10.webp')}}" alt="Matrixian"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>MATRIXIAN</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/brand/11.png')}}" alt="Klippa"
+          <img loading="lazy" src="{{('buyer-file/assets/img/brand/11.webp')}}" alt="Klippa"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>KLIPPA</span>'">
         </div>
         <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/brand/12.png')}}" alt="Factual 2"
+          <img loading="lazy" src="{{('buyer-file/assets/img/brand/12.webp')}}" alt="Factual 2"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>FACTUAL</span>'">
         </div>
   <div class="client-logo-card">
-          <img src="{{('buyer-file/assets/img/brand/13.png')}}" alt="Factual 3"
+          <img loading="lazy" src="{{('buyer-file/assets/img/brand/13.webp')}}" alt="Factual 3"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>FACTUAL3</span>'">
         </div>
 
@@ -1490,9 +1490,9 @@
         <div class="sp-card">
           <div class="sp-card-img-wrap">
             @if($promo->gambar)
-            <img src="{{ asset('storage/' . $promo->gambar) }}" alt="{{ $promo->judul }}" loading="lazy">
+            <img loading="lazy" src="{{ asset('storage/' . $promo->gambar) }}" alt="{{ $promo->judul }}" loading="lazy">
             @else
-            <img src="{{ asset('lawgika/home/promo-placeholder.webp') }}" alt="{{ $promo->judul }}" loading="lazy">
+            <img loading="lazy" src="{{ asset('lawgika/home/promo-placeholder.webp') }}" alt="{{ $promo->judul }}" loading="lazy">
             @endif
             <span class="sp-img-badge">
               @if($promo->tipe_diskon === 'persen')
@@ -1610,13 +1610,13 @@
         <div class="col-xl-6 col-lg-6">
           <div class="feature-hosting-image-2">
             <div class="icon-box-1">
-              <img src="{{('buyer-file/assets/img/hosting/icon-1.png')}}" alt="img" loading="lazy">
+              <img src="{{('buyer-file/assets/img/hosting/icon-1.webp')}}" alt="img" loading="lazy">
             </div>
             <div class="icon-box-2">
-              <img src="{{('buyer-file/assets/img/hosting/icon-3.png')}}" alt="img" loading="lazy">
+              <img src="{{('buyer-file/assets/img/hosting/icon-3.webp')}}" alt="img" loading="lazy">
             </div>
             <div class="thumb" style="max-width: 600px; margin-left: 0; margin-right: auto;">
-              <img src="buyer-file/assets/img/home/gambar-kantor.png" alt="img" style="border-radius: 10px; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; object-position: left center;" loading="lazy">
+              <img src="buyer-file/assets/img/home/gambar-kantor.webp" alt="img" style="border-radius: 10px; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; object-position: left center;" loading="lazy">
             </div>
           </div>
         </div>
@@ -2187,9 +2187,9 @@
         <div class="ue-card">
           <div class="ue-img-wrap">
             @if($event->banner)
-            <img src="{{ asset('storage/' . $event->banner) }}" alt="{{ $event->nama_event }}" loading="lazy">
+            <img loading="lazy" src="{{ asset('storage/' . $event->banner) }}" alt="{{ $event->nama_event }}" loading="lazy">
             @else
-            <img src="{{ asset('lawgika/home/event-placeholder.webp') }}"
+            <img loading="lazy" src="{{ asset('lawgika/home/event-placeholder.webp') }}"
               alt="{{ $event->nama_event }}" loading="lazy">
             @endif
             @if($event->status_aktif)
@@ -2294,9 +2294,9 @@
         // Siapkan banner image
         let bannerHtml = '';
         if (event.banner) {
-          bannerHtml = `<img src="/storage/${event.banner}" alt="${event.nama_event}" class="modal-event-img">`;
+          bannerHtml = `<img loading="lazy" src="/storage/${event.banner}" alt="${event.nama_event}" class="modal-event-img">`;
         } else {
-          bannerHtml = `<img src="{{ asset('lawgika/home/event-placeholder.webp') }}" alt="${event.nama_event}" class="modal-event-img">`;
+          bannerHtml = `<img loading="lazy" src="{{ asset('lawgika/home/event-placeholder.webp') }}" alt="${event.nama_event}" class="modal-event-img">`;
         }
 
         // STATUS CHECK — metode paling aman, cek semua kemungkinan tipe
@@ -2916,7 +2916,7 @@
             {{-- Thumbnail --}}
             <div class="position-relative overflow-hidden" style="height: 250px;">
               @if($item->gambar)
-              <img src="{{ asset('storage/' . $item->gambar) }}" class="w-100 h-100 object-fit-cover hover-scale transition-all" alt="{{ $item->judul }}">
+              <img loading="lazy" src="{{ asset('storage/' . $item->gambar) }}" class="w-100 h-100 object-fit-cover hover-scale transition-all" alt="{{ $item->judul }}">
               @else
               <div class="w-100 h-100 bg-secondary d-flex align-items-center justify-content-center text-white-50">
                 <i class="fas fa-image fa-3x"></i>
@@ -2961,7 +2961,7 @@
 
 
 <!-- Testimonial Section Start -->
-<section class="testimonial-section fix section-padding bg-cover" style="background-image: url('{{ asset('buyer-file/assets/img/hero/hero-bg-1.jpg') }}')">
+<section class="testimonial-section fix section-padding bg-cover" style="background-image: url('{{ asset('buyer-file/assets/img/hero/hero-bg-1.webp') }}')">
   <div class="container">
     <div class="section-title-area">
       <div class="section-title">
@@ -2991,8 +2991,8 @@
               <div class="icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="44" height="33" viewBox="0 0 44 33" fill="none"><path d="M16 16.2929L0.5 31.7929V0.5H16V16.2929ZM43.5 16.2929L28 31.7929V0.5H43.5V16.2929Z" stroke="white" /></svg>
               </div>
-              <div class="client-image bg-cover" style="background-image: url('{{ asset('buyer-file/assets/img/testimonial/circle.png') }}');">
-                <div class="circle-shape"><img src="{{ asset('buyer-file/assets/img/testimonial/circle.png') }}" alt="" loading="lazy" /></div>
+              <div class="client-image bg-cover" style="background-image: url('{{ asset('buyer-file/assets/img/testimonial/circle.webp') }}');">
+                <div class="circle-shape"><img src="{{ asset('buyer-file/assets/img/testimonial/circle.webp') }}" alt="" loading="lazy" /></div>
               </div>
               <p data-i18n="dashboard.testimonial.loading">Sedang memuat ulasan terbaru dari pelanggan kami langsung melalui Google Maps...</p>
               <div class="client-info">
@@ -3029,8 +3029,8 @@
               <div class="icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="44" height="33" viewBox="0 0 44 33" fill="none"><path d="M16 16.2929L0.5 31.7929V0.5H16V16.2929ZM43.5 16.2929L28 31.7929V0.5H43.5V16.2929Z" stroke="white" /></svg>
               </div>
-              <div class="client-image bg-cover" style="background-image: url('{{ asset('buyer-file/assets/img/testimonial/circle.png') }}');">
-                <div class="circle-shape"><img src="{{ asset('buyer-file/assets/img/testimonial/circle.png') }}" alt="" loading="lazy" /></div>
+              <div class="client-image bg-cover" style="background-image: url('{{ asset('buyer-file/assets/img/testimonial/circle.webp') }}');">
+                <div class="circle-shape"><img src="{{ asset('buyer-file/assets/img/testimonial/circle.webp') }}" alt="" loading="lazy" /></div>
               </div>
               <p>Pendampingan dari Lawgika membuat proses legalitas bisnis menjadi rapi dan sesuai tenggat waktu. Tim sangat profesional!</p>
               <div class="client-info">
@@ -3061,7 +3061,7 @@
                     let text = review.text || 'Memberikan rating bintang tanpa teks ulasan.';
                     text = text.length > 200 ? text.substring(0, 200) + '...' : text;
                     
-                    const photoUrl = review.profile_photo_url || '{{ asset('buyer-file/assets/img/testimonial/circle.png') }}';
+                    const photoUrl = review.profile_photo_url || '{{ asset('buyer-file/assets/img/testimonial/circle.webp') }}';
                     const authorName = review.author_name || 'Pelanggan';
                     const timeDesc = review.relative_time_description || 'Google Maps';
 
@@ -3073,7 +3073,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="44" height="33" viewBox="0 0 44 33" fill="none"><path d="M16 16.2929L0.5 31.7929V0.5H16V16.2929ZM43.5 16.2929L28 31.7929V0.5H43.5V16.2929Z" stroke="white" /></svg>
                           </div>
                           <div class="client-image bg-cover" style="background-image: url('${photoUrl}');">
-                            <div class="circle-shape"><img src="{{ asset('buyer-file/assets/img/testimonial/circle.png') }}" alt="" loading="lazy" /></div>
+                            <div class="circle-shape"><img src="{{ asset('buyer-file/assets/img/testimonial/circle.webp') }}" alt="" loading="lazy" /></div>
                           </div>
                           <p>${text}</p>
                           <div class="client-info">

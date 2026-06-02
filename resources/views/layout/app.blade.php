@@ -122,21 +122,21 @@
     <meta property="og:url" content="{{ url()->current() }}" />
     <meta property="og:title" content="{{ $title }}" />
     <meta property="og:description" content="{{ $description }}" />
-    <meta property="og:image" content="{{ asset('buyer-file/assets/img/logo.png') }}" />
+    <meta property="og:image" content="{{ asset('buyer-file/assets/img/logo.webp') }}" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="{{ url()->current() }}" />
     <meta property="twitter:title" content="{{ $title }}" />
     <meta property="twitter:description" content="{{ $description }}" />
-    <meta property="twitter:image" content="{{ asset('buyer-file/assets/img/logo.png') }}" />
+    <meta property="twitter:image" content="{{ asset('buyer-file/assets/img/logo.webp') }}" />
 
     <!--<< Favcion >>-->
     <!-- <link rel="shortcut icon" href="{{ asset('buyer-file/assets/img/favicon.svg')}}" /> -->
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('lawgika/logo.png')}}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('lawgika/logo.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('lawgika/logo.webp')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('lawgika/logo.webp')}}">
     <!-- Preload Hero Image -->
-    <link rel="preload" as="image" href="{{ asset('lawgika/home/hero-business.webp') }}">
+    <link rel="preload" as="image" href="{{ asset('lawgika/home/hero-business.webp') }}" fetchpriority="high">
     <!--<< Bootstrap min.css >>-->
     <link rel="stylesheet" href="{{ asset('buyer-file/assets/css/bootstrap.min.css')}}" />
     <!--<< All Min Css >>-->

@@ -703,7 +703,7 @@
                 <a href="#pricing" class="btn-outline-brand" data-i18n="vo.solusi.cta">Lihat Pilihan Paket →</a>
             </div>
             <div class="col-lg-6">
-                <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&auto=format" alt="Virtual Office Workspace" class="img-fluid-rounded">
+                <img loading="lazy" src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&auto=format" alt="Virtual Office Workspace" class="img-fluid-rounded">
             </div>
         </div>
     </div>

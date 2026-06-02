@@ -269,9 +269,9 @@
 
             <div class="promo-card-img-wrap">
               @if($promo->gambar)
-                <img src="{{ asset('storage/'.$promo->gambar) }}" alt="{{ $promo->judul }}" loading="lazy">
+                <img loading="lazy" src="{{ asset('storage/'.$promo->gambar) }}" alt="{{ $promo->judul }}" loading="lazy">
               @else
-                <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=600&q=70&auto=format&fit=crop" alt="{{ $promo->judul }}" loading="lazy">
+                <img loading="lazy" src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=600&q=70&auto=format&fit=crop" alt="{{ $promo->judul }}" loading="lazy">
               @endif
 
               @if($promo->diskon)

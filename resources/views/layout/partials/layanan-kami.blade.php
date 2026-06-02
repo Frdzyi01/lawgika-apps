@@ -437,7 +437,7 @@
             <div class="swiper-slide">
               <div class="layanan-card">
                 <div class="layanan-card-img-wrap">
-                  <img src="{{ asset('buyer-file/assets/img/meetingroom/ruang.png') }}"
+                  <img src="{{ asset('buyer-file/assets/img/meetingroom/ruang.webp') }}"
                     alt="Virtual Office – Gedung Perkantoran Modern" loading="lazy">
                   <span class="layanan-card-badge" data-i18n="layanan.badge.best_seller">Best Seller</span>
                 </div>
@@ -454,7 +454,7 @@
             <div class="swiper-slide">
               <div class="layanan-card">
                 <div class="layanan-card-img-wrap">
-                  <img src="{{ asset('buyer-file/assets/img/meetingroom/ruangmeeting4.jpg') }}"
+                  <img src="{{ asset('buyer-file/assets/img/meetingroom/ruangmeeting4.webp') }}"
                     alt="Meeting Room – Ruang Rapat Profesional" loading="lazy">
                 </div>
                 <div class="layanan-card-body">
@@ -470,7 +470,7 @@
             <div class="swiper-slide">
               <div class="layanan-card">
                 <div class="layanan-card-img-wrap">
-                  <img src="{{ asset('buyer-file/assets/img/podcastroom/ruang.png') }}"
+                  <img src="{{ asset('buyer-file/assets/img/podcastroom/ruang.webp') }}"
                     alt="Coworking Space – Ruang Kerja Bersama" loading="lazy">
                 </div>
                 <div class="layanan-card-body">

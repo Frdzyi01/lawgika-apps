@@ -706,7 +706,7 @@
                 <a href="#pricing" class="btn-outline-brand" data-i18n="ui.see_packages">Lihat Pilihan Paket →</a>
             </div>
             <div class="col-lg-6">
-                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&auto=format" alt="International Business Meeting" class="img-fluid-rounded">
+                <img loading="lazy" src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&auto=format" alt="International Business Meeting" class="img-fluid-rounded">
             </div>
         </div>
     </div>
@@ -833,7 +833,7 @@
     <div class="container">
         <div class="row align-items-center g-5 mb-5 pb-4">
             <div class="col-lg-6">
-                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&auto=format&fit=crop&q=80" alt="Jasa Pendirian PT PMA" class="img-fluid-rounded shadow-lg">
+                <img loading="lazy" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&auto=format&fit=crop&q=80" alt="Jasa Pendirian PT PMA" class="img-fluid-rounded shadow-lg">
             </div>
             <div class="col-lg-6">
                 <div class="section-title mb-4">

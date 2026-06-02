@@ -4,7 +4,7 @@
       <div class="offcanvas__top d-flex justify-content-between align-items-center">
         <div class="offcanvas__logo">
           <a href="{{ url('/') }}">
-            <img src="{{ asset('buyer-file/assets/img/lowo-turun-removebg-preview.png') }}" alt="logo-img" />
+            <img src="{{ asset('buyer-file/assets/img/lowo-turun-removebg-preview.webp') }}" alt="logo-img" />
           </a>
         </div>
         <div class="offcanvas__close">
@@ -457,15 +457,17 @@
             <div class="logo">
               <a href="{{ url('/') }}" class="header-logo">
                 <img
-                  src="{{ asset('buyer-file/assets/img/logo-removebg.png') }}"
+                  src="{{ asset('buyer-file/assets/img/logo-removebg.webp') }}"
                   alt="logo-img"
-                  style="width: 16pc" />
+                  style="width: 16pc"
+                  fetchpriority="high" />
               </a>
               <a href="{{ url('/') }}" class="header-logo-2">
                 <img
-                  src="{{ asset('buyer-file/assets/img/lowo-turun-removebg-preview.png') }}"
+                  src="{{ asset('buyer-file/assets/img/lowo-turun-removebg-preview.webp') }}"
                   alt="logo-img"
-                  style="width: 16pc" />
+                  style="width: 16pc"
+                  fetchpriority="high" />
               </a>
             </div>
           </div>
@@ -1530,7 +1532,7 @@
           </div>
         </div>
         <div class="modal-right-thumb position-relative">
-                  <img src="{{ asset('lawgika/masuk.jpeg') }}" alt="img" />
+                  <img src="{{ asset('lawgika/masuk.webp') }}" alt="img" />
           <div class="signlogin-btnwrap">
             <button
               id="btn-go-register"
@@ -1621,7 +1623,7 @@
           </div>
         </div>
         <div class="modal-right-thumb position-relative">
-                  <img src="{{ asset('lawgika/daftar.jpeg') }}" alt="img" />
+                  <img src="{{ asset('lawgika/daftar.webp') }}" alt="img" />
           <div class="signlogin-btnwrap">
             <button
               id="btn-stay-register"
@@ -1676,7 +1678,7 @@
           </div>
         </div>
         <div class="modal-right-thumb position-relative">
-          <img src="{{ asset('buyer-file/assets/img/sign/create.png') }}" alt="img" />
+          <img src="{{ asset('buyer-file/assets/img/sign/create.webp') }}" alt="img" />
           <div class="signlogin-btnwrap">
             <button
               id="btn-forgot-go-register"

@@ -475,7 +475,7 @@
         <div class="row align-items-center mb-5 pb-lg-5">
             <div class="col-lg-6 mb-4 mb-lg-0">
                 <div class="zigzag-image-container">
-                    <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=1000&h=1000&q=80" class="w-100 haki-image" style="aspect-ratio: 1/1; object-fit: cover;" alt="Logo Brand Besar">
+                    <img loading="lazy" src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=1000&h=1000&q=80" class="w-100 haki-image" style="aspect-ratio: 1/1; object-fit: cover;" alt="Logo Brand Besar">
                 </div>
             </div>
             <div class="col-lg-6">
@@ -513,7 +513,7 @@
         <div class="row align-items-center flex-row-reverse">
             <div class="col-lg-6 mb-4 mb-lg-0">
                 <div class="zigzag-image-container text-center">
-                    <img 
+                    <img loading="lazy" 
             src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=900" 
             class="img-fluid rounded-4 shadow-lg tech-image" 
             alt="Teknologi Robot AI"

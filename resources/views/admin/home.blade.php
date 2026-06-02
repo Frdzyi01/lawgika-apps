@@ -121,7 +121,7 @@
         </div>
         <div class="countries-list">
           <div class="d-flex align-items-center gap-3 mb-3">
-            <div class="country-icon"><img src="{{ asset('template-admin/assets/images/icons/usa.png') }}" alt="" width="35" /></div>
+            <div class="country-icon"><img src="{{ asset('template-admin/assets/images/icons/usa.webp') }}" alt="" width="35" /></div>
             <div class="country-name flex-grow-1">
               <h5 class="mb-0">$84.5K</h5>
               <p class="mb-0 text-secondary">United states</p>
@@ -129,7 +129,7 @@
             <div class=""><p class="mb-0 text-success d-flex gap-1 align-items-center fw-500"><i class="bx bx-up-arrow-alt"></i><span>25%</span></p></div>
           </div>
           <div class="d-flex align-items-center gap-3 mb-3">
-            <div class="country-icon"><img src="{{ asset('template-admin/assets/images/icons/india.png') }}" alt="" width="35" /></div>
+            <div class="country-icon"><img src="{{ asset('template-admin/assets/images/icons/india.webp') }}" alt="" width="35" /></div>
             <div class="country-name flex-grow-1">
               <h5 class="mb-0">$750</h5>
               <p class="mb-0 text-secondary">India</p>
@@ -137,7 +137,7 @@
             <div class=""><p class="mb-0 text-success d-flex gap-1 align-items-center fw-500"><i class="bx bx-up-arrow-alt"></i><span>18%</span></p></div>
           </div>
           <div class="d-flex align-items-center gap-3 mb-3">
-            <div class="country-icon"><img src="{{ asset('template-admin/assets/images/icons/china.png') }}" alt="" width="35" /></div>
+            <div class="country-icon"><img src="{{ asset('template-admin/assets/images/icons/china.webp') }}" alt="" width="35" /></div>
             <div class="country-name flex-grow-1">
               <h5 class="mb-0">$38.5</h5>
               <p class="mb-0 text-secondary">China</p>
@@ -145,7 +145,7 @@
             <div class=""><p class="mb-0 text-danger d-flex gap-1 align-items-center fw-500"><i class="bx bx-down-arrow-alt"></i><span>14%</span></p></div>
           </div>
           <div class="d-flex align-items-center gap-3 mb-3">
-            <div class="country-icon"><img src="{{ asset('template-admin/assets/images/icons/russia.png') }}" alt="" width="35" /></div>
+            <div class="country-icon"><img src="{{ asset('template-admin/assets/images/icons/russia.webp') }}" alt="" width="35" /></div>
             <div class="country-name flex-grow-1">
               <h5 class="mb-0">$88.0K</h5>
               <p class="mb-0 text-secondary">France</p>
@@ -153,7 +153,7 @@
             <div class=""><p class="mb-0 text-success d-flex gap-1 align-items-center fw-500"><i class="bx bx-up-arrow-alt"></i><span>28%</span></p></div>
           </div>
           <div class="d-flex align-items-center gap-3 mb-3">
-            <div class="country-icon"><img src="{{ asset('template-admin/assets/images/icons/australia.png') }}" alt="" width="35" /></div>
+            <div class="country-icon"><img src="{{ asset('template-admin/assets/images/icons/australia.webp') }}" alt="" width="35" /></div>
             <div class="country-name flex-grow-1">
               <h5 class="mb-0">$78.3K</h5>
               <p class="mb-0 text-secondary">Australia</p>
@@ -161,7 +161,7 @@
             <div class=""><p class="mb-0 text-danger d-flex gap-1 align-items-center fw-500"><i class="bx bx-down-arrow-alt"></i><span>16%</span></p></div>
           </div>
           <div class="d-flex align-items-center gap-3 mb-3">
-            <div class="country-icon"><img src="{{ asset('template-admin/assets/images/icons/brazil.png') }}" alt="" width="35" /></div>
+            <div class="country-icon"><img src="{{ asset('template-admin/assets/images/icons/brazil.webp') }}" alt="" width="35" /></div>
             <div class="country-name flex-grow-1">
               <h5 class="mb-0">$10.5K</h5>
               <p class="mb-0 text-secondary">Brazil</p>
@@ -169,7 +169,7 @@
             <div class=""><p class="mb-0 text-success d-flex gap-1 align-items-center fw-500"><i class="bx bx-up-arrow-alt"></i><span>25%</span></p></div>
           </div>
           <div class="d-flex align-items-center gap-3 mb-0">
-            <div class="country-icon"><img src="{{ asset('template-admin/assets/images/icons/UAE.png') }}" alt="" width="35" /></div>
+            <div class="country-icon"><img src="{{ asset('template-admin/assets/images/icons/UAE.webp') }}" alt="" width="35" /></div>
             <div class="country-name flex-grow-1">
               <h5 class="mb-0">$30.5K</h5>
               <p class="mb-0 text-secondary">UAE</p>
@@ -445,7 +445,7 @@
           <table class="table table-borderless align-middle mb-0">
             <tbody>
               <tr>
-                <td><div class="country-icon"><img src="{{ asset('template-admin/assets/images/icons/india.png') }}" alt="" width="32" /></div></td>
+                <td><div class="country-icon"><img src="{{ asset('template-admin/assets/images/icons/india.webp') }}" alt="" width="32" /></div></td>
                 <td><div class="country-name h6 mb-0">India</div></td>
                 <td class="w-100">
                   <div class="progress flex-grow-1" style="height: 5px">
@@ -455,7 +455,7 @@
                 <td><div class="percent-data">82%</div></td>
               </tr>
               <tr>
-                <td><div class="country-icon"><img src="{{ asset('template-admin/assets/images/icons/usa.png') }}" alt="" width="32" /></div></td>
+                <td><div class="country-icon"><img src="{{ asset('template-admin/assets/images/icons/usa.webp') }}" alt="" width="32" /></div></td>
                 <td><div class="country-name h6 mb-0">USA</div></td>
                 <td class="w-100">
                   <div class="progress flex-grow-1" style="height: 5px">
@@ -465,7 +465,7 @@
                 <td><div class="percent-data">70%</div></td>
               </tr>
               <tr>
-                <td><div class="country-icon"><img src="{{ asset('template-admin/assets/images/icons/china.png') }}" alt="" width="32" /></div></td>
+                <td><div class="country-icon"><img src="{{ asset('template-admin/assets/images/icons/china.webp') }}" alt="" width="32" /></div></td>
                 <td><div class="country-name h6 mb-0">China</div></td>
                 <td class="w-100">
                   <div class="progress flex-grow-1" style="height: 5px">
@@ -475,7 +475,7 @@
                 <td><div class="percent-data">60%</div></td>
               </tr>
               <tr>
-                <td><div class="country-icon"><img src="{{ asset('template-admin/assets/images/icons/russia.png') }}" alt="" width="32" /></div></td>
+                <td><div class="country-icon"><img src="{{ asset('template-admin/assets/images/icons/russia.webp') }}" alt="" width="32" /></div></td>
                 <td><div class="country-name h6 mb-0">Russia</div></td>
                 <td class="w-100">
                   <div class="progress flex-grow-1" style="height: 5px">
@@ -485,7 +485,7 @@
                 <td><div class="percent-data">45%</div></td>
               </tr>
               <tr>
-                <td><div class="country-icon"><img src="{{ asset('template-admin/assets/images/icons/russia.png') }}" alt="" width="32" /></div></td>
+                <td><div class="country-icon"><img src="{{ asset('template-admin/assets/images/icons/russia.webp') }}" alt="" width="32" /></div></td>
                 <td><div class="country-name h6 mb-0">Russia</div></td>
                 <td class="w-100">
                   <div class="progress flex-grow-1" style="height: 5px">
@@ -537,7 +537,7 @@
             <td>#89742</td>
             <td>
               <div class="d-flex align-items-center gap-3">
-                <div class="product-box border"><img src="{{ asset('template-admin/assets/images/products/11.png') }}" alt="" /></div>
+                <div class="product-box border"><img src="{{ asset('template-admin/assets/images/products/11.webp') }}" alt="" /></div>
                 <div class="product-info"><h6 class="product-name mb-1">Smart Mobile Phone</h6></div>
               </div>
             </td>
@@ -557,7 +557,7 @@
             <td>#68570</td>
             <td>
               <div class="d-flex align-items-center gap-3">
-                <div class="product-box border"><img src="{{ asset('template-admin/assets/images/products/07.png') }}" alt="" /></div>
+                <div class="product-box border"><img src="{{ asset('template-admin/assets/images/products/07.webp') }}" alt="" /></div>
                 <div class="product-info"><h6 class="product-name mb-1">Sports Time Watch</h6></div>
               </div>
             </td>
@@ -577,7 +577,7 @@
             <td>#38567</td>
             <td>
               <div class="d-flex align-items-center gap-3">
-                <div class="product-box border"><img src="{{ asset('template-admin/assets/images/products/17.png') }}" alt="" /></div>
+                <div class="product-box border"><img src="{{ asset('template-admin/assets/images/products/17.webp') }}" alt="" /></div>
                 <div class="product-info"><h6 class="product-name mb-1">Women Red Heals</h6></div>
               </div>
             </td>
@@ -597,7 +597,7 @@
             <td>#48572</td>
             <td>
               <div class="d-flex align-items-center gap-3">
-                <div class="product-box border"><img src="{{ asset('template-admin/assets/images/products/04.png') }}" alt="" /></div>
+                <div class="product-box border"><img src="{{ asset('template-admin/assets/images/products/04.webp') }}" alt="" /></div>
                 <div class="product-info"><h6 class="product-name mb-1">Yellow Winter Jacket</h6></div>
               </div>
             </td>
@@ -617,7 +617,7 @@
             <td>#96857</td>
             <td>
               <div class="d-flex align-items-center gap-3">
-                <div class="product-box border"><img src="{{ asset('template-admin/assets/images/products/10.png') }}" alt="" /></div>
+                <div class="product-box border"><img src="{{ asset('template-admin/assets/images/products/10.webp') }}" alt="" /></div>
                 <div class="product-info"><h6 class="product-name mb-1">Orange Micro Headphone</h6></div>
               </div>
             </td>
@@ -637,7 +637,7 @@
             <td>#96857</td>
             <td>
               <div class="d-flex align-items-center gap-3">
-                <div class="product-box border"><img src="{{ asset('template-admin/assets/images/products/12.png') }}" alt="" /></div>
+                <div class="product-box border"><img src="{{ asset('template-admin/assets/images/products/12.webp') }}" alt="" /></div>
                 <div class="product-info"><h6 class="product-name mb-1">Pro Samsung Laptop</h6></div>
               </div>
             </td>

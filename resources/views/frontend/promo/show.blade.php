@@ -403,7 +403,7 @@
 
           {{-- Gambar --}}
           @if($promo->gambar)
-          <img src="{{ asset('storage/'.$promo->gambar) }}"
+          <img loading="lazy" src="{{ asset('storage/'.$promo->gambar) }}"
             class="promo-main-card-img img-fluid w-100"
             alt="{{ $promo->judul }}">
           @else
@@ -504,7 +504,7 @@
         <a href="{{ route('promo.show', $other->id) }}" class="promo-sidebar-item">
 
           @if($other->gambar)
-          <img src="{{ asset('storage/'.$other->gambar) }}"
+          <img loading="lazy" src="{{ asset('storage/'.$other->gambar) }}"
             class="promo-sidebar-thumb"
             alt="{{ $other->judul }}"
             loading="lazy">

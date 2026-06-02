@@ -475,7 +475,7 @@
         <div class="row align-items-center mb-5 pb-lg-5">
             <div class="col-lg-6 mb-4 mb-lg-0">
                 <div class="zigzag-image-container">
-                    <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1000&q=80" class="w-100" alt="Drafting Perjanjian">
+                    <img loading="lazy" src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1000&q=80" class="w-100" alt="Drafting Perjanjian">
                 </div>
             </div>
             <div class="col-lg-6">
@@ -498,7 +498,7 @@
         <div class="row align-items-center flex-row-reverse">
             <div class="col-lg-6 mb-4 mb-lg-0">
                 <div class="zigzag-image-container">
-                    <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1000&q=80" class="w-100" alt="Review Perjanjian">
+                    <img loading="lazy" src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1000&q=80" class="w-100" alt="Review Perjanjian">
                 </div>
             </div>
             <div class="col-lg-6">

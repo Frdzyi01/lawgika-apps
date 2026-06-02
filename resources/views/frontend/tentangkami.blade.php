@@ -43,7 +43,7 @@
                     <div class="position-absolute top-0 start-0 translate-middle p-4 bg-danger rounded-4 shadow-lg d-none d-md-block" style="z-index: 2; margin-top: 50px; margin-left: 50px;">
                         <i class="fas fa-quote-left text-white fa-2x"></i>
                     </div>
-                    <img src="{{ asset('lawgika/tentangkami.jpeg') }}" alt="Lawgika Office" class="img-fluid rounded-5 shadow-2xl">
+                    <img loading="lazy" src="{{ asset('lawgika/tentangkami.webp') }}" alt="Lawgika Office" class="img-fluid rounded-5 shadow-2xl">
                     <div class="position-absolute bottom-0 end-0 m-4 p-4 bg-white rounded-4 shadow-lg d-none d-lg-block border-start border-5 border-danger">
                         <h4 class="fw-bold mb-1" data-i18n="tentang.intro.card_title">Dinamis & Terpercaya</h4>
                         <p class="text-muted small mb-0" data-i18n="tentang.intro.card_sub">Solusi Bisnis Terintegrasi</p>

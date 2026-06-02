@@ -40,7 +40,7 @@
                         {{-- Thumbnail --}}
                         <div class="position-relative overflow-hidden" style="height: 250px;">
                             @if($item->gambar)
-                                <img src="{{ asset('storage/' . $item->gambar) }}" class="w-100 h-100 object-fit-cover hover-scale transition-all" alt="{{ $item->judul }}">
+                                <img loading="lazy" src="{{ asset('storage/' . $item->gambar) }}" class="w-100 h-100 object-fit-cover hover-scale transition-all" alt="{{ $item->judul }}">
                             @else
                                 <div class="w-100 h-100 bg-secondary d-flex align-items-center justify-content-center text-white-50">
                                     <i class="fas fa-image fa-3x"></i>

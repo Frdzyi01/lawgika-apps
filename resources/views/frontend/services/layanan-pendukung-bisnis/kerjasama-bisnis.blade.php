@@ -312,7 +312,7 @@
                 </ul>
             </div>
             <div class="col-lg-6">
-                <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=800&q=80"
+                <img loading="lazy" src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=800&q=80"
                     alt="Kerjasama Bisnis" class="img-fluid-rounded">
             </div>
         </div>

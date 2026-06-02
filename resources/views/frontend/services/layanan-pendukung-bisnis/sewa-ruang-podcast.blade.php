@@ -503,7 +503,7 @@
                 <a href="#pricing" class="btn-outline-brand" data-i18n="podcast.solusi.cta">Lihat Harga Paket →</a>
             </div>
             <div class="col-lg-6">
-                <img src="{{ asset('buyer-file/assets/img/podcastroom/ruang.png') }}" alt="Podcast Studio" class="img-fluid-rounded">
+                <img loading="lazy" src="{{ asset('buyer-file/assets/img/podcastroom/ruang.webp') }}" alt="Podcast Studio" class="img-fluid-rounded">
             </div>
         </div>
     </div>
@@ -519,8 +519,8 @@
         </div>
 
         <div class="gallery-grid-podcast">
-            <div class="gallery-item" onclick="openLightbox('{{ asset('buyer-file/assets/img/podcastroom/ruangpodcast.jpg') }}')">
-                <img src="{{ asset('buyer-file/assets/img/podcastroom/ruangpodcast.jpg') }}" alt="Podcast Room 1">
+            <div class="gallery-item" onclick="openLightbox('{{ asset('buyer-file/assets/img/podcastroom/ruangpodcast.webp') }}')">
+                <img loading="lazy" src="{{ asset('buyer-file/assets/img/podcastroom/ruangpodcast.webp') }}" alt="Podcast Room 1">
                 <div class="gallery-overlay">
                     <div class="overlay-text">
                         <h5>Podcast Studio A</h5>
@@ -528,8 +528,8 @@
                     </div>
                 </div>
             </div>
-            <div class="gallery-item" onclick="openLightbox('{{ asset('buyer-file/assets/img/podcastroom/ruangpodcast2.jpg') }}')">
-                <img src="{{ asset('buyer-file/assets/img/podcastroom/ruangpodcast2.jpg') }}" alt="Podcast Room 2">
+            <div class="gallery-item" onclick="openLightbox('{{ asset('buyer-file/assets/img/podcastroom/ruangpodcast2.webp') }}')">
+                <img loading="lazy" src="{{ asset('buyer-file/assets/img/podcastroom/ruangpodcast2.webp') }}" alt="Podcast Room 2">
                 <div class="gallery-overlay">
                     <div class="overlay-text">
                         <h5>Podcast Studio B</h5>
@@ -544,7 +544,7 @@
 {{-- Lightbox --}}
 <div id="lightbox-overlay" onclick="this.style.display='none'">
     <span id="lightbox-close">&times;</span>
-    <img id="lightbox-img" src="" alt="Full view">
+    <img loading="lazy" id="lightbox-img" src="" alt="Full view">
 </div>
 
 <script>

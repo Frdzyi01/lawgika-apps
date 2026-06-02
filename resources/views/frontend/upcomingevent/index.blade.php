@@ -60,7 +60,7 @@
                     <div class="row g-0">
                         @if($event->banner)
                         <div class="col-md-4">
-                            <img src="{{ asset('storage/' . $event->banner) }}"
+                            <img loading="lazy" src="{{ asset('storage/' . $event->banner) }}"
                                 alt="{{ $event->nama_event }}"
                                 class="img-fluid h-100 w-100 object-fit-cover"
                                 style="object-fit: cover; min-height: 180px;">
@@ -409,7 +409,7 @@
 
                 let bannerHtml = '';
                 if (event.banner) {
-                    bannerHtml = `<img src="/storage/${event.banner}" alt="${escapeHtml(event.nama_event)}" class="modal-event-img">`;
+                    bannerHtml = `<img loading="lazy" src="/storage/${event.banner}" alt="${escapeHtml(event.nama_event)}" class="modal-event-img">`;
                 }
 
                 // STATUS CHECK — metode paling aman, cek semua kemungkinan tipe

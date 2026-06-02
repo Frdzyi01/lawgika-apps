@@ -1,7 +1,7 @@
   <!--<< Footer Section Start >>-->
   <footer
     class="footer-section fix bg-cover"
-    style="background-image: url('{{ asset('buyer-file/assets/img/hero/hero-bg-1.jpg') }}')">
+    style="background-image: url('{{ asset('buyer-file/assets/img/hero/hero-bg-1.webp') }}')">
     
     <style>
       /* ==========================================================================
@@ -442,7 +442,7 @@
           <!-- 1️⃣ LEFT BRAND SECTION -->
           <div class="lw-footer-col lw-footer-brand">
             <a href="{{ url('/') }}" class="lw-footer-logo">
-              <img src="{{ asset('buyer-file/assets/img/logo-removebg.png') }}" alt="Lawgika Logo" />
+              <img src="{{ asset('buyer-file/assets/img/logo-removebg.webp') }}" alt="Lawgika Logo" />
             </a>
             <p class="lw-footer-desc" data-i18n="footer.brand_desc">
               Lawgika Bisnis Indonesia siap mendampingi perjalanan bisnis dan legalitas perusahaan Anda dengan layanan profesional dan terpercaya.
