@@ -47,6 +47,6 @@ class OrderController extends Controller
             'payment_status' => 'pending_verification',
         ]);
 
-        return back()->with('success', 'Bukti pembayaran berhasil dikirim. Tim kami akan memverifikasi segera.');
+        return back()->with('success', __('flash.payment_proof_submitted_success'));
     }
 }

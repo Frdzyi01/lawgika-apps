@@ -234,29 +234,29 @@
 <section class="jpp-strip">
   <div class="container">
     <div class="bc mb-3">
-      <a href="{{ url('/') }}">Beranda</a><span>/</span>
-      <a href="{{ url('/jasa-pembukuan-perpajakan') }}">Jasa Pembukuan & Perpajakan</a><span>/</span>
+      <a href="{{ url('/') }}" data-i18n="nav.home">Beranda</a><span>/</span>
+      <a href="{{ url('/jasa-pembukuan-perpajakan') }}" data-i18n="nav.services.pembukuan">Jasa Pembukuan & Perpajakan</a><span>/</span>
       <span class="cur">{{ $kategoriInfo['label'] }} – {{ $paketInfo['label'] }}</span>
     </div>
-    <span style="display:inline-block;background:rgba(212,175,55,.15);color:#fbbf24;border:1px solid rgba(212,175,55,.25);border-radius:50px;padding:4px 16px;font-size:.78rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;">Form Order</span>
+    <span style="display:inline-block;background:rgba(212,175,55,.15);color:#fbbf24;border:1px solid rgba(212,175,55,.25);border-radius:50px;padding:4px 16px;font-size:.78rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;" data-i18n="order.form_title">Form Order</span>
     <h1 class="text-white fw-bold mb-0" style="font-size:clamp(1.6rem,3.5vw,2.4rem);">
-      Order Paket {{ $paketInfo['label'] }}<br>
+      <span data-i18n="order.order_package">Order Paket</span> {{ $paketInfo['label'] }}<br>
       <span style="color:rgba(255,255,255,.65);font-size:.65em;font-weight:500;">{{ $kategoriInfo['label'] }} · {{ $kategoriInfo['subtitle'] }}</span>
     </h1>
 
     <div class="summary-pill">
       <div>
-        <div class="sp-label">Kategori</div>
+        <div class="sp-label" data-i18n="order.category">Kategori</div>
         <div class="sp-val">{{ $kategoriInfo['label'] }}</div>
       </div>
       <div class="sp-divider"></div>
       <div>
-        <div class="sp-label">Paket</div>
+        <div class="sp-label" data-i18n="order.package">Paket</div>
         <div class="sp-val">{{ $paketInfo['label'] }}</div>
       </div>
       <div class="sp-divider"></div>
       <div>
-        <div class="sp-label">Harga / Bulan</div>
+        <div class="sp-label" data-i18n="order.price_per_month">Harga / Bulan</div>
         <div class="sp-price">Rp {{ number_format($paketInfo['harga'],0,',','.') }}</div>
       </div>
     </div>
@@ -270,7 +270,7 @@
 
       @if($errors->any())
       <div class="f-error-box">
-        <p><i class="bi bi-exclamation-triangle-fill me-2"></i>Mohon perbaiki kesalahan berikut:</p>
+        <p><i class="bi bi-exclamation-triangle-fill me-2"></i><span data-i18n="order.validation_error_header">Mohon perbaiki kesalahan berikut:</span></p>
         <ul>@foreach($errors->all() as $e)<li>{{ $e }}</li>@endforeach</ul>
       </div>
       @endif
@@ -280,56 +280,56 @@
         <input type="hidden" name="kategori" value="{{ $kategori }}">
         <input type="hidden" name="paket" value="{{ $paket }}">
 
-        <p style="font-weight:700;font-size:.75rem;text-transform:uppercase;letter-spacing:1px;color:var(--m);margin-bottom:14px;">Data Diri</p>
+        <p style="font-weight:700;font-size:.75rem;text-transform:uppercase;letter-spacing:1px;color:var(--m);margin-bottom:14px;"><span data-i18n="order.personal_data">Data Diri</span></p>
 
         <div class="f-row">
           <div class="f-group">
-            <label>Nama Lengkap <span class="req">*</span></label>
-            <input type="text" name="nama_lengkap" class="f-input {{ $errors->has('nama_lengkap')?'is-invalid':'' }}" placeholder="Nama sesuai KTP" value="{{ old('nama_lengkap') }}">
+            <label><span data-i18n="order.label_fullname">Nama Lengkap</span> <span class="req">*</span></label>
+            <input type="text" name="nama_lengkap" class="f-input {{ $errors->has('nama_lengkap')?'is-invalid':'' }}" placeholder="Nama sesuai KTP" data-i18n-placeholder="order.placeholder_ktp_name" value="{{ old('nama_lengkap') }}">
             @error('nama_lengkap')<p class="f-err">{{ $message }}</p>@enderror
           </div>
           <div class="f-group">
-            <label>Email <span class="req">*</span></label>
-            <input type="email" name="email" class="f-input {{ $errors->has('email')?'is-invalid':'' }}" placeholder="email@perusahaan.com" value="{{ old('email') }}">
+            <label><span data-i18n="order.label_email">Email</span> <span class="req">*</span></label>
+            <input type="email" name="email" class="f-input {{ $errors->has('email')?'is-invalid':'' }}" placeholder="email@perusahaan.com" data-i18n-placeholder="order.placeholder_email" value="{{ old('email') }}">
             @error('email')<p class="f-err">{{ $message }}</p>@enderror
           </div>
         </div>
 
         <div class="f-group">
-          <label>No. WhatsApp <span class="req">*</span></label>
-          <input type="text" name="no_whatsapp" class="f-input {{ $errors->has('no_whatsapp')?'is-invalid':'' }}" placeholder="08xxxxxxxxxx" value="{{ old('no_whatsapp') }}" style="max-width:320px;">
-          <p class="f-hint">Kami akan menghubungi Anda melalui nomor ini</p>
+          <label><span data-i18n="order.label_whatsapp">No. WhatsApp</span> <span class="req">*</span></label>
+          <input type="text" name="no_whatsapp" class="f-input {{ $errors->has('no_whatsapp')?'is-invalid':'' }}" placeholder="08xxxxxxxxxx" data-i18n-placeholder="order.placeholder_wa" value="{{ old('no_whatsapp') }}" style="max-width:320px;">
+          <p class="f-hint" data-i18n="order.wa_hint">Kami akan menghubungi Anda melalui nomor ini</p>
           @error('no_whatsapp')<p class="f-err">{{ $message }}</p>@enderror
         </div>
 
         <hr class="f-div">
-        <p style="font-weight:700;font-size:.75rem;text-transform:uppercase;letter-spacing:1px;color:var(--m);margin-bottom:14px;">Data Perusahaan</p>
+        <p style="font-weight:700;font-size:.75rem;text-transform:uppercase;letter-spacing:1px;color:var(--m);margin-bottom:14px;"><span data-i18n="order.company_data">Data Perusahaan</span></p>
 
         <div class="f-row">
           <div class="f-group">
-            <label>Nama Perusahaan <span class="req">*</span></label>
-            <input type="text" name="nama_perusahaan" class="f-input {{ $errors->has('nama_perusahaan')?'is-invalid':'' }}" placeholder="PT / CV / UD ..." value="{{ old('nama_perusahaan') }}">
+            <label><span data-i18n="order.label_company_name">Nama Perusahaan</span> <span class="req">*</span></label>
+            <input type="text" name="nama_perusahaan" class="f-input {{ $errors->has('nama_perusahaan')?'is-invalid':'' }}" placeholder="PT / CV / UD ..." data-i18n-placeholder="order.placeholder_company_name" value="{{ old('nama_perusahaan') }}">
             @error('nama_perusahaan')<p class="f-err">{{ $message }}</p>@enderror
           </div>
           <div class="f-group">
-            <label>Jenis Usaha <span class="req">*</span></label>
-            <input type="text" name="jenis_usaha" class="f-input {{ $errors->has('jenis_usaha')?'is-invalid':'' }}" placeholder="Perdagangan, Jasa, Manufaktur ..." value="{{ old('jenis_usaha') }}">
+            <label><span data-i18n="order.label_business_type">Jenis Usaha</span> <span class="req">*</span></label>
+            <input type="text" name="jenis_usaha" class="f-input {{ $errors->has('jenis_usaha')?'is-invalid':'' }}" placeholder="Perdagangan, Jasa, Manufaktur ..." data-i18n-placeholder="order.placeholder_business_type" value="{{ old('jenis_usaha') }}">
             @error('jenis_usaha')<p class="f-err">{{ $message }}</p>@enderror
           </div>
         </div>
 
         <div class="f-group">
-          <label>Catatan Tambahan</label>
-          <textarea name="catatan" class="f-input" rows="3" placeholder="Ceritakan kondisi bisnis Anda atau pertanyaan khusus ...">{{ old('catatan') }}</textarea>
+          <label data-i18n="order.form_section_notes">Catatan Tambahan</label>
+          <textarea name="catatan" class="f-input" rows="3" placeholder="Ceritakan kondisi bisnis Anda atau pertanyaan khusus ..." data-i18n-placeholder="order.placeholder_notes">{{ old('catatan') }}</textarea>
         </div>
 
         @auth
         <button type="submit" class="btn-sub">
-          <i class="bi bi-send-fill"></i> Kirim Order Sekarang
+          <i class="bi bi-send-fill"></i> <span data-i18n="order.submit_btn">Kirim Order Sekarang</span>
         </button>
         @else
         <button type="button" class="btn-sub" data-bs-toggle="modal" data-bs-target="#exampleModal">
-          <i class="bi bi-lock-fill"></i> Masuk untuk Mengirim Order
+          <i class="bi bi-lock-fill"></i> <span data-i18n="order.login_to_submit">Masuk untuk Mengirim Order</span>
         </button>
         @endauth
 

@@ -810,17 +810,17 @@
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="page-title-content">
-                    <span class="text-white bg-danger rounded-pill px-3 py-1 fw-medium mb-3 d-inline-block shadow-sm" style="font-size: 0.85rem">Layanan Audit</span>
-                    <h1 class="text-white fw-bold mb-3 display-4">Audit Laporan Keuangan Profesional</h1>
-                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem">Layanan audit laporan keuangan untuk membantu perusahaan melakukan pemeriksaan dan penilaian agar lebih akurat, transparan, dan sesuai standar yang berlaku.</p>
+                    <span class="text-white bg-danger rounded-pill px-3 py-1 fw-medium mb-3 d-inline-block shadow-sm" style="font-size: 0.85rem" data-i18n="audit.hero_badge">Layanan Audit</span>
+                    <h1 class="text-white fw-bold mb-3 display-4" data-i18n="audit.hero_title">Audit Laporan Keuangan Profesional</h1>
+                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem" data-i18n="audit.hero_desc">Layanan audit laporan keuangan untuk membantu perusahaan melakukan pemeriksaan dan penilaian agar lebih akurat, transparan, dan sesuai standar yang berlaku.</p>
                 </div>
             </div>
             <div class="col-lg-6 text-lg-end mt-4 mt-lg-0">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-lg-end justify-content-start mb-0">
-                        <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none">Beranda</a></li>
-                        <li class="breadcrumb-item"><a href="#" class="text-white text-decoration-none">Layanan</a></li>
-                        <li class="breadcrumb-item active text-white-50" aria-current="page">Audit Laporan Keuangan</li>
+                        <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none" data-i18n="nav.home">Beranda</a></li>
+                        <li class="breadcrumb-item"><a href="#" class="text-white text-decoration-none" data-i18n="nav.services">Layanan</a></li>
+                        <li class="breadcrumb-item active text-white-50" aria-current="page" data-i18n="nav.services.audit_laporan">Audit Laporan Keuangan</li>
                     </ol>
                 </nav>
             </div>
@@ -832,9 +832,9 @@
 <section class="service-overview">
     <div class="container">
         <div class="section-header">
-            <span class="section-tag">Layanan Profesional</span>
-            <h2>Audit & Assurance Profesional</h2>
-            <p>Layanan audit terintegrasi untuk memastikan laporan keuangan perusahaan Anda akurat dan terpercaya</p>
+            <span class="section-tag" data-i18n="ui.professional_service">Layanan Profesional</span>
+            <h2 data-i18n="audit.overview_title">Audit & Assurance Profesional</h2>
+            <p data-i18n="audit.overview_desc">Layanan audit terintegrasi untuk memastikan laporan keuangan perusahaan Anda akurat dan terpercaya</p>
         </div>
         <div class="service-grid">
             <div class="service-card fade-up" style="animation-delay: 0.1s">
@@ -881,9 +881,9 @@
     <div class="container">
 
         <div class="section-header">
-            <span class="section-tag">Mengapa Memilih Kami</span>
-            <h2>Keuntungan Menggunakan Jasa Audit Lawgika.co.id</h2>
-            <p>Dapatkan layanan audit profesional dengan berbagai keuntungan eksklusif</p>
+            <span class="section-tag" data-i18n="ui.why_us_badge_normal">Mengapa Memilih Kami</span>
+            <h2 data-i18n="audit.why_title">Keuntungan Menggunakan Jasa Audit Lawgika.co.id</h2>
+            <p data-i18n="audit.why_desc">Dapatkan layanan audit profesional dengan berbagai keuntungan eksklusif</p>
         </div>
 
         <div class="benefits-grid">
@@ -924,9 +924,9 @@
         <div class="row align-items-center">
             <div class="col-lg-8">
                 <div class="break-content fade-up">
-                    <span class="break-badge">⭐ Tingkatkan Kredibilitas Bisnis Anda</span>
-                    <h2>Audit Laporan Keuangan untuk Transparansi & Kepercayaan</h2>
-                    <p>Dengan laporan keuangan yang telah diaudit, perusahaan Anda akan lebih dipercaya oleh investor, kreditur, dan pemangku kepentingan lainnya.</p>
+                    <span class="break-badge" data-i18n="audit.vb_badge">⭐ Tingkatkan Kredibilitas Bisnis Anda</span>
+                    <h2><span data-i18n="audit.vb_title">Audit Laporan Keuangan untuk Transparansi & Kepercayaan</span></h2>
+                    <p data-i18n="audit.vb_desc">Dengan laporan keuangan yang telah diaudit, perusahaan Anda akan lebih dipercaya oleh investor, kreditur, dan pemangku kepentingan lainnya.</p>
                     <div class="d-flex flex-wrap gap-3">
                         <div class="bg-white bg-opacity-10 rounded-4 p-4" style="backdrop-filter: blur(10px);">
                             <h5 class="text-white mb-2">Kredibilitas Meningkat</h5>
@@ -952,9 +952,9 @@
 <section class="faq-modern">
     <div class="container">
         <div class="section-header">
-            <span class="section-tag">Pertanyaan Umum</span>
-            <h2>FAQ Layanan Audit Laporan Keuangan</h2>
-            <p>Jawaban atas pertanyaan yang sering diajukan tentang layanan audit kami</p>
+            <span class="section-tag" data-i18n="ui.faq_title_generic">Pertanyaan Umum</span>
+            <h2 data-i18n="audit.faq_title">FAQ Layanan Audit Laporan Keuangan</h2>
+            <p data-i18n="audit.faq_desc">Jawaban atas pertanyaan yang sering diajukan tentang layanan audit kami</p>
         </div>
         <div class="faq-grid">
             <div class="faq-item-modern">

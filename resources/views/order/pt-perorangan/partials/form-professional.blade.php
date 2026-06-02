@@ -1,58 +1,58 @@
 {{-- Data Perusahaan & Direktur --}}
-<p class="form-section-title"><i class="fa-solid fa-building me-1"></i> Informasi Perusahaan & Direktur</p>
+<p class="form-section-title"><i class="fa-solid fa-building me-1"></i> <span data-i18n="order.form_section_company">Informasi Perusahaan & Direktur</span></p>
 <div class="row g-3 mb-4">
     <div class="col-md-6">
-        <label class="form-label">Nama Lengkap Direktur <span class="req">*</span></label>
+        <label class="form-label"><span data-i18n="order.label_director_name">Nama Lengkap Direktur</span> <span class="req">*</span></label>
         <input type="text" name="director_name" value="{{ old('director_name') }}" class="form-control @error('director_name') is-invalid @enderror" required>
         @error('director_name')<div class="invalid-feedback">{{ $message }}</div>@enderror
     </div>
     <div class="col-md-6">
-        <label class="form-label">Nomor Telepon Direktur <span class="req">*</span></label>
+        <label class="form-label"><span data-i18n="order.label_director_phone">Nomor Telepon Direktur</span> <span class="req">*</span></label>
         <input type="text" name="director_phone" value="{{ old('director_phone') }}" class="form-control @error('director_phone') is-invalid @enderror" required>
         @error('director_phone')<div class="invalid-feedback">{{ $message }}</div>@enderror
     </div>
     <div class="col-md-6">
-        <label class="form-label">Nama Perusahaan <span class="req">*</span></label>
+        <label class="form-label"><span data-i18n="order.label_company_name">Nama Perusahaan</span> <span class="req">*</span></label>
         <input type="text" name="company_name" value="{{ old('company_name') }}" class="form-control @error('company_name') is-invalid @enderror" required>
         @error('company_name')<div class="invalid-feedback">{{ $message }}</div>@enderror
     </div>
     <div class="col-md-6">
-        <label class="form-label">Nama PIC <span class="req">*</span></label>
+        <label class="form-label"><span data-i18n="order.label_pic_name">Nama PIC</span> <span class="req">*</span></label>
         <input type="text" name="pic_name" value="{{ old('pic_name') }}" class="form-control @error('pic_name') is-invalid @enderror" required>
         @error('pic_name')<div class="invalid-feedback">{{ $message }}</div>@enderror
     </div>
     <div class="col-md-6">
-        <label class="form-label">Nomor Telepon PIC <span class="req">*</span></label>
+        <label class="form-label"><span data-i18n="order.label_pic_phone">Nomor Telepon PIC</span> <span class="req">*</span></label>
         <input type="text" name="pic_phone" value="{{ old('pic_phone') }}" class="form-control @error('pic_phone') is-invalid @enderror" required>
         @error('pic_phone')<div class="invalid-feedback">{{ $message }}</div>@enderror
     </div>
     <div class="col-md-6">
-        <label class="form-label">Alamat Email Perusahaan <span class="req">*</span></label>
+        <label class="form-label"><span data-i18n="order.label_company_email">Alamat Email Perusahaan</span> <span class="req">*</span></label>
         <input type="email" name="company_email" value="{{ old('company_email') }}" class="form-control @error('company_email') is-invalid @enderror" required>
         @error('company_email')<div class="invalid-feedback">{{ $message }}</div>@enderror
     </div>
     <div class="col-12">
-        <label class="form-label">Alamat Operasional / Direktur <span class="req">*</span></label>
+        <label class="form-label"><span data-i18n="order.label_operational_address">Alamat Operasional / Direktur</span> <span class="req">*</span></label>
         <textarea name="operational_address" class="form-control" rows="2" required>{{ old('operational_address') }}</textarea>
         @error('operational_address')<div class="invalid-feedback">{{ $message }}</div>@enderror
     </div>
     <div class="col-md-6">
-        <label class="form-label">Bidang Usaha <span class="req">*</span></label>
+        <label class="form-label"><span data-i18n="order.label_business_field">Bidang Usaha</span> <span class="req">*</span></label>
         <input type="text" name="business_field" value="{{ old('business_field') }}" class="form-control @error('business_field') is-invalid @enderror" required>
         @error('business_field')<div class="invalid-feedback">{{ $message }}</div>@enderror
     </div>
 </div>
 
 {{-- Catatan Tambahan --}}
-<p class="form-section-title"><i class="fa-solid fa-note-sticky me-1"></i> Catatan Tambahan</p>
+<p class="form-section-title"><i class="fa-solid fa-note-sticky me-1"></i> <span data-i18n="order.form_section_notes">Catatan Tambahan</span></p>
 <div class="mb-4">
-    <label class="form-label">Catatan / Pertanyaan <span class="opt-badge">Opsional</span></label>
-    <textarea name="notes" class="form-control" rows="3" placeholder="Tuliskan nama PT yang diinginkan, bidang usaha, atau pertanyaan lainnya…">{{ old('notes') }}</textarea>
+    <label class="form-label"><span data-i18n="order.label_notes">Catatan / Pertanyaan</span> <span class="opt-badge" data-i18n="order.optional">Opsional</span></label>
+    <textarea name="notes" class="form-control" rows="3" placeholder="Tuliskan nama PT yang diinginkan, bidang usaha, atau pertanyaan lainnya…" data-i18n-placeholder="order.pt_per.notes_placeholder">{{ old('notes') }}</textarea>
 </div>
 
 {{-- Upload Dokumen Wajib --}}
-<p class="form-section-title"><i class="fa-solid fa-upload me-1"></i> Lampiran Dokumen (Wajib)</p>
-<p class="text-muted small mb-3">Semua dokumen wajib diunggah. Format: JPG, PNG, PDF (maks. 5MB)</p>
+<p class="form-section-title"><i class="fa-solid fa-upload me-1"></i> <span data-i18n="order.form_section_docs">Lampiran Dokumen (Wajib)</span></p>
+<p class="text-muted small mb-3" data-i18n="order.docs_hint">Semua dokumen wajib diunggah. Format: JPG, PNG, PDF (maks. 5MB)</p>
 
 <div class="row g-3 mb-4">
     @php
@@ -72,8 +72,8 @@
                 <input type="file" name="{{ $upload['name'] }}" accept=".jpg,.jpeg,.png,.pdf" required
                        onchange="showFileName(this, '{{ $upload['name'] }}Name')">
                 <div class="upload-icon"><i class="fa-solid fa-cloud-upload-alt"></i></div>
-                <div class="upload-label">Klik atau seret file</div>
-                <div class="upload-hint">JPG, PNG, PDF (maks. 5MB)</div>
+                <div class="upload-label" data-i18n="order.placeholder_click_drag">Klik atau seret file</div>
+                <div class="upload-hint">JPG, PNG, PDF (<span data-i18n="order.max_5mb">maks. 5MB</span>)</div>
                 <div class="file-name" id="{{ $upload['name'] }}Name"></div>
             </div>
             @error($upload['name'])

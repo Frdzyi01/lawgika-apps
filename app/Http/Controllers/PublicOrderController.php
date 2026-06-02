@@ -60,6 +60,6 @@ class PublicOrderController extends Controller
         }
 
         return redirect()->route('customer.dashboard')
-            ->with('success', 'Pesanan Anda berhasil dikirim! Tim kami akan segera menghubungi Anda.');
+            ->with('success', __('flash.order_submitted_success'));
     }
 }

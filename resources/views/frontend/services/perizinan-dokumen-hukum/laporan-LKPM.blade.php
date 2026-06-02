@@ -406,7 +406,7 @@
             <ol class="breadcrumb mb-0">
                 <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-maroon text-decoration-none small">Home</a></li>
                 <li class="breadcrumb-item"><a href="#" class="text-maroon text-decoration-none small">Layanan</a></li>
-                <li class="breadcrumb-item active small" aria-current="page">Pelaporan LKPM</li>
+                <li class="breadcrumb-item active small" aria-current="page" data-i18n="lkpm.breadcrumb">Pelaporan LKPM</li>
             </ol>
         </nav>
     </div>
@@ -416,17 +416,17 @@
 <section class="hero-agency">
     <div class="container">
         <div class="hero-content fade-up">
-            <span class="section-label" style="color: rgba(255,255,255,0.7)">Kepatuhan & Pelaporan Investasi</span>
-            <h1 class="hero-title">Pelaporan LKPM Tepat Waktu Tanpa Ribet</h1>
-            <p class="hero-subtitle">
+            <span class="section-label" style="color: rgba(255,255,255,0.7)" data-i18n="lkpm.hero.label">Kepatuhan & Pelaporan Investasi</span>
+            <h1 class="hero-title" data-i18n="lkpm.hero.title">Pelaporan LKPM Tepat Waktu Tanpa Ribet</h1>
+            <p class="hero-subtitle" data-i18n="lkpm.hero.desc">
                 Menyediakan layanan pelaporan LKPM (Laporan Kegiatan Penanaman Modal) untuk membantu pelaku usaha memenuhi kewajiban pelaporan investasi melalui sistem OSS secara akurat dan tepat waktu.
             </p>
             <div class="d-flex flex-wrap gap-3 mt-4">
                 <a href="https://wa.me/6281112088600" class="btn-white" target="_blank" rel="noopener noreferrer">
-                    <i class="fa-brands fa-whatsapp"></i> Konsultasi Gratis
+                    <i class="fa-brands fa-whatsapp"></i> <span data-i18n="tentang.cta.primary">Konsultasi Gratis</span>
                 </a>
                 <a href="#lkpm-details" class="btn-outline-white">
-                    <i class="fa-solid fa-circle-info"></i> Pelajari Selengkapnya
+                    <i class="fa-solid fa-circle-info"></i> <span data-i18n="hukum.hero.btn_info">Pelajari Selengkapnya</span>
                 </a>
             </div>
         </div>
@@ -441,8 +441,8 @@
                 <div class="trust-item">
                     <div class="trust-icon"><i class="bi bi-calendar-check"></i></div>
                     <div>
-                        <h6 class="mb-0 fw-bold">Tepat Waktu</h6>
-                        <small class="text-muted">Bebas denda keterlambatan</small>
+                        <h6 class="mb-0 fw-bold" data-i18n="lkpm.trust.item1_title">Tepat Waktu</h6>
+                        <small class="text-muted" data-i18n="lkpm.trust.item1_desc">Bebas denda keterlambatan</small>
                     </div>
                 </div>
             </div>
@@ -450,8 +450,8 @@
                 <div class="trust-item">
                     <div class="trust-icon"><i class="bi bi-file-earmark-check"></i></div>
                     <div>
-                        <h6 class="mb-0 fw-bold">Akurat & Valid</h6>
-                        <small class="text-muted">Sesuai regulasi BKPM</small>
+                        <h6 class="mb-0 fw-bold" data-i18n="lkpm.trust.item2_title">Akurat & Valid</h6>
+                        <small class="text-muted" data-i18n="lkpm.trust.item2_desc">Sesuai regulasi BKPM</small>
                     </div>
                 </div>
             </div>
@@ -459,8 +459,8 @@
                 <div class="trust-item">
                     <div class="trust-icon"><i class="bi bi-graph-up-arrow"></i></div>
                     <div>
-                        <h6 class="mb-0 fw-bold">Pemantauan Berkala</h6>
-                        <small class="text-muted">Notifikasi reminder rutin</small>
+                        <h6 class="mb-0 fw-bold" data-i18n="lkpm.trust.item3_title">Pemantauan Berkala</h6>
+                        <small class="text-muted" data-i18n="lkpm.trust.item3_desc">Notifikasi reminder rutin</small>
                     </div>
                 </div>
             </div>
@@ -480,15 +480,15 @@
             </div>
             <div class="col-lg-6">
                 <div class="zigzag-text">
-                    <span class="section-label">01. Kewajiban Hukum</span>
-                    <h2 class="display-5 fw-bold mb-3">Apa itu LKPM?</h2>
-                    <p class="text-muted mb-4 lead">
+                    <span class="section-label" data-i18n="lkpm.section1.label">01. Kewajiban Hukum</span>
+                    <h2 class="display-5 fw-bold mb-3" data-i18n="lkpm.section1.title">Apa itu LKPM?</h2>
+                    <p class="text-muted mb-4 lead" data-i18n="lkpm.section1.desc">
                         LKPM (Laporan Kegiatan Penanaman Modal) adalah laporan berkala yang wajib disampaikan oleh setiap pelaku usaha kepada BKPM melalui sistem OSS. Laporan ini mencakup realisasi investasi, tenaga kerja, dan perkembangan usaha.
                     </p>
                     <ul class="list-unstyled mb-4">
-                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> Wajib bagi seluruh pemegang NIB</li>
-                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> Periode pelaporan per 3 bulan (triwulan)</li>
-                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> Sanksi administratif jika tidak melapor</li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> <span data-i18n="lkpm.section1.list1">Wajib bagi seluruh pemegang NIB</span></li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> <span data-i18n="lkpm.section1.list2">Periode pelaporan per 3 bulan (triwulan)</span></li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> <span data-i18n="lkpm.section1.list3">Sanksi administratif jika tidak melapor</span></li>
                     </ul>
                 </div>
             </div>
@@ -503,15 +503,15 @@
             </div>
             <div class="col-lg-6">
                 <div class="zigzag-text">
-                    <span class="section-label">02. Layanan Profesional</span>
-                    <h2 class="display-5 fw-bold mb-3">Penyusunan & Pelaporan LKPM</h2>
-                    <p class="text-muted mb-4 lead">
+                    <span class="section-label" data-i18n="lkpm.section2.label">02. Layanan Profesional</span>
+                    <h2 class="display-5 fw-bold mb-3" data-i18n="lkpm.section2.title">Penyusunan & Pelaporan LKPM</h2>
+                    <p class="text-muted mb-4 lead" data-i18n="lkpm.section2.desc">
                         Tim kami siap membantu Anda menyusun data realisasi investasi dan tenaga kerja, menginput ke dalam sistem OSS, serta memastikan laporan tersampaikan dengan benar sebelum batas waktu yang ditentukan.
                     </p>
                     <ul class="list-unstyled mb-4">
-                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> Pengumpulan data realisasi investasi</li>
-                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> Input laporan ke sistem OSS</li>
-                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> Pendampingan audit kepatuhan</li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> <span data-i18n="lkpm.section2.list1">Pengumpulan data realisasi investasi</span></li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> <span data-i18n="lkpm.section2.list2">Input laporan ke sistem OSS</span></li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> <span data-i18n="lkpm.section2.list3">Pendampingan audit kepatuhan</span></li>
                     </ul>
                 </div>
             </div>
@@ -523,8 +523,8 @@
 <section class="section-padding bg-white border-top">
     <div class="container">
         <div class="text-center mb-5">
-            <span class="section-label">Workflow</span>
-            <h2 class="fw-bold display-5">Proses Pelaporan LKPM</h2>
+            <span class="section-label" data-i18n="kerjasama.process.badge">Workflow</span>
+            <h2 class="fw-bold display-5" data-i18n="lkpm.process.title">Proses Pelaporan LKPM</h2>
         </div>
         <div class="timeline-container">
             <div class="timeline-line"></div>
@@ -539,7 +539,7 @@
                 <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
                     <div class="timeline-item">
                         <div class="timeline-circle">2</div>
-                        <h5 class="fw-bold">Penyusunan Laporan</h5>
+                        <h5 class="fw-bold" data-i18n="lkpm.process.step2_title">Penyusunan Laporan</h5>
                         <p class="text-muted small px-lg-4">Data disusun sesuai format LKPM yang berlaku di OSS.</p>
                     </div>
                 </div>
@@ -565,8 +565,8 @@
 <section class="pt-faq">
     <div class="container">
         <div class="section-title text-center mb-5">
-            <span class="subtitle">Bantuan Sentral</span>
-            <h2>FAQ terkait Pelaporan LKPM</h2>
+            <span class="subtitle" data-i18n="vo.faq.badge">Bantuan Sentral</span>
+            <h2 data-i18n="lkpm.faq.title">FAQ terkait Pelaporan LKPM</h2>
             <p>Pertanyaan yang paling sering diajukan seputar Laporan Kegiatan Penanaman Modal</p>
         </div>
         <div class="row">
@@ -574,20 +574,20 @@
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Apa itu LKPM dan siapa yang wajib melapor?
+                        <span data-i18n="lkpm.faq.q1">Apa itu LKPM dan siapa yang wajib melapor?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="lkpm.faq.a1">
                         LKPM (Laporan Kegiatan Penanaman Modal) adalah laporan berkala yang wajib disampaikan oleh setiap pelaku usaha yang memiliki NIB (Nomor Induk Berusaha) kepada BKPM melalui sistem OSS. Kewajiban ini berlaku bagi seluruh badan usaha maupun perorangan.
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Kapan batas waktu pelaporan LKPM?
+                        <span data-i18n="lkpm.faq.q2">Kapan batas waktu pelaporan LKPM?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="lkpm.faq.a2">
                         Pelaporan LKPM dilakukan setiap 3 bulan (triwulan) dengan batas waktu sebagai berikut:
                         - Triwulan I (Jan-Mar): paling lambat 10 April
                         - Triwulan II (Apr-Jun): paling lambat 10 Juli
@@ -598,40 +598,40 @@
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Apa sanksi jika tidak melaporkan LKPM?
+                        <span data-i18n="lkpm.faq.q3">Apa sanksi jika tidak melaporkan LKPM?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="lkpm.faq.a3">
                         Pelaku usaha yang tidak menyampaikan LKPM tepat waktu dapat dikenakan sanksi administratif berupa peringatan tertulis, pembekuan izin usaha, hingga pencabutan izin usaha sesuai dengan Peraturan BKPM yang berlaku.
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Data apa saja yang dibutuhkan untuk pelaporan LKPM?
+                        <span data-i18n="lkpm.faq.q4">Data apa saja yang dibutuhkan untuk pelaporan LKPM?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="lkpm.faq.a4">
                         Data yang diperlukan antara lain: realisasi investasi (tanah, bangunan, mesin, modal kerja), jumlah tenaga kerja (laki-laki/perempuan, lokal/asing), nilai produksi/penjualan, serta kendala usaha yang dihadapi selama periode pelaporan.
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Apakah LKPM bisa dilaporkan nihil?
+                        <span data-i18n="lkpm.faq.q5">Apakah LKPM bisa dilaporkan nihil?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="lkpm.faq.a5">
                         Ya, jika dalam periode pelaporan tidak ada realisasi investasi atau kegiatan usaha, Anda tetap wajib melaporkan LKPM dengan status "NIHIL". Ini penting untuk menjaga status kepatuhan usaha Anda di sistem OSS.
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Bagaimana jika saya sudah terlambat melapor beberapa periode?
+                        <span data-i18n="lkpm.faq.q6">Bagaimana jika saya sudah terlambat melapor beberapa periode?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="lkpm.faq.a6">
                         Jangan khawatir. Tim kami dapat membantu Anda melakukan pelaporan susulan (backlog) untuk periode-periode yang terlewat, serta memberikan pendampingan agar ke depannya tidak terjadi keterlambatan lagi.
                     </div>
                 </div>

@@ -348,7 +348,7 @@
   <div class="container">
 
     {{-- ── Section Title ── --}}
-    <h2 class="layanan-section-title mb-3">Layanan Kami</h2>
+    <h2 class="layanan-section-title mb-3" data-i18n="section.layanan.badge">Layanan Kami</h2>
 
     {{-- ── Tab Navigation ── --}}
     <ul class="nav layanan-nav mb-4" id="layananTab" role="tablist">
@@ -357,7 +357,7 @@
           data-layanan-tab="office"
           type="button" role="tab"
           aria-controls="pane-office" aria-selected="true">
-          Kantor & Ruang Podcast
+          <span data-i18n="layanan.tab1.title">Kantor & Ruang Podcast</span>
           <span class="nav-arrow">→</span>
         </button>
       </li>
@@ -366,7 +366,7 @@
           data-layanan-tab="business"
           type="button" role="tab"
           aria-controls="pane-business" aria-selected="false">
-          Legalitas Perusahaan 
+          <span data-i18n="layanan.tab2.title">Legalitas Perusahaan</span>
           <span class="nav-arrow">→</span>
         </button>
       </li>
@@ -375,7 +375,7 @@
           data-layanan-tab="foreign"
           type="button" role="tab"
           aria-controls="pane-foreign" aria-selected="false">
-         Akuntansi dan Pajak
+          <span data-i18n="layanan.tab3.title">Akuntansi dan Pajak</span>
           <span class="nav-arrow">→</span>
         </button>
       </li>
@@ -388,17 +388,17 @@
                  TAB 1 – Office & Work Space
             ═══════════════════════════════════ --}}
       <div class="layanan-tab-pane active-visible"
-        id="pane-office" role="tabpanel" aria-labelledby="tab-office">
+         id="pane-office" role="tabpanel" aria-labelledby="tab-office">
 
         {{-- Sub-banner --}}
         <div class="layanan-banner">
           <div class="layanan-banner-text">
-          <h2>Ruang Kerja Fleksibel untuk Produktivitas Bisnis Anda</h2>
-<p>
-    Lawgika menyediakan layanan Virtual Office, Sewa Meeting Room,
-    dan Sewa Ruang Podcast untuk mendukung kebutuhan bisnis,
-    meeting profesional, hingga produksi konten Anda secara nyaman dan fleksibel.
-</p>
+            <h2 data-i18n="layanan.banner1.title">Ruang Kerja Fleksibel untuk Produktivitas Bisnis Anda</h2>
+            <p data-i18n="layanan.banner1.desc">
+              Lawgika menyediakan layanan Virtual Office, Sewa Meeting Room,
+              dan Sewa Ruang Podcast untuk mendukung kebutuhan bisnis,
+              meeting profesional, hingga produksi konten Anda secara nyaman dan fleksibel.
+            </p>
           </div>
           <div class="layanan-banner-icon d-none d-md-block">
             {{-- Office SVG Illustration --}}
@@ -439,14 +439,14 @@
                 <div class="layanan-card-img-wrap">
                   <img src="{{ asset('buyer-file/assets/img/meetingroom/ruang.png') }}"
                     alt="Virtual Office – Gedung Perkantoran Modern" loading="lazy">
-                  <span class="layanan-card-badge">Best Seller</span>
+                  <span class="layanan-card-badge" data-i18n="layanan.badge.best_seller">Best Seller</span>
                 </div>
                 <div class="layanan-card-body">
-                  <div class="layanan-card-title">Virtual Office</div>
-                  <div class="layanan-card-desc">Hemat biaya operasional hingga 90% dengan alamat kantor prestisius tanpa sewa fisik.</div>
-                  <div class="layanan-card-price-label">Price Start From</div>
-                  <div class="layanan-card-price">2.800.000<span>/Tahun*</span></div>
-                  <a href="{{ url('/virtual-office') }}" class="layanan-card-btn">Order Now</a>
+                  <div class="layanan-card-title" data-i18n="layanan.card.vo.title">Virtual Office</div>
+                  <div class="layanan-card-desc" data-i18n="layanan.card.vo.desc">Hemat biaya operasional hingga 90% dengan alamat kantor prestisius tanpa sewa fisik.</div>
+                  <div class="layanan-card-price-label" data-i18n="layanan.card.vo.price_lbl">Price Start From</div>
+                  <div class="layanan-card-price"><span data-i18n="layanan.card.vo.price_val">2.800.000</span><span data-i18n="layanan.card.vo.price_unit">/Tahun*</span></div>
+                  <a href="{{ url('/virtual-office') }}" class="layanan-card-btn" data-i18n="layanan.btn.order_now">Order Now</a>
                 </div>
               </div>
             </div>
@@ -458,11 +458,11 @@
                     alt="Meeting Room – Ruang Rapat Profesional" loading="lazy">
                 </div>
                 <div class="layanan-card-body">
-                  <div class="layanan-card-title">Meeting Room</div>
-                  <div class="layanan-card-desc">Tempat yang cocok untuk melakukan pertemuan penting dengan klien atau mitra bisnis.</div>
-                  <div class="layanan-card-price-label">Price Start From</div>
-                  <div class="layanan-card-price">Rp 4.800.000<span>/60 Jam*</span></div>
-                  <a href="{{ url('/sewa-meeting-room') }}" class="layanan-card-btn">Order Now</a>
+                  <div class="layanan-card-title" data-i18n="layanan.card.mr.title">Meeting Room</div>
+                  <div class="layanan-card-desc" data-i18n="layanan.card.mr.desc">Tempat yang cocok untuk melakukan pertemuan penting dengan klien atau mitra bisnis.</div>
+                  <div class="layanan-card-price-label" data-i18n="layanan.card.vo.price_lbl">Price Start From</div>
+                  <div class="layanan-card-price"><span data-i18n="layanan.card.mr.price_val">Rp 4.800.000</span><span data-i18n="layanan.card.mr.price_unit">/60 Jam*</span></div>
+                  <a href="{{ url('/sewa-meeting-room') }}" class="layanan-card-btn" data-i18n="layanan.btn.order_now">Order Now</a>
                 </div>
               </div>
             </div>
@@ -474,11 +474,11 @@
                     alt="Coworking Space – Ruang Kerja Bersama" loading="lazy">
                 </div>
                 <div class="layanan-card-body">
-                  <div class="layanan-card-title">Podcast Studio</div>
-                  <div class="layanan-card-desc">Ruang podcast profesional dengan peralatan lengkap untuk produksi audio berkualitas tinggi.</div>
-                  <div class="layanan-card-price-label">Price Start From</div>
-                  <div class="layanan-card-price">Rp 700.000<span>/2 Jam*</span></div>
-                  <a href="{{ url('/sewa-ruang-podcast') }}" class="layanan-card-btn">Order Now</a>
+                  <div class="layanan-card-title" data-i18n="layanan.card.ps.title">Podcast Studio</div>
+                  <div class="layanan-card-desc" data-i18n="layanan.card.ps.desc">Ruang podcast profesional dengan peralatan lengkap untuk produksi audio berkualitas tinggi.</div>
+                  <div class="layanan-card-price-label" data-i18n="layanan.card.vo.price_lbl">Price Start From</div>
+                  <div class="layanan-card-price"><span data-i18n="layanan.card.ps.price_val">Rp 700.000</span><span data-i18n="layanan.card.ps.price_unit">/2 Jam*</span></div>
+                  <a href="{{ url('/sewa-ruang-podcast') }}" class="layanan-card-btn" data-i18n="layanan.btn.order_now">Order Now</a>
                 </div>
               </div>
             </div>
@@ -486,22 +486,18 @@
         </div>{{-- /swiper --}}
       </div>{{-- /pane-office --}}
 
-
-      {{-- ═══════════════════════════════════
-                 TAB 2 – Business Services
-            ═══════════════════════════════════ --}}
       <div class="layanan-tab-pane"
         id="pane-business" role="tabpanel" aria-labelledby="tab-business">
 
         {{-- Sub-banner --}}
         <div class="layanan-banner" style="background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 100%);">
           <div class="layanan-banner-text">
-           <h2>Solusi Legalitas Perusahaan untuk Bisnis Anda</h2>
-<p>
-    Lawgika membantu proses legalitas usaha mulai dari Pendirian PT Perorangan,
-    PT Perseroan, PT PMA, CV, Yayasan, hingga Firma secara profesional,
-    cepat, dan sesuai ketentuan hukum yang berlaku di Indonesia.
-</p>
+            <h2 data-i18n="layanan.banner2.title">Solusi Legalitas Perusahaan untuk Bisnis Anda</h2>
+            <p data-i18n="layanan.banner2.desc">
+              Lawgika membantu proses legalitas usaha mulai dari Pendirian PT Perorangan,
+              PT Perseroan, PT PMA, CV, Yayasan, hingga Firma secara profesional,
+              cepat, dan sesuai ketentuan hukum yang berlaku di Indonesia.
+            </p>
           </div>
           <div class="layanan-banner-icon d-none d-md-block">
             <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -534,14 +530,14 @@
                 <div class="layanan-card-img-wrap">
                   <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=500&q=80"
                     alt="Pendirian PT Perorangan" loading="lazy">
-                  <span class="layanan-card-badge">Populer</span>
+                  <span class="layanan-card-badge" data-i18n="layanan.badge.popular">Populer</span>
                 </div>
                 <div class="layanan-card-body">
-                  <div class="layanan-card-title">Pendirian PT Perorangan</div>
-                  <div class="layanan-card-desc">Layanan pendirian PT Perorangan dengan proses cepat dan sesuai regulasi.</div>
-                  <div class="layanan-card-price-label">Price</div>
-                  <div class="layanan-card-price"><span>Start From</span> Rp. 1.500.000</div>
-                  <a href="{{ url('/pendirian-pt-perorangan') }}" class="layanan-card-btn">Order Now</a>
+                  <div class="layanan-card-title" data-i18n="layanan.card.pt_pero.title">Pendirian PT Perorangan</div>
+                  <div class="layanan-card-desc" data-i18n="layanan.card.pt_pero.desc">Layanan pendirian PT Perorangan dengan proses cepat dan sesuai regulasi.</div>
+                  <div class="layanan-card-price-label" data-i18n="layanan.card.pt_pero.price_lbl">Price</div>
+                  <div class="layanan-card-price"><span data-i18n="layanan.price.start_from">Start From</span> <span data-i18n="layanan.card.pt_pero.price_val">Rp. 1.500.000</span></div>
+                  <a href="{{ url('/pendirian-pt-perorangan') }}" class="layanan-card-btn" data-i18n="layanan.btn.order_now">Order Now</a>
                 </div>
               </div>
             </div>
@@ -554,31 +550,14 @@
                     alt="Pendirian PT" loading="lazy">
                 </div>
                 <div class="layanan-card-body">
-                  <div class="layanan-card-title">Pendirian PT</div>
-                  <div class="layanan-card-desc">Pendirian Perseroan Terbatas (PT) lengkap dengan legalitas resmi.</div>
-                  <div class="layanan-card-price-label">Price</div>
-                  <div class="layanan-card-price"><span>Start From</span> Rp. 5.000.000</div>
-                  <a href="{{ url('/pendirian-pt') }}" class="layanan-card-btn">Order Now</a>
+                  <div class="layanan-card-title" data-i18n="layanan.card.pt.title">Pendirian PT</div>
+                  <div class="layanan-card-desc" data-i18n="layanan.card.pt.desc">Pendirian Perseroan Terbatas (PT) lengkap dengan legalitas resmi.</div>
+                  <div class="layanan-card-price-label" data-i18n="layanan.card.pt_pero.price_lbl">Price</div>
+                  <div class="layanan-card-price"><span data-i18n="layanan.price.start_from">Start From</span> <span data-i18n="layanan.card.pt.price_val">Rp. 5.000.000</span></div>
+                  <a href="{{ url('/pendirian-pt') }}" class="layanan-card-btn" data-i18n="layanan.btn.order_now">Order Now</a>
                 </div>
               </div>
             </div>
-
-            {{-- 3. PT PMA --}}
-            <!-- <div class="swiper-slide">
-              <div class="layanan-card">
-                <div class="layanan-card-img-wrap">
-                  <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=500&q=80"
-                    alt="Pendirian PT PMA" loading="lazy">
-                </div>
-                <div class="layanan-card-body">
-                  <div class="layanan-card-title">Pendirian PT PMA</div>
-                  <div class="layanan-card-desc">Layanan pendirian PT Penanaman Modal Asing (PMA) untuk investor asing.</div>
-                  <div class="layanan-card-price-label">Price</div>
-                  <div class="layanan-card-price"><span>Start From</span> Rp. 7.830.000</div>
-                  <a href="{{ url('/pendirian-pt-pma') }}" class="layanan-card-btn">Order Now</a>
-                </div>
-              </div>
-            </div> -->
 
             {{-- 4. CV --}}
             <div class="swiper-slide">
@@ -588,11 +567,11 @@
                     alt="Pendirian CV" loading="lazy">
                 </div>
                 <div class="layanan-card-body">
-                  <div class="layanan-card-title">Pendirian CV</div>
-                  <div class="layanan-card-desc">Pengurusan pendirian CV dengan proses mudah dan biaya terjangkau.</div>
-                  <div class="layanan-card-price-label">Price</div>
-                  <div class="layanan-card-price"><span>Start From</span> Rp. 4.500.000</div>
-                  <a href="{{ url('/pendirian-cv') }}" class="layanan-card-btn">Order Now</a>
+                  <div class="layanan-card-title" data-i18n="layanan.card.cv.title">Pendirian CV</div>
+                  <div class="layanan-card-desc" data-i18n="layanan.card.cv.desc">Pengurusan pendirian CV dengan proses mudah dan biaya terjangkau.</div>
+                  <div class="layanan-card-price-label" data-i18n="layanan.card.pt_pero.price_lbl">Price</div>
+                  <div class="layanan-card-price"><span data-i18n="layanan.price.start_from">Start From</span> <span data-i18n="layanan.card.cv.price_val">Rp. 4.500.000</span></div>
+                  <a href="{{ url('/pendirian-cv') }}" class="layanan-card-btn" data-i18n="layanan.btn.order_now">Order Now</a>
                 </div>
               </div>
             </div>
@@ -605,11 +584,11 @@
                     alt="Pendirian Yayasan" loading="lazy">
                 </div>
                 <div class="layanan-card-body">
-                  <div class="layanan-card-title">Pendirian Yayasan</div>
-                  <div class="layanan-card-desc">Layanan pendirian yayasan untuk kegiatan sosial dan pendidikan.</div>
-                  <div class="layanan-card-price-label">Price</div>
-                  <div class="layanan-card-price"><span>Start From</span> Rp. 4.500.000</div>
-                  <a href="{{ url('/pendirian-yayasan') }}" class="layanan-card-btn">Order Now</a>
+                  <div class="layanan-card-title" data-i18n="layanan.card.yayasan.title">Pendirian Yayasan</div>
+                  <div class="layanan-card-desc" data-i18n="layanan.card.yayasan.desc">Layanan pendirian yayasan untuk kegiatan sosial dan pendidikan.</div>
+                  <div class="layanan-card-price-label" data-i18n="layanan.card.pt_pero.price_lbl">Price</div>
+                  <div class="layanan-card-price"><span data-i18n="layanan.price.start_from">Start From</span> <span data-i18n="layanan.card.yayasan.price_val">Rp. 4.500.000</span></div>
+                  <a href="{{ url('/pendirian-yayasan') }}" class="layanan-card-btn" data-i18n="layanan.btn.order_now">Order Now</a>
                 </div>
               </div>
             </div>
@@ -622,11 +601,11 @@
                     alt="Pendirian Firma" loading="lazy">
                 </div>
                 <div class="layanan-card-body">
-                  <div class="layanan-card-title">Pendirian Firma</div>
-                  <div class="layanan-card-desc">Pengurusan pendirian Firma untuk usaha bersama dengan legalitas lengkap.</div>
-                  <div class="layanan-card-price-label">Price</div>
-                  <div class="layanan-card-price"><span>Start From</span> Rp. 4.500.000</div>
-                  <a href="{{ url('/pendirian-firma') }}" class="layanan-card-btn">Order Now</a>
+                  <div class="layanan-card-title" data-i18n="layanan.card.firma.title">Pendirian Firma</div>
+                  <div class="layanan-card-desc" data-i18n="layanan.card.firma.desc">Pengurusan pendirian Firma untuk usaha bersama dengan legalitas lengkap.</div>
+                  <div class="layanan-card-price-label" data-i18n="layanan.card.pt_pero.price_lbl">Price</div>
+                  <div class="layanan-card-price"><span data-i18n="layanan.price.start_from">Start From</span> <span data-i18n="layanan.card.firma.price_val">Rp. 4.500.000</span></div>
+                  <a href="{{ url('/pendirian-firma') }}" class="layanan-card-btn" data-i18n="layanan.btn.order_now">Order Now</a>
                 </div>
               </div>
             </div>
@@ -644,12 +623,12 @@
         {{-- Sub-banner --}}
         <div class="layanan-banner" style="background: linear-gradient(135deg, #eff6ff 0%, #e0e7ff 100%);">
           <div class="layanan-banner-text">
-           <h2>Solusi Accounting & Pajak untuk Bisnis Anda</h2>
-<p>
-    Lawgika membantu perusahaan mengelola kebutuhan accounting, perpajakan,
-    laporan keuangan, hingga kepatuhan pajak secara profesional, tepat waktu,
-    dan sesuai regulasi yang berlaku di Indonesia.
-</p>
+            <h2 data-i18n="layanan.banner3.title">Solusi Accounting & Pajak untuk Bisnis Anda</h2>
+            <p data-i18n="layanan.banner3.desc">
+              Lawgika membantu perusahaan mengelola kebutuhan accounting, perpajakan,
+              laporan keuangan, hingga kepatuhan pajak secara profesional, tepat waktu,
+              dan sesuai regulasi yang berlaku di Indonesia.
+            </p>
           </div>
           <div class="layanan-banner-icon d-none d-md-block">
             <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -680,16 +659,16 @@
                 <div class="layanan-card-img-wrap">
                   <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=500&q=80"
                     alt="Jasa Pembukuan & Perpajakan" loading="lazy">
-                  <span class="layanan-card-badge">Terlaris</span>
+                  <span class="layanan-card-badge" data-i18n="layanan.badge.best_seller2">Terlaris</span>
                 </div>
                 <div class="layanan-card-body">
-                  <div class="layanan-card-title">Jasa Pembukuan & Perpajakan</div>
-                  <div class="layanan-card-desc">
+                  <div class="layanan-card-title" data-i18n="layanan.card.jpp.title">Jasa Pembukuan & Perpajakan</div>
+                  <div class="layanan-card-desc" data-i18n="layanan.card.jpp.desc">
                     Layanan pembukuan dan pajak bisnis profesional, rapi, </br>dan sesuai regulasi.
                   </div>
-                  <div class="harga-label">Harga</div>
-                  <div class="harga-konsultasi">Hubungi kami untuk penawaran</div>
-                  <a href="{{ url('/jasa-pembukuan-perpajakan') }}" class="layanan-card-btn">Konsultasi Sekarang</a>
+                  <div class="harga-label" data-i18n="layanan.card.jpp.price_lbl">Harga</div>
+                  <div class="harga-konsultasi" data-i18n="layanan.card.jpp.price_val">Hubungi kami untuk penawaran</div>
+                  <a href="{{ url('/jasa-pembukuan-perpajakan') }}" class="layanan-card-btn" data-i18n="layanan.card.jpp.btn">Konsultasi Sekarang</a>
                 </div>
               </div>
             </div>
@@ -702,13 +681,13 @@
                     alt="Pelaporan SPT Tahunan" loading="lazy">
                 </div>
                 <div class="layanan-card-body">
-                  <div class="layanan-card-title">Pelaporan SPT Tahunan</div>
-                  <div class="layanan-card-desc">
+                  <div class="layanan-card-title" data-i18n="layanan.card.spt.title">Pelaporan SPT Tahunan</div>
+                  <div class="layanan-card-desc" data-i18n="layanan.card.spt.desc">
                     Pengurusan dan pelaporan SPT Tahunan individu maupun perusahaan secara tepat dan aman.
                   </div>
-                  <div class="harga-label">Harga</div>
-                  <div class="harga-konsultasi">Hubungi kami untuk penawaran</div>
-                  <a href="{{ url('/pelaporan-spt-tahunan') }}" class="layanan-card-btn">Konsultasi Sekarang</a>
+                  <div class="harga-label" data-i18n="layanan.card.jpp.price_lbl">Harga</div>
+                  <div class="harga-konsultasi" data-i18n="layanan.card.jpp.price_val">Hubungi kami untuk penawaran</div>
+                  <a href="{{ url('/pelaporan-spt-tahunan') }}" class="layanan-card-btn" data-i18n="layanan.card.jpp.btn">Konsultasi Sekarang</a>
                 </div>
               </div>
             </div>
@@ -721,13 +700,13 @@
                     alt="Pengurusan PKP" loading="lazy">
                 </div>
                 <div class="layanan-card-body">
-                  <div class="layanan-card-title">Pengurusan PKP</div>
-                  <div class="layanan-card-desc">
+                  <div class="layanan-card-title" data-i18n="layanan.card.pkp.title">Pengurusan PKP</div>
+                  <div class="layanan-card-desc" data-i18n="layanan.card.pkp.desc">
                     Layanan pengurusan Pengusaha Kena Pajak (PKP) untuk kebutuhan legalitas usaha Anda.
                   </div>
-                  <div class="harga-label">Harga</div>
-                  <div class="harga-konsultasi">Hubungi kami untuk penawaran</div>
-                  <a href="{{ url('/pengurusan-pkp') }}" class="layanan-card-btn">Konsultasi Sekarang</a>
+                  <div class="harga-label" data-i18n="layanan.card.jpp.price_lbl">Harga</div>
+                  <div class="harga-konsultasi" data-i18n="layanan.card.jpp.price_val">Hubungi kami untuk penawaran</div>
+                  <a href="{{ url('/pengurusan-pkp') }}" class="layanan-card-btn" data-i18n="layanan.card.jpp.btn">Konsultasi Sekarang</a>
                 </div>
               </div>
             </div>
@@ -740,21 +719,20 @@
                     alt="Konsultasi Pajak" loading="lazy">
                 </div>
                 <div class="layanan-card-body">
-                  <div class="layanan-card-title">Konsultasi Pajak</div>
-                  <div class="layanan-card-desc">
+                  <div class="layanan-card-title" data-i18n="layanan.card.kp.title">Konsultasi Pajak</div>
+                  <div class="layanan-card-desc" data-i18n="layanan.card.kp.desc">
                     Konsultasi pajak bisnis untuk membantu Anda memahami dan mengoptimalkan kewajiban perpajakan.
                   </div>
-                  <div class="harga-label">Harga</div>
-                  <div class="harga-konsultasi">Hubungi kami untuk penawaran</div>
-                  <a href="{{ url('/konsultasi-pajak') }}" class="layanan-card-btn">Konsultasi Sekarang</a>
+                  <div class="harga-label" data-i18n="layanan.card.jpp.price_lbl">Harga</div>
+                  <div class="harga-konsultasi" data-i18n="layanan.card.jpp.price_val">Hubungi kami untuk penawaran</div>
+                  <a href="{{ url('/konsultasi-pajak') }}" class="layanan-card-btn" data-i18n="layanan.card.jpp.btn">Konsultasi Sekarang</a>
                 </div>
               </div>
             </div>
 
-          </div>
-        </div>{{-- /swiper-wrapper --}}
-      </div>{{-- /swiper --}}
-    </div>{{-- /pane-foreign --}}
+          </div>{{-- /swiper-wrapper --}}
+        </div>{{-- /swiper --}}
+      </div>{{-- /pane-foreign --}}
 
   </div>{{-- /#layananTabContent --}}
   </div>{{-- /.container --}}
@@ -849,7 +827,7 @@
     {{-- Close button --}}
     <button onclick="document.getElementById('orderModalOverlay').style.display='none'" style="position:absolute; top:14px; right:16px; background:none; border:none; font-size:1.5rem; line-height:1; cursor:pointer; color:#9ca3af;" aria-label="Tutup">&times;</button>
 
-    <h4 style="font-weight:700; font-size:1.2rem; margin-bottom:4px; color:#111827;">Pesan Layanan</h4>
+    <h4 style="font-weight:700; font-size:1.2rem; margin-bottom:4px; color:#111827;" data-i18n="order.modal.title">Pesan Layanan</h4>
     <p id="orderModalServiceLabel" style="color:#4e0616; font-weight:600; font-size:0.95rem; margin-bottom:20px;"></p>
 
     <form id="orderForm" action="{{ route('public.order.store') }}" method="POST">
@@ -857,32 +835,32 @@
       <input type="hidden" name="service_name" id="orderServiceInput">
 
       <div style="margin-bottom:14px;">
-        <label style="display:block; font-size:0.82rem; font-weight:600; margin-bottom:6px; color:#374151;">Nama Lengkap <span style="color:#4e0616;">*</span></label>
-        <input type="text" name="name" required placeholder="Masukkan nama lengkap Anda"
+        <label style="display:block; font-size:0.82rem; font-weight:600; margin-bottom:6px; color:#374151;"><span data-i18n="order.modal.name_lbl">Nama Lengkap</span> <span style="color:#4e0616;">*</span></label>
+        <input type="text" name="name" required data-i18n-placeholder="order.modal.name_placeholder" placeholder="Masukkan nama lengkap Anda"
           value="{{ auth()->user()->name ?? '' }}"
           style="width:100%; border:1.5px solid #e5e7eb; border-radius:8px; padding:10px 14px; font-size:0.9rem; outline:none; transition:border-color .2s; color:#111827 !important; background:#fff !important;"
           onfocus="this.style.borderColor='#4e0616'" onblur="this.style.borderColor='#e5e7eb'">
       </div>
 
       <div style="margin-bottom:14px;">
-        <label style="display:block; font-size:0.82rem; font-weight:600; margin-bottom:6px; color:#374151;">Email <span style="color:#4e0616;">*</span></label>
-        <input type="email" name="email" required placeholder="email@domain.com"
+        <label style="display:block; font-size:0.82rem; font-weight:600; margin-bottom:6px; color:#374151;"><span data-i18n="order.modal.email_lbl">Email</span> <span style="color:#4e0616;">*</span></label>
+        <input type="email" name="email" required data-i18n-placeholder="order.modal.email_placeholder" placeholder="email@domain.com"
           value="{{ auth()->user()->email ?? '' }}"
           style="width:100%; border:1.5px solid #e5e7eb; border-radius:8px; padding:10px 14px; font-size:0.9rem; outline:none; transition:border-color .2s; color:#111827 !important; background:#fff !important;"
           onfocus="this.style.borderColor='#4e0616'" onblur="this.style.borderColor='#e5e7eb'">
       </div>
 
       <div style="margin-bottom:14px;">
-        <label style="display:block; font-size:0.82rem; font-weight:600; margin-bottom:6px; color:#374151;">Nomor WhatsApp <span style="color:#4e0616;">*</span></label>
-        <input type="text" name="phone" required placeholder="08xx-xxxx-xxxx"
+        <label style="display:block; font-size:0.82rem; font-weight:600; margin-bottom:6px; color:#374151;"><span data-i18n="order.modal.phone_lbl">Nomor WhatsApp</span> <span style="color:#4e0616;">*</span></label>
+        <input type="text" name="phone" required data-i18n-placeholder="order.modal.phone_placeholder" placeholder="08xx-xxxx-xxxx"
           value="{{ auth()->user()->phone ?? '' }}"
           style="width:100%; border:1.5px solid #e5e7eb; border-radius:8px; padding:10px 14px; font-size:0.9rem; outline:none; transition:border-color .2s; color:#111827 !important; background:#fff !important;"
           onfocus="this.style.borderColor='#4e0616'" onblur="this.style.borderColor='#e5e7eb'">
       </div>
 
       <div style="margin-bottom:20px;">
-        <label style="display:block; font-size:0.82rem; font-weight:600; margin-bottom:6px; color:#374151;">Catatan (opsional)</label>
-        <textarea name="notes" rows="3" placeholder="Ceritakan kebutuhan Anda secara singkat…"
+        <label style="display:block; font-size:0.82rem; font-weight:600; margin-bottom:6px; color:#374151;" data-i18n="order.modal.notes_lbl">Catatan (opsional)</label>
+        <textarea name="notes" rows="3" data-i18n-placeholder="order.modal.notes_placeholder" placeholder="Ceritakan kebutuhan Anda secara singkat…"
           style="width:100%; border:1.5px solid #e5e7eb; border-radius:8px; padding:10px 14px; font-size:0.9rem; outline:none; resize:none; transition:border-color .2s; color:#111827 !important; background:#fff !important;"
           onfocus="this.style.borderColor='#4e0616'" onblur="this.style.borderColor='#e5e7eb'"></textarea>
       </div>
@@ -890,7 +868,8 @@
       <button type="submit" id="orderSubmitBtn"
         style="width:100%; background:#4e0616; color:#fff; border:none; border-radius:10px; padding:13px; font-size:1rem; font-weight:700; cursor:pointer; transition:background .2s;"
         onmouseover="this.style.background='#b91c1c'" onmouseout="this.style.background='#4e0616'"
-        onclick="this.disabled=true; this.textContent='Memproses…'; this.closest('form').submit();">
+        onclick="this.disabled=true; this.textContent=(window.LwI18n ? window.LwI18n.t('order.modal.processing') : 'Memproses…'); this.closest('form').submit();"
+        data-i18n="order.modal.submit">
         Kirim Pesanan
       </button>
     </form>
@@ -899,11 +878,7 @@
 
 {{-- ── Auth state untuk JS (server-side rendered, aman) ── --}}
 <script>
-  var IS_LOGGED_IN = {
-    {
-      auth() - > check() ? 'true' : 'false'
-    }
-  };
+  var IS_LOGGED_IN = {{ auth()->check() ? 'true' : 'false' }};
 
   function openOrderModal(serviceName) {
     if (!IS_LOGGED_IN) {
@@ -981,8 +956,8 @@
 
   {{-- Content --}}
   <div style="flex:1; min-width:0;">
-    <p style="margin:0 0 3px; font-weight:700; font-size:0.88rem; color:#111827;">Login Diperlukan</p>
-    <p style="margin:0 0 12px; font-size:0.8rem; color:#6b7280; line-height:1.5;">
+    <p style="margin:0 0 3px; font-weight:700; font-size:0.88rem; color:#111827;" data-i18n="toast.login_required.title">Login Diperlukan</p>
+    <p style="margin:0 0 12px; font-size:0.8rem; color:#6b7280; line-height:1.5;" data-i18n="toast.login_required.desc">
       Silakan login untuk melakukan pemesanan layanan.
     </p>
     <div style="display:flex; gap:8px;">
@@ -991,7 +966,8 @@
                border-radius:8px; font-size:0.82rem; font-weight:700; cursor:pointer;
                transition:background .15s;"
         onmouseover="this.style.background='#b91c1c'"
-        onmouseout="this.style.background='#4e0616'">
+        onmouseout="this.style.background='#4e0616'"
+        data-i18n="toast.login_required.login_btn">
         Login
       </button>
       <button onclick="hideLoginToast()"
@@ -999,7 +975,8 @@
                border-radius:8px; font-size:0.82rem; cursor:pointer;
                transition:background .15s;"
         onmouseover="this.style.background='#e5e7eb'"
-        onmouseout="this.style.background='#f3f4f6'">
+        onmouseout="this.style.background='#f3f4f6'"
+        data-i18n="toast.login_required.close_btn">
         Tutup
       </button>
     </div>

@@ -42,11 +42,11 @@ class CorrespondenceController extends Controller
             'note'  => 'required|string',
             'file'  => 'required|file|mimes:pdf|max:5120',
         ], [
-            'title.required' => 'Judul dokumen wajib diisi.',
-            'note.required'  => 'Catatan / keterangan wajib diisi.',
-            'file.required'  => 'File PDF wajib diunggah.',
-            'file.mimes'     => 'File harus berformat PDF.',
-            'file.max'       => 'Ukuran file maksimal 5MB.',
+            'title.required' => __('validation.corres.title_required'),
+            'note.required'  => __('validation.corres.note_required'),
+            'file.required'  => __('validation.corres.file_required'),
+            'file.mimes'     => __('validation.corres.file_mimes'),
+            'file.max'       => __('validation.corres.file_max'),
         ]);
 
         $path = $request->file('file')->store('documents', 'public');
@@ -63,7 +63,7 @@ class CorrespondenceController extends Controller
 
         return redirect()
             ->route('customer.surat-menyurat.index')
-            ->with('success', 'Dokumen berhasil dikirim. Admin akan segera merespons.');
+            ->with('success', __('flash.corres_submitted_success'));
     }
 
     /**

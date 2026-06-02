@@ -682,14 +682,14 @@
             <div class="col-lg-6">
                 <div class="page-title-content">
                     <span class="text-white bg-danger rounded-pill px-3 py-1 fw-medium mb-3 d-inline-block shadow-sm" style="font-size: 0.85rem">Lawgika </span>
-                    <h1 class="text-white fw-bold mb-3 display-4">Jasa Pembuatan PT Perorangan</h1>
-                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem">Dirikan Perusahaan PT untuk Bisnis Anda. Jasa Pembuatan PT dari Lawgika membantu usaha Anda menjadi entitas bisnis yang legal dan bonafide dengan proses paling efisien.</p>
+                    <h1 class="text-white fw-bold mb-3 display-4" data-i18n="pt_per.hero_title">Jasa Pembuatan PT Perorangan</h1>
+                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem" data-i18n="pt_per.hero_desc">Dirikan Perusahaan PT untuk Bisnis Anda. Jasa Pembuatan PT dari Lawgika membantu usaha Anda menjadi entitas bisnis yang legal dan bonafide dengan proses paling efisien.</p>
                 </div>
             </div>
             <div class="col-lg-6 text-lg-end mt-4 mt-lg-0">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-lg-end justify-content-start mb-0">
-                        <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none">Beranda</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none" data-i18n="nav.home">Beranda</a></li>
                         <li class="breadcrumb-item active text-white-50" aria-current="page">Pembuatan PT Perorangan</li>
                     </ol>
                 </nav>
@@ -705,14 +705,14 @@
     <div class="container">
         <div class="row align-items-center g-5 flex-row-reverse">
             <div class="col-lg-6">
-                <h2>Solusi Legalitas Mudah & Fleksibel Untuk Anda</h2>
-                <p>PT Perorangan adalah solusi ideal bagi wirausaha tunggal yang ingin memiliki badan hukum resmi tanpa perlu partner (pendiri tunggal). Dengan proses yang sederhana, cepat, dan biaya terjangkau.</p>
+                <h2 data-i18n="pt_per.sol_title">Solusi Legalitas Mudah & Fleksibel Untuk Anda</h2>
+                <p data-i18n="pt_per.sol_desc">PT Perorangan adalah solusi ideal bagi wirausaha tunggal yang ingin memiliki badan hukum resmi tanpa perlu partner (pendiri tunggal). Dengan proses yang sederhana, cepat, dan biaya terjangkau.</p>
                 <ul class="solution-list">
-                    <li><i class="fa-regular fa-circle-check"></i> Proses 100% online, efisien & transparan</li>
-                    <li><i class="fa-regular fa-circle-check"></i> Akta & SK Resmi dari Kemenkumham</li>
-                    <li><i class="fa-regular fa-circle-check"></i> Didampingi konsultan hukum bersertifikat</li>
+                    <li><i class="fa-regular fa-circle-check"></i> <span data-i18n="pt_per.sol_list1">Proses 100% online, efisien & transparan</span></li>
+                    <li><i class="fa-regular fa-circle-check"></i> <span data-i18n="pt_per.sol_list2">Akta & SK Resmi dari Kemenkumham</span></li>
+                    <li><i class="fa-regular fa-circle-check"></i> <span data-i18n="pt_per.sol_list3">Didampingi konsultan hukum bersertifikat</span></li>
                 </ul>
-                <a href="#pricing" class="btn-outline-brand">Lihat Pilihan Paket →</a>
+                <a href="#pricing" class="btn-outline-brand" data-i18n="ui.see_packages">Lihat Pilihan Paket →</a>
             </div>
             <div class="col-lg-6">
                 <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=800&auto=format" alt="Business Handshake" class="img-fluid-rounded">
@@ -725,8 +725,8 @@
 <section class="why-us-section">
     <div class="container">
         <div class="section-header">
-            <h2>MENGAPA MEMILIH KAMI?</h2>
-            <p>Dapatkan berbagai keuntungan tambahan saat mendirikan perusahaan bersama kami</p>
+            <h2 data-i18n="pt_per.why_title">MENGAPA MEMILIH KAMI?</h2>
+            <p data-i18n="pt_per.why_desc">Dapatkan berbagai keuntungan tambahan saat mendirikan perusahaan bersama kami</p>
         </div>
         <div class="row g-4 justify-content-center">
             <div class="col-md-4">
@@ -734,8 +734,8 @@
                     <div class="why-us-icon">
                         <i class="fa-solid fa-building-columns"></i>
                     </div>
-                    <h4>Pembukaan Rekening</h4>
-                    <p>Dapatkan gratis pendampingan pembukaan rekening bisnis PT Anda.</p>
+                    <h4 data-i18n="pt_per.why_card1_title">Pembukaan Rekening</h4>
+                    <p data-i18n="pt_per.why_card1_desc">Dapatkan gratis pendampingan pembukaan rekening bisnis PT Anda.</p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -743,8 +743,8 @@
                     <div class="why-us-icon">
                         <i class="fa-solid fa-clipboard-list"></i>
                     </div>
-                    <h4>Nomor EFIN & Pajak</h4>
-                    <p>Terima beres pengurusan permohonan Nomor EFIN dan perpajakan.</p>
+                    <h4 data-i18n="pt_per.why_card2_title">Nomor EFIN & Pajak</h4>
+                    <p data-i18n="pt_per.why_card2_desc">Terima beres pengurusan permohonan Nomor EFIN dan perpajakan.</p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -752,8 +752,8 @@
                     <div class="why-us-icon">
                         <i class="fa-solid fa-comments"></i>
                     </div>
-                    <h4>Konsultasi Gratis</h4>
-                    <p>Kami akan mendampingi dan memberikan advokasi strategis untuk kebutuhan regulasi PT Anda.</p>
+                    <h4 data-i18n="pt_per.why_card3_title">Konsultasi Gratis</h4>
+                    <p data-i18n="pt_per.why_card3_desc">Kami akan mendampingi dan memberikan advokasi strategis untuk kebutuhan regulasi PT Anda.</p>
                 </div>
             </div>
         </div>
@@ -771,18 +771,18 @@
         <div class="process-timeline">
             <div class="process-step">
                 <div class="process-step-number">1</div>
-                <h5>Persyaratan Pendirian</h5>
-                <p>Berdasarkan regulasi resmi, siapkan data KTP, NPWP, dan pengecekan pemesanan nama PT untuk memvalidasi tidak ada duplikasi penamaan dengan korporasi lain.</p>
+                <h5 data-i18n="pt_per.step1_title">Persyaratan Pendirian</h5>
+                <p data-i18n="pt_per.step1_desc">Berdasarkan regulasi resmi, siapkan data KTP, NPWP, dan pengecekan pemesanan nama PT untuk memvalidasi tidak ada duplikasi penamaan dengan korporasi lain.</p>
             </div>
             <div class="process-step">
                 <div class="process-step-number">2</div>
-                <h5>Submission Elektronik</h5>
-                <p>Ahli hukum kami merangkum pernyataan pendirian secara digital menggunakan protokol autentik dalam bahasa Indonesia ke server Kemenkumham RI.</p>
+                <h5 data-i18n="pt_per.step2_title">Submission Elektronik</h5>
+                <p data-i18n="pt_per.step2_desc">Ahli hukum kami merangkum pernyataan pendirian secara digital menggunakan protokol autentik dalam bahasa Indonesia ke server Kemenkumham RI.</p>
             </div>
             <div class="process-step">
                 <div class="process-step-number">3</div>
-                <h5>Pengesahan & Legalitas</h5>
-                <p>Kementerian Hukum & HAM menerbitkan Surat Keputusan pengesahan badan hukum, diikuti rilis Nomor Induk Berusaha (NIB) PT Anda siap beroperasi resmi.</p>
+                <h5 data-i18n="pt_per.step3_title">Pengesahan & Legalitas</h5>
+                <p data-i18n="pt_per.step3_desc">Kementerian Hukum & HAM menerbitkan Surat Keputusan pengesahan badan hukum, diikuti rilis Nomor Induk Berusaha (NIB) PT Anda siap beroperasi resmi.</p>
             </div>
         </div>
     </div>
@@ -803,7 +803,7 @@
                         <div class="requirement-icon">
                             <i class="fa-solid fa-clipboard-list"></i>
                         </div>
-                        <h3>KELENGKAPAN DATA</h3>
+                        <h3 data-i18n="ui.req_data_title">KELENGKAPAN DATA</h3>
                     </div>
                     <ul class="requirement-list">
                         <li><i class="fa-solid fa-circle-check"></i> Nama PT (Minimal 3 kata)</li>
@@ -824,7 +824,7 @@
                         <div class="requirement-icon">
                             <i class="fa-solid fa-file-pdf"></i>
                         </div>
-                        <h3>KELENGKAPAN DOKUMEN</h3>
+                        <h3 data-i18n="ui.req_doc_title">KELENGKAPAN DOKUMEN</h3>
                     </div>
                     <ul class="requirement-list">
                         <li><i class="fa-solid fa-circle-check"></i> Scan KTP Direktur / Pendiri</li>
@@ -846,8 +846,8 @@
     <div class="container">
         <div class="section-title text-center mb-5">
             <span class="subtitle">Pilihan Paket Transparan</span>
-            <h2>Paket Pendirian PT Perorangan</h2>
-            <p>Rincian harga jujur dan tegas. Anda bayar sesuai apa yang ditunjukkan tanpa <b>hidden markups</b>.</p>
+            <h2 data-i18n="pt_per.pricing_title">Paket Pendirian PT Perorangan</h2>
+            <p><span data-i18n="pt_per.pricing_desc">Rincian harga jujur dan tegas. Anda bayar sesuai apa yang ditunjukkan tanpa <b>hidden markups</b>.</span></p>
         </div>
 
         <div class="row g-4 justify-content-center">
@@ -922,27 +922,27 @@
 <section class="pt-faq">
     <div class="container">
         <div class="section-title text-center mb-5">
-            <span class="subtitle">Bantuan Sentral</span>
-            <h2>FAQ terkait Pendirian PT</h2>
-            <p>Pertanyaan yang paling sering diajukan seputar legalitas & pengurusan perusahaan.</p>
+            <span class="subtitle" data-i18n="ui.bantuan_sentral">Bantuan Sentral</span>
+            <h2 data-i18n="pt_per.faq_title">FAQ terkait Pendirian PT</h2>
+            <p data-i18n="pt_per.faq_desc">Pertanyaan yang paling sering diajukan seputar legalitas & pengurusan perusahaan.</p>
         </div>
         <div class="row">
             <div class="col-lg-8 mx-auto">
                 <div class="faq-item">
-                    <div class="faq-question">Apa Syarat Utama Mendirikan PT Perorangan? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Pendiri wajib Warga Negara Indonesia (WNI) berusia minimal 21 tahun atau sudah menikah, belum pernah mendirikan PT Perorangan dalam 1 tahun terakhir, dan menyiapkan identitas resmi (KTP dan NPWP aktif). PT tipe ini biasanya terbatas pada klasifikasi kriteria Usaha Mikro dan Kecil (UMK) yang permodalannya tidak melebihi persentase tertentu.</div>
+                    <div class="faq-question"><span data-i18n="pt_per.faq_q1">Apa Syarat Utama Mendirikan PT Perorangan?</span> <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer"><span data-i18n="pt_per.faq_a1">Pendiri wajib Warga Negara Indonesia (WNI) berusia minimal 21 tahun atau sudah menikah, belum pernah mendirikan PT Perorangan dalam 1 tahun terakhir, dan menyiapkan identitas resmi (KTP dan NPWP aktif). PT tipe ini biasanya terbatas pada klasifikasi kriteria Usaha Mikro dan Kecil (UMK) yang permodalannya tidak melebihi persentase tertentu.</span></div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">Berapa Lama Waktu Yang Dibutuhkan Hingga Terbit Akta? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Dengan kelengkapan berkas yang memenuhi syarat penuh, proses penyelesaian administrasi dan pendaftaran elektronik dapat rampung dengan estimasi sangat singkat—tergantung kecepatan Anda menyediakan data valid (Umumnya berkisar antara hitungan 2 jam higga 5 hari operasional saja).</div>
+                    <div class="faq-question"><span data-i18n="pt_per.faq_q2">Berapa Lama Waktu Yang Dibutuhkan Hingga Terbit Akta?</span> <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer"><span data-i18n="pt_per.faq_a2">Dengan kelengkapan berkas yang memenuhi syarat penuh, proses penyelesaian administrasi dan pendaftaran elektronik dapat rampung dengan estimasi sangat singkat—tergantung kecepatan Anda menyediakan data valid (Umumnya berkisar antara hitungan 2 jam higga 5 hari operasional saja).</span></div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">Apakah Harus Memiliki Alamat Tempat (Ruko/Gedung Fisik)? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Setiap PT termasuk PT perorangan tetap diwajibkan menyertakan alamat jelas kedudukan. Namun apabila Anda tidak memiliki ruko/gedung fisik bersertifikat komersial, Anda cukup menyewa layanan "Virtual Office" legal di zona bisnis untuk menekan limitasi modal operasional Anda.</div>
+                    <div class="faq-question"><span data-i18n="pt_per.faq_q3">Apakah Harus Memiliki Alamat Tempat (Ruko/Gedung Fisik)?</span> <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer"><span data-i18n="pt_per.faq_a3">Setiap PT termasuk PT perorangan tetap diwajibkan menyertakan alamat jelas kedudukan. Namun apabila Anda tidak memiliki ruko/gedung fisik bersertifikat komersial, Anda cukup menyewa layanan "Virtual Office" legal di zona bisnis untuk menekan limitasi modal operasional Anda.</span></div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">Apa Sih Perbedaan Antara PT Biasa dengan Perorangan? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">PT biasa absolut didirikan minimal oleh 2 pemegang saham independen di hadapan Akta Notaris, sedangkan PT Perorangan bisa berdiri kokoh pada 1 subjek pengurus tunggal saja. Birokrasinya jauh lebih praktis karena cukup meregistrasikan Surat Pernyataan Pendirian secara format elektronik penuh ke kementerian Hukum dan HAM Republik Indonesia.</div>
+                    <div class="faq-question"><span data-i18n="pt_per.faq_q4">Apa Sih Perbedaan Antara PT Biasa dengan Perorangan?</span> <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer"><span data-i18n="pt_per.faq_a4">PT biasa absolut didirikan minimal oleh 2 pemegang saham independen di hadapan Akta Notaris, sedangkan PT Perorangan bisa berdiri kokoh pada 1 subjek pengurus tunggal saja. Birokrasinya jauh lebih praktis karena cukup meregistrasikan Surat Pernyataan Pendirian secara format elektronik penuh ke kementerian Hukum dan HAM Republik Indonesia.</span></div>
                 </div>
             </div>
         </div>

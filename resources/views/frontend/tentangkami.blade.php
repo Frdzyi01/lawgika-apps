@@ -17,16 +17,16 @@
         <div class="row align-items-center">
             <div class="col-lg-7">
                 <div class="page-title-content animate__animated animate__fadeInLeft">
-                    <span class="badge bg-danger rounded-pill px-3 py-2 fw-bold mb-3 shadow-sm text-uppercase" style="font-size: 0.75rem; letter-spacing: 2px;">Company Profile</span>
-                    <h1 class="text-white fw-bold mb-4 display-3">Mengenal Lebih Dekat <br><span class="text-white">Lawgika</span></h1>
-                    <p class="text-white lead mb-0" style="max-width: 600px;">Mitra strategis terpercaya dalam membangun, menjalankan, dan mengembangkan bisnis Anda di Indonesia dengan solusi legalitas terpadu.</p>
+                    <span class="badge bg-danger rounded-pill px-3 py-2 fw-bold mb-3 shadow-sm text-uppercase" style="font-size: 0.75rem; letter-spacing: 2px;" data-i18n="tentang.hero.badge">Company Profile</span>
+                    <h1 class="text-white fw-bold mb-4 display-3" data-i18n="tentang.hero.title">Mengenal Lebih Dekat <br><span class="text-white">Lawgika</span></h1>
+                    <p class="text-white lead mb-0" style="max-width: 600px;" data-i18n="tentang.hero.desc">Mitra strategis terpercaya dalam membangun, menjalankan, dan mengembangkan bisnis Anda di Indonesia dengan solusi legalitas terpadu.</p>
                 </div>
             </div>
             <div class="col-lg-5 text-lg-end mt-5 mt-lg-0 animate__animated animate__fadeInRight">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-lg-end justify-content-start mb-0 bg-transparent p-0">
-                        <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none opacity-75 hover-opacity-100">Beranda</a></li>
-                        <li class="breadcrumb-item active text-white" aria-current="page">Tentang Kami</li>
+                        <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none opacity-75 hover-opacity-100" data-i18n="nav.home">Beranda</a></li>
+                        <li class="breadcrumb-item active text-white" aria-current="page" data-i18n="nav.profile.perusahaan">Tentang Kami</li>
                     </ol>
                 </nav>
             </div>
@@ -45,24 +45,24 @@
                     </div>
                     <img src="{{ asset('lawgika/tentangkami.jpeg') }}" alt="Lawgika Office" class="img-fluid rounded-5 shadow-2xl">
                     <div class="position-absolute bottom-0 end-0 m-4 p-4 bg-white rounded-4 shadow-lg d-none d-lg-block border-start border-5 border-danger">
-                        <h4 class="fw-bold mb-1">Dinamis & Terpercaya</h4>
-                        <p class="text-muted small mb-0">Solusi Bisnis Terintegrasi</p>
+                        <h4 class="fw-bold mb-1" data-i18n="tentang.intro.card_title">Dinamis & Terpercaya</h4>
+                        <p class="text-muted small mb-0" data-i18n="tentang.intro.card_sub">Solusi Bisnis Terintegrasi</p>
                     </div>
                 </div>
             </div>
             <div class="col-lg-6 animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
                 <div class="section-title mb-4">
-                    <h5 class="text-danger fw-bold text-uppercase mb-2" style="letter-spacing: 2px;">Kata Pengantar</h5>
-                    <h2 class="fw-bold display-6 mb-4">Komitmen Kami Untuk Kesuksesan Anda</h2>
+                    <h5 class="text-danger fw-bold text-uppercase mb-2" style="letter-spacing: 2px;" data-i18n="tentang.intro.eyebrow">Kata Pengantar</h5>
+                    <h2 class="fw-bold display-6 mb-4" data-i18n="tentang.intro.title">Komitmen Kami Untuk Kesuksesan Anda</h2>
                 </div>
                 <div class="intro-text" style="text-align: justify;">
-                    <p class="text-muted mb-4 fs-5" style="line-height: 1.8;">
+                    <p class="text-muted mb-4 fs-5" style="line-height: 1.8;" data-i18n="tentang.intro.p1">
                         Dinamika iklim usaha saat ini menuntut para pelaku bisnis untuk tidak hanya fokus pada ekspansi, tetapi juga pada ketajaman aspek legalitas, kepatuhan pajak, dan tata kelola keuangan yang presisi. Kami memahami bahwa membangun tim internal untuk menangani seluruh spektrum tersebut memerlukan investasi waktu dan biaya yang besar.
                     </p>
-                    <p class="text-muted mb-4 fs-5" style="line-height: 1.8;">
+                    <p class="text-muted mb-4 fs-5" style="line-height: 1.8;" data-i18n="tentang.intro.p2">
                         <strong>PT Lawgika Bisnis Indonesia</strong> hadir sebagai solusi bisnis terpadu yang berfokus pada layanan penyewaan alamat virtual, ruang meeting, layanan legalitas, perizinan usaha, pembukuan, perpajakan, serta fasilitas penunjang operasional bisnis lainnya.
                     </p>
-                    <p class="text-muted mb-4 fs-5" style="line-height: 1.8;">
+                    <p class="text-muted mb-4 fs-5" style="line-height: 1.8;" data-i18n="tentang.intro.p3">
                         Beroperasi dengan brand <strong>Lawgika.co.id</strong>, kami berkomitmen memberikan layanan yang tepat sesuai kebutuhan klien, dapat dipercaya, dan profesional agar bisnis Anda dapat bertumbuh pesat di tengah persaingan pasar Indonesia.
                     </p>
                 </div>
@@ -79,8 +79,8 @@
 
     <div class="container py-lg-5 position-relative z-1">
         <div class="text-center mb-5 animate__animated animate__fadeIn">
-            <h5 class="text-danger fw-bold text-uppercase mb-2" style="letter-spacing: 2px; font-size: 0.85rem;">FILOSOFI KAMI</h5>
-            <h2 class="fw-bold display-6 text-dark">Visi & Misi</h2>
+            <h5 class="text-danger fw-bold text-uppercase mb-2" style="letter-spacing: 2px; font-size: 0.85rem;" data-i18n="tentang.vision.eyebrow">FILOSOFI KAMI</h5>
+            <h2 class="fw-bold display-6 text-dark" data-i18n="tentang.vision.title">Visi & Misi</h2>
         </div>
 
         <div class="row g-5 align-items-stretch">
@@ -91,9 +91,9 @@
                         <div class="icon-wrap bg-danger-subtle text-danger rounded-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
                             <i class="fas fa-eye fa-lg"></i>
                         </div>
-                        <h4 class="fw-bold mb-0 text-dark" style="font-size: 1.4rem; letter-spacing: 0.5px;">Visi Kami</h4>
+                        <h4 class="fw-bold mb-0 text-dark" style="font-size: 1.4rem; letter-spacing: 0.5px;" data-i18n="tentang.vision.box_title">Visi Kami</h4>
                     </div>
-                    <p class="fs-5 text-muted mb-0" style="line-height: 1.8; text-align: justify; font-weight: 300;">
+                    <p class="fs-5 text-muted mb-0" style="line-height: 1.8; text-align: justify; font-weight: 300;" data-i18n="tentang.vision.text">
                         "Menjadi mitra terpercaya bagi pebisnis dalam membangun dan mengembangkan bisnis yang <span class="text-danger fw-bold">efisien</span>, <span class="text-danger fw-bold">patuh regulasi</span>, dan dikelola secara <span class="text-danger fw-bold">profesional</span> di Indonesia."
                     </p>
                 </div>
@@ -106,7 +106,7 @@
                         <div class="icon-wrap bg-danger-subtle text-danger rounded-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
                             <i class="fas fa-bullseye fa-lg"></i>
                         </div>
-                        <h4 class="fw-bold mb-0 text-dark" style="font-size: 1.4rem; letter-spacing: 0.5px;">Misi Kami</h4>
+                        <h4 class="fw-bold mb-0 text-dark" style="font-size: 1.4rem; letter-spacing: 0.5px;" data-i18n="tentang.mission.box_title">Misi Kami</h4>
                     </div>
                     <ul class="list-unstyled mb-0 d-flex flex-column gap-4">
                         <li class="d-flex align-items-start gap-3">
@@ -114,8 +114,8 @@
                                 <i class="fas fa-check fa-xs"></i>
                             </div>
                             <div>
-                                <h5 class="fw-bold mb-1 text-dark" style="font-size: 1.1rem;">Solusi Terintegrasi</h5>
-                                <p class="text-muted mb-0" style="line-height: 1.6; text-align: justify; font-size: 0.95rem;">Menyediakan solusi terintegrasi dalam pendirian usaha, legalitas, akuntansi, dan perpajakan secara praktis dan efisien.</p>
+                                <h5 class="fw-bold mb-1 text-dark" style="font-size: 1.1rem;" data-i18n="tentang.mission.item1_title">Solusi Terintegrasi</h5>
+                                <p class="text-muted mb-0" style="line-height: 1.6; text-align: justify; font-size: 0.95rem;" data-i18n="tentang.mission.item1_desc">Menyediakan solusi terintegrasi dalam pendirian usaha, legalitas, akuntansi, dan perpajakan secara praktis dan efisien.</p>
                             </div>
                         </li>
                         <li class="d-flex align-items-start gap-3">
@@ -123,8 +123,8 @@
                                 <i class="fas fa-check fa-xs"></i>
                             </div>
                             <div>
-                                <h5 class="fw-bold mb-1 text-dark" style="font-size: 1.1rem;">Dukungan Pertumbuhan</h5>
-                                <p class="text-muted mb-0" style="line-height: 1.6; text-align: justify; font-size: 0.95rem;">Mendukung pertumbuhan bisnis klien melalui layanan yang akurat, tepat waktu, dan berorientasi pada hasil yang nyata.</p>
+                                <h5 class="fw-bold mb-1 text-dark" style="font-size: 1.1rem;" data-i18n="tentang.mission.item2_title">Dukungan Pertumbuhan</h5>
+                                <p class="text-muted mb-0" style="line-height: 1.6; text-align: justify; font-size: 0.95rem;" data-i18n="tentang.mission.item2_desc">Mendukung pertumbuhan bisnis klien melalui layanan yang akurat, tepat waktu, dan berorientasi pada hasil yang nyata.</p>
                             </div>
                         </li>
                         <li class="d-flex align-items-start gap-3">
@@ -132,8 +132,8 @@
                                 <i class="fas fa-check fa-xs"></i>
                             </div>
                             <div>
-                                <h5 class="fw-bold mb-1 text-dark" style="font-size: 1.1rem;">Layanan Profesional</h5>
-                                <p class="text-muted mb-0" style="line-height: 1.6; text-align: justify; font-size: 0.95rem;">Memberikan layanan profesional melalui tim yang kompeten, berpengalaman, dan menjunjung tinggi integritas dalam setiap prosesnya.</p>
+                                <h5 class="fw-bold mb-1 text-dark" style="font-size: 1.1rem;" data-i18n="tentang.mission.item3_title">Layanan Profesional</h5>
+                                <p class="text-muted mb-0" style="line-height: 1.6; text-align: justify; font-size: 0.95rem;" data-i18n="tentang.mission.item3_desc">Memberikan layanan profesional melalui tim yang kompeten, berpengalaman, dan menjunjung tinggi integritas dalam setiap prosesnya.</p>
                             </div>
                         </li>
                     </ul>
@@ -149,8 +149,8 @@
         <div class="row g-5">
             <div class="col-lg-5 animate__animated animate__fadeInLeft">
                 <div class="section-title mb-5">
-                    <h5 class="text-danger fw-bold text-uppercase mb-2" style="letter-spacing: 2px;">Hubungi Kami</h5>
-                    <h2 class="fw-bold display-6">Siap Melayani Kebutuhan Bisnis Anda</h2>
+                    <h5 class="text-danger fw-bold text-uppercase mb-2" style="letter-spacing: 2px;" data-i18n="tentang.contact.eyebrow">Hubungi Kami</h5>
+                    <h2 class="fw-bold display-6" data-i18n="tentang.contact.title">Siap Melayani Kebutuhan Bisnis Anda</h2>
                 </div>
 
                 <div class="contact-info-wrap">
@@ -159,8 +159,8 @@
                             <i class="fas fa-map-marker-alt fa-fw"></i>
                         </div>
                         <div>
-                            <h6 class="fw-bold mb-1">Alamat Kantor</h6>
-                            <p class="text-muted mb-0">World Capital Tower Lt. 38 no 6-7, Mega Kuningan, Jakarta Selatan, Jakarta - Indonesia</p>
+                            <h6 class="fw-bold mb-1" data-i18n="tentang.contact.address_lbl">Alamat Kantor</h6>
+                            <p class="text-muted mb-0" data-i18n="tentang.contact.address_val">World Capital Tower Lt. 38 no 6-7, Mega Kuningan, Jakarta Selatan, Jakarta - Indonesia</p>
                         </div>
                     </div>
 
@@ -169,7 +169,7 @@
                             <i class="fab fa-whatsapp fa-fw"></i>
                         </div>
                         <div>
-                            <h6 class="fw-bold mb-1">WhatsApp</h6>
+                            <h6 class="fw-bold mb-1" data-i18n="tentang.contact.wa_lbl">WhatsApp</h6>
                             <a href="https://wa.me/6281112088600" target="_blank" class="text-muted text-decoration-none">+62 811 1208 8600</a>
                         </div>
                     </div>
@@ -179,7 +179,7 @@
                             <i class="fas fa-envelope fa-fw"></i>
                         </div>
                         <div>
-                            <h6 class="fw-bold mb-1">Email</h6>
+                            <h6 class="fw-bold mb-1" data-i18n="tentang.contact.email_lbl">Email</h6>
                             <a href="mailto:informasi@lawgika.co.id" class="text-muted text-decoration-none">informasi@lawgika.co.id</a>
                         </div>
                     </div>
@@ -189,13 +189,13 @@
                             <i class="fas fa-phone fa-fw"></i>
                         </div>
                         <div>
-                            <h6 class="fw-bold mb-1">Telepon</h6>
+                            <h6 class="fw-bold mb-1" data-i18n="tentang.contact.phone_lbl">Telepon</h6>
                             <p class="text-muted mb-0">021-3970-6065</p>
                         </div>
                     </div>
 
                     <div class="social-links mt-5">
-                        <h6 class="fw-bold mb-3 text-uppercase small" style="letter-spacing: 1px;">Ikuti Kami</h6>
+                        <h6 class="fw-bold mb-3 text-uppercase small" style="letter-spacing: 1px;" data-i18n="tentang.contact.follow">Ikuti Kami</h6>
                         <div class="d-flex gap-3">
                             <a href="https://www.instagram.com/lawgika.co.id" target="_blank" class="btn btn-outline-danger rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;"><i class="fab fa-instagram"></i></a>
                             <a href="https://id.linkedin.com/company/lawgika-associates-law-firm" target="_blank" class="btn btn-outline-danger rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;"><i class="fab fa-linkedin-in"></i></a>
@@ -253,17 +253,17 @@
         <div class="row align-items-center g-5">
             <!-- Left Side: Content -->
             <div class="col-lg-7 text-start">
-                <span class="cta-badge">KONSULTASI BISNIS & LEGALITAS</span>
-                <h2 class="cta-headline display-6">Wujudkan Bisnis yang Legal, Profesional, dan Siap Berkembang</h2>
-                <p class="cta-description">Lawgika siap mendampingi kebutuhan legalitas, perizinan, perpajakan, hingga pengembangan bisnis Anda melalui layanan yang terintegrasi dan profesional.</p>
+                <span class="cta-badge" data-i18n="tentang.cta.badge">KONSULTASI BISNIS & LEGALITAS</span>
+                <h2 class="cta-headline display-6" data-i18n="tentang.cta.title">Wujudkan Bisnis yang Legal, Profesional, dan Siap Berkembang</h2>
+                <p class="cta-description" data-i18n="tentang.cta.desc">Lawgika siap mendampingi kebutuhan legalitas, perizinan, perpajakan, hingga pengembangan bisnis Anda melalui layanan yang terintegrasi dan profesional.</p>
                 <div class="d-flex flex-wrap gap-3">
                     <a href="https://wa.me/6281112088600" target="_blank" class="cta-btn-primary">
                         <i class="fab fa-whatsapp fs-5"></i>
-                        <span>Konsultasi Gratis</span>
+                        <span data-i18n="tentang.cta.primary">Konsultasi Gratis</span>
                     </a>
                     <a href="{{ asset('Company Profile.pdf') }}" download class="cta-btn-secondary">
                         <i class="fas fa-file-download"></i>
-                        <span>Unduh Company Profile</span>
+                        <span data-i18n="tentang.cta.secondary">Unduh Company Profile</span>
                     </a>
                 </div>
             </div>
@@ -271,31 +271,31 @@
             <!-- Right Side: Trust points / stats -->
             <div class="col-lg-5">
                 <div class="cta-trust-card">
-                    <h4 class="cta-trust-title">Kemitraan Terpercaya</h4>
+                    <h4 class="cta-trust-title" data-i18n="tentang.cta.trust_title">Kemitraan Terpercaya</h4>
                     <ul class="cta-trust-list">
                         <li class="cta-trust-item">
                             <div class="cta-trust-icon-wrap">
                                 <i class="fas fa-check"></i>
                             </div>
-                            <span>Tim Profesional & Berlisensi</span>
+                            <span data-i18n="tentang.cta.trust1">Tim Profesional & Berlisensi</span>
                         </li>
                         <li class="cta-trust-item">
                             <div class="cta-trust-icon-wrap">
                                 <i class="fas fa-check"></i>
                             </div>
-                            <span>Layanan Terintegrasi Satu Atap</span>
+                            <span data-i18n="tentang.cta.trust2">Layanan Terintegrasi Satu Atap</span>
                         </li>
                         <li class="cta-trust-item">
                             <div class="cta-trust-icon-wrap">
                                 <i class="fas fa-check"></i>
                             </div>
-                            <span>Pendampingan Hukum Berpengalaman</span>
+                            <span data-i18n="tentang.cta.trust3">Pendampingan Hukum Berpengalaman</span>
                         </li>
                         <li class="cta-trust-item">
                             <div class="cta-trust-icon-wrap">
                                 <i class="fas fa-check"></i>
                             </div>
-                            <span>Respon Cepat, Akurat & Konsultatif</span>
+                            <span data-i18n="tentang.cta.trust4">Respon Cepat, Akurat & Konsultatif</span>
                         </li>
                     </ul>
                 </div>

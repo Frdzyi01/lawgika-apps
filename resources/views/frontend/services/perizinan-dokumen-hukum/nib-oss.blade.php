@@ -412,7 +412,7 @@
             <ol class="breadcrumb mb-0">
                 <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-maroon text-decoration-none small">Home</a></li>
                 <li class="breadcrumb-item"><a href="#" class="text-maroon text-decoration-none small">Layanan</a></li>
-                <li class="breadcrumb-item active small" aria-current="page">NIB & OSS</li>
+                <li class="breadcrumb-item active small" aria-current="page" data-i18n="nib.breadcrumb">NIB & OSS</li>
             </ol>
         </nav>
     </div>
@@ -422,17 +422,17 @@
 <section class="hero-agency">
     <div class="container">
         <div class="hero-content fade-up">
-            <span class="section-label" style="color: rgba(255,255,255,0.7)">Perizinan & Dokumen Hukum</span>
-            <h1 class="hero-title">Solusi Perizinan Usaha Tanpa Ribet</h1>
-            <p class="hero-subtitle">
+            <span class="section-label" style="color: rgba(255,255,255,0.7)" data-i18n="nib.hero.label">Perizinan & Dokumen Hukum</span>
+            <h1 class="hero-title" data-i18n="nib.hero.title">Solusi Perizinan Usaha Tanpa Ribet</h1>
+            <p class="hero-subtitle" data-i18n="nib.hero.desc">
                 Menyediakan layanan pengurusan, pendaftaran, serta perubahan data NIB dan OSS untuk membantu memastikan legalitas usaha Anda terdaftar dan terkelola dengan benar.
             </p>
             <div class="d-flex flex-wrap gap-3 mt-4">
                 <a href="https://wa.me/6281112088600" class="btn-white" target="_blank" rel="noopener noreferrer">
-                    <i class="fa-brands fa-whatsapp"></i> Konsultasi Gratis
+                    <i class="fa-brands fa-whatsapp"></i> <span data-i18n="tentang.cta.primary">Konsultasi Gratis</span>
                 </a>
                 <a href="#nib-details" class="btn-outline-white">
-                    <i class="fa-solid fa-circle-info"></i> Pelajari Selengkapnya
+                    <i class="fa-solid fa-circle-info"></i> <span data-i18n="hukum.hero.btn_info">Pelajari Selengkapnya</span>
                 </a>
             </div>
         </div>
@@ -447,8 +447,8 @@
                 <div class="trust-item">
                     <div class="trust-icon"><i class="bi bi-lightning-charge"></i></div>
                     <div>
-                        <h6 class="mb-0 fw-bold">Proses Cepat</h6>
-                        <small class="text-muted">Izin terbit kilat</small>
+                        <h6 class="mb-0 fw-bold" data-i18n="nib.trust.item1_title">Proses Cepat</h6>
+                        <small class="text-muted" data-i18n="nib.trust.item1_desc">Izin terbit kilat</small>
                     </div>
                 </div>
             </div>
@@ -456,8 +456,8 @@
                 <div class="trust-item">
                     <div class="trust-icon"><i class="bi bi-shield-check"></i></div>
                     <div>
-                        <h6 class="mb-0 fw-bold">Legal & Terpercaya</h6>
-                        <small class="text-muted">Aman & Terjamin</small>
+                        <h6 class="mb-0 fw-bold" data-i18n="nib.trust.item2_title">Legal & Terpercaya</h6>
+                        <small class="text-muted" data-i18n="nib.trust.item2_desc">Aman & Terjamin</small>
                     </div>
                 </div>
             </div>
@@ -465,8 +465,8 @@
                 <div class="trust-item">
                     <div class="trust-icon"><i class="bi bi-headset"></i></div>
                     <div>
-                        <h6 class="mb-0 fw-bold">Konsultasi Mudah</h6>
-                        <small class="text-muted">Dukungan ahli</small>
+                        <h6 class="mb-0 fw-bold" data-i18n="nib.trust.item3_title">Konsultasi Mudah</h6>
+                        <small class="text-muted" data-i18n="nib.trust.item3_desc">Dukungan ahli</small>
                     </div>
                 </div>
             </div>
@@ -486,15 +486,15 @@
             </div>
             <div class="col-lg-6">
                 <div class="zigzag-text">
-                    <span class="section-label">01. Service Fokus</span>
-                    <h2 class="display-5 fw-bold mb-3">Pengurusan NIB (Nomor Induk Berusaha)</h2>
-                    <p class="text-muted mb-4 lead">
+                    <span class="section-label" data-i18n="nib.section1.label">01. Service Fokus</span>
+                    <h2 class="display-5 fw-bold mb-3" data-i18n="nib.section1.title">Pengurusan NIB (Nomor Induk Berusaha)</h2>
+                    <p class="text-muted mb-4 lead" data-i18n="nib.section1.desc">
                         NIB adalah identitas pelaku usaha yang diterbitkan oleh Lembaga OSS. Kami membantu Anda mendapatkan NIB dengan KBLI yang tepat agar bisnis Anda memiliki dasar hukum yang kuat sejak awal.
                     </p>
                     <ul class="list-unstyled mb-4">
-                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> Pendaftaran NIB Akurat</li>
-                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> Pemilhan KBLI yang Relevan</li>
-                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> Validasi Dokumen Pendukung</li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> <span data-i18n="nib.section1.list1">Pendaftaran NIB Akurat</span></li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> <span data-i18n="nib.section1.list2">Pemilhan KBLI yang Relevan</span></li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> <span data-i18n="nib.section1.list3">Validasi Dokumen Pendukung</span></li>
                     </ul>
                 </div>
             </div>
@@ -509,15 +509,15 @@
             </div>
             <div class="col-lg-6">
                 <div class="zigzag-text">
-                    <span class="section-label">02. Digital Access</span>
-                    <h2 class="display-5 fw-bold mb-3">Integrasi Sistem OSS RBA</h2>
-                    <p class="text-muted mb-4 lead">
+                    <span class="section-label" data-i18n="nib.section2.label">02. Digital Access</span>
+                    <h2 class="display-5 fw-bold mb-3" data-i18n="nib.section2.title">Integrasi Sistem OSS RBA</h2>
+                    <p class="text-muted mb-4 lead" data-i18n="nib.section2.desc">
                         Era baru perizinan berbasis risiko (RBA) menuntut pemahaman sistem yang mendalam. Kami memastikan pendaftaran OSS Anda berjalan mulus tanpa kendala teknis maupun administratif.
                     </p>
                     <ul class="list-unstyled mb-4">
-                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> Pendaftaran Akun OSS</li>
-                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> Penentuan Level Risiko Usaha</li>
-                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> Pengurusan Sertifikat Standar</li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> <span data-i18n="nib.section2.list1">Pendaftaran Akun OSS</span></li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> <span data-i18n="nib.section2.list2">Penentuan Level Risiko Usaha</span></li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> <span data-i18n="nib.section2.list3">Pengurusan Sertifikat Standar</span></li>
                     </ul>
                 </div>
             </div>
@@ -529,8 +529,8 @@
 <section class="section-padding bg-white border-top">
     <div class="container">
         <div class="text-center mb-5">
-            <span class="section-label">Workflow</span>
-            <h2 class="fw-bold display-5">Proses Pengurusan Kami</h2>
+            <span class="section-label" data-i18n="kerjasama.process.badge">Workflow</span>
+            <h2 class="fw-bold display-5" data-i18n="nib.process.title">Proses Pengurusan Kami</h2>
         </div>
         <div class="timeline-container">
             <div class="timeline-line"></div>
@@ -538,22 +538,22 @@
                 <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
                     <div class="timeline-item">
                         <div class="timeline-circle">1</div>
-                        <h5 class="fw-bold">Konsultasi</h5>
-                        <p class="text-muted small px-lg-4">Analisis kebutuhan dan dokumen pendukung usaha Anda.</p>
+                        <h5 class="fw-bold" data-i18n="nib.process.step1_title">Konsultasi</h5>
+                        <p class="text-muted small px-lg-4" data-i18n="nib.process.step1_desc">Analisis kebutuhan dan dokumen pendukung usaha Anda.</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
                     <div class="timeline-item">
                         <div class="timeline-circle">2</div>
-                        <h5 class="fw-bold">Pengurusan Data</h5>
-                        <p class="text-muted small px-lg-4">Input data ke sistem OSS RBA secara profesional.</p>
+                        <h5 class="fw-bold" data-i18n="nib.process.step2_title">Pengurusan Data</h5>
+                        <p class="text-muted small px-lg-4" data-i18n="nib.process.step2_desc">Input data ke sistem OSS RBA secara profesional.</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="timeline-item">
                         <div class="timeline-circle">3</div>
-                        <h5 class="fw-bold">Legalitas Terbit</h5>
-                        <p class="text-muted small px-lg-4">Penyelesaian akhir dan penyerahan NIB & Sertifikat OSS.</p>
+                        <h5 class="fw-bold" data-i18n="nib.process.step3_title">Legalitas Terbit</h5>
+                        <p class="text-muted small px-lg-4" data-i18n="nib.process.step3_desc">Penyelesaian akhir dan penyerahan NIB & Sertifikat OSS.</p>
                     </div>
                 </div>
             </div>
@@ -574,69 +574,69 @@
 <section class="pt-faq">
     <div class="container">
         <div class="section-title text-center mb-5">
-            <span class="subtitle">Bantuan Sentral</span>
-            <h2>FAQ terkait NIB & OSS</h2>
-            <p>Pertanyaan yang paling sering diajukan seputar pengurusan NIB dan OSS</p>
+            <span class="subtitle" data-i18n="vo.faq.badge">Bantuan Sentral</span>
+            <h2 data-i18n="nib.faq.title">FAQ terkait NIB & OSS</h2>
+            <p data-i18n="nib.faq.desc">Pertanyaan yang paling sering diajukan seputar pengurusan NIB dan OSS</p>
         </div>
         <div class="row">
             <div class="col-lg-8 mx-auto">
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Apa itu NIB dan OSS?
+                        <span data-i18n="nib.faq.q1">Apa itu NIB dan OSS?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="nib.faq.a1">
                         NIB (Nomor Induk Berusaha) adalah identitas resmi pelaku usaha yang diterbitkan melalui sistem OSS (Online Single Submission). OSS sendiri merupakan sistem perizinan usaha terintegrasi secara online yang dikelola oleh pemerintah untuk mempermudah proses legalitas bisnis di Indonesia.
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Apakah semua usaha wajib memiliki NIB?
+                        <span data-i18n="nib.faq.q2">Apakah semua usaha wajib memiliki NIB?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="nib.faq.a2">
                         Ya, hampir semua jenis usaha di Indonesia diwajibkan memiliki NIB, baik usaha perorangan maupun badan usaha. NIB berfungsi sebagai identitas usaha sekaligus sebagai izin dasar untuk menjalankan kegiatan bisnis secara legal.
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Berapa lama proses pembuatan NIB & OSS?
+                        <span data-i18n="nib.faq.q3">Berapa lama proses pembuatan NIB & OSS?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="nib.faq.a3">
                         Proses pembuatan NIB dapat selesai dalam 1 hari jika semua data dan dokumen sudah lengkap. Namun, untuk perizinan tambahan melalui OSS, waktu dapat bervariasi tergantung jenis usaha dan tingkat risikonya.
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Apa saja data yang dibutuhkan untuk membuat NIB?
+                        <span data-i18n="nib.faq.q4">Apa saja data yang dibutuhkan untuk membuat NIB?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="nib.faq.a4">
                         Beberapa data yang dibutuhkan antara lain: KTP & NPWP pemilik usaha, alamat usaha, bidang usaha (KBLI), email aktif, serta data perusahaan jika berbentuk badan usaha. Tim kami akan membantu memastikan semua data sesuai dengan sistem OSS.
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Apakah bisa mengubah data NIB yang sudah terdaftar?
+                        <span data-i18n="nib.faq.q5">Apakah bisa mengubah data NIB yang sudah terdaftar?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="nib.faq.a5">
                         Ya, perubahan data seperti alamat usaha, bidang usaha (KBLI), atau informasi lainnya dapat dilakukan melalui sistem OSS. Kami menyediakan layanan pembaruan data agar tetap sesuai dengan kondisi usaha Anda saat ini.
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Apakah layanan ini termasuk konsultasi?
+                        <span data-i18n="nib.faq.q6">Apakah layanan ini termasuk konsultasi?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="nib.faq.a6">
                         Tentu. Kami menyediakan konsultasi gratis untuk membantu Anda memahami proses NIB & OSS, serta menentukan kebutuhan legalitas usaha yang paling sesuai dengan bisnis Anda.
                     </div>
                 </div>

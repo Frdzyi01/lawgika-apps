@@ -11,19 +11,25 @@
             <div class="card shadow-sm border-0">
                 <div class="card-body p-5 text-center">
                     <h2 class="fw-bold mb-3">{{ $service->name }}</h2>
-                    <p class="text-muted mb-4">{{ $service->description ?? 'Layanan profesional kami siap membantu kebutuhan bisnis Anda.' }}</p>
+                    <p class="text-muted mb-4">
+                        @if($service->description)
+                            {{ $service->description }}
+                        @else
+                            <span data-i18n="service_show.fallback_desc">Layanan profesional kami siap membantu kebutuhan bisnis Anda.</span>
+                        @endif
+                    </p>
                     
                     @if($service->price)
                         <h4 class="text-primary mb-4">Rp {{ number_format($service->price, 0, ',', '.') }}</h4>
                     @endif
 
                     <!-- Tombol Pemicu -->
-                    <button type="button" @click="$dispatch('open-order-modal', { id: {{ $service->id }}, name: '{{ $service->name }}' })" class="btn btn-primary btn-lg px-5">
+                    <button type="button" @click="$dispatch('open-order-modal', { id: {{ $service->id }}, name: '{{ $service->name }}' })" class="btn btn-primary btn-lg px-5" data-i18n="service_show.order_now">
                         Pesan Sekarang
                     </button>
                     
                     <div class="mt-4">
-                        <a href="{{ url('/') }}" class="text-decoration-none">Kembali ke Beranda</a>
+                        <a href="{{ url('/') }}" class="text-decoration-none" data-i18n="service_show.back_home">Kembali ke Beranda</a>
                     </div>
                 </div>
             </div>
@@ -46,12 +52,12 @@
             <!-- Jika Belum Login -->
             <template x-if="!isAuth">
                 <div class="modal-body text-center p-5">
-                    <h5 class="mb-4">Silakan login atau register untuk melanjutkan pemesanan.</h5>
+                    <h5 class="mb-4" data-i18n="service_show.login_required">Silakan login atau register untuk melanjutkan pemesanan.</h5>
                     <div class="d-flex justify-content-center gap-3">
-                        <a href="javascript:void(0)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Login</a>
-                        <a href="{{ route('register') }}" class="btn btn-outline-primary">Register</a>
+                        <a href="javascript:void(0)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-i18n="service_show.login">Login</a>
+                        <a href="{{ route('register') }}" class="btn btn-outline-primary" data-i18n="service_show.register">Register</a>
                     </div>
-                    <button type="button" @click="isOpen = false" class="btn btn-link mt-3 text-muted text-decoration-none">Tutup</button>
+                    <button type="button" @click="isOpen = false" class="btn btn-link mt-3 text-muted text-decoration-none" data-i18n="service_show.close">Tutup</button>
                 </div>
             </template>
 
@@ -65,7 +71,7 @@
                     
                     <div class="modal-body">
                         <!-- Loading indicator per-field fetch -->
-                        <div x-show="isFetchingFields" class="text-muted small mb-3">Memuat formulir dinamis...</div>
+                        <div x-show="isFetchingFields" class="text-muted small mb-3" data-i18n="service_show.loading_form">Memuat formulir dinamis...</div>
 
                         <template x-for="(field, index) in configFields" :key="index">
                             <div class="mb-3">
@@ -75,15 +81,15 @@
                         </template>
 
                         <div class="mb-3">
-                            <label class="form-label fw-bold small">Catatan Tambahan (Opsional)</label>
+                            <label class="form-label fw-bold small" data-i18n="service_show.notes_lbl">Catatan Tambahan (Opsional)</label>
                             <textarea x-model="notes" rows="2" class="form-control"></textarea>
                         </div>
                     </div>
 
                     <div class="modal-footer border-0 pt-0">
-                        <button type="button" @click="isOpen = false" class="btn btn-light">Batal</button>
+                        <button type="button" @click="isOpen = false" class="btn btn-light" data-i18n="service_show.cancel">Batal</button>
                         <button type="submit" :disabled="isLoading || configFields.length === 0" class="btn btn-primary">
-                            <span x-text="isLoading ? 'Memproses...' : 'Kirim Pesanan'"></span>
+                            <span x-text="isLoading ? (window.LwI18n ? window.LwI18n.t('service_show.processing') : 'Memproses...') : (window.LwI18n ? window.LwI18n.t('service_show.submit') : 'Kirim Pesanan')"></span>
                         </button>
                     </div>
                 </form>
@@ -95,9 +101,9 @@
                     <div class="text-success mb-3">
                         <ion-icon name="checkmark-circle" style="font-size: 64px;"></ion-icon>
                     </div>
-                    <h4 class="fw-bold mb-2">Pesanan Berhasil</h4>
-                    <p class="text-muted mb-4">Pesanan Anda telah kami terima dan akan segera diproses oleh Admin.</p>
-                    <a href="{{ route('customer.orders.index') }}" class="btn btn-primary px-4">Lihat Pesanan Saya</a>
+                    <h4 class="fw-bold mb-2" data-i18n="service_show.success_title">Pesanan Berhasil</h4>
+                    <p class="text-muted mb-4" data-i18n="service_show.success_desc">Pesanan Anda telah kami terima dan akan segera diproses oleh Admin.</p>
+                    <a href="{{ route('customer.orders.index') }}" class="btn btn-primary px-4" data-i18n="service_show.view_orders">Lihat Pesanan Saya</a>
                 </div>
             </template>
         </div>
@@ -137,6 +143,7 @@ document.addEventListener('alpine:init', () => {
             if(this.isAuth && this.configFields.length === 0) {
                 this.loadFields();
             }
+            this.$nextTick(() => window.LwI18n && window.LwI18n.apply());
         },
 
         async loadFields() {
@@ -146,6 +153,7 @@ document.addEventListener('alpine:init', () => {
                 const data = await res.json();
                 this.configFields = data.fields;
                 this.configFields.forEach(f => this.formData[f.name] = '');
+                this.$nextTick(() => window.LwI18n && window.LwI18n.apply());
             } catch (err) {
                 console.error('Gagal memuat form');
             } finally {
@@ -175,6 +183,7 @@ document.addEventListener('alpine:init', () => {
                 if(res.ok) {
                     this.isSuccess = true;
                     this.formData = {}; this.notes = ''; // reset
+                    this.$nextTick(() => window.LwI18n && window.LwI18n.apply());
                 } else {
                     const err = await res.json();
                     alert(err.message || 'Gagal mengirim pesanan');

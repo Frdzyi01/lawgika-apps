@@ -112,8 +112,8 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);}
 <div class="order-container">
     <div class="order-header">
         <div style="font-size:2.8rem;margin-bottom:10px;">🎙️</div>
-        <h2>Reservasi Ruang Podcast</h2>
-        <p>Lengkapi form di bawah, upload bukti transfer, lalu klik Pesan.</p>
+        <h2 data-i18n="pr.reserv_title">Reservasi Ruang Podcast</h2>
+        <p data-i18n="pr.reserv_subtitle">Lengkapi form di bawah, upload bukti transfer, lalu klik Pesan.</p>
     </div>
 
     @if($errors->any())
@@ -128,22 +128,22 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);}
         @csrf
 
         <div class="form-group">
-            <label for="nama">Nama Lengkap <span class="text-danger">*</span></label>
+            <label for="nama"><span data-i18n="order.label_fullname">Nama Lengkap</span> <span class="text-danger">*</span></label>
             <input type="text" id="nama" name="nama" class="form-control" required
                 placeholder="Masukkan nama Anda"
                 value="{{ old('nama', auth()->user()->name ?? '') }}" readonly>
         </div>
 
         <div class="form-group">
-            <label for="podcast_title">Judul / Nama Podcast <span style="font-size:.8rem;color:var(--gray);">(opsional)</span></label>
+            <label for="podcast_title"><span data-i18n="pr.label_podcast_title">Judul / Nama Podcast</span> <span style="font-size:.8rem;color:var(--gray);" data-i18n="order.optional">(opsional)</span></label>
             <input type="text" id="podcast_title" name="podcast_title" class="form-control"
-                placeholder="Misal: The Business Talk" value="{{ old('podcast_title') }}">
+                placeholder="Misal: The Business Talk" data-i18n-placeholder="pr.placeholder_podcast_title" value="{{ old('podcast_title') }}">
         </div>
 
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="tanggal">Tanggal Penggunaan <span class="text-danger">*</span></label>
+                    <label for="tanggal"><span data-i18n="mr.label_use_date">Tanggal Penggunaan</span> <span class="text-danger">*</span></label>
                     <input type="date" id="tanggal" name="tanggal" class="form-control" required
                         min="{{ date('Y-m-d') }}"
                         value="{{ old('tanggal', $tanggal ?? '') }}"
@@ -152,7 +152,7 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);}
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="jam">Jam Mulai <span class="text-danger">*</span></label>
+                    <label for="jam"><span data-i18n="pr.label_start_time">Jam Mulai</span> <span class="text-danger">*</span></label>
                     <input type="time" id="jam" name="jam" class="form-control" required
                         value="{{ old('jam', $jam ?? '') }}"
                         onchange="updateSummary()">
@@ -163,7 +163,7 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);}
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label>Durasi (Jam) <span class="text-danger">*</span></label>
+                    <label><span data-i18n="pr.label_duration">Durasi (Jam)</span> <span class="text-danger">*</span></label>
                     <div class="durasi-stepper">
                         <button type="button" onclick="updateDurasi(-1)">−</button>
                         <input type="text" id="durasi_display" class="form-control"
@@ -171,70 +171,69 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);}
                         <button type="button" onclick="updateDurasi(1)">+</button>
                     </div>
                     <input type="hidden" id="durasi" name="durasi" value="{{ old('durasi', $durasi ?? 2) }}">
-                    <div style="font-size:.78rem;color:var(--gray);margin-top:5px;">Minimum 1 jam</div>
+                    <div style="font-size:.78rem;color:var(--gray);margin-top:5px;" data-i18n="pr.min_duration_hint">Minimum 1 jam</div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label>Jam Selesai</label>
+                    <label data-i18n="pr.label_end_time">Jam Selesai</label>
                     <input type="text" id="jam_selesai_display" class="form-control" readonly
-                        placeholder="Otomatis terhitung" style="background:#f8f5f6;color:var(--gray);">
+                        placeholder="Otomatis terhitung" data-i18n-placeholder="pr.placeholder_auto_calc" style="background:#f8f5f6;color:var(--gray);">
                 </div>
             </div>
         </div>
 
         {{-- ===== RINGKASAN BOOKING ===== --}}
         <div class="booking-summary" id="bookingSummary">
-            <h5><i class="fa-solid fa-receipt" style="color:var(--primary);"></i> Ringkasan Booking</h5>
+            <h5><i class="fa-solid fa-receipt" style="color:var(--primary);"></i> <span data-i18n="pr.summary_title">Ringkasan Booking</span></h5>
 
             <div class="summary-row">
-                <span class="label">📅 Tanggal</span>
+                <span class="label" data-i18n="pr.sum_date">📅 Tanggal</span>
                 <span class="value" id="sumTanggal">–</span>
             </div>
             <div class="summary-row">
-                <span class="label">⏰ Jam Mulai</span>
+                <span class="label" data-i18n="pr.sum_start_time">⏰ Jam Mulai</span>
                 <span class="value" id="sumJamMulai">–</span>
             </div>
             <div class="summary-row">
-                <span class="label">⏱️ Durasi</span>
+                <span class="label" data-i18n="pr.sum_duration">⏱️ Durasi</span>
                 <span class="value" id="sumDurasi">–</span>
             </div>
             <div class="summary-row">
-                <span class="label">🏁 Jam Selesai</span>
+                <span class="label" data-i18n="pr.sum_end_time">🏁 Jam Selesai</span>
                 <span class="value" id="sumJamSelesai">–</span>
             </div>
 
             <div class="summary-row" id="rowHargaDasar">
-                <span class="label">💰 Harga Paket (1–2 Jam)</span>
+                <span class="label" data-i18n="pr.sum_base_price">💰 Harga Paket (1–2 Jam)</span>
                 <span class="value" id="sumHargaDasar">–</span>
             </div>
             <div class="summary-row" id="rowTambahan" style="display:none;">
-                <span class="label">➕ Tambahan Jam</span>
+                <span class="label" data-i18n="pr.sum_add_hours">➕ Tambahan Jam</span>
                 <span class="value" id="sumTambahan">–</span>
             </div>
 
             <div class="summary-total">
-                <span class="label">💳 Total Pembayaran</span>
+                <span class="label" data-i18n="pr.sum_total">💳 Total Pembayaran</span>
                 <span class="value" id="sumTotal">Rp –</span>
             </div>
         </div>
 
         {{-- ===== PRICE NOTES ===== --}}
         <div class="price-note">
-            <p>📌 <strong>Aturan Harga:</strong> Durasi 2 jam pertama menggunakan harga paket <strong>Rp 800.000</strong>.
-                Setelah melewati 2 jam, dikenakan tambahan <strong>Rp 300.000 per jam</strong>.</p>
-            <p>⏰ <strong>Harap datang 15 menit sebelum jadwal dimulai</strong> untuk persiapan dan pengecekan peralatan.</p>
+            <p>📌 <strong data-i18n="pr.price_rules_title">Aturan Harga:</strong> <span data-i18n="pr.price_rules_desc_part1">Durasi 2 jam pertama menggunakan harga paket</span> <strong>Rp 800.000</strong>. <span data-i18n="pr.price_rules_desc_part2">Setelah melewati 2 jam, dikenakan tambahan</span> <strong>Rp 300.000 per jam</strong>.</p>
+            <p>⏰ <strong data-i18n="pr.prep_time_hint">Harap datang 15 menit sebelum jadwal dimulai</strong> <span data-i18n="pr.prep_time_hint_part2">untuk persiapan dan pengecekan peralatan.</span></p>
         </div>
 
         @if(isset($quota) && !now()->greaterThan($quota->expired_at) && $quota->remaining_seconds > 0)
             <div style="background:#fdf2f8; border:1px solid #fbcfe8; border-radius:10px; padding:20px; margin-bottom:20px;">
-                <h5 style="color:#be185d; font-weight:700; margin-bottom:10px;"><i class="fa-solid fa-gem"></i> Anda Memiliki Quota Ruangan!</h5>
-                <p style="margin-bottom:15px; color:#831843;">Sisa quota Anda: <strong>{{ $quota->formatted_remaining_time }}</strong>
+                <h5 style="color:#be185d; font-weight:700; margin-bottom:10px;"><i class="fa-solid fa-gem"></i> <span data-i18n="mr.has_quota_title">Anda Memiliki Quota Ruangan!</span></h5>
+                <p style="margin-bottom:15px; color:#831843;"><span data-i18n="mr.remaining_quota">Sisa quota Anda:</span> <strong>{{ $quota->formatted_remaining_time }}</strong>
                     (Berlaku hingga {{ \Carbon\Carbon::parse($quota->expired_at)->format('d M Y') }})</p>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" name="use_quota" id="use_quota" value="1" checked onchange="togglePaymentProof()">
                     <label class="form-check-label fw-bold text-dark" style="margin-bottom:0;" for="use_quota">
-                        Gunakan Quota untuk Reservasi ini (Bebas Biaya)
+                        <span data-i18n="mr.use_quota_label">Gunakan Quota untuk Reservasi ini (Bebas Biaya)</span>
                     </label>
                 </div>
             </div>
@@ -243,24 +242,23 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);}
         {{-- Benefit Choice (jika user punya active benefit dari paket PT) --}}
         @if(isset($activeBenefit) && $activeBenefit)
             <div id="benefitChoiceBox" style="background:#f0fdf4; border:1px solid #86efac; border-radius:10px; padding:20px; margin-bottom:20px;">
-                <h5 style="color:#15803d; font-weight:700; margin-bottom:8px;"><i class="fa-solid fa-gift"></i> Anda Memiliki Benefit Paket</h5>
+                <h5 style="color:#15803d; font-weight:700; margin-bottom:8px;"><i class="fa-solid fa-gift"></i> <span data-i18n="pr.benefit_box_title">Anda Memiliki Benefit Paket</span></h5>
                 <p style="color:#166534; margin-bottom:14px; font-size:.9rem;">
-                    Benefit: <strong>{{ $activeBenefit->paket }}</strong> — Sisa:
-                    <strong>{{ \App\Models\RoomBenefit::formatMinutes($activeBenefit->remaining_minutes) }}</strong>
-                    (Berlaku hingga {{ $activeBenefit->expired_at ? $activeBenefit->expired_at->format('d M Y') : 'Tanpa Expired' }})
+                    Benefit: <strong>{{ $activeBenefit->paket }}</strong> — <span data-i18n="pr.remaining">Sisa:</span> <strong>{{ \App\Models\RoomBenefit::formatMinutes($activeBenefit->remaining_minutes) }}</strong>
+                    (Berlaku hingga {{ $activeBenefit->expired_at ? $activeBenefit->expired_at->format('d M Y') : __('mr.no_expired') }})
                 </p>
                 <div style="display:flex; gap:10px; flex-wrap:wrap;">
                     <label style="cursor:pointer; padding:10px 18px; border:2px solid #16a34a; border-radius:8px; font-weight:600; font-size:.88rem; display:flex; align-items:center; gap:6px;">
                         <input type="radio" name="benefit_choice" value="use_benefit" id="useBenefitRadio"
                             {{ old('benefit_choice','use_benefit') === 'use_benefit' ? 'checked' : '' }}
                             onchange="onBenefitChoiceChange()" style="margin:0;">
-                        <span style="color:#15803d;">✅ Gunakan Benefit Gratis</span>
+                        <span style="color:#15803d;" data-i18n="pr.use_benefit_free">✅ Gunakan Benefit Gratis</span>
                     </label>
                     <label style="cursor:pointer; padding:10px 18px; border:2px solid #94a3b8; border-radius:8px; font-weight:600; font-size:.88rem; display:flex; align-items:center; gap:6px;">
                         <input type="radio" name="benefit_choice" value="pay_manual" id="payManualRadio"
                             {{ old('benefit_choice') === 'pay_manual' ? 'checked' : '' }}
                             onchange="onBenefitChoiceChange()" style="margin:0;">
-                        <span style="color:#374151;">💳 Bayar Mandiri (Upload Bukti Transfer)</span>
+                        <span style="color:#374151;" data-i18n="pr.pay_manual_label"> Bayar Mandiri (Upload Bukti Transfer)</span>
                     </label>
                 </div>
             </div>
@@ -270,24 +268,24 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);}
         {{-- Payment Info --}}
         <div id="payment-section">
             <div class="bank-box">
-                <h5><i class="fa-solid fa-building-columns me-1"></i> Instruksi Pembayaran (Transfer Bank)</h5>
-                <p style="font-size:.88rem;color:var(--gray);margin-bottom:12px;">Silakan lakukan pembayaran ke rekening berikut:</p>
+                <h5><i class="fa-solid fa-building-columns me-1"></i> <span data-i18n="order.payment_instruction_transfer">Instruksi Pembayaran (Transfer Bank)</span></h5>
+                <p style="font-size:.88rem;color:var(--gray);margin-bottom:12px;" data-i18n="order.transfer_instruction">Silakan lakukan pembayaran ke rekening berikut:</p>
                 <div class="bank-row"><span style="color:#64748b;">Bank</span><strong>BCA (Bank Central Asia)</strong></div>
                 <div class="bank-row"><span style="color:#64748b;">No. Rekening</span><strong style="letter-spacing:1px;font-size:1.05rem;">869 123 4567</strong></div>
                 <div class="bank-row last"><span style="color:#64748b;">Atas Nama</span><strong>PT Lawgika Associates</strong></div>
                 <div style="margin-top:14px;text-align:right;">
-                    <span style="color:var(--gray);font-size:.9rem;margin-right:8px;">Total Tagihan:</span>
+                    <span style="color:var(--gray);font-size:.9rem;margin-right:8px;" data-i18n="order.total_bill">Total Tagihan:</span>
                     <strong style="color:var(--primary);font-size:1.4rem;" id="totalDisplay">Rp –</strong>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="payment_proof_click">Upload Bukti Pembayaran <span class="text-danger">*</span></label>
+                <label for="payment_proof_click"><span data-i18n="order.upload_payment_proof">Upload Bukti Pembayaran</span> <span class="text-danger">*</span></label>
                 <div style="border:2px dashed #e2e8f0;border-radius:10px;padding:20px;text-align:center;cursor:pointer;"
                     onclick="document.getElementById('payment_proof').click()">
                     <i class="fa-solid fa-cloud-arrow-up" style="font-size:2rem;color:var(--primary);display:block;margin-bottom:8px;"></i>
-                    <p style="color:var(--gray);margin:0;font-size:.88rem;">Klik untuk upload bukti transfer</p>
-                    <p style="color:#94a3b8;margin:4px 0 0;font-size:.78rem;">JPG, PNG, JPEG — Maks. 2MB</p>
+                    <p style="color:var(--gray);margin:0;font-size:.88rem;" data-i18n="pr.upload_proof_click">Klik untuk upload bukti transfer</p>
+                    <p style="color:#94a3b8;margin:4px 0 0;font-size:.78rem;" data-i18n="order.upload_proof_hint_2mb">JPG, PNG, JPEG — Maks. 2MB</p>
                     <p id="fileName" style="color:var(--primary);font-weight:600;margin:8px 0 0;font-size:.88rem;display:none;"></p>
                 </div>
             </div>
@@ -296,15 +294,15 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);}
         </div>
 
         <div style="background:#fef9c3;border:1px solid #fde047;border-radius:10px;padding:13px;font-size:.88rem;color:#713f12;margin-bottom:18px;">
-            <strong>⚡ Info:</strong> Admin akan konfirmasi pembayaran Anda. Check In hanya bisa dilakukan setelah pembayaran <strong>disetujui</strong>.
+            <strong data-i18n="order.info_label">⚡ Info:</strong> <span data-i18n="mr.info_desc_part1">Setelah reservasi, admin akan mengkonfirmasi pembayaran Anda. Check In hanya bisa dilakukan setelah pembayaran</span> <strong><span data-i18n="mr.info_desc_part2">disetujui</span></strong>.
         </div>
 
         <button type="submit" class="btn-submit">
-            <i class="fa-solid fa-calendar-check me-1"></i> Pesan Ruang Podcast Sekarang
+            <i class="fa-solid fa-calendar-check me-1"></i> <span data-i18n="pr.submit_btn">Pesan Ruang Podcast Sekarang</span>
         </button>
         <div style="text-align:center;margin-top:14px;">
             <a href="{{ url('/sewa-ruang-podcast') }}" style="color:var(--gray);font-size:.88rem;text-decoration:none;">
-                <i class="fa-solid fa-arrow-left me-1"></i> Kembali ke Pilih Slot
+                <i class="fa-solid fa-arrow-left me-1"></i> <span data-i18n="pr.back_to_slots">Kembali ke Pilih Slot</span>
             </a>
         </div>
     </form>

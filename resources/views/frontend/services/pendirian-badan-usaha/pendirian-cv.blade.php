@@ -674,16 +674,16 @@
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="page-title-content">
-                    <span class="text-white bg-danger rounded-pill px-3 py-1 fw-medium mb-3 d-inline-block shadow-sm" style="font-size: 0.85rem">Lawgika | Pendirian CV</span>
-                    <h1 class="text-white fw-bold mb-3 display-4">Jasa Pendirian CV (Commanditaire Vennootschap)</h1>
-                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem">Solusi legalitas untuk firma dan usaha bersama. CV adalah badan usaha yang cocok untuk bisnis dengan modal bersama antara sekutu aktif dan sekutu pasif. Proses cepat, transparan, dan terpercaya.</p>
+                    <span class="text-white bg-danger rounded-pill px-3 py-1 fw-medium mb-3 d-inline-block shadow-sm" style="font-size: 0.85rem" data-i18n="cv.hero_badge">Lawgika | Pendirian CV</span>
+                    <h1 class="text-white fw-bold mb-3 display-4" data-i18n="cv.hero_title">Jasa Pendirian CV (Commanditaire Vennootschap)</h1>
+                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem" data-i18n="cv.hero_desc">Solusi legalitas untuk firma dan usaha bersama. CV adalah badan usaha yang cocok untuk bisnis dengan modal bersama antara sekutu aktif dan sekutu pasif. Proses cepat, transparan, dan terpercaya.</p>
                 </div>
             </div>
             <div class="col-lg-6 text-lg-end mt-4 mt-lg-0">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-lg-end justify-content-start mb-0">
-                        <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none">Beranda</a></li>
-                        <li class="breadcrumb-item active text-white-50" aria-current="page">Pendirian CV</li>
+                        <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none" data-i18n="nav.home">Beranda</a></li>
+                        <li class="breadcrumb-item active text-white-50" aria-current="page" data-i18n="cv.breadcrumb">Pendirian CV</li>
                     </ol>
                 </nav>
             </div>
@@ -696,14 +696,14 @@
     <div class="container">
         <div class="row align-items-center g-5 flex-row-reverse">
             <div class="col-lg-6">
-                <h2>Solusi Legalitas CV Untuk Bisnis Anda</h2>
-                <p>CV (Commanditaire Vennootschap) adalah badan usaha yang ideal untuk usaha dengan dua jenis sekutu: sekutu aktif (pengelola) dan sekutu pasif (pemberi modal). Kami membantu pendirian CV secara cepat dan sesuai regulasi.</p>
+                <h2 data-i18n="cv.sol_title">Solusi Legalitas CV Untuk Bisnis Anda</h2>
+                <p data-i18n="cv.sol_desc">CV (Commanditaire Vennootschap) adalah badan usaha yang ideal untuk usaha dengan dua jenis sekutu: sekutu aktif (pengelola) dan sekutu pasif (pemberi modal). Kami membantu pendirian CV secara cepat dan sesuai regulasi.</p>
                 <ul class="solution-list">
-                    <li><i class="fa-regular fa-circle-check"></i> Pendirian cepat dengan akta notaris</li>
-                    <li><i class="fa-regular fa-circle-check"></i> SK Kemenkumham resmi</li>
-                    <li><i class="fa-regular fa-circle-check"></i> Didampingi konsultan hukum berpengalaman</li>
+                    <li><i class="fa-regular fa-circle-check"></i> <span data-i18n="cv.sol_list1">Pendirian cepat dengan akta notaris</span></li>
+                    <li><i class="fa-regular fa-circle-check"></i> <span data-i18n="cv.sol_list2">SK Kemenkumham resmi</span></li>
+                    <li><i class="fa-regular fa-circle-check"></i> <span data-i18n="cv.sol_list3">Didampingi konsultan hukum berpengalaman</span></li>
                 </ul>
-                <a href="#pricing" class="btn-outline-brand">Lihat Pilihan Paket →</a>
+                <a href="#pricing" class="btn-outline-brand" data-i18n="ui.see_packages">Lihat Pilihan Paket →</a>
             </div>
             <div class="col-lg-6">
                 <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format" alt="Tim kerja sedang berdiskusi" class="img-fluid-rounded">
@@ -716,8 +716,8 @@
 <section class="why-us-section">
     <div class="container">
         <div class="section-header">
-            <h2>MENGAPA MEMILIH KAMI?</h2>
-            <p>Dapatkan berbagai keuntungan tambahan saat mendirikan perusahaan bersama kami</p>
+            <h2 data-i18n="cv.why_title">MENGAPA MEMILIH KAMI?</h2>
+            <p data-i18n="cv.why_desc">Dapatkan berbagai keuntungan tambahan saat mendirikan perusahaan bersama kami</p>
         </div>
         <div class="row g-4 justify-content-center">
             <div class="col-md-4">
@@ -725,8 +725,8 @@
                     <div class="why-us-icon">
                         <i class="fa-solid fa-building"></i>
                     </div>
-                    <h4>Legalitas Resmi</h4>
-                    <p>Akta pendirian dan SK Kemenkumham yang sah secara hukum.</p>
+                    <h4 data-i18n="cv.why_card1_title">Legalitas Resmi</h4>
+                    <p data-i18n="cv.why_card1_desc">Akta pendirian dan SK Kemenkumham yang sah secara hukum.</p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -734,8 +734,8 @@
                     <div class="why-us-icon">
                         <i class="fa-solid fa-handshake"></i>
                     </div>
-                    <h4>Pendampingan Profesional</h4>
-                    <p>Konsultasi gratis dan pendampingan hingga CV Anda berdiri.</p>
+                    <h4 data-i18n="cv.why_card2_title">Pendampingan Profesional</h4>
+                    <p data-i18n="cv.why_card2_desc">Konsultasi gratis dan pendampingan hingga CV Anda berdiri.</p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -743,8 +743,8 @@
                     <div class="why-us-icon">
                         <i class="fa-solid fa-chart-line"></i>
                     </div>
-                    <h4>Skalabilitas Bisnis</h4>
-                    <p>CV dapat naik kelas menjadi PT saat bisnis Anda berkembang.</p>
+                    <h4 data-i18n="cv.why_card3_title">Skalabilitas Bisnis</h4>
+                    <p data-i18n="cv.why_card3_desc">CV dapat naik kelas menjadi PT saat bisnis Anda berkembang.</p>
                 </div>
             </div>
         </div>
@@ -762,18 +762,18 @@
         <div class="process-timeline">
             <div class="process-step">
                 <div class="process-step-number">1</div>
-                <h5>Persiapan Dokumen</h5>
-                <p>Siapkan KTP, NPWP, dan kesepakatan antara sekutu aktif & pasif untuk mendirikan badan usaha CV.</p>
+                <h5 data-i18n="cv.step1_title">Persiapan Dokumen</h5>
+                <p data-i18n="cv.step1_desc">Siapkan KTP, NPWP, dan kesepakatan antara sekutu aktif & pasif untuk mendirikan badan usaha CV.</p>
             </div>
             <div class="process-step">
                 <div class="process-step-number">2</div>
-                <h5>Pembuatan Akta Notaris</h5>
-                <p>Pembuatan akta pendirian CV di hadapan notaris, dibantu oleh para tenaga ahli hukum berpengalaman kami.</p>
+                <h5 data-i18n="cv.step2_title">Pembuatan Akta Notaris</h5>
+                <p data-i18n="cv.step2_desc">Pembuatan akta pendirian CV di hadapan notaris, dibantu oleh para tenaga ahli hukum berpengalaman kami.</p>
             </div>
             <div class="process-step">
                 <div class="process-step-number">3</div>
-                <h5>Pengesahan Kemenkumham</h5>
-                <p>Pengesahan badan hukum di Kemenkumham dan penerbitan Surat Keputusan (SK), perizinan NIB, dan izin usaha terkait.</p>
+                <h5 data-i18n="cv.step3_title">Pengesahan Kemenkumham</h5>
+                <p data-i18n="cv.step3_desc">Pengesahan badan hukum di Kemenkumham dan penerbitan Surat Keputusan (SK), perizinan NIB, dan izin usaha terkait.</p>
             </div>
         </div>
     </div>
@@ -794,7 +794,7 @@
                         <div class="requirement-icon">
                             <i class="fa-solid fa-clipboard-list"></i>
                         </div>
-                        <h3>KELENGKAPAN DATA</h3>
+                        <h3 data-i18n="ui.req_data_title">KELENGKAPAN DATA</h3>
                     </div>
                     <ul class="requirement-list">
                         <li><i class="fa-solid fa-circle-check"></i> Nama CV (minimal 3 kata)</li>
@@ -814,7 +814,7 @@
                         <div class="requirement-icon">
                             <i class="fa-solid fa-file-pdf"></i>
                         </div>
-                        <h3>KELENGKAPAN DOKUMEN</h3>
+                        <h3 data-i18n="ui.req_doc_title">KELENGKAPAN DOKUMEN</h3>
                     </div>
                     <ul class="requirement-list">
                         <li><i class="fa-solid fa-circle-check"></i> Scan KTP sekutu aktif</li>
@@ -966,27 +966,27 @@
 <section class="pt-faq">
     <div class="container">
         <div class="section-title text-center mb-5">
-            <span class="subtitle">Bantuan Sentral</span>
-            <h2>FAQ terkait Pendirian CV</h2>
-            <p>Pertanyaan yang paling sering diajukan seputar legalitas & pengurusan perusahaan berbentuk CV.</p>
+            <span class="subtitle" data-i18n="ui.bantuan_sentral">Bantuan Sentral</span>
+            <h2 data-i18n="cv.faq_title">FAQ terkait Pendirian CV</h2>
+            <p data-i18n="cv.faq_desc">Pertanyaan yang paling sering diajukan seputar legalitas & pengurusan perusahaan berbentuk CV.</p>
         </div>
         <div class="row">
             <div class="col-lg-8 mx-auto">
                 <div class="faq-item">
-                    <div class="faq-question">Apa perbedaan antara CV dan PT? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">CV (Commanditaire Vennootschap) memiliki dua jenis sekutu: sekutu aktif yang mengelola perusahaan dan sekutu pasif yang hanya menanamkan modal. Sedangkan PT memiliki struktur pemegang saham dan direksi yang lebih formal. CV lebih cocok untuk usaha skala kecil-menengah dengan mitra kerja.</div>
+                    <div class="faq-question"><span data-i18n="cv.faq_q1">Apa perbedaan antara CV dan PT?</span> <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer"><span data-i18n="cv.faq_a1">CV (Commanditaire Vennootschap) memiliki dua jenis sekutu: sekutu aktif yang mengelola perusahaan dan sekutu pasif yang hanya menanamkan modal. Sedangkan PT memiliki struktur pemegang saham dan direksi yang lebih formal. CV lebih cocok untuk usaha skala kecil-menengah dengan mitra kerja.</span></div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">Berapa lama proses pendirian CV? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Dengan dokumen lengkap, proses pendirian CV memakan waktu sekitar 7-14 hari kerja, tergantung dari kecepatan pembuatan akta notaris dan pengesahan dari Kemenkumham.</div>
+                    <div class="faq-question"><span data-i18n="cv.faq_q2">Berapa lama proses pendirian CV?</span> <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer"><span data-i18n="cv.faq_a2">Dengan dokumen lengkap, proses pendirian CV memakan waktu sekitar 7-14 hari kerja, tergantung dari kecepatan pembuatan akta notaris dan pengesahan dari Kemenkumham.</span></div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">Apakah CV bisa memiliki lebih dari 2 sekutu? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Ya, CV dapat memiliki lebih dari 2 sekutu. Minimal terdapat 1 sekutu aktif dan 1 sekutu pasif. Semakin banyak sekutu, semakin besar potensi modal yang terkumpul.</div>
+                    <div class="faq-question"><span data-i18n="cv.faq_q3">Apakah CV bisa memiliki lebih dari 2 sekutu?</span> <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer"><span data-i18n="cv.faq_a3">Ya, CV dapat memiliki lebih dari 2 sekutu. Minimal terdapat 1 sekutu aktif dan 1 sekutu pasif. Semakin banyak sekutu, semakin besar potensi modal yang terkumpul.</span></div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">Apakah CV dikenakan pajak badan? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Ya, CV sebagai badan usaha wajib memiliki NPWP badan dan melaporkan SPT Tahunan Badan. Namun, perhitungan pajaknya berbeda dengan PT karena CV tidak memiliki pemisahan kekayaan yang seketat PT.</div>
+                    <div class="faq-question"><span data-i18n="cv.faq_q4">Apakah CV dikenakan pajak badan?</span> <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer"><span data-i18n="cv.faq_a4">Ya, CV sebagai badan usaha wajib memiliki NPWP badan dan melaporkan SPT Tahunan Badan. Namun, perhitungan pajaknya berbeda dengan PT karena CV tidak memiliki pemisahan kekayaan yang seketat PT.</span></div>
                 </div>
             </div>
         </div>

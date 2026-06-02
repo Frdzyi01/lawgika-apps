@@ -12,16 +12,16 @@
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="page-title-content">
-                    <span class="text-white bg-danger rounded-pill px-3 py-1 fw-medium mb-3 d-inline-block shadow-sm" style="font-size: 0.85rem">Lawgika Blog</span>
-                    <h1 class="text-white fw-bold mb-3 display-4">Explore Latest News</h1>
-                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem">Update terbaru seputar hukum, bisnis, dan perizinan langsung dari pakar Lawgika.</p>
+                    <span class="text-white bg-danger rounded-pill px-3 py-1 fw-medium mb-3 d-inline-block shadow-sm" style="font-size: 0.85rem" data-i18n="berita.hero_badge">Lawgika Blog</span>
+                    <h1 class="text-white fw-bold mb-3 display-4" data-i18n="berita.hero_title">Explore Latest News</h1>
+                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem" data-i18n="berita.hero_desc">Update terbaru seputar hukum, bisnis, dan perizinan langsung dari pakar Lawgika.</p>
                 </div>
             </div>
             <div class="col-lg-6 text-lg-end mt-4 mt-lg-0">
                  <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-lg-end justify-content-start mb-0">
-                        <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none">Beranda</a></li>
-                        <li class="breadcrumb-item active text-white-50" aria-current="page">Berita & Artikel</li>
+                        <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none" data-i18n="nav.home">Beranda</a></li>
+                        <li class="breadcrumb-item active text-white-50" aria-current="page" data-i18n="berita.breadcrumb">Berita & Artikel</li>
                     </ol>
                 </nav>
             </div>
@@ -81,7 +81,7 @@
             @empty
             <div class="col-12 py-5 text-center">
                 <i class="far fa-newspaper fa-4x text-muted mb-3"></i>
-                <h4 class="text-muted">Belum ada berita yang diterbitkan.</h4>
+                <h4 class="text-muted" data-i18n="berita.empty">Belum ada berita yang diterbitkan.</h4>
             </div>
             @endforelse
         </div>

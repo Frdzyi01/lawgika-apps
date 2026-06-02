@@ -186,9 +186,10 @@
     if (lang === currentLang && loadedLangs[lang]) return;
     currentLang = lang;
 
-    /* Simpan ke localStorage */
+    /* Simpan ke localStorage & Cookie */
     try {
       localStorage.setItem(STORAGE_KEY, lang);
+      document.cookie = "lw_language=" + lang + ";path=/;max-age=31536000";
     } catch (e) {}
 
     /* Tutup dropdown jika terbuka */
@@ -250,6 +251,9 @@
   /* ── Bootstrap: load bahasa aktif + fallback en & id, lalu apply ── */
   function init() {
     currentLang = getSavedLang();
+    try {
+      document.cookie = "lw_language=" + currentLang + ";path=/;max-age=31536000";
+    } catch (e) {}
 
     /* Pre-load default + bahasa aktif */
     var toLoad = [DEFAULT_LANG];

@@ -406,7 +406,7 @@
             <ol class="breadcrumb mb-0">
                 <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-maroon text-decoration-none small">Home</a></li>
                 <li class="breadcrumb-item"><a href="#" class="text-maroon text-decoration-none small">Layanan</a></li>
-                <li class="breadcrumb-item active small" aria-current="page">Surat Keterangan Tidak Pailit</li>
+                <li class="breadcrumb-item active small" aria-current="page" data-i18n="pailit.breadcrumb">Surat Keterangan Tidak Pailit</li>
             </ol>
         </nav>
     </div>
@@ -416,17 +416,17 @@
 <section class="hero-agency">
     <div class="container">
         <div class="hero-content fade-up">
-            <span class="section-label" style="color: rgba(255,255,255,0.7)">Dokumen Legalitas Perusahaan</span>
-            <h1 class="hero-title">Surat Keterangan Tidak Pailit Resmi & Terpercaya</h1>
-            <p class="hero-subtitle">
+            <span class="section-label" style="color: rgba(255,255,255,0.7)" data-i18n="pailit.hero.label">Dokumen Legalitas Perusahaan</span>
+            <h1 class="hero-title" data-i18n="pailit.hero.title">Surat Keterangan Tidak Pailit Resmi & Terpercaya</h1>
+            <p class="hero-subtitle" data-i18n="pailit.hero.desc">
                 Menyediakan layanan pengurusan Surat Keterangan Tidak Pailit untuk membantu memperoleh dokumen resmi yang menyatakan bahwa individu atau perusahaan tidak sedang dalam proses kepailitan.
             </p>
             <div class="d-flex flex-wrap gap-3 mt-4">
                 <a href="https://wa.me/6281112088600" class="btn-white" target="_blank" rel="noopener noreferrer">
-                    <i class="fa-brands fa-whatsapp"></i> Konsultasi Gratis
+                    <i class="fa-brands fa-whatsapp"></i> <span data-i18n="tentang.cta.primary">Konsultasi Gratis</span>
                 </a>
                 <a href="#sktp-details" class="btn-outline-white">
-                    <i class="fa-solid fa-circle-info"></i> Pelajari Selengkapnya
+                    <i class="fa-solid fa-circle-info"></i> <span data-i18n="hukum.hero.btn_info">Pelajari Selengkapnya</span>
                 </a>
             </div>
         </div>
@@ -441,8 +441,8 @@
                 <div class="trust-item">
                     <div class="trust-icon"><i class="bi bi-bank"></i></div>
                     <div>
-                        <h6 class="mb-0 fw-bold">Resmi Pengadilan</h6>
-                        <small class="text-muted">Diterbitkan PN Niaga</small>
+                        <h6 class="mb-0 fw-bold" data-i18n="pailit.trust.item1_title">Resmi Pengadilan</h6>
+                        <small class="text-muted" data-i18n="pailit.trust.item1_desc">Diterbitkan PN Niaga</small>
                     </div>
                 </div>
             </div>
@@ -450,8 +450,8 @@
                 <div class="trust-item">
                     <div class="trust-icon"><i class="bi bi-clock-history"></i></div>
                     <div>
-                        <h6 class="mb-0 fw-bold">Proses Cepat</h6>
-                        <small class="text-muted">Selesai 3-5 hari kerja</small>
+                        <h6 class="mb-0 fw-bold" data-i18n="pailit.trust.item2_title">Proses Cepat</h6>
+                        <small class="text-muted" data-i18n="pailit.trust.item2_desc">Selesai 3-5 hari kerja</small>
                     </div>
                 </div>
             </div>
@@ -459,8 +459,8 @@
                 <div class="trust-item">
                     <div class="trust-icon"><i class="bi bi-building"></i></div>
                     <div>
-                        <h6 class="mb-0 fw-bold">Individu & Perusahaan</h6>
-                        <small class="text-muted">Layanan lengkap</small>
+                        <h6 class="mb-0 fw-bold" data-i18n="pailit.trust.item3_title">Individu & Perusahaan</h6>
+                        <small class="text-muted" data-i18n="pailit.trust.item3_desc">Layanan lengkap</small>
                     </div>
                 </div>
             </div>
@@ -480,15 +480,15 @@
             </div>
             <div class="col-lg-6">
                 <div class="zigzag-text">
-                    <span class="section-label">01. Definisi & Fungsi</span>
-                    <h2 class="display-5 fw-bold mb-3">Apa itu Surat Keterangan Tidak Pailit?</h2>
-                    <p class="text-muted mb-4 lead">
+                    <span class="section-label" data-i18n="pailit.section1.label">01. Definisi & Fungsi</span>
+                    <h2 class="display-5 fw-bold mb-3" data-i18n="pailit.section1.title">Apa itu Surat Keterangan Tidak Pailit?</h2>
+                    <p class="text-muted mb-4 lead" data-i18n="pailit.section1.desc">
                         Surat Keterangan Tidak Pailit adalah dokumen resmi yang diterbitkan oleh Pengadilan Niaga yang menyatakan bahwa seseorang atau badan usaha tidak sedang dalam keadaan pailit atau Penundaan Kewajiban Pembayaran Utang (PKPU).
                     </p>
                     <ul class="list-unstyled mb-4">
-                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> Syarat wajib tender proyek pemerintah</li>
-                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> Persyaratan pengajuan kredit bank</li>
-                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> Bagian dari due diligence bisnis</li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> <span data-i18n="pailit.section1.list1">Syarat wajib tender proyek pemerintah</span></li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> <span data-i18n="pailit.section1.list2">Persyaratan pengajuan kredit bank</span></li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> <span data-i18n="pailit.section1.list3">Bagian dari due diligence bisnis</span></li>
                     </ul>
                 </div>
             </div>
@@ -503,15 +503,15 @@
             </div>
             <div class="col-lg-6">
                 <div class="zigzag-text">
-                    <span class="section-label">02. Layanan Kami</span>
-                    <h2 class="display-5 fw-bold mb-3">Pengurusan SK Tidak Pailit</h2>
-                    <p class="text-muted mb-4 lead">
+                    <span class="section-label" data-i18n="pailit.section2.label">02. Layanan Kami</span>
+                    <h2 class="display-5 fw-bold mb-3" data-i18n="pailit.section2.title">Pengurusan SK Tidak Pailit</h2>
+                    <p class="text-muted mb-4 lead" data-i18n="pailit.section2.desc">
                         Kami membantu Anda mengurus Surat Keterangan Tidak Pailit dari awal hingga dokumen selesai. Tim kami akan memastikan seluruh persyaratan terpenuhi dan proses berjalan lancar tanpa hambatan.
                     </p>
                     <ul class="list-unstyled mb-4">
-                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> Pengecekan nama di sistem Pengadilan Niaga</li>
-                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> Penyiapan dokumen persyaratan</li>
-                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> Pengambilan dokumen di Pengadilan Niaga</li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> <span data-i18n="pailit.section2.list1">Pengecekan nama di sistem Pengadilan Niaga</span></li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> <span data-i18n="pailit.section2.list2">Penyiapan dokumen persyaratan</span></li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> <span data-i18n="pailit.section2.list3">Pengambilan dokumen di Pengadilan Niaga</span></li>
                     </ul>
                 </div>
             </div>
@@ -523,8 +523,8 @@
 <section class="section-padding bg-white border-top">
     <div class="container">
         <div class="text-center mb-5">
-            <span class="section-label">Workflow</span>
-            <h2 class="fw-bold display-5">Proses Pengurusan SK Tidak Pailit</h2>
+            <span class="section-label" data-i18n="kerjasama.process.badge">Workflow</span>
+            <h2 class="fw-bold display-5" data-i18n="pailit.process.title">Proses Pengurusan SK Tidak Pailit</h2>
         </div>
         <div class="timeline-container">
             <div class="timeline-line"></div>
@@ -563,8 +563,8 @@
 <section class="pt-faq">
     <div class="container">
         <div class="section-title text-center mb-5">
-            <span class="subtitle">Bantuan Sentral</span>
-            <h2>FAQ terkait Surat Keterangan Tidak Pailit</h2>
+            <span class="subtitle" data-i18n="vo.faq.badge">Bantuan Sentral</span>
+            <h2 data-i18n="pailit.faq.title">FAQ terkait Surat Keterangan Tidak Pailit</h2>
             <p>Pertanyaan yang paling sering diajukan seputar SK Tidak Pailit</p>
         </div>
         <div class="row">
@@ -572,60 +572,60 @@
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Apa itu Surat Keterangan Tidak Pailit?
+                        <span data-i18n="pailit.faq.q1">Apa itu Surat Keterangan Tidak Pailit?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="pailit.faq.a1">
                         Surat Keterangan Tidak Pailit adalah dokumen resmi yang diterbitkan oleh Pengadilan Niaga yang menyatakan bahwa seseorang (individu) atau badan hukum (perusahaan) tidak tercatat dalam daftar pihak yang sedang dalam proses kepailitan atau Penundaan Kewajiban Pembayaran Utang (PKPU).
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Kapan Surat Keterangan Tidak Pailit dibutuhkan?
+                        <span data-i18n="pailit.faq.q2">Kapan Surat Keterangan Tidak Pailit dibutuhkan?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="pailit.faq.a2">
                         Dokumen ini umumnya diperlukan untuk: mengikuti tender/lelang proyek pemerintah, pengajuan kredit/pinjaman bank, proses merger & akuisisi perusahaan, due diligence calon mitra bisnis, dan persyaratan administratif lainnya.
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Berapa lama proses pengurusan SK Tidak Pailit?
+                        <span data-i18n="pailit.faq.q3">Berapa lama proses pengurusan SK Tidak Pailit?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="pailit.faq.a3">
                         Proses pengurusan Surat Keterangan Tidak Pailit umumnya memakan waktu 3-5 hari kerja setelah seluruh dokumen persyaratan lengkap. Kami akan membantu mempercepat proses dengan memastikan semua persyaratan terpenuhi.
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Apa saja persyaratan pengurusan SK Tidak Pailit?
+                        <span data-i18n="pailit.faq.q4">Apa saja persyaratan pengurusan SK Tidak Pailit?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="pailit.faq.a4">
                         Untuk individu: Fotokopi KTP dan NPWP. Untuk perusahaan: Akta Pendirian, SK Kemenkumham, NPWP Perusahaan, KTP dan NPWP Direktur. Persyaratan dapat berbeda tergantung Pengadilan Niaga setempat.
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Apakah SK Tidak Pailit memiliki masa berlaku?
+                        <span data-i18n="pailit.faq.q5">Apakah SK Tidak Pailit memiliki masa berlaku?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="pailit.faq.a5">
                         Surat Keterangan Tidak Pailit tidak memiliki masa berlaku yang tercantum secara spesifik. Namun, umumnya instansi peminta dokumen menetapkan batas waktu 3-6 bulan sejak tanggal penerbitan.
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Di Pengadilan Niaga mana saja bisa mengurus?
+                        <span data-i18n="pailit.faq.q6">Di Pengadilan Niaga mana saja bisa mengurus?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="pailit.faq.a6">
                         Surat Keterangan Tidak Pailit dapat diurus di Pengadilan Niaga yang wilayah hukumnya meliputi domisili pemohon. Saat ini terdapat 5 Pengadilan Niaga di Indonesia: Jakarta Pusat, Surabaya, Semarang, Medan, dan Makassar. Kami dapat membantu pengurusan di seluruh lokasi tersebut.
                     </div>
                 </div>

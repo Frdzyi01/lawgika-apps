@@ -214,46 +214,46 @@
 <div class="wrap">
   <div class="card-s">
     <div class="ring"><i class="bi bi-check-lg"></i></div>
-    <h2>Order Berhasil Dikirim! 🎉</h2>
-    <p>Terima kasih! Order Anda telah kami terima. Tim Lawgika akan menghubungi Anda melalui WhatsApp dalam <strong>1×24 jam kerja</strong>.</p>
+    <h2 data-i18n="order.success_title">Order Berhasil Dikirim! 🎉</h2>
+    <p data-i18n="order.success_desc">Terima kasih! Order Anda telah kami terima. Tim Lawgika akan menghubungi Anda melalui WhatsApp dalam <strong>1×24 jam kerja</strong>.</p>
 
     <div class="order-code">{{ $data['order_number'] }}</div>
 
     <div class="sum-box">
-      <h4>Ringkasan Order</h4>
+      <h4 data-i18n="order.summary_title">Ringkasan Order</h4>
       <div class="sr">
-        <span class="sr-l">Layanan</span>
-        <span class="sr-v">Jasa Pembukuan & Perpajakan</span>
+        <span class="sr-l" data-i18n="order.service_label">Layanan</span>
+        <span class="sr-v" data-i18n="nav.services.pembukuan">Jasa Pembukuan & Perpajakan</span>
       </div>
       <div class="sr">
-        <span class="sr-l">Kategori</span>
+        <span class="sr-l" data-i18n="order.category">Kategori</span>
         <span class="sr-v">{{ $data['kategori_label'] }}</span>
       </div>
       <div class="sr">
-        <span class="sr-l">Paket</span>
+        <span class="sr-l" data-i18n="order.package">Paket</span>
         <span class="sr-v">{{ $data['paket_label'] }}</span>
       </div>
       <div class="sr">
-        <span class="sr-l">Nama</span>
+        <span class="sr-l" data-i18n="order.label_fullname">Nama</span>
         <span class="sr-v">{{ $data['nama_lengkap'] }}</span>
       </div>
       <div class="sr">
-        <span class="sr-l">Perusahaan</span>
+        <span class="sr-l" data-i18n="order.label_company_name">Perusahaan</span>
         <span class="sr-v">{{ $data['nama_perusahaan'] }}</span>
       </div>
       <div class="sr">
-        <span class="sr-l">WhatsApp</span>
+        <span class="sr-l" data-i18n="order.label_whatsapp">WhatsApp</span>
         <span class="sr-v">{{ $data['no_whatsapp'] }}</span>
       </div>
       <div class="sr">
-        <span class="sr-l">Total Biaya / Bulan</span>
+        <span class="sr-l" data-i18n="order.total_cost_per_month">Total Biaya / Bulan</span>
         <span class="sr-v price-highlight">Rp {{ number_format($data['harga'],0,',','.') }}</span>
       </div>
     </div>
 
     <div class="info-note">
       <i class="bi bi-info-circle-fill"></i>
-      <p>Silakan konfirmasi order Anda via WhatsApp agar tim kami dapat segera memproses dan menyiapkan dokumen kontrak layanan.</p>
+      <p data-i18n="order.confirm_hint">Silakan konfirmasi order Anda via WhatsApp agar tim kami dapat segera memproses dan menyiapkan dokumen kontrak layanan.</p>
     </div>
 
     @php
@@ -268,13 +268,13 @@
 
     <div class="d-flex flex-wrap gap-3 justify-content-center">
       <a href="{{ url('/') }}" class="btn-g btn-out">
-        <i class="bi bi-house"></i> Beranda
+        <i class="bi bi-house"></i> <span data-i18n="nav.home">Beranda</span>
       </a>
       <a href="https://wa.me/6281112088600?text={{ $waText }}" target="_blank" rel="noopener" class="btn-g btn-wa">
-        <i class="bi bi-whatsapp"></i> Konfirmasi via WA
+        <i class="bi bi-whatsapp"></i> <span data-i18n="order.confirm_wa">Konfirmasi via WA</span>
       </a>
       <a href="{{ route('customer.dashboard') }}" class="btn-g btn-dash">
-        <i class="bi bi-speedometer2"></i> Dashboard
+        <i class="bi bi-speedometer2"></i> <span data-i18n="nav.dashboard">Dashboard</span>
       </a>
     </div>
   </div>

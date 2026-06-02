@@ -1006,9 +1006,9 @@
 <section class="benefits-section">
     <div class="container">
         <div class="section-header">
-            <span class="section-tag">Mengapa Memilih Kami</span>
-            <h2>Keuntungan Menggunakan Jasa Lawgika.co.id</h2>
-            <p>Dapatkan layanan pengurusan PKP profesional dengan berbagai keuntungan eksklusif</p>
+            <span class="section-tag" data-i18n="ui.why_us_badge_normal">Mengapa Memilih Kami</span>
+            <h2 data-i18n="pkp.why_title">Keuntungan Menggunakan Jasa Lawgika.co.id</h2>
+            <p data-i18n="pkp.why_desc">Dapatkan layanan pengurusan PKP profesional dengan berbagai keuntungan eksklusif</p>
         </div>
         <div class="benefits-grid">
             <div class="benefit-card fade-up" style="animation-delay: 0.1s">
@@ -1041,9 +1041,9 @@
         <div class="row align-items-center">
             <div class="col-lg-8">
                 <div class="break-content fade-up">
-                    <span class="break-badge">⭐ Kepatuhan Pajak yang Lebih Baik</span>
-                    <h2>Status PKP untuk Kredibilitas & Kepatuhan Bisnis Anda</h2>
-                    <p>Dengan status PKP resmi, perusahaan Anda dapat menerbitkan Faktur Pajak, mengkreditkan PPN Masukan, dan meningkatkan kredibilitas di mata mitra bisnis.</p>
+                    <span class="break-badge" data-i18n="pkp.vb_badge">⭐ Kepatuhan Pajak yang Lebih Baik</span>
+                    <h2><span data-i18n="pkp.vb_title">Status PKP untuk Kredibilitas & Kepatuhan Bisnis Anda</span></h2>
+                    <p data-i18n="pkp.vb_desc">Dengan status PKP resmi, perusahaan Anda dapat menerbitkan Faktur Pajak, mengkreditkan PPN Masukan, dan meningkatkan kredibilitas di mata mitra bisnis.</p>
                     <div class="d-flex flex-wrap gap-3">
                         <div class="bg-white bg-opacity-10 rounded-4 p-4" style="backdrop-filter: blur(10px);">
                             <h5 class="text-white mb-2">Faktur Pajak Resmi</h5>
@@ -1069,9 +1069,9 @@
 <section class="faq-modern">
     <div class="container">
         <div class="section-header">
-            <span class="section-tag">Pertanyaan Umum</span>
-            <h2>FAQ Pengurusan PKP</h2>
-            <p>Jawaban atas pertanyaan yang sering diajukan tentang Pengukuhan Pengusaha Kena Pajak</p>
+            <span class="section-tag" data-i18n="ui.faq_title_generic">Pertanyaan Umum</span>
+            <h2 data-i18n="pkp.faq_title">FAQ Pengurusan PKP</h2>
+            <p data-i18n="pkp.faq_desc">Jawaban atas pertanyaan yang sering diajukan tentang Pengukuhan Pengusaha Kena Pajak</p>
         </div>
         <div class="faq-grid">
             <div class="faq-item-modern">

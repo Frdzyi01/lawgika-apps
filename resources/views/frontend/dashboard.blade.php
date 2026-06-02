@@ -628,14 +628,14 @@
         <div class="hero-slide-inner">
           <div class="container" style="max-width:1200px;">
             <div class="hero-slide-text">
-              <div class="hero-slide-badge" data-i18n="hero.slide1.badge"><i class="fas fa-star"></i> Layanan Unggulan</div>
-              <h1 class="hero-slide-title">Konsultasi <span>Bisnis &amp; Legal</span><br>Profesional</h1>
+              <div class="hero-slide-badge"><i class="fas fa-star"></i> <span data-i18n="hero.slide1.badge">Layanan Unggulan</span></div>
+              <h1 class="hero-slide-title" data-i18n="hero.slide1.title">Konsultasi <span>Bisnis &amp; Legal</span><br>Profesional</h1>
               <p class="hero-slide-desc" data-i18n="hero.slide1.desc">Dapatkan panduan hukum dan bisnis dari para ahli berpengalaman. Kami membantu Anda mengelola regulasi, risiko hukum, dan strategi bisnis secara komprehensif.</p>
               <a href="/perizinan-dan-hukum" class="hero-slide-cta"><span data-i18n="hero.slide1.cta">Mulai Konsultasi</span> <i class="fas fa-arrow-right"></i></a>
               <div class="hero-trust">
-                <div class="hero-trust-item"><i class="fas fa-check-circle"></i> 500+ Klien</div>
-                <div class="hero-trust-item"><i class="fas fa-check-circle"></i> Konsultan Profesional</div>
-                <div class="hero-trust-item"><i class="fas fa-check-circle"></i> Legal &amp; Terpercaya</div>
+                <div class="hero-trust-item"><i class="fas fa-check-circle"></i> <span data-i18n="hero.trust.clients">500+ Klien</span></div>
+                <div class="hero-trust-item"><i class="fas fa-check-circle"></i> <span data-i18n="hero.trust.consultant">Konsultan Profesional</span></div>
+                <div class="hero-trust-item"><i class="fas fa-check-circle"></i> <span data-i18n="hero.trust.legal">Legal &amp; Terpercaya</span></div>
               </div>
             </div>
           </div>
@@ -649,14 +649,14 @@
         <div class="hero-slide-inner">
           <div class="container" style="max-width:1200px;">
             <div class="hero-slide-text">
-              <div class="hero-slide-badge" data-i18n="hero.slide2.badge"><i class="fas fa-building"></i> Pendirian Badan Usaha</div>
-              <h1 class="hero-slide-title">Pendirian <span>PT / CV</span><br>Mudah &amp; Cepat</h1>
+              <div class="hero-slide-badge"><i class="fas fa-building"></i> <span data-i18n="hero.slide2.badge">Pendirian Badan Usaha</span></div>
+              <h1 class="hero-slide-title" data-i18n="hero.slide2.title">Pendirian <span>PT / CV</span><br>Mudah &amp; Cepat</h1>
               <p class="hero-slide-desc" data-i18n="hero.slide2.desc">Kami mengurus seluruh proses pendirian perusahaan Anda dari awal hingga dokumen resmi siap. Mulai dari pembuatan akta, NIB, hingga izin usaha lengkap.</p>
               <a href="/pendirian-pt" class="hero-slide-cta"><span data-i18n="hero.slide2.cta">Daftarkan Perusahaan</span> <i class="fas fa-arrow-right"></i></a>
               <div class="hero-trust">
-                <div class="hero-trust-item"><i class="fas fa-check-circle"></i> 500+ Klien</div>
-                <div class="hero-trust-item"><i class="fas fa-check-circle"></i> Konsultan Profesional</div>
-                <div class="hero-trust-item"><i class="fas fa-check-circle"></i> Legal &amp; Terpercaya</div>
+                <div class="hero-trust-item"><i class="fas fa-check-circle"></i> <span data-i18n="hero.trust.clients">500+ Klien</span></div>
+                <div class="hero-trust-item"><i class="fas fa-check-circle"></i> <span data-i18n="hero.trust.consultant">Konsultan Profesional</span></div>
+                <div class="hero-trust-item"><i class="fas fa-check-circle"></i> <span data-i18n="hero.trust.legal">Legal &amp; Terpercaya</span></div>
               </div>
             </div>
           </div>
@@ -670,14 +670,14 @@
         <div class="hero-slide-inner">
           <div class="container" style="max-width:1200px;">
             <div class="hero-slide-text">
-              <div class="hero-slide-badge" data-i18n="hero.slide3.badge"><i class="fas fa-map-marker-alt"></i> Layanan Pendukung</div>
-              <h1 class="hero-slide-title">Virtual Office <span>Premium</span><br>Lokasi Strategis</h1>
+              <div class="hero-slide-badge"><i class="fas fa-map-marker-alt"></i> <span data-i18n="hero.slide3.badge">Layanan Pendukung</span></div>
+              <h1 class="hero-slide-title" data-i18n="hero.slide3.title">Virtual Office <span>Premium</span><br>Lokasi Strategis</h1>
               <p class="hero-slide-desc" data-i18n="hero.slide3.desc">Miliki alamat kantor prestisius di pusat bisnis tanpa biaya sewa kantoran besar. Paket lengkap dengan layanan penanganan surat, telepon, dan ruang rapat.</p>
               <a href="/virtual-office" class="hero-slide-cta"><span data-i18n="hero.slide3.cta">Lihat Paket VO</span> <i class="fas fa-arrow-right"></i></a>
               <div class="hero-trust">
-                <div class="hero-trust-item"><i class="fas fa-check-circle"></i> 500+ Klien</div>
-                <div class="hero-trust-item"><i class="fas fa-check-circle"></i> Konsultan Profesional</div>
-                <div class="hero-trust-item"><i class="fas fa-check-circle"></i> Legal &amp; Terpercaya</div>
+                <div class="hero-trust-item"><i class="fas fa-check-circle"></i> <span data-i18n="hero.trust.clients">500+ Klien</span></div>
+                <div class="hero-trust-item"><i class="fas fa-check-circle"></i> <span data-i18n="hero.trust.consultant">Konsultan Profesional</span></div>
+                <div class="hero-trust-item"><i class="fas fa-check-circle"></i> <span data-i18n="hero.trust.legal">Legal &amp; Terpercaya</span></div>
               </div>
             </div>
           </div>
@@ -691,14 +691,14 @@
         <div class="hero-slide-inner">
           <div class="container" style="max-width:1200px;">
             <div class="hero-slide-text">
-              <div class="hero-slide-badge" data-i18n="hero.slide4.badge"><i class="fas fa-balance-scale"></i> Perizinan &amp; Hukum</div>
-              <h1 class="hero-slide-title">Perizinan &amp; <span>Layanan Hukum</span></h1>
+              <div class="hero-slide-badge"><i class="fas fa-balance-scale"></i> <span data-i18n="hero.slide4.badge">Perizinan &amp; Hukum</span></div>
+              <h1 class="hero-slide-title" data-i18n="hero.slide4.title">Perizinan &amp; <span>Layanan Hukum</span></h1>
               <p class="hero-slide-desc" data-i18n="hero.slide4.desc">Kami membantu pengurusan NIB, HAKI, perubahan anggaran dasar, drafting perjanjian bisnis, dan berbagai kebutuhan legal perusahaan Anda secara profesional.</p>
               <a href="/nib-dan-oss" class="hero-slide-cta"><span data-i18n="hero.slide4.cta">Urus Perizinan</span> <i class="fas fa-arrow-right"></i></a>
               <div class="hero-trust">
-                <div class="hero-trust-item"><i class="fas fa-check-circle"></i> 500+ Klien</div>
-                <div class="hero-trust-item"><i class="fas fa-check-circle"></i> Konsultan Profesional</div>
-                <div class="hero-trust-item"><i class="fas fa-check-circle"></i> Legal &amp; Terpercaya</div>
+                <div class="hero-trust-item"><i class="fas fa-check-circle"></i> <span data-i18n="hero.trust.clients">500+ Klien</span></div>
+                <div class="hero-trust-item"><i class="fas fa-check-circle"></i> <span data-i18n="hero.trust.consultant">Konsultan Profesional</span></div>
+                <div class="hero-trust-item"><i class="fas fa-check-circle"></i> <span data-i18n="hero.trust.legal">Legal &amp; Terpercaya</span></div>
               </div>
             </div>
           </div>
@@ -1103,8 +1103,8 @@
 
     <!-- Header -->
     <div class="clients-header">
-      <h2 class="clients-title">Dipercaya oleh Berbagai Bisnis &amp; Individu</h2>
-      <p class="clients-subtitle">Konsultasi terpercaya untuk pertumbuhan bisnis yang berkelanjutan</p>
+      <h2 class="clients-title" data-i18n="dashboard.clients.title">Dipercaya oleh Berbagai Bisnis &amp; Individu</h2>
+      <p class="clients-subtitle" data-i18n="dashboard.clients.subtitle">Konsultasi terpercaya untuk pertumbuhan bisnis yang berkelanjutan</p>
     </div>
 
     <!-- Marquee carousel -->
@@ -1477,11 +1477,11 @@
   <div class="container">
     <div class="sp-header">
       <div>
-        <div class="sp-eyebrow"><i class="fas fa-bolt"></i> Penawaran Terbatas</div>
-        <h2 class="sp-main-title">Special <span>Promo</span> Lawgika</h2>
+        <div class="sp-eyebrow"><i class="fas fa-bolt"></i> <span data-i18n="dashboard.promo.eyebrow">Penawaran Terbatas</span></div>
+        <h2 class="sp-main-title" data-i18n="dashboard.promo.title">Special <span>Promo</span> Lawgika</h2>
       </div>
       <a href="{{ ('/promo') }}" class="sp-other-btn">
-        Promo Lainnya <i class="fas fa-long-arrow-alt-right"></i>
+        <span data-i18n="dashboard.promo.other">Promo Lainnya</span> <i class="fas fa-long-arrow-alt-right"></i>
       </a>
     </div>
     <div class="row g-4" id="spPromoGrid">
@@ -1575,35 +1575,35 @@
         <div class="col-xl-5 col-lg-6">
           <div class="feature-hosting-content">
             <div class="section-title">
-              <span>Mengapa memilih kami?</span>
-              <h2>Kekuatan dan Keahlian Lawgika</h2>
+              <span data-i18n="dashboard.why_us.badge">Mengapa memilih kami?</span>
+              <h2 data-i18n="dashboard.why_us.title">Kekuatan dan Keahlian Lawgika</h2>
             </div>
-            <p class="mt-3 mt-md-0">
+            <p class="mt-3 mt-md-0" data-i18n="dashboard.why_us.desc1">
               Di Lawgika, kami fokus menyediakan Tim Konsultan Profesional dan Solusi Bisnis Terpercaya. Dengan Penanganan Dokumen yang Aman serta Proses yang Efisien dan Transparan, kami memastikan klien kami menerima dukungan terbaik untuk kebutuhan legal dan bisnis mereka.</p>
-            <p class="mt-3 mt-md-0">
+            <p class="mt-3 mt-md-0" data-i18n="dashboard.why_us.desc2">
               Baik Anda membutuhkan bantuan untuk pendirian perusahaan, pengurusan paspor, maupun pendirian ruang kantor profesional, para ahli kami selalu siap memandu Anda di setiap tahap perjalanan, memastikan kepatuhan hukum dan ketenangan pikiran Anda.
             </p>
             <div class="list-items">
               <ul>
                 <li>
                   <i class="far fa-check"></i>
-                  Pendirian badan usaha (PT, CV, Yayasan, Firma)
+                  <span data-i18n="dashboard.why_us.item1">Pendirian badan usaha (PT, CV, Yayasan, Firma)</span>
                 </li>
                 <li>
                   <i class="far fa-check"></i>
-                  Perizinan & dokumen hukum
+                  <span data-i18n="dashboard.why_us.item2">Perizinan &amp; dokumen hukum</span>
                 </li>
                 <li>
                   <i class="far fa-check"></i>
-                  Pembukuan & perpajakan
+                  <span data-i18n="dashboard.why_us.item3">Pembukuan &amp; perpajakan</span>
                 </li>
                 <li>
                   <i class="far fa-check"></i>
-                  Konsultasi bisnis & Legal drafting
+                  <span data-i18n="dashboard.why_us.item4">Konsultasi bisnis &amp; Legal drafting</span>
                 </li>
               </ul>
             </div>
-            <a href="{{ url('tentang-kami') }}" class="theme-btn">Explore More <i class="fas fa-long-arrow-alt-right"></i>
+            <a href="{{ url('tentang-kami') }}" class="theme-btn"><span data-i18n="dashboard.why_us.explore">Explore More</span> <i class="fas fa-long-arrow-alt-right"></i>
             </a>
           </div>
         </div>
@@ -2173,10 +2173,10 @@
     <!-- Header -->
     <div class="ue-header">
       <div>
-        <div class="sp-eyebrow mb-1"><i class="fas fa-calendar-alt"></i> Agenda Lawgika</div>
-        <h2 class="ue-title">Upcoming Event</h2>
+        <div class="sp-eyebrow mb-1"><i class="fas fa-calendar-alt"></i> <span data-i18n="dashboard.event.eyebrow">Agenda Lawgika</span></div>
+        <h2 class="ue-title" data-i18n="dashboard.event.title">Upcoming Event</h2>
       </div>
-      <a href="{{ route('upcoming.event') }}" class="ue-all-btn">Lihat Event <i class="fas fa-long-arrow-alt-right"></i></a>
+      <a href="{{ route('upcoming.event') }}" class="ue-all-btn"><span data-i18n="dashboard.event.view_all">Lihat Event</span> <i class="fas fa-long-arrow-alt-right"></i></a>
     </div>
 
     <!-- Card Grid -->
@@ -2742,8 +2742,8 @@
 <section class="data-center-section fix section-padding section-bg">
   <div class="container" style="max-width: 1450px;">
     <div class="section-title text-center">
-      <span class="style-bg">Database Peraturan Peraturan</span>
-      <h2>Our Data Center </h2>
+      <span class="style-bg" data-i18n="dashboard.peraturan.badge">Database Peraturan Peraturan</span>
+      <h2 data-i18n="dashboard.peraturan.title">Our Data Center </h2>
     </div>
     <div style="width: 100%;">
       <div class="peraturan-container">
@@ -2752,22 +2752,22 @@
         <div class="dc-stat-row">
           <div class="dc-stat-item">
             <div class="dc-stat-num">95.000+</div>
-            <div class="dc-stat-lbl">Peraturan Tersedia</div>
+            <div class="dc-stat-lbl" data-i18n="dashboard.peraturan.stat1_lbl">Peraturan Tersedia</div>
           </div>
           <div class="dc-stat-divider"></div>
           <div class="dc-stat-item">
             <div class="dc-stat-num">40+</div>
-            <div class="dc-stat-lbl">Instansi Penerbit</div>
+            <div class="dc-stat-lbl" data-i18n="dashboard.peraturan.stat2_lbl">Instansi Penerbit</div>
           </div>
           <div class="dc-stat-divider"></div>
           <div class="dc-stat-item">
             <div class="dc-stat-num">12</div>
-            <div class="dc-stat-lbl">Kategori Hukum</div>
+            <div class="dc-stat-lbl" data-i18n="dashboard.peraturan.stat3_lbl">Kategori Hukum</div>
           </div>
           <div class="dc-stat-divider"></div>
           <div class="dc-stat-item">
             <div class="dc-stat-num">Realtime</div>
-            <div class="dc-stat-lbl">Diperbarui</div>
+            <div class="dc-stat-lbl" data-i18n="dashboard.peraturan.stat4_lbl">Diperbarui</div>
           </div>
         </div>
 
@@ -2838,16 +2838,16 @@
 
         <!-- Category chip tags (premium) -->
         <div class="dc-tags-wrap" id="dcTagsWrap">
-          <a href="{{ route('peraturan.index') }}"> <span class="dc-tag">&#128220; Undang-Undang (UU)</span></a>
-          <a href="{{ route('peraturan.index') }}"> <span class="dc-tag">&#127963; Kepres</span></a>
-          <a href="{{ route('peraturan.index') }}"> <span class="dc-tag">&#128203; Peraturan Menteri</span></a>
-          <a href="{{ route('peraturan.index') }}"> <span class="dc-tag">&#128204; Instruksi Presiden</span></a>
-          <a href="{{ route('peraturan.index') }}"> <span class="dc-tag">&#9878; Peraturan Pemerintah</span></a>
-          <a href="{{ route('peraturan.index') }}"> <span class="dc-tag">&#128057; Perpres</span></a>
-          <a href="{{ route('peraturan.index') }}"> <span class="dc-tag">&#128196; Permen BUMN</span></a>
-          <a href="{{ route('peraturan.index') }}"> <span class="dc-tag">&#127970; Perda</span></a>
-          <a href="{{ route('peraturan.index') }}"> <span class="dc-tag">&#128450; SK Dirjen</span></a>
-          <a href="{{ route('peraturan.index') }}"> <span class="dc-tag">&#128209; Surat Edaran</span></a>
+          <a href="{{ route('peraturan.index') }}"> <span class="dc-tag" data-i18n="dashboard.peraturan.tag1">&#128220; Undang-Undang (UU)</span></a>
+          <a href="{{ route('peraturan.index') }}"> <span class="dc-tag" data-i18n="dashboard.peraturan.tag2">&#127963; Kepres</span></a>
+          <a href="{{ route('peraturan.index') }}"> <span class="dc-tag" data-i18n="dashboard.peraturan.tag3">&#128203; Peraturan Menteri</span></a>
+          <a href="{{ route('peraturan.index') }}"> <span class="dc-tag" data-i18n="dashboard.peraturan.tag4">&#128204; Instruksi Presiden</span></a>
+          <a href="{{ route('peraturan.index') }}"> <span class="dc-tag" data-i18n="dashboard.peraturan.tag5">&#9878; Peraturan Pemerintah</span></a>
+          <a href="{{ route('peraturan.index') }}"> <span class="dc-tag" data-i18n="dashboard.peraturan.tag6">&#128057; Perpres</span></a>
+          <a href="{{ route('peraturan.index') }}"> <span class="dc-tag" data-i18n="dashboard.peraturan.tag7">&#128196; Permen BUMN</span></a>
+          <a href="{{ route('peraturan.index') }}"> <span class="dc-tag" data-i18n="dashboard.peraturan.tag8">&#127970; Perda</span></a>
+          <a href="{{ route('peraturan.index') }}"> <span class="dc-tag" data-i18n="dashboard.peraturan.tag9">&#128450; SK Dirjen</span></a>
+          <a href="{{ route('peraturan.index') }}"> <span class="dc-tag" data-i18n="dashboard.peraturan.tag10">&#128209; Surat Edaran</span></a>
           @forelse($peraturan->take(10) as $item)
           <span class="dc-tag dc-tag-hidden">{{ Str::limit($item->judul_peraturan, 45) }}</span>
           @empty
@@ -2856,7 +2856,7 @@
           @foreach($peraturan->slice(10) as $item)
           <span class="dc-tag dc-tag-hidden">{{ Str::limit($item->judul_peraturan, 45) }}</span>
           @endforeach
-          <button class="dc-show-more" id="dcShowMore" aria-label="Tampilkan lebih banyak">
+          <button class="dc-show-more" id="dcShowMore" data-i18n-aria="dashboard.peraturan.aria_more" aria-label="Tampilkan lebih banyak">
             <i class="fas fa-plus" style="font-size:0.6rem;"></i>&nbsp;{{ $peraturan->count() }}
           </button>
           @endif
@@ -2875,8 +2875,8 @@
                   t.classList.toggle('dc-expanded', open);
                 });
                 btn.innerHTML = open ?
-                  '<i class="fas fa-minus" style="font-size:0.6rem;"></i>&nbsp;Lebih sedikit' :
-                  '<i class="fas fa-plus" style="font-size:0.6rem;"></i>&nbsp;Lihat lainnya';
+                  '<i class="fas fa-minus" style="font-size:0.6rem;"></i>&nbsp;' + (window.LwI18n ? window.LwI18n.t('dashboard.peraturan.less') : 'Lebih sedikit') :
+                  '<i class="fas fa-plus" style="font-size:0.6rem;"></i>&nbsp;' + (window.LwI18n ? window.LwI18n.t('dashboard.peraturan.more') : 'Lihat lainnya');
               });
             });
           })();
@@ -2884,7 +2884,7 @@
 
         <!-- CTA Button -->
         <div class="button-row text-center mt-4">
-          <a href="{{ route('peraturan.index') }}" class="peraturan-btn">Lihat 95.000+ Peraturan &rarr;</a>
+          <a href="{{ route('peraturan.index') }}" class="peraturan-btn" data-i18n="dashboard.peraturan.view_all">Lihat 95.000+ Peraturan &rarr;</a>
         </div>
 
       </div>
@@ -2899,14 +2899,14 @@
   <div class="container">
     <div class="section-title-area">
       <div class="section-title">
-        <span>Our News</span>
-        <h2>
+        <span data-i18n="dashboard.news.badge">Our News</span>
+        <h2 data-i18n="dashboard.news.title">
           Explore Latest News
         </h2>
       </div>
       <a
         href="{{ route('berita.index') }}"
-        class="theme-btn">See All More <i class="fas fa-long-arrow-alt-right"></i></a>
+        class="theme-btn"><span data-i18n="dashboard.news.see_all">See All More</span> <i class="fas fa-long-arrow-alt-right"></i></a>
     </div>
     <div class="row">
       @foreach($beritas as $item)
@@ -2965,8 +2965,8 @@
   <div class="container">
     <div class="section-title-area">
       <div class="section-title">
-        <span class="white-text">Testimonials</span>
-        <h2 class="text-white">
+        <span class="white-text" data-i18n="dashboard.testimonial.badge">Testimonials</span>
+        <h2 class="text-white" data-i18n="dashboard.testimonial.title">
           Latest Clients Feedback
         </h2>
       </div>
@@ -2994,9 +2994,9 @@
               <div class="client-image bg-cover" style="background-image: url('{{ asset('buyer-file/assets/img/testimonial/circle.png') }}');">
                 <div class="circle-shape"><img src="{{ asset('buyer-file/assets/img/testimonial/circle.png') }}" alt="" loading="lazy" /></div>
               </div>
-              <p>Sedang memuat ulasan terbaru dari pelanggan kami langsung melalui Google Maps...</p>
+              <p data-i18n="dashboard.testimonial.loading">Sedang memuat ulasan terbaru dari pelanggan kami langsung melalui Google Maps...</p>
               <div class="client-info">
-                <h4>Memuat Review...</h4>
+                <h4 data-i18n="dashboard.testimonial.loading_title">Memuat Review...</h4>
                 <span>Google Maps</span>
               </div>
             </div>
@@ -3319,18 +3319,18 @@
       <div class="col-lg-4">
         <div class="faq-info-card d-flex flex-column">
           <div>
-            <span class="faq-info-label">RINGKAS &amp; JELAS</span>
-            <h2 class="faq-info-title">Jawaban penting sebelum Anda memulai</h2>
-            <p class="faq-info-desc">Kami rangkum pertanyaan yang paling sering muncul agar Anda bisa menemukan informasi penting tanpa harus berpindah halaman.</p>
+            <span class="faq-info-label" data-i18n="dashboard.faq.badge">RINGKAS &amp; JELAS</span>
+            <h2 class="faq-info-title" data-i18n="dashboard.faq.title">Jawaban penting sebelum Anda memulai</h2>
+            <p class="faq-info-desc" data-i18n="dashboard.faq.desc">Kami rangkum pertanyaan yang paling sering muncul agar Anda bisa menemukan informasi penting tanpa harus berpindah halaman.</p>
           </div>
           <div class="d-flex gap-3 mt-auto">
             <div class="faq-stats-box">
               <div class="faq-stats-number">15</div>
-              <div class="faq-stats-label">TOPIK AKTIF</div>
+              <div class="faq-stats-label" data-i18n="dashboard.faq.stat1_lbl">TOPIK AKTIF</div>
             </div>
             <div class="faq-stats-box">
               <div class="faq-stats-number">24/7</div>
-              <div class="faq-stats-label">AKSES INFORMASI</div>
+              <div class="faq-stats-label" data-i18n="dashboard.faq.stat2_lbl">AKSES INFORMASI</div>
             </div>
           </div>
         </div>
@@ -3343,12 +3343,12 @@
           <!-- Item 1 -->
           <div class="accordion-item">
             <h5 class="accordion-header" id="faqHeading1">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1" aria-expanded="false" aria-controls="faqCollapse1">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1" aria-expanded="false" aria-controls="faqCollapse1" data-i18n="dashboard.faq.q1">
                 Bagaimana sistem pembayaran Serviced Office? ( Serviced Office )
               </button>
             </h5>
             <div id="faqCollapse1" class="accordion-collapse collapse" aria-labelledby="faqHeading1" data-bs-parent="#faqAccordionModern">
-              <div class="accordion-body">
+              <div class="accordion-body" data-i18n="dashboard.faq.a1">
                 Untuk Serviced Office, pembayaran dapat dilakukan secara bulanan, kuartalan, atau tahunan dengan berbagai metode pembayaran seperti transfer bank maupun kartu kredit.
               </div>
             </div>
@@ -3357,12 +3357,12 @@
           <!-- Item 2 -->
           <div class="accordion-item">
             <h5 class="accordion-header" id="faqHeading2">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2" data-i18n="dashboard.faq.q2">
                 Apa Virtual Office sudah bisa PKP? ( Virtual Office )
               </button>
             </h5>
             <div id="faqCollapse2" class="accordion-collapse collapse" aria-labelledby="faqHeading2" data-bs-parent="#faqAccordionModern">
-              <div class="accordion-body">
+              <div class="accordion-body" data-i18n="dashboard.faq.a2">
                 Ya, sebagian besar lokasi Virtual Office kami dapat digunakan untuk keperluan pendaftaran PKP (Pengusaha Kena Pajak) sesuai dengan ketentuan yang berlaku.
               </div>
             </div>
@@ -3371,12 +3371,12 @@
           <!-- Item 3 -->
           <div class="accordion-item">
             <h5 class="accordion-header" id="faqHeading3">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3" data-i18n="dashboard.faq.q3">
                 Apakah semua fasilitas bisa digunakan di semua cabang?
               </button>
             </h5>
             <div id="faqCollapse3" class="accordion-collapse collapse" aria-labelledby="faqHeading3" data-bs-parent="#faqAccordionModern">
-              <div class="accordion-body">
+              <div class="accordion-body" data-i18n="dashboard.faq.a3">
                 Fasilitas dasar seperti coworking dan lounge dapat diakses di beberapa cabang tertentu jika Anda tergabung dalam paket member berskala nasional.
               </div>
             </div>
@@ -3385,12 +3385,12 @@
           <!-- Item 4 -->
           <div class="accordion-item">
             <h5 class="accordion-header" id="faqHeading4">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse4" aria-expanded="false" aria-controls="faqCollapse4">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse4" aria-expanded="false" aria-controls="faqCollapse4" data-i18n="dashboard.faq.q4">
                 Apakah Virtual Office dapat disewa oleh Firma Hukum yang belum memiliki AKTA Perusahaan? ( Virtual Office )
               </button>
             </h5>
             <div id="faqCollapse4" class="accordion-collapse collapse" aria-labelledby="faqHeading4" data-bs-parent="#faqAccordionModern">
-              <div class="accordion-body">
+              <div class="accordion-body" data-i18n="dashboard.faq.a4">
                 Tentu. Pendaftaran dapat dilakukan atas nama perorangan atau pendiri terlebih dahulu, dan dapat disesuaikan kembali setelah legalitas perusahaan resmi terbit.
               </div>
             </div>
@@ -3399,12 +3399,12 @@
           <!-- Item 5 -->
           <div class="accordion-item">
             <h5 class="accordion-header" id="faqHeading5">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse5" aria-expanded="false" aria-controls="faqCollapse5">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse5" aria-expanded="false" aria-controls="faqCollapse5" data-i18n="dashboard.faq.q5">
                 Apakah Virtual Office dapat disewa dengan harga bulanan? ( Virtual Office )
               </button>
             </h5>
             <div id="faqCollapse5" class="accordion-collapse collapse" aria-labelledby="faqHeading5" data-bs-parent="#faqAccordionModern">
-              <div class="accordion-body">
+              <div class="accordion-body" data-i18n="dashboard.faq.a5">
                 Pada umumnya penyewaan Virtual Office adalah berlangganan secara tahunan. Namun, kami menyediakan beberapa paket fleksibel yang dapat dibayar bertahap.
               </div>
             </div>
@@ -3413,12 +3413,12 @@
           <!-- Item 6 -->
           <div class="accordion-item">
             <h5 class="accordion-header" id="faqHeading6">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse6" aria-expanded="false" aria-controls="faqCollapse6">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse6" aria-expanded="false" aria-controls="faqCollapse6" data-i18n="dashboard.faq.q6">
                 Apakah ada perbedaan harga untuk setiap cabang? ( Virtual Office )
               </button>
             </h5>
             <div id="faqCollapse6" class="accordion-collapse collapse" aria-labelledby="faqHeading6" data-bs-parent="#faqAccordionModern">
-              <div class="accordion-body">
+              <div class="accordion-body" data-i18n="dashboard.faq.a6">
                 Ya, harga dapat bervariasi bergantung pada lokasi cabang (zona premium atau standar) dan kelengkapan fasilitas tambahan pada area tersebut.
               </div>
             </div>
@@ -3427,12 +3427,12 @@
           <!-- Item 7 -->
           <div class="accordion-item">
             <h5 class="accordion-header" id="faqHeading7">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse7" aria-expanded="false" aria-controls="faqCollapse7">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse7" aria-expanded="false" aria-controls="faqCollapse7" data-i18n="dashboard.faq.q7">
                 Apakah terdapat foto dokumentasi Serviced Office yang dapat dilihat? ( Serviced Office )
               </button>
             </h5>
             <div id="faqCollapse7" class="accordion-collapse collapse" aria-labelledby="faqHeading7" data-bs-parent="#faqAccordionModern">
-              <div class="accordion-body">
+              <div class="accordion-body" data-i18n="dashboard.faq.a7">
                 Tentu saja, dokumentasi foto untuk setiap ruangan Serviced Office tersedia di galeri website kami atau Anda dapat menjadwalkan tur lokasi secara langsung.
               </div>
             </div>
@@ -3441,12 +3441,12 @@
           <!-- Item 8 -->
           <div class="accordion-item">
             <h5 class="accordion-header" id="faqHeading8">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse8" aria-expanded="false" aria-controls="faqCollapse8">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse8" aria-expanded="false" aria-controls="faqCollapse8" data-i18n="dashboard.faq.q8">
                 Apakah dapat menyewa Virtual Office dengan tidak/belum memiliki legalitas perusahaan? ( Virtual Office )
               </button>
             </h5>
             <div id="faqCollapse8" class="accordion-collapse collapse" aria-labelledby="faqHeading8" data-bs-parent="#faqAccordionModern">
-              <div class="accordion-body">
+              <div class="accordion-body" data-i18n="dashboard.faq.a8">
                 Bisa. Anda tetap dapat menggunakan alamat Virtual Office kami selama masa pengurusan legalitas pendirian perusahaan Anda sedang berjalan.
               </div>
             </div>

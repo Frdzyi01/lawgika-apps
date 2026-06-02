@@ -381,9 +381,9 @@
 <section class="promo-detail-hero">
   <div class="container" style="max-width:1200px;">
     <p class="promo-detail-breadcrumb">
-      <a href="{{ url('/') }}">Beranda</a>
+      <a href="{{ url('/') }}" data-i18n="nav.home">Beranda</a>
       <span class="sep">/</span>
-      <a href="{{ url('/promo') }}">Promo</a>
+      <a href="{{ url('/promo') }}" data-i18n="promo.breadcrumb">Promo</a>
       <span class="sep">/</span>
       <span class="current">{{ \Illuminate\Support\Str::limit($promo->judul, 45) }}</span>
     </p>
@@ -417,14 +417,14 @@
             {{-- Badge Status --}}
             <div class="promo-badge-row">
               <span class="promo-badge promo-badge-success">
-                <i class="fas fa-check-circle"></i> Promo Aktif
+                <i class="fas fa-check-circle"></i> <span data-i18n="promo.status_active">Promo Aktif</span>
               </span>
               <span class="promo-badge promo-badge-date">
                 <i class="fas fa-clock"></i> {{ $promo->created_at->format('d F Y') }}
               </span>
               @if($promo->tanggal_berakhir)
               <span class="promo-badge promo-badge-expire">
-                <i class="fas fa-calendar-times"></i> Berakhir: {{ $promo->tanggal_berakhir->format('d M Y') }}
+                <i class="fas fa-calendar-times"></i> <span data-i18n="promo.expires">Berakhir:</span> {{ $promo->tanggal_berakhir->format('d M Y') }}
               </span>
               @endif
             </div>
@@ -436,7 +436,7 @@
                 <i class="fas fa-percent"></i>
               </div>
               <div>
-                <div class="promo-discount-label">Hemat</div>
+                <div class="promo-discount-label" data-i18n="promo.save_label">Hemat</div>
                 <div class="promo-discount-value">
                   @if($promo->tipe_diskon === 'persen')
                   {{ number_format($promo->diskon, 0) }}% OFF
@@ -450,7 +450,7 @@
 
             {{-- Detail Promo --}}
             <div class="promo-section-label">
-              <i class="fas fa-info-circle"></i> Detail Promo
+              <i class="fas fa-info-circle"></i> <span data-i18n="promo.detail_title">Detail Promo</span>
             </div>
             <p class="promo-desc-text">{{ $promo->deskripsi }}</p>
 
@@ -459,12 +459,12 @@
             <div class="promo-meta-box">
               <span>
                 <i class="fas fa-calendar-plus text-danger me-1"></i>
-                Mulai: <strong>{{ $promo->tanggal_mulai->format('d M Y') }}</strong>
+                <span data-i18n="promo.start">Mulai:</span> <strong>{{ $promo->tanggal_mulai->format('d M Y') }}</strong>
               </span>
               @if($promo->tanggal_berakhir)
               <span>
                 <i class="fas fa-calendar-times text-danger me-1"></i>
-                Berakhir: <strong>{{ $promo->tanggal_berakhir->format('d M Y') }}</strong>
+                <span data-i18n="promo.expires">Berakhir:</span> <strong>{{ $promo->tanggal_berakhir->format('d M Y') }}</strong>
               </span>
               @endif
             </div>
@@ -473,10 +473,10 @@
             {{-- CTA Buttons --}}
             <div class="promo-cta-row">
               <a href="{{ url('/layanan-konsultasi-bisnis') }}" class="promo-btn-primary">
-                <i class="fas fa-phone-alt"></i> Hubungi Kami
+                <i class="fas fa-phone-alt"></i> <span data-i18n="promo.contact_us">Hubungi Kami</span>
               </a>
               <a href="{{ url('/promo') }}" class="promo-btn-secondary">
-                <i class="fas fa-arrow-left"></i> Kembali ke Promo
+                <i class="fas fa-arrow-left"></i> <span data-i18n="promo.back">Kembali ke Promo</span>
               </a>
             </div>
 
@@ -489,7 +489,7 @@
       <div class="col-lg-4">
 
         <div class="promo-sidebar-title">
-          <i class="fas fa-tag"></i> Promo Lainnya
+          <i class="fas fa-tag"></i> <span data-i18n="promo.other_promos">Promo Lainnya</span>
         </div>
 
         @php
@@ -518,13 +518,13 @@
             <div class="promo-sidebar-name">{{ $other->judul }}</div>
             @if($other->tanggal_berakhir)
             <div class="promo-sidebar-date">
-              <i class="fas fa-calendar-alt me-1"></i>s.d. {{ $other->tanggal_berakhir->format('d M Y') }}
+              <i class="fas fa-calendar-alt me-1"></i><span data-i18n="promo.until">s.d.</span> {{ $other->tanggal_berakhir->format('d M Y') }}
             </div>
             @endif
           </div>
         </a>
         @empty
-        <p style="color:#9ca3af; font-size:0.88rem;">Belum ada promo lain.</p>
+        <p style="color:#9ca3af; font-size:0.88rem;" data-i18n="promo.no_other">Belum ada promo lain.</p>
         @endforelse
 
       </div>{{-- /col-lg-4 --}}

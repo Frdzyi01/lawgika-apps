@@ -406,7 +406,7 @@
             <ol class="breadcrumb mb-0">
                 <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-maroon text-decoration-none small">Home</a></li>
                 <li class="breadcrumb-item"><a href="#" class="text-maroon text-decoration-none small">Layanan</a></li>
-                <li class="breadcrumb-item active small" aria-current="page">Pendaftaran HAKI</li>
+                <li class="breadcrumb-item active small" aria-current="page" data-i18n="haki.breadcrumb">Pendaftaran HAKI</li>
             </ol>
         </nav>
     </div>
@@ -416,17 +416,17 @@
 <section class="hero-agency">
     <div class="container">
         <div class="hero-content fade-up">
-            <span class="section-label" style="color: rgba(255,255,255,0.7)">Hak Kekayaan Intelektual</span>
-            <h1 class="hero-title">Lindungi Merek & Karya Anda Secara Hukum</h1>
-            <p class="hero-subtitle">
+            <span class="section-label" style="color: rgba(255,255,255,0.7)" data-i18n="haki.hero.label">Hak Kekayaan Intelektual</span>
+            <h1 class="hero-title" data-i18n="haki.hero.title">Lindungi Merek & Karya Anda Secara Hukum</h1>
+            <p class="hero-subtitle" data-i18n="haki.hero.desc">
                 Menyediakan layanan pendaftaran HAKI (Hak Kekayaan Intelektual) untuk membantu melindungi merek, karya, atau aset intelektual bisnis Anda secara resmi sesuai ketentuan yang berlaku.
             </p>
             <div class="d-flex flex-wrap gap-3 mt-4">
                 <a href="https://wa.me/6281112088600" class="btn-white" target="_blank" rel="noopener noreferrer">
-                    <i class="fa-brands fa-whatsapp"></i> Konsultasi Gratis
+                    <i class="fa-brands fa-whatsapp"></i> <span data-i18n="tentang.cta.primary">Konsultasi Gratis</span>
                 </a>
                 <a href="#haki-details" class="btn-outline-white">
-                    <i class="fa-solid fa-circle-info"></i> Pelajari Selengkapnya
+                    <i class="fa-solid fa-circle-info"></i> <span data-i18n="hukum.hero.btn_info">Pelajari Selengkapnya</span>
                 </a>
             </div>
         </div>
@@ -441,8 +441,8 @@
                 <div class="trust-item">
                     <div class="trust-icon"><i class="bi bi-shield-lock"></i></div>
                     <div>
-                        <h6 class="mb-0 fw-bold">Perlindungan Hukum</h6>
-                        <small class="text-muted">Hak eksklusif terjamin</small>
+                        <h6 class="mb-0 fw-bold" data-i18n="haki.trust.item1_title">Perlindungan Hukum</h6>
+                        <small class="text-muted" data-i18n="haki.trust.item1_desc">Hak eksklusif terjamin</small>
                     </div>
                 </div>
             </div>
@@ -450,8 +450,8 @@
                 <div class="trust-item">
                     <div class="trust-icon"><i class="bi bi-search"></i></div>
                     <div>
-                        <h6 class="mb-0 fw-bold">Pengecekan Merek</h6>
-                        <small class="text-muted">Hindari penolakan</small>
+                        <h6 class="mb-0 fw-bold" data-i18n="haki.trust.item2_title">Pengecekan Merek</h6>
+                        <small class="text-muted" data-i18n="haki.trust.item2_desc">Hindari penolakan</small>
                     </div>
                 </div>
             </div>
@@ -459,8 +459,8 @@
                 <div class="trust-item">
                     <div class="trust-icon"><i class="bi bi-file-earmark-text"></i></div>
                     <div>
-                        <h6 class="mb-0 fw-bold">Proses Transparan</h6>
-                        <small class="text-muted">Pantau status online</small>
+                        <h6 class="mb-0 fw-bold" data-i18n="haki.trust.item3_title">Proses Transparan</h6>
+                        <small class="text-muted" data-i18n="haki.trust.item3_desc">Pantau status online</small>
                     </div>
                 </div>
             </div>
@@ -480,15 +480,15 @@
             </div>
             <div class="col-lg-6">
                 <div class="zigzag-text">
-                    <span class="section-label">01. Merek Dagang</span>
-                    <h2 class="display-5 fw-bold mb-3">Pendaftaran Merek (Trademark)</h2>
-                    <p class="text-muted mb-4 lead">
+                    <span class="section-label" data-i18n="haki.section1.label">01. Merek Dagang</span>
+                    <h2 class="display-5 fw-bold mb-3" data-i18n="haki.section1.title">Pendaftaran Merek (Trademark)</h2>
+                    <p class="text-muted mb-4 lead" data-i18n="haki.section1.desc">
                         Merek adalah identitas bisnis Anda. Kami membantu proses pendaftaran merek dagang ke DJKI Kemenkumham agar brand Anda mendapatkan perlindungan hukum eksklusif selama 10 tahun dan dapat diperpanjang.
                     </p>
                     <ul class="list-unstyled mb-4">
-                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> Pengecekan ketersediaan nama merek</li>
-                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> Penyusunan deskripsi & kelas merek</li>
-                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> Pendampingan hingga sertifikat terbit</li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> <span data-i18n="haki.section1.list1">Pengecekan ketersediaan nama merek</span></li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> <span data-i18n="haki.section1.list2">Penyusunan deskripsi & kelas merek</span></li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> <span data-i18n="haki.section1.list3">Pendampingan hingga sertifikat terbit</span></li>
                     </ul>
                 </div>
             </div>
@@ -522,15 +522,15 @@
             </div>
             <div class="col-lg-6">
                 <div class="zigzag-text">
-                    <span class="section-label">02. Cipta & Paten</span>
-                    <h2 class="display-5 fw-bold mb-3">Hak Cipta & Paten Sederhana</h2>
-                    <p class="text-muted mb-4 lead">
+                    <span class="section-label" data-i18n="haki.section2.label">02. Cipta & Paten</span>
+                    <h2 class="display-5 fw-bold mb-3" data-i18n="haki.section2.title">Hak Cipta & Paten Sederhana</h2>
+                    <p class="text-muted mb-4 lead" data-i18n="haki.section2.desc">
                         Lindungi karya intelektual Anda mulai dari software, buku, musik, desain industri, hingga invensi teknologi. Kami bantu daftarkan Hak Cipta dan Paten Sederhana Anda secara profesional.
                     </p>
                     <ul class="list-unstyled mb-4">
-                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> Pendaftaran Hak Cipta (Software, Seni, Sastra)</li>
-                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> Pendaftaran Desain Industri</li>
-                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> Pendaftaran Paten Sederhana</li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> <span data-i18n="haki.section2.list1">Pendaftaran Hak Cipta (Software, Seni, Sastra)</span></li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> <span data-i18n="haki.section2.list2">Pendaftaran Desain Industri</span></li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> <span data-i18n="haki.section2.list3">Pendaftaran Paten Sederhana</span></li>
                     </ul>
                 </div>
             </div>
@@ -542,8 +542,8 @@
 <section class="section-padding bg-white border-top">
     <div class="container">
         <div class="text-center mb-5">
-            <span class="section-label">Workflow</span>
-            <h2 class="fw-bold display-5">Proses Pendaftaran HAKI</h2>
+            <span class="section-label" data-i18n="kerjasama.process.badge">Workflow</span>
+            <h2 class="fw-bold display-5" data-i18n="haki.process.title">Proses Pendaftaran HAKI</h2>
         </div>
         <div class="timeline-container">
             <div class="timeline-line"></div>
@@ -551,22 +551,22 @@
                 <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
                     <div class="timeline-item">
                         <div class="timeline-circle">1</div>
-                        <h5 class="fw-bold">Konsultasi & Cek Merek</h5>
-                        <p class="text-muted small px-lg-4">Analisis potensi keberhasilan pendaftaran merek/karya Anda.</p>
+                        <h5 class="fw-bold" data-i18n="haki.process.step1_title">Konsultasi & Cek Merek</h5>
+                        <p class="text-muted small px-lg-4" data-i18n="haki.process.step1_desc">Analisis potensi keberhasilan pendaftaran merek/karya Anda.</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
                     <div class="timeline-item">
                         <div class="timeline-circle">2</div>
-                        <h5 class="fw-bold">Penyiapan Dokumen</h5>
-                        <p class="text-muted small px-lg-4">Kami siapkan seluruh formulir dan dokumen pendukung.</p>
+                        <h5 class="fw-bold" data-i18n="haki.process.step2_title">Penyiapan Dokumen</h5>
+                        <p class="text-muted small px-lg-4" data-i18n="haki.process.step2_desc">Kami siapkan seluruh formulir dan dokumen pendukung.</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="timeline-item">
                         <div class="timeline-circle">3</div>
-                        <h5 class="fw-bold">Submit & Pemantauan</h5>
-                        <p class="text-muted small px-lg-4">Pengajuan resmi dan monitoring proses di DJKI.</p>
+                        <h5 class="fw-bold" data-i18n="haki.process.step3_title">Submit & Pemantauan</h5>
+                        <p class="text-muted small px-lg-4" data-i18n="haki.process.step3_desc">Pengajuan resmi dan monitoring proses di DJKI.</p>
                     </div>
                 </div>
             </div>
@@ -584,69 +584,69 @@
 <section class="pt-faq">
     <div class="container">
         <div class="section-title text-center mb-5">
-            <span class="subtitle">Bantuan Sentral</span>
-            <h2>FAQ terkait Pendaftaran HAKI</h2>
-            <p>Pertanyaan yang paling sering diajukan seputar Hak Kekayaan Intelektual</p>
+            <span class="subtitle" data-i18n="vo.faq.badge">Bantuan Sentral</span>
+            <h2 data-i18n="haki.faq.title">FAQ terkait Pendaftaran HAKI</h2>
+            <p data-i18n="haki.faq.desc">Pertanyaan yang paling sering diajukan seputar Hak Kekayaan Intelektual</p>
         </div>
         <div class="row">
             <div class="col-lg-8 mx-auto">
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Apa itu HAKI dan apa saja jenisnya?
+                        <span data-i18n="haki.faq.q1">Apa itu HAKI dan apa saja jenisnya?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="haki.faq.a1">
                         HAKI (Hak Kekayaan Intelektual) adalah hak eksklusif yang diberikan negara kepada pencipta, penemu, atau pemilik karya intelektual. Jenis HAKI yang umum didaftarkan antara lain: Merek Dagang, Hak Cipta, Paten, Desain Industri, Rahasia Dagang, dan Indikasi Geografis.
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Berapa lama proses pendaftaran merek?
+                        <span data-i18n="haki.faq.q2">Berapa lama proses pendaftaran merek?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="haki.faq.a2">
                         Proses pendaftaran merek di DJKI memakan waktu sekitar 6-12 bulan, tergantung ada tidaknya keberatan dari pihak lain. Setelah terdaftar, perlindungan merek berlaku selama 10 tahun dan dapat diperpanjang.
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Apa syarat pendaftaran Hak Cipta?
+                        <span data-i18n="haki.faq.q3">Apa syarat pendaftaran Hak Cipta?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="haki.faq.a3">
                         Syarat pendaftaran Hak Cipta meliputi: formulir pendaftaran, surat pernyataan kepemilikan karya, contoh karya (softcopy/hardcopy), KTP pencipta, dan surat pengalihan hak (jika pencipta berbeda dengan pemohon).
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Apakah merek yang sama bisa didaftarkan untuk kelas berbeda?
+                        <span data-i18n="haki.faq.q4">Apakah merek yang sama bisa didaftarkan untuk kelas berbeda?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="haki.faq.a4">
                         Ya, merek yang sama dapat didaftarkan pada kelas barang/jasa yang berbeda, selama tidak memiliki persamaan pada pokoknya dengan merek terdaftar milik pihak lain di kelas yang sama. Kami akan membantu Anda menentukan kelas yang tepat.
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Apa perbedaan Paten dan Paten Sederhana?
+                        <span data-i18n="haki.faq.q5">Apa perbedaan Paten dan Paten Sederhana?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="haki.faq.a5">
                         Paten melindungi invensi baru yang memiliki langkah inventif dan dapat diterapkan dalam industri (perlindungan 20 tahun). Paten Sederhana melindungi invensi berupa pengembangan dari produk/proses yang sudah ada (perlindungan 10 tahun) dengan proses lebih cepat.
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Apakah HAKI berlaku secara internasional?
+                        <span data-i18n="haki.faq.q6">Apakah HAKI berlaku secara internasional?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="haki.faq.a6">
                         Pendaftaran HAKI di Indonesia bersifat teritorial (hanya berlaku di wilayah Indonesia). Untuk perlindungan internasional, Anda dapat mengajukan melalui sistem Madrid Protocol (untuk merek) atau Patent Cooperation Treaty/PCT (untuk paten).
                     </div>
                 </div>

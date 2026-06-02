@@ -471,16 +471,16 @@
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="page-title-content">
-                    <span class="text-white bg-danger rounded-pill px-3 py-1 fw-medium mb-3 d-inline-block shadow-sm" style="font-size: 0.85rem">Lawgika | Podcast Studio</span>
-                    <h1 class="text-white fw-bold mb-3 display-4">Sewa Ruang Podcast Profesional</h1>
-                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem">Studio podcast modern dengan peralatan rekaman berkualitas tinggi, soundproofing sempurna, dan tim teknis siap membantu konten terbaik Anda.</p>
+                    <span class="text-white bg-danger rounded-pill px-3 py-1 fw-medium mb-3 d-inline-block shadow-sm" style="font-size: 0.85rem" data-i18n="podcast.hero.badge">Lawgika | Podcast Studio</span>
+                    <h1 class="text-white fw-bold mb-3 display-4" data-i18n="podcast.hero.title">Sewa Ruang Podcast Profesional</h1>
+                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem" data-i18n="podcast.hero.desc">Studio podcast modern dengan peralatan rekaman berkualitas tinggi, soundproofing sempurna, dan tim teknis siap membantu konten terbaik Anda.</p>
                 </div>
             </div>
             <div class="col-lg-6 text-lg-end mt-4 mt-lg-0">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-lg-end justify-content-start mb-0">
-                        <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none">Beranda</a></li>
-                        <li class="breadcrumb-item active text-white-50" aria-current="page">Sewa Ruang Podcast</li>
+                        <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none" data-i18n="nav.home">Beranda</a></li>
+                        <li class="breadcrumb-item active text-white-50" aria-current="page" data-i18n="nav.services.podcast_room">Sewa Ruang Podcast</li>
                     </ol>
                 </nav>
             </div>
@@ -493,14 +493,14 @@
     <div class="container">
         <div class="row align-items-center g-5 flex-row-reverse">
             <div class="col-lg-6">
-                <h2>Ciptakan Konten Berkualitas Tinggi Tanpa Ribet</h2>
-                <p>Tidak perlu pusing memikirkan peralatan mahal dan akustik ruangan. Bawa materi Anda, dan biarkan fasilitas studio kami menangani sisi teknis produksi audio & video Anda.</p>
+                <h2 data-i18n="podcast.solusi.title">Ciptakan Konten Berkualitas Tinggi Tanpa Ribet</h2>
+                <p data-i18n="podcast.solusi.desc">Tidak perlu pusing memikirkan peralatan mahal and akustik ruangan. Bawa materi Anda, dan biarkan fasilitas studio kami menangani sisi teknis produksi audio &amp; video Anda.</p>
                 <ul class="solution-list">
-                    <li><i class="fa-regular fa-circle-check"></i> Akustik ruangan standar broadcast</li>
-                    <li><i class="fa-regular fa-circle-check"></i> Mic condenser & mixer profesional</li>
-                    <li><i class="fa-regular fa-circle-check"></i> Suasana nyaman, ber-AC & privat</li>
+                    <li><i class="fa-regular fa-circle-check"></i> <span data-i18n="podcast.solusi.list1">Akustik ruangan standar broadcast</span></li>
+                    <li><i class="fa-regular fa-circle-check"></i> <span data-i18n="podcast.solusi.list2">Mic condenser &amp; mixer profesional</span></li>
+                    <li><i class="fa-regular fa-circle-check"></i> <span data-i18n="podcast.solusi.list3">Suasana nyaman, ber-AC &amp; privat</span></li>
                 </ul>
-                <a href="#pricing" class="btn-outline-brand">Lihat Harga Paket →</a>
+                <a href="#pricing" class="btn-outline-brand" data-i18n="podcast.solusi.cta">Lihat Harga Paket →</a>
             </div>
             <div class="col-lg-6">
                 <img src="{{ asset('buyer-file/assets/img/podcastroom/ruang.png') }}" alt="Podcast Studio" class="img-fluid-rounded">
@@ -513,9 +513,9 @@
 <section class="gallery-section">
     <div class="container">
         <div class="section-title text-center">
-            <span class="subtitle">Podcast Room</span>
-            <h2>Studio Gallery</h2>
-            <p>Ruang podcast profesional dengan fasilitas lengkap untuk kebutuhan konten Anda</p>
+            <span class="subtitle" data-i18n="nav.services.podcast_room">Podcast Room</span>
+            <h2 data-i18n="podcast.gallery.title">Studio Gallery</h2>
+            <p data-i18n="podcast.gallery.desc">Ruang podcast profesional dengan fasilitas lengkap untuk kebutuhan konten Anda</p>
         </div>
 
         <div class="gallery-grid-podcast">
@@ -558,8 +558,8 @@
 <section class="why-us-section">
     <div class="container">
         <div class="section-header">
-            <h2>FASILITAS STUDIO KAMI</h2>
-            <p>Standar perlengkapan terbaik untuk hasil audio yang jernih dan profesional</p>
+            <h2 data-i18n="podcast.facility.title">FASILITAS STUDIO KAMI</h2>
+            <p data-i18n="podcast.facility.desc">Standar perlengkapan terbaik untuk hasil audio yang jernih dan profesional</p>
         </div>
         <div class="row g-4 justify-content-center">
             <div class="col-md-4">
@@ -567,8 +567,8 @@
                     <div class="why-us-icon">
                         <i class="fa-solid fa-microphone-lines"></i>
                     </div>
-                    <h4>Pro Audio Gear</h4>
-                    <p>Dilengkapi mikrofon kondenser premium, headphone monitor, dan mixer digital standar penyiaran.</p>
+                    <h4 data-i18n="podcast.facility.item1_title">Pro Audio Gear</h4>
+                    <p data-i18n="podcast.facility.item1_desc">Dilengkapi mikrofon kondenser premium, headphone monitor, dan mixer digital standar penyiaran.</p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -576,8 +576,8 @@
                     <div class="why-us-icon">
                         <i class="fa-solid fa-sliders"></i>
                     </div>
-                    <h4>Acoustic Treatment</h4>
-                    <p>Ruangan dirancang dengan soundproofing optimal untuk mencegah gema dan kebisingan dari luar.</p>
+                    <h4 data-i18n="podcast.facility.item2_title">Acoustic Treatment</h4>
+                    <p data-i18n="podcast.facility.item2_desc">Ruangan dirancang dengan soundproofing optimal untuk mencegah gema dan kebisingan dari luar.</p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -585,8 +585,8 @@
                     <div class="why-us-icon">
                         <i class="fa-solid fa-mug-hot"></i>
                     </div>
-                    <h4>Lounge & Pantry</h4>
-                    <p>Bersantai sejenak sebelum atau sesudah rekaman dengan fasilitas ruang tunggu ber-AC dan free flow air.</p>
+                    <h4 data-i18n="podcast.facility.item3_title">Lounge &amp; Pantry</h4>
+                    <p data-i18n="podcast.facility.item3_desc">Bersantai sejenak sebelum atau sesudah rekaman dengan fasilitas ruang tunggu ber-AC dan free flow air.</p>
                 </div>
             </div>
         </div>
@@ -597,9 +597,9 @@
 <section class="pt-pricing" id="pricing" style="padding: 80px 0; background: #fff;">
     <div class="container">
         <div class="section-title text-center mb-5">
-            <span class="subtitle">Harga & Paket</span>
-            <h2>Podcast Room</h2>
-            <p>Tarif profesional, fasilitas lengkap — mulai produksi konten Anda hari ini</p>
+            <span class="subtitle" data-i18n="podcast.pricing.badge">Harga &amp; Paket</span>
+            <h2 data-i18n="podcast.pricing.title">Podcast Room</h2>
+            <p data-i18n="podcast.pricing.desc">Tarif profesional, fasilitas lengkap — mulai produksi konten Anda hari ini</p>
         </div>
 
         {{-- ===== CORPORATE TABLE LAYOUT ===== --}}
@@ -788,32 +788,32 @@
             <div class="col-lg-4 col-md-7">
                 <div class="pricing-card">
                     <div class="pricing-header">
-                        <h3>PAKET PODCAST ROOM</h3>
-                        <p>Fasilitas lengkap untuk rekaman Anda</p>
+                        <h3 data-i18n="podcast.pricing.card.title">PAKET PODCAST ROOM</h3>
+                        <p data-i18n="podcast.pricing.card.subtitle">Fasilitas lengkap untuk rekaman Anda</p>
                     </div>
                     <div class="pricing-body">
                         <div class="pricing-price">Rp 700.000</div>
-                        <div class="pricing-desc">
+                        <div class="pricing-desc" data-i18n="podcast.pricing.card.desc">
                             Durasi 2 Jam Pertama <br>
                             <span style="color: var(--primary); font-size: 0.85rem;">(+ Rp 300.000 / jam berikutnya)</span>
                         </div>
 
                         <div class="short-rental-box">
-                            <div class="title">Butuh Waktu Singkat?</div>
-                            <div class="desc">Harga sewa untuk <strong>1 Jam Pertama</strong> hanya <strong>Rp 500.000</strong>.</div>
+                            <div class="title" data-i18n="podcast.pricing.card.short_title">Butuh Waktu Singkat?</div>
+                            <div class="desc" data-i18n="podcast.pricing.card.short_desc">Harga sewa untuk <strong>1 Jam Pertama</strong> hanya <strong>Rp 500.000</strong>.</div>
                         </div>
 
                         <ul class="feature-list">
-                            <li><i class="fa-solid fa-check"></i> Ruang Podcast Profesional</li>
-                            <li><i class="fa-solid fa-check"></i> Peralatan Podcast Lengkap</li>
-                            <li><i class="fa-solid fa-check"></i> Akses Wifi Berkecepatan Tinggi</li>
-                            <li><i class="fa-solid fa-check"></i> Ruangan Ber-AC yang Nyaman</li>
-                            <li><i class="fa-solid fa-check"></i> Didampingi Operator Podcast</li>
-                            <li><i class="fa-solid fa-check"></i> Akses Ruang Tunggu & Pantry</li>
+                            <li><i class="fa-solid fa-check"></i> <span data-i18n="podcast.pricing.card.benefit1">Ruang Podcast Profesional</span></li>
+                            <li><i class="fa-solid fa-check"></i> <span data-i18n="podcast.pricing.card.benefit2">Peralatan Podcast Lengkap</span></li>
+                            <li><i class="fa-solid fa-check"></i> <span data-i18n="podcast.pricing.card.benefit3">Akses Wifi Berkecepatan Tinggi</span></li>
+                            <li><i class="fa-solid fa-check"></i> <span data-i18n="podcast.pricing.card.benefit4">Ruangan Ber-AC yang Nyaman</span></li>
+                            <li><i class="fa-solid fa-check"></i> <span data-i18n="podcast.pricing.card.benefit5">Didampingi Operator Podcast</span></li>
+                            <li><i class="fa-solid fa-check"></i> <span data-i18n="podcast.pricing.card.benefit6">Akses Ruang Tunggu &amp; Pantry</span></li>
                         </ul>
 
-                        <button type="button" class="btn-pricing-primary" onclick="openPodcastBookingModal()">
-                            <i class="fa-solid fa-calendar-check me-2"></i> Pilih Jadwal & Pesan
+                        <button type="button" class="btn-pricing-primary" onclick="openPodcastBookingModal()" data-i18n="podcast.pricing.card.cta">
+                            <i class="fa-solid fa-calendar-check me-2"></i> Pilih Jadwal &amp; Pesan
                         </button>
                     </div>
                 </div>
@@ -827,8 +827,8 @@
                     <i class="fa-solid fa-circle-info"></i>
                 </div>
                 <div class="podcast-note-content">
-                    <h5>Aturan Harga</h5>
-                    <p>Durasi 2 jam pertama menggunakan harga paket <strong>Rp 700.000</strong>. Setelah melewati 2 jam, dikenakan tambahan <strong>Rp 300.000 / jam</strong> berikutnya.</p>
+                    <h5 data-i18n="podcast.note.title1">Aturan Harga</h5>
+                    <p data-i18n="podcast.note.desc1">Durasi 2 jam pertama menggunakan harga paket <strong>Rp 700.000</strong>. Setelah melewati 2 jam, dikenakan tambahan <strong>Rp 300.000 / jam</strong> berikutnya.</p>
                 </div>
             </div>
 
@@ -837,8 +837,8 @@
                     <i class="fa-solid fa-clock"></i>
                 </div>
                 <div class="podcast-note-content">
-                    <h5>Persiapan Sesi</h5>
-                    <p>Harap tiba di lokasi <strong>15 menit sebelum</strong> jadwal dimulai untuk persiapan dan pengecekan teknis peralatan studio.</p>
+                    <h5 data-i18n="podcast.note.title2">Persiapan Sesi</h5>
+                    <p data-i18n="podcast.note.desc2">Harap tiba di lokasi <strong>15 menit sebelum</strong> jadwal dimulai untuk persiapan dan pengecekan teknis peralatan studio.</p>
                 </div>
             </div>
         </div>
@@ -853,23 +853,23 @@
 <section class="pt-faq">
     <div class="container">
         <div class="section-title text-center mb-5">
-            <span class="subtitle">Bantuan Sentral</span>
-            <h2>FAQ terkait Ruang Podcast</h2>
-            <p>Pertanyaan yang paling sering diajukan seputar penyewaan studio podcast</p>
+            <span class="subtitle" data-i18n="podcast.faq.badge">Bantuan Sentral</span>
+            <h2 data-i18n="podcast.faq.title">FAQ terkait Ruang Podcast</h2>
+            <p data-i18n="podcast.faq.desc">Pertanyaan yang paling sering diajukan seputar penyewaan studio podcast</p>
         </div>
         <div class="row">
             <div class="col-lg-8 mx-auto">
                 <div class="faq-item">
-                    <div class="faq-question">Berapa jumlah maksimal orang di dalam studio? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Studio kami dirancang optimal untuk 2 hingga 4 orang pembicara sekaligus agar kualitas audio tetap fokus dan tidak *bocor*.</div>
+                    <div class="faq-question"><span data-i18n="podcast.faq.q1">Berapa jumlah maksimal orang di dalam studio?</span> <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer" data-i18n="podcast.faq.a1">Studio kami dirancang optimal untuk 2 hingga 4 orang pembicara sekaligus agar kualitas audio tetap fokus dan tidak *bocor*.</div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">Apakah saya perlu membawa *memory card* atau *harddisk* sendiri? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Ya, kami sangat menyarankan Anda membawa *storage* sendiri untuk memudahkan pemindahan *file* raw (mentah) langsung setelah sesi rekaman selesai.</div>
+                    <div class="faq-question"><span data-i18n="podcast.faq.q2">Apakah saya perlu membawa *memory card* atau *harddisk* sendiri?</span> <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer" data-i18n="podcast.faq.a2">Ya, kami sangat menyarankan Anda membawa *storage* sendiri untuk memudahkan pemindahan *file* raw (mentah) langsung setelah sesi rekaman selesai.</div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">Apakah sudah termasuk layanan *editing* video/audio? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Paket sewa standar hanya mencakup penggunaan ruangan dan peralatan. Untuk layanan tambahan *editing* pasca produksi, silakan konsultasikan dengan tim teknis kami di lokasi.</div>
+                    <div class="faq-question"><span data-i18n="podcast.faq.q3">Apakah sudah termasuk layanan *editing* video/audio?</span> <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer" data-i18n="podcast.faq.a3">Paket sewa standar hanya mencakup penggunaan ruangan dan peralatan. Untuk layanan tambahan *editing* pasca produksi, silakan konsultasikan dengan tim teknis kami di lokasi.</div>
                 </div>
             </div>
         </div>
@@ -1161,11 +1161,11 @@
 <div class="booking-modal-overlay" id="bookingModalOverlay">
     <div class="booking-modal">
         <div class="bm-left">
-            <h4 id="bmPackageName">Paket Podcast Room</h4>
-            <div class="bm-info-item"><i class="fa-regular fa-clock"></i> <span id="bmDuration">2 Jam</span></div>
-            <div class="bm-info-item"><i class="fa-solid fa-location-dot"></i> <span>Studio Offline (Lawgika Office)</span></div>
+            <h4 id="bmPackageName" data-i18n="podcast.modal.title">Paket Podcast Room</h4>
+            <div class="bm-info-item"><i class="fa-regular fa-clock"></i> <span id="bmDuration" data-i18n="podcast.modal.duration_val">2 Jam</span></div>
+            <div class="bm-info-item"><i class="fa-solid fa-location-dot"></i> <span data-i18n="podcast.modal.location">Studio Offline (Lawgika Office)</span></div>
             <div style="margin-top:20px;">
-                <p style="font-size:0.9rem; color:#64748b; line-height:1.6;">
+                <p style="font-size:0.9rem; color:#64748b; line-height:1.6;" data-i18n="podcast.modal.instruction">
                     Pilih tanggal dan waktu yang tersedia untuk produksi podcast Anda bersama Lawgika.
                 </p>
             </div>
@@ -1173,23 +1173,23 @@
         <div class="bm-right">
             <button class="bm-close" onclick="closeBookingModal()">&times;</button>
             <div class="bm-header">
-                <h3>Pilih tanggal & waktu</h3>
+                <h3 data-i18n="podcast.modal.header">Pilih tanggal &amp; waktu</h3>
             </div>
             <div class="bm-body">
                 <div class="bm-calendar-col">
                     <div class="calendar-nav">
                         <button id="calPrev" onclick="changeMonth(-1)"><i class="fa-solid fa-chevron-left"></i></button>
-                        <span id="calMonthYear">Apr 2026</span>
+                        <span id="calMonthYear"></span>
                         <button id="calNext" onclick="changeMonth(1)"><i class="fa-solid fa-chevron-right"></i></button>
                     </div>
                     <div class="calendar-grid">
-                        <div class="calendar-day-header">Min</div>
-                        <div class="calendar-day-header">Sen</div>
-                        <div class="calendar-day-header">Sel</div>
-                        <div class="calendar-day-header">Rab</div>
-                        <div class="calendar-day-header">Kam</div>
-                        <div class="calendar-day-header">Jum</div>
-                        <div class="calendar-day-header">Sab</div>
+                        <div class="calendar-day-header" data-i18n="calendar.day.sun">Min</div>
+                        <div class="calendar-day-header" data-i18n="calendar.day.mon">Sen</div>
+                        <div class="calendar-day-header" data-i18n="calendar.day.tue">Sel</div>
+                        <div class="calendar-day-header" data-i18n="calendar.day.wed">Rab</div>
+                        <div class="calendar-day-header" data-i18n="calendar.day.thu">Kam</div>
+                        <div class="calendar-day-header" data-i18n="calendar.day.fri">Jum</div>
+                        <div class="calendar-day-header" data-i18n="calendar.day.sat">Sab</div>
                     </div>
                     <div class="calendar-grid" id="calDays"></div>
                 </div>
@@ -1199,8 +1199,8 @@
                 </div>
             </div>
             <div class="bm-footer">
-                <button class="btn-bm-cancel" onclick="closeBookingModal()">Batal</button>
-                <button class="btn-bm-submit" id="btnReservasi" disabled onclick="submitBooking()">Lanjut ke Pembayaran</button>
+                <button class="btn-bm-cancel" onclick="closeBookingModal()" data-i18n="podcast.modal.cancel">Batal</button>
+                <button class="btn-bm-submit" id="btnReservasi" disabled onclick="submitBooking()" data-i18n="podcast.modal.submit">Lanjut ke Pembayaran</button>
             </div>
         </div>
     </div>
@@ -1217,7 +1217,16 @@
     let bookedSlotsCache = {};
 
     const SLOTS = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'];
-    const MONTHS = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+
+    function getCurrentLocale() {
+        const localeMap = {
+            id: 'id-ID',
+            en: 'en-US',
+            zh: 'zh-CN'
+        };
+        const currentLang = window.LwI18n ? window.LwI18n.current() : 'id';
+        return localeMap[currentLang] || 'id-ID';
+    }
 
     // === Podcast Dynamic Pricing Formula ===
     function calcPodcastPrice(jam) {
@@ -1278,7 +1287,9 @@
     }
 
     function renderCal() {
-        document.getElementById('calMonthYear').innerText = `${MONTHS[curMonth]} ${curYear}`;
+        const currentLocale = getCurrentLocale();
+        const dateObj = new Date(curYear, curMonth, 1);
+        document.getElementById('calMonthYear').innerText = dateObj.toLocaleDateString(currentLocale, { month: 'long', year: 'numeric' });
         const calDays = document.getElementById('calDays');
         calDays.innerHTML = '';
 
@@ -1315,14 +1326,16 @@
         document.getElementById('btnReservasi').disabled = true;
         renderCal(); // Refresh active state
 
-        const dayName = new Date(curYear, curMonth, dayNum).toLocaleDateString('id-ID', {
-            weekday: 'long'
-        });
-        document.getElementById('timeColTitle').innerText = `${dayName}, ${dayNum} ${MONTHS[curMonth]}`;
+        const currentLocale = getCurrentLocale();
+        const dateObj = new Date(curYear, curMonth, dayNum);
+        document.getElementById('timeColTitle').innerText = dateObj.toLocaleDateString(currentLocale, { weekday: 'long', day: 'numeric', month: 'long' });
         document.getElementById('bmTimeCol').classList.add('active');
 
         const container = document.getElementById('timeSlotsContainer');
-        container.innerHTML = '<div style="text-align:center;padding:20px;color:#64748b;"><i class="fa-solid fa-spinner fa-spin"></i> Mengecek ketersediaan...</div>';
+        const checkingText = window.LwI18n ? window.LwI18n.t('podcast.modal.checking') : 'Mengecek ketersediaan...';
+        const fullText = window.LwI18n ? window.LwI18n.t('podcast.modal.full') : 'Penuh';
+        
+        container.innerHTML = `<div style="text-align:center;padding:20px;color:#64748b;"><i class="fa-solid fa-spinner fa-spin"></i> ${checkingText}</div>`;
 
         // Fetch booked slots via AJAX (Sesuai endpoint podcast)
         let booked = [];
@@ -1341,7 +1354,7 @@
         container.innerHTML = '';
         SLOTS.forEach(time => {
             if (booked.includes(time)) {
-                container.innerHTML += `<div class="time-slot disabled">${time} (Penuh)</div>`;
+                container.innerHTML += `<div class="time-slot disabled">${time} (${fullText})</div>`;
             } else {
                 container.innerHTML += `<div class="time-slot" onclick="pilihJam('${time}', this)">${time}</div>`;
             }

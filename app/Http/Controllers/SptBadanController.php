@@ -29,7 +29,7 @@ class SptBadanController extends Controller
             'status_lapor' => $request->status_lapor,
         ]);
 
-        return redirect()->back()->with('success', 'Pengajuan SPT Badan Anda berhasil dikirim. Kami akan segera memprosesnya.');
+        return redirect()->back()->with('success', __('flash.spt_badan_success'));
     }
 
     // Customer Dashboard: list user's requests

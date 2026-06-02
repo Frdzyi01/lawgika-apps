@@ -406,7 +406,7 @@
             <ol class="breadcrumb mb-0">
                 <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-maroon text-decoration-none small">Home</a></li>
                 <li class="breadcrumb-item"><a href="#" class="text-maroon text-decoration-none small">Layanan</a></li>
-                <li class="breadcrumb-item active small" aria-current="page">Drafting & Review Perjanjian</li>
+                <li class="breadcrumb-item active small" aria-current="page" data-i18n="drafting.breadcrumb">Drafting & Review Perjanjian</li>
             </ol>
         </nav>
     </div>
@@ -416,17 +416,17 @@
 <section class="hero-agency">
     <div class="container">
         <div class="hero-content fade-up">
-            <span class="section-label" style="color: rgba(255,255,255,0.7)">Layanan Hukum Profesional</span>
-            <h1 class="hero-title">Drafting & Review Perjanjian Bisnis</h1>
-            <p class="hero-subtitle">
+            <span class="section-label" style="color: rgba(255,255,255,0.7)" data-i18n="drafting.hero.label">Layanan Hukum Profesional</span>
+            <h1 class="hero-title" data-i18n="drafting.hero.title">Drafting & Review Perjanjian Bisnis</h1>
+            <p class="hero-subtitle" data-i18n="drafting.hero.desc">
                 Layanan drafting dan review perjanjian bisnis untuk membantu menyusun serta meninjau dokumen perjanjian agar jelas, melindungi kepentingan para pihak, dan sesuai dengan ketentuan hukum yang berlaku.
             </p>
             <div class="d-flex flex-wrap gap-3 mt-4">
                 <a href="https://wa.me/6281112088600" class="btn-white" target="_blank" rel="noopener noreferrer">
-                    <i class="fa-brands fa-whatsapp"></i> Konsultasi Gratis
+                    <i class="fa-brands fa-whatsapp"></i> <span data-i18n="tentang.cta.primary">Konsultasi Gratis</span>
                 </a>
                 <a href="#contract-details" class="btn-outline-white">
-                    <i class="fa-solid fa-circle-info"></i> Pelajari Selengkapnya
+                    <i class="fa-solid fa-circle-info"></i> <span data-i18n="hukum.hero.btn_info">Pelajari Selengkapnya</span>
                 </a>
             </div>
         </div>
@@ -441,8 +441,8 @@
                 <div class="trust-item">
                     <div class="trust-icon"><i class="bi bi-pencil-square"></i></div>
                     <div>
-                        <h6 class="mb-0 fw-bold">Ahli Hukum</h6>
-                        <small class="text-muted">Advokat berpengalaman</small>
+                        <h6 class="mb-0 fw-bold" data-i18n="drafting.trust.item1_title">Ahli Hukum</h6>
+                        <small class="text-muted" data-i18n="drafting.trust.item1_desc">Advokat berpengalaman</small>
                     </div>
                 </div>
             </div>
@@ -450,8 +450,8 @@
                 <div class="trust-item">
                     <div class="trust-icon"><i class="bi bi-shield-shaded"></i></div>
                     <div>
-                        <h6 class="mb-0 fw-bold">Mitigasi Risiko</h6>
-                        <small class="text-muted">Cegah sengketa</small>
+                        <h6 class="mb-0 fw-bold" data-i18n="drafting.trust.item2_title">Mitigasi Risiko</h6>
+                        <small class="text-muted" data-i18n="drafting.trust.item2_desc">Cegah sengketa</small>
                     </div>
                 </div>
             </div>
@@ -459,8 +459,8 @@
                 <div class="trust-item">
                     <div class="trust-icon"><i class="bi bi-translate"></i></div>
                     <div>
-                        <h6 class="mb-0 fw-bold">Bilingual</h6>
-                        <small class="text-muted">Indonesia & Inggris</small>
+                        <h6 class="mb-0 fw-bold" data-i18n="drafting.trust.item3_title">Bilingual</h6>
+                        <small class="text-muted" data-i18n="drafting.trust.item3_desc">Indonesia & Inggris</small>
                     </div>
                 </div>
             </div>
@@ -480,15 +480,15 @@
             </div>
             <div class="col-lg-6">
                 <div class="zigzag-text">
-                    <span class="section-label">01. Layanan Drafting</span>
-                    <h2 class="display-5 fw-bold mb-3">Penyusunan Perjanjian (Drafting)</h2>
-                    <p class="text-muted mb-4 lead">
+                    <span class="section-label" data-i18n="drafting.section1.label">01. Layanan Drafting</span>
+                    <h2 class="display-5 fw-bold mb-3" data-i18n="drafting.section1.title">Penyusunan Perjanjian (Drafting)</h2>
+                    <p class="text-muted mb-4 lead" data-i18n="drafting.section1.desc">
                         Tim advokat kami siap membantu menyusun berbagai jenis perjanjian bisnis yang sesuai dengan kebutuhan spesifik dan karakteristik transaksi Anda, memastikan setiap klausul melindungi kepentingan hukum Anda.
                     </p>
                     <ul class="list-unstyled mb-4">
-                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> Perjanjian Kerjasama/Joint Venture</li>
-                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> Perjanjian Jual Beli & Sewa Menyewa</li>
-                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> Perjanjian Kerahasiaan (NDA) & Kerja</li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> <span data-i18n="drafting.section1.list1">Perjanjian Kerjasama/Joint Venture</span></li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> <span data-i18n="drafting.section1.list2">Perjanjian Jual Beli & Sewa Menyewa</span></li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> <span data-i18n="drafting.section1.list3">Perjanjian Kerahasiaan (NDA) & Kerja</span></li>
                     </ul>
                 </div>
             </div>
@@ -503,15 +503,15 @@
             </div>
             <div class="col-lg-6">
                 <div class="zigzag-text">
-                    <span class="section-label">02. Layanan Review</span>
-                    <h2 class="display-5 fw-bold mb-3">Telaah & Analisis Perjanjian (Review)</h2>
-                    <p class="text-muted mb-4 lead">
+                    <span class="section-label" data-i18n="drafting.section2.label">02. Layanan Review</span>
+                    <h2 class="display-5 fw-bold mb-3" data-i18n="drafting.section2.title">Telaah & Analisis Perjanjian (Review)</h2>
+                    <p class="text-muted mb-4 lead" data-i18n="drafting.section2.desc">
                         Menerima draft perjanjian dari pihak lain? Jangan tandatangani sebelum kami telaah. Kami akan mengidentifikasi klausul-klausul berisiko, ketidakseimbangan hak dan kewajiban, serta potensi kerugian di masa depan.
                     </p>
                     <ul class="list-unstyled mb-4">
-                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> Identifikasi klausul merugikan</li>
-                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> Rekomendasi perubahan & negosiasi</li>
-                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> Legal opinion tertulis</li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> <span data-i18n="drafting.section2.list1">Identifikasi klausul merugikan</span></li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> <span data-i18n="drafting.section2.list2">Rekomendasi perubahan & negosiasi</span></li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> <span data-i18n="drafting.section2.list3">Legal opinion tertulis</span></li>
                     </ul>
                 </div>
             </div>
@@ -524,8 +524,8 @@
 <section class="section-padding bg-white border-top">
     <div class="container">
         <div class="text-center mb-5">
-            <span class="section-label">Workflow</span>
-            <h2 class="fw-bold display-5">Proses Layanan Kami</h2>
+            <span class="section-label" data-i18n="kerjasama.process.badge">Workflow</span>
+            <h2 class="fw-bold display-5" data-i18n="drafting.process.title">Proses Layanan Kami</h2>
         </div>
         <div class="timeline-container">
             <div class="timeline-line"></div>
@@ -540,7 +540,7 @@
                 <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
                     <div class="timeline-item">
                         <div class="timeline-circle">2</div>
-                        <h5 class="fw-bold">Drafting / Review</h5>
+                        <h5 class="fw-bold" data-i18n="drafting.process.step2_title">Drafting / Review</h5>
                         <p class="text-muted small px-lg-4">Penyusunan atau analisis mendalam terhadap perjanjian.</p>
                     </div>
                 </div>
@@ -564,8 +564,8 @@
 <section class="pt-faq">
     <div class="container">
         <div class="section-title text-center mb-5">
-            <span class="subtitle">Bantuan Sentral</span>
-            <h2>FAQ terkait Drafting & Review Perjanjian</h2>
+            <span class="subtitle" data-i18n="vo.faq.badge">Bantuan Sentral</span>
+            <h2 data-i18n="drafting.faq.title">FAQ terkait Drafting & Review Perjanjian</h2>
             <p>Pertanyaan yang paling sering diajukan seputar layanan perjanjian bisnis</p>
         </div>
         <div class="row">
@@ -573,60 +573,60 @@
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Apa pentingnya perjanjian tertulis dalam bisnis?
+                        <span data-i18n="drafting.faq.q1">Apa pentingnya perjanjian tertulis dalam bisnis?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="drafting.faq.a1">
                         Perjanjian tertulis berfungsi sebagai alat bukti yang sah di mata hukum jika terjadi sengketa di kemudian hari. Selain itu, perjanjian yang jelas dan komprehensif memberikan kepastian hukum, mengatur hak dan kewajiban para pihak, serta meminimalkan potensi kesalahpahaman.
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Apa perbedaan drafting dan review perjanjian?
+                        <span data-i18n="drafting.faq.q2">Apa perbedaan drafting dan review perjanjian?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="drafting.faq.a2">
                         Drafting adalah proses menyusun perjanjian dari awal (nol) sesuai dengan kebutuhan dan keinginan klien. Review adalah proses menelaah dan menganalisis draft perjanjian yang sudah ada (biasanya dibuat oleh pihak lain) untuk mengidentifikasi risiko dan memberikan rekomendasi perubahan.
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Berapa lama proses drafting atau review perjanjian?
+                        <span data-i18n="drafting.faq.q3">Berapa lama proses drafting atau review perjanjian?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="drafting.faq.a3">
                         Waktu pengerjaan bergantung pada kompleksitas perjanjian. Untuk perjanjian standar, proses drafting atau review dapat diselesaikan dalam 3-5 hari kerja. Untuk perjanjian kompleks seperti joint venture atau M&A, waktu yang dibutuhkan bisa 1-2 minggu.
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Apakah bisa membuat perjanjian bilingual (Indonesia-Inggris)?
+                        <span data-i18n="drafting.faq.q4">Apakah bisa membuat perjanjian bilingual (Indonesia-Inggris)?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="drafting.faq.a4">
                         Ya, kami menyediakan layanan drafting dan review perjanjian dalam dua bahasa (Indonesia dan Inggris) untuk memenuhi kebutuhan transaksi bisnis lintas negara. Perjanjian bilingual dibuat dengan memperhatikan kesesuaian terminologi hukum di kedua bahasa.
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Klausul apa saja yang wajib ada dalam perjanjian bisnis?
+                        <span data-i18n="drafting.faq.q5">Klausul apa saja yang wajib ada dalam perjanjian bisnis?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="drafting.faq.a5">
                         Setidaknya ada beberapa klausul penting: Identitas Para Pihak, Maksud dan Tujuan, Hak dan Kewajiban, Jangka Waktu, Nilai Kontrak dan Cara Pembayaran, Wanprestasi dan Sanksi, Keadaan Memaksa (Force Majeure), Penyelesaian Sengketa, dan Ketentuan Penutup.
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Apakah perjanjian di bawah tangan sah secara hukum?
+                        <span data-i18n="drafting.faq.q6">Apakah perjanjian di bawah tangan sah secara hukum?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="drafting.faq.a6">
                         Ya, perjanjian di bawah tangan (tidak dibuat di hadapan notaris) tetap sah dan mengikat para pihak secara hukum. Namun, untuk perjanjian tertentu seperti pendirian PT, jual beli tanah, atau perjanjian kredit dengan jaminan, wajib dibuat dalam bentuk akta notaris.
                     </div>
                 </div>

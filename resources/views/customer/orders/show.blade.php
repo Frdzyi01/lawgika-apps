@@ -1,6 +1,6 @@
 @extends('layouts-customer.app')
 
-@section('title', 'Detail Pesanan ' . $order->order_number)
+@section('title', __('customer.orders.show.title') . $order->order_number)
 
 @section('content')
 <style>
@@ -101,9 +101,9 @@
 <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
     <div>
         <a href="{{ route('customer.orders.index') }}" class="text-muted small mb-1 d-inline-block">
-            ← Kembali ke Daftar Pesanan
+            {{ __('customer.orders.show.back') }}
         </a>
-        <h5 class="mb-0 fw-bold">Detail Pesanan</h5>
+        <h5 class="mb-0 fw-bold">{{ __('customer.orders.show.detail_title') }}</h5>
         <span class="text-muted small">{{ $order->order_number }}</span>
     </div>
     @php
@@ -116,10 +116,10 @@
 {{-- ── Order Status Stepper ─────────────────────────────────────────────── --}}
 @php
     $steps = [
-        'draft'                => ['icon' => 'fa-file-circle-plus',  'label' => 'Draft'],
-        'waiting_verification' => ['icon' => 'fa-hourglass-half',    'label' => 'Menunggu Verifikasi'],
-        'revision'             => ['icon' => 'fa-rotate-left',       'label' => 'Revisi'],
-        'verified'             => ['icon' => 'fa-circle-check',      'label' => 'Terverifikasi'],
+        'draft'                => ['icon' => 'fa-file-circle-plus',  'label' => __('customer.orders.show.stepper.draft')],
+        'waiting_verification' => ['icon' => 'fa-hourglass-half',    'label' => __('customer.orders.show.stepper.waiting')],
+        'revision'             => ['icon' => 'fa-rotate-left',       'label' => __('customer.orders.show.stepper.revision')],
+        'verified'             => ['icon' => 'fa-circle-check',      'label' => __('customer.orders.show.stepper.verified')],
     ];
     $stepKeys    = array_keys($steps);
     $currentStep = $order->status;
@@ -129,7 +129,7 @@
 @endphp
 <div class="card border-0 shadow-sm mb-4">
     <div class="card-body py-4 px-4">
-        <p class="text-muted small mb-3 fw-semibold">PROGRES VERIFIKASI DOKUMEN</p>
+        <p class="text-muted small mb-3 fw-semibold">{{ __('customer.orders.show.stepper.title') }}</p>
         <div class="d-flex align-items-flex-start">
             @foreach($steps as $key => $step)
                 @php
@@ -159,22 +159,22 @@
     {{-- ── LEFT COL ── --}}
     <div class="col-lg-7">
 
-        {{-- Informasi Pesanan --}}
+        {{-- {{ __('customer.orders.show.info.title') }} --}}
         <div class="card border-0 shadow-sm mb-4">
             <div class="card-header bg-transparent pt-4 pb-2 px-4 border-0">
-                <h6 class="fw-bold mb-0"><i class="fa fa-receipt me-2 text-muted"></i>Informasi Pesanan</h6>
+                <h6 class="fw-bold mb-0"><i class="fa fa-receipt me-2 text-muted"></i>{{ __('customer.orders.show.info.title') }}</h6>
             </div>
             <div class="card-body px-4 pb-4">
                 <table class="table table-borderless table-sm mb-0" style="font-size:.9rem">
-                    <tr><td class="text-muted" width="38%">Layanan</td>
+                    <tr><td class="text-muted" width="38%">{{ __('customer.orders.show.info.service') }}</td>
                         <td class="fw-semibold">{{ $order->service?->name ?? $order->service_name ?? '–' }}</td></tr>
-                    <tr><td class="text-muted">Total Harga</td>
+                    <tr><td class="text-muted">{{ __('customer.orders.show.info.total') }}</td>
                         <td class="fw-semibold">{{ $order->total_price > 0 ? 'Rp ' . number_format($order->total_price,0,',','.') : '–' }}</td></tr>
-                    <tr><td class="text-muted">Tanggal Order</td>
+                    <tr><td class="text-muted">{{ __('customer.orders.show.info.date') }}</td>
                         <td>{{ $order->created_at->format('d M Y, H:i') }}</td></tr>
                     @if($order->admin_notes)
                     <tr>
-                        <td class="text-muted align-top">Catatan Admin</td>
+                        <td class="text-muted align-top">{{ __('customer.orders.show.info.admin_notes') }}</td>
                         <td>
                             <div class="alert alert-warning py-2 px-3 mb-0" style="font-size:.88rem">
                                 <i class="fa fa-comment-dots me-1"></i>{{ $order->admin_notes }}
@@ -190,13 +190,13 @@
         @if($documentSummary && count($documentSummary) > 0)
         <div class="card border-0 shadow-sm mb-4">
             <div class="card-header bg-transparent pt-4 pb-2 px-4 border-0 d-flex align-items-center justify-content-between">
-                <h6 class="fw-bold mb-0"><i class="fa fa-file-shield me-2 text-muted"></i>Dokumen Persyaratan</h6>
+                <h6 class="fw-bold mb-0"><i class="fa fa-file-shield me-2 text-muted"></i>{{ __('customer.orders.show.req.title') }}</h6>
                 @php
                     $fulfilledCount = collect($documentSummary)->filter(fn($d) => $d['is_fulfilled'])->count();
                     $totalRequired  = count($documentSummary);
                 @endphp
                 <span class="badge {{ $fulfilledCount === $totalRequired ? 'bg-success' : 'bg-warning text-dark' }}">
-                    {{ $fulfilledCount }} / {{ $totalRequired }} Terpenuhi
+                    {{ $fulfilledCount }} / {{ $totalRequired }} {{ __('customer.orders.show.req.fulfilled') }}
                 </span>
             </div>
 
@@ -248,13 +248,13 @@
                                     <small class="text-muted ms-2 font-monospace" style="font-size:.72rem">{{ $req->document_type }}</small>
                                 </div>
                                 @if($fulfilled)
-                                    <span class="doc-status-badge bg-success text-white">✓ Terpenuhi</span>
+                                    <span class="doc-status-badge bg-success text-white">✓ {{ __('customer.orders.show.req.fulfilled') }}</span>
                                 @elseif($docs->where('status','rejected')->count() > 0)
-                                    <span class="doc-status-badge bg-danger text-white">✕ Ada Penolakan</span>
+                                    <span class="doc-status-badge bg-danger text-white">{{ __('customer.orders.show.doc.rejected') }}</span>
                                 @elseif($total > 0)
-                                    <span class="doc-status-badge bg-warning text-dark">⏳ Menunggu Review</span>
+                                    <span class="doc-status-badge bg-warning text-dark">{{ __('customer.orders.show.doc.pending') }}</span>
                                 @else
-                                    <span class="doc-status-badge bg-secondary text-white">Belum Upload</span>
+                                    <span class="doc-status-badge bg-secondary text-white">{{ __('customer.orders.show.doc.not_uploaded') }}</span>
                                 @endif
                             </div>
 
@@ -265,7 +265,7 @@
                                          style="width:{{ $progress }}%"></div>
                                 </div>
                                 <small class="text-muted" style="white-space:nowrap; font-size:.78rem">
-                                    {{ $approved }} / {{ $req->min_required }} disetujui
+                                    {{ $approved }} / {{ $req->min_required }} {{ __('customer.orders.show.doc.approved_count') }}
                                 </small>
                             </div>
 
@@ -280,9 +280,9 @@
                                             default                => 'warning',
                                         };
                                         $dLabel = match($doc->status) {
-                                            'approved', 'verified' => 'Disetujui',
-                                            'rejected'             => 'Ditolak',
-                                            default                => 'Menunggu Review',
+                                            'approved', 'verified' => __('customer.orders.show.status.approved'),
+                                            'rejected'             => __('customer.orders.show.status.rejected'),
+                                            default                => __('customer.orders.show.status.pending'),
                                         };
                                         $dIcon  = match($doc->status) {
                                             'approved', 'verified' => 'fa-circle-check',
@@ -311,13 +311,13 @@
                                     @if($doc->status === 'rejected' && $doc->rejection_reason)
                                     <div class="alert alert-danger py-2 px-3 mt-1 mb-1" style="font-size:.82rem; border-radius: 8px">
                                         <i class="fa fa-circle-info me-1"></i>
-                                        <strong>Alasan Penolakan:</strong> {{ $doc->rejection_reason }}
+                                        <strong>{{ __('customer.orders.show.rejection_reason') }}</strong> {{ $doc->rejection_reason }}
                                     </div>
                                     @endif
                                 @endforeach
                             </div>
                             @else
-                            <p class="text-muted small mb-3"><i class="fa fa-folder-open me-1"></i>Belum ada dokumen yang diunggah.</p>
+                            <p class="text-muted small mb-3"><i class="fa fa-folder-open me-1"></i>{{ __('customer.orders.show.upload.no_docs_yet') }}</p>
                             @endif
 
                             {{-- ══════════════════════════════════════════════════════════
@@ -354,9 +354,9 @@
                                      onclick="document.getElementById('file-{{ $loop->index }}').click()">
                                     <i class="fa fa-cloud-arrow-up text-muted mb-2" style="font-size:1.5rem"></i>
                                     <div class="fw-semibold text-muted small">
-                                        {{ $hasRejectedDoc ? 'Klik untuk upload ulang' : 'Klik untuk upload' }}
+                                        {{ $hasRejectedDoc ? '{{ __('customer.orders.show.upload.click_reupload') }}' : '{{ __('customer.orders.show.upload.click_upload') }}' }}
                                     </div>
-                                    <div class="text-muted" style="font-size:.75rem">JPG, PNG, PDF — Maks. 5MB</div>
+                                    <div class="text-muted" style="font-size:.75rem">{{ __('customer.orders.show.upload.hint') }}</div>
                                     <div id="fname-{{ $loop->index }}" class="text-primary small mt-1 d-none fw-semibold"></div>
                                 </div>
                                 <input type="file" id="file-{{ $loop->index }}" name="document" class="d-none"
@@ -366,7 +366,7 @@
                                         class="btn {{ $hasRejectedDoc ? 'btn-warning' : 'btn-primary' }} btn-sm w-100 mt-2 d-none"
                                         style="border-radius:8px">
                                     <i class="fa fa-upload me-1"></i>
-                                    {{ $hasRejectedDoc ? 'Kirim Dokumen Revisi' : 'Kirim Dokumen' }}
+                                    {{ $hasRejectedDoc ? '{{ __('customer.orders.show.upload.btn_revision') }}' : '{{ __('customer.orders.show.upload.btn_submit') }}' }}
                                 </button>
                             </form>
 
@@ -374,7 +374,7 @@
                             {{-- Batas maksimal upload tercapai --}}
                             <div class="text-muted small mt-2">
                                 <i class="fa fa-circle-info me-1"></i>
-                                Batas maksimal upload ({{ $req->max_allowed }} file) sudah tercapai.
+                                {{ __('customer.orders.show.upload.max_allowed') }}
                             </div>
 
                             @elseif($docs->where('status', 'pending')->count() > 0)
@@ -389,7 +389,7 @@
                             {{-- Semua sudah approved --}}
                             <div class="alert py-2 px-3 mt-2 mb-0" style="font-size:.82rem;border-radius:8px;background:#f0fdf4;border:1px solid #bbf7d0;color:#166534">
                                 <i class="fa fa-circle-check me-1"></i>
-                                <strong>Dokumen disetujui.</strong> Tidak perlu upload lagi.
+                                <strong>Dokumen {{ __('customer.orders.show.doc.approved_count') }}.</strong> Tidak perlu upload lagi.
                             </div>
 
                             @endif
@@ -402,16 +402,16 @@
         {{-- Order tidak punya service / requirement → tampilkan form upload lama --}}
         <div class="card border-0 shadow-sm mb-4">
             <div class="card-header bg-transparent pt-4 pb-2 px-4 border-0">
-                <h6 class="fw-bold mb-0"><i class="fa fa-file-arrow-up me-2 text-muted"></i>Upload Dokumen</h6>
+                <h6 class="fw-bold mb-0"><i class="fa fa-file-arrow-up me-2 text-muted"></i>{{ __('customer.orders.show.legacy.title') }}</h6>
             </div>
             <div class="card-body px-4 pb-4">
                 <form action="{{ route('customer.documents.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="order_id" value="{{ $order->id }}">
                     <div class="mb-3">
-                        <label class="form-label fw-semibold">Jenis Dokumen</label>
+                        <label class="form-label fw-semibold">{{ __('customer.orders.show.legacy.type') }}</label>
                         <select name="document_type" class="form-select" required>
-                            <option value="">Pilih...</option>
+                            <option value="">{{ __('customer.orders.show.legacy.select') }}</option>
                             <option value="KTP_DIREKTUR">KTP Direktur</option>
                             <option value="NPWP_DIREKTUR">NPWP Direktur</option>
                             <option value="KTP_PEMEGANG_SAHAM">KTP Pemegang Saham</option>
@@ -421,15 +421,15 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label fw-semibold">File (PDF/JPG/PNG, maks. 5MB)</label>
+                        <label class="form-label fw-semibold">{{ __('customer.orders.show.legacy.file') }}</label>
                         <input type="file" name="document" class="form-control" required>
                     </div>
-                    <button class="btn btn-primary w-100" type="submit">Upload Dokumen</button>
+                    <button class="btn btn-primary w-100" type="submit">{{ __('customer.orders.show.legacy.title') }}</button>
                 </form>
 
                 @if($order->documents->count() > 0)
                 <hr>
-                <h6 class="fw-bold mt-3">Dokumen Terunggah</h6>
+                <h6 class="fw-bold mt-3">{{ __('customer.orders.show.legacy.uploaded_title') }}</h6>
                 @foreach($order->documents as $doc)
                     <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
                         <span class="small">{{ $doc->original_name }}</span>
@@ -446,17 +446,17 @@
     {{-- ── RIGHT COL ── --}}
     <div class="col-lg-5">
 
-        {{-- Pembayaran --}}
+        {{-- {{ __('customer.orders.show.payment.title') }} --}}
         <div class="card border-0 shadow-sm mb-4">
             <div class="card-header bg-transparent pt-4 pb-2 px-4 border-0 d-flex align-items-center justify-content-between">
-                <h6 class="fw-bold mb-0"><i class="fa fa-credit-card me-2 text-muted"></i>Pembayaran</h6>
+                <h6 class="fw-bold mb-0"><i class="fa fa-credit-card me-2 text-muted"></i>{{ __('customer.orders.show.payment.title') }}</h6>
                 <span class="badge bg-{{ $order->payment_status_color }}">{{ $order->payment_status_label }}</span>
             </div>
             <div class="card-body px-4 pb-4">
                 @if($order->payment_proof)
                 <div class="mb-3">
                     <a href="{{ asset('storage/' . $order->payment_proof) }}" target="_blank" class="btn btn-sm btn-outline-primary">
-                        <i class="fa fa-eye me-1"></i>Lihat Bukti Pembayaran
+                        <i class="fa fa-eye me-1"></i>Lihat Bukti {{ __('customer.orders.show.payment.title') }}
                     </a>
                 </div>
                 @endif
@@ -465,17 +465,17 @@
                 <form action="{{ route('customer.orders.payment-proof', $order->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <label class="form-label fw-semibold small">
-                        {{ $order->payment_proof ? 'Update Bukti Pembayaran' : 'Upload Bukti Pembayaran' }}
+                        {{ $order->payment_proof ? 'Update Bukti {{ __('customer.orders.show.payment.title') }}' : 'Upload Bukti {{ __('customer.orders.show.payment.title') }}' }}
                     </label>
                     <input type="file" name="payment_proof" class="form-control form-control-sm mb-2" required>
-                    <small class="text-muted d-block mb-2">PDF/JPG/PNG — Maks. 5MB</small>
+                    <small class="text-muted d-block mb-2">{{ __('customer.orders.show.payment.hint') }}</small>
                     <button class="btn btn-primary btn-sm w-100" type="submit">
-                        <i class="fa fa-upload me-1"></i>Kirim Bukti Pembayaran
+                        <i class="fa fa-upload me-1"></i>Kirim Bukti {{ __('customer.orders.show.payment.title') }}
                     </button>
                 </form>
                 @else
                 <div class="alert alert-success py-2 px-3 mb-0" style="font-size:.85rem">
-                    <i class="fa fa-circle-check me-1"></i>Pembayaran telah diverifikasi.
+                    <i class="fa fa-circle-check me-1"></i>{{ __('customer.orders.show.payment.title') }} telah diverifikasi.
                 </div>
                 @endif
             </div>
@@ -485,7 +485,7 @@
         @if($documentSummary && count($documentSummary) > 0)
         <div class="card border-0 shadow-sm">
             <div class="card-header bg-transparent pt-4 pb-2 px-4 border-0">
-                <h6 class="fw-bold mb-0"><i class="fa fa-list-check me-2 text-muted"></i>Ringkasan Kelengkapan</h6>
+                <h6 class="fw-bold mb-0"><i class="fa fa-list-check me-2 text-muted"></i>{{ __('customer.orders.show.summary.title') }}</h6>
             </div>
             <div class="card-body px-4 pb-4">
                 @foreach($documentSummary as $docType => $summary)
@@ -497,7 +497,7 @@
                 <div class="d-flex align-items-center justify-content-between py-2 border-bottom">
                     <div>
                         <div class="fw-semibold small">{{ $req->label }}</div>
-                        <div class="text-muted" style="font-size:.75rem">Min. {{ $req->min_required }} disetujui</div>
+                        <div class="text-muted" style="font-size:.75rem">Min. {{ $req->min_required }} {{ __('customer.orders.show.doc.approved_count') }}</div>
                     </div>
                     @if($fulfilled)
                         <i class="fa fa-circle-check text-success fs-5"></i>
@@ -511,7 +511,7 @@
                 <div class="progress-pill mt-3 mb-1">
                     <div class="progress-fill bg-success" style="width:{{ $total > 0 ? round($done/$total*100) : 0 }}%"></div>
                 </div>
-                <small class="text-muted">{{ $done }} dari {{ $total }} dokumen terpenuhi</small>
+                <small class="text-muted">{{ $done }} / {{ $total }} {{ __('customer.orders.show.summary.progress') }}</small>
             </div>
         </div>
         @endif

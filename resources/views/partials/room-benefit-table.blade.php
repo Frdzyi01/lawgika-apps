@@ -9,7 +9,7 @@
 
     UPDATED:
       - Dynamic status (computed from logs, never stored)
-      - "Lihat Detail" button links to detail page
+      - "{{ __('room_benefit.view_detail') }}" button links to detail page
       - Status badge colors: info/warning/success/danger
       - Admin check-in/out now reflects real active-session detection
 --}}
@@ -19,32 +19,32 @@
     <div class="card-header py-3 d-flex align-items-center justify-content-between"
          style="background: linear-gradient(135deg,#d4edda 0%,#c3e6cb 100%);">
         <h6 class="m-0 font-weight-bold" style="color:#155724;">
-            🎁 Benefit dari Paket PT
+            🎁 {{ __('room_benefit.title') }}
         </h6>
-        <span class="badge bg-success">Shared Pool</span>
+        <span class="badge bg-success">{{ __('room_benefit.shared_pool') }}</span>
     </div>
     <div class="card-body">
         @if($benefits->isEmpty())
             <div class="text-center py-3 text-muted">
                 <i class="fa fa-info-circle me-1"></i>
-                Tidak ada benefit ruangan yang aktif.
+                {{ __('room_benefit.no_active') }}
             </div>
         @else
         <div class="table-responsive">
             <table class="table table-bordered table-hover align-middle">
                 <thead class="table-success">
                     <tr>
-                        <th>No Order</th>
+                        <th>{{ __('room_benefit.order_no') }}</th>
                         @if($isAdmin ?? false)
-                        <th>Customer</th>
+                        <th>{{ __('room_benefit.customer') }}</th>
                         @endif
-                        <th>Paket</th>
-                        <th>Total</th>
-                        <th>Dipakai</th>
-                        <th>Sisa</th>
-                        <th>Berlaku s/d</th>
-                        <th>Status</th>
-                        <th>Aksi</th>
+                        <th>{{ __('room_benefit.package') }}</th>
+                        <th>{{ __('room_benefit.total') }}</th>
+                        <th>{{ __('room_benefit.used') }}</th>
+                        <th>{{ __('room_benefit.remaining') }}</th>
+                        <th>{{ __('room_benefit.valid_until') }}</th>
+                        <th>{{ __('room_benefit.status') }}</th>
+                        <th>{{ __('room_benefit.action') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -62,7 +62,7 @@
                         $lastLog     = $b->logs()->latest('action_at')->first();
                         $isCheckedIn = $lastLog && $lastLog->action === 'checkin';
 
-                        // ── Detail route (role-aware) ──────────────────────────────────────────
+                        // ── {{ __('room_benefit.modal.btn.detail') }} route (role-aware) ──────────────────────────────────────────
                         $detailRoute = ($isAdmin ?? false)
                             ? route('admin.benefits.detail', $b->id)
                             : route('customer.benefits.detail', $b->id);
@@ -119,29 +119,29 @@
                             @php
                                 $badgeStyles = [
                                     'Siap Digunakan'   => 'bg-info text-dark',
-                                    'Sedang Digunakan' => 'bg-warning text-dark',
-                                    'Selesai'          => 'bg-success',
+                                    '{{ __('room_benefit.modal.status.in_use') }}' => 'bg-warning text-dark',
+                                    '{{ __('room_benefit.modal.status.finished') }}'          => 'bg-success',
                                     'Expired'          => 'bg-danger',
                                     'Nonaktif'         => 'bg-secondary',
                                 ];
                                 $badgeClass = $badgeStyles[$statusLabel] ?? 'bg-secondary';
                             @endphp
                             <span class="badge {{ $badgeClass }}">
-                                @if($statusLabel === 'Sedang Digunakan')
+                                @if($statusLabel === '{{ __('room_benefit.modal.status.in_use') }}')
                                     <i class="fa fa-circle-dot fa-beat me-1"></i>
                                 @endif
-                                {{ $statusLabel }}
+                                {{ match($statusLabel) { 'Siap Digunakan' => __('room_benefit.status.ready'), 'Sedang Digunakan' => __('room_benefit.status.in_use'), 'Selesai' => __('room_benefit.status.finished'), 'Expired' => __('room_benefit.status.expired'), 'Nonaktif' => __('room_benefit.status.inactive'), default => $statusLabel } }}
                             </span>
                         </td>
 
-                        {{-- Aksi: Lihat Detail + (Admin) Check-In/Out --}}
+                        {{-- Aksi: {{ __('room_benefit.view_detail') }} + (Admin) Check-In/Out --}}
                         <td>
                             <div class="d-flex flex-column gap-1">
 
-                                {{-- [Lihat Detail] — visible to both admin and customer --}}
+                                {{-- [{{ __('room_benefit.view_detail') }}] — visible to both admin and customer --}}
                                 <a href="{{ $detailRoute }}"
                                    class="btn btn-sm btn-outline-primary">
-                                    <i class="fa fa-eye me-1"></i>Lihat Detail
+                                    <i class="fa fa-eye me-1"></i>{{ __('room_benefit.view_detail') }}
                                 </a>
 
                                 @php
@@ -149,20 +149,20 @@
                                 @endphp
                                 @if($res->count() > 0)
                                     <button type="button" class="btn btn-sm btn-info text-white" data-bs-toggle="modal" data-bs-target="#modalBenefitBookings-{{ $b->id }}">
-                                        <i class="fa fa-ticket-alt me-1"></i> Reservasi ({{ $res->count() }})
+                                        <i class="fa fa-ticket-alt me-1"></i> {{ __('room_benefit.reservation') }} ({{ $res->count() }})
                                     </button>
                                 @endif
 
                                 {{-- Admin-only check-in / check-out buttons --}}
                                 @if($isAdmin ?? false)
-                                    @if($statusLabel === 'Siap Digunakan' || $statusLabel === 'Sedang Digunakan')
+                                    @if($statusLabel === 'Siap Digunakan' || $statusLabel === '{{ __('room_benefit.modal.status.in_use') }}')
                                         @if($isCheckedIn)
                                             <form action="{{ route('admin.benefits.checkout', [$b->id, $roomType ?? 'meeting']) }}"
                                                   method="POST">
                                                 @csrf
                                                 <button class="btn btn-sm btn-warning text-dark w-100"
-                                                        onclick="return confirm('Check Out sesi ini?')">
-                                                    <i class="fa fa-sign-out-alt me-1"></i>Check Out
+                                                        onclick="return confirm('{{ __('room_benefit.checkout') }} sesi ini?')">
+                                                    <i class="fa fa-sign-out-alt me-1"></i>{{ __('room_benefit.checkout') }}
                                                 </button>
                                             </form>
                                             <small class="text-muted text-center d-block">
@@ -173,13 +173,13 @@
                                                   method="POST">
                                                 @csrf
                                                 <button class="btn btn-sm btn-success w-100"
-                                                        onclick="return confirm('Check In benefit?')">
-                                                    <i class="fa fa-sign-in-alt me-1"></i>Check In
+                                                        onclick="return confirm('{{ __('room_benefit.checkin') }} benefit?')">
+                                                    <i class="fa fa-sign-in-alt me-1"></i>{{ __('room_benefit.checkin') }}
                                                 </button>
                                             </form>
                                         @endif
                                     @else
-                                        <span class="text-muted small text-center">{{ $statusLabel }}</span>
+                                        <span class="text-muted small text-center">{{ match($statusLabel) { 'Siap Digunakan' => __('room_benefit.status.ready'), 'Sedang Digunakan' => __('room_benefit.status.in_use'), 'Selesai' => __('room_benefit.status.finished'), 'Expired' => __('room_benefit.status.expired'), 'Nonaktif' => __('room_benefit.status.inactive'), default => $statusLabel } }}</span>
                                     @endif
                                 @endif
 
@@ -192,14 +192,14 @@
                                     <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
                                         <div class="modal-header bg-primary text-white border-0 py-3" style="border-top-left-radius: 12px; border-top-right-radius: 12px;">
                                             <h5 class="modal-title fw-bold fs-6 mb-0" id="modalBenefitBookingsLabel-{{ $b->id }}">
-                                                <i class="fa fa-ticket-alt me-2"></i> Reservasi Benefit - {{ $b->order->order_number ?? '#'.$b->order_id }}
+                                                <i class="fa fa-ticket-alt me-2"></i> {{ __('room_benefit.reservation') }} Benefit - {{ $b->order->order_number ?? '#'.$b->order_id }}
                                             </h5>
                                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body p-4" style="background-color: #f8fafc;">
                                             <div class="d-flex justify-content-between align-items-center mb-3">
                                                 <div class="small text-muted">
-                                                    Daftar riwayat atau pengajuan reservasi yang dibuat menggunakan benefit ini.
+                                                    {{ __('room_benefit.modal.desc') }}
                                                 </div>
                                                 <span class="badge bg-primary bg-opacity-10 text-primary">{{ $res->count() }} Booking</span>
                                             </div>
@@ -207,13 +207,13 @@
                                                 <table class="table table-sm table-hover mb-0 align-middle" style="font-size: 0.85rem; background-color: #fff; border: 1px solid #e2e8f0; border-radius: 6px; overflow: hidden;">
                                                     <thead class="table-light">
                                                         <tr>
-                                                            <th class="ps-3" style="width: 8%;">ID</th>
+                                                            <th class="ps-3" style="width: 8%;">{{ __('room_benefit.modal.id') }}</th>
                                                             @if($isAdmin ?? false)
-                                                            <th style="width: 25%;">Nama Pemesan</th>
+                                                            <th style="width: 25%;">{{ __('room_benefit.modal.customer_name') }}</th>
                                                             @endif
-                                                            <th style="width: 32%;">Waktu & Peserta</th>
-                                                            <th style="width: 20%;">Status</th>
-                                                            <th class="pe-3" style="width: 15%;">Aksi</th>
+                                                            <th style="width: 32%;">{{ __('room_benefit.modal.time_participants') }}</th>
+                                                            <th style="width: 20%;">{{ __('room_benefit.modal.status') }}</th>
+                                                            <th class="pe-3" style="width: 15%;">{{ __('room_benefit.modal.action') }}</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -235,43 +235,43 @@
                                                             </td>
                                                             <td>
                                                                 @if ($booking->status === 'pending')
-                                                                    <span class="badge bg-warning text-dark"><i class="fa fa-hourglass-half me-1"></i> Menunggu Approval</span>
+                                                                    <span class="badge bg-warning text-dark"><i class="fa fa-hourglass-half me-1"></i> {{ __('room_benefit.modal.status.pending') }}</span>
                                                                 @elseif($booking->status === 'approved')
-                                                                    <span class="badge bg-success"><i class="fa fa-check-circle me-1"></i> Disetujui</span>
+                                                                    <span class="badge bg-success"><i class="fa fa-check-circle me-1"></i> {{ __('room_benefit.modal.status.approved') }}</span>
                                                                 @elseif($booking->status === 'rejected')
-                                                                    <span class="badge bg-danger"><i class="fa fa-times-circle me-1"></i> Ditolak</span>
+                                                                    <span class="badge bg-danger"><i class="fa fa-times-circle me-1"></i> {{ __('room_benefit.modal.status.rejected') }}</span>
                                                                 @elseif($booking->status === 'checkin')
-                                                                    <span class="badge bg-primary"><i class="fa fa-play-circle me-1"></i> Sedang Digunakan</span>
+                                                                    <span class="badge bg-primary"><i class="fa fa-play-circle me-1"></i> {{ __('room_benefit.modal.status.in_use') }}</span>
                                                                 @elseif($booking->status === 'paused')
-                                                                    <span class="badge bg-secondary"><i class="fa fa-pause-circle me-1"></i> Berhenti Sementara</span>
+                                                                    <span class="badge bg-secondary"><i class="fa fa-pause-circle me-1"></i> {{ __('room_benefit.modal.status.paused') }}</span>
                                                                 @elseif($booking->status === 'selesai')
-                                                                    <span class="badge bg-dark"><i class="fa fa-flag-checkered me-1"></i> Selesai</span>
+                                                                    <span class="badge bg-dark"><i class="fa fa-flag-checkered me-1"></i> {{ __('room_benefit.modal.status.finished') }}</span>
                                                                 @endif
                                                             </td>
                                                             <td class="pe-3">
                                                                 <div class="d-flex gap-1 flex-wrap">
                                                                     <a href="{{ url(($isAdmin ?? false ? 'admin' : 'customer') . '/meeting-room/' . $booking->id . '/detail') }}"
-                                                                        class="btn btn-sm btn-info py-1 px-2 text-white" style="font-size:0.75rem;" target="_blank"><i class="fas fa-eye"></i> Detail</a>
+                                                                        class="btn btn-sm btn-info py-1 px-2 text-white" style="font-size:0.75rem;" target="_blank"><i class="fas fa-eye"></i> {{ __('room_benefit.modal.btn.detail') }}</a>
 
                                                                     @if($isAdmin ?? false)
                                                                         @if ($booking->status === 'pending')
                                                                             <form action="{{ url('admin/meeting-room/' . $booking->id . '/benefit-approve') }}" method="POST" style="display:inline;">
                                                                                 @csrf
-                                                                                <button class="btn btn-sm btn-success py-1 px-2" style="font-size:0.75rem;" onclick="return confirm('Setujui reservasi ini?')"><i class="fas fa-check"></i> Approve</button>
+                                                                                <button class="btn btn-sm btn-success py-1 px-2" style="font-size:0.75rem;" onclick="return confirm('Setujui reservasi ini?')"><i class="fas fa-check"></i> {{ __('room_benefit.modal.btn.approve') }}</button>
                                                                             </form>
                                                                             <form action="{{ url('admin/meeting-room/' . $booking->id . '/benefit-reject') }}" method="POST" style="display:inline;">
                                                                                 @csrf
-                                                                                <button class="btn btn-sm btn-danger py-1 px-2" style="font-size:0.75rem;" onclick="return confirm('Tolak reservasi ini?')"><i class="fas fa-times"></i> Reject</button>
+                                                                                <button class="btn btn-sm btn-danger py-1 px-2" style="font-size:0.75rem;" onclick="return confirm('Tolak reservasi ini?')"><i class="fas fa-times"></i> {{ __('room_benefit.modal.btn.reject') }}</button>
                                                                             </form>
                                                                         @elseif($booking->status === 'approved' || $booking->status === 'paused')
                                                                             <form action="{{ url('admin/meeting-room/' . $booking->id . '/checkin') }}" method="POST" style="display:inline;">
                                                                                 @csrf
-                                                                                <button class="btn btn-sm btn-success py-1 px-2" style="font-size:0.75rem;" onclick="return confirm('Check In?')">Check In</button>
+                                                                                <button class="btn btn-sm btn-success py-1 px-2" style="font-size:0.75rem;" onclick="return confirm('{{ __('room_benefit.checkin') }}?')">{{ __('room_benefit.checkin') }}</button>
                                                                             </form>
                                                                         @elseif($booking->status === 'checkin')
                                                                             <form action="{{ url('admin/meeting-room/' . $booking->id . '/checkout') }}" method="POST" style="display:inline;">
                                                                                 @csrf
-                                                                                <button class="btn btn-sm btn-warning text-dark py-1 px-2" style="font-size:0.75rem;" onclick="return confirm('Check Out?')">Check Out</button>
+                                                                                <button class="btn btn-sm btn-warning text-dark py-1 px-2" style="font-size:0.75rem;" onclick="return confirm('{{ __('room_benefit.checkout') }}?')">{{ __('room_benefit.checkout') }}</button>
                                                                             </form>
                                                                         @endif
                                                                     @endif

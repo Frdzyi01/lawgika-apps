@@ -810,17 +810,17 @@
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="page-title-content">
-                    <span class="text-white bg-danger rounded-pill px-3 py-1 fw-medium mb-3 d-inline-block shadow-sm" style="font-size: 0.85rem">Layanan Perpajakan</span>
-                    <h1 class="text-white fw-bold mb-3 display-4">Pelaporan SPT Badan</h1>
-                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem">Layanan pelaporan SPT Tahunan Badan untuk membantu perusahaan memenuhi kewajiban pelaporan pajak secara tepat waktu dan sesuai ketentuan yang berlaku.</p>
+                    <span class="text-white bg-danger rounded-pill px-3 py-1 fw-medium mb-3 d-inline-block shadow-sm" style="font-size: 0.85rem" data-i18n="spt_badan.hero_badge">Layanan Perpajakan</span>
+                    <h1 class="text-white fw-bold mb-3 display-4" data-i18n="spt_badan.hero_title">Pelaporan SPT Badan</h1>
+                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem" data-i18n="spt_badan.hero_desc">Layanan pelaporan SPT Tahunan Badan untuk membantu perusahaan memenuhi kewajiban pelaporan pajak secara tepat waktu dan sesuai ketentuan yang berlaku.</p>
                 </div>
             </div>
             <div class="col-lg-6 text-lg-end mt-4 mt-lg-0">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-lg-end justify-content-start mb-0">
-                        <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none">Beranda</a></li>
-                        <li class="breadcrumb-item"><a href="#" class="text-white text-decoration-none">Layanan</a></li>
-                        <li class="breadcrumb-item active text-white-50" aria-current="page">Pelaporan SPT Badan</li>
+                        <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none" data-i18n="nav.home">Beranda</a></li>
+                        <li class="breadcrumb-item"><a href="#" class="text-white text-decoration-none" data-i18n="nav.services">Layanan</a></li>
+                        <li class="breadcrumb-item active text-white-50" aria-current="page" data-i18n="nav.services.spt">Pelaporan SPT Badan</li>
                     </ol>
                 </nav>
             </div>
@@ -880,9 +880,9 @@
 <section class="benefits-section">
     <div class="container">
         <div class="section-header">
-            <span class="section-tag">Mengapa Memilih Kami</span>
-            <h2>Keuntungan Menggunakan Jasa Lawgika.co.id</h2>
-            <p>Dapatkan layanan pelaporan SPT Badan profesional dengan berbagai keuntungan eksklusif</p>
+            <span class="section-tag" data-i18n="ui.why_us_badge_normal">Mengapa Memilih Kami</span>
+            <h2 data-i18n="spt_badan.why_title">Keuntungan Menggunakan Jasa Lawgika.co.id</h2>
+            <p data-i18n="spt_badan.why_desc">Dapatkan layanan pelaporan SPT Badan profesional dengan berbagai keuntungan eksklusif</p>
         </div>
         <div class="benefits-grid">
             <div class="benefit-card fade-up" style="animation-delay: 0.1s">
@@ -915,9 +915,9 @@
         <div class="row align-items-center">
             <div class="col-lg-8">
                 <div class="break-content fade-up">
-                    <span class="break-badge">⭐ Kepatuhan Pajak Perusahaan</span>
-                    <h2>Wujudkan Tata Kelola Perpajakan yang Baik untuk Bisnis Anda</h2>
-                    <p>Pelaporan SPT Badan yang akurat dan tepat waktu mencerminkan kredibilitas perusahaan di mata otoritas pajak, investor, dan mitra bisnis.</p>
+                    <span class="break-badge" data-i18n="spt_badan.vb_badge">⭐ Kepatuhan Pajak Perusahaan</span>
+                    <h2><span data-i18n="spt_badan.vb_title">Wujudkan Tata Kelola Perpajakan yang Baik untuk Bisnis Anda</span></h2>
+                    <p data-i18n="spt_badan.vb_desc">Pelaporan SPT Badan yang akurat dan tepat waktu mencerminkan kredibilitas perusahaan di mata otoritas pajak, investor, dan mitra bisnis.</p>
                     <div class="d-flex flex-wrap gap-3">
                         <div class="bg-white bg-opacity-10 rounded-4 p-4" style="backdrop-filter: blur(10px);">
                             <h5 class="text-white mb-2">Kredibilitas Terjaga</h5>
@@ -1006,9 +1006,9 @@
 <section class="faq-modern">
     <div class="container">
         <div class="section-header">
-            <span class="section-tag">Pertanyaan Umum</span>
-            <h2>FAQ Pelaporan SPT Badan</h2>
-            <p>Jawaban atas pertanyaan yang sering diajukan tentang pelaporan SPT Tahunan Badan</p>
+            <span class="section-tag" data-i18n="ui.faq_title_generic">Pertanyaan Umum</span>
+            <h2 data-i18n="spt_badan.faq_title">FAQ Pelaporan SPT Badan</h2>
+            <p data-i18n="spt_badan.faq_desc">Jawaban atas pertanyaan yang sering diajukan tentang pelaporan SPT Tahunan Badan</p>
         </div>
         <div class="faq-grid">
             <div class="faq-item-modern">

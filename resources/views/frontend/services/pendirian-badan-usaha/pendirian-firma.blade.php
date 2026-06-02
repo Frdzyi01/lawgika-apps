@@ -674,16 +674,16 @@
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="page-title-content">
-                    <span class="text-white bg-danger rounded-pill px-3 py-1 fw-medium mb-3 d-inline-block shadow-sm" style="font-size: 0.85rem">Lawgika | Pendirian Firma</span>
-                    <h1 class="text-white fw-bold mb-3 display-4">Jasa Pendirian Firma</h1>
-                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem">Solusi legalitas untuk usaha bersama yang didirikan oleh dua orang atau lebih dengan memakai nama bersama. Proses cepat, transparan, dan terpercaya.</p>
+                    <span class="text-white bg-danger rounded-pill px-3 py-1 fw-medium mb-3 d-inline-block shadow-sm" style="font-size: 0.85rem" data-i18n="firma.hero_badge">Lawgika | Pendirian Firma</span>
+                    <h1 class="text-white fw-bold mb-3 display-4" data-i18n="firma.hero_title">Jasa Pendirian Firma</h1>
+                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem" data-i18n="firma.hero_desc">Solusi legalitas untuk usaha bersama yang didirikan oleh dua orang atau lebih dengan memakai nama bersama. Proses cepat, transparan, dan terpercaya.</p>
                 </div>
             </div>
             <div class="col-lg-6 text-lg-end mt-4 mt-lg-0">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-lg-end justify-content-start mb-0">
-                        <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none">Beranda</a></li>
-                        <li class="breadcrumb-item active text-white-50" aria-current="page">Pendirian Firma</li>
+                        <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none" data-i18n="nav.home">Beranda</a></li>
+                        <li class="breadcrumb-item active text-white-50" aria-current="page" data-i18n="firma.breadcrumb">Pendirian Firma</li>
                     </ol>
                 </nav>
             </div>
@@ -696,14 +696,14 @@
     <div class="container">
         <div class="row align-items-center g-5 flex-row-reverse">
             <div class="col-lg-6">
-                <h2>Solusi Legalitas Firma Untuk Bisnis Kolektif Anda</h2>
-                <p>Firma adalah badan usaha yang didirikan oleh dua orang atau lebih dengan memakai nama bersama, di mana setiap sekutu bertanggung jawab penuh secara tanggung renteng. Kami membantu proses pendirian Firma yang sesuai dengan regulasi Kemenkumham.</p>
+                <h2 data-i18n="firma.sol_title">Solusi Legalitas Firma Untuk Bisnis Kolektif Anda</h2>
+                <p data-i18n="firma.sol_desc">Firma adalah badan usaha yang didirikan oleh dua orang atau lebih dengan memakai nama bersama, di mana setiap sekutu bertanggung jawab penuh secara tanggung renteng. Kami membantu proses pendirian Firma yang sesuai dengan regulasi Kemenkumham.</p>
                 <ul class="solution-list">
-                    <li><i class="fa-regular fa-circle-check"></i> Pendirian cepat dengan akta notaris</li>
-                    <li><i class="fa-regular fa-circle-check"></i> SK Kemenkumham resmi</li>
-                    <li><i class="fa-regular fa-circle-check"></i> Didampingi konsultan hukum berpengalaman</li>
+                    <li><i class="fa-regular fa-circle-check"></i> <span data-i18n="firma.sol_list1">Pendirian cepat dengan akta notaris</span></li>
+                    <li><i class="fa-regular fa-circle-check"></i> <span data-i18n="firma.sol_list2">SK Kemenkumham resmi</span></li>
+                    <li><i class="fa-regular fa-circle-check"></i> <span data-i18n="firma.sol_list3">Didampingi konsultan hukum berpengalaman</span></li>
                 </ul>
-                <a href="#pricing" class="btn-outline-brand">Lihat Pilihan Paket →</a>
+                <a href="#pricing" class="btn-outline-brand" data-i18n="ui.see_packages">Lihat Pilihan Paket →</a>
             </div>
             <div class="col-lg-6">
                 <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format" alt="Business Partnership Meeting" class="img-fluid-rounded">
@@ -716,7 +716,7 @@
 <section class="why-us-section">
     <div class="container">
         <div class="section-header">
-            <h2>MENGAPA MEMILIH KAMI?</h2>
+            <h2 data-i18n="firma.why_title">MENGAPA MEMILIH KAMI?</h2>
             <p>Dapatkan berbagai keuntungan tambahan saat mendirikan Firma bersama kami</p>
         </div>
         <div class="row g-4 justify-content-center">
@@ -725,8 +725,8 @@
                     <div class="why-us-icon">
                         <i class="fa-solid fa-users"></i>
                     </div>
-                    <h4>Legalitas Kolektif</h4>
-                    <p>Akta pendirian dan SK Kemenkumham yang sah untuk usaha bersama.</p>
+                    <h4 data-i18n="firma.why_card1_title">Legalitas Kolektif</h4>
+                    <p data-i18n="firma.why_card1_desc">Akta pendirian dan SK Kemenkumham yang sah untuk usaha bersama.</p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -734,8 +734,8 @@
                     <div class="why-us-icon">
                         <i class="fa-solid fa-handshake"></i>
                     </div>
-                    <h4>Pendampingan Profesional</h4>
-                    <p>Konsultasi gratis dan pendampingan hingga Firma Anda berdiri.</p>
+                    <h4 data-i18n="firma.why_card2_title">Pendampingan Profesional</h4>
+                    <p data-i18n="firma.why_card2_desc">Konsultasi gratis dan pendampingan hingga Firma Anda berdiri.</p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -743,8 +743,8 @@
                     <div class="why-us-icon">
                         <i class="fa-solid fa-scale-balanced"></i>
                     </div>
-                    <h4>Kepatuhan Hukum</h4>
-                    <p>Jaminan dokumen sesuai dengan regulasi firma terbaru.</p>
+                    <h4 data-i18n="firma.why_card3_title">Kepatuhan Hukum</h4>
+                    <p data-i18n="firma.why_card3_desc">Jaminan dokumen sesuai dengan regulasi firma terbaru.</p>
                 </div>
             </div>
         </div>
@@ -762,18 +762,18 @@
         <div class="process-timeline">
             <div class="process-step">
                 <div class="process-step-number">1</div>
-                <h5>Persiapan Dokumen</h5>
-                <p>Siapkan KTP, NPWP, dan kesepakatan antara para sekutu firma.</p>
+                <h5 data-i18n="firma.step1_title">Persiapan Dokumen</h5>
+                <p data-i18n="firma.step1_desc">Siapkan KTP, NPWP, dan kesepakatan antara para sekutu firma.</p>
             </div>
             <div class="process-step">
                 <div class="process-step-number">2</div>
-                <h5>Pembuatan Akta Notaris</h5>
-                <p>Pembuatan akta pendirian firma di hadapan notaris.</p>
+                <h5 data-i18n="firma.step2_title">Pembuatan Akta Notaris</h5>
+                <p data-i18n="firma.step2_desc">Pembuatan akta pendirian firma di hadapan notaris.</p>
             </div>
             <div class="process-step">
                 <div class="process-step-number">3</div>
-                <h5>Pengesahan Kemenkumham</h5>
-                <p>Pengesahan badan hukum dan penerbitan SK, NIB, dan izin usaha.</p>
+                <h5 data-i18n="firma.step3_title">Pengesahan Kemenkumham</h5>
+                <p data-i18n="firma.step3_desc">Pengesahan badan hukum dan penerbitan SK, NIB, dan izin usaha.</p>
             </div>
         </div>
     </div>
@@ -794,7 +794,7 @@
                         <div class="requirement-icon">
                             <i class="fa-solid fa-clipboard-list"></i>
                         </div>
-                        <h3>KELENGKAPAN DATA</h3>
+                        <h3 data-i18n="ui.req_data_title">KELENGKAPAN DATA</h3>
                     </div>
                     <ul class="requirement-list">
                         <li><i class="fa-solid fa-circle-check"></i> Nama Firma (minimal 3 kata)</li>
@@ -814,7 +814,7 @@
                         <div class="requirement-icon">
                             <i class="fa-solid fa-file-pdf"></i>
                         </div>
-                        <h3>KELENGKAPAN DOKUMEN</h3>
+                        <h3 data-i18n="ui.req_doc_title">KELENGKAPAN DOKUMEN</h3>
                     </div>
                     <ul class="requirement-list">
                         <li><i class="fa-solid fa-circle-check"></i> Scan KTP para sekutu</li>
@@ -837,7 +837,7 @@
         <div class="section-title text-center mb-5">
             <span class="subtitle">Pilihan Paket Firma</span>
             <h2>Paket Pendirian Firma</h2>
-            <p>Pilih paket yang sesuai dengan kebutuhan bisnis kolektif Anda</p>
+            <p data-i18n="firma.pricing_desc">Pilih paket yang sesuai dengan kebutuhan bisnis kolektif Anda</p>
         </div>
 
         <div class="row g-4 justify-content-center">
@@ -965,27 +965,27 @@
 <section class="pt-faq">
     <div class="container">
         <div class="section-title text-center mb-5">
-            <span class="subtitle">Bantuan Sentral</span>
-            <h2>FAQ terkait Pendirian Firma</h2>
-            <p>Pertanyaan yang paling sering diajukan seputar legalitas Firma di Indonesia</p>
+            <span class="subtitle" data-i18n="ui.bantuan_sentral">Bantuan Sentral</span>
+            <h2 data-i18n="firma.faq_title">FAQ terkait Pendirian Firma</h2>
+            <p data-i18n="firma.faq_desc">Pertanyaan yang paling sering diajukan seputar legalitas Firma di Indonesia</p>
         </div>
         <div class="row">
             <div class="col-lg-8 mx-auto">
                 <div class="faq-item">
-                    <div class="faq-question">Apa perbedaan antara Firma dan CV? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Firma didirikan oleh dua orang atau lebih dengan memakai nama bersama, di mana setiap sekutu bertanggung jawab penuh secara tanggung renteng. Sedangkan CV memiliki sekutu aktif (pengelola) dan sekutu pasif (pemberi modal) dengan tanggung jawab terbatas untuk sekutu pasif.</div>
+                    <div class="faq-question"><span data-i18n="firma.faq_q1">Apa perbedaan antara Firma dan CV?</span> <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer"><span data-i18n="firma.faq_a1">Firma didirikan oleh dua orang atau lebih dengan memakai nama bersama, di mana setiap sekutu bertanggung jawab penuh secara tanggung renteng. Sedangkan CV memiliki sekutu aktif (pengelola) dan sekutu pasif (pemberi modal) dengan tanggung jawab terbatas untuk sekutu pasif.</span></div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">Berapa minimal modal untuk mendirikan Firma? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Tidak ada ketentuan minimal modal untuk Firma. Modal disesuaikan dengan kesepakatan para sekutu yang tertuang dalam akta pendirian.</div>
+                    <div class="faq-question"><span data-i18n="firma.faq_q2">Berapa minimal modal untuk mendirikan Firma?</span> <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer"><span data-i18n="firma.faq_a2">Tidak ada ketentuan minimal modal untuk Firma. Modal disesuaikan dengan kesepakatan para sekutu yang tertuang dalam akta pendirian.</span></div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">Berapa lama proses pendirian Firma? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Dengan dokumen lengkap, proses pendirian Firma memakan waktu sekitar 7-14 hari kerja, tergantung dari kecepatan pembuatan akta notaris dan pengesahan dari Kemenkumham.</div>
+                    <div class="faq-question"><span data-i18n="firma.faq_q3">Berapa lama proses pendirian Firma?</span> <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer"><span data-i18n="firma.faq_a3">Dengan dokumen lengkap, proses pendirian Firma memakan waktu sekitar 7-14 hari kerja, tergantung dari kecepatan pembuatan akta notaris dan pengesahan dari Kemenkumham.</span></div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">Apakah Firma bisa memiliki lebih dari 2 sekutu? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Ya, Firma dapat didirikan oleh 2 orang atau lebih. Semakin banyak sekutu, semakin besar potensi modal dan keahlian yang terkumpul untuk mengembangkan usaha.</div>
+                    <div class="faq-question"><span data-i18n="firma.faq_q4">Apakah Firma bisa memiliki lebih dari 2 sekutu?</span> <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer"><span data-i18n="firma.faq_a4">Ya, Firma dapat didirikan oleh 2 orang atau lebih. Semakin banyak sekutu, semakin besar potensi modal dan keahlian yang terkumpul untuk mengembangkan usaha.</span></div>
                 </div>
             </div>
         </div>

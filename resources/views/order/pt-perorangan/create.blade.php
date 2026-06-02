@@ -316,11 +316,11 @@
 <section style="background: #fff; border-bottom: 1px solid var(--border); padding: 14px 0;">
     <div class="container">
         <nav class="order-breadcrumb">
-            <a href="{{ url('/') }}"><i class="fa-solid fa-house" style="font-size:.8rem"></i> Beranda</a>
+            <a href="{{ url('/') }}"><i class="fa-solid fa-house" style="font-size:.8rem"></i> <span data-i18n="nav.home">Beranda</span></a>
             <span class="mx-2">›</span>
-            <a href="{{ url('/pendirian-pt-perorangan') }}">Pendirian PT Perorangan</a>
+            <a href="{{ url('/pendirian-pt-perorangan') }}" data-i18n="nav.services.pt_perorangan">Pendirian PT Perorangan</a>
             <span class="mx-2">›</span>
-            <span>Form Order</span>
+            <span data-i18n="order.form_title">Form Order</span>
         </nav>
     </div>
 </section>
@@ -336,7 +336,7 @@
                 {{-- Validation Errors --}}
                 @if ($errors->any())
                 <div class="alert-order-error">
-                    <strong><i class="fa-solid fa-triangle-exclamation"></i> Mohon perbaiki isian berikut:</strong>
+                    <strong data-i18n="order.validation_error_header"><i class="fa-solid fa-triangle-exclamation"></i> Mohon perbaiki isian berikut:</strong>
                     <ul>
                         @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -347,8 +347,8 @@
 
                 <div class="order-card">
                     <div class="order-card-header">
-                        <h2><i class="fa-solid fa-file-signature me-2"></i>Form Order PT Perorangan</h2>
-                        <p>Isi data di bawah ini dengan benar. Tim kami akan memproses dalam 1×24 jam.</p>
+                        <h2><i class="fa-solid fa-file-signature me-2"></i><span data-i18n="order.pt_per.title">Form Order PT Perorangan</span></h2>
+                        <p data-i18n="order.service_form_subtitle">Isi data di bawah ini dengan benar. Tim kami akan memproses dalam 1×24 jam.</p>
                     </div>
 
                     <div class="order-card-body">
@@ -370,33 +370,33 @@
                             @include('order.pt-perorangan.partials.form-professional')
                             @else
                             {{-- ── DATA DIRI ── --}}
-                            <p class="form-section-title"><i class="fa-solid fa-user me-1"></i> Data Diri</p>
+                            <p class="form-section-title"><i class="fa-solid fa-user me-1"></i> <span data-i18n="order.personal_data">Data Diri</span></p>
 
                             <div class="row g-3 mb-4">
                                 <div class="col-md-6">
-                                    <label class="form-label">Nama Lengkap</label>
+                                    <label class="form-label" data-i18n="order.label_fullname_only">Nama Lengkap</label>
                                     <input type="text" name="name"
                                         value="{{ auth()->user()->name }}"
                                         class="form-control" readonly>
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label">Email</label>
+                                    <label class="form-label" data-i18n="order.label_email_only">Email</label>
                                     <input type="email" name="email"
                                         value="{{ auth()->user()->email }}"
                                         class="form-control" readonly>
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label">No. HP / WhatsApp <span class="req">*</span></label>
+                                    <label class="form-label"><span data-i18n="order.label_hp_wa">No. HP / WhatsApp</span> <span class="req">*</span></label>
                                     <input type="text" name="phone" id="phone"
                                         value="{{ old('phone', auth()->user()->phone) }}"
                                         class="form-control @error('phone') is-invalid @enderror"
-                                        placeholder="Contoh: 081234567890" required>
+                                        placeholder="Contoh: 081234567890" data-i18n-placeholder="order.placeholder_phone" required>
                                     @error('phone')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label">Paket Dipilih</label>
+                                    <label class="form-label" data-i18n="order.selected_package">Paket Dipilih</label>
                                     <input type="text"
                                         value="{{ $packageInfo['label'] }} – {{ $packageInfo['price'] }}"
                                         class="form-control" readonly>
@@ -404,21 +404,21 @@
                             </div>
 
                             {{-- ── CATATAN ── --}}
-                            <p class="form-section-title"><i class="fa-solid fa-note-sticky me-1"></i> Catatan Tambahan</p>
+                            <p class="form-section-title"><i class="fa-solid fa-note-sticky me-1"></i> <span data-i18n="order.form_section_notes">Catatan Tambahan</span></p>
                             <div class="mb-4">
-                                <label class="form-label">Catatan / Pertanyaan <span class="opt-badge">Opsional</span></label>
+                                <label class="form-label"><span data-i18n="order.label_notes">Catatan / Pertanyaan</span> <span class="opt-badge" data-i18n="order.optional">Opsional</span></label>
                                 <textarea name="notes" class="form-control"
-                                    placeholder="Tuliskan nama PT yang diinginkan, bidang usaha, atau pertanyaan lainnya…">{{ old('notes') }}</textarea>
+                                    placeholder="Tuliskan nama PT yang diinginkan, bidang usaha, atau pertanyaan lainnya…" data-i18n-placeholder="order.pt_per.notes_placeholder">{{ old('notes') }}</textarea>
                             </div>
 
                             {{-- ── UPLOAD DOKUMEN ── --}}
-                            <p class="form-section-title"><i class="fa-solid fa-upload me-1"></i> Upload Dokumen</p>
+                            <p class="form-section-title"><i class="fa-solid fa-upload me-1"></i> <span data-i18n="order.form_section_docs">Upload Dokumen</span></p>
 
                             <div class="row g-3 mb-4">
                                 {{-- KTP --}}
                                 <div class="col-md-12">
                                     <label class="form-label">
-                                        Scan KTP Direktur / Pendiri
+                                        <span data-i18n="order.upload_ktp">Scan KTP Direktur / Pendiri</span>
                                         <span class="req">*</span>
                                         <span style="font-size:.78rem; color:var(--gray); font-weight:400"> (JPG, PNG, PDF – maks. 5MB)</span>
                                     </label>
@@ -426,7 +426,7 @@
                                         <input type="file" name="ktp" accept=".jpg,.jpeg,.png,.pdf" required
                                             onchange="showFileName(this, 'ktpName')">
                                         <div class="upload-icon"><i class="fa-solid fa-id-card"></i></div>
-                                        <div class="upload-label">Klik atau seret file KTP ke sini</div>
+                                        <div class="upload-label" data-i18n="order.upload_ktp_hint">Klik atau seret file KTP ke sini</div>
                                         <div class="upload-hint">JPG, PNG, atau PDF</div>
                                         <div class="file-name" id="ktpName"></div>
                                     </div>
@@ -438,7 +438,7 @@
                                 {{-- NPWP --}}
                                 <div class="col-md-6">
                                     <label class="form-label">
-                                        Scan NPWP Direktur
+                                        <span data-i18n="order.upload_npwp">Scan NPWP Direktur</span>
                                         <span class="opt-badge">Opsional</span>
                                         <span style="font-size:.78rem; color:var(--gray); font-weight:400"> (maks. 5MB)</span>
                                     </label>
@@ -446,7 +446,7 @@
                                         <input type="file" name="npwp" accept=".jpg,.jpeg,.png,.pdf"
                                             onchange="showFileName(this, 'npwpName')">
                                         <div class="upload-icon"><i class="fa-solid fa-file-invoice"></i></div>
-                                        <div class="upload-label">Klik atau seret file NPWP</div>
+                                        <div class="upload-label" data-i18n="order.upload_npwp_hint">Klik atau seret file NPWP</div>
                                         <div class="upload-hint">JPG, PNG, atau PDF</div>
                                         <div class="file-name" id="npwpName"></div>
                                     </div>
@@ -455,10 +455,10 @@
                                     @enderror
                                 </div>
 
-                                {{-- Dokumen Pendukung --}}
+                                {{-- <span data-i18n="order.upload_support">Dokumen Pendukung</span> --}}
                                 <div class="col-md-6">
                                     <label class="form-label">
-                                        Dokumen Pendukung
+                                        <span data-i18n="order.upload_support">Dokumen Pendukung</span>
                                         <span class="opt-badge">Opsional</span>
                                         <span style="font-size:.78rem; color:var(--gray); font-weight:400"> (maks. 5MB)</span>
                                     </label>
@@ -466,7 +466,7 @@
                                         <input type="file" name="document" accept=".jpg,.jpeg,.png,.pdf"
                                             onchange="showFileName(this, 'docName')">
                                         <div class="upload-icon"><i class="fa-solid fa-folder-open"></i></div>
-                                        <div class="upload-label">Dokumen pendukung lainnya</div>
+                                        <div class="upload-label" data-i18n="order.upload_support_hint">Dokumen pendukung lainnya</div>
                                         <div class="upload-hint">JPG, PNG, atau PDF</div>
                                         <div class="file-name" id="docName"></div>
                                     </div>
@@ -477,11 +477,11 @@
                             {{-- ── SUBMIT ── --}}
                             <div class="d-flex align-items-center gap-3 flex-wrap">
                                 <button type="submit" class="btn-order-submit" id="submitBtn">
-                                    <i class="fa-solid fa-paper-plane"></i> Kirim Order Sekarang
+                                    <i class="fa-solid fa-paper-plane"></i> <span data-i18n="order.submit_btn">Kirim Order Sekarang</span>
                                 </button>
                                 <a href="{{ url('/pendirian-pt-perorangan') }}"
                                     style="color:var(--gray); font-size:.9rem; text-decoration:none">
-                                    <i class="fa-solid fa-arrow-left me-1"></i> Kembali
+                                    <i class="fa-solid fa-arrow-left me-1"></i> <span data-i18n="order.back_btn">Kembali</span>
                                 </a>
                             </div>
 
@@ -493,7 +493,7 @@
             {{-- ── SIDEBAR ── --}}
             <div class="col-lg-4 d-none d-lg-block">
                 <div class="order-info-box">
-                    <h5><i class="fa-solid fa-circle-info me-2"></i>Informasi Order</h5>
+                    <h5><i class="fa-solid fa-circle-info me-2"></i><span data-i18n="order.info_title">Informasi Order</span></h5>
 
                     <div class="info-item">
                         <i class="fa-solid fa-box-open"></i>
@@ -505,29 +505,28 @@
                     <div class="info-item">
                         <i class="fa-solid fa-clock"></i>
                         <div>
-                            <strong>Estimasi Proses</strong>
-                            <span>2 jam – 5 hari kerja</span>
+                            <strong data-i18n="order.process_est">Estimasi Proses</strong>
+                            <span data-i18n="order.process_est_val">2 jam – 5 hari kerja</span>
                         </div>
                     </div>
                     <div class="info-item">
                         <i class="fa-solid fa-shield-halved"></i>
                         <div>
-                            <strong>Garansi Kepuasan</strong>
-                            <span>Dokumen resmi dari Kemenkumham</span>
+                            <strong data-i18n="order.official_doc">Garansi Kepuasan</strong>
+                            <span data-i18n="order.official_doc_val">Dokumen resmi dari Kemenkumham</span>
                         </div>
                     </div>
                     <div class="info-item">
                         <i class="fa-solid fa-headset"></i>
                         <div>
-                            <strong>Konsultasi Gratis</strong>
-                            <span>Tim kami siap membantu 24/7</span>
+                            <strong data-i18n="order.free_consult">Konsultasi Gratis</strong>
+                            <span data-i18n="order.free_consult_val">Tim kami siap membantu 24/7</span>
                         </div>
                     </div>
 
                     <a href="https://wa.me/6281112088600?text=Halo%20Lawgika%2C%20saya%20ingin%20menanyakan%20tentang%20{{ urlencode($packageInfo['label']) }}%20PT%20Perorangan"
                         target="_blank" class="info-wa-btn">
-                        <i class="fa-brands fa-whatsapp" style="font-size:1.2rem"></i>
-                        Hubungi via WhatsApp
+                        <i class="fa-brands fa-whatsapp" style="font-size:1.2rem"></i> <span data-i18n="order.contact_wa">Hubungi via WhatsApp</span>
                     </a>
                 </div>
             </div>
@@ -546,7 +545,7 @@
     document.getElementById('orderForm').addEventListener('submit', function() {
         const btn = document.getElementById('submitBtn');
         btn.disabled = true;
-        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Mengirim…';
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> ' + (window.LwI18n ? window.LwI18n.t('order.sending') : 'Mengirim...');
     });
 </script>
 

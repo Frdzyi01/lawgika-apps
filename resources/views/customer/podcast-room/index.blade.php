@@ -2,9 +2,9 @@
 @section('content')
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Histori Reservasi Ruang Podcast</h1>
+        <h1 class="h3 mb-0 text-gray-800">{{ __('customer.podcast.index.title') }}</h1>
         <a href="{{ url('/sewa-ruang-podcast') }}" class="btn btn-sm btn-primary shadow-sm">
-            <i class="fas fa-plus fa-sm text-white-50"></i> Buat Reservasi Baru
+            <i class="fas fa-plus fa-sm text-white-50"></i> {{ __('customer.podcast.index.new_res') }}
         </a>
     </div>
 
@@ -31,18 +31,18 @@
     @if($benefitBookings->count() > 0)
     <div class="card shadow mb-4 border-left-info">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-info">🎟️ Riwayat Reservasi Benefit — Ruang Podcast</h6>
+            <h6 class="m-0 font-weight-bold text-info">🎟️ {{ __('customer.podcast.index.benefit_title') }}</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered table-hover">
                     <thead class="table-light">
                         <tr>
-                            <th>No. Order</th>
-                            <th>Judul Podcast</th>
-                            <th>Waktu</th>
-                            <th>Durasi Diajukan</th>
-                            <th>Status Pengajuan</th>
+                            <th>{{ __('customer.podcast.index.order_no') }}</th>
+                            <th>{{ __('customer.podcast.index.podcast_title') }}</th>
+                            <th>{{ __('customer.podcast.index.time') }}</th>
+                            <th>{{ __('customer.podcast.index.duration_applied') }}</th>
+                            <th>{{ __('customer.podcast.index.status') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -54,18 +54,18 @@
                                     {{ \Carbon\Carbon::parse($booking->date)->format('d M Y') }}
                                     <small class="d-block">{{ \Carbon\Carbon::parse($booking->start_time)->format('H:i') }}</small>
                                 </td>
-                                <td>{{ $booking->duration }} Jam</td>
+                                <td>{{ $booking->duration }} {{ __('customer.mr.index.hours_count', ['count' => '']) }}</td>
                                 <td>
                                     @if($booking->status === 'pending_approval')
-                                        <span class="badge bg-warning text-dark">⏳ Menunggu Persetujuan Admin</span>
+                                        <span class="badge bg-warning text-dark">⏳ {{ __('customer.benefit.detail.res.status.pending') }}</span>
                                     @elseif($booking->status === 'approved')
-                                        <span class="badge bg-success">✅ Disetujui (Silakan datang)</span>
+                                        <span class="badge bg-success">✅ {{ __('customer.benefit.detail.res.status.approved') }}</span>
                                     @elseif($booking->status === 'rejected')
-                                        <span class="badge bg-danger">❌ Ditolak Admin</span>
+                                        <span class="badge bg-danger">❌ {{ __('customer.benefit.detail.res.status.rejected') }}</span>
                                     @elseif($booking->status === 'checkin')
-                                        <span class="badge bg-primary">Sedang Digunakan</span>
+                                        <span class="badge bg-primary">{{ __('customer.benefit.detail.res.status.in_use') }}</span>
                                     @else
-                                        <span class="badge bg-secondary">Menunggu Approved Admin</span>
+                                        <span class="badge bg-secondary">{{ __('customer.benefit.detail.res.status.pending') }}</span>
                                     @endif
                                 </td>
                             </tr>
@@ -78,25 +78,25 @@
     @endif
 
     {{-- ============================================================ --}}
-    {{-- TABLE 3 (EXISTING): Reservasi Manual — unchanged query/data --}}
+    {{-- TABLE 3 (EXISTING): {{ __('customer.podcast.index.manual_title') }} — unchanged query/data --}}
     {{-- ============================================================ --}}
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">🎙️ Reservasi Manual</h6>
+            <h6 class="m-0 font-weight-bold text-primary">🎙️ {{ __('customer.podcast.index.manual_title') }}</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered table-hover">
                     <thead class="table-light">
                         <tr>
-                            <th>No. Order</th>
-                            <th>Waktu & Paket</th>
-                            <th>Judul Podcast</th>
-                            <th>Total</th>
-                            <th>Bukti Bayar</th>
-                            <th>Status Pembayaran</th>
-                            <th>Pemakaian</th>
-                            <th>Status Ruangan</th>
+                            <th>{{ __('customer.podcast.index.order_no') }}</th>
+                            <th>{{ __('customer.podcast.index.time') }} & Paket</th>
+                            <th>{{ __('customer.podcast.index.podcast_title') }}</th>
+                            <th>{{ __('customer.podcast.index.manual.total') }}</th>
+                            <th>{{ __('customer.podcast.index.manual.proof') }}</th>
+                            <th>{{ __('customer.podcast.index.manual.payment_status') }}</th>
+                            <th>{{ __('customer.podcast.index.manual.usage') }}</th>
+                            <th>{{ __('customer.podcast.index.manual.room_status') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -106,11 +106,11 @@
                             <td>
                                 {{ \Carbon\Carbon::parse($b->date)->format('d M Y') }}
                                 <small class="d-block">{{ \Carbon\Carbon::parse($b->start_time)->format('H:i') }}</small>
-                                <small class="text-muted">{{ $b->duration }} Jam</small>
+                                <small class="text-muted">{{ $b->duration }} {{ __('customer.mr.index.hours_count', ['count' => '']) }}</small>
                             </td>
                             <td>{{ $b->podcast_title ?? '–' }}</td>
                             <td>Rp {{ number_format($b->total_price,0,',','.') }}</td>
-                            {{-- Bukti Bayar (Customer View) --}}
+                            {{-- {{ __('customer.podcast.index.manual.proof') }} (Customer View) --}}
                             <td>
                                 @if($b->payment_proof)
                                     <a href="{{ asset('storage/'.$b->payment_proof) }}" target="_blank">
@@ -120,52 +120,52 @@
                                     </a>
                                     <div style="font-size:.75rem;margin-top:4px;">
                                         @if($b->payment_status==='approved')
-                                            <span class="text-success fw-bold">✅ Diterima</span>
+                                            <span class="text-success fw-bold">✅ {{ __('customer.podcast.index.manual.approved') }}</span>
                                         @elseif($b->payment_status==='rejected')
-                                            <span class="text-danger fw-bold">❌ Ditolak</span>
+                                            <span class="text-danger fw-bold">❌ {{ __('customer.podcast.index.manual.rejected') }}</span>
                                         @else
-                                            <span class="text-warning fw-bold">⏳ Menunggu</span>
+                                            <span class="text-warning fw-bold">⏳ {{ __('customer.podcast.index.manual.pending') }}</span>
                                         @endif
                                     </div>
                                 @else
-                                    <span class="text-muted small">Belum upload</span>
+                                    <span class="text-muted small">{{ __('customer.podcast.index.manual.not_uploaded') }}</span>
                                 @endif
                             </td>
                             <td>
                                 @if($b->payment_status==='approved')
-                                    <span class="badge bg-success">✅ Pembayaran diterima</span>
+                                    <span class="badge bg-success">✅ {{ __('customer.mr.index.payment.approved') }}</span>
                                 @elseif($b->payment_status==='rejected')
-                                    <span class="badge bg-danger">❌ Pembayaran ditolak</span>
+                                    <span class="badge bg-danger">❌ {{ __('customer.mr.index.payment.rejected') }}</span>
                                 @else
-                                    <span class="badge bg-warning text-dark">⏳ Menunggu konfirmasi</span>
+                                    <span class="badge bg-warning text-dark">⏳ {{ __('customer.podcast.index.manual.pending') }} konfirmasi</span>
                                 @endif
                             </td>
                             <td>
                                 @if($b->payment_status==='approved')
-                                    <small class="d-block">Total: {{ $b->formatSeconds($b->duration * 3600) }}</small>
+                                    <small class="d-block">{{ __('customer.podcast.index.manual.total') }}: {{ $b->formatSeconds($b->duration * 3600) }}</small>
                                     <small class="d-block">Dipakai: {{ $b->formatted_used_time }}</small>
-                                    @php $sisa=$b->formatted_remaining_time; $bc=$sisa==='Waktu habis'?'bg-danger':'bg-success'; @endphp
-                                    <span class="badge {{ $bc }} mt-1">Sisa: {{ $sisa }}</span>
+                                    @php $sisa=$b->formatted_remaining_time; $bc=$sisa==='{{ __('customer.podcast.index.time') }} habis'?'bg-danger':'bg-success'; @endphp
+                                    <span class="badge {{ $bc }} mt-1">Sisa:  {{ $sisa }}</span>
                                 @else
                                     <span class="text-muted small">–</span>
                                 @endif
                             </td>
                             <td>
                                 @if($b->payment_status!=='approved')
-                                    <span class="badge bg-secondary">Belum aktif</span>
+                                    <span class="badge bg-secondary">{{ __('customer.mr.index.room.not_active') }}</span>
                                 @elseif($b->remaining_seconds<=0)
-                                    <span class="badge bg-secondary">Selesai</span>
+                                    <span class="badge bg-secondary">{{ __('customer.mr.index.room.finished') }}</span>
                                 @elseif($b->status==='checkin')
-                                    <span class="badge bg-primary">Sedang Digunakan</span>
+                                    <span class="badge bg-primary">{{ __('customer.benefit.detail.res.status.in_use') }}</span>
                                 @elseif($b->status==='paused'||$b->total_used_minutes>0)
-                                    <span class="badge bg-warning text-dark">Berhenti sementara</span>
+                                    <span class="badge bg-warning text-dark">{{ __('customer.mr.index.room.paused') }}</span>
                                 @else
-                                    <span class="badge bg-info text-dark">Siap digunakan</span>
+                                    <span class="badge bg-info text-dark">{{ __('customer.mr.index.room.ready') }}</span>
                                 @endif
                             </td>
                         </tr>
                         @empty
-                        <tr><td colspan="8" class="text-center">Anda belum memiliki reservasi ruang podcast.</td></tr>
+                        <tr><td colspan="8" class="text-center">{{ __('customer.podcast.index.manual.no_history') }}</td></tr>
                         @endforelse
                     </tbody>
                 </table>

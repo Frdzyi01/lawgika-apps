@@ -398,11 +398,11 @@
         <div class="bc mb-4">
           <a href="{{ url('/') }}">Beranda</a><span>/</span>
           <a href="#">Layanan</a><span>/</span>
-          <span class="active">Pelaporan SPT Tahunan</span>
+          <span class="active" data-i18n="nav.services.spt">Pelaporan SPT Tahunan</span>
         </div>
-        <span class="s-tag" style="background:rgba(212,175,55,.15);color:var(--gold);border:1px solid rgba(212,175,55,.25);">Layanan Perpajakan</span>
-        <h1 class="text-white fw-bold mt-2 mb-3" style="font-size:clamp(2rem,4vw,3rem);letter-spacing:-1px;">Pelaporan SPT Tahunan</h1>
-        <p class="text-white-50" style="font-size:1.05rem;max-width:520px;line-height:1.7;">Satu layanan untuk semua kebutuhan pelaporan pajak tahunan Anda — baik pribadi maupun badan usaha. Proses cepat, aman, dan sesuai ketentuan DJP.</p>
+        <span class="s-tag" style="background:rgba(212,175,55,.15);color:var(--gold);border:1px solid rgba(212,175,55,.25);" data-i18n="spt_badan.hero_badge">Layanan Perpajakan</span>
+        <h1 class="text-white fw-bold mt-2 mb-3" style="font-size:clamp(2rem,4vw,3rem);letter-spacing:-1px;" data-i18n="nav.services.spt">Pelaporan SPT Tahunan</h1>
+        <p class="text-white-50" style="font-size:1.05rem;max-width:520px;line-height:1.7;" data-i18n="spt_tahunan.hero_desc">Satu layanan untuk semua kebutuhan pelaporan pajak tahunan Anda — baik pribadi maupun badan usaha. Proses cepat, aman, dan sesuai ketentuan DJP.</p>
         <div class="d-flex flex-wrap gap-3 mt-4">
           <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:12px 20px;">
             <div style="color:var(--gold);font-weight:700;font-size:1.3rem;">500+</div>
@@ -425,28 +425,28 @@
 {{-- WHY US --}}
 <section style="padding:70px 0;background:var(--bg);">
   <div class="container">
-    <div class="text-center mb-2"><span class="s-tag">Mengapa Kami</span></div>
-    <h2 class="text-center fw-bold" style="font-size:2rem;letter-spacing:-.5px;">Keuntungan Menggunakan Layanan Kami</h2>
+    <div class="text-center mb-2"><span class="s-tag" data-i18n="ui.why_us_badge_normal">Mengapa Kami</span></div>
+    <h2 class="text-center fw-bold" style="font-size:2rem;letter-spacing:-.5px;" data-i18n="spt_tahunan.why_title">Keuntungan Menggunakan Layanan Kami</h2>
     <div class="why-grid">
       <div class="why-card">
         <div class="why-num">1</div>
-        <h4>Satu Platform, Dua Kebutuhan</h4>
-        <p>Tangani SPT Pribadi (1770/1770S) dan SPT Badan (1771) dalam satu alur pengajuan yang mudah.</p>
+        <h4 data-i18n="spt_tahunan.why_card1_title">Satu Platform, Dua Kebutuhan</h4>
+        <p data-i18n="spt_tahunan.why_card1_desc">Tangani SPT Pribadi (1770/1770S) dan SPT Badan (1771) dalam satu alur pengajuan yang mudah.</p>
       </div>
       <div class="why-card">
         <div class="why-num">2</div>
-        <h4>Tim Konsultan Berpengalaman</h4>
-        <p>Ditangani oleh konsultan pajak bersertifikat yang memahami regulasi terbaru dari DJP.</p>
+        <h4 data-i18n="spt_tahunan.why_card2_title">Tim Konsultan Berpengalaman</h4>
+        <p data-i18n="spt_tahunan.why_card2_desc">Ditangani oleh konsultan pajak bersertifikat yang memahami regulasi terbaru dari DJP.</p>
       </div>
       <div class="why-card">
         <div class="why-num">3</div>
-        <h4>Tepat Waktu, Bebas Denda</h4>
-        <p>Kami memastikan pelaporan selesai sebelum batas waktu agar Anda terhindar dari sanksi administrasi.</p>
+        <h4 data-i18n="spt_tahunan.why_card3_title">Tepat Waktu, Bebas Denda</h4>
+        <p data-i18n="spt_tahunan.why_card3_desc">Kami memastikan pelaporan selesai sebelum batas waktu agar Anda terhindar dari sanksi administrasi.</p>
       </div>
       <div class="why-card">
         <div class="why-num">4</div>
-        <h4>Proses Transparan</h4>
-        <p>Pantau status pengajuan Anda secara real-time melalui dashboard pelanggan kapan saja.</p>
+        <h4 data-i18n="spt_tahunan.why_card4_title">Proses Transparan</h4>
+        <p data-i18n="spt_tahunan.why_card4_desc">Pantau status pengajuan Anda secara real-time melalui dashboard pelanggan kapan saja.</p>
       </div>
     </div>
   </div>
@@ -456,16 +456,16 @@
 <section style="padding:20px 0 80px;" id="formPengajuan">
   <div class="container">
     <div class="text-center mb-5">
-      <span class="s-tag">Form Pengajuan</span>
-      <h2 class="fw-bold mt-2" style="font-size:2rem;letter-spacing:-.5px;">Ajukan Pelaporan SPT Tahunan</h2>
-      <p style="color:var(--muted);max-width:560px;margin:10px auto 0;line-height:1.7;">Isi data berikut untuk memulai proses pelaporan pajak tahunan Anda secara cepat dan aman. Tim kami akan menghubungi dalam 1×24 jam.</p>
+      <span class="s-tag" data-i18n="spt_tahunan.form_badge">Form Pengajuan</span>
+      <h2 class="fw-bold mt-2" style="font-size:2rem;letter-spacing:-.5px;" data-i18n="spt_tahunan.form_title">Ajukan Pelaporan SPT Tahunan</h2>
+      <p style="color:var(--muted);max-width:560px;margin:10px auto 0;line-height:1.7;" data-i18n="spt_tahunan.form_desc">Isi data berikut untuk memulai proses pelaporan pajak tahunan Anda secara cepat dan aman. Tim kami akan menghubungi dalam 1×24 jam.</p>
     </div>
 
     <div class="form-wrap">
 
       @if($errors->any())
       <div style="background:#fff0f0;border:1px solid #fca5a5;border-radius:12px;padding:16px 20px;margin-bottom:24px;">
-        <p style="font-weight:700;color:#dc2626;margin-bottom:8px;"><i class="bi bi-exclamation-triangle-fill me-2"></i>Mohon perbaiki kesalahan berikut:</p>
+        <p style="font-weight:700;color:#dc2626;margin-bottom:8px;"><i class="bi bi-exclamation-triangle-fill me-2"></i><span data-i18n="ui.validation_header">Mohon perbaiki kesalahan berikut:</span></p>
         <ul style="margin:0;padding-left:18px;color:#dc2626;font-size:.9rem;">
           @foreach($errors->all() as $e)<li>{{ $e }}</li>@endforeach
         </ul>
@@ -478,7 +478,7 @@
         @csrf
 
         {{-- STEP 1: Subject Pajak --}}
-        <p style="font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:1px;color:var(--maroon);margin-bottom:12px;">Langkah 1 — Pilih Subject Pajak</p>
+        <p style="font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:1px;color:var(--maroon);margin-bottom:12px;"><span data-i18n="spt_tahunan.step1">Langkah 1 — Pilih Subject Pajak</span></p>
         <div class="subj-tabs">
           <label class="subj-tab" for="tab_pribadi">
             <input type="radio" name="subject_type" id="tab_pribadi" value="pribadi" onchange="switchSubject('pribadi')" {{ old('subject_type')=='pribadi' ? 'checked' : '' }}>
@@ -499,10 +499,10 @@
 
         {{-- PRIBADI fields --}}
         <div class="dyn-section" id="sec_pribadi">
-          <p style="font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:1px;color:var(--maroon);margin-bottom:16px;">Langkah 2 — Data Wajib Pajak Pribadi</p>
+          <p style="font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:1px;color:var(--maroon);margin-bottom:16px;"><span data-i18n="spt_tahunan.step2_pribadi">Langkah 2 — Data Wajib Pajak Pribadi</span></p>
           <div class="f-row">
             <div class="f-group">
-              <label>Nama Lengkap <span class="req">*</span></label>
+              <label><span data-i18n="spt_tahunan.label_nama">Nama Lengkap</span> <span class="req">*</span></label>
               <input type="text" name="nama_lengkap" class="f-input {{ $errors->has('nama_lengkap') ? 'is-invalid' : '' }}" placeholder="Sesuai KTP" value="{{ old('nama_lengkap') }}">
               @error('nama_lengkap')<p class="f-error">{{ $message }}</p>@enderror
             </div>
@@ -517,10 +517,10 @@
 
         {{-- BADAN fields --}}
         <div class="dyn-section" id="sec_badan">
-          <p style="font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:1px;color:var(--maroon);margin-bottom:16px;">Langkah 2 — Data Wajib Pajak Badan</p>
+          <p style="font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:1px;color:var(--maroon);margin-bottom:16px;"><span data-i18n="spt_tahunan.step2_badan">Langkah 2 — Data Wajib Pajak Badan</span></p>
           <div class="f-row">
             <div class="f-group">
-              <label>Nama Perusahaan <span class="req">*</span></label>
+              <label><span data-i18n="spt_tahunan.label_perusahaan">Nama Perusahaan</span> <span class="req">*</span></label>
               <input type="text" name="perusahaan" class="f-input {{ $errors->has('perusahaan') ? 'is-invalid' : '' }}" placeholder="PT / CV / Firma ..." value="{{ old('perusahaan') }}">
               @error('perusahaan')<p class="f-error">{{ $message }}</p>@enderror
             </div>
@@ -535,10 +535,10 @@
         <hr class="f-divider">
 
         {{-- SHARED fields --}}
-        <p style="font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:1px;color:var(--maroon);margin-bottom:16px;">Langkah 3 — Detail Pelaporan</p>
+        <p style="font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:1px;color:var(--maroon);margin-bottom:16px;"><span data-i18n="spt_tahunan.step3">Langkah 3 — Detail Pelaporan</span></p>
         <div class="f-row">
           <div class="f-group">
-            <label>Tahun Pajak <span class="req">*</span></label>
+            <label><span data-i18n="spt_tahunan.label_tahun">Tahun Pajak</span> <span class="req">*</span></label>
             <select name="tahun_pajak" class="f-input {{ $errors->has('tahun_pajak') ? 'is-invalid' : '' }}">
               <option value="">Pilih Tahun</option>
               @for($y = date('Y'); $y >= 2018; $y--)
@@ -548,7 +548,7 @@
             @error('tahun_pajak')<p class="f-error">{{ $message }}</p>@enderror
           </div>
           <div class="f-group">
-            <label>Sudah Ada Laporan Keuangan? <span class="req">*</span></label>
+            <label><span data-i18n="spt_tahunan.label_lap_keu">Sudah Ada Laporan Keuangan?</span> <span class="req">*</span></label>
             <select name="laporan_keuangan" class="f-input">
               <option value="sudah" {{ old('laporan_keuangan')=='sudah'?'selected':'' }}>Sudah ada</option>
               <option value="belum" {{ old('laporan_keuangan')=='belum'?'selected':'' }}>Belum / Perlu bantuan</option>
@@ -556,7 +556,7 @@
           </div>
         </div>
         <div class="f-group" style="max-width:380px;">
-          <label>Status Pelaporan Sebelumnya <span class="req">*</span></label>
+          <label><span data-i18n="spt_tahunan.label_status">Status Pelaporan Sebelumnya</span> <span class="req">*</span></label>
           <select name="status_lapor" class="f-input">
             <option value="sudah" {{ old('status_lapor')=='sudah'?'selected':'' }}>Sudah pernah lapor</option>
             <option value="belum" {{ old('status_lapor')=='belum'?'selected':'' }}>Belum pernah lapor</option>
@@ -565,12 +565,12 @@
 
         @auth
         <button type="submit" class="btn-submit" id="sptSubmitBtn">
-          <i class="bi bi-send-fill"></i> Kirim Pengajuan
+          <i class="bi bi-send-fill"></i> <span data-i18n="spt_tahunan.btn_submit">Kirim Pengajuan</span>
         </button>
         @else
         {{-- Trigger modal login header yang sama --}}
         <button type="button" class="btn-submit" data-bs-toggle="modal" data-bs-target="#exampleModal">
-          <i class="bi bi-lock-fill"></i> Masuk untuk Mengajukan
+          <i class="bi bi-lock-fill"></i> <span data-i18n="spt_tahunan.btn_login">Masuk untuk Mengajukan</span>
         </button>
         @endauth
 
@@ -584,14 +584,14 @@
   <div class="container">
     <div class="text-center mb-5">
       <span class="s-tag">FAQ</span>
-      <h2 class="fw-bold mt-2" style="font-size:1.9rem;">Pertanyaan Umum</h2>
+      <h2 class="fw-bold mt-2" style="font-size:1.9rem;" data-i18n="ui.faq_title_generic">Pertanyaan Umum</h2>
     </div>
     <div style="max-width:780px;margin:0 auto;">
       @foreach([
-      ['Kapan batas waktu SPT Pribadi?','Batas pelaporan SPT Tahunan Pribadi adalah 31 Maret. Untuk badan usaha, batas waktunya adalah 30 April.'],
-      ['Apa bedanya SPT Pribadi dan Badan?','SPT Pribadi (Form 1770/1770S) digunakan oleh wajib pajak orang pribadi. SPT Badan (Form 1771) digunakan oleh perusahaan atau badan usaha.'],
-      ['Dokumen apa yang perlu disiapkan?','Untuk Pribadi: bukti potong A1/A2, rekening tabungan, data penghasilan lain. Untuk Badan: laporan keuangan, SPT Masa, bukti potong PPh.'],
-      ['Berapa sanksi jika terlambat lapor?','Denda keterlambatan: Rp 100.000 untuk SPT Pribadi, Rp 1.000.000 untuk SPT Badan. Belum termasuk sanksi bunga jika ada kurang bayar.'],
+      ['<span data-i18n="spt_tahunan.faq_q1">Kapan batas waktu SPT Pribadi?</span>','<span data-i18n="spt_tahunan.faq_a1">Batas pelaporan SPT Tahunan Pribadi adalah 31 Maret. Untuk badan usaha, batas waktunya adalah 30 April.</span>'],
+      ['<span data-i18n="spt_tahunan.faq_q2">Apa bedanya SPT Pribadi dan Badan?</span>','<span data-i18n="spt_tahunan.faq_a2">SPT Pribadi (Form 1770/1770S) digunakan oleh wajib pajak orang pribadi. SPT Badan (Form 1771) digunakan oleh perusahaan atau badan usaha.</span>'],
+      ['<span data-i18n="spt_tahunan.faq_q3">Dokumen apa yang perlu disiapkan?</span>','<span data-i18n="spt_tahunan.faq_a3">Untuk Pribadi: bukti potong A1/A2, rekening tabungan, data penghasilan lain. Untuk Badan: laporan keuangan, SPT Masa, bukti potong PPh.</span>'],
+      ['<span data-i18n="spt_tahunan.faq_q4">Berapa sanksi jika terlambat lapor?</span>','<span data-i18n="spt_tahunan.faq_a4">Denda keterlambatan: Rp 100.000 untuk SPT Pribadi, Rp 1.000.000 untuk SPT Badan. Belum termasuk sanksi bunga jika ada kurang bayar.</span>'],
       ] as [$q,$a])
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">

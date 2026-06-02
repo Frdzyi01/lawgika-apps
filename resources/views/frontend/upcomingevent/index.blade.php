@@ -13,10 +13,10 @@
             <div class="col-lg-6">
                 <div class="page-title-content">
                     <span class="text-white bg-danger rounded-pill px-3 py-1 fw-medium mb-3 d-inline-block shadow-sm" style="font-size: 0.85rem">
-                        <i class="fas fa-calendar-alt me-1"></i> Agenda Lawgika
+                        <i class="fas fa-calendar-alt me-1"></i> <span data-i18n="event.hero_eyebrow">Agenda Lawgika</span>
                     </span>
-                    <h1 class="text-white fw-bold mb-3 display-4">Upcoming Event</h1>
-                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem">
+                    <h1 class="text-white fw-bold mb-3 display-4" data-i18n="event.hero_title">Upcoming Event</h1>
+                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem" data-i18n="event.hero_desc">
                         Ikuti berbagai event menarik seputar hukum, bisnis, dan pengembangan diri bersama para ahli di bidangnya.
                     </p>
                 </div>
@@ -26,10 +26,10 @@
                     <ol class="breadcrumb justify-content-lg-end justify-content-start mb-0">
                         <li class="breadcrumb-item">
                             <a href="{{ url('/') }}" class="text-white text-decoration-none">
-                                <i class="fas fa-home me-1"></i>Beranda
+                                <i class="fas fa-home me-1"></i><span data-i18n="nav.home">Beranda</span>
                             </a>
                         </li>
-                        <li class="breadcrumb-item active text-white-50" aria-current="page">
+                        <li class="breadcrumb-item active text-white-50" aria-current="page" data-i18n="event.hero_title">
                             Upcoming Event
                         </li>
                     </ol>
@@ -47,10 +47,10 @@
             <div class="col-lg-12">
                 <div class="event-header mb-4 d-flex justify-content-between align-items-center flex-wrap">
                     <h2 class="fw-bold mb-2 mb-lg-0">
-                        <i class="fas fa-calendar-alt text-danger me-2"></i> Semua Event
+                        <i class="fas fa-calendar-alt text-danger me-2"></i> <span data-i18n="event.section_title">Semua Event</span>
                     </h2>
                     <span class="badge bg-danger rounded-pill px-3 py-2">
-                        {{ $events->count() }} Event Tersedia
+                        {{ $events->count() }} <span data-i18n="event.available">Event Tersedia</span>
                     </span>
                 </div>
 
@@ -71,9 +71,9 @@
                                 <div class="d-flex justify-content-between align-items-start flex-wrap">
                                     <h3 class="card-title fw-bold mb-2">{{ $event->nama_event }}</h3>
                                     @if($event->status_aktif)
-                                    <span class="badge bg-success rounded-pill px-3 py-1">Aktif</span>
+                                    <span class="badge bg-success rounded-pill px-3 py-1" data-i18n="event.status_active">Aktif</span>
                                     @else
-                                    <span class="badge bg-secondary rounded-pill px-3 py-1">Selesai</span>
+                                    <span class="badge bg-secondary rounded-pill px-3 py-1" data-i18n="event.status_completed">Selesai</span>
                                     @endif
                                 </div>
                                 <div class="event-meta mb-3">
@@ -83,7 +83,7 @@
                                     </span>
                                     <span class="me-3 text-muted small">
                                         <i class="fas fa-map-marker-alt text-danger me-1"></i>
-                                        {{ $event->lokasi ?? 'Lokasi belum ditentukan' }}
+                                        {{ $event->lokasi ?? __('event.location_tbd') }}
                                     </span>
                                 </div>
                                 <p class="card-text text-muted mb-3">
@@ -99,14 +99,14 @@
                                     </span>
                                     @else
                                     <span class="ue-price-free">
-                                        <i class="fas fa-gift"></i> Gratis
+                                        <i class="fas fa-gift"></i> <span data-i18n="event.free">Gratis</span>
                                     </span>
                                     @endif
 
                                     @if($event->kapasitas)
                                     <span class="ue-capacity">
                                         <i class="fas fa-users"></i>
-                                        Max {{ $event->kapasitas }} org
+                                        <span data-i18n="event.max_prefix">Max</span> {{ $event->kapasitas }} <span data-i18n="event.max_suffix">org</span>
                                     </span>
                                     @endif
                                 </div>
@@ -114,7 +114,7 @@
                                 <button
                                     onclick="openEventPopup({{ $event->id }})"
                                     class="btn btn-danger rounded-pill px-4">
-                                    Lihat Detail <i class="fas fa-arrow-right ms-2"></i>
+                                    <span data-i18n="event.view_detail">Lihat Detail</span> <i class="fas fa-arrow-right ms-2"></i>
                                 </button>
                             </div>
                         </div>
@@ -123,8 +123,8 @@
                 @empty
                 <div class="text-center py-5 bg-light rounded-4">
                     <i class="fas fa-calendar-times fa-3x text-muted mb-3"></i>
-                    <h4 class="text-muted">Belum Ada Event</h4>
-                    <p class="text-muted">Saat ini belum ada event yang tersedia. Pantau terus website kami ya!</p>
+                    <h4 class="text-muted" data-i18n="event.empty_title">Belum Ada Event</h4>
+                    <p class="text-muted" data-i18n="event.empty_desc">Saat ini belum ada event yang tersedia. Pantau terus website kami ya!</p>
                 </div>
                 @endforelse
             </div>
@@ -142,7 +142,7 @@
         <div id="eventModalContent">
             <div class="text-center py-5">
                 <i class="fas fa-spinner fa-spin fa-2x text-danger"></i>
-                <p class="mt-2 text-muted">Memuat data event...</p>
+                <p class="mt-2 text-muted" data-i18n="event.loading_detail">Memuat data event...</p>
             </div>
         </div>
     </div>
@@ -383,7 +383,7 @@
         document.getElementById('eventModalContent').innerHTML = `
         <div class="text-center py-5">
             <i class="fas fa-spinner fa-spin fa-2x text-danger"></i>
-            <p class="mt-2 text-muted">Memuat detail event...</p>
+            <p class="mt-2 text-muted">' + LwI18n.t('event.loading_detail') + '</p>
         </div>
     `;
         document.getElementById('eventModal').classList.add('active');
@@ -397,7 +397,7 @@
                 console.log('[EventPopup] label_status:', event.label_status);
                 console.log('[EventPopup] Full event data:', event);
 
-                let formattedDate = 'Tanggal belum ditentukan';
+                let formattedDate = LwI18n.t('event.date_tbd');
                 if (event.tanggal_mulai) {
                     const date = new Date(event.tanggal_mulai);
                     formattedDate = date.toLocaleDateString('id-ID', {
@@ -429,15 +429,15 @@
                 console.log('[EventPopup] Final isAktif:', isAktif);
 
                 let statusBadge = isAktif ?
-                    '<span class="modal-event-badge aktif">● Aktif</span>' :
-                    '<span class="modal-event-badge selesai">● Selesai</span>';
+                    '<span class="modal-event-badge aktif">● ' + LwI18n.t('event.status_active') + '</span>' :
+                    '<span class="modal-event-badge selesai">● ' + LwI18n.t('event.status_completed') + '</span>';
 
                 // Format harga
                 let hargaText = '';
                 if (event.harga && event.harga > 0) {
                     hargaText = `Rp ${event.harga.toLocaleString('id-ID')}`;
                 } else {
-                    hargaText = 'Gratis';
+                    hargaText = '<span data-i18n="event.free">Gratis</span>';
                 }
 
                 // Format narasumber
@@ -453,7 +453,7 @@
                 // Tipe event badge
                 let tipeEventBadge = (event.tipe_event === 'berbayar' || event.harga > 0) ?
                     '<span class="modal-event-badge berbayar">💰 Berbayar</span>' :
-                    '<span class="modal-event-badge gratis">🎉 Gratis</span>';
+                    '<span class="modal-event-badge gratis">🎉 <span data-i18n="event.free">Gratis</span></span>';
 
                 document.getElementById('eventModalContent').innerHTML = `
                 ${bannerHtml}
@@ -465,38 +465,38 @@
                         <i class="fas fa-calendar-alt me-2 text-danger"></i> ${formattedDate}
                     </div>
                     <div class="modal-event-desc">
-                        ${escapeHtml(event.deskripsi) || '<em class="text-muted">Tidak ada deskripsi</em>'}
+                        ${escapeHtml(event.deskripsi) || '<em class="text-muted">' + LwI18n.t('event.no_description') + '</em>'}
                     </div>
                     <div class="modal-event-info">
                         <div class="modal-event-info-item">
                             <i class="fas fa-map-marker-alt"></i>
-                            <span class="info-label">Lokasi</span>
+                            <span class="info-label">' + LwI18n.t('event.location') + '</span>
                             <span class="info-value">${escapeHtml(event.lokasi) || '-'}</span>
                         </div>
                         <div class="modal-event-info-item">
                             <i class="fas fa-clock"></i>
-                            <span class="info-label">Waktu</span>
-                            <span class="info-value">${escapeHtml(event.waktu_event) || escapeHtml(event.waktu) || 'Belum ditentukan'}</span>
+                            <span class="info-label">' + LwI18n.t('event.time') + '</span>
+                            <span class="info-value">${escapeHtml(event.waktu_event) || escapeHtml(event.waktu) || LwI18n.t('event.tbd')}</span>
                         </div>
                         <div class="modal-event-info-item">
                             <i class="fas fa-users"></i>
-                            <span class="info-label">Kapasitas</span>
-                            <span class="info-value">${event.kapasitas ? event.kapasitas.toLocaleString() + ' peserta' : 'Tidak terbatas'}</span>
+                            <span class="info-label">' + LwI18n.t('event.capacity') + '</span>
+                            <span class="info-value">${event.kapasitas ? event.kapasitas.toLocaleString() + ' ' + LwI18n.t('event.participants')' : LwI18n.t('event.unlimited')}</span>
                         </div>
                         <div class="modal-event-info-item">
                             <i class="fas fa-chalkboard-user"></i>
-                            <span class="info-label">Narasumber</span>
+                            <span class="info-label">' + LwI18n.t('event.speaker') + '</span>
                             <span class="info-value">${escapeHtml(narasumberText)}</span>
                         </div>
                         <div class="modal-event-info-item">
                             <i class="fas fa-ticket"></i>
-                            <span class="info-label">Harga</span>
+                            <span class="info-label">' + LwI18n.t('event.price') + '</span>
                             <span class="info-value ${event.harga > 0 ? 'text-danger fw-bold' : 'text-success fw-bold'}">${hargaText}</span>
                         </div>
                     </div>
                     <div class="modal-buttons">
-                        <a href="#" class="btn-daftar"><i class="fas fa-ticket-alt me-2"></i> Daftar Sekarang</a>
-                        <a href="{{ route('upcoming.event') }}" class="btn-lihat-semua"><i class="fas fa-calendar-week me-2"></i> Lihat Semua Event</a>
+                        <a href="#" class="btn-daftar"><i class="fas fa-ticket-alt me-2"></i> ' + LwI18n.t('event.register_now') + '</a>
+                        <a href="{{ route('upcoming.event') }}" class="btn-lihat-semua"><i class="fas fa-calendar-week me-2"></i> ' + LwI18n.t('event.view_all') + '</a>
                     </div>
                 </div>
             `;
@@ -506,8 +506,8 @@
                 document.getElementById('eventModalContent').innerHTML = `
                 <div class="text-center py-5">
                     <i class="fas fa-exclamation-triangle fa-2x text-danger"></i>
-                    <p class="mt-2 text-danger">Gagal memuat detail event</p>
-                    <button onclick="closeEventModal()" class="btn btn-secondary mt-3 rounded-pill px-4">Tutup</button>
+                    <p class="mt-2 text-danger">' + LwI18n.t('event.failed_load') + '</p>
+                    <button onclick="closeEventModal()" class="btn btn-secondary mt-3 rounded-pill px-4">' + LwI18n.t('event.close') + '</button>
                 </div>
             `;
             });

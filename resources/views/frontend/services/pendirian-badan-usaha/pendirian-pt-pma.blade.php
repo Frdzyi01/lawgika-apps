@@ -674,15 +674,15 @@
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="page-title-content">
-                    <span class="text-white bg-danger rounded-pill px-3 py-1 fw-medium mb-3 d-inline-block shadow-sm" style="font-size: 0.85rem">Lawgika | PT PMA</span>
-                    <h1 class="text-white fw-bold mb-3 display-4">Jasa Pendirian PT PMA</h1>
-                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem">Solusi legalitas untuk perusahaan asing yang ingin berinvestasi dan mendirikan badan usaha di Indonesia. Proses cepat, transparan, dan sesuai regulasi BKPM.</p>
+                    <span class="text-white bg-danger rounded-pill px-3 py-1 fw-medium mb-3 d-inline-block shadow-sm" style="font-size: 0.85rem" data-i18n="pt_pma.hero_badge">Lawgika | PT PMA</span>
+                    <h1 class="text-white fw-bold mb-3 display-4" data-i18n="pt_pma.hero_title">Jasa Pendirian PT PMA</h1>
+                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem" data-i18n="pt_pma.hero_desc">Solusi legalitas untuk perusahaan asing yang ingin berinvestasi dan mendirikan badan usaha di Indonesia. Proses cepat, transparan, dan sesuai regulasi BKPM.</p>
                 </div>
             </div>
             <div class="col-lg-6 text-lg-end mt-4 mt-lg-0">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-lg-end justify-content-start mb-0">
-                        <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none">Beranda</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none" data-i18n="nav.home">Beranda</a></li>
                         <li class="breadcrumb-item active text-white-50" aria-current="page">Pendirian PT PMA</li>
                     </ol>
                 </nav>
@@ -696,14 +696,14 @@
     <div class="container">
         <div class="row align-items-center g-5 flex-row-reverse">
             <div class="col-lg-6">
-                <h2>Solusi Legalitas PMA Yang Tepat Untuk Investor Asing</h2>
-                <p>PT PMA (Penanaman Modal Asing) adalah solusi ideal bagi investor asing yang ingin mendirikan perusahaan di Indonesia dengan kepemilikan saham asing. Kami membantu proses pendirian yang sesuai dengan aturan BKPM dan Kemenkumham.</p>
+                <h2 data-i18n="pt_pma.sol_title">Solusi Legalitas PMA Yang Tepat Untuk Investor Asing</h2>
+                <p data-i18n="pt_pma.sol_desc">PT PMA (Penanaman Modal Asing) adalah solusi ideal bagi investor asing yang ingin mendirikan perusahaan di Indonesia dengan kepemilikan saham asing. Kami membantu proses pendirian yang sesuai dengan aturan BKPM dan Kemenkumham.</p>
                 <ul class="solution-list">
-                    <li><i class="fa-regular fa-circle-check"></i> Pendampingan khusus investor asing</li>
-                    <li><i class="fa-regular fa-circle-check"></i> Pengurusan izin BKPM & Kemenkumham</li>
-                    <li><i class="fa-regular fa-circle-check"></i> Konsultasi regulasi & KBLI untuk PMA</li>
+                    <li><i class="fa-regular fa-circle-check"></i> <span data-i18n="pt_pma.sol_list1">Pendampingan khusus investor asing</span></li>
+                    <li><i class="fa-regular fa-circle-check"></i> <span data-i18n="pt_pma.sol_list2">Pengurusan izin BKPM & Kemenkumham</span></li>
+                    <li><i class="fa-regular fa-circle-check"></i> <span data-i18n="pt_pma.sol_list3">Konsultasi regulasi & KBLI untuk PMA</span></li>
                 </ul>
-                <a href="#pricing" class="btn-outline-brand">Lihat Pilihan Paket →</a>
+                <a href="#pricing" class="btn-outline-brand" data-i18n="ui.see_packages">Lihat Pilihan Paket →</a>
             </div>
             <div class="col-lg-6">
                 <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&auto=format" alt="International Business Meeting" class="img-fluid-rounded">
@@ -716,7 +716,7 @@
 <section class="why-us-section">
     <div class="container">
         <div class="section-header">
-            <h2>MENGAPA MEMILIH KAMI?</h2>
+            <h2 data-i18n="pt_pma.why_title">MENGAPA MEMILIH KAMI?</h2>
             <p>Dapatkan berbagai keuntungan tambahan saat mendirikan PT PMA bersama kami</p>
         </div>
         <div class="row g-4 justify-content-center">
@@ -725,8 +725,8 @@
                     <div class="why-us-icon">
                         <i class="fa-solid fa-globe"></i>
                     </div>
-                    <h4>Dukungan Ekspatriat</h4>
-                    <p>Pendampingan khusus untuk WNA & ekspatriat dalam proses legalitas.</p>
+                    <h4 data-i18n="pt_pma.why_card1_title">Dukungan Ekspatriat</h4>
+                    <p data-i18n="pt_pma.why_card1_desc">Pendampingan khusus untuk WNA & ekspatriat dalam proses legalitas.</p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -734,8 +734,8 @@
                     <div class="why-us-icon">
                         <i class="fa-solid fa-building"></i>
                     </div>
-                    <h4>Konsultasi BKPM</h4>
-                    <p>Bantuan pengurusan izin prinsip dan izin usaha dari BKPM.</p>
+                    <h4 data-i18n="pt_pma.why_card2_title">Konsultasi BKPM</h4>
+                    <p data-i18n="pt_pma.why_card2_desc">Bantuan pengurusan izin prinsip dan izin usaha dari BKPM.</p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -743,8 +743,8 @@
                     <div class="why-us-icon">
                         <i class="fa-solid fa-scale-balanced"></i>
                     </div>
-                    <h4>Kepatuhan Hukum</h4>
-                    <p>Jaminan dokumen sesuai dengan regulasi PMA terbaru.</p>
+                    <h4 data-i18n="pt_pma.why_card3_title">Kepatuhan Hukum</h4>
+                    <p data-i18n="pt_pma.why_card3_desc">Jaminan dokumen sesuai dengan regulasi PMA terbaru.</p>
                 </div>
             </div>
         </div>
@@ -762,18 +762,18 @@
         <div class="process-timeline">
             <div class="process-step">
                 <div class="process-step-number">1</div>
-                <h5>Konsultasi & Persiapan</h5>
-                <p>Konsultasi bidang usaha, persiapan dokumen perusahaan asing, dan penentuan struktur kepemilikan saham.</p>
+                <h5 data-i18n="pt_pma.step1_title">Konsultasi & Persiapan</h5>
+                <p data-i18n="pt_pma.step1_desc">Konsultasi bidang usaha, persiapan dokumen perusahaan asing, dan penentuan struktur kepemilikan saham.</p>
             </div>
             <div class="process-step">
                 <div class="process-step-number">2</div>
-                <h5>Pengajuan Izin Prinsip</h5>
-                <p>Pengajuan izin prinsip ke BKPM dan pengecekan nama PT melalui sistem AHU Kemenkumham.</p>
+                <h5 data-i18n="pt_pma.step2_title">Pengajuan Izin Prinsip</h5>
+                <p data-i18n="pt_pma.step2_desc">Pengajuan izin prinsip ke BKPM dan pengecekan nama PT melalui sistem AHU Kemenkumham.</p>
             </div>
             <div class="process-step">
                 <div class="process-step-number">3</div>
-                <h5>Pengesahan & Legalitas</h5>
-                <p>Penerbitan Akta Pendirian, SK Kemenkumham, NIB, dan izin usaha lainnya.</p>
+                <h5 data-i18n="pt_pma.step3_title">Pengesahan & Legalitas</h5>
+                <p data-i18n="pt_pma.step3_desc">Penerbitan Akta Pendirian, SK Kemenkumham, NIB, dan izin usaha lainnya.</p>
             </div>
         </div>
     </div>
@@ -794,7 +794,7 @@
                         <div class="requirement-icon">
                             <i class="fa-solid fa-building"></i>
                         </div>
-                        <h3>DOKUMEN PERUSAHAAN ASING</h3>
+                        <h3 data-i18n="pt_pma.req_card1_title">DOKUMEN PERUSAHAAN ASING</h3>
                     </div>
                     <ul class="requirement-list">
                         <li><i class="fa-solid fa-circle-check"></i> Akta pendirian perusahaan asing (diterjemahkan)</li>
@@ -813,7 +813,7 @@
                         <div class="requirement-icon">
                             <i class="fa-solid fa-passport"></i>
                         </div>
-                        <h3>DOKUMEN PRIBADI</h3>
+                        <h3 data-i18n="pt_pma.req_card2_title">DOKUMEN PRIBADI</h3>
                     </div>
                     <ul class="requirement-list">
                         <li><i class="fa-solid fa-circle-check"></i> Paspor pemegang saham asing (legalisasi)</li>
@@ -871,27 +871,27 @@
 <section class="pt-faq">
     <div class="container">
         <div class="section-title text-center mb-5">
-            <span class="subtitle">Bantuan Sentral</span>
-            <h2>FAQ terkait Pendirian PT PMA</h2>
-            <p>Pertanyaan yang paling sering diajukan seputar legalitas PT PMA di Indonesia</p>
+            <span class="subtitle" data-i18n="ui.bantuan_sentral">Bantuan Sentral</span>
+            <h2 data-i18n="pt_pma.faq_title">FAQ terkait Pendirian PT PMA</h2>
+            <p data-i18n="pt_pma.faq_desc">Pertanyaan yang paling sering diajukan seputar legalitas PT PMA di Indonesia</p>
         </div>
         <div class="row">
             <div class="col-lg-8 mx-auto">
                 <div class="faq-item">
-                    <div class="faq-question">Apa itu PT PMA dan siapa yang bisa mendirikannya? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">PT PMA (Penanaman Modal Asing) adalah perseroan terbatas yang didirikan oleh investor asing atau pihak asing yang ingin menanamkan modal di Indonesia. Pendiri bisa berupa WNA atau perusahaan asing yang bekerja sama dengan WNI sesuai ketentuan BKPM.</div>
+                    <div class="faq-question"><span data-i18n="pt_pma.faq_q1">Apa itu PT PMA dan siapa yang bisa mendirikannya?</span> <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer"><span data-i18n="pt_pma.faq_a1">PT PMA (Penanaman Modal Asing) adalah perseroan terbatas yang didirikan oleh investor asing atau pihak asing yang ingin menanamkan modal di Indonesia. Pendiri bisa berupa WNA atau perusahaan asing yang bekerja sama dengan WNI sesuai ketentuan BKPM.</span></div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">Berapa minimal investasi untuk PT PMA? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Sesuai aturan BKPM terbaru, nilai investasi PT PMA minimal Rp 10 Miliar di luar tanah dan bangunan, dengan modal disetor minimal Rp 2.5 Miliar.</div>
+                    <div class="faq-question"><span data-i18n="pt_pma.faq_q2">Berapa minimal investasi untuk PT PMA?</span> <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer"><span data-i18n="pt_pma.faq_a2">Sesuai aturan BKPM terbaru, nilai investasi PT PMA minimal Rp 10 Miliar di luar tanah dan bangunan, dengan modal disetor minimal Rp 2.5 Miliar.</span></div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">Berapa lama proses pendirian PT PMA? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Dengan dokumen lengkap, proses pendirian PT PMA memakan waktu sekitar 2-4 minggu, tergantung pada kompleksitas dan respons dari instansi terkait seperti BKPM dan Kemenkumham.</div>
+                    <div class="faq-question"><span data-i18n="pt_pma.faq_q3">Berapa lama proses pendirian PT PMA?</span> <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer"><span data-i18n="pt_pma.faq_a3">Dengan dokumen lengkap, proses pendirian PT PMA memakan waktu sekitar 2-4 minggu, tergantung pada kompleksitas dan respons dari instansi terkait seperti BKPM dan Kemenkumham.</span></div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">Apakah WNA bisa menjadi direktur PT PMA? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Ya, WNA diperbolehkan menjadi direktur di PT PMA. Namun wajib memiliki KITAS (izin tinggal terbatas) dan memenuhi ketentuan TKA (Tenaga Kerja Asing).</div>
+                    <div class="faq-question"><span data-i18n="pt_pma.faq_q4">Apakah WNA bisa menjadi direktur PT PMA?</span> <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer"><span data-i18n="pt_pma.faq_a4">Ya, WNA diperbolehkan menjadi direktur di PT PMA. Namun wajib memiliki KITAS (izin tinggal terbatas) dan memenuhi ketentuan TKA (Tenaga Kerja Asing).</span></div>
                 </div>
             </div>
         </div>

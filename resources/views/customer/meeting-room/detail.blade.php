@@ -2,64 +2,64 @@
 @section('content')
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Detail Reservasi Meeting Room</h1>
-        <a href="{{ route('customer.meeting-room.index') }}" class="btn btn-sm btn-secondary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Kembali</a>
+        <h1 class="h3 mb-0 text-gray-800">{{ __('customer.mr.detail.title') }}</h1>
+        <a href="{{ route('customer.meeting-room.index') }}" class="btn btn-sm btn-secondary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> {{ __('customer.mr.detail.btn.back') }}</a>
     </div>
 
     <div class="row">
-        <!-- Informasi Order -->
+        <!-- {{ __('customer.mr.detail.info_title') }} -->
         <div class="col-lg-6 mb-4">
             <div class="card shadow h-100">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Informasi Order</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">{{ __('customer.mr.detail.info_title') }}</h6>
                 </div>
                 <div class="card-body">
                     <table class="table table-borderless">
                         <tr>
-                            <td class="text-muted">Nama Pemesan / User</td>
+                            <td class="text-muted">{{ __('customer.mr.detail.user_name') }}</td>
                             <td class="fw-bold">{{ $booking->user ? $booking->user->name : $booking->name }}</td>
                         </tr>
                         <tr>
-                            <td class="text-muted">Nama Perusahaan</td>
+                            <td class="text-muted">{{ __('customer.mr.detail.company_name') }}</td>
                             <td class="fw-bold">{{ $booking->nama_perusahaan ?? '-' }}</td>
                         </tr>
                         <tr>
-                            <td class="text-muted">Alamat Email</td>
+                            <td class="text-muted">{{ __('customer.mr.detail.email') }}</td>
                             <td class="fw-bold">{{ $booking->email ?? '-' }}</td>
                         </tr>
                         <tr>
-                            <td class="text-muted">Alamat Aktivitas Usaha</td>
+                            <td class="text-muted">{{ __('customer.mr.detail.address') }}</td>
                             <td class="fw-bold">{{ $booking->alamat_usaha ?? '-' }}</td>
                         </tr>
                         <tr>
-                            <td class="text-muted">Bidang Usaha</td>
+                            <td class="text-muted">{{ __('customer.mr.detail.business_field') }}</td>
                             <td class="fw-bold">{{ $booking->bidang_usaha ?? '-' }}</td>
                         </tr>
                         <tr>
-                            <td class="text-muted">Keperluan</td>
+                            <td class="text-muted">{{ __('customer.mr.detail.purpose') }}</td>
                             <td class="fw-bold">{{ $booking->keperluan ?? '-' }}</td>
                         </tr>
                         <tr>
-                            <td class="text-muted">Tanggal Order</td>
+                            <td class="text-muted">{{ __('customer.mr.detail.order_date') }}</td>
                             <td class="fw-bold">{{ \Carbon\Carbon::parse($booking->created_at)->format('d M Y H:i:s') }}</td>
                         </tr>
                         <tr>
-                            <td class="text-muted">Tanggal Expired</td>
+                            <td class="text-muted">{{ __('customer.mr.detail.expired_date') }}</td>
                             <td class="fw-bold text-danger">{{ \Carbon\Carbon::parse($booking->created_at)->addYear()->format('d M Y H:i:s') }}</td>
                         </tr>
                         <tr>
-                            <td class="text-muted">Status Ruangan</td>
+                            <td class="text-muted">{{ __('customer.mr.detail.room_status') }}</td>
                             <td>
                                 @if($booking->is_expired)
-                                    <span class="badge bg-danger">❌ Expired</span>
+                                    <span class="badge bg-danger">❌ {{ __('customer.mr.detail.status.expired') }}</span>
                                 @elseif($booking->remaining_seconds <= 0)
-                                    <span class="badge bg-danger">⛔ Waktu Habis</span>
+                                    <span class="badge bg-danger">⛔ {{ __('customer.mr.detail.status.exhausted') }}</span>
                                 @elseif($booking->status === 'checkin')
-                                    <span class="badge bg-success">✅ Aktif</span>
+                                    <span class="badge bg-success">✅ {{ __('customer.mr.detail.status.active') }}</span>
                                 @elseif($booking->status === 'paused' || $booking->used_seconds > 0)
-                                    <span class="badge bg-warning text-dark">⏳ Berhenti sementara</span>
+                                    <span class="badge bg-warning text-dark">⏳ {{ __('customer.mr.detail.status.paused') }}</span>
                                 @else
-                                    <span class="badge bg-secondary">Pending</span>
+                                    <span class="badge bg-secondary">{{ __('customer.mr.detail.status.pending') }}</span>
                                 @endif
                             </td>
                         </tr>
@@ -69,22 +69,22 @@
         </div>
 
         @if($booking->benefit_id)
-        <!-- Riwayat Check In / Out (for benefit bookings) -->
+        <!-- Riwayat {{ __('customer.mr.detail.logs.checkin') }} / Out (for benefit bookings) -->
         <div class="col-lg-6 mb-4">
             <div class="card shadow h-100">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Riwayat Check In / Check Out</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">{{ __('customer.mr.detail.logs_title') }}</h6>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover mb-0">
                             <thead class="table-light">
                                 <tr>
-                                    <th>No</th>
-                                    <th>Tipe</th>
-                                    <th>Tanggal</th>
-                                    <th>Jam</th>
-                                    <th>Durasi Sesi</th>
+                                    <th>{{ __('customer.mr.detail.logs.no') }}</th>
+                                    <th>{{ __('customer.mr.detail.logs.type') }}</th>
+                                    <th>{{ __('customer.mr.detail.logs.date') }}</th>
+                                    <th>{{ __('customer.mr.detail.logs.time') }}</th>
+                                    <th>{{ __('customer.mr.detail.logs.duration') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -93,9 +93,9 @@
                                         <td>{{ $index + 1 }}</td>
                                         <td>
                                             @if($log->type === 'checkin')
-                                                <span class="badge bg-success"><i class="fas fa-sign-in-alt"></i> Check In</span>
+                                                <span class="badge bg-success"><i class="fas fa-sign-in-alt"></i> {{ __('customer.mr.detail.logs.checkin') }}</span>
                                             @else
-                                                <span class="badge bg-danger"><i class="fas fa-sign-out-alt"></i> Check Out</span>
+                                                <span class="badge bg-danger"><i class="fas fa-sign-out-alt"></i> {{ __('customer.mr.detail.logs.checkout') }}</span>
                                             @endif
                                         </td>
                                         <td>{{ \Carbon\Carbon::parse($log->timestamp)->format('d M Y') }}</td>
@@ -113,7 +113,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="5" class="text-center py-4">Belum ada riwayat penggunaan.</td>
+                                        <td colspan="5" class="text-center py-4">{{ __('customer.mr.detail.logs.no_history') }}</td>
                                     </tr>
                                 @endforelse
                             </tbody>
@@ -131,15 +131,15 @@
                 </div>
                 <div class="card-body">
                     <div class="d-flex justify-content-between mb-3 border-bottom pb-2">
-                        <span class="text-muted">Total Waktu:</span>
+                        <span class="text-muted">{{ __('customer.mr.detail.usage.total_time') }}</span>
                         <span class="fw-bold">{{ $booking->formatSeconds($booking->duration * 3600) }}</span>
                     </div>
                     <div class="d-flex justify-content-between mb-3 border-bottom pb-2">
-                        <span class="text-muted">Sudah Dipakai:</span>
+                        <span class="text-muted">{{ __('customer.mr.detail.usage.used_time') }}</span>
                         <span class="fw-bold text-primary used-time-display" data-status="{{ $booking->status }}" data-used="{{ $booking->used_seconds }}">{{ $booking->formatted_used_time }}</span>
                     </div>
                     <div class="d-flex justify-content-between mb-3">
-                        <span class="text-muted">Sisa Waktu:</span>
+                        <span class="text-muted">{{ __('customer.mr.detail.usage.remaining_time') }}</span>
                         @php 
                             $sisa = $booking->formatted_remaining_time; 
                             $text_class = ($booking->is_expired || $sisa === 'Waktu habis') ? 'text-danger' : 'text-success';
@@ -153,21 +153,21 @@
     </div>
 
     @if(!$booking->benefit_id)
-    <!-- Riwayat Check In / Out -->
+    <!-- Riwayat {{ __('customer.mr.detail.logs.checkin') }} / Out -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Riwayat Check In / Check Out</h6>
+            <h6 class="m-0 font-weight-bold text-primary">{{ __('customer.mr.detail.logs_title') }}</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered table-hover">
                     <thead class="table-light">
                         <tr>
-                            <th>No</th>
-                            <th>Tipe</th>
-                            <th>Tanggal</th>
-                            <th>Jam</th>
-                            <th>Durasi Sesi</th>
+                            <th>{{ __('customer.mr.detail.logs.no') }}</th>
+                            <th>{{ __('customer.mr.detail.logs.type') }}</th>
+                            <th>{{ __('customer.mr.detail.logs.date') }}</th>
+                            <th>{{ __('customer.mr.detail.logs.time') }}</th>
+                            <th>{{ __('customer.mr.detail.logs.duration') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -176,9 +176,9 @@
                                 <td>{{ $index + 1 }}</td>
                                 <td>
                                     @if($log->type === 'checkin')
-                                        <span class="badge bg-success"><i class="fas fa-sign-in-alt"></i> Check In</span>
+                                        <span class="badge bg-success"><i class="fas fa-sign-in-alt"></i> {{ __('customer.mr.detail.logs.checkin') }}</span>
                                     @else
-                                        <span class="badge bg-danger"><i class="fas fa-sign-out-alt"></i> Check Out</span>
+                                        <span class="badge bg-danger"><i class="fas fa-sign-out-alt"></i> {{ __('customer.mr.detail.logs.checkout') }}</span>
                                     @endif
                                 </td>
                                 <td>{{ \Carbon\Carbon::parse($log->timestamp)->format('d M Y') }}</td>
@@ -196,7 +196,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="text-center">Belum ada riwayat penggunaan.</td>
+                                <td colspan="5" class="text-center">{{ __('customer.mr.detail.logs.no_history') }}</td>
                             </tr>
                         @endforelse
                     </tbody>

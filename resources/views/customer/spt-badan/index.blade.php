@@ -1,14 +1,14 @@
 @extends('layouts-customer.app')
-@section('title', 'Riwayat SPT Tahunan')
+@section('title', '{{ __('customer.spt.index.title') }}')
 @section('content')
 <div class="container-fluid py-4">
   <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
     <div>
-      <h4 class="mb-1 fw-bold">Riwayat Pengajuan SPT Tahunan</h4>
-      <p class="text-muted mb-0" style="font-size:.88rem;">Pantau status pengajuan pelaporan pajak Anda.</p>
+      <h4 class="mb-1 fw-bold">{{ __('customer.spt.index.header') }}</h4>
+      <p class="text-muted mb-0" style="font-size:.88rem;">{{ __('customer.spt.index.desc') }}</p>
     </div>
     <a href="/pelaporan-spt-tahunan#formPengajuan" class="btn btn-sm btn-danger px-3 fw-semibold">
-      <i class="bi bi-plus-lg me-1"></i> Ajukan Baru
+      <i class="bi bi-plus-lg me-1"></i> {{ __('customer.spt.index.btn_new') }}
     </a>
   </div>
 
@@ -18,12 +18,12 @@
         <table class="table table-hover align-middle mb-0">
           <thead class="table-light">
             <tr>
-              <th class="ps-4 py-3">No.</th>
-              <th class="py-3">Subject</th>
-              <th class="py-3">Nama / Perusahaan</th>
-              <th class="py-3">Tahun Pajak</th>
-              <th class="py-3">Lap. Keuangan</th>
-              <th class="pe-4 py-3">Status Pesanan</th>
+              <th class="ps-4 py-3">{{ __('customer.spt.index.no') }}</th>
+              <th class="py-3">{{ __('customer.spt.index.subject') }}</th>
+              <th class="py-3">{{ __('customer.spt.index.name') }}</th>
+              <th class="py-3">{{ __('customer.spt.index.year') }}</th>
+              <th class="py-3">{{ __('customer.spt.index.report') }}</th>
+              <th class="pe-4 py-3">{{ __('customer.spt.index.status') }}</th>
             </tr>
           </thead>
           <tbody>
@@ -32,9 +32,9 @@
               <td class="ps-4 py-3"><small class="text-muted">{{ $i + 1 }}</small></td>
               <td class="py-3">
                 @if($r->subject_type === 'pribadi')
-                  <span class="badge bg-info bg-opacity-15 text-info border border-info" style="font-size:.78rem;">👤 Pribadi</span>
+                  <span class="badge bg-info bg-opacity-15 text-info border border-info" style="font-size:.78rem;">{{ __('customer.spt.index.subject_personal') }}</span>
                 @else
-                  <span class="badge bg-primary bg-opacity-15 text-primary border border-primary" style="font-size:.78rem;">🏢 Badan</span>
+                  <span class="badge bg-primary bg-opacity-15 text-primary border border-primary" style="font-size:.78rem;">{{ __('customer.spt.index.subject_company') }}</span>
                 @endif
               </td>
               <td class="py-3 fw-semibold">{{ $r->display_name }}</td>
@@ -58,8 +58,8 @@
             <tr>
               <td colspan="6" class="text-center py-5 text-muted">
                 <i class="bi bi-file-earmark-text" style="font-size:2.5rem;color:#d1d5db;display:block;margin-bottom:8px;"></i>
-                Belum ada pengajuan SPT Tahunan.<br>
-                <a href="/pelaporan-spt-tahunan" class="text-danger fw-semibold mt-2 d-inline-block">Ajukan sekarang →</a>
+                {{ __('customer.spt.index.no_history') }}<br>
+                <a href="/pelaporan-spt-tahunan" class="text-danger fw-semibold mt-2 d-inline-block">{{ __('customer.spt.index.file_now') }}</a>
               </td>
             </tr>
             @endforelse

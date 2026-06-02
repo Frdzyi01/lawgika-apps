@@ -671,16 +671,16 @@
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="page-title-content">
-                    <span class="text-white bg-danger rounded-pill px-3 py-1 fw-medium mb-3 d-inline-block shadow-sm" style="font-size: 0.85rem">Lawgika | Virtual Office</span>
-                    <h1 class="text-white fw-bold mb-3 display-4">Layanan Virtual Office Premium</h1>
-                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem">Miliki alamat bisnis prestisius tanpa perlu menyewa kantor fisik. Hemat biaya operasional hingga 90% dengan layanan Virtual Office dari Lawgika.</p>
+                    <span class="text-white bg-danger rounded-pill px-3 py-1 fw-medium mb-3 d-inline-block shadow-sm" style="font-size: 0.85rem" data-i18n="vo.hero.badge">Lawgika | Virtual Office</span>
+                    <h1 class="text-white fw-bold mb-3 display-4" data-i18n="vo.hero.title">Layanan Virtual Office Premium</h1>
+                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem" data-i18n="vo.hero.desc">Miliki alamat bisnis prestisius tanpa perlu menyewa kantor fisik. Hemat biaya operasional hingga 90% dengan layanan Virtual Office dari Lawgika.</p>
                 </div>
             </div>
             <div class="col-lg-6 text-lg-end mt-4 mt-lg-0">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-lg-end justify-content-start mb-0">
-                        <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none">Beranda</a></li>
-                        <li class="breadcrumb-item active text-white-50" aria-current="page">Virtual Office</li>
+                        <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none" data-i18n="nav.home">Beranda</a></li>
+                        <li class="breadcrumb-item active text-white-50" aria-current="page" data-i18n="nav.services.virtual_office">Virtual Office</li>
                     </ol>
                 </nav>
             </div>
@@ -693,14 +693,14 @@
     <div class="container">
         <div class="row align-items-center g-5 flex-row-reverse">
             <div class="col-lg-6">
-                <h2>Solusi Kantor Tanpa Sewa Fisik</h2>
-                <p>Virtual Office adalah solusi tepat bagi Anda yang ingin memiliki alamat bisnis di kawasan prestisius tanpa harus mengeluarkan biaya sewa kantor yang mahal. Hemat biaya operasional hingga 90%!</p>
+                <h2 data-i18n="vo.solusi.title">Solusi Kantor Tanpa Sewa Fisik</h2>
+                <p data-i18n="vo.solusi.desc">Virtual Office adalah solusi tepat bagi Anda yang ingin memiliki alamat bisnis di kawasan prestisius tanpa harus mengeluarkan biaya sewa kantor yang mahal. Hemat biaya operasional hingga 90%!</p>
                 <ul class="solution-list">
-                    <li><i class="fa-regular fa-circle-check"></i> Alamat bisnis di kawasan strategis</li>
-                    <li><i class="fa-regular fa-circle-check"></i> Pengelolaan surat & paket profesional</li>
-                    <li><i class="fa-regular fa-circle-check"></i> Fasilitas meeting room & podcast room</li>
+                    <li><i class="fa-regular fa-circle-check"></i> <span data-i18n="vo.solusi.list1">Alamat bisnis di kawasan strategis</span></li>
+                    <li><i class="fa-regular fa-circle-check"></i> <span data-i18n="vo.solusi.list2">Pengelolaan surat &amp; paket profesional</span></li>
+                    <li><i class="fa-regular fa-circle-check"></i> <span data-i18n="vo.solusi.list3">Fasilitas meeting room &amp; podcast room</span></li>
                 </ul>
-                <a href="#pricing" class="btn-outline-brand">Lihat Pilihan Paket →</a>
+                <a href="#pricing" class="btn-outline-brand" data-i18n="vo.solusi.cta">Lihat Pilihan Paket →</a>
             </div>
             <div class="col-lg-6">
                 <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&auto=format" alt="Virtual Office Workspace" class="img-fluid-rounded">
@@ -713,8 +713,8 @@
 <section class="why-us-section">
     <div class="container">
         <div class="section-header">
-            <h2>MENGAPA MEMILIH VIRTUAL OFFICE KAMI?</h2>
-            <p>Dapatkan berbagai keuntungan memiliki Virtual Office bersama Lawgika</p>
+            <h2 data-i18n="vo.why.title">MENGAPA MEMILIH VIRTUAL OFFICE KAMI?</h2>
+            <p data-i18n="vo.why.desc">Dapatkan berbagai keuntungan memiliki Virtual Office bersama Lawgika</p>
         </div>
         <div class="row g-4 justify-content-center">
             <div class="col-md-4">
@@ -722,8 +722,8 @@
                     <div class="why-us-icon">
                         <i class="fa-solid fa-building"></i>
                     </div>
-                    <h4>Alamat Prestisius</h4>
-                    <p>Alamat di kawasan bisnis strategis yang meningkatkan kredibilitas perusahaan Anda.</p>
+                    <h4 data-i18n="vo.why.item1.title">Alamat Prestisius</h4>
+                    <p data-i18n="vo.why.item1.desc">Alamat di kawasan bisnis strategis yang meningkatkan kredibilitas perusahaan Anda.</p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -731,8 +731,8 @@
                     <div class="why-us-icon">
                         <i class="fa-solid fa-envelope"></i>
                     </div>
-                    <h4>Pengelolaan Surat & Paket</h4>
-                    <p>Surat dan paket bisnis Anda dikelola secara profesional dan notifikasi real-time.</p>
+                    <h4 data-i18n="vo.why.item2.title">Pengelolaan Surat &amp; Paket</h4>
+                    <p data-i18n="vo.why.item2.desc">Surat dan paket bisnis Anda dikelola secara profesional dan notifikasi real-time.</p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -740,8 +740,8 @@
                     <div class="why-us-icon">
                         <i class="fa-solid fa-phone"></i>
                     </div>
-                    <h4>Layanan Call Handling</h4>
-                    <p>Layanan penerimaan telepon dan forwarding dengan nama perusahaan Anda.</p>
+                    <h4 data-i18n="vo.why.item3.title">Layanan Call Handling</h4>
+                    <p data-i18n="vo.why.item3.desc">Layanan penerimaan telepon dan forwarding dengan nama perusahaan Anda.</p>
                 </div>
             </div>
         </div>
@@ -752,25 +752,26 @@
 <section class="process-section">
     <div class="container">
         <div class="section-header">
-            <span class="badge">Mudah & Cepat</span>
-            <h2>PROSES AKTIVASI VIRTUAL OFFICE</h2>
-            <p>Mulai gunakan Virtual Office dalam hitungan jam</p>
+            <span class="badge" data-i18n="vo.process.badge">Mudah &amp; Cepat</span>
+            <h2 data-i18n="vo.process.title">PROSES AKTIVASI VIRTUAL OFFICE</h2>
+            <p data-i18n="vo.process.desc">Mulai gunakan Virtual Office dalam hitungan jam</p>
         </div>
         <div class="process-timeline">
             <div class="process-step">
                 <div class="process-step-number">1</div>
-                <h5>Pilih Paket</h5>
-                <p>Pilih paket Virtual Office yang sesuai dengan kebutuhan bisnis Anda.</p>
+                <h5 data-i18n="vo.process.step1.title">Pilih Paket</h5>
+                <p data-i18n="vo.process.step1.desc">Pilih paket Virtual Office yang sesuai dengan kebutuhan bisnis Anda.</p>
             </div>
             <div class="process-step">
                 <div class="process-step-number">2</div>
-                <h5>Isi Data Perusahaan</h5>
-                <p>Lengkapi data perusahaan dan dokumen yang diperlukan.</p>
+                <h5 data-i18n="vo.process.step2.title">Isi Data Perusahaan</h5>
+                <p data-i18n="vo.process.step2.desc">Lengkapi data perusahaan dan dokumen yang diperlukan.</p>
             </div>
             <div class="process-step">
                 <div class="process-step-number">3</div>
-                <h5>Aktif & Gunakan</h5>
-                <p>Virtual Office aktif dan siap digunakan untuk bisnis Anda.</p>
+                <div class="process-step-number" style="display:none;">3</div> <!-- to keep spacing if needed, but original only had one -->
+                <h5 data-i18n="vo.process.step3.title">Aktif &amp; Gunakan</h5>
+                <p data-i18n="vo.process.step3.desc">Virtual Office aktif dan siap digunakan untuk bisnis Anda.</p>
             </div>
         </div>
     </div>
@@ -780,9 +781,9 @@
 <section class="requirements-section">
     <div class="container">
         <div class="section-header">
-            <span class="badge">Persiapan Mudah</span>
-            <h2>PERSYARATAN VIRTUAL OFFICE</h2>
-            <p>Siapkan dokumen berikut untuk aktivasi</p>
+            <span class="badge" data-i18n="vo.req.badge">Persiapan Mudah</span>
+            <h2 data-i18n="vo.req.title">PERSYARATAN VIRTUAL OFFICE</h2>
+            <p data-i18n="vo.req.desc">Siapkan dokumen berikut untuk aktivasi</p>
         </div>
         <div class="row g-4 justify-content-center">
             <div class="col-md-6">
@@ -791,16 +792,16 @@
                         <div class="requirement-icon">
                             <i class="fa-solid fa-building"></i>
                         </div>
-                        <h3>UNTUK PERUSAHAAN</h3>
+                        <h3 data-i18n="vo.req.card1.title">UNTUK PERUSAHAAN</h3>
                     </div>
                     <ul class="requirement-list">
-                        <li><i class="fa-solid fa-circle-check"></i> Akta Pendirian Perusahaan</li>
-                        <li><i class="fa-solid fa-circle-check"></i> NPWP Perusahaan</li>
-                        <li><i class="fa-solid fa-circle-check"></i> SK Kemenkumham (jika ada)</li>
-                        <li><i class="fa-solid fa-circle-check"></i> NIB (jika ada)</li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="vo.req.card1.item1">Akta Pendirian Perusahaan</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="vo.req.card1.item2">NPWP Perusahaan</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="vo.req.card1.item3">SK Kemenkumham (jika ada)</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="vo.req.card1.item4">NIB (jika ada)</span></li>
                     </ul>
                     <a href="#" class="requirement-cta">
-                        Konsultasi Persyaratan <i class="fa-solid fa-arrow-right"></i>
+                        <span data-i18n="vo.req.card1.cta">Konsultasi Persyaratan</span> <i class="fa-solid fa-arrow-right"></i>
                     </a>
                 </div>
             </div>
@@ -810,16 +811,16 @@
                         <div class="requirement-icon">
                             <i class="fa-solid fa-user"></i>
                         </div>
-                        <h3>UNTUK PERORANGAN</h3>
+                        <h3 data-i18n="vo.req.card2.title">UNTUK PERORANGAN</h3>
                     </div>
                     <ul class="requirement-list">
-                        <li><i class="fa-solid fa-circle-check"></i> KTP Pemilik</li>
-                        <li><i class="fa-solid fa-circle-check"></i> NPWP Pribadi</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Pas Foto</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Nama Usaha / Brand</li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="vo.req.card2.item1">KTP Pemilik</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="vo.req.card2.item2">NPWP Pribadi</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="vo.req.card2.item3">Pas Foto</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="vo.req.card2.item4">Nama Usaha / Brand</span></li>
                     </ul>
                     <a href="#" class="requirement-cta">
-                        Upload Dokumen <i class="fa-solid fa-arrow-right"></i>
+                        <span data-i18n="vo.req.card2.cta">Upload Dokumen</span> <i class="fa-solid fa-arrow-right"></i>
                     </a>
                 </div>
             </div>
@@ -831,9 +832,9 @@
 <section class="pt-pricing" id="pricing">
     <div class="container">
         <div class="section-title text-center mb-5">
-            <span class="subtitle">Pilihan Paket Virtual Office</span>
-            <h2>Paket Virtual Office</h2>
-            <p>Pilih paket yang sesuai dengan kebutuhan bisnis Anda</p>
+            <span class="subtitle" data-i18n="vo.pricing.badge">Pilihan Paket Virtual Office</span>
+            <h2 data-i18n="vo.pricing.title">Paket Virtual Office</h2>
+            <p data-i18n="vo.pricing.desc">Pilih paket yang sesuai dengan kebutuhan bisnis Anda</p>
         </div>
 
         <div class="row g-4 justify-content-center">
@@ -841,41 +842,41 @@
             {{-- PREMIUM --}}
             <div class="col-lg-4 col-md-6">
                 <div class="pricing-card">
-                    <h4>PREMIUM</h4>
+                    <h4 data-i18n="vo.pricing.premium.title">PREMIUM</h4>
                     <div class="price">Rp 2.800.000</div>
 
                     <ul class="feature-list">
-                        <li><i class="fa-solid fa-check"></i> ALAMAT BISNIS EKSKLUSIF</li>
-                        <li><i class="fa-solid fa-check"></i> PENGELOLAAN SURAT & PAKET MASUK</li>
-                        <li><i class="fa-solid fa-check"></i> NOTIFIKASI SURAT & PAKET MASUK</li>
-                        <li><i class="fa-solid fa-check"></i> SURAT KETERANGAN DOMISILI</li>
-                        <li><i class="fa-solid fa-check"></i> AKSES KOMUNITAS BISNIS</li>
-                        <li><i class="fa-solid fa-check"></i> LAYANAN RESEPSIONIS</li>
-                        <li><i class="fa-solid fa-check"></i> DASHBOARD LOGIN KLIEN</li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.address">ALAMAT BISNIS EKSKLUSIF</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.mail">PENGELOLAAN SURAT &amp; PAKET MASUK</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.notification">NOTIFIKASI SURAT &amp; PAKET MASUK</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.domicile">SURAT KETERANGAN DOMISILI</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.community">AKSES KOMUNITAS BISNIS</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.receptionist">LAYANAN RESEPSIONIS</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.dashboard">DASHBOARD LOGIN KLIEN</span></li>
 
-                        <li><i class="fa-solid fa-check"></i> RUANG MEETING 12 JAM / TAHUN</li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.meeting_12">RUANG MEETING 12 JAM / TAHUN</span></li>
 
                         <li class="disabled">
-                            <i class="fa-solid fa-minus"></i> RUANG PODCAST
+                            <i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.podcast">RUANG PODCAST</span>
                         </li>
 
-                        <li><i class="fa-solid fa-check"></i> AKSES WIFI & SMART TV</li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.wifi">AKSES WIFI &amp; SMART TV</span></li>
 
                         <li class="disabled">
-                            <i class="fa-solid fa-minus"></i> LAYANAN PRINT, SCAN & FOTOCOPY
-                        </li>
-
-                        <li class="disabled">
-                            <i class="fa-solid fa-minus"></i> SIGNAGE DISPLAY
+                            <i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.print">LAYANAN PRINT, SCAN &amp; FOTOCOPY</span>
                         </li>
 
                         <li class="disabled">
-                            <i class="fa-solid fa-minus"></i> CALL HANDLING
+                            <i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.signage">SIGNAGE DISPLAY</span>
+                        </li>
+
+                        <li class="disabled">
+                            <i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.call_handling">CALL HANDLING</span>
                         </li>
                     </ul>
 
                     <a href="{{ route('order.create', ['service' => 'virtual-office', 'package' => 'premium']) }}"
-                        class="btn-pricing">
+                        class="btn-pricing" data-i18n="vo.pricing.premium.cta">
                         Pilih Paket Premium
                     </a>
                 </div>
@@ -884,42 +885,42 @@
             {{-- EKSKLUSIF --}}
             <div class=" col-lg-4 col-md-6">
                 <div class="pricing-card featured">
-                    <span class="badge">REKOMENDASI</span>
+                    <span class="badge" data-i18n="vo.pricing.recommendation">REKOMENDASI</span>
 
-                    <h4>EKSKLUSIF</h4>
+                    <h4 data-i18n="vo.pricing.eksklusif.title">EKSKLUSIF</h4>
 
                     <div class="price">Rp 4.800.000</div>
 
                     <ul class="feature-list">
-                        <li><i class="fa-solid fa-check"></i> ALAMAT BISNIS EKSKLUSIF</li>
-                        <li><i class="fa-solid fa-check"></i> PENGELOLAAN SURAT & PAKET MASUK</li>
-                        <li><i class="fa-solid fa-check"></i> NOTIFIKASI SURAT & PAKET MASUK</li>
-                        <li><i class="fa-solid fa-check"></i> SURAT KETERANGAN DOMISILI</li>
-                        <li><i class="fa-solid fa-check"></i> AKSES KOMUNITAS BISNIS</li>
-                        <li><i class="fa-solid fa-check"></i> LAYANAN RESEPSIONIS</li>
-                        <li><i class="fa-solid fa-check"></i> DASHBOARD LOGIN KLIEN</li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.address">ALAMAT BISNIS EKSKLUSIF</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.mail">PENGELOLAAN SURAT &amp; PAKET MASUK</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.notification">NOTIFIKASI SURAT &amp; PAKET MASUK</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.domicile">SURAT KETERANGAN DOMISILI</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.community">AKSES KOMUNITAS BISNIS</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.receptionist">LAYANAN RESEPSIONIS</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.dashboard">DASHBOARD LOGIN KLIEN</span></li>
 
-                        <li><i class="fa-solid fa-check"></i> RUANG MEETING 48 JAM / TAHUN</li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.meeting_48">RUANG MEETING 48 JAM / TAHUN</span></li>
 
-                        <li><i class="fa-solid fa-check"></i> RUANG PODCAST 12 JAM / TAHUN</li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.podcast_12">RUANG PODCAST 12 JAM / TAHUN</span></li>
 
-                        <li><i class="fa-solid fa-check"></i> AKSES WIFI & SMART TV</li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.wifi">AKSES WIFI &amp; SMART TV</span></li>
 
                         <li class="disabled">
-                            <i class="fa-solid fa-minus"></i> LAYANAN PRINT, SCAN & FOTOCOPY
+                            <i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.print">LAYANAN PRINT, SCAN &amp; FOTOCOPY</span>
                         </li>
 
                         <li class="disabled">
-                            <i class="fa-solid fa-minus"></i> SIGNAGE DISPLAY
+                            <i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.signage">SIGNAGE DISPLAY</span>
                         </li>
 
                         <li class="disabled">
-                            <i class="fa-solid fa-minus"></i> CALL HANDLING
+                            <i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.call_handling">CALL HANDLING</span>
                         </li>
                     </ul>
 
                     <a href="{{ route('order.create', ['service' => 'virtual-office', 'package' => 'eksklusif']) }}"
-                        class="btn-pricing-primary">
+                        class="btn-pricing-primary" data-i18n="vo.pricing.eksklusif.cta">
                         Pilih Paket Eksklusif
                     </a>
                 </div>
@@ -928,34 +929,34 @@
             {{-- ENTERPRISE --}}
             <div class=" col-lg-4 col-md-6">
                 <div class="pricing-card">
-                    <h4>ENTERPRISE</h4>
+                    <h4 data-i18n="vo.pricing.enterprise.title">ENTERPRISE</h4>
 
                     <div class="price">Rp 5.800.000</div>
 
                     <ul class="feature-list">
-                        <li><i class="fa-solid fa-check"></i> ALAMAT BISNIS EKSKLUSIF</li>
-                        <li><i class="fa-solid fa-check"></i> PENGELOLAAN SURAT & PAKET MASUK</li>
-                        <li><i class="fa-solid fa-check"></i> NOTIFIKASI SURAT & PAKET MASUK</li>
-                        <li><i class="fa-solid fa-check"></i> SURAT KETERANGAN DOMISILI</li>
-                        <li><i class="fa-solid fa-check"></i> AKSES KOMUNITAS BISNIS</li>
-                        <li><i class="fa-solid fa-check"></i> LAYANAN RESEPSIONIS</li>
-                        <li><i class="fa-solid fa-check"></i> DASHBOARD LOGIN KLIEN</li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.address">ALAMAT BISNIS EKSKLUSIF</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.mail">PENGELOLAAN SURAT &amp; PAKET MASUK</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.notification">NOTIFIKASI SURAT &amp; PAKET MASUK</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.domicile">SURAT KETERANGAN DOMISILI</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.community">AKSES KOMUNITAS BISNIS</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.receptionist">LAYANAN RESEPSIONIS</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.dashboard">DASHBOARD LOGIN KLIEN</span></li>
 
-                        <li><i class="fa-solid fa-check"></i> RUANG MEETING 48 JAM / TAHUN</li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.meeting_48">RUANG MEETING 48 JAM / TAHUN</span></li>
 
-                        <li><i class="fa-solid fa-check"></i> RUANG PODCAST 12 JAM / TAHUN</li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.podcast_12">RUANG PODCAST 12 JAM / TAHUN</span></li>
 
-                        <li><i class="fa-solid fa-check"></i> AKSES WIFI & SMART TV</li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.wifi">AKSES WIFI &amp; SMART TV</span></li>
 
-                        <li><i class="fa-solid fa-check"></i> LAYANAN PRINT, SCAN & FOTOCOPY</li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.print">LAYANAN PRINT, SCAN &amp; FOTOCOPY</span></li>
 
-                        <li><i class="fa-solid fa-check"></i> SIGNAGE DISPLAY</li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.signage">SIGNAGE DISPLAY</span></li>
 
-                        <li><i class="fa-solid fa-check"></i> CALL HANDLING</li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.call_handling">CALL HANDLING</span></li>
                     </ul>
 
                     <a href="{{ route('order.create', ['service' => 'virtual-office', 'package' => 'enterprise']) }}"
-                        class="btn-pricing">
+                        class="btn-pricing" data-i18n="vo.pricing.enterprise.cta">
                         Pilih Paket Enterprise
                     </a>
                 </div>
@@ -976,27 +977,27 @@
 <section class=" pt-faq">
     <div class="container">
         <div class="section-title text-center mb-5">
-            <span class="subtitle">Bantuan Sentral</span>
-            <h2>FAQ terkait Virtual Office</h2>
-            <p>Pertanyaan yang paling sering diajukan seputar layanan Virtual Office</p>
+            <span class="subtitle" data-i18n="vo.faq.badge">Bantuan Sentral</span>
+            <h2 data-i18n="vo.faq.title">FAQ terkait Virtual Office</h2>
+            <p data-i18n="vo.faq.desc">Pertanyaan yang paling sering diajukan seputar layanan Virtual Office</p>
         </div>
         <div class="row">
             <div class="col-lg-8 mx-auto">
                 <div class="faq-item">
-                    <div class="faq-question">Apa itu Virtual Office? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Virtual Office adalah layanan yang menyediakan alamat bisnis prestisius, pengelolaan surat dan paket, serta layanan administrasi kantor lainnya tanpa perlu menyewa kantor fisik secara penuh. Cocok untuk startup, UKM, dan bisnis yang ingin menghemat biaya operasional.</div>
+                    <div class="faq-question"><span data-i18n="vo.faq.q1">Apa itu Virtual Office?</span> <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer" data-i18n="vo.faq.a1">Virtual Office adalah layanan yang menyediakan alamat bisnis prestisius, pengelolaan surat dan paket, serta layanan administrasi kantor lainnya tanpa perlu menyewa kantor fisik secara penuh. Cocok untuk startup, UKM, dan bisnis yang ingin menghemat biaya operasional.</div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">Apakah alamat Virtual Office bisa digunakan untuk pendirian PT? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Ya, alamat Virtual Office kami dapat digunakan sebagai alamat domisili untuk pendirian PT, CV, Firma, dan Yayasan. Kami menyediakan Surat Keterangan Domisili yang diperlukan untuk pengurusan legalitas perusahaan.</div>
+                    <div class="faq-question"><span data-i18n="vo.faq.q2">Apakah alamat Virtual Office bisa digunakan untuk pendirian PT?</span> <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer" data-i18n="vo.faq.a2">Ya, alamat Virtual Office kami dapat digunakan sebagai alamat domisili untuk pendirian PT, CV, Firma, dan Yayasan. Kami menyediakan Surat Keterangan Domisili yang diperlukan untuk pengurusan legalitas perusahaan.</div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">Apakah saya bisa menggunakan ruang meeting? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Ya, semua paket Virtual Office kami menyediakan akses ke fasilitas ruang meeting dan ruang podcast. Paket Eksklusif dan Enterprise mendapatkan kuota 60 jam per tahun.</div>
+                    <div class="faq-question"><span data-i18n="vo.faq.q3">Apakah saya bisa menggunakan ruang meeting?</span> <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer" data-i18n="vo.faq.a3">Ya, semua paket Virtual Office kami menyediakan akses ke fasilitas ruang meeting dan ruang podcast. Paket Eksklusif dan Enterprise mendapatkan kuota 60 jam per tahun.</div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">Apakah ada biaya tambahan selain harga paket? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Tidak ada biaya tersembunyi. Harga yang tertera sudah termasuk semua layanan yang disebutkan dalam benefit. Biaya pengiriman surat/ paket (jika ada) akan ditagih sesuai biaya riil.</div>
+                    <div class="faq-question"><span data-i18n="vo.faq.q4">Apakah ada biaya tambahan selain harga paket?</span> <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer" data-i18n="vo.faq.a4">Tidak ada biaya tersembunyi. Harga yang tertera sudah termasuk semua layanan yang disebutkan dalam benefit. Biaya pengiriman surat/ paket (jika ada) akan ditagih sesuai biaya riil.</div>
                 </div>
             </div>
         </div>

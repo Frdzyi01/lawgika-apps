@@ -406,7 +406,7 @@
             <ol class="breadcrumb mb-0">
                 <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-maroon text-decoration-none small">Home</a></li>
                 <li class="breadcrumb-item"><a href="#" class="text-maroon text-decoration-none small">Layanan</a></li>
-                <li class="breadcrumb-item active small" aria-current="page">Sertifikasi ISO</li>
+                <li class="breadcrumb-item active small" aria-current="page" data-i18n="iso.breadcrumb">Sertifikasi ISO</li>
             </ol>
         </nav>
     </div>
@@ -416,17 +416,17 @@
 <section class="hero-agency">
     <div class="container">
         <div class="hero-content fade-up">
-            <span class="section-label" style="color: rgba(255,255,255,0.7)">Standar Manajemen Internasional</span>
-            <h1 class="hero-title">Tingkatkan Kredibilitas Bisnis dengan Sertifikasi ISO</h1>
-            <p class="hero-subtitle">
+            <span class="section-label" style="color: rgba(255,255,255,0.7)" data-i18n="iso.hero.label">Standar Manajemen Internasional</span>
+            <h1 class="hero-title" data-i18n="iso.hero.title">Tingkatkan Kredibilitas Bisnis dengan Sertifikasi ISO</h1>
+            <p class="hero-subtitle" data-i18n="iso.hero.desc">
                 Menyediakan layanan penerbitan sertifikasi ISO untuk membantu perusahaan mempersiapkan dan memperoleh sertifikat standar manajemen sesuai dengan ketentuan yang berlaku.
             </p>
             <div class="d-flex flex-wrap gap-3 mt-4">
                 <a href="https://wa.me/6281112088600" class="btn-white" target="_blank" rel="noopener noreferrer">
-                    <i class="fa-brands fa-whatsapp"></i> Konsultasi Gratis
+                    <i class="fa-brands fa-whatsapp"></i> <span data-i18n="tentang.cta.primary">Konsultasi Gratis</span>
                 </a>
                 <a href="#iso-details" class="btn-outline-white">
-                    <i class="fa-solid fa-circle-info"></i> Pelajari Selengkapnya
+                    <i class="fa-solid fa-circle-info"></i> <span data-i18n="hukum.hero.btn_info">Pelajari Selengkapnya</span>
                 </a>
             </div>
         </div>
@@ -441,8 +441,8 @@
                 <div class="trust-item">
                     <div class="trust-icon"><i class="bi bi-patch-check"></i></div>
                     <div>
-                        <h6 class="mb-0 fw-bold">Lembaga Terakreditasi</h6>
-                        <small class="text-muted">KAN & Internasional</small>
+                        <h6 class="mb-0 fw-bold" data-i18n="iso.trust.item1_title">Lembaga Terakreditasi</h6>
+                        <small class="text-muted" data-i18n="iso.trust.item1_desc">KAN & Internasional</small>
                     </div>
                 </div>
             </div>
@@ -450,8 +450,8 @@
                 <div class="trust-item">
                     <div class="trust-icon"><i class="bi bi-clipboard-check"></i></div>
                     <div>
-                        <h6 class="mb-0 fw-bold">Pendampingan Penuh</h6>
-                        <small class="text-muted">Gap analysis & audit</small>
+                        <h6 class="mb-0 fw-bold" data-i18n="iso.trust.item2_title">Pendampingan Penuh</h6>
+                        <small class="text-muted" data-i18n="iso.trust.item2_desc">Gap analysis & audit</small>
                     </div>
                 </div>
             </div>
@@ -459,8 +459,8 @@
                 <div class="trust-item">
                     <div class="trust-icon"><i class="bi bi-trophy"></i></div>
                     <div>
-                        <h6 class="mb-0 fw-bold">Tingkat Kelulusan Tinggi</h6>
-                        <small class="text-muted">Ratusan klien sukses</small>
+                        <h6 class="mb-0 fw-bold" data-i18n="iso.trust.item3_title">Tingkat Kelulusan Tinggi</h6>
+                        <small class="text-muted" data-i18n="iso.trust.item3_desc">Ratusan klien sukses</small>
                     </div>
                 </div>
             </div>
@@ -480,15 +480,15 @@
             </div>
             <div class="col-lg-6">
                 <div class="zigzag-text">
-                    <span class="section-label">01. Manajemen Mutu</span>
-                    <h2 class="display-5 fw-bold mb-3">ISO 9001:2015</h2>
-                    <p class="text-muted mb-4 lead">
+                    <span class="section-label" data-i18n="iso.section1.label">01. Manajemen Mutu</span>
+                    <h2 class="display-5 fw-bold mb-3" data-i18n="iso.section1.title">ISO 9001:2015</h2>
+                    <p class="text-muted mb-4 lead" data-i18n="iso.section1.desc">
                         Standar internasional untuk Sistem Manajemen Mutu (SMM). Sertifikasi ini membuktikan bahwa perusahaan Anda konsisten dalam menyediakan produk dan layanan yang memenuhi kebutuhan pelanggan serta peraturan yang berlaku.
                     </p>
                     <ul class="list-unstyled mb-4">
-                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> - Meningkatkan kepuasan pelanggan</li>
-                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> - Efisiensi proses operasional</li>
-                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> - Syarat tender proyek pemerintah/swasta</li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> <span data-i18n="iso.section1.list1">- Meningkatkan kepuasan pelanggan</span></li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> <span data-i18n="iso.section1.list2">- Efisiensi proses operasional</span></li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> <span data-i18n="iso.section1.list3">- Syarat tender proyek pemerintah/swasta</span></li>
                     </ul>
                 </div>
             </div>
@@ -503,16 +503,16 @@
             </div>
             <div class="col-lg-6">
                 <div class="zigzag-text">
-                    <span class="section-label">02. Standar Lainnya</span>
-                    <h2 class="display-5 fw-bold mb-3">ISO 14001, 45001, 27001 & 37001</h2>
-                    <p class="text-muted mb-4 lead">
+                    <span class="section-label" data-i18n="iso.section2.label">02. Standar Lainnya</span>
+                    <h2 class="display-5 fw-bold mb-3" data-i18n="iso.section2.title">ISO 14001, 45001, 27001 & 37001</h2>
+                    <p class="text-muted mb-4 lead" data-i18n="iso.section2.desc">
                         Kami juga melayani pendampingan sertifikasi untuk berbagai standar ISO lainnya sesuai dengan bidang industri dan kebutuhan spesifik perusahaan Anda.
                     </p>
                     <ul class="list-unstyled mb-4">
-                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> - ISO 14001 (Sistem Manajemen Lingkungan)</li>
-                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> - ISO 45001 (Keselamatan & Kesehatan Kerja)</li>
-                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> - ISO 27001 (Sistem Manajemen Keamanan Informasi)</li>
-                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> - ISO 37001 (Sistem Manajemen Anti Penyuapan)</li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> <span data-i18n="iso.section2.list1">- ISO 14001 (Sistem Manajemen Lingkungan)</span></li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> <span data-i18n="iso.section2.list2">- ISO 45001 (Keselamatan & Kesehatan Kerja)</span></li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> <span data-i18n="iso.section2.list3">- ISO 27001 (Sistem Manajemen Keamanan Informasi)</span></li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-maroon me-2"></i> <span data-i18n="iso.section2.list4">- ISO 37001 (Sistem Manajemen Anti Penyuapan)</span></li>
                     </ul>
                 </div>
             </div>
@@ -524,8 +524,8 @@
 <section class="section-padding bg-white border-top">
     <div class="container">
         <div class="text-center mb-5">
-            <span class="section-label">Workflow</span>
-            <h2 class="fw-bold display-5">Proses Sertifikasi ISO</h2>
+            <span class="section-label" data-i18n="kerjasama.process.badge">Workflow</span>
+            <h2 class="fw-bold display-5" data-i18n="iso.process.title">Proses Sertifikasi ISO</h2>
         </div>
         <div class="timeline-container">
             <div class="timeline-line"></div>
@@ -540,14 +540,14 @@
                 <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
                     <div class="timeline-item">
                         <div class="timeline-circle">2</div>
-                        <h5 class="fw-bold">Penyusunan Dokumen</h5>
+                        <h5 class="fw-bold" data-i18n="iso.process.step2_title">Penyusunan Dokumen</h5>
                         <p class="text-muted small px-lg-4">Pembuatan dan implementasi dokumen SOP serta kebijakan mutu.</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="timeline-item">
                         <div class="timeline-circle">3</div>
-                        <h5 class="fw-bold">Audit & Sertifikasi</h5>
+                        <h5 class="fw-bold" data-i18n="iso.process.step3_title">Audit & Sertifikasi</h5>
                         <p class="text-muted small px-lg-4">Audit oleh badan sertifikasi terakreditasi dan penerbitan sertifikat.</p>
                     </div>
                 </div>
@@ -565,8 +565,8 @@
 <section class="pt-faq">
     <div class="container">
         <div class="section-title text-center mb-5">
-            <span class="subtitle">Bantuan Sentral</span>
-            <h2>FAQ terkait Sertifikasi ISO</h2>
+            <span class="subtitle" data-i18n="vo.faq.badge">Bantuan Sentral</span>
+            <h2 data-i18n="iso.faq.title">FAQ terkait Sertifikasi ISO</h2>
             <p>Pertanyaan yang paling sering diajukan seputar proses sertifikasi ISO</p>
         </div>
         <div class="row">
@@ -574,60 +574,60 @@
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Apa itu sertifikasi ISO dan mengapa penting?
+                        <span data-i18n="iso.faq.q1">Apa itu sertifikasi ISO dan mengapa penting?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="iso.faq.a1">
                         Sertifikasi ISO adalah pengakuan internasional yang menunjukkan bahwa perusahaan telah menerapkan sistem manajemen sesuai standar yang diakui global. Sertifikasi ini penting untuk meningkatkan kredibilitas, kepercayaan pelanggan, efisiensi operasional, dan akses ke pasar global.
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Berapa lama proses sertifikasi ISO?
+                        <span data-i18n="iso.faq.q2">Berapa lama proses sertifikasi ISO?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="iso.faq.a2">
                         Durasi proses sertifikasi ISO bervariasi tergantung ukuran perusahaan, kompleksitas proses, dan kesiapan sistem manajemen. Umumnya membutuhkan waktu 3-6 bulan, yang mencakup gap analysis, penyusunan dokumen, implementasi, hingga audit sertifikasi.
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Apa saja persyaratan untuk mendapatkan ISO 9001?
+                        <span data-i18n="iso.faq.q3">Apa saja persyaratan untuk mendapatkan ISO 9001?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="iso.faq.a3">
                         Persyaratan utama ISO 9001:2015 meliputi: dokumentasi sistem manajemen mutu (kebijakan mutu, sasaran mutu, SOP), implementasi proses yang konsisten, pemantauan kepuasan pelanggan, audit internal, dan tinjauan manajemen secara berkala.
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Apakah sertifikasi ISO berlaku seumur hidup?
+                        <span data-i18n="iso.faq.q4">Apakah sertifikasi ISO berlaku seumur hidup?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="iso.faq.a4">
                         Tidak. Sertifikat ISO berlaku selama 3 tahun. Selama periode tersebut, perusahaan wajib menjalani surveillance audit setiap tahun untuk memastikan sistem manajemen tetap berjalan sesuai standar. Setelah 3 tahun, perusahaan harus melakukan resertifikasi.
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Apakah perusahaan kecil bisa mendapatkan ISO?
+                        <span data-i18n="iso.faq.q5">Apakah perusahaan kecil bisa mendapatkan ISO?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="iso.faq.a5">
                         Ya, sertifikasi ISO dapat diterapkan pada perusahaan dari berbagai ukuran, termasuk UKM. Standar ISO bersifat fleksibel dan dapat disesuaikan dengan skala dan kompleksitas bisnis Anda.
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Berapa biaya untuk mendapatkan sertifikasi ISO?
+                        <span data-i18n="iso.faq.q6">Berapa biaya untuk mendapatkan sertifikasi ISO?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="iso.faq.a6">
                         Biaya sertifikasi ISO bervariasi tergantung jenis ISO, ruang lingkup, jumlah karyawan, dan kompleksitas proses bisnis. Kami menyediakan konsultasi gratis untuk memberikan estimasi biaya yang sesuai dengan kebutuhan perusahaan Anda.
                     </div>
                 </div>

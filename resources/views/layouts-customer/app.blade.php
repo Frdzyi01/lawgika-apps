@@ -19,7 +19,91 @@
   <link href="{{ asset('template-admin/assets/css/dark-theme.css') }}" rel="stylesheet" />
   <link href="{{ asset('template-admin/assets/css/semi-dark.css') }}" rel="stylesheet" />
   <link href="{{ asset('template-admin/assets/css/header-colors.css') }}" rel="stylesheet" />
-  <title>@yield('title', 'Lawgika - Dashboard Customer')</title>
+  <title>@yield('title', __('nav.dashboard') . ' - Lawgika')</title>
+  <style>
+    /* Language Switcher Styles for Customer Portal */
+    .lw-lang-switcher {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+    .lw-lang-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #ffffff;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      border-radius: 50px;
+      padding: 6px 12px;
+      color: #333333;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.22s ease;
+      white-space: nowrap;
+      line-height: 1;
+    }
+    .lw-lang-btn:hover {
+      background: rgba(0,0,0,0.05);
+      border-color: #4e0616;
+      color: #4e0616;
+    }
+    .lw-lang-btn .lw-lang-arrow {
+      font-size: 0.65rem;
+      transition: transform 0.22s ease;
+      opacity: 0.8;
+    }
+    .lw-lang-dropdown {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      min-width: 175px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.06);
+      border: 1px solid #f0f0f0;
+      z-index: 99999;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.18s ease, transform 0.18s ease;
+      pointer-events: none;
+    }
+    .lw-lang-dropdown.lw-lang-open {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .lw-lang-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 16px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #1e293b;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s ease, color 0.15s ease;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    .lw-lang-item:last-child { border-bottom: none; }
+    .lw-lang-item:hover { background: #fff5f6; color: #4e0616; }
+    .lw-lang-item.lw-lang-active {
+      background: #fff5f6;
+      color: #4e0616;
+      font-weight: 700;
+    }
+    .lw-lang-item.lw-lang-active::after {
+      content: '✓';
+      margin-left: auto;
+      font-size: 0.75rem;
+      color: #4e0616;
+    }
+    .lw-lang-flag { font-size: 1.1rem; line-height: 1; }
+  </style>
 </head>
 
 <body>
@@ -40,51 +124,51 @@
         <li>
           <a href="{{ route('customer.dashboard') }}">
             <div class="parent-icon"><ion-icon name="home-outline"></ion-icon></div>
-            <div class="menu-title">Dashboard</div>
+            <div class="menu-title">{{ __('nav.dashboard') }}</div>
           </a>
         </li>
-        <li class="menu-label">Transaksi</li>
+        <li class="menu-label">{{ __('customer.sidebar.transaction') }}</li>
         <li>
           <a href="{{ route('customer.orders.index') }}">
             <div class="parent-icon"><ion-icon name="cart-outline"></ion-icon></div>
-            <div class="menu-title">Riwayat Order</div>
+            <div class="menu-title">{{ __('customer.sidebar.orders') }}</div>
           </a>
         </li>
         <li>
           <a href="{{ route('customer.documents.index') }}">
             <div class="parent-icon"><ion-icon name="document-text-outline"></ion-icon></div>
-            <div class="menu-title">Dokumen Saya</div>
+            <div class="menu-title">{{ __('customer.sidebar.documents') }}</div>
           </a>
         </li>
         <li>
           <a href="{{ route('customer.surat-menyurat.index') }}">
             <div class="parent-icon"><ion-icon name="mail-unread-outline"></ion-icon></div>
-            <div class="menu-title">Surat Menyurat</div>
+            <div class="menu-title">{{ __('customer.sidebar.correspondence') }}</div>
           </a>
         </li>
         <li>
           <a href="{{ route('customer.meeting-room.index') }}">
             <div class="parent-icon"><ion-icon name="business-outline"></ion-icon></div>
-            <div class="menu-title">Reservasi Meeting Room</div>
+            <div class="menu-title">{{ __('customer.sidebar.meeting_room') }}</div>
           </a>
         </li>
         <li>
           <a href="{{ route('customer.podcast-room.index') }}">
             <div class="parent-icon"><ion-icon name="mic-outline"></ion-icon></div>
-            <div class="menu-title">Reservasi Ruang Podcast</div>
+            <div class="menu-title">{{ __('customer.sidebar.podcast_room') }}</div>
           </a>
         </li>
         <li>
           <a href="{{ route('customer.spt-badan.index') }}">
             <div class="parent-icon"><ion-icon name="document-outline"></ion-icon></div>
-            <div class="menu-title">Laporan SPT Badan</div>
+            <div class="menu-title">{{ __('customer.sidebar.spt_badan') }}</div>
           </a>
         </li>
-        <li class="menu-label">Pengaturan</li>
+        <li class="menu-label">{{ __('customer.sidebar.settings') }}</li>
         <li>
           <a href="javascript:;">
             <div class="parent-icon"><ion-icon name="person-outline"></ion-icon></div>
-            <div class="menu-title">Profil Saya</div>
+            <div class="menu-title">{{ __('customer.sidebar.profile') }}</div>
           </a>
         </li>
       </ul>
@@ -95,6 +179,29 @@
     <!--start top header-->
     <header class="top-header">
       <nav class="navbar navbar-expand gap-3">
+        <div class="ms-2">
+            <div class="lw-lang-switcher" id="lw-lang-switcher-desktop">
+                <button class="lw-lang-btn" id="lw-lang-trigger" type="button">
+                  <span id="lw-lang-current-flag">🇮🇩</span>
+                  <span id="lw-lang-current-name">Indonesia</span>
+                  <span class="lw-lang-arrow">▼</span>
+                </button>
+                <div class="lw-lang-dropdown" id="lw-lang-dropdown">
+                  <div class="lw-lang-item" data-lw-lang="id">
+                    <span class="lw-lang-flag">🇮🇩</span>
+                    <span data-i18n="lang.id">Bahasa Indonesia</span>
+                  </div>
+                  <div class="lw-lang-item" data-lw-lang="en">
+                    <span class="lw-lang-flag">🇺🇸</span>
+                    <span data-i18n="lang.en">English</span>
+                  </div>
+                  <div class="lw-lang-item" data-lw-lang="zh">
+                    <span class="lw-lang-flag">🇨🇳</span>
+                    <span data-i18n="lang.zh">中文</span>
+                  </div>
+                </div>
+            </div>
+        </div>
         <div class="toggle-icon">
           <ion-icon name="menu-outline"></ion-icon>
         </div>
@@ -102,7 +209,7 @@
           <div class="position-absolute top-50 translate-middle-y search-icon ms-3">
             <ion-icon name="search-outline"></ion-icon>
           </div>
-          <input class="form-control" type="text" placeholder="Search for anything" />
+          <input class="form-control" type="text" placeholder="{{ __('customer.nav.search_placeholder') }}" />
           <div class="position-absolute top-50 translate-middle-y search-close-icon">
             <ion-icon name="close-outline"></ion-icon>
           </div>
@@ -110,7 +217,7 @@
         <div class="top-navbar-right ms-auto">
           <ul class="navbar-nav align-items-center">
             <li class="nav-item">
-              <a class="nav-link" style="margin: 45px;" href="{{ url('/') }}" title="Kembali ke Landing Utama">
+              <a class="nav-link" style="margin: 45px;" href="{{ url('/') }}" title="{{ __('customer.nav.back_to_main') }}">
                 <div class=""><ion-icon name="globe-outline"></ion-icon></div>
               </a>
             </li>
@@ -131,27 +238,27 @@
                 <div class="row row-cols-3 g-3 p-3">
                   <div class="col text-center">
                     <div class="app-box mx-auto bg-gradient-purple text-white"><ion-icon name="cart-outline"></ion-icon></div>
-                    <div class="app-title">Orders</div>
+                    <div class="app-title">{{ __('customer.nav.apps.orders') }}</div>
                   </div>
                   <div class="col text-center">
                     <div class="app-box mx-auto bg-gradient-info text-white"><ion-icon name="people-outline"></ion-icon></div>
-                    <div class="app-title">Teams</div>
+                    <div class="app-title">{{ __('customer.nav.apps.teams') }}</div>
                   </div>
                   <div class="col text-center">
                     <div class="app-box mx-auto bg-gradient-success text-white"><ion-icon name="shield-checkmark-outline"></ion-icon></div>
-                    <div class="app-title">Tasks</div>
+                    <div class="app-title">{{ __('customer.nav.apps.tasks') }}</div>
                   </div>
                   <div class="col text-center">
                     <div class="app-box mx-auto bg-gradient-danger text-white"><ion-icon name="videocam-outline"></ion-icon></div>
-                    <div class="app-title">Media</div>
+                    <div class="app-title">{{ __('customer.nav.apps.media') }}</div>
                   </div>
                   <div class="col text-center">
                     <div class="app-box mx-auto bg-gradient-warning text-white"><ion-icon name="file-tray-outline"></ion-icon></div>
-                    <div class="app-title">Files</div>
+                    <div class="app-title">{{ __('customer.nav.apps.files') }}</div>
                   </div>
                   <div class="col text-center">
                     <div class="app-box mx-auto bg-gradient-branding text-white"><ion-icon name="notifications-outline"></ion-icon></div>
-                    <div class="app-title">Alerts</div>
+                    <div class="app-title">{{ __('customer.nav.apps.alerts') }}</div>
                   </div>
                 </div>
               </div>
@@ -166,8 +273,8 @@
               <div class="dropdown-menu dropdown-menu-end">
                 <a href="javascript:;">
                   <div class="msg-header">
-                    <p class="msg-header-title">Notifications</p>
-                    <p class="msg-header-clear ms-auto">Marks all as read</p>
+                    <p class="msg-header-title">{{ __('customer.nav.notif.title') }}</p>
+                    <p class="msg-header-clear ms-auto">{{ __('customer.nav.notif.mark_read') }}</p>
                   </div>
                 </a>
                 <div class="header-notifications-list">
@@ -175,8 +282,8 @@
                     <div class="d-flex align-items-center">
                       <div class="notify text-primary"><ion-icon name="cart-outline"></ion-icon></div>
                       <div class="flex-grow-1">
-                        <h6 class="msg-name">New Orders <span class="msg-time float-end">2 min ago</span></h6>
-                        <p class="msg-info">You have recived new orders</p>
+                        <h6 class="msg-name">{{ __('customer.nav.notif.new_orders') }} <span class="msg-time float-end">2 min ago</span></h6>
+                        <p class="msg-info">{{ __('customer.nav.notif.new_orders_desc') }}</p>
                       </div>
                     </div>
                   </a>
@@ -184,8 +291,8 @@
                     <div class="d-flex align-items-center">
                       <div class="notify text-danger"><ion-icon name="person-outline"></ion-icon></div>
                       <div class="flex-grow-1">
-                        <h6 class="msg-name">New Customers<span class="msg-time float-end">14 Sec ago</span></h6>
-                        <p class="msg-info">5 new user registered</p>
+                        <h6 class="msg-name">{{ __('customer.nav.notif.new_customers') }}<span class="msg-time float-end">14 Sec ago</span></h6>
+                        <p class="msg-info">{{ __('customer.nav.notif.new_customers_desc') }}</p>
                       </div>
                     </div>
                   </a>
@@ -193,8 +300,8 @@
                     <div class="d-flex align-items-center">
                       <div class="notify text-success"><ion-icon name="document-outline"></ion-icon></div>
                       <div class="flex-grow-1">
-                        <h6 class="msg-name">24 PDF File<span class="msg-time float-end">19 min ago</span></h6>
-                        <p class="msg-info">The pdf files generated</p>
+                        <h6 class="msg-name">{{ __('customer.nav.notif.pdf_files') }}<span class="msg-time float-end">19 min ago</span></h6>
+                        <p class="msg-info">{{ __('customer.nav.notif.pdf_files_desc') }}</p>
                       </div>
                     </div>
                   </a>
@@ -202,8 +309,8 @@
                     <div class="d-flex align-items-center">
                       <div class="notify text-info"><ion-icon name="checkmark-done-outline"></ion-icon></div>
                       <div class="flex-grow-1">
-                        <h6 class="msg-name">New Product Approved <span class="msg-time float-end">2 hrs ago</span></h6>
-                        <p class="msg-info">Your new product has approved</p>
+                        <h6 class="msg-name">{{ __('customer.nav.notif.product_approved') }} <span class="msg-time float-end">2 hrs ago</span></h6>
+                        <p class="msg-info">{{ __('customer.nav.notif.product_approved_desc') }}</p>
                       </div>
                     </div>
                   </a>
@@ -211,8 +318,8 @@
                     <div class="d-flex align-items-center">
                       <div class="notify text-warning"><ion-icon name="send-outline"></ion-icon></div>
                       <div class="flex-grow-1">
-                        <h6 class="msg-name">Time Response <span class="msg-time float-end">28 min ago</span></h6>
-                        <p class="msg-info">5.1 min avarage time response</p>
+                        <h6 class="msg-name">{{ __('customer.nav.notif.time_response') }} <span class="msg-time float-end">28 min ago</span></h6>
+                        <p class="msg-info">{{ __('customer.nav.notif.time_response_desc') }}</p>
                       </div>
                     </div>
                   </a>
@@ -220,8 +327,8 @@
                     <div class="d-flex align-items-center">
                       <div class="notify text-danger"><ion-icon name="chatbox-ellipses-outline"></ion-icon></div>
                       <div class="flex-grow-1">
-                        <h6 class="msg-name">New Comments <span class="msg-time float-end">4 hrs ago</span></h6>
-                        <p class="msg-info">New customer comments recived</p>
+                        <h6 class="msg-name">{{ __('customer.nav.notif.new_comments') }} <span class="msg-time float-end">4 hrs ago</span></h6>
+                        <p class="msg-info">{{ __('customer.nav.notif.new_comments_desc') }}</p>
                       </div>
                     </div>
                   </a>
@@ -229,8 +336,8 @@
                     <div class="d-flex align-items-center">
                       <div class="notify text-primary"><ion-icon name="albums-outline"></ion-icon></div>
                       <div class="flex-grow-1">
-                        <h6 class="msg-name">New 24 authors<span class="msg-time float-end">1 day ago</span></h6>
-                        <p class="msg-info">24 new authors joined last week</p>
+                        <h6 class="msg-name">{{ __('customer.nav.notif.new_authors') }}<span class="msg-time float-end">1 day ago</span></h6>
+                        <p class="msg-info">{{ __('customer.nav.notif.new_authors_desc') }}</p>
                       </div>
                     </div>
                   </a>
@@ -238,8 +345,8 @@
                     <div class="d-flex align-items-center">
                       <div class="notify text-success"><ion-icon name="shield-outline"></ion-icon></div>
                       <div class="flex-grow-1">
-                        <h6 class="msg-name">Your item is shipped <span class="msg-time float-end">5 hrs ago</span></h6>
-                        <p class="msg-info">Successfully shipped your item</p>
+                        <h6 class="msg-name">{{ __('customer.nav.notif.item_shipped') }} <span class="msg-time float-end">5 hrs ago</span></h6>
+                        <p class="msg-info">{{ __('customer.nav.notif.item_shipped_desc') }}</p>
                       </div>
                     </div>
                   </a>
@@ -247,14 +354,14 @@
                     <div class="d-flex align-items-center">
                       <div class="notify text-warning"><ion-icon name="cafe-outline"></ion-icon></div>
                       <div class="flex-grow-1">
-                        <h6 class="msg-name">Defense Alerts <span class="msg-time float-end">2 weeks ago</span></h6>
-                        <p class="msg-info">45% less alerts last 4 weeks</p>
+                        <h6 class="msg-name">{{ __('customer.nav.notif.defense_alerts') }} <span class="msg-time float-end">2 weeks ago</span></h6>
+                        <p class="msg-info">{{ __('customer.nav.notif.defense_alerts_desc') }}</p>
                       </div>
                     </div>
                   </a>
                 </div>
                 <a href="javascript:;">
-                  <div class="text-center msg-footer">View All Notifications</div>
+                  <div class="text-center msg-footer">{{ __('customer.nav.notif.view_all') }}</div>
                 </a>
               </div>
             </li>
@@ -284,7 +391,7 @@
                   <a class="dropdown-item" href="javascript:;">
                     <div class="d-flex align-items-center">
                       <div class=""><ion-icon name="person-outline"></ion-icon></div>
-                      <div class="ms-3"><span>Profile</span></div>
+                      <div class="ms-3"><span>{{ __('customer.nav.user.profile') }}</span></div>
                     </div>
                   </a>
                 </li>
@@ -292,7 +399,7 @@
                   <a class="dropdown-item" href="javascript:;">
                     <div class="d-flex align-items-center">
                       <div class=""><ion-icon name="settings-outline"></ion-icon></div>
-                      <div class="ms-3"><span>Setting</span></div>
+                      <div class="ms-3"><span>{{ __('customer.nav.user.setting') }}</span></div>
                     </div>
                   </a>
                 </li>
@@ -300,7 +407,7 @@
                   <a class="dropdown-item" href="javascript:;">
                     <div class="d-flex align-items-center">
                       <div class=""><ion-icon name="speedometer-outline"></ion-icon></div>
-                      <div class="ms-3"><span>Dashboard</span></div>
+                      <div class="ms-3"><span>{{ __('customer.nav.user.dashboard') }}</span></div>
                     </div>
                   </a>
                 </li>
@@ -308,7 +415,7 @@
                   <a class="dropdown-item" href="javascript:;">
                     <div class="d-flex align-items-center">
                       <div class=""><ion-icon name="wallet-outline"></ion-icon></div>
-                      <div class="ms-3"><span>Earnings</span></div>
+                      <div class="ms-3"><span>{{ __('customer.nav.user.earnings') }}</span></div>
                     </div>
                   </a>
                 </li>
@@ -316,7 +423,7 @@
                   <a class="dropdown-item" href="javascript:;">
                     <div class="d-flex align-items-center">
                       <div class=""><ion-icon name="cloud-download-outline"></ion-icon></div>
-                      <div class="ms-3"><span>Downloads</span></div>
+                      <div class="ms-3"><span>{{ __('customer.nav.user.downloads') }}</span></div>
                     </div>
                   </a>
                 </li>
@@ -328,7 +435,7 @@
                     onclick="event.preventDefault(); document.getElementById('admin-logout-form').submit();">
                     <div class="d-flex align-items-center">
                       <div class=""><ion-icon name="log-out-outline"></ion-icon></div>
-                      <div class="ms-3"><span>Logout</span></div>
+                      <div class="ms-3"><span>{{ __('customer.nav.user.logout') }}</span></div>
                     </div>
                   </a>
                 </li>
@@ -361,7 +468,7 @@
 
     <!--start footer-->
     <footer class="footer">
-      <div class="footer-text">Copyright &copy; 2026. All right reserved.</div>
+      <div class="footer-text">{{ __('customer.footer.copyright') }}</div>
     </footer>
     <!--end footer-->
 
@@ -394,6 +501,17 @@
   <!-- Main JS-->
   <script src="{{ asset('template-admin/assets/js/main.js') }}"></script>
   @stack('scripts')
+  <!-- ======== i18n Engine: inline translations ======== -->
+  <script>
+  (function() {
+    var _id = @json(json_decode(file_get_contents(resource_path('lang/id.json')), true));
+    var _en = @json(json_decode(file_get_contents(resource_path('lang/en.json')), true));
+    var _zh = @json(json_decode(file_get_contents(resource_path('lang/zh.json')), true));
+    window.__lwTranslations = { id: _id, en: _en, zh: _zh };
+  })();
+  </script>
+  <script src="{{ asset('buyer-file/assets/js/i18n.js') }}"></script>
+  <!-- ======== End i18n ======== -->
 </body>
 
 </html>

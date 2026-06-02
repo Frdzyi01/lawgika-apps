@@ -417,9 +417,9 @@
   <section class="berita-detail-hero">
     <div class="custom-container">
       <p class="berita-detail-breadcrumb">
-        <a href="{{ url('/') }}">Beranda</a>
+        <a href="{{ url('/') }}" data-i18n="nav.home">Beranda</a>
         <span class="sep">/</span>
-        <a href="{{ url('/berita') }}">Berita</a>
+        <a href="{{ url('/berita') }}" data-i18n="berita.news_title">Berita</a>
         <span class="sep">/</span>
         <span class="current">{{ \Illuminate\Support\Str::limit($berita->judul, 45) }}</span>
       </p>
@@ -468,13 +468,13 @@
               <div class="row tag-share-wrap mt-4 mb-5">
                 <div class="col-lg-8 col-12">
                   <div class="tagcloud">
-                    <span>Kategori:</span>
+                    <span data-i18n="berita.category_label">Kategori:</span>
                     <a href="{{ url('/berita?kategori=' . urlencode($berita->kategori)) }}">{{ $berita->kategori }}</a>
                   </div>
                 </div>
                 <div class="col-lg-4 col-12 mt-3 mt-lg-0 text-lg-end">
                   <a href="{{ url('/berita') }}" class="theme-btn">
-                    <i class="fa-solid fa-arrow-left-long"></i> Kembali ke Berita
+                    <i class="fa-solid fa-arrow-left-long"></i> <span data-i18n="berita.back">Kembali ke Berita</span>
                   </a>
                 </div>
               </div>
@@ -484,7 +484,7 @@
             <div class="main-sidebar">
               <div class="single-sidebar-widget">
                 <div class="wid-title">
-                  <h3>Kategori</h3>
+                  <h3 data-i18n="berita.categories">Kategori</h3>
                 </div>
                 <div class="news-widget-categories">
                   <ul>
@@ -501,7 +501,7 @@
               </div>
               <div class="single-sidebar-widget">
                 <div class="wid-title">
-                  <h3>Berita Terbaru</h3>
+                  <h3 data-i18n="berita.recent">Berita Terbaru</h3>
                 </div>
                 <div class="recent-post-area">
                   @forelse($beritaLainnya as $item)
@@ -528,7 +528,7 @@
                     </div>
                   </div>
                   @empty
-                  <p class="text-muted">Belum ada berita lainnya.</p>
+                  <p class="text-muted" data-i18n="berita.no_other">Belum ada berita lainnya.</p>
                   @endforelse
                 </div>
               </div>

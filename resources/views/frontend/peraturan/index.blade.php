@@ -510,15 +510,15 @@
     {{-- Page Header --}}
     <div class="dp-page-header">
       <div class="dp-eyebrow">
-        <i class="fas fa-book-open"></i> Lawgika Legal Database
+        <i class="fas fa-book-open"></i> <span data-i18n="peraturan.hero_eyebrow">Lawgika Legal Database</span>
       </div>
-      <h1 class="dp-page-title">Database Peraturan</h1>
-      <p class="dp-page-subtitle">Daftar lengkap peraturan berdasarkan KBLI dan kategori terkait</p>
+      <h1 class="dp-page-title" data-i18n="peraturan.hero_title">Database Peraturan</h1>
+      <p class="dp-page-subtitle" data-i18n="peraturan.hero_desc">Daftar lengkap peraturan berdasarkan KBLI dan kategori terkait</p>
     </div>
 
     {{-- Search & Filter --}}
     <div class="dp-filter-card">
-      <div class="dp-filter-label">Cari &amp; Filter Peraturan</div>
+      <div class="dp-filter-label" data-i18n="peraturan.filter_label">Cari &amp; Filter Peraturan</div>
       <form method="GET" action="{{ url('/database-peraturan') }}" id="filterForm">
         <div class="row g-3 align-items-end">
 
@@ -531,7 +531,7 @@
                 name="search"
                 id="dp-search"
                 class="dp-search-input"
-                placeholder="Cari judul peraturan atau kode KBLI..."
+                placeholder="Cari judul peraturan atau kode KBLI..." data-i18n-placeholder="peraturan.search_placeholder"
                 value="{{ request('search') }}"
                 autocomplete="off">
             </div>
@@ -540,16 +540,16 @@
           {{-- Status Filter --}}
           <div class="col-6 col-md-2">
             <select name="status" id="dp-status" class="dp-select">
-              <option value="">Semua Status</option>
-              <option value="aktif" {{ request('status') === 'aktif' ? 'selected' : '' }}>Aktif</option>
-              <option value="tidak aktif" {{ request('status') === 'tidak aktif' ? 'selected' : '' }}>Tidak Aktif</option>
+              <option value="" data-i18n="peraturan.all_status">Semua Status</option>
+              <option value="aktif" {{ request('status') === 'aktif' ? 'selected' : '' }} data-i18n="peraturan.status_active">Aktif</option>
+              <option value="tidak aktif" {{ request('status') === 'tidak aktif' ? 'selected' : '' }} data-i18n="peraturan.status_inactive">Tidak Aktif</option>
             </select>
           </div>
 
           {{-- Year Filter --}}
           <div class="col-6 col-md-2">
             <select name="tahun" id="dp-tahun" class="dp-select">
-              <option value="">Semua Tahun</option>
+              <option value="" data-i18n="peraturan.all_years">Semua Tahun</option>
               @foreach($years as $tahun)
               <option value="{{ $tahun }}" {{ request('tahun') == $tahun ? 'selected' : '' }}>{{ $tahun }}</option>
               @endforeach
@@ -559,11 +559,11 @@
           {{-- Actions --}}
           <div class="col-12 col-md-3 d-flex gap-2">
             <button type="submit" class="dp-filter-btn">
-              <i class="fas fa-filter" style="font-size:0.75rem;"></i> Terapkan
+              <i class="fas fa-filter" style="font-size:0.75rem;"></i> <span data-i18n="peraturan.apply">Terapkan</span>
             </button>
             @if(request()->hasAny(['search','status','tahun']))
             <a href="{{ url('/database-peraturan') }}" class="dp-reset-btn">
-              <i class="fas fa-times" style="font-size:0.7rem;"></i> Reset
+              <i class="fas fa-times" style="font-size:0.7rem;"></i> <span data-i18n="peraturan.reset">Reset</span>
             </a>
             @endif
           </div>
@@ -579,13 +579,13 @@
       <div class="dp-table-header-bar">
         <h2 class="dp-table-title">
           <i class="fas fa-list-alt" style="color:#4e0616;margin-right:7px;font-size:0.9rem;"></i>
-          Daftar Peraturan
+          <span data-i18n="peraturan.table_title">Daftar Peraturan</span>
         </h2>
         <span class="dp-result-count">
-          {{ $peraturan->total() }} peraturan ditemukan
+          {{ $peraturan->total() }} <span data-i18n="peraturan.found">peraturan ditemukan</span>
           @if(request()->hasAny(['search','status','tahun']))
           &nbsp;·&nbsp;
-          <a href="{{ url('/database-peraturan') }}" style="color:#4e0616;text-decoration:none;font-weight:600;">Tampilkan semua</a>
+          <a href="{{ url('/database-peraturan') }}" style="color:#4e0616;text-decoration:none;font-weight:600;"><span data-i18n="peraturan.show_all">Tampilkan semua</span></a>
           @endif
         </span>
       </div>
@@ -596,12 +596,12 @@
         <table class="dp-table">
           <thead>
             <tr>
-              <th style="width:52px;">No</th>
-              <th style="width:110px;">Kode KBLI</th>
-              <th>Judul Peraturan</th>
-              <th style="width:130px;">Tgl. Berlaku</th>
-              <th style="width:110px;">Status</th>
-              <th style="width:110px;">Aksi</th>
+              <th style="width:52px;" data-i18n="peraturan.th_no">No</th>
+              <th style="width:110px;" data-i18n="peraturan.th_kbli">Kode KBLI</th>
+              <th data-i18n="peraturan.th_title">Judul Peraturan</th>
+              <th style="width:130px;" data-i18n="peraturan.th_date">Tgl. Berlaku</th>
+              <th style="width:110px;" data-i18n="peraturan.th_status">Status</th>
+              <th style="width:110px;" data-i18n="peraturan.th_action">Aksi</th>
             </tr>
           </thead>
           <tbody>
@@ -645,7 +645,7 @@
                 $isAktif = $statusNorm === 'aktif';
                 @endphp
                 <span class="dp-status-badge {{ $isAktif ? 'dp-status-aktif' : 'dp-status-inactive' }}">
-                  {{ $isAktif ? 'Aktif' : 'Tidak Aktif' }}
+                  {{ $isAktif ? __('peraturan.status_active') : __('peraturan.status_inactive') }}
                 </span>
               </td>
 
@@ -659,7 +659,7 @@
                   rel="noopener noreferrer"
                   download
                   title="Download dokumen">
-                  <i class="fas fa-download" style="font-size:0.7rem;"></i> PDF
+                  <i class="fas fa-download" style="font-size:0.7rem;"></i> <span data-i18n="peraturan.action_pdf">PDF</span>
                 </a>
                 @else
                 <span class="dp-no-file">
@@ -678,7 +678,7 @@
       @if($peraturan->hasPages())
       <div class="dp-pagination-wrap">
         <span class="dp-pagination-info">
-          Menampilkan {{ $peraturan->firstItem() }}–{{ $peraturan->lastItem() }} dari {{ $peraturan->total() }} data
+          {{ __('peraturan.showing') }} {{ $peraturan->firstItem() }}–{{ $peraturan->lastItem() }} {{ __('peraturan.of') }} {{ $peraturan->total() }} {{ __('peraturan.data') }}
         </span>
         {{ $peraturan->links() }}
       </div>
@@ -690,12 +690,12 @@
         <div class="dp-empty-icon">
           <i class="fas fa-folder-open"></i>
         </div>
-        <div class="dp-empty-title">Data peraturan belum tersedia</div>
+        <div class="dp-empty-title" data-i18n="peraturan.empty_title">Data peraturan belum tersedia</div>
         <p class="dp-empty-sub">
           @if(request()->hasAny(['search','status','tahun']))
-          Tidak ada data yang sesuai dengan filter. <a href="{{ url('/database-peraturan') }}" style="color:#4e0616;">Reset pencarian</a>
+          <span data-i18n="peraturan.empty_filter">Tidak ada data yang sesuai dengan filter.</span> <a href="{{ url('/database-peraturan') }}" style="color:#4e0616;" data-i18n="peraturan.reset_search">Reset pencarian</a>
           @else
-          Belum ada peraturan yang terdaftar dalam database.
+          <span data-i18n="peraturan.empty_db">Belum ada peraturan yang terdaftar dalam database.</span>
           @endif
         </p>
       </div>

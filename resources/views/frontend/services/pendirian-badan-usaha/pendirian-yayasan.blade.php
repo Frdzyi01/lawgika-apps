@@ -674,16 +674,16 @@
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="page-title-content">
-                    <span class="text-white bg-danger rounded-pill px-3 py-1 fw-medium mb-3 d-inline-block shadow-sm" style="font-size: 0.85rem">Lawgika | Pendirian Yayasan</span>
-                    <h1 class="text-white fw-bold mb-3 display-4">Jasa Pendirian Yayasan</h1>
-                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem">Solusi legalitas untuk organisasi nirlaba yang bergerak di bidang sosial, keagamaan, pendidikan, dan kemanusiaan. Proses cepat, transparan, dan terpercaya.</p>
+                    <span class="text-white bg-danger rounded-pill px-3 py-1 fw-medium mb-3 d-inline-block shadow-sm" style="font-size: 0.85rem" data-i18n="yayasan.hero_badge">Lawgika | Pendirian Yayasan</span>
+                    <h1 class="text-white fw-bold mb-3 display-4" data-i18n="yayasan.hero_title">Jasa Pendirian Yayasan</h1>
+                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem" data-i18n="yayasan.hero_desc">Solusi legalitas untuk organisasi nirlaba yang bergerak di bidang sosial, keagamaan, pendidikan, dan kemanusiaan. Proses cepat, transparan, dan terpercaya.</p>
                 </div>
             </div>
             <div class="col-lg-6 text-lg-end mt-4 mt-lg-0">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-lg-end justify-content-start mb-0">
-                        <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none">Beranda</a></li>
-                        <li class="breadcrumb-item active text-white-50" aria-current="page">Pendirian Yayasan</li>
+                        <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none" data-i18n="nav.home">Beranda</a></li>
+                        <li class="breadcrumb-item active text-white-50" aria-current="page" data-i18n="yayasan.breadcrumb">Pendirian Yayasan</li>
                     </ol>
                 </nav>
             </div>
@@ -696,14 +696,14 @@
     <div class="container">
         <div class="row align-items-center g-5 flex-row-reverse">
             <div class="col-lg-6">
-                <h2>Solusi Legalitas Yayasan Untuk Organisasi Nirlaba Anda</h2>
-                <p>Yayasan adalah badan hukum yang didirikan untuk tujuan sosial, keagamaan, pendidikan, dan kemanusiaan yang tidak membagikan keuntungan kepada pendiri atau pengurus. Kami membantu proses pendirian Yayasan yang sesuai dengan regulasi Kemenkumham.</p>
+                <h2 data-i18n="yayasan.sol_title">Solusi Legalitas Yayasan Untuk Organisasi Nirlaba Anda</h2>
+                <p data-i18n="yayasan.sol_desc">Yayasan adalah badan hukum yang didirikan untuk tujuan sosial, keagamaan, pendidikan, dan kemanusiaan yang tidak membagikan keuntungan kepada pendiri atau pengurus. Kami membantu proses pendirian Yayasan yang sesuai dengan regulasi Kemenkumham.</p>
                 <ul class="solution-list">
-                    <li><i class="fa-regular fa-circle-check"></i> Pendirian cepat dengan akta notaris</li>
-                    <li><i class="fa-regular fa-circle-check"></i> SK Kemenkumham resmi</li>
-                    <li><i class="fa-regular fa-circle-check"></i> Didampingi konsultan hukum berpengalaman</li>
+                    <li><i class="fa-regular fa-circle-check"></i> <span data-i18n="yayasan.sol_list1">Pendirian cepat dengan akta notaris</span></li>
+                    <li><i class="fa-regular fa-circle-check"></i> <span data-i18n="yayasan.sol_list2">SK Kemenkumham resmi</span></li>
+                    <li><i class="fa-regular fa-circle-check"></i> <span data-i18n="yayasan.sol_list3">Didampingi konsultan hukum berpengalaman</span></li>
                 </ul>
-                <a href="#pricing" class="btn-outline-brand">Lihat Pilihan Paket →</a>
+                <a href="#pricing" class="btn-outline-brand" data-i18n="ui.see_packages">Lihat Pilihan Paket →</a>
             </div>
             <div class="col-lg-6">
                 <img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=800&auto=format" alt="Foundation Social Activity" class="img-fluid-rounded">
@@ -716,7 +716,7 @@
 <section class="why-us-section">
     <div class="container">
         <div class="section-header">
-            <h2>MENGAPA MEMILIH KAMI?</h2>
+            <h2 data-i18n="yayasan.why_title">MENGAPA MEMILIH KAMI?</h2>
             <p>Dapatkan berbagai keuntungan tambahan saat mendirikan Yayasan bersama kami</p>
         </div>
         <div class="row g-4 justify-content-center">
@@ -725,8 +725,8 @@
                     <div class="why-us-icon">
                         <i class="fa-solid fa-hand-holding-heart"></i>
                     </div>
-                    <h4>Legalitas Nirlaba</h4>
-                    <p>Akta pendirian dan SK Kemenkumham yang sah untuk kegiatan sosial dan kemanusiaan.</p>
+                    <h4 data-i18n="yayasan.why_card1_title">Legalitas Nirlaba</h4>
+                    <p data-i18n="yayasan.why_card1_desc">Akta pendirian dan SK Kemenkumham yang sah untuk kegiatan sosial dan kemanusiaan.</p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -734,8 +734,8 @@
                     <div class="why-us-icon">
                         <i class="fa-solid fa-school"></i>
                     </div>
-                    <h4>Bidang Pendidikan & Sosial</h4>
-                    <p>Kami berpengalaman mendirikan yayasan pendidikan, sosial, dan keagamaan.</p>
+                    <h4 data-i18n="yayasan.why_card2_title">Bidang Pendidikan & Sosial</h4>
+                    <p data-i18n="yayasan.why_card2_desc">Kami berpengalaman mendirikan yayasan pendidikan, sosial, dan keagamaan.</p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -743,8 +743,8 @@
                     <div class="why-us-icon">
                         <i class="fa-solid fa-scale-balanced"></i>
                     </div>
-                    <h4>Kepatuhan Hukum</h4>
-                    <p>Jaminan dokumen sesuai dengan regulasi yayasan terbaru.</p>
+                    <h4 data-i18n="yayasan.why_card3_title">Kepatuhan Hukum</h4>
+                    <p data-i18n="yayasan.why_card3_desc">Jaminan dokumen sesuai dengan regulasi yayasan terbaru.</p>
                 </div>
             </div>
         </div>
@@ -762,18 +762,18 @@
         <div class="process-timeline">
             <div class="process-step">
                 <div class="process-step-number">1</div>
-                <h5>Persiapan Dokumen</h5>
-                <p>Siapkan KTP, NPWP pendiri, dan AD/ART Yayasan.</p>
+                <h5 data-i18n="yayasan.step1_title">Persiapan Dokumen</h5>
+                <p data-i18n="yayasan.step1_desc">Siapkan KTP, NPWP pendiri, dan AD/ART Yayasan.</p>
             </div>
             <div class="process-step">
                 <div class="process-step-number">2</div>
-                <h5>Pembuatan Akta Notaris</h5>
-                <p>Pembuatan akta pendirian yayasan di hadapan notaris.</p>
+                <h5 data-i18n="yayasan.step2_title">Pembuatan Akta Notaris</h5>
+                <p data-i18n="yayasan.step2_desc">Pembuatan akta pendirian yayasan di hadapan notaris.</p>
             </div>
             <div class="process-step">
                 <div class="process-step-number">3</div>
-                <h5>Pengesahan Kemenkumham</h5>
-                <p>Pengesahan badan hukum dan penerbitan SK, NIB, dan izin operasional.</p>
+                <h5 data-i18n="yayasan.step3_title">Pengesahan Kemenkumham</h5>
+                <p data-i18n="yayasan.step3_desc">Pengesahan badan hukum dan penerbitan SK, NIB, dan izin operasional.</p>
             </div>
         </div>
     </div>
@@ -794,7 +794,7 @@
                         <div class="requirement-icon">
                             <i class="fa-solid fa-clipboard-list"></i>
                         </div>
-                        <h3>KELENGKAPAN DATA</h3>
+                        <h3 data-i18n="ui.req_data_title">KELENGKAPAN DATA</h3>
                     </div>
                     <ul class="requirement-list">
                         <li><i class="fa-solid fa-circle-check"></i> Nama Yayasan (minimal 3 kata)</li>
@@ -814,7 +814,7 @@
                         <div class="requirement-icon">
                             <i class="fa-solid fa-file-pdf"></i>
                         </div>
-                        <h3>KELENGKAPAN DOKUMEN</h3>
+                        <h3 data-i18n="ui.req_doc_title">KELENGKAPAN DOKUMEN</h3>
                     </div>
                     <ul class="requirement-list">
                         <li><i class="fa-solid fa-circle-check"></i> Scan KTP pendiri & pengurus</li>
@@ -836,8 +836,8 @@
     <div class="container">
         <div class="section-title text-center mb-5">
             <span class="subtitle">Pilihan Paket Yayasan</span>
-            <h2>Paket Pendirian Yayasan</h2>
-            <p>Pilih paket yang sesuai dengan kebutuhan organisasi nirlaba Anda</p>
+            <h2 data-i18n="yayasan.pricing_title">Paket Pendirian Yayasan</h2>
+            <p data-i18n="yayasan.req_desc">Pilih paket yang sesuai dengan kebutuhan organisasi nirlaba Anda</p>
         </div>
 
         <div class="row g-4 justify-content-center">
@@ -966,27 +966,27 @@
 <section class="pt-faq">
     <div class="container">
         <div class="section-title text-center mb-5">
-            <span class="subtitle">Bantuan Sentral</span>
-            <h2>FAQ terkait Pendirian Yayasan</h2>
-            <p>Pertanyaan yang paling sering diajukan seputar legalitas Yayasan di Indonesia</p>
+            <span class="subtitle" data-i18n="ui.bantuan_sentral">Bantuan Sentral</span>
+            <h2 data-i18n="yayasan.faq_title">FAQ terkait Pendirian Yayasan</h2>
+            <p data-i18n="yayasan.faq_desc">Pertanyaan yang paling sering diajukan seputar legalitas Yayasan di Indonesia</p>
         </div>
         <div class="row">
             <div class="col-lg-8 mx-auto">
                 <div class="faq-item">
-                    <div class="faq-question">Apa itu Yayasan dan apa tujuannya? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Yayasan adalah badan hukum yang didirikan untuk tujuan sosial, keagamaan, pendidikan, dan kemanusiaan yang tidak membagikan keuntungan kepada pendiri atau pengurus. Yayasan bersifat nirlaba (non-profit).</div>
+                    <div class="faq-question"><span data-i18n="yayasan.faq_q1">Apa itu Yayasan dan apa tujuannya?</span> <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer"><span data-i18n="yayasan.faq_a1">Yayasan adalah badan hukum yang didirikan untuk tujuan sosial, keagamaan, pendidikan, dan kemanusiaan yang tidak membagikan keuntungan kepada pendiri atau pengurus. Yayasan bersifat nirlaba (non-profit).</span></div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">Berapa minimal modal untuk mendirikan Yayasan? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Tidak ada ketentuan minimal modal untuk Yayasan. Namun, yayasan harus memiliki kekayaan awal yang cukup untuk menjalankan kegiatannya sesuai dengan AD/ART.</div>
+                    <div class="faq-question"><span data-i18n="yayasan.faq_q2">Berapa minimal modal untuk mendirikan Yayasan?</span> <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer"><span data-i18n="yayasan.faq_a2">Tidak ada ketentuan minimal modal untuk Yayasan. Namun, yayasan harus memiliki kekayaan awal yang cukup untuk menjalankan kegiatannya sesuai dengan AD/ART.</span></div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">Berapa lama proses pendirian Yayasan? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Dengan dokumen lengkap, proses pendirian Yayasan memakan waktu sekitar 7-14 hari kerja, tergantung dari kecepatan pembuatan akta notaris dan pengesahan dari Kemenkumham.</div>
+                    <div class="faq-question"><span data-i18n="yayasan.faq_q3">Berapa lama proses pendirian Yayasan?</span> <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer"><span data-i18n="yayasan.faq_a3">Dengan dokumen lengkap, proses pendirian Yayasan memakan waktu sekitar 7-14 hari kerja, tergantung dari kecepatan pembuatan akta notaris dan pengesahan dari Kemenkumham.</span></div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">Siapa saja struktur pengurus Yayasan? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Yayasan memiliki tiga organ utama: Pembina (menetapkan kebijakan), Pengawas (mengawasi pengurus), dan Pengurus (melaksanakan kegiatan yayasan). Minimal terdiri dari 3 orang.</div>
+                    <div class="faq-question"><span data-i18n="yayasan.faq_q4">Siapa saja struktur pengurus Yayasan?</span> <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer"><span data-i18n="yayasan.faq_a4">Yayasan memiliki tiga organ utama: Pembina (menetapkan kebijakan), Pengawas (mengawasi pengurus), dan Pengurus (melaksanakan kegiatan yayasan). Minimal terdiri dari 3 orang.</span></div>
                 </div>
             </div>
         </div>

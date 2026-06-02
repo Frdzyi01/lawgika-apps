@@ -78,9 +78,9 @@
 
 <section class="promo-hero">
   <div class="container" style="max-width:1200px;">
-    <div class="promo-hero-eyebrow"><i class="fas fa-tag"></i> Penawaran Eksklusif</div>
-    <h1 class="promo-hero-title">Promo & <span>Diskon Terbaik</span><br>Untuk Anda</h1>
-    <p class="promo-hero-desc">Dapatkan penawaran spesial untuk layanan legal dan bisnis kami. Hemat lebih banyak, dapatkan layanan terbaik.</p>
+    <div class="promo-hero-eyebrow"><i class="fas fa-tag"></i> <span data-i18n="promo.hero_eyebrow">Penawaran Eksklusif</span></div>
+    <h1 class="promo-hero-title" data-i18n="promo.hero_title">Promo & <span>Diskon Terbaik</span><br>Untuk Anda</h1>
+    <p class="promo-hero-desc" data-i18n="promo.hero_desc">Dapatkan penawaran spesial untuk layanan legal dan bisnis kami. Hemat lebih banyak, dapatkan layanan terbaik.</p>
   </div>
 </section>
 
@@ -251,15 +251,15 @@
 <section class="promo-catalog-section">
   <div class="container" style="max-width:1200px;">
 
-    <div class="promo-section-label"><i class="fas fa-fire"></i> Promo Aktif</div>
-    <h2 class="promo-section-title">Semua Penawaran Terbaik</h2>
-    <p class="promo-section-sub">Jangan lewatkan kesempatan emas ini — pilih promo yang sesuai kebutuhan Anda.</p>
+    <div class="promo-section-label"><i class="fas fa-fire"></i> <span data-i18n="promo.section_label">Promo Aktif</span></div>
+    <h2 class="promo-section-title" data-i18n="promo.section_title">Semua Penawaran Terbaik</h2>
+    <p class="promo-section-sub" data-i18n="promo.section_sub">Jangan lewatkan kesempatan emas ini — pilih promo yang sesuai kebutuhan Anda.</p>
 
     @if($promos->isEmpty())
       <div class="promo-empty">
         <div class="promo-empty-icon"><i class="fas fa-tag"></i></div>
-        <h3>Belum Ada Promo</h3>
-        <p>Saat ini tidak ada promo aktif. Pantau terus halaman ini untuk penawaran terbaru!</p>
+        <h3 data-i18n="promo.empty_title">Belum Ada Promo</h3>
+        <p data-i18n="promo.empty_desc">Saat ini tidak ada promo aktif. Pantau terus halaman ini untuk penawaran terbaru!</p>
       </div>
     @else
       <div class="row g-4">
@@ -288,13 +288,13 @@
 
             @if($promo->tanggal_berakhir)
             <div class="promo-card-meta">
-              <span><i class="fas fa-calendar-alt"></i> Berlaku s.d. {{ $promo->tanggal_berakhir->format('d M Y') }}</span>
+              <span><i class="fas fa-calendar-alt"></i> <span data-i18n="promo.valid_until">Berlaku s.d.</span> {{ $promo->tanggal_berakhir->format('d M Y') }}</span>
             </div>
             @endif
 
             <div class="promo-card-footer">
               <a href="{{ route('promo.show', $promo->id) }}" class="promo-card-btn" id="promo-btn-{{ $promo->id }}">
-                Lihat Detail <i class="fas fa-arrow-right"></i>
+                <span data-i18n="promo.view_detail">Lihat Detail</span> <i class="fas fa-arrow-right"></i>
               </a>
             </div>
 

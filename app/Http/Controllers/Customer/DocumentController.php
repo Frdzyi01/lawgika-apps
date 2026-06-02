@@ -33,8 +33,8 @@ class DocumentController extends Controller
             'document_type' => 'required|string',
             'document'      => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120',
         ], [
-            'document.max'  => 'Ukuran file maksimal adalah 5MB.',
-            'document.mimes'=> 'Format file harus JPG, PNG, atau PDF.',
+            'document.max'  => __('validation.doc.file_max'),
+            'document.mimes'=> __('validation.doc.file_mimes'),
         ]);
 
         // Pastikan order milik user yang sedang login
@@ -74,6 +74,6 @@ class DocumentController extends Controller
         // Sinkronisasi status order
         $this->documentService->syncOrderStatus($order);
 
-        return back()->with('success', 'Dokumen berhasil diunggah dan sedang menunggu verifikasi admin.');
+        return back()->with('success', __('flash.doc_uploaded_success'));
     }
 }

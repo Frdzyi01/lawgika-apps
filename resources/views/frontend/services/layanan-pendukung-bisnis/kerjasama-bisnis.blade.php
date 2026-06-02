@@ -277,9 +277,9 @@
             <div class="col-lg-7">
                 <div class="page-title-content">
                     <span class="text-white bg-danger rounded-pill px-3 py-1 fw-medium mb-3 d-inline-block shadow-sm"
-                        style="font-size: 0.85rem">Lawgika | Kerjasama Bisnis</span>
-                    <h1 class="text-white fw-bold mb-3 display-4">Bangun Kolaborasi Bersama Kami</h1>
-                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem">
+                        style="font-size: 0.85rem" data-i18n="kerjasama.hero.badge">Lawgika | Kerjasama Bisnis</span>
+                    <h1 class="text-white fw-bold mb-3 display-4" data-i18n="kerjasama.hero.title">Bangun Kolaborasi Bersama Kami</h1>
+                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem" data-i18n="kerjasama.hero.desc">
                         Kami membuka peluang kerjasama dengan berbagai pihak. Isi form di bawah untuk mengajukan kolaborasi bersama Lawgika.
                     </p>
                 </div>
@@ -287,8 +287,8 @@
             <div class="col-lg-5 text-lg-end mt-4 mt-lg-0">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-lg-end justify-content-start mb-0">
-                        <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none">Beranda</a></li>
-                        <li class="breadcrumb-item active text-white-50" aria-current="page">Kerjasama Bisnis</li>
+                        <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none" data-i18n="nav.home">Beranda</a></li>
+                        <li class="breadcrumb-item active text-white-50" aria-current="page" data-i18n="nav.profile.kerjasama">Kerjasama Bisnis</li>
                     </ol>
                 </nav>
             </div>
@@ -301,14 +301,14 @@
     <div class="container">
         <div class="row align-items-center g-5">
             <div class="col-lg-6">
-                <span class="section-badge">Mengapa Bermitra dengan Kami</span>
-                <h2>Kolaborasi yang Saling Menguntungkan</h2>
-                <p>Lawgika.co.id adalah platform layanan hukum dan bisnis yang terus berkembang. Kami membuka peluang kerjasama dengan berbagai pihak — mulai dari afiliasi, co-branding, hingga kemitraan strategis jangka panjang.</p>
+                <span class="section-badge" data-i18n="kerjasama.solusi.badge">Mengapa Bermitra dengan Kami</span>
+                <h2 data-i18n="kerjasama.solusi.title">Kolaborasi yang Saling Menguntungkan</h2>
+                <p data-i18n="kerjasama.solusi.desc">Lawgika.co.id adalah platform layanan hukum dan bisnis yang terus berkembang. Kami membuka peluang kerjasama dengan berbagai pihak — mulai dari afiliasi, co-branding, hingga kemitraan strategis jangka panjang.</p>
                 <ul class="solution-list">
-                    <li><i class="fa-regular fa-circle-check"></i> Jaringan klien bisnis yang luas & aktif</li>
-                    <li><i class="fa-regular fa-circle-check"></i> Platform digital yang terus berkembang</li>
-                    <li><i class="fa-regular fa-circle-check"></i> Tim profesional yang responsif & transparan</li>
-                    <li><i class="fa-regular fa-circle-check"></i> Model kerjasama fleksibel sesuai kebutuhan Anda</li>
+                    <li><i class="fa-regular fa-circle-check"></i> <span data-i18n="kerjasama.solusi.list1">Jaringan klien bisnis yang luas & aktif</span></li>
+                    <li><i class="fa-regular fa-circle-check"></i> <span data-i18n="kerjasama.solusi.list2">Platform digital yang terus berkembang</span></li>
+                    <li><i class="fa-regular fa-circle-check"></i> <span data-i18n="kerjasama.solusi.list3">Tim profesional yang responsif & transparan</span></li>
+                    <li><i class="fa-regular fa-circle-check"></i> <span data-i18n="kerjasama.solusi.list4">Model kerjasama fleksibel sesuai kebutuhan Anda</span></li>
                 </ul>
             </div>
             <div class="col-lg-6">
@@ -324,44 +324,44 @@
     <div class="container">
         <div class="form-card">
             <div style="text-align:center; margin-bottom:32px;">
-                <span style="display:inline-block; background:rgba(78,5,22,0.08); color:var(--primary); font-size:0.82rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; border-radius:50px; padding:6px 18px; margin-bottom:14px;">
+                <span style="display:inline-block; background:rgba(78,5,22,0.08); color:var(--primary); font-size:0.82rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; border-radius:50px; padding:6px 18px; margin-bottom:14px;" data-i18n="kerjasama.form.badge">
                     Formulir Kerjasama
                 </span>
-                <h2 style="font-size:1.75rem; font-weight:800; color:var(--dark); margin-bottom:10px;">Ajukan Kerjasama Anda</h2>
+                <h2 style="font-size:1.75rem; font-weight:800; color:var(--dark); margin-bottom:10px;" data-i18n="kerjasama.form.title">Ajukan Kerjasama Anda</h2>
             </div>
 
-            <div class="form-intro">
+            <div class="form-intro" data-i18n="kerjasama.form.intro">
                 <strong>Terima kasih atas minat Anda untuk bekerjasama dengan Lawgika.co.id.</strong><br>
                 Silakan isi informasi berikut dan kami akan segera menghubungi Anda.
             </div>
 
             <form id="kerjasamaForm">
                 <div class="form-group">
-                    <label for="nama">Nama Lengkap <span class="required">*</span></label>
-                    <input type="text" id="nama" name="nama" class="form-control" required placeholder="Masukkan nama lengkap Anda">
+                    <label for="nama"><span data-i18n="kerjasama.form.nama_lbl">Nama Lengkap</span> <span class="required">*</span></label>
+                    <input type="text" id="nama" name="nama" class="form-control" required placeholder="Masukkan nama lengkap Anda" data-i18n-placeholder="kerjasama.form.nama_placeholder">
                 </div>
 
                 <div class="form-group">
-                    <label for="perusahaan">Perusahaan / Brand <span class="required">*</span></label>
-                    <input type="text" id="perusahaan" name="perusahaan" class="form-control" required placeholder="Nama perusahaan atau brand Anda">
+                    <label for="perusahaan"><span data-i18n="kerjasama.form.perusahaan_lbl">Perusahaan / Brand</span> <span class="required">*</span></label>
+                    <input type="text" id="perusahaan" name="perusahaan" class="form-control" required placeholder="Nama perusahaan atau brand Anda" data-i18n-placeholder="kerjasama.form.perusahaan_placeholder">
                 </div>
 
                 <div class="form-group">
-                    <label for="jenis">Jenis Kerjasama <span class="required">*</span></label>
-                    <textarea id="jenis" name="jenis" class="form-control" required placeholder="Contoh: Kerjasama afiliasi, co-branding, penyediaan layanan hukum, dll."></textarea>
+                    <label for="jenis"><span data-i18n="kerjasama.form.jenis_lbl">Jenis Kerjasama</span> <span class="required">*</span></label>
+                    <textarea id="jenis" name="jenis" class="form-control" required placeholder="Contoh: Kerjasama afiliasi, co-branding, penyediaan layanan hukum, dll." data-i18n-placeholder="kerjasama.form.jenis_placeholder"></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="kontak">Nomor Kontak <span class="required">*</span></label>
-                    <input type="text" id="kontak" name="kontak" class="form-control" required placeholder="Contoh: 08123456789">
+                    <label for="kontak"><span data-i18n="kerjasama.form.kontak_lbl">Nomor Kontak</span> <span class="required">*</span></label>
+                    <input type="text" id="kontak" name="kontak" class="form-control" required placeholder="Contoh: 08123456789" data-i18n-placeholder="kerjasama.form.kontak_placeholder">
                 </div>
 
                 <div class="form-group">
-                    <label for="proposal">Proposal <span style="color:var(--gray); font-weight:400; font-size:0.88rem;">(opsional)</span></label>
+                    <label for="proposal"><span data-i18n="kerjasama.form.proposal_lbl">Proposal</span> <span style="color:var(--gray); font-weight:400; font-size:0.88rem;" data-i18n="kerjasama.form.proposal_optional">(opsional)</span></label>
                     <div class="file-upload-area" onclick="document.getElementById('proposal').click()">
                         <i class="fa-solid fa-file-arrow-up"></i>
-                        <p>Klik untuk upload proposal Anda</p>
-                        <p style="color:#94a3b8; font-size:0.8rem; margin-top:4px;">PDF, DOC, DOCX — Maks. 5MB</p>
+                        <p data-i18n="kerjasama.form.proposal_upload">Klik untuk upload proposal Anda</p>
+                        <p style="color:#94a3b8; font-size:0.8rem; margin-top:4px;" data-i18n="kerjasama.form.proposal_hint">PDF, DOC, DOCX — Maks. 5MB</p>
                         <p id="proposalName" class="file-name-display"></p>
                     </div>
                     <input type="file" id="proposal" name="proposal" accept=".pdf,.doc,.docx"
@@ -369,7 +369,7 @@
                 </div>
 
                 <button type="button" class="btn-submit" onclick="kirimKeWhatsApp()">
-                    <i class="fa-brands fa-whatsapp"></i> Kirim Pengajuan Kerjasama
+                    <i class="fa-brands fa-whatsapp"></i> <span data-i18n="kerjasama.form.submit">Kirim Pengajuan Kerjasama</span>
                 </button>
             </form>
         </div>
@@ -383,36 +383,36 @@
 <section class="pt-faq">
     <div class="container">
         <div class="text-center mb-5">
-            <span class="section-badge">Pertanyaan Umum</span>
-            <h2 style="font-size:2.2rem; font-weight:800; color:var(--dark); margin:0 0 12px;">FAQ Kerjasama Bisnis</h2>
-            <p style="color:var(--gray); font-size:1.05rem;">Hal-hal yang sering ditanyakan seputar peluang kolaborasi bersama Lawgika</p>
+            <span class="section-badge" data-i18n="kerjasama.faq.badge">Pertanyaan Umum</span>
+            <h2 style="font-size:2.2rem; font-weight:800; color:var(--dark); margin:0 0 12px;" data-i18n="kerjasama.faq.title">FAQ Kerjasama Bisnis</h2>
+            <p style="color:var(--gray); font-size:1.05rem;" data-i18n="kerjasama.faq.desc">Hal-hal yang sering ditanyakan seputar peluang kolaborasi bersama Lawgika</p>
         </div>
         <div class="row">
             <div class="col-lg-8 mx-auto">
 
                 <div class="faq-item">
-                    <div class="faq-question">Jenis kerjasama apa saja yang bisa diajukan? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Kami membuka berbagai jenis kerjasama, termasuk program afiliasi, co-branding, kemitraan layanan hukum, referral partner, sponsorship konten, hingga kerjasama teknis dan integrasi platform.</div>
+                    <div class="faq-question"><span data-i18n="kerjasama.faq.q1">Jenis kerjasama apa saja yang bisa diajukan?</span> <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer" data-i18n="kerjasama.faq.a1">Kami membuka berbagai jenis kerjasama, termasuk program afiliasi, co-branding, kemitraan layanan hukum, referral partner, sponsorship konten, hingga kerjasama teknis dan integrasi platform.</div>
                 </div>
 
                 <div class="faq-item">
-                    <div class="faq-question">Berapa lama proses review pengajuan kerjasama? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Tim kami akan menghubungi Anda dalam 1–3 hari kerja setelah pengajuan diterima. Proses evaluasi kerjasama biasanya membutuhkan waktu 3–7 hari kerja tergantung kompleksitas proposal.</div>
+                    <div class="faq-question"><span data-i18n="kerjasama.faq.q2">Berapa lama proses review pengajuan kerjasama?</span> <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer" data-i18n="kerjasama.faq.a2">Tim kami akan menghubungi Anda dalam 1–3 hari kerja setelah pengajuan diterima. Proses evaluasi kerjasama biasanya membutuhkan waktu 3–7 hari kerja tergantung kompleksitas proposal.</div>
                 </div>
 
                 <div class="faq-item">
-                    <div class="faq-question">Apakah ada minimum skala bisnis untuk bisa mengajukan kerjasama? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Tidak ada syarat skala minimum. Kami terbuka untuk kerjasama dengan individu, UMKM, startup, maupun perusahaan besar — selama model kolaborasinya saling menguntungkan.</div>
+                    <div class="faq-question"><span data-i18n="kerjasama.faq.q3">Apakah ada minimum skala bisnis untuk bisa mengajukan kerjasama?</span> <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer" data-i18n="kerjasama.faq.a3">Tidak ada syarat skala minimum. Kami terbuka untuk kerjasama dengan individu, UMKM, startup, maupun perusahaan besar — selama model kolaborasinya saling menguntungkan.</div>
                 </div>
 
                 <div class="faq-item">
-                    <div class="faq-question">Apakah perlu mengirim proposal tertulis? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Proposal opsional namun sangat membantu mempercepat proses evaluasi. Anda bisa mengisi form di atas terlebih dahulu, lalu melampirkan proposal saat tim kami menghubungi Anda.</div>
+                    <div class="faq-question"><span data-i18n="kerjasama.faq.q4">Apakah perlu mengirim proposal tertulis?</span> <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer" data-i18n="kerjasama.faq.a4">Proposal opsional namun sangat membantu mempercepat proses evaluasi. Anda bisa mengisi form di atas terlebih dahulu, lalu melampirkan proposal saat tim kami menghubungi Anda.</div>
                 </div>
 
                 <div class="faq-item">
-                    <div class="faq-question">Bagaimana jika pengajuan saya ditolak? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Kami akan memberikan feedback secara profesional. Anda tetap bisa mengajukan kembali dengan model kerjasama yang berbeda di kemudian hari.</div>
+                    <div class="faq-question"><span data-i18n="kerjasama.faq.q5">Bagaimana jika pengajuan saya ditolak?</span> <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer" data-i18n="kerjasama.faq.a5">Kami akan memberikan feedback secara profesional. Anda tetap bisa mengajukan kembali dengan model kerjasama yang berbeda di kemudian hari.</div>
                 </div>
 
             </div>
@@ -437,18 +437,25 @@
         const kontak = document.getElementById('kontak').value.trim();
 
         if (!nama || !perusahaan || !jenis || !kontak) {
-            alert('Mohon lengkapi semua field yang wajib diisi (*) sebelum mengirim.');
+            const validationMsg = window.LwI18n ? window.LwI18n.t('kerjasama.form.validation_alert') : 'Mohon lengkapi semua field yang wajib diisi (*) sebelum mengirim.';
+            alert(validationMsg);
             return;
         }
 
-        const pesan = `Halo Lawgika, saya ingin mengajukan kerjasama:
+        const template = window.LwI18n ? window.LwI18n.t('kerjasama.form.wa_msg') : `Halo Lawgika, saya ingin mengajukan kerjasama:
 
-Nama: ${nama}
-Perusahaan / Brand: ${perusahaan}
-Jenis Kerjasama: ${jenis}
-Kontak: ${kontak}
+Nama: {nama}
+Perusahaan / Brand: {perusahaan}
+Jenis Kerjasama: {jenis}
+Kontak: {kontak}
 
 Mohon ditindaklanjuti, terima kasih.`;
+
+        const pesan = template
+            .replace('{nama}', nama)
+            .replace('{perusahaan}', perusahaan)
+            .replace('{jenis}', jenis)
+            .replace('{kontak}', kontak);
 
         const encoded = encodeURIComponent(pesan);
         window.open(`https://wa.me/6281234567890?text=${encoded}`, '_blank');

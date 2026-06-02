@@ -110,11 +110,11 @@
         <div class="order-container">
             <div class="order-header">
                 @if (request('package') == 'paket')
-                    <h2>Beli Paket Meeting Room</h2>
-                    <p>Dapatkan akses 60 jam meeting room untuk 1 tahun</p>
+                    <h2 data-i18n="mr.buy_package_title">Beli Paket Meeting Room</h2>
+                    <p data-i18n="mr.buy_package_subtitle">Dapatkan akses 60 jam meeting room untuk 1 tahun</p>
                 @else
-                    <h2>Reservasi Meeting Room</h2>
-                    <p>Untuk melakukan reservasi, silakan isi informasi berikut:</p>
+                    <h2 data-i18n="mr.reserv_title">Reservasi Meeting Room</h2>
+                    <p data-i18n="mr.reserv_subtitle">Untuk melakukan reservasi, silakan isi informasi berikut:</p>
                 @endif
             </div>
 
@@ -138,39 +138,39 @@
             <form action="{{ route('meeting-room.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
-                    <label for="nama">Nama Lengkap</label>
+                    <label for="nama" data-i18n="order.label_fullname">Nama Lengkap</label>
                     <input type="text" id="nama" name="nama" class="form-control" required
-                        placeholder="Masukkan nama Anda" value="{{ old('nama', auth()->user()->name ?? '') }}" readonly>
+                        placeholder="Masukkan nama Anda" data-i18n-placeholder="mr.placeholder_fullname" value="{{ old('nama', auth()->user()->name ?? '') }}" readonly>
                 </div>
 
                 <div class="form-group">
-                    <label for="nama_perusahaan">Nama Perusahaan</label>
+                    <label for="nama_perusahaan" data-i18n="order.label_company_name">Nama Perusahaan</label>
                     <input type="text" id="nama_perusahaan" name="nama_perusahaan" class="form-control" required
-                        placeholder="Masukkan nama perusahaan" value="{{ old('nama_perusahaan', request('package') == 'reservasi' ? ($ptData['company_name'] ?? '') : '') }}" {{ request('package') == 'reservasi' ? 'readonly' : '' }}>
+                        placeholder="Masukkan nama perusahaan" data-i18n-placeholder="mr.placeholder_company_name" value="{{ old('nama_perusahaan', request('package') == 'reservasi' ? ($ptData['company_name'] ?? '') : '') }}" {{ request('package') == 'reservasi' ? 'readonly' : '' }}>
                 </div>
 
                 <div class="form-group">
-                    <label for="email">Alamat Email</label>
+                    <label for="email" data-i18n="order.label_email">Alamat Email</label>
                     <input type="email" id="email" name="email" class="form-control" required
-                        placeholder="Masukkan alamat email" value="{{ old('email', request('package') == 'reservasi' ? ($ptData['company_email'] ?? '') : '') }}" {{ request('package') == 'reservasi' ? 'readonly' : '' }}>
+                        placeholder="Masukkan alamat email" data-i18n-placeholder="mr.placeholder_email" value="{{ old('email', request('package') == 'reservasi' ? ($ptData['company_email'] ?? '') : '') }}" {{ request('package') == 'reservasi' ? 'readonly' : '' }}>
                 </div>
 
                 <div class="form-group">
-                    <label for="alamat_usaha">Alamat Aktivitas Usaha</label>
+                    <label for="alamat_usaha" data-i18n="mr.label_business_address">Alamat Aktivitas Usaha</label>
                     <textarea id="alamat_usaha" name="alamat_usaha" class="form-control" required
-                        placeholder="Masukkan alamat aktivitas usaha" rows="3" {{ request('package') == 'reservasi' ? 'readonly' : '' }}>{{ old('alamat_usaha', request('package') == 'reservasi' ? ($ptData['operational_address'] ?? '') : '') }}</textarea>
+                        placeholder="Masukkan alamat aktivitas usaha" data-i18n-placeholder="mr.placeholder_business_address" rows="3" {{ request('package') == 'reservasi' ? 'readonly' : '' }}>{{ old('alamat_usaha', request('package') == 'reservasi' ? ($ptData['operational_address'] ?? '') : '') }}</textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="bidang_usaha">Bidang Usaha</label>
+                    <label for="bidang_usaha" data-i18n="order.label_business_field">Bidang Usaha</label>
                     <input type="text" id="bidang_usaha" name="bidang_usaha" class="form-control" required
-                        placeholder="Masukkan bidang usaha" value="{{ old('bidang_usaha', request('package') == 'reservasi' ? ($ptData['business_field'] ?? '') : '') }}" {{ request('package') == 'reservasi' ? 'readonly' : '' }}>
+                        placeholder="Masukkan bidang usaha" data-i18n-placeholder="mr.placeholder_business_field" value="{{ old('bidang_usaha', request('package') == 'reservasi' ? ($ptData['business_field'] ?? '') : '') }}" {{ request('package') == 'reservasi' ? 'readonly' : '' }}>
                 </div>
 
                 <div class="form-group">
-                    <label for="keperluan">Keperluan Meeting Room</label>
+                    <label for="keperluan" data-i18n="mr.label_meeting_purpose">Keperluan Meeting Room</label>
                     <textarea id="keperluan" name="keperluan" class="form-control" required
-                        placeholder="Masukkan keperluan penggunaan meeting room" rows="3">{{ old('keperluan') }}</textarea>
+                        placeholder="Masukkan keperluan penggunaan meeting room" data-i18n-placeholder="mr.placeholder_meeting_purpose" rows="3">{{ old('keperluan') }}</textarea>
                 </div>
 
                 @if (request('package') == 'paket')
@@ -183,30 +183,30 @@
                     <div
                         style="background:#f0fdf4; border:1px solid #86efac; border-radius:10px; padding:20px; margin-bottom:20px;">
                         <h5 style="color:#15803d; font-weight:700; margin-bottom:10px;"><i class="fa-solid fa-box"></i>
-                            Paket Meeting Room</h5>
+                            <span data-i18n="mr.package_box_title">Paket Meeting Room</span></h5>
                         <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
-                            <span style="color:#166534;">Durasi Paket</span>
+                            <span style="color:#166534;" data-i18n="mr.package_duration">Durasi Paket</span>
                             <strong style="color:#14532d;">60 Jam</strong>
                         </div>
                         <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
-                            <span style="color:#166534;">Masa Berlaku</span>
+                            <span style="color:#166534;" data-i18n="mr.package_validity">Masa Berlaku</span>
                             <strong style="color:#14532d;">1 Tahun</strong>
                         </div>
                         <div
                             style="display:flex; justify-content:space-between; border-top:1px dashed #86efac; padding-top:8px; margin-top:8px;">
-                            <span style="color:#166534;">Harga Paket</span>
+                            <span style="color:#166534;" data-i18n="mr.package_price">Harga Paket</span>
                             <strong style="color:#15803d; font-size:1.2rem;">Rp 4.800.000</strong>
                         </div>
                     </div>
                 @else
                     <div class="form-group">
-                        <label for="tanggal">Tanggal Penggunaan</label>
+                        <label for="tanggal" data-i18n="mr.label_use_date">Tanggal Penggunaan</label>
                         <input type="date" id="tanggal" name="tanggal" class="form-control" required
                             value="{{ old('tanggal', $tanggal ?? '') }}">
                     </div>
 
                     <div class="form-group">
-                        <label for="jam">Jam Penggunaan</label>
+                        <label for="jam" data-i18n="mr.label_use_time">Jam Penggunaan</label>
                         <input type="time" id="jam" name="jam" class="form-control" required
                             value="{{ old('jam', $jam ?? '') }}">
                     </div>
@@ -218,16 +218,16 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="peserta">Jumlah Peserta</label>
+                                    <label for="peserta" data-i18n="mr.label_participants">Jumlah Peserta</label>
                                     <input type="number" id="peserta" name="peserta" class="form-control" min="1"
-                                        required placeholder="Contoh: 8" value="{{ old('peserta') }}">
+                                        required placeholder="Contoh: 8" data-i18n-placeholder="mr.placeholder_participants" value="{{ old('peserta') }}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="durasi">Durasi Sewa (Jam)</label>
+                                    <label for="durasi" data-i18n="mr.label_rent_duration">Durasi Sewa (Jam)</label>
                                     <input type="number" id="durasi" name="durasi" class="form-control" min="1"
-                                        required placeholder="Contoh: 2" value="{{ old('durasi', $durasi ?? 1) }}"
+                                        required placeholder="Contoh: 2" data-i18n-placeholder="mr.placeholder_rent_duration" value="{{ old('durasi', $durasi ?? 1) }}"
                                         onchange="updateTotal()">
                                 </div>
                             </div>
@@ -238,12 +238,12 @@
                 @if(request('package') == 'reservasi')
                     <div
                         style="background:#fdf2f8; border:1px solid #fbcfe8; border-radius:10px; padding:20px; margin-bottom:20px;">
-                        <h5 style="color:#be185d; font-weight:700; margin-bottom:10px;"><i class="fa-solid fa-gem"></i> Benefit Paket Pendirian PT</h5>
-                        <p style="margin-bottom:8px; color:#831843;">Anda memiliki benefit reservasi Meeting Room dari Paket Pendirian PT. Silakan lengkapi form reservasi atas waktu dan tanggal yang diinginkan, dan pesanan akan diteruskan ke admin.</p>
+                        <h5 style="color:#be185d; font-weight:700; margin-bottom:10px;"><i class="fa-solid fa-gem"></i> <span data-i18n="mr.benefit_box_title">Benefit Paket Pendirian PT</span></h5>
+                        <p style="margin-bottom:8px; color:#831843;" data-i18n="mr.benefit_box_desc">Anda memiliki benefit reservasi Meeting Room dari Paket Pendirian PT. Silakan lengkapi form reservasi atas waktu dan tanggal yang diinginkan, dan pesanan akan diteruskan ke admin.</p>
                         @if(isset($activeBenefit))
                             <p style="margin-bottom:0; color:#831843;">
-                                Sisa quota Anda: <strong>{{ \App\Models\RoomBenefit::formatMinutes($activeBenefit->remaining_minutes) }}</strong>
-                                (Berlaku hingga {{ $activeBenefit->expired_at ? $activeBenefit->expired_at->format('d M Y') : 'Tanpa Expired' }})
+                                <span data-i18n="mr.remaining_quota">Sisa quota Anda:</span> <strong>{{ \App\Models\RoomBenefit::formatMinutes($activeBenefit->remaining_minutes) }}</strong>
+                                (Berlaku hingga {{ $activeBenefit->expired_at ? $activeBenefit->expired_at->format('d M Y') : __('mr.no_expired') }})
                             </p>
                         @endif
                         <input type="hidden" name="use_quota" value="1">
@@ -251,9 +251,8 @@
                 @elseif (isset($quota) && !now()->greaterThan($quota->expired_at) && $quota->remaining_seconds > 0)
                     <div
                         style="background:#fdf2f8; border:1px solid #fbcfe8; border-radius:10px; padding:20px; margin-bottom:20px;">
-                        <h5 style="color:#be185d; font-weight:700; margin-bottom:10px;"><i class="fa-solid fa-gem"></i> Anda
-                            Memiliki Quota Ruangan!</h5>
-                        <p style="margin-bottom:15px; color:#831843;">Sisa quota Anda:
+                        <h5 style="color:#be185d; font-weight:700; margin-bottom:10px;"><i class="fa-solid fa-gem"></i> <span data-i18n="mr.has_quota_title">Anda Memiliki Quota Ruangan!</span></h5>
+                        <p style="margin-bottom:15px; color:#831843;"><span data-i18n="mr.remaining_quota">Sisa quota Anda:</span>
                             <strong>{{ $quota->formatted_remaining_time }}</strong> (Berlaku hingga
                             {{ \Carbon\Carbon::parse($quota->expired_at)->format('d M Y') }})
                         </p>
@@ -261,7 +260,7 @@
                             <input class="form-check-input" type="checkbox" name="use_quota" id="use_quota" value="1"
                                 checked onchange="togglePaymentProof()">
                             <label class="form-check-label fw-bold text-dark" style="margin-bottom:0;" for="use_quota">
-                                Gunakan Quota untuk Reservasi ini (Bebas Biaya)
+                                <span data-i18n="mr.use_quota_label">Gunakan Quota untuk Reservasi ini (Bebas Biaya)</span>
                             </label>
                         </div>
                     </div>
@@ -273,9 +272,8 @@
                         <div
                             style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:20px; margin-bottom:20px;">
                             <h5 style="font-size:1.05rem; font-weight:700; color:var(--dark); margin-bottom:15px;"><i
-                                    class="fa-solid fa-building-columns"></i> Instruksi Pembayaran (Transfer Bank)</h5>
-                            <p style="font-size:0.95rem; color:var(--gray); margin-bottom:10px;">Silakan lakukan pembayaran ke
-                                rekening berikut:</p>
+                                    class="fa-solid fa-building-columns"></i> <span data-i18n="order.payment_instruction_transfer">Instruksi Pembayaran (Transfer Bank)</span></h5>
+                            <p style="font-size:0.95rem; color:var(--gray); margin-bottom:10px;" data-i18n="order.transfer_instruction">Silakan lakukan pembayaran ke rekening berikut:</p>
                             <div style="background:#fff; padding:15px; border-radius:8px; border:1px solid #e2e8f0;">
                                 <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
                                     <span style="color:#64748b; font-size:0.9rem;">Bank</span>
@@ -293,7 +291,7 @@
                             </div>
 
                             <div style="margin-top:15px; text-align:right;">
-                                <span style="color:#64748b; font-size:0.95rem; margin-right:10px;">Total Tagihan:</span>
+                                <span style="color:#64748b; font-size:0.95rem; margin-right:10px;" data-i18n="order.total_bill">Total Tagihan:</span>
                                 <strong style="color:var(--primary); font-size:1.4rem;" id="totalAmountDisplay">
                                     @if (request('package') == 'paket')
                                         Rp 4.800.000
@@ -306,14 +304,13 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="payment_proof">Upload Bukti Pembayaran <span class="text-danger">*</span></label>
+                            <label for="payment_proof"><span data-i18n="order.upload_payment_proof">Upload Bukti Pembayaran</span> <span class="text-danger">*</span></label>
                             <div style="border:2px dashed #e2e8f0; border-radius:10px; padding:20px; text-align:center; cursor:pointer;"
                                 onclick="document.getElementById('payment_proof').click()">
                                 <i class="fa-solid fa-cloud-arrow-up"
                                     style="font-size:2rem; color:var(--primary); margin-bottom:8px; display:block;"></i>
-                                <p style="color:var(--gray); margin:0; font-size:0.9rem;">Klik untuk upload bukti transfer /
-                                    pembayaran</p>
-                                <p style="color:#94a3b8; margin:4px 0 0; font-size:0.8rem;">JPG, PNG, JPEG — Maks. 2MB</p>
+                                <p style="color:var(--gray); margin:0; font-size:0.9rem;" data-i18n="order.upload_proof_click">Klik untuk upload bukti transfer / pembayaran</p>
+                                <p style="color:#94a3b8; margin:4px 0 0; font-size:0.8rem;" data-i18n="order.upload_proof_hint_2mb">JPG, PNG, JPEG — Maks. 2MB</p>
                                 <p id="file-name"
                                     style="color:var(--primary); font-weight:600; margin:8px 0 0; font-size:0.9rem; display:none;">
                                 </p>
@@ -326,23 +323,22 @@
 
                     <div
                         style="background:#fef9c3; border:1px solid #fde047; border-radius:10px; padding:14px; margin-bottom:20px; font-size:0.9rem; color:#713f12;">
-                        <strong>⚡ Info:</strong> Setelah reservasi, admin akan mengkonfirmasi pembayaran Anda. Check In hanya
-                        bisa dilakukan setelah pembayaran <strong>disetujui</strong>.
+                        <strong data-i18n="order.info_label">⚡ Info:</strong> <span data-i18n="mr.info_desc_part1">Setelah reservasi, admin akan mengkonfirmasi pembayaran Anda. Check In hanya bisa dilakukan setelah pembayaran</span> <strong><span data-i18n="mr.info_desc_part2">disetujui</span></strong>.
                     </div>
                 @else
                     <div
                         style="background:#fef9c3; border:1px solid #fde047; border-radius:10px; padding:14px; margin-bottom:20px; font-size:0.9rem; color:#713f12;">
-                        <strong>⚡ Info:</strong> Pesanan reservasi ini akan langsung diteruskan ke Admin untuk proses konfirmasi jadwal.
+                        <strong data-i18n="order.info_label">⚡ Info:</strong> <span data-i18n="mr.info_desc_direct">Pesanan reservasi ini akan langsung diteruskan ke Admin untuk proses konfirmasi jadwal.</span>
                     </div>
                 @endif
 
                 <div style="display:flex; gap:15px;">
                     <button type="submit" class="btn-submit" style="flex:1; margin-top:0;">
-                        <i class="fa-solid fa-calendar-check"></i> Pesan Sekarang
+                        <i class="fa-solid fa-calendar-check"></i> <span data-i18n="mr.submit_btn">Pesan Sekarang</span>
                     </button>
                     <button type="button" class="btn-submit" onclick="sendWhatsApp()"
                         style="flex:1; margin-top:0; background:#25D366; color:#fff; border:none;">
-                        <i class="fa-brands fa-whatsapp"></i> Hubungi WhatsApp
+                        <i class="fa-brands fa-whatsapp"></i> <span data-i18n="order.contact_wa_btn">Hubungi WhatsApp</span>
                     </button>
                 </div>
             </form>

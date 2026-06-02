@@ -20,9 +20,9 @@ class SptTahunanController extends Controller
         ];
 
         $messages = [
-            'subject_type.required' => 'Pilih subject pajak terlebih dahulu.',
-            'tahun_pajak.required'  => 'Tahun pajak wajib diisi.',
-            'tahun_pajak.min'       => 'Tahun pajak tidak valid.',
+            'subject_type.required' => __('validation.spt.subject_type_required'),
+            'tahun_pajak.required'  => __('validation.spt.tahun_pajak_required'),
+            'tahun_pajak.min'       => __('validation.spt.tahun_pajak_min'),
         ];
 
         if ($request->subject_type === 'pribadi') {

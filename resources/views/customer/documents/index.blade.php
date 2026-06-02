@@ -1,17 +1,17 @@
 @extends('layouts-customer.app')
 
 @section('content')
-<h4>Daftar Dokumen Saya</h4>
+<h4>{{ __('customer.documents.title') }}</h4>
 <div class="card mt-3">
     <div class="card-body">
         <table class="table">
             <thead>
                 <tr>
-                    <th>Nama File</th>
-                    <th>Tipe Dokumen</th>
-                    <th>Order Terkait</th>
-                    <th>Status</th>
-                    <th>Tanggal Upload</th>
+                    <th>{{ __('customer.documents.filename') }}</th>
+                    <th>{{ __('customer.documents.type') }}</th>
+                    <th>{{ __('customer.documents.related_order') }}</th>
+                    <th>{{ __('customer.documents.status') }}</th>
+                    <th>{{ __('customer.documents.upload_date') }}</th>
                 </tr>
             </thead>
             <tbody>

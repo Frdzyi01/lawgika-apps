@@ -583,9 +583,9 @@
             <div class="col-lg-6">
                 <div class="page-title-content">
                     <span class="text-white bg-danger rounded-pill px-3 py-1 fw-medium mb-3 d-inline-block shadow-sm"
-                        style="font-size: 0.85rem">Lawgika | Meeting Room</span>
-                    <h1 class="text-white fw-bold mb-3 display-4">Sewa Meeting Room Nyaman & Profesional</h1>
-                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem">Fasilitas ruang
+                        style="font-size: 0.85rem" data-i18n="meeting.hero.badge">Lawgika | Meeting Room</span>
+                    <h1 class="text-white fw-bold mb-3 display-4" data-i18n="meeting.hero.title">Sewa Meeting Room Nyaman & Profesional</h1>
+                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem" data-i18n="meeting.hero.desc">Fasilitas ruang
                         meeting yang ideal untuk presentasi, workshop, diskusi tim, hingga pertemuan klien penting.
                         Didukung dengan fasilitas lengkap dan modern.</p>
                 </div>
@@ -594,8 +594,8 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-lg-end justify-content-start mb-0">
                         <li class="breadcrumb-item"><a href="{{ url('/') }}"
-                                class="text-white text-decoration-none">Beranda</a></li>
-                        <li class="breadcrumb-item active text-white-50" aria-current="page">Sewa Meeting Room</li>
+                                class="text-white text-decoration-none" data-i18n="nav.home">Beranda</a></li>
+                        <li class="breadcrumb-item active text-white-50" aria-current="page" data-i18n="nav.services.meeting_room">Sewa Meeting Room</li>
                     </ol>
                 </nav>
             </div>
@@ -608,15 +608,15 @@
     <div class="container">
         <div class="row align-items-center g-5 flex-row-reverse">
             <div class="col-lg-6">
-                <h2>Ruang Meeting Representatif untuk Bisnis Anda</h2>
-                <p>Mencari ruang untuk pertemuan tim, negosiasi dengan klien, atau presentasi produk? Meeting room kami
+                <h2 data-i18n="meeting.solusi.title">Ruang Meeting Representatif untuk Bisnis Anda</h2>
+                <p data-i18n="meeting.solusi.desc">Mencari ruang untuk pertemuan tim, negosiasi dengan klien, atau presentasi produk? Meeting room kami
                     didesain khusus untuk mendukung produktivitas dan impresi profesional Anda.</p>
                 <ul class="solution-list">
-                    <li><i class="fa-regular fa-circle-check"></i> Lingkungan kondusif & privat</li>
-                    <li><i class="fa-regular fa-circle-check"></i> Dilengkapi Smart TV & proyektor</li>
-                    <li><i class="fa-regular fa-circle-check"></i> Koneksi WiFi kecepatan tinggi</li>
+                    <li><i class="fa-regular fa-circle-check"></i> <span data-i18n="meeting.solusi.list1">Lingkungan kondusif & privat</span></li>
+                    <li><i class="fa-regular fa-circle-check"></i> <span data-i18n="meeting.solusi.list2">Dilengkapi Smart TV & proyektor</span></li>
+                    <li><i class="fa-regular fa-circle-check"></i> <span data-i18n="meeting.solusi.list3">Koneksi WiFi kecepatan tinggi</span></li>
                 </ul>
-                <a href="#pricing" class="btn-outline-brand">Lihat Harga Layanan →</a>
+                <a href="#pricing" class="btn-outline-brand" data-i18n="meeting.solusi.cta">Lihat Harga Layanan →</a>
             </div>
             <div class="col-lg-6">
                 <img src="{{ asset('buyer-file/assets/img/meetingroom/ruang.png') }}"
@@ -630,9 +630,9 @@
 <section class="gallery-section">
     <div class="container">
         <div class="section-title text-center">
-            <span class="subtitle">Meeting Room</span>
-            <h2>Ruang Meeting Kami</h2>
-            <p>Ruang meeting nyaman dan representatif untuk kebutuhan bisnis Anda</p>
+            <span class="subtitle" data-i18n="nav.services.meeting_room">Meeting Room</span>
+            <h2 data-i18n="meeting.gallery.title">Ruang Meeting Kami</h2>
+            <p data-i18n="meeting.gallery.desc">Ruang meeting nyaman dan representatif untuk kebutuhan bisnis Anda</p>
         </div>
 
         {{-- Slider Navigation --}}
@@ -704,8 +704,8 @@
 <section class="why-us-section">
     <div class="container">
         <div class="section-header">
-            <h2>FASILITAS MEETING ROOM KAMI</h2>
-            <p>Dapatkan pengalaman meeting terbaik dengan fasilitas lengkap dari Lawgika</p>
+            <h2 data-i18n="meeting.facility.title">FASILITAS MEETING ROOM KAMI</h2>
+            <p data-i18n="meeting.facility.desc">Dapatkan pengalaman meeting terbaik dengan fasilitas lengkap dari Lawgika</p>
         </div>
         <div class="row g-4 justify-content-center">
             <div class="col-md-4">
@@ -713,8 +713,8 @@
                     <div class="why-us-icon">
                         <i class="fa-solid fa-tv"></i>
                     </div>
-                    <h4>Smart Presentation</h4>
-                    <p>Dilengkapi dengan Smart TV dan peralatan presentasi modern yang mudah dihubungkan ke berbagai
+                    <h4 data-i18n="meeting.facility.item1_title">Smart Presentation</h4>
+                    <p data-i18n="meeting.facility.item1_desc">Dilengkapi dengan Smart TV dan peralatan presentasi modern yang mudah dihubungkan ke berbagai
                         perangkat.</p>
                 </div>
             </div>
@@ -723,8 +723,8 @@
                     <div class="why-us-icon">
                         <i class="fa-solid fa-wifi"></i>
                     </div>
-                    <h4>High Speed Internet</h4>
-                    <p>Koneksi WiFi berkecepatan tinggi yang stabil untuk mendukung video conference tanpa kendala.</p>
+                    <h4 data-i18n="meeting.facility.item2_title">High Speed Internet</h4>
+                    <p data-i18n="meeting.facility.item2_desc">Koneksi WiFi berkecepatan tinggi yang stabil untuk mendukung video conference tanpa kendala.</p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -732,8 +732,8 @@
                     <div class="why-us-icon">
                         <i class="fa-solid fa-mug-hot"></i>
                     </div>
-                    <h4>Pantry & Lounge</h4>
-                    <p>Akses ke ruang tunggu yang nyaman dan pantry dengan fasilitas free flow air mineral.</p>
+                    <h4 data-i18n="meeting.facility.item3_title">Pantry & Lounge</h4>
+                    <p data-i18n="meeting.facility.item3_desc">Akses ke ruang tunggu yang nyaman dan pantry dengan fasilitas free flow air mineral.</p>
                 </div>
             </div>
         </div>
@@ -744,49 +744,49 @@
 <section class="pt-pricing" id="pricing">
     <div class="container">
         <div class="section-title text-center mb-5">
-            <span class="subtitle">Harga Spesial</span>
-            <h2>Paket Sewa Meeting Room</h2>
-            <p>Reservasi sekarang dan dapatkan penawaran terbaik</p>
+            <span class="subtitle" data-i18n="meeting.pricing.badge">Harga Spesial</span>
+            <h2 data-i18n="meeting.pricing.title">Paket Sewa Meeting Room</h2>
+            <p data-i18n="meeting.pricing.desc">Reservasi sekarang dan dapatkan penawaran terbaik</p>
         </div>
 
         <div class="pricing-grid">
             {{-- KIRI: Booking Card --}}
             <div class="pricing-card-modern">
-                <h3 class="pricing-title" style="margin-top: 0; text-align: center;">BOOKING MEETING ROOM</h3>
+                <h3 class="pricing-title" style="margin-top: 0; text-align: center;" data-i18n="meeting.pricing.card1.title">BOOKING MEETING ROOM</h3>
                 <div class="pricing-price-wrap" style="text-align: center; margin-bottom: 20px;">
-                    <div class="pricing-price" style="font-size: 1.3rem; color: var(--primary);">Prosedur Reservasi</div>
+                    <div class="pricing-price" style="font-size: 1.3rem; color: var(--primary);" data-i18n="meeting.pricing.card1.subtitle">Prosedur Reservasi</div>
                 </div>
                 <ul class="pricing-benefit-list">
-                    <li><i class="fa-solid fa-circle-check"></i> Booking selambat-lambatnya 1 hari sebelumnya</li>
-                    <li><i class="fa-solid fa-circle-check"></i> Jadwal mengikuti ketersediaan ruangan</li>
-                    <li><i class="fa-solid fa-circle-check"></i> Pembatalan mohon diinformasikan minimal 12 jam sebelumnya</li>
-                    <li><i class="fa-solid fa-circle-check"></i> Akses fasilitas premium Lawgika Office</li>
+                    <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="meeting.pricing.card1.benefit1">Booking selambat-lambatnya 1 hari sebelumnya</span></li>
+                    <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="meeting.pricing.card1.benefit2">Jadwal mengikuti ketersediaan ruangan</span></li>
+                    <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="meeting.pricing.card1.benefit3">Pembatalan mohon diinformasikan minimal 12 jam sebelumnya</span></li>
+                    <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="meeting.pricing.card1.benefit4">Akses fasilitas premium Lawgika Office</span></li>
                 </ul>
                 <div class="mt-auto">
                     @if($hasBenefit)
-                        <button type="button" class="btn-pricing-modern" onclick="openBookingModal('reservasi','Paket Badan Usaha','60 mnt')">Booking Sekarang</button>
+                        <button type="button" class="btn-pricing-modern" onclick="openBookingModal('reservasi', window.LwI18n ? window.LwI18n.t('meeting.modal.pkg_body_usaha') : 'Paket Badan Usaha', window.LwI18n ? window.LwI18n.t('meeting.modal.duration_val') : '60 mnt')" data-i18n="meeting.pricing.card1.cta">Booking Sekarang</button>
                     @else
-                        <button type="button" class="btn-pricing-modern" onclick="showNoBenefitAlert()">Booking Sekarang</button>
+                        <button type="button" class="btn-pricing-modern" onclick="showNoBenefitAlert()" data-i18n="meeting.pricing.card1.cta">Booking Sekarang</button>
                     @endif
                 </div>
             </div>
 
             {{-- KANAN: Premium Packet Card --}}
             <div class="pricing-card-modern featured">
-                <h3 class="pricing-title" style="margin-top: 0; text-align: center; color: #fff; background-color: initial !important;">PAKET MEETING ROOM</h3>
+                <h3 class="pricing-title" style="margin-top: 0; text-align: center; color: #fff; background-color: initial !important;" data-i18n="meeting.pricing.card2.title">PAKET MEETING ROOM</h3>
                 <div class="pricing-price-wrap" style="text-align: center; margin-bottom: 20px;">
                     <div class="pricing-price" style="color: var(--accent); font-size: 2.5rem;">Rp 4.800.000</div>
-                    <p class="text-white-50 small mt-1">Investasi Profesional untuk Bisnis Anda</p>
+                    <p class="text-white-50 small mt-1" data-i18n="meeting.pricing.card2.subtitle">Investasi Profesional untuk Bisnis Anda</p>
                 </div>
                 <ul class="pricing-benefit-list">
-                    <li><i class="fa-solid fa-circle-check"></i> Ruang Meeting Nyaman & Profesional</li>
-                    <li><i class="fa-solid fa-circle-check"></i> Smart TV & High Speed WiFi</li>
-                    <li><i class="fa-solid fa-circle-check"></i> Layanan Print, Scan dan Fotocopy</li>
-                    <li><i class="fa-solid fa-circle-check"></i> Free Flow Mineral Water & Pantry</li>
-                    <li><i class="fa-solid fa-circle-check"></i> Kuota 60 Jam / Tahun (Fleksibel)</li>
+                    <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="meeting.pricing.card2.benefit1">Ruang Meeting Nyaman &amp; Profesional</span></li>
+                    <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="meeting.pricing.card2.benefit2">Smart TV &amp; High Speed WiFi</span></li>
+                    <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="meeting.pricing.card2.benefit3">Layanan Print, Scan dan Fotocopy</span></li>
+                    <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="meeting.pricing.card2.benefit4">Free Flow Mineral Water &amp; Pantry</span></li>
+                    <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="meeting.pricing.card2.benefit5">Kuota 60 Jam / Tahun (Fleksibel)</span></li>
                 </ul>
                 <div class="mt-auto">
-                    <a href="{{ route('meeting-room.order', ['package' => 'paket']) }}" class="btn-pricing-modern">Beli Paket Sekarang</a>
+                    <a href="{{ route('meeting-room.order', ['package' => 'paket']) }}" class="btn-pricing-modern" data-i18n="meeting.pricing.card2.cta">Beli Paket Sekarang</a>
                 </div>
             </div>
         </div>
@@ -799,28 +799,28 @@
 <section class="pt-faq">
     <div class="container">
         <div class="section-title text-center mb-5">
-            <span class="subtitle">Bantuan Sentral</span>
-            <h2>FAQ terkait Meeting Room</h2>
-            <p>Pertanyaan yang paling sering diajukan seputar layanan sewa ruangan</p>
+            <span class="subtitle" data-i18n="meeting.faq.badge">Bantuan Sentral</span>
+            <h2 data-i18n="meeting.faq.title">FAQ terkait Meeting Room</h2>
+            <p data-i18n="meeting.faq.desc">Pertanyaan yang paling sering diajukan seputar layanan sewa ruangan</p>
         </div>
         <div class="row">
             <div class="col-lg-8 mx-auto">
                 <div class="faq-item">
-                    <div class="faq-question">Berapa kapasitas maksimal ruang meeting? <i
+                    <div class="faq-question"><span data-i18n="meeting.faq.q1">Berapa kapasitas maksimal ruang meeting?</span> <i
                             class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Kapasitas standar ruang meeting kami adalah 8-10 orang, sangat cocok untuk
+                    <div class="faq-answer" data-i18n="meeting.faq.a1">Kapasitas standar ruang meeting kami adalah 8-10 orang, sangat cocok untuk
                         diskusi privat, presentasi tertutup, maupun workshop kecil.</div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">Apakah saya bisa memesan di luar jam kerja? <i
+                    <div class="faq-question"><span data-i18n="meeting.faq.q2">Apakah saya bisa memesan di luar jam kerja?</span> <i
                             class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Ya, pemesanan di luar jam operasional standar dapat dilakukan dengan
+                    <div class="faq-answer" data-i18n="meeting.faq.a2">Ya, pemesanan di luar jam operasional standar dapat dilakukan dengan
                         perjanjian dan konfirmasi sebelumnya. Silakan hubungi tim kami untuk pengaturannya.</div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">Apakah boleh membawa makanan dari luar? <i
+                    <div class="faq-question"><span data-i18n="meeting.faq.q3">Apakah boleh membawa makanan dari luar?</span> <i
                             class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Boleh, namun kami menyarankan untuk tetap menjaga kebersihan ruangan. Anda
+                    <div class="faq-answer" data-i18n="meeting.faq.a3">Boleh, namun kami menyarankan untuk tetap menjaga kebersihan ruangan. Anda
                         juga dapat meminta bantuan tim kami jika membutuhkan layanan catering tambahan.</div>
                 </div>
             </div>
@@ -1113,12 +1113,11 @@
 <div class="booking-modal-overlay" id="bookingModalOverlay">
     <div class="booking-modal">
         <div class="bm-left">
-            <h4 id="bmPackageName">Paket Meeting Room</h4>
+            <h4 id="bmPackageName" data-i18n="meeting.modal.title">Paket Meeting Room</h4>
             <div class="bm-info-item"><i class="fa-regular fa-clock"></i> <span id="bmDuration">60 mnt</span></div>
-            <div class="bm-info-item"><i class="fa-solid fa-location-dot"></i> <span>Meeting Offline (Lawgika
-                    Office)</span></div>
+            <div class="bm-info-item"><i class="fa-solid fa-location-dot"></i> <span data-i18n="meeting.modal.location">Meeting Offline (Lawgika Office)</span></div>
             <div style="margin-top:20px;">
-                <p style="font-size:0.9rem; color:#64748b; line-height:1.6;">
+                <p style="font-size:0.9rem; color:#64748b; line-height:1.6;" data-i18n="meeting.modal.instruction">
                     Pilih tanggal dan waktu yang tersedia untuk jadwal meeting room Anda.
                 </p>
             </div>
@@ -1126,25 +1125,25 @@
         <div class="bm-right">
             <button class="bm-close" onclick="closeBookingModal()">&times;</button>
             <div class="bm-header">
-                <h3>Pilih tanggal & waktu</h3>
+                <h3 data-i18n="meeting.modal.header">Pilih tanggal & waktu</h3>
             </div>
             <div class="bm-body">
                 <div class="bm-calendar-col">
                     <div class="calendar-nav">
                         <button id="calPrev" onclick="changeMonth(-1)"><i
                                 class="fa-solid fa-chevron-left"></i></button>
-                        <span id="calMonthYear">Apr 2026</span>
+                        <span id="calMonthYear"></span>
                         <button id="calNext" onclick="changeMonth(1)"><i
                                 class="fa-solid fa-chevron-right"></i></button>
                     </div>
                     <div class="calendar-grid">
-                        <div class="calendar-day-header">Min</div>
-                        <div class="calendar-day-header">Sen</div>
-                        <div class="calendar-day-header">Sel</div>
-                        <div class="calendar-day-header">Rab</div>
-                        <div class="calendar-day-header">Kam</div>
-                        <div class="calendar-day-header">Jum</div>
-                        <div class="calendar-day-header">Sab</div>
+                        <div class="calendar-day-header" data-i18n="calendar.day.sun">Min</div>
+                        <div class="calendar-day-header" data-i18n="calendar.day.mon">Sen</div>
+                        <div class="calendar-day-header" data-i18n="calendar.day.tue">Sel</div>
+                        <div class="calendar-day-header" data-i18n="calendar.day.wed">Rab</div>
+                        <div class="calendar-day-header" data-i18n="calendar.day.thu">Kam</div>
+                        <div class="calendar-day-header" data-i18n="calendar.day.fri">Jum</div>
+                        <div class="calendar-day-header" data-i18n="calendar.day.sat">Sab</div>
                     </div>
                     <div class="calendar-grid" id="calDays"></div>
                 </div>
@@ -1155,9 +1154,8 @@
                 </div>
             </div>
             <div class="bm-footer">
-                <button class="btn-bm-cancel" onclick="closeBookingModal()">Batal</button>
-                <button class="btn-bm-submit" id="btnReservasi" disabled onclick="submitBooking()">Lanjut ke
-                    Pembayaran</button>
+                <button class="btn-bm-cancel" onclick="closeBookingModal()" data-i18n="meeting.modal.cancel">Batal</button>
+                <button class="btn-bm-submit" id="btnReservasi" disabled onclick="submitBooking()" data-i18n="meeting.modal.submit">Lanjut ke Pembayaran</button>
             </div>
         </div>
     </div>
@@ -1172,9 +1170,16 @@
     let bookedSlotsCache = {};
 
     const availableTimes = ['09:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00'];
-    const monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September',
-        'Oktober', 'November', 'Desember'
-    ];
+
+    function getCurrentLocale() {
+        const localeMap = {
+            id: 'id-ID',
+            en: 'en-US',
+            zh: 'zh-CN'
+        };
+        const currentLang = window.LwI18n ? window.LwI18n.current() : 'id';
+        return localeMap[currentLang] || 'id-ID';
+    }
 
     function openBookingModal(pkgId, pkgName, duration) {
         selectedPackage = pkgId;
@@ -1206,15 +1211,17 @@
     }
 
     function showNoBenefitAlert() {
+        const titleText = window.LwI18n ? window.LwI18n.t('meeting.modal.denied_title') : 'Akses Ditolak';
+        const bodyText = window.LwI18n ? window.LwI18n.t('meeting.modal.denied_text') : 'Anda tidak memiliki Paket Badan Usaha aktif (Benefit dari Pendirian PT). Silakan Beli Paket Meeting Room terlebih dahulu.';
         if (typeof Swal !== 'undefined') {
             Swal.fire({
                 icon: 'warning',
-                title: 'Akses Ditolak',
-                text: 'Anda tidak memiliki Paket Badan Usaha aktif (Benefit dari Pendirian PT). Silakan Beli Paket Meeting Room terlebih dahulu.',
+                title: titleText,
+                text: bodyText,
                 confirmButtonColor: '#4e0516'
             });
         } else {
-            alert('Anda tidak memiliki Paket Badan Usaha aktif (Benefit dari Pendirian PT). Silakan Beli Paket Meeting Room terlebih dahulu.');
+            alert(bodyText);
         }
     }
 
@@ -1232,7 +1239,9 @@
     }
 
     function renderCalendar() {
-        document.getElementById('calMonthYear').innerText = `${monthNames[currentMonth]} ${currentYear}`;
+        const currentLocale = getCurrentLocale();
+        const dateObj = new Date(currentYear, currentMonth, 1);
+        document.getElementById('calMonthYear').innerText = dateObj.toLocaleDateString(currentLocale, { month: 'long', year: 'numeric' });
         const calDays = document.getElementById('calDays');
         calDays.innerHTML = '';
 
@@ -1270,15 +1279,17 @@
         document.getElementById('btnReservasi').disabled = true;
         renderCalendar(); // Refresh active state
 
-        const dayName = new Date(currentYear, currentMonth, dayNum).toLocaleDateString('id-ID', {
-            weekday: 'long'
-        });
-        document.getElementById('timeColTitle').innerText = `${dayName}, ${dayNum} ${monthNames[currentMonth]}`;
+        const currentLocale = getCurrentLocale();
+        const dateObj = new Date(currentYear, currentMonth, dayNum);
+        document.getElementById('timeColTitle').innerText = dateObj.toLocaleDateString(currentLocale, { weekday: 'long', day: 'numeric', month: 'long' });
         document.getElementById('bmTimeCol').classList.add('active');
 
         const container = document.getElementById('timeSlotsContainer');
+        const checkingText = window.LwI18n ? window.LwI18n.t('meeting.modal.checking') : 'Mengecek ketersediaan...';
+        const fullText = window.LwI18n ? window.LwI18n.t('meeting.modal.full') : 'Penuh';
+        
         container.innerHTML =
-            '<div style="text-align:center;padding:20px;color:#64748b;"><i class="fa-solid fa-spinner fa-spin"></i> Mengecek ketersediaan...</div>';
+            `<div style="text-align:center;padding:20px;color:#64748b;"><i class="fa-solid fa-spinner fa-spin"></i> ${checkingText}</div>`;
 
         // Fetch booked slots via AJAX
         let booked = [];
@@ -1297,7 +1308,7 @@
         container.innerHTML = '';
         availableTimes.forEach(time => {
             if (booked.includes(time)) {
-                container.innerHTML += `<div class="time-slot disabled">${time} (Penuh)</div>`;
+                container.innerHTML += `<div class="time-slot disabled">${time} (${fullText})</div>`;
             } else {
                 container.innerHTML +=
                     `<div class="time-slot" onclick="selectTime('${time}', this)">${time}</div>`;

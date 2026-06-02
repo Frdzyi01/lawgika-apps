@@ -339,9 +339,9 @@
         <div class="row align-items-center text-center text-lg-start">
             <div class="col-lg-8 mx-auto mx-lg-0">
                 <div class="page-title-content">
-                    <span class="text-white bg-danger rounded-pill px-3 py-1 fw-medium mb-3 d-inline-block shadow-sm" style="font-size: 0.85rem">Lawgika | Legal Services</span>
-                    <h1 class="text-white fw-bold mb-3 display-4">Layanan Perizinan & Hukum</h1>
-                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.15rem; max-width: 600px;">
+                    <span class="text-white bg-danger rounded-pill px-3 py-1 fw-medium mb-3 d-inline-block shadow-sm" style="font-size: 0.85rem" data-i18n="hukum.hero.badge">Lawgika | Legal Services</span>
+                    <h1 class="text-white fw-bold mb-3 display-4" data-i18n="hukum.hero.title">Layanan Perizinan & Hukum</h1>
+                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.15rem; max-width: 600px;" data-i18n="hukum.hero.desc">
                         Solusi legalitas, perizinan bisnis, dan perlindungan hukum profesional untuk menjaga kepatuhan dan keamanan perusahaan Anda.
                     </p>
                 </div>
@@ -349,8 +349,8 @@
             <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-center justify-content-lg-end mb-0">
-                        <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none">Beranda</a></li>
-                        <li class="breadcrumb-item active text-white-50" aria-current="page">Perizinan & Hukum</li>
+                        <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none" data-i18n="nav.home">Beranda</a></li>
+                        <li class="breadcrumb-item active text-white-50" aria-current="page" data-i18n="nav.services.perizinan_title">Perizinan & Hukum</li>
                     </ol>
                 </nav>
             </div>
@@ -363,14 +363,14 @@
     <div class="container">
         <div class="row align-items-center g-5 flex-row-reverse">
             <div class="col-lg-6">
-                <h2>Solusi Legalitas & Perizinan Terpadu Untuk Bisnis Anda</h2>
-                <p>Memastikan legalitas bisnis bukan sekadar formalitas, melainkan fondasi keamanan perusahaan Anda. Kami mendampingi pengurusan perizinan dasar hingga perlindungan aset hukum secara profesional dan efisien.</p>
+                <h2 data-i18n="hukum.solusi.title">Solusi Legalitas & Perizinan Terpadu Untuk Bisnis Anda</h2>
+                <p data-i18n="hukum.solusi.desc">Memastikan legalitas bisnis bukan sekadar formalitas, melainkan fondasi keamanan perusahaan Anda. Kami mendampingi pengurusan perizinan dasar hingga perlindungan aset hukum secara profesional dan efisien.</p>
                 <ul class="solution-list">
-                    <li><i class="fa-regular fa-circle-check"></i> Pengurusan perizinan OSS & NIB yang cepat</li>
-                    <li><i class="fa-regular fa-circle-check"></i> Perlindungan Merek & Kekayaan Intelektual (HAKI)</li>
-                    <li><i class="fa-regular fa-circle-check"></i> Drafting & review kontrak bisnis yang aman</li>
+                    <li><i class="fa-regular fa-circle-check"></i> <span data-i18n="hukum.solusi.list1">Pengurusan perizinan OSS & NIB yang cepat</span></li>
+                    <li><i class="fa-regular fa-circle-check"></i> <span data-i18n="hukum.solusi.list2">Perlindungan Merek & Kekayaan Intelektual (HAKI)</span></li>
+                    <li><i class="fa-regular fa-circle-check"></i> <span data-i18n="hukum.solusi.list3">Drafting & review kontrak bisnis yang aman</span></li>
                 </ul>
-                <a href="#layanan" class="btn-outline-brand">Lihat Semua Layanan →</a>
+                <a href="#layanan" class="btn-outline-brand" data-i18n="hukum.solusi.cta">Lihat Semua Layanan →</a>
             </div>
             <div class="col-lg-6">
                 <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&auto=format" alt="Legal Business Consultation" class="img-fluid-rounded">
@@ -383,8 +383,8 @@
 <section class="why-us-section">
     <div class="container">
         <div class="section-header">
-            <h2>MENGAPA MEMILIH KAMI?</h2>
-            <p>Keunggulan mempercayakan urusan perizinan dan hukum perusahaan Anda kepada Lawgika</p>
+            <h2 data-i18n="hukum.why.title">MENGAPA MEMILIH KAMI?</h2>
+            <p data-i18n="hukum.why.desc">Keunggulan mempercayakan urusan perizinan dan hukum perusahaan Anda kepada Lawgika</p>
         </div>
         <div class="row g-4 justify-content-center">
             <div class="col-md-4">
@@ -392,8 +392,8 @@
                     <div class="why-us-icon">
                         <i class="fa-solid fa-scale-balanced"></i>
                     </div>
-                    <h4>Kepatuhan Terjamin</h4>
-                    <p>Menjamin seluruh izin operasional dan dokumen hukum Anda sesuai dengan regulasi pemerintah terbaru.</p>
+                    <h4 data-i18n="hukum.why.item1.title">Kepatuhan Terjamin</h4>
+                    <p data-i18n="hukum.why.item1.desc">Menjamin seluruh izin operasional dan dokumen hukum Anda sesuai dengan regulasi pemerintah terbaru.</p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -401,8 +401,8 @@
         <div class="why-us-icon">
             <i class="fa-solid fa-eye"></i>
         </div>
-        <h4>Proses Transparan</h4>
-        <p>Alur pengurusan yang jelas, waktu pengerjaan terukur, dan progres yang selalu kami laporkan secara berkala.</p>
+        <h4 data-i18n="hukum.why.item2.title">Proses Transparan</h4>
+        <p data-i18n="hukum.why.item2.desc">Alur pengurusan yang jelas, waktu pengerjaan terukur, dan progres yang selalu kami laporkan secara berkala.</p>
     </div>
 </div>
             <div class="col-md-4">
@@ -410,8 +410,8 @@
                     <div class="why-us-icon">
                         <i class="fa-solid fa-user-tie"></i>
                     </div>
-                    <h4>Konsultan Ahli</h4>
-                    <p>Ditangani langsung oleh tim spesialis perizinan dan profesional hukum bisnis yang berpengalaman.</p>
+                    <h4 data-i18n="hukum.why.item3.title">Konsultan Ahli</h4>
+                    <p data-i18n="hukum.why.item3.desc">Ditangani langsung oleh tim spesialis perizinan dan profesional hukum bisnis yang berpengalaman.</p>
                 </div>
             </div>
         </div>
@@ -422,9 +422,9 @@
 <section id="layanan" class="py-5" style="background-color: #faf5f2; min-height: 50vh;">
     <div class="container py-5">
         <div class="section-title text-center mb-5">
-            <span class="subtitle">Katalog Layanan Hukum</span>
-            <h2>Pilih Layanan Kami</h2>
-            <p>Pilih spesifikasi layanan hukum yang sesuai dengan skala dan kebutuhan operasional perusahaan Anda saat ini.</p>
+            <span class="subtitle" data-i18n="hukum.katalog.badge">Katalog Layanan Hukum</span>
+            <h2 data-i18n="hukum.katalog.title">Pilih Layanan Kami</h2>
+            <p data-i18n="hukum.katalog.desc">Pilih spesifikasi layanan hukum yang sesuai dengan skala dan kebutuhan operasional perusahaan Anda saat ini.</p>
         </div>
 
         <div class="row justify-content-center">
@@ -433,53 +433,53 @@
 
                 
                     <a href="https://wa.me/6281112088600" class="service-card">
-                        <h3 class="service-title">Surat Izin Usaha Jasa Konstruksi (SIUJK)</h3>
-                        <span class="btn-detail">Lebih Detail <i class="fa-solid fa-arrow-right"></i></span>
+                        <h3 class="service-title" data-i18n="hukum.katalog.siujk">Surat Izin Usaha Jasa Konstruksi (SIUJK)</h3>
+                        <span class="btn-detail"><span data-i18n="hukum.katalog.more">Lebih Detail</span> <i class="fa-solid fa-arrow-right"></i></span>
                     </a>
 
                     <a href="https://wa.me/6281112088600" class="service-card">
-                        <h3 class="service-title">izin Import</h3>
-                        <span class="btn-detail">Lebih Detail <i class="fa-solid fa-arrow-right"></i></span>
+                        <h3 class="service-title" data-i18n="hukum.katalog.import">izin Import</h3>
+                        <span class="btn-detail"><span data-i18n="hukum.katalog.more">Lebih Detail</span> <i class="fa-solid fa-arrow-right"></i></span>
                     </a>
                     
                     <a href="https://wa.me/6281112088600" class="service-card">
-                        <h3 class="service-title">Izin Klinik</h3>
-                        <span class="btn-detail">Lebih Detail <i class="fa-solid fa-arrow-right"></i></span>
+                        <h3 class="service-title" data-i18n="hukum.katalog.klinik">Izin Klinik</h3>
+                        <span class="btn-detail"><span data-i18n="hukum.katalog.more">Lebih Detail</span> <i class="fa-solid fa-arrow-right"></i></span>
                     </a>
 
                     <a href="https://wa.me/6281112088600" class="service-card">
-                        <h3 class="service-title">Pendaftaran NPWP</h3>
-                        <span class="btn-detail">Lebih Detail <i class="fa-solid fa-arrow-right"></i></span>
+                        <h3 class="service-title" data-i18n="hukum.katalog.npwp">Pendaftaran NPWP</h3>
+                        <span class="btn-detail"><span data-i18n="hukum.katalog.more">Lebih Detail</span> <i class="fa-solid fa-arrow-right"></i></span>
                     </a>
 
                     <a href="https://wa.me/6281112088600" class="service-card">
-                        <h3 class="service-title">Surat Keterangan Tidak Pailit</h3>
-                        <span class="btn-detail">Lebih Detail <i class="fa-solid fa-arrow-right"></i></span>
+                        <h3 class="service-title" data-i18n="hukum.katalog.pailit">Surat Keterangan Tidak Pailit</h3>
+                        <span class="btn-detail"><span data-i18n="hukum.katalog.more">Lebih Detail</span> <i class="fa-solid fa-arrow-right"></i></span>
                     </a>
 
                     <a href="https://wa.me/6281112088600" class="service-card">
-                        <h3 class="service-title">Kartu Izin Tinggal Terbatas (KItAS)</h3>
-                        <span class="btn-detail">Lebih Detail <i class="fa-solid fa-arrow-right"></i></span>
+                        <h3 class="service-title" data-i18n="hukum.katalog.kitas">Kartu Izin Tinggal Terbatas (KItAS)</h3>
+                        <span class="btn-detail"><span data-i18n="hukum.katalog.more">Lebih Detail</span> <i class="fa-solid fa-arrow-right"></i></span>
                     </a>
 
                     <a href="https://wa.me/6281112088600" class="service-card">
-                        <h3 class="service-title">Kartu Izin Tinggal Tetap (KITAP)</h3>
-                        <span class="btn-detail">Lebih Detail <i class="fa-solid fa-arrow-right"></i></span>
+                        <h3 class="service-title" data-i18n="hukum.katalog.kitap">Kartu Izin Tinggal Tetap (KITAP)</h3>
+                        <span class="btn-detail"><span data-i18n="hukum.katalog.more">Lebih Detail</span> <i class="fa-solid fa-arrow-right"></i></span>
                     </a>
 
                     <a href="https://wa.me/6281112088600" class="service-card">
-                        <h3 class="service-title">Pengurusan VISA</h3>
-                        <span class="btn-detail">Lebih Detail <i class="fa-solid fa-arrow-right"></i></span>
+                        <h3 class="service-title" data-i18n="hukum.katalog.visa">Pengurusan VISA</h3>
+                        <span class="btn-detail"><span data-i18n="hukum.katalog.more">Lebih Detail</span> <i class="fa-solid fa-arrow-right"></i></span>
                     </a>
 
                     <a href="https://wa.me/6281112088600" class="service-card">
-                        <h3 class="service-title">Penyusunan Perjanjian Bisnis</h3>
-                        <span class="btn-detail">Lebih Detail <i class="fa-solid fa-arrow-right"></i></span>
+                        <h3 class="service-title" data-i18n="hukum.katalog.perjanjian">Penyusunan Perjanjian Bisnis</h3>
+                        <span class="btn-detail"><span data-i18n="hukum.katalog.more">Lebih Detail</span> <i class="fa-solid fa-arrow-right"></i></span>
                     </a>
 
                     <a href="https://wa.me/6281112088600" class="service-card">
-                        <h3 class="service-title">Surat Izin Usaha perusahaan Angkutan Laut(SIUPAL)</h3>
-                        <span class="btn-detail">Lebih Detail <i class="fa-solid fa-arrow-right"></i></span>
+                        <h3 class="service-title" data-i18n="hukum.katalog.siupal">Surat Izin Usaha perusahaan Angkutan Laut(SIUPAL)</h3>
+                        <span class="btn-detail"><span data-i18n="hukum.katalog.more">Lebih Detail</span> <i class="fa-solid fa-arrow-right"></i></span>
                     </a>
 
                   
@@ -494,23 +494,23 @@
 <section class="pt-faq">
     <div class="container">
         <div class="section-title text-center mb-5">
-            <span class="subtitle">Bantuan Sentral</span>
-            <h2>FAQ Perizinan & Hukum</h2>
-            <p>Pertanyaan yang paling sering diajukan seputar layanan legalitas perusahaan</p>
+            <span class="subtitle" data-i18n="hukum.faq.badge">Bantuan Sentral</span>
+            <h2 data-i18n="hukum.faq.title">FAQ Perizinan & Hukum</h2>
+            <p data-i18n="hukum.faq.desc">Pertanyaan yang paling sering diajukan seputar layanan legalitas perusahaan</p>
         </div>
         <div class="row">
             <div class="col-lg-8 mx-auto">
                 <div class="faq-item">
-                    <div class="faq-question">Berapa lama proses pengurusan NIB dan OSS? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Dengan kelengkapan dokumen yang sesuai, proses penerbitan Nomor Induk Berusaha (NIB) melalui sistem OSS berbasis risiko biasanya dapat diselesaikan dalam waktu 1-3 hari kerja.</div>
+                    <div class="faq-question"><span data-i18n="hukum.faq.q1">Berapa lama proses pengurusan NIB dan OSS?</span> <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer" data-i18n="hukum.faq.a1">Dengan kelengkapan dokumen yang sesuai, proses penerbitan Nomor Induk Berusaha (NIB) melalui sistem OSS berbasis risiko biasanya dapat diselesaikan dalam waktu 1-3 hari kerja.</div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">Mengapa perusahaan saya wajib mendaftarkan merek (HAKI)? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Mendaftarkan merek memberikan hak eksklusif secara hukum untuk menggunakan merek tersebut, serta melindungi bisnis Anda dari plagiarisme atau klaim pihak lain yang dapat merugikan aset perusahaan.</div>
+                    <div class="faq-question"><span data-i18n="hukum.faq.q2">Mengapa perusahaan saya wajib mendaftarkan merek (HAKI)?</span> <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer" data-i18n="hukum.faq.a2">Mendaftarkan merek memberikan hak eksklusif secara hukum untuk menggunakan merek tersebut, serta melindungi bisnis Anda dari plagiarisme atau klaim pihak lain yang dapat merugikan aset perusahaan.</div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">Apakah pelaporan LKPM wajib untuk semua perusahaan? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer">Ya, Laporan Kegiatan Penanaman Modal (LKPM) wajib dilaporkan secara berkala oleh setiap pelaku usaha yang memiliki NIB, sesuai dengan skala usaha dan nilai investasinya.</div>
+                    <div class="faq-question"><span data-i18n="hukum.faq.q3">Apakah pelaporan LKPM wajib untuk semua perusahaan?</span> <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer" data-i18n="hukum.faq.a3">Ya, Laporan Kegiatan Penanaman Modal (LKPM) wajib dilaporkan secara berkala oleh setiap pelaku usaha yang memiliki NIB, sesuai dengan skala usaha dan nilai investasinya.</div>
                 </div>
             </div>
         </div>

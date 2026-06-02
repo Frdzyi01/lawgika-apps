@@ -1,5 +1,5 @@
 @extends('layouts-customer.app')
-@section('title', 'Kirim Dokumen Legal')
+@section('title', __('customer.surat.create.title'))
 @section('content')
 <div class="container-fluid py-4" style="max-width:720px;">
 
@@ -7,9 +7,9 @@
   <nav aria-label="breadcrumb" class="mb-3">
     <ol class="breadcrumb" style="font-size:.85rem;">
       <li class="breadcrumb-item">
-        <a href="{{ route('customer.surat-menyurat.index') }}" class="text-decoration-none text-danger">Surat Menyurat</a>
+        <a href="{{ route('customer.surat-menyurat.index') }}" class="text-decoration-none text-danger">{{ __('customer.sidebar.correspondence') }}</a>
       </li>
-      <li class="breadcrumb-item active">Kirim Dokumen Baru</li>
+      <li class="breadcrumb-item active">{{ __('customer.surat.index.btn_new') }}</li>
     </ol>
   </nav>
 
@@ -17,9 +17,9 @@
     <div class="card-body p-4">
 
       <div class="mb-4">
-        <h5 class="fw-bold mb-1">Kirim Dokumen Legal (PDF)</h5>
+        <h5 class="fw-bold mb-1">{{ __('customer.surat.create.header') }}</h5>
         <p class="text-muted mb-0" style="font-size:.87rem;">
-          Upload file PDF beserta catatan ke tim legal kami. Maksimal 5MB.
+          {{ __('customer.surat.create.desc') }}
         </p>
       </div>
 
@@ -40,12 +40,12 @@
         {{-- Judul --}}
         <div class="mb-4">
           <label for="title" class="form-label fw-semibold">
-            Judul Dokumen <span class="text-danger">*</span>
+            {{ __('customer.surat.create.title_label') }} <span class="text-danger">*</span>
           </label>
           <input type="text" id="title" name="title"
                  class="form-control @error('title') is-invalid @enderror"
                  value="{{ old('title') }}"
-                 placeholder="Contoh: Permohonan Perubahan Anggaran Dasar">
+                 placeholder="{{ __('customer.surat.create.title_placeholder') }}">
           @error('title')
             <div class="invalid-feedback">{{ $message }}</div>
           @enderror
@@ -54,11 +54,11 @@
         {{-- Note --}}
         <div class="mb-4">
           <label for="note" class="form-label fw-semibold">
-            Catatan / Keterangan <span class="text-danger">*</span>
+            {{ __('customer.surat.create.note_label') }} <span class="text-danger">*</span>
           </label>
           <textarea id="note" name="note" rows="4"
                     class="form-control @error('note') is-invalid @enderror"
-                    placeholder="Jelaskan keperluan atau konteks dokumen ini...">{{ old('note') }}</textarea>
+                    placeholder="{{ __('customer.surat.create.note_placeholder') }}">{{ old('note') }}</textarea>
           @error('note')
             <div class="invalid-feedback">{{ $message }}</div>
           @enderror
@@ -67,14 +67,14 @@
         {{-- Upload PDF --}}
         <div class="mb-5">
           <label for="file" class="form-label fw-semibold">
-            Upload File PDF <span class="text-danger">*</span>
+            {{ __('customer.surat.create.file_label') }} <span class="text-danger">*</span>
           </label>
           <div class="border rounded-3 p-4 text-center bg-light"
                style="border-style:dashed!important;cursor:pointer;"
                onclick="document.getElementById('file').click()">
             <ion-icon name="cloud-upload-outline" style="font-size:2.2rem;" class="text-secondary"></ion-icon>
-            <p class="mb-1 mt-2 fw-semibold text-secondary">Klik untuk pilih file PDF</p>
-            <p class="text-muted mb-0"><small>Format: PDF · Maks. 5MB</small></p>
+            <p class="mb-1 mt-2 fw-semibold text-secondary">{{ __('customer.surat.create.file_click') }}</p>
+            <p class="text-muted mb-0"><small>{{ __('customer.surat.create.file_hint') }}</small></p>
             <p id="file-name-preview" class="text-primary fw-semibold mt-2 mb-0" style="display:none;"></p>
           </div>
           <input type="file" id="file" name="file" accept=".pdf"
@@ -89,11 +89,11 @@
         <div class="d-flex gap-3">
           <a href="{{ route('customer.surat-menyurat.index') }}"
              class="btn btn-outline-secondary px-4 fw-semibold rounded-3">
-            Batal
+            {{ __('customer.surat.create.btn_cancel') }}
           </a>
           <button type="submit" class="btn btn-danger px-5 fw-semibold shadow-sm rounded-3">
             <ion-icon name="send-outline" style="vertical-align:-2px;"></ion-icon>
-            Kirim Dokumen
+            {{ __('customer.surat.create.btn_submit') }}
           </button>
         </div>
 

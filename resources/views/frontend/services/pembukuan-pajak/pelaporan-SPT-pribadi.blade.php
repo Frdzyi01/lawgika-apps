@@ -810,17 +810,17 @@
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="page-title-content">
-                    <span class="text-white bg-danger rounded-pill px-3 py-1 fw-medium mb-3 d-inline-block shadow-sm" style="font-size: 0.85rem">Layanan Perpajakan</span>
-                    <h1 class="text-white fw-bold mb-3 display-4">Pelaporan SPT Pribadi</h1>
-                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem">Layanan pelaporan SPT Tahunan Orang Pribadi untuk membantu wajib pajak melaporkan kewajiban pajaknya secara tepat, mudah, dan sesuai ketentuan yang berlaku.</p>
+                    <span class="text-white bg-danger rounded-pill px-3 py-1 fw-medium mb-3 d-inline-block shadow-sm" style="font-size: 0.85rem" data-i18n="spt_pribadi.hero_badge">Layanan Perpajakan</span>
+                    <h1 class="text-white fw-bold mb-3 display-4" data-i18n="spt_pribadi.hero_title">Pelaporan SPT Pribadi</h1>
+                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem" data-i18n="spt_pribadi.hero_desc">Layanan pelaporan SPT Tahunan Orang Pribadi untuk membantu wajib pajak melaporkan kewajiban pajaknya secara tepat, mudah, dan sesuai ketentuan yang berlaku.</p>
                 </div>
             </div>
             <div class="col-lg-6 text-lg-end mt-4 mt-lg-0">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-lg-end justify-content-start mb-0">
-                        <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none">Beranda</a></li>
-                        <li class="breadcrumb-item"><a href="#" class="text-white text-decoration-none">Layanan</a></li>
-                        <li class="breadcrumb-item active text-white-50" aria-current="page">Pelaporan SPT Pribadi</li>
+                        <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none" data-i18n="nav.home">Beranda</a></li>
+                        <li class="breadcrumb-item"><a href="#" class="text-white text-decoration-none" data-i18n="nav.services">Layanan</a></li>
+                        <li class="breadcrumb-item active text-white-50" aria-current="page" data-i18n="nav.services.spt">Pelaporan SPT Pribadi</li>
                     </ol>
                 </nav>
             </div>
@@ -880,9 +880,9 @@
 <section class="benefits-section">
     <div class="container">
         <div class="section-header">
-            <span class="section-tag">Mengapa Memilih Kami</span>
-            <h2>Keuntungan Menggunakan Jasa Lawgika.co.id</h2>
-            <p>Dapatkan layanan pelaporan SPT Pribadi profesional dengan berbagai keuntungan eksklusif</p>
+            <span class="section-tag" data-i18n="ui.why_us_badge_normal">Mengapa Memilih Kami</span>
+            <h2 data-i18n="spt_pribadi.why_title">Keuntungan Menggunakan Jasa Lawgika.co.id</h2>
+            <p data-i18n="spt_pribadi.why_desc">Dapatkan layanan pelaporan SPT Pribadi profesional dengan berbagai keuntungan eksklusif</p>
         </div>
         <div class="benefits-grid">
             <div class="benefit-card fade-up" style="animation-delay: 0.1s">
@@ -915,9 +915,9 @@
         <div class="row align-items-center">
             <div class="col-lg-8">
                 <div class="break-content fade-up">
-                    <span class="break-badge">⭐ Patuh Pajak, Hidup Tenang</span>
-                    <h2>Laporkan SPT Tepat Waktu, Hindari Sanksi & Denda</h2>
-                    <p>Dengan bantuan profesional, Anda tidak perlu khawatir dengan kerumitan pelaporan SPT. Fokus pada pekerjaan dan bisnis Anda, biarkan kami yang mengurus perpajakannya.</p>
+                    <span class="break-badge" data-i18n="spt_pribadi.vb_badge">⭐ Patuh Pajak, Hidup Tenang</span>
+                    <h2><span data-i18n="spt_pribadi.vb_title">Laporkan SPT Tepat Waktu, Hindari Sanksi & Denda</span></h2>
+                    <p data-i18n="spt_pribadi.vb_desc">Dengan bantuan profesional, Anda tidak perlu khawatir dengan kerumitan pelaporan SPT. Fokus pada pekerjaan dan bisnis Anda, biarkan kami yang mengurus perpajakannya.</p>
                     <div class="d-flex flex-wrap gap-3">
                         <div class="bg-white bg-opacity-10 rounded-4 p-4" style="backdrop-filter: blur(10px);">
                             <h5 class="text-white mb-2">Bebas Denda</h5>
@@ -943,9 +943,9 @@
 <section class="faq-modern">
     <div class="container">
         <div class="section-header">
-            <span class="section-tag">Pertanyaan Umum</span>
-            <h2>FAQ Pelaporan SPT Pribadi</h2>
-            <p>Jawaban atas pertanyaan yang sering diajukan tentang pelaporan SPT Tahunan Orang Pribadi</p>
+            <span class="section-tag" data-i18n="ui.faq_title_generic">Pertanyaan Umum</span>
+            <h2 data-i18n="spt_pribadi.faq_title">FAQ Pelaporan SPT Pribadi</h2>
+            <p data-i18n="spt_pribadi.faq_desc">Jawaban atas pertanyaan yang sering diajukan tentang pelaporan SPT Tahunan Orang Pribadi</p>
         </div>
         <div class="faq-grid">
             <div class="faq-item-modern">

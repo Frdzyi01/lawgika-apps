@@ -810,17 +810,17 @@
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="page-title-content">
-                    <span class="text-white bg-danger rounded-pill px-3 py-1 fw-medium mb-3 d-inline-block shadow-sm" style="font-size: 0.85rem">Layanan Payroll</span>
-                    <h1 class="text-white fw-bold mb-3 display-4">Kelola Payroll dengan Mudah & Akurat</h1>
-                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem">Layanan pengelolaan payroll profesional untuk perhitungan gaji, potongan, serta administrasi penggajian karyawan.</p>
+                    <span class="text-white bg-danger rounded-pill px-3 py-1 fw-medium mb-3 d-inline-block shadow-sm" style="font-size: 0.85rem" data-i18n="payroll.hero_badge">Layanan Payroll</span>
+                    <h1 class="text-white fw-bold mb-3 display-4" data-i18n="payroll.hero_title">Kelola Payroll dengan Mudah & Akurat</h1>
+                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem" data-i18n="payroll.hero_desc">Layanan pengelolaan payroll profesional untuk perhitungan gaji, potongan, serta administrasi penggajian karyawan.</p>
                 </div>
             </div>
             <div class="col-lg-6 text-lg-end mt-4 mt-lg-0">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-lg-end justify-content-start mb-0">
-                        <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none">Beranda</a></li>
-                        <li class="breadcrumb-item"><a href="#" class="text-white text-decoration-none">Layanan</a></li>
-                        <li class="breadcrumb-item active text-white-50" aria-current="page">Layanan Payroll</li>
+                        <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none" data-i18n="nav.home">Beranda</a></li>
+                        <li class="breadcrumb-item"><a href="#" class="text-white text-decoration-none" data-i18n="nav.services">Layanan</a></li>
+                        <li class="breadcrumb-item active text-white-50" aria-current="page" data-i18n="nav.services.payroll">Layanan Payroll</li>
                     </ol>
                 </nav>
             </div>
@@ -909,9 +909,9 @@
 <section class="benefits-section">
     <div class="container">
         <div class="section-header">
-            <span class="section-tag">Mengapa Memilih Kami</span>
-            <h2>Keuntungan Menggunakan Jasa Lawgika.co.id</h2>
-            <p>Dapatkan layanan pajak & pembukuan terbaik dengan berbagai keuntungan eksklusif</p>
+            <span class="section-tag" data-i18n="ui.why_us_badge_normal">Mengapa Memilih Kami</span>
+            <h2 data-i18n="payroll.why_title">Keuntungan Menggunakan Jasa Lawgika.co.id</h2>
+            <p data-i18n="payroll.why_desc">Dapatkan layanan pajak & pembukuan terbaik dengan berbagai keuntungan eksklusif</p>
         </div>
         <div class="benefits-grid">
             <div class="benefit-card fade-up" style="animation-delay: 0.1s">
@@ -944,9 +944,9 @@
         <div class="row align-items-center">
             <div class="col-lg-8">
                 <div class="break-content fade-up">
-                    <span class="break-badge">⭐ Fokus pada Bisnis Utama Anda</span>
-                    <h2>Serahkan Urusan Payroll & Pembukuan kepada Ahlinya</h2>
-                    <p>Dengan layanan profesional kami, Anda dapat menghemat waktu, mengurangi risiko kesalahan, dan memastikan kepatuhan terhadap regulasi perpajakan dan ketenagakerjaan.</p>
+                    <span class="break-badge" data-i18n="payroll.vb_badge">⭐ Fokus pada Bisnis Utama Anda</span>
+                    <h2><span data-i18n="payroll.vb_title">Serahkan Urusan Payroll & Pembukuan kepada Ahlinya</span></h2>
+                    <p data-i18n="payroll.vb_desc">Dengan layanan profesional kami, Anda dapat menghemat waktu, mengurangi risiko kesalahan, dan memastikan kepatuhan terhadap regulasi perpajakan dan ketenagakerjaan.</p>
                     <div class="d-flex flex-wrap gap-3">
                         <div class="bg-white bg-opacity-10 rounded-4 p-4" style="backdrop-filter: blur(10px);">
                             <h5 class="text-white mb-2">Hemat Biaya</h5>
@@ -972,9 +972,9 @@
 <section class="faq-modern">
     <div class="container">
         <div class="section-header">
-            <span class="section-tag">Pertanyaan Umum</span>
-            <h2>FAQ Layanan Payroll & Pembukuan</h2>
-            <p>Jawaban atas pertanyaan yang sering diajukan tentang layanan kami</p>
+            <span class="section-tag" data-i18n="ui.faq_title_generic">Pertanyaan Umum</span>
+            <h2 data-i18n="payroll.faq_title">FAQ Layanan Payroll & Pembukuan</h2>
+            <p data-i18n="payroll.faq_desc">Jawaban atas pertanyaan yang sering diajukan tentang layanan kami</p>
         </div>
         <div class="faq-grid">
             <div class="faq-item-modern">

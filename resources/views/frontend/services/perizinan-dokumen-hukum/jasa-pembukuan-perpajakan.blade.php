@@ -714,9 +714,9 @@
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="page-title-content">
-                    <span class="text-white bg-danger rounded-pill px-3 py-1 fw-medium mb-3 d-inline-block shadow-sm" style="font-size: 0.85rem">Lawgika | Accounting & Tax</span>
-                    <h1 class="text-white fw-bold mb-3 display-4">Jasa Pembukuan & Perpajakan</h1>
-                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem">Layanan pembukuan akurat dan pelaporan pajak tepat waktu untuk UMKM, CV, dan PT. Fokus mengembangkan bisnis, serahkan urusan administrasi keuangan pada ahlinya.</p>
+                    <span class="text-white bg-danger rounded-pill px-3 py-1 fw-medium mb-3 d-inline-block shadow-sm" style="font-size: 0.85rem" data-i18n="jpp.hero_badge">Lawgika | Accounting & Tax</span>
+                    <h1 class="text-white fw-bold mb-3 display-4" data-i18n="jpp.hero_title">Jasa Pembukuan & Perpajakan</h1>
+                    <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem" data-i18n="jpp.hero_desc">Layanan pembukuan akurat dan pelaporan pajak tepat waktu untuk UMKM, CV, dan PT. Fokus mengembangkan bisnis, serahkan urusan administrasi keuangan pada ahlinya.</p>
                     <div class="d-flex flex-wrap gap-3 mt-4">
                         <a href="https://wa.me/6281112088600?text=Halo%20Lawgika,%20saya%20ingin%20berkonsultasi%20mengenai%20jasa%20pembukuan%20dan%20perpajakan." class="btn-white">
                             <i class="fa-brands fa-whatsapp me-2"></i>Konsultasi Gratis
@@ -730,8 +730,8 @@
             <div class="col-lg-6 text-lg-end mt-4 mt-lg-0">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-lg-end justify-content-start mb-0">
-                        <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none">Beranda</a></li>
-                        <li class="breadcrumb-item active text-white-50" aria-current="page">Jasa Pembukuan & Perpajakan</li>
+                        <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none" data-i18n="nav.home">Beranda</a></li>
+                        <li class="breadcrumb-item active text-white-50" aria-current="page" data-i18n="nav.services.pembukuan">Jasa Pembukuan & Perpajakan</li>
                     </ol>
                 </nav>
             </div>
@@ -747,8 +747,8 @@
                 <div class="trust-item">
                     <div class="trust-icon"><i class="bi bi-calculator"></i></div>
                     <div>
-                        <h6 class="mb-0 fw-bold">Akuntan Profesional</h6>
-                        <small class="text-muted">Bersertifikasi & Berpengalaman</small>
+                        <h6 class="mb-0 fw-bold" data-i18n="jpp.trust.item1_title">Akuntan Profesional</h6>
+                        <small class="text-muted" data-i18n="jpp.trust.item1_desc">Bersertifikasi & Berpengalaman</small>
                     </div>
                 </div>
             </div>
@@ -756,8 +756,8 @@
                 <div class="trust-item">
                     <div class="trust-icon"><i class="bi bi-shield-check"></i></div>
                     <div>
-                        <h6 class="mb-0 fw-bold">Laporan Akurat</h6>
-                        <small class="text-muted">Sesuai Standar SAK EMKM</small>
+                        <h6 class="mb-0 fw-bold" data-i18n="jpp.trust.item2_title">Laporan Akurat</h6>
+                        <small class="text-muted" data-i18n="jpp.trust.item2_desc">Sesuai Standar SAK EMKM</small>
                     </div>
                 </div>
             </div>
@@ -765,8 +765,8 @@
                 <div class="trust-item">
                     <div class="trust-icon"><i class="bi bi-calendar-check"></i></div>
                     <div>
-                        <h6 class="mb-0 fw-bold">Tepat Waktu</h6>
-                        <small class="text-muted">Bebas Denda Keterlambatan</small>
+                        <h6 class="mb-0 fw-bold" data-i18n="jpp.trust.item3_title">Tepat Waktu</h6>
+                        <small class="text-muted" data-i18n="jpp.trust.item3_desc">Bebas Denda Keterlambatan</small>
                     </div>
                 </div>
             </div>
@@ -786,15 +786,15 @@
             </div>
             <div class="col-lg-6">
                 <div class="zigzag-text">
-                    <span class="section-label">01. Jasa Pembukuan</span>
-                    <h2 class="display-5 fw-bold mb-3">Catatan Keuangan Rapi & Akurat</h2>
+                    <span class="section-label" data-i18n="jpp.section1.label">01. Jasa Pembukuan</span>
+                    <h2 class="display-5 fw-bold mb-3" data-i18n="jpp.section1.title">Catatan Keuangan Rapi & Akurat</h2>
                     <p class="text-muted mb-4 lead">
-                        Kami mencatat setiap transaksi bisnis Anda secara sistematis, menyusun laporan keuangan bulanan yang sesuai standar akuntansi, sehingga Anda selalu tahu kondisi keuangan terkini.
+                        <span data-i18n="jpp.section1.desc">Kami mencatat setiap transaksi bisnis Anda secara sistematis, menyusun laporan keuangan bulanan yang sesuai standar akuntansi, sehingga Anda selalu tahu kondisi keuangan terkini.</span>
                     </p>
                     <ul class="list-unstyled mb-4">
-                        <li class="mb-2"><i class="bi bi-check2-circle text-primary me-2"></i> Input Transaksi Harian/Mingguan</li>
-                        <li class="mb-2"><i class="bi bi-check2-circle text-primary me-2"></i> Rekonsiliasi Bank Bulanan</li>
-                        <li class="mb-2"><i class="bi bi-check2-circle text-primary me-2"></i> Laporan Laba Rugi & Neraca</li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-primary me-2"></i> <span data-i18n="jpp.section1.list1">Input Transaksi Harian/Mingguan</span></li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-primary me-2"></i> <span data-i18n="jpp.section1.list2">Rekonsiliasi Bank Bulanan</span></li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-primary me-2"></i> <span data-i18n="jpp.section1.list3">Laporan Laba Rugi & Neraca</span></li>
                     </ul>
                 </div>
             </div>
@@ -809,15 +809,15 @@
             </div>
             <div class="col-lg-6">
                 <div class="zigzag-text">
-                    <span class="section-label">02. Jasa Perpajakan</span>
-                    <h2 class="display-5 fw-bold mb-3">Hitung & Lapor Pajak Tanpa Ribet</h2>
+                    <span class="section-label" data-i18n="jpp.section2.label">02. Jasa Perpajakan</span>
+                    <h2 class="display-5 fw-bold mb-3" data-i18n="jpp.section2.title">Hitung & Lapor Pajak Tanpa Ribet</h2>
                     <p class="text-muted mb-4 lead">
-                        Tim kami akan menghitung, menyetor, dan melaporkan kewajiban pajak bulanan maupun tahunan Anda. Dijamin sesuai aturan terbaru Dirjen Pajak.
+                        <span data-i18n="jpp.section2.desc">Tim kami akan menghitung, menyetor, dan melaporkan kewajiban pajak bulanan maupun tahunan Anda. Dijamin sesuai aturan terbaru Dirjen Pajak.</span>
                     </p>
                     <ul class="list-unstyled mb-4">
-                        <li class="mb-2"><i class="bi bi-check2-circle text-primary me-2"></i> Perhitungan PPh 21, 23, 25, Final</li>
-                        <li class="mb-2"><i class="bi bi-check2-circle text-primary me-2"></i> Pelaporan SPT Masa PPN</li>
-                        <li class="mb-2"><i class="bi bi-check2-circle text-primary me-2"></i> Penyusunan SPT Tahunan Badan</li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-primary me-2"></i> <span data-i18n="jpp.section2.list1">Perhitungan PPh 21, 23, 25, Final</span></li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-primary me-2"></i> <span data-i18n="jpp.section2.list2">Pelaporan SPT Masa PPN</span></li>
+                        <li class="mb-2"><i class="bi bi-check2-circle text-primary me-2"></i> <span data-i18n="jpp.section2.list3">Penyusunan SPT Tahunan Badan</span></li>
                     </ul>
                 </div>
             </div>
@@ -829,9 +829,9 @@
 <section class="requirements-section">
     <div class="container">
         <div class="section-header">
-            <span class="badge">Siapkan Dokumen</span>
-            <h2>DOKUMEN YANG DIPERLUKAN</h2>    
-            <p>Hanya menyiapkan berkas berikut untuk memulai kerjasama</p>
+            <span class="badge" data-i18n="ui.req_badge">Siapkan Dokumen</span>
+            <h2 data-i18n="ui.req_title">DOKUMEN YANG DIPERLUKAN</h2>    
+            <p data-i18n="ui.req_desc">Hanya menyiapkan berkas berikut untuk memulai kerjasama</p>
         </div>
         <div class="row g-4 justify-content-center">
             <div class="col-md-6">
@@ -840,15 +840,15 @@
                         <div class="requirement-icon">
                             <i class="fa-solid fa-file-invoice"></i>
                         </div>
-                        <h3>DATA USAHA</h3>
+                        <h3 data-i18n="ui.syarat_data">DATA USAHA</h3>
                     </div>
                     <ul class="requirement-list">
-                        <li><i class="fa-solid fa-circle-check"></i> NPWP Badan / Pribadi</li>
-                        <li><i class="fa-solid fa-circle-check"></i> NIB / SKU / SIUP</li>
-                        <li><i class="fa-solid fa-circle-check"></i> PKP (Jika Pengusaha Kena Pajak)</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Rekening Koran 3 Bulan Terakhir</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Bukti Setor Pajak (SSP) Sebelumnya</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Username & Password Coretax</li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="jpp.req.data1">NPWP Badan / Pribadi</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="jpp.req.data2">NIB / SKU / SIUP</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="jpp.req.data3">PKP (Jika Pengusaha Kena Pajak)</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="jpp.req.data4">Rekening Koran 3 Bulan Terakhir</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="jpp.req.data5">Bukti Setor Pajak (SSP) Sebelumnya</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="jpp.req.data6">Username & Password Coretax</span></li>
                     </ul>
                     <a href="#" class="requirement-cta">
                         Konsultasi Data <i class="fa-solid fa-arrow-right"></i>
@@ -861,15 +861,15 @@
                         <div class="requirement-icon">
                             <i class="fa-solid fa-folder-open"></i>
                         </div>
-                        <h3>DOKUMEN TRANSAKSI</h3>
+                        <h3 data-i18n="ui.syarat_dokumen">DOKUMEN TRANSAKSI</h3>
                     </div>
                     <ul class="requirement-list">
-                        <li><i class="fa-solid fa-circle-check"></i> Faktur Penjualan / Invoice</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Faktur Pembelian & Biaya Operasional</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Faktur Pajak Masukan & Keluaran</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Bukti Potong PPh (Dari Customer)</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Daftar Aset & Penyusutan</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Data Gaji Karyawan (Jika Ada)</li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="jpp.req.doc1">Faktur Penjualan / Invoice</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="jpp.req.doc2">Faktur Pembelian & Biaya Operasional</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="jpp.req.doc3">Faktur Pajak Masukan & Keluaran</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="jpp.req.doc4">Bukti Potong PPh (Dari Customer)</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="jpp.req.doc5">Daftar Aset & Penyusutan</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="jpp.req.doc6">Data Gaji Karyawan (Jika Ada)</span></li>
                     </ul>
                     <a href="#" class="requirement-cta">
                         Upload Dokumen <i class="fa-solid fa-arrow-right"></i>
@@ -889,9 +889,9 @@
             </div>
             <div class="col-lg-6">
                 <div class="section-title mb-4">
-                    <span class="subtitle">Informasi Layanan</span>
-                    <h2 class="mb-3 text-start">Solusi Pembukuan & Pajak Terpercaya</h2>
-                    <p class="ms-0 text-start">Kelola administrasi keuangan dan kewajiban perpajakan Anda dengan lebih efisien bersama Lawgika. Kami hadir untuk memastikan bisnis Anda patuh hukum dan memiliki laporan keuangan yang akurat.</p>
+                    <span class="subtitle" data-i18n="ui.service_info">Informasi Layanan</span>
+                    <h2 class="mb-3 text-start" data-i18n="jpp.pricing_title">Solusi Pembukuan & Pajak Terpercaya</h2>
+                    <p class="ms-0 text-start"><span data-i18n="jpp.pricing_desc">Kelola administrasi keuangan dan kewajiban perpajakan Anda dengan lebih efisien bersama Lawgika. Kami hadir untuk memastikan bisnis Anda patuh hukum dan memiliki laporan keuangan yang akurat.</span></p>
                 </div>
                 
                 <h5 class="fw-bold mb-3" style="color: var(--primary);">Layanan Yang Anda Dapatkan:</h5>
@@ -918,9 +918,9 @@
             </div>
             <div class="col-lg-6 order-lg-1">
                 <div class="section-title mb-4">
-                    <span class="subtitle">Kepatuhan Pajak</span>
-                    <h2 class="mb-3">Jasa Perpajakan Profesional</h2>
-                    <p class="ms-0 text-start">Maksimalkan efisiensi fiskal bisnis Anda dengan layanan perpajakan yang komprehensif. Kami membantu Anda menavigasi regulasi pajak yang kompleks agar bisnis tetap patuh dan aman dari risiko sanksi.</p>
+                    <span class="subtitle" data-i18n="ui.tax_compliance">Kepatuhan Pajak</span>
+                    <h2 class="mb-3" data-i18n="jpp.why_title">Jasa Perpajakan Profesional</h2>
+                    <p class="ms-0 text-start"><span data-i18n="jpp.why_desc">Maksimalkan efisiensi fiskal bisnis Anda dengan layanan perpajakan yang komprehensif. Kami membantu Anda menavigasi regulasi pajak yang kompleks agar bisnis tetap patuh dan aman dari risiko sanksi.</span></p>
                 </div>
                 
                 <h5 class="fw-bold mb-3" style="color: var(--primary);">Keunggulan Layanan Pajak:</h5>
@@ -950,8 +950,8 @@
 <section class="benefits-section">
     <div class="container">
         <div class="section-header text-center mb-5">
-            <span class="section-tag">Mengapa Memilih Kami?</span>
-            <p>Kami berkomitmen memberikan layanan terbaik untuk memastikan bisnis Anda berjalan lancar dan patuh hukum</p>
+            <span class="section-tag" data-i18n="ui.why_us_badge_normal">Mengapa Memilih Kami?</span>
+            <p data-i18n="jpp.why_us_desc">Kami berkomitmen memberikan layanan terbaik untuk memastikan bisnis Anda berjalan lancar dan patuh hukum</p>
         </div>
         <div class="row g-4">
             {{-- Benefit 1 --}}
@@ -1119,8 +1119,8 @@
     <div class="container">
         <div class="section-title text-center mb-5">
             <span class="subtitle">Bantuan Sentral</span>
-            <h2>FAQ Seputar Pembukuan & Pajak</h2>
-            <p>Pertanyaan yang paling sering diajukan seputar jasa akuntansi dan perpajakan</p>
+            <h2 data-i18n="jpp.faq_title">FAQ Seputar Pembukuan & Pajak</h2>
+            <p data-i18n="jpp.faq_desc">Pertanyaan yang paling sering diajukan seputar jasa akuntansi dan perpajakan</p>
         </div>
         <div class="row">
             <div class="col-lg-8 mx-auto">

@@ -204,26 +204,26 @@
 <div class="success-wrap">
   <div class="success-card">
     <div class="check-ring"><i class="bi bi-check-lg"></i></div>
-    <h2>Pengajuan Berhasil! 🎉</h2>
-    <p>Terima kasih telah mempercayakan pelaporan pajak Anda kepada Lawgika.<br>Tim kami akan meninjau dan menghubungi Anda segera.</p>
+    <h2><span data-i18n="spt_success.title">Pengajuan Berhasil! 🎉</span></h2>
+    <p data-i18n="spt_success.desc">Terima kasih telah mempercayakan pelaporan pajak Anda kepada Lawgika.<br>Tim kami akan meninjau dan menghubungi Anda segera.</p>
 
     <div class="summary-box">
-      <h4>Ringkasan Pengajuan</h4>
+      <h4 data-i18n="spt_success.summary_title">Ringkasan Pengajuan</h4>
 
       <div class="summary-row">
-        <span class="sr-label">Subject Pajak</span>
+        <span class="sr-label"><span data-i18n="spt_success.label_subject">Subject Pajak</span></span>
         <span class="sr-val">
           @if($data['subject_type'] === 'pribadi')
-            👤 Wajib Pajak Pribadi
+            <span data-i18n="spt_success.val_pribadi">👤 Wajib Pajak Pribadi</span>
           @else
-            🏢 Wajib Pajak Badan
+            <span data-i18n="spt_success.val_badan">🏢 Wajib Pajak Badan</span>
           @endif
         </span>
       </div>
 
       @if($data['subject_type'] === 'pribadi')
       <div class="summary-row">
-        <span class="sr-label">Nama Lengkap</span>
+        <span class="sr-label"><span data-i18n="spt_success.label_nama">Nama Lengkap</span></span>
         <span class="sr-val">{{ $data['nama_lengkap'] }}</span>
       </div>
       @if(!empty($data['nik']))
@@ -234,7 +234,7 @@
       @endif
       @else
       <div class="summary-row">
-        <span class="sr-label">Nama Perusahaan</span>
+        <span class="sr-label"><span data-i18n="spt_success.label_perusahaan">Nama Perusahaan</span></span>
         <span class="sr-val">{{ $data['perusahaan'] }}</span>
       </div>
       @if(!empty($data['npwp_perusahaan']))
@@ -246,26 +246,26 @@
       @endif
 
       <div class="summary-row">
-        <span class="sr-label">Tahun Pajak</span>
+        <span class="sr-label"><span data-i18n="spt_success.label_tahun">Tahun Pajak</span></span>
         <span class="sr-val">{{ $data['tahun_pajak'] }}</span>
       </div>
       <div class="summary-row">
-        <span class="sr-label">Laporan Keuangan</span>
-        <span class="sr-val">{{ $data['laporan_keuangan'] === 'sudah' ? '✅ Sudah ada' : '⏳ Perlu bantuan' }}</span>
+        <span class="sr-label"><span data-i18n="spt_success.label_lap_keu">Laporan Keuangan</span></span>
+        <span class="sr-val">{{ $data['laporan_keuangan'] === 'sudah' ? '✅ <span data-i18n="spt_success.val_already">Sudah ada</span>' : '⏳ <span data-i18n="spt_success.val_need_help">Perlu bantuan</span>' }}</span>
       </div>
       <div class="summary-row">
-        <span class="sr-label">Status Pelaporan</span>
-        <span class="sr-val">{{ $data['status_lapor'] === 'sudah' ? 'Pernah lapor sebelumnya' : 'Pertama kali lapor' }}</span>
+        <span class="sr-label"><span data-i18n="spt_success.label_status">Status Pelaporan</span></span>
+        <span class="sr-val">{{ $data['status_lapor'] === 'sudah' ? '<span data-i18n="spt_success.val_reported">Pernah lapor sebelumnya</span>' : '<span data-i18n="spt_success.val_first_time">Pertama kali lapor</span>' }}</span>
       </div>
       <div class="summary-row">
-        <span class="sr-label">Status Pesanan</span>
-        <span class="sr-val"><span class="status-badge">⏳ Menunggu Proses</span></span>
+        <span class="sr-label"><span data-i18n="spt_success.label_status_order">Status Pesanan</span></span>
+        <span class="sr-val"><span class="status-badge"><span data-i18n="spt_success.val_waiting">⏳ Menunggu Proses</span></span></span>
       </div>
     </div>
 
     <div class="info-note">
       <i class="bi bi-info-circle-fill"></i>
-      <p>Tim Lawgika akan menghubungi Anda melalui email atau WhatsApp dalam <strong>1×24 jam kerja</strong> untuk menginformasikan langkah selanjutnya dan detail biaya layanan.</p>
+      <p><span data-i18n="spt_success.info_note">Tim Lawgika akan menghubungi Anda melalui email atau WhatsApp dalam 1×24 jam kerja untuk menginformasikan langkah selanjutnya dan detail biaya layanan.</span></p>
     </div>
 
     @php
@@ -274,14 +274,14 @@
     @endphp
     <div class="d-flex flex-wrap gap-3 justify-content-center">
       <a href="{{ url('/') }}" class="btn-outline-s">
-        <i class="bi bi-house"></i> Kembali ke Beranda
+        <i class="bi bi-house"></i> <span data-i18n="spt_success.btn_home">Kembali ke Beranda</span>
       </a>
       <a href="https://wa.me/6281219110199?text={{ $waMsg }}" target="_blank" rel="noopener"
          class="btn-primary-s" style="background:#25D366;">
-        <i class="bi bi-whatsapp"></i> Hubungi via WhatsApp
+        <i class="bi bi-whatsapp"></i> <span data-i18n="spt_success.btn_wa">Hubungi via WhatsApp</span>
       </a>
       <a href="{{ route('customer.dashboard') }}" class="btn-outline-s">
-        <i class="bi bi-speedometer2"></i> Lihat Dashboard
+        <i class="bi bi-speedometer2"></i> <span data-i18n="spt_success.btn_dashboard">Lihat Dashboard</span>
       </a>
     </div>
   </div>

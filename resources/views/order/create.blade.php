@@ -349,11 +349,11 @@
 <section style="background:#fff;border-bottom:1px solid var(--border);padding:14px 0;">
     <div class="container">
         <nav class="order-breadcrumb">
-            <a href="{{ url('/') }}"><i class="fa-solid fa-house" style="font-size:.8rem"></i> Beranda</a>
+            <a href="{{ url('/') }}"><i class="fa-solid fa-house" style="font-size:.8rem"></i> <span data-i18n="nav.home">Beranda</span></a>
             <span class="mx-2">›</span>
             <a href="{{ url($serviceInfo['url']) }}">{{ $serviceInfo['label'] }}</a>
             <span class="mx-2">›</span>
-            <span>Form Order</span>
+            <span data-i18n="order.form_title">Form Order</span>
         </nav>
     </div>
 </section>
@@ -367,7 +367,7 @@
 
                 @if ($errors->any())
                 <div class="alert-order-error">
-                    <strong><i class="fa-solid fa-triangle-exclamation"></i> Mohon perbaiki isian berikut:</strong>
+                    <strong data-i18n="order.validation_error_header"><i class="fa-solid fa-triangle-exclamation"></i> Mohon perbaiki isian berikut:</strong>
                     <ul>
                         @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -378,8 +378,8 @@
 
                 <div class="order-card">
                     <div class="order-card-header">
-                        <h2><i class="fa-solid fa-file-signature me-2"></i>Form Order Layanan</h2>
-                        <p>Isi data di bawah ini dengan benar. Tim kami akan memproses dalam 1×24 jam.</p>
+                        <h2><i class="fa-solid fa-file-signature me-2"></i><span data-i18n="order.service_form_title">Form Order Layanan</span></h2>
+                        <p data-i18n="order.service_form_subtitle">Isi data di bawah ini dengan benar. Tim kami akan memproses dalam 1×24 jam.</p>
                     </div>
                     <div class="order-card-body">
 
@@ -404,11 +404,11 @@
                             {{-- Submit (shared) --}}
                             <div class="d-flex align-items-center gap-3 flex-wrap">
                                 <button type="submit" class="btn-order-submit" id="submitBtn">
-                                    <i class="fa-solid fa-paper-plane"></i> Kirim Order Sekarang
+                                    <i class="fa-solid fa-paper-plane"></i> <span data-i18n="order.submit_btn">Kirim Order Sekarang</span>
                                 </button>
                                 <a href="{{ url($serviceInfo['url']) }}"
                                     style="color:var(--gray);font-size:.9rem;text-decoration:none">
-                                    <i class="fa-solid fa-arrow-left me-1"></i> Kembali
+                                    <i class="fa-solid fa-arrow-left me-1"></i> <span data-i18n="order.back_btn">Kembali</span>
                                 </a>
                             </div>
                         </form>
@@ -419,7 +419,7 @@
             {{-- SIDEBAR --}}
             <div class="col-lg-4 d-none d-lg-block">
                 <div class="order-info-box">
-                    <h5><i class="fa-solid fa-circle-info me-2"></i>Informasi Order</h5>
+                    <h5><i class="fa-solid fa-circle-info me-2"></i><span data-i18n="order.info_title">Informasi Order</span></h5>
                     <div class="info-item">
                         <i class="fa-solid fa-building"></i>
                         <div><strong>{{ $serviceInfo['label'] }}</strong><span>{{ $packageLabel }}</span></div>
@@ -427,34 +427,34 @@
                     @if(isset($requirements) && $requirements->count() > 0)
                     <div class="info-item">
                         <i class="fa-solid fa-file-lines"></i>
-                        <div><strong>Dokumen Wajib</strong><span>{{ $requirements->where('min_required', '>', 0)->count() }} dokumen harus diunggah</span></div>
+                        <div><strong data-i18n="order.required_docs">Dokumen Wajib</strong><span>{{ $requirements->where('min_required', '>', 0)->count() }} <span data-i18n="order.must_upload">dokumen harus diunggah</span></span></div>
                     </div>
                     @endif
                     <div class="info-item">
                         <i class="fa-solid fa-clock"></i>
-                        <div><strong>Estimasi Proses</strong><span>2 jam – 14 hari kerja</span></div>
+                        <div><strong data-i18n="order.process_est">Estimasi Proses</strong><span data-i18n="order.process_est_val">2 jam – 14 hari kerja</span></div>
                     </div>
                     <div class="info-item">
                         <i class="fa-solid fa-shield-halved"></i>
-                        <div><strong>Dokumen Resmi</strong><span>SK dari Kemenkumham RI</span></div>
+                        <div><strong data-i18n="order.official_doc">Dokumen Resmi</strong><span data-i18n="order.official_doc_val">SK dari Kemenkumham RI</span></div>
                     </div>
                     <div class="info-item">
                         <i class="fa-solid fa-headset"></i>
-                        <div><strong>Konsultasi Gratis</strong><span>Tim kami siap membantu</span></div>
+                        <div><strong data-i18n="order.free_consult">Konsultasi Gratis</strong><span data-i18n="order.free_consult_val">Tim kami siap membantu</span></div>
                     </div>
                     @if(isset($requirements) && $requirements->count() > 0)
                     <div class="doc-checklist">
-                        <p><i class="fa-solid fa-list-check me-1"></i>Checklist Dokumen</p>
+                        <p><i class="fa-solid fa-list-check me-1"></i><span data-i18n="order.checklist_title">Checklist Dokumen</span></p>
                         <ul>
                             @foreach($requirements as $req)
-                            <li>{{ $req->label }}@if($req->min_required > 1) <small>(min {{ $req->min_required }})</small>@endif</li>
+                            <li>{{ $req->label }}@if($req->min_required > 1) <small>(<span data-i18n="order.min">min</span> {{ $req->min_required }})</small>@endif</li>
                             @endforeach
                         </ul>
                     </div>
                     @endif
                     <a href="https://wa.me/6281112088600?text={{ urlencode('Halo Lawgika, saya ingin konsultasi tentang ' . $serviceInfo['label'] . ' – ' . $packageLabel) }}"
                         target="_blank" class="info-wa-btn">
-                        <i class="fa-brands fa-whatsapp" style="font-size:1.2rem"></i> Hubungi via WhatsApp
+                        <i class="fa-brands fa-whatsapp" style="font-size:1.2rem"></i> <span data-i18n="order.contact_wa">Hubungi via WhatsApp</span>
                     </a>
                 </div>
             </div>
@@ -467,7 +467,7 @@
     document.getElementById('orderForm').addEventListener('submit', function() {
         const btn = document.getElementById('submitBtn');
         btn.disabled = true;
-        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Mengirim…';
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> ' + (window.LwI18n ? window.LwI18n.t('order.sending') : 'Mengirim...');
     });
 </script>
 

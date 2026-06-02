@@ -309,14 +309,14 @@
     <div class="container">
         <nav style="font-size:.88rem;color:var(--gray);">
             <a href="{{ url('/') }}" style="color:var(--primary);text-decoration:none;font-weight:500">
-                <i class="fa-solid fa-house" style="font-size:.8rem"></i> Beranda
+                <i class="fa-solid fa-house" style="font-size:.8rem"></i> <span data-i18n="nav.home">Beranda</span>
             </a>
             <span class="mx-2">›</span>
             <a href="{{ url($serviceInfo['url']) }}" style="color:var(--primary);text-decoration:none;font-weight:500">
                 {{ $serviceInfo['label'] }}
             </a>
             <span class="mx-2">›</span>
-            <span>Order Berhasil</span>
+            <span data-i18n="order.success_page_title">Order Berhasil</span>
         </nav>
     </div>
 </section>
@@ -330,31 +330,30 @@
                     <i class="fa-solid fa-check"></i>
                 </div>
 
-                <h1 class="success-title">Order Berhasil Dikirim! 🎉</h1>
+                <h1 class="success-title" data-i18n="order.success_title">Order Berhasil Dikirim! 🎉</h1>
                 <p class="success-subtitle">
-                    Terima kasih, <strong>{{ auth()->user()->name }}</strong>!<br>
-                    Order Anda telah kami terima dan sedang diproses oleh tim Lawgika.
+                    Terima kasih, <strong>{{ auth()->user()->name }}</strong>!<br><span data-i18n="order.received_and_processing">Order Anda telah kami terima dan sedang diproses oleh tim Lawgika.</span>
                 </p>
 
                 {{-- Order Number --}}
                 @if($orderNumber)
                 <div class="success-card mb-4">
-                    <div class="success-card-title"><i class="fa-solid fa-receipt me-1"></i>Nomor Order</div>
+                    <div class="success-card-title"><i class="fa-solid fa-receipt me-1"></i><span data-i18n="order.order_number_title">Nomor Order</span></div>
                     <div class="order-num-box">
                         <div>
-                            <div class="label">Simpan nomor order ini sebagai referensi</div>
+                            <div class="label" data-i18n="order.order_number_label">Simpan nomor order ini sebagai referensi</div>
                             <div class="number">{{ $orderNumber }}</div>
                         </div>
                         <i class="fa-solid fa-copy" style="color:var(--gray);cursor:pointer;font-size:1.2rem"
                             onclick="navigator.clipboard.writeText('{{ $orderNumber }}').then(()=>this.style.color='#16a34a')"
-                            title="Salin nomor order"></i>
+                            title="Salin nomor order" data-i18n-title="order.order_number_copy_title"></i>
                     </div>
                 </div>
                 @endif
 
                 {{-- Summary --}}
                 <div class="success-card">
-                    <div class="success-card-title"><i class="fa-solid fa-box me-1"></i>Ringkasan Order</div>
+                    <div class="success-card-title"><i class="fa-solid fa-box me-1"></i><span data-i18n="order.summary_title">Ringkasan Order</span></div>
                     <div class="summary-row">
                         <div class="text-start">
                             <div class="summary-service">{{ $serviceInfo['label'] }}</div>
@@ -366,13 +365,13 @@
                             </div>
                             @endif
                         </div>
-                        <span class="summary-badge">Pendirian Badan Usaha</span>
+                        <span class="summary-badge" data-i18n="order.summary_badge_legal">Pendirian Badan Usaha</span>
                     </div>
 
                     @if(!is_null($totalBiaya))
                     <div class="total-biaya-box">
                         <div>
-                            <div class="tb-label"><i class="fa-solid fa-money-bill-wave me-1"></i>Total Biaya yang Harus Dibayar</div>
+                            <div class="tb-label"><i class="fa-solid fa-money-bill-wave me-1"></i><span data-i18n="order.total_amount_title">Total Biaya yang Harus Dibayar</span></div>
                         </div>
                         <div class="tb-amount">Rp {{ number_format($totalBiaya, 0, ',', '.') }}</div>
                     </div>
@@ -381,39 +380,39 @@
 
                 {{-- Payment Steps --}}
                 <div class="success-card">
-                    <div class="success-card-title"><i class="fa-solid fa-money-bill-transfer me-1"></i>Instruksi Pembayaran</div>
+                    <div class="success-card-title"><i class="fa-solid fa-money-bill-transfer me-1"></i><span data-i18n="order.payment_instruction_title">Instruksi Pembayaran</span></div>
                     <ul class="payment-steps">
                         <li>
                             <span class="step-num">1</span>
-                            <span>Tim kami akan menghubungi Anda via WhatsApp untuk menginformasikan rekening pembayaran dan total biaya sesuai paket yang dipilih.</span>
+                            <span data-i18n="order.step_bank_wa">Tim kami akan menghubungi Anda via WhatsApp untuk menginformasikan rekening pembayaran dan total biaya sesuai paket yang dipilih.</span>
                         </li>
                         <li>
                             <span class="step-num">2</span>
-                            <span>Lakukan transfer pembayaran sesuai instruksi dari tim Lawgika.</span>
+                            <span data-i18n="order.step_transfer">Lakukan transfer pembayaran sesuai instruksi dari tim Lawgika.</span>
                         </li>
                         <li>
                             <span class="step-num">3</span>
-                            <span>Ambil screenshot / foto bukti pembayaran Anda.</span>
+                            <span data-i18n="order.step_screenshot">Ambil screenshot / foto bukti pembayaran Anda.</span>
                         </li>
                         <li>
                             <span class="step-num">4</span>
-                            <span>Kirim bukti pembayaran ke WhatsApp kami beserta nomor order <strong>{{ $orderNumber }}</strong>.</span>
+                            <span data-i18n="order.step_send_proof_wa">Kirim bukti pembayaran ke WhatsApp kami beserta nomor order.</span>
                         </li>
                         <li>
                             <span class="step-num">5</span>
-                            <span>Tim kami akan mengkonfirmasi dan mulai memproses layanan Anda.</span>
+                            <span data-i18n="order.step_confirm_and_process">Tim kami akan mengkonfirmasi dan mulai memproses layanan Anda.</span>
                         </li>
                     </ul>
                 </div>
 
                 {{-- WhatsApp --}}
                 <div class="success-card">
-                    <div class="success-card-title"><i class="fa-brands fa-whatsapp me-1"></i>Kirim Bukti Pembayaran</div>
+                    <div class="success-card-title"><i class="fa-brands fa-whatsapp me-1"></i><span data-i18n="order.send_payment_proof_title">Kirim Bukti Pembayaran</span></div>
                     <div class="wa-highlight mb-4">
                         <i class="fa-brands fa-whatsapp"></i>
                         <div class="wa-text text-start">
-                            <strong>WhatsApp Lawgika</strong>
-                            <span>Silakan kirim bukti pembayaran ke nomor di bawah ini setelah melakukan transfer.</span>
+                            <strong data-i18n="order.whatsapp_lawgika_title">WhatsApp Lawgika</strong>
+                            <span data-i18n="order.whatsapp_lawgika_label">Silakan kirim bukti pembayaran ke nomor di bawah ini setelah melakukan transfer.</span>
                         </div>
                     </div>
                     <div style="font-size:2rem;font-weight:800;color:var(--primary);margin-bottom:20px;letter-spacing:1px;">
@@ -422,17 +421,17 @@
                     <a href="https://wa.me/6281112088600?text={{ urlencode('Halo Lawgika, saya sudah transfer untuk order ' . $serviceInfo['label'] . ' – ' . $packageLabel . '. Nomor Order: ' . $orderNumber . '. Berikut bukti pembayaran saya.') }}"
                         target="_blank" class="btn-wa">
                         <i class="fa-brands fa-whatsapp" style="font-size:1.3rem"></i>
-                        Kirim Bukti via WhatsApp
+                        <span data-i18n="order.send_proof_wa_btn">Kirim Bukti via WhatsApp</span>
                     </a>
                 </div>
 
                 {{-- Actions --}}
                 <div class="d-flex justify-content-center gap-3 flex-wrap mt-2">
                     <a href="{{ route('customer.dashboard') }}" class="btn-outline-dark-brand">
-                        <i class="fa-solid fa-gauge-high"></i> Lihat Dashboard
+                        <i class="fa-solid fa-gauge-high"></i> <span data-i18n="order.view_dashboard_btn">Lihat Dashboard</span>
                     </a>
                     <a href="{{ url($serviceInfo['url']) }}" class="btn-outline-gray">
-                        <i class="fa-solid fa-arrow-left"></i> Kembali ke Layanan
+                        <i class="fa-solid fa-arrow-left"></i> <span data-i18n="order.back_to_service_btn">Kembali ke Layanan</span>
                     </a>
                 </div>
 
