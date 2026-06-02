@@ -103,6 +103,17 @@
         transition: transform 0.22s ease;
         opacity: 0.8;
       }
+      .lw-lang-sep {
+        width: 1.5px;
+        height: 18px;
+        background: rgba(255, 255, 255, 0.25);
+        margin: 0 4px;
+        align-self: center;
+      }
+      #header-sticky.scrolled .lw-lang-sep,
+      #header-sticky.sticky .lw-lang-sep {
+        background: rgba(0, 0, 0, 0.15);
+      }
       .lw-lang-dropdown {
         display: none;
         position: absolute;

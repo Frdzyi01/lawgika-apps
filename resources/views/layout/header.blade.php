@@ -886,14 +886,16 @@
             </div>
             <a href="#" class="search-trigger search-icon"><i class="fal fa-search"></i></a>
 
-            <!-- Language Switcher Desktop -->
-            <div class="lw-lang-switcher d-none d-lg-flex" id="lw-lang-switcher-desktop">
-              <button class="lw-lang-btn" id="lw-lang-trigger" type="button">
+            <span class="lw-lang-sep d-lg-none"></span>
+
+            <!-- Language Switcher -->
+            <div class="lw-lang-switcher d-flex my-auto" id="lw-lang-switcher-desktop" style="margin-left: -3px; margin-right: 10px;">
+              <button class="lw-lang-btn" id="lw-lang-trigger" type="button" style="padding: 6px 10px; font-size: 0.8rem;">
                 <span id="lw-lang-current-flag">🇮🇩</span>
-                <span id="lw-lang-current-name">Indonesia</span>
+                <span id="lw-lang-current-name" class="d-none d-lg-inline">Indonesia</span>
                 <i class="fas fa-angle-down lw-lang-arrow"></i>
               </button>
-              <div class="lw-lang-dropdown" id="lw-lang-dropdown">
+              <div class="lw-lang-dropdown" id="lw-lang-dropdown" style="right: 0; min-width: 160px;">
                 <div class="lw-lang-item" data-lw-lang="id">
                   <span class="lw-lang-flag">🇮🇩</span>
                   <span data-i18n="lang.id">Bahasa Indonesia</span>
