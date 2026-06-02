@@ -738,7 +738,6 @@
   </div>{{-- /.container --}}
 </section>
 
-{{-- =================== JAVASCRIPT (TAB) =================== --}}
 {{-- =================== JAVASCRIPT (TAB & SLIDER) =================== --}}
 <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -774,10 +773,19 @@
       }
     });
 
-    // Initialize Swipers
-    const swiperOffice = new Swiper('#swiper-office', getSwiperConfig('.layanan-prev-office', '.layanan-next-office'));
-    const swiperBusiness = new Swiper('#swiper-business', getSwiperConfig('.layanan-prev-business', '.layanan-next-business'));
-    const swiperForeign = new Swiper('#swiper-foreign', getSwiperConfig('.layanan-prev-foreign', '.layanan-next-foreign'));
+    // Initialize Swipers safely
+    let swiperOffice, swiperBusiness, swiperForeign;
+    if (typeof Swiper !== 'undefined') {
+      try {
+        swiperOffice = new Swiper('#swiper-office', getSwiperConfig('.layanan-prev-office', '.layanan-next-office'));
+        swiperBusiness = new Swiper('#swiper-business', getSwiperConfig('.layanan-prev-business', '.layanan-next-business'));
+        swiperForeign = new Swiper('#swiper-foreign', getSwiperConfig('.layanan-prev-foreign', '.layanan-next-foreign'));
+      } catch (err) {
+        console.error('Swiper initialization failed:', err);
+      }
+    } else {
+      console.warn('Swiper is not defined. Sliders will not be initialized.');
+    }
 
     // --- Tab Switching Logic ---
     const tabBtns = document.querySelectorAll('[data-layanan-tab]');
@@ -812,7 +820,13 @@
           const swiperInstance = target === 'office' ? swiperOffice :
             target === 'business' ? swiperBusiness :
             swiperForeign;
-          if (swiperInstance) swiperInstance.update();
+          if (swiperInstance) {
+            try {
+              swiperInstance.update();
+            } catch (err) {
+              console.error('Failed to update Swiper instance:', err);
+            }
+          }
         }
       });
     });

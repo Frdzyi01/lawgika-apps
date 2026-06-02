@@ -783,9 +783,9 @@
 <section class="requirements-section">
     <div class="container">
         <div class="section-header">
-            <span class="badge">Persiapan Dokumen</span>
-            <h2>PERSYARATAN DOKUMEN FIRMA</h2>
-            <p>Siapkan berkas berikut, tim kami akan memprosesnya</p>
+            <span class="badge" data-i18n="ui.req.doc_prep">Persiapan Dokumen</span>
+            <h2 data-i18n="firma.req_title" data-i18n="firma.req_title">PERSYARATAN DOKUMEN FIRMA</h2>
+            <p data-i18n="ui.req.doc_prep_desc" data-i18n="ui.req.doc_prep_desc">Siapkan berkas berikut, tim kami akan memprosesnya</p>
         </div>
         <div class="row g-4 justify-content-center">
             <div class="col-md-6">
@@ -797,15 +797,13 @@
                         <h3 data-i18n="ui.req_data_title">KELENGKAPAN DATA</h3>
                     </div>
                     <ul class="requirement-list">
-                        <li><i class="fa-solid fa-circle-check"></i> Nama Firma (minimal 3 kata)</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Alamat lengkap perusahaan</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Bidang usaha (Kode KBLI)</li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="ui.req.name_firma">Nama Firma (minimal 3 kata)</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="ui.req.address_company">Alamat lengkap perusahaan</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="ui.req.kbli">Bidang usaha (Kode KBLI)</span></li>
                         <li><i class="fa-solid fa-circle-check"></i> Susunan para sekutu</li>
                         <li><i class="fa-solid fa-circle-check"></i> Pembagian modal dan keuntungan</li>
                     </ul>
-                    <a href="#" class="requirement-cta">
-                        Konsultasi Data <i class="fa-solid fa-arrow-right"></i>
-                    </a>
+                    <a href="#" class="requirement-cta"><span data-i18n="ui.req.consult_data">Konsultasi Data</span> <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
             </div>
             <div class="col-md-6">
@@ -822,9 +820,7 @@
                         <li><i class="fa-solid fa-circle-check"></i> Pas foto para sekutu</li>
                         <li><i class="fa-solid fa-circle-check"></i> Bukti alamat usaha</li>
                     </ul>
-                    <a href="#" class="requirement-cta">
-                        Upload Dokumen <i class="fa-solid fa-arrow-right"></i>
-                    </a>
+                    <a href="#" class="requirement-cta"><span data-i18n="ui.req.upload_doc">Upload Dokumen</span> <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
             </div>
         </div>
@@ -835,7 +831,7 @@
 <section class="pt-pricing" id="pricing">
     <div class="container">
         <div class="section-title text-center mb-5">
-            <span class="subtitle">Pilihan Paket Firma</span>
+            <span class="subtitle" data-i18n="ui.pricing.pkg_choice_firma">Pilihan Paket Firma</span>
             <h2>Paket Pendirian Firma</h2>
             <p data-i18n="firma.pricing_desc">Pilih paket yang sesuai dengan kebutuhan bisnis kolektif Anda</p>
         </div>
@@ -848,106 +844,76 @@
         <div class="price">Rp 4.500.000</div>
 
         <ul class="feature-list">
-            <li><i class="fa-solid fa-check"></i> Pengecekan Nama Firma</li>
-            <li><i class="fa-solid fa-check"></i> Pemesanan Nama Firma</li>
-            <li><i class="fa-solid fa-check"></i> Akta Pendirian Firma</li>
-            <li><i class="fa-solid fa-check"></i> Sertifikat Pendaftaran Menkumham</li>
-            <li><i class="fa-solid fa-check"></i> NPWP & SKT</li>
-            <li><i class="fa-solid fa-check"></i> Nomor Induk Berusaha</li>
+            <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.check_name_firma">Pengecekan Nama Firma</span></li>
+            <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.book_name_firma">Pemesanan Nama Firma</span></li>
+            <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.deed_firma">Akta Pendirian Firma</span></li>
+            <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.cert_menkumham">Sertifikat Pendaftaran Menkumham</span></li>
+            <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.npwp_skt">NPWP & SKT</span></li>
+            <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.nib">Nomor Induk Berusaha</span></li>
 
-            <li class="disabled">
-                <i class="fa-solid fa-minus"></i> Alamat Bisnis Eksklusif
-            </li>
+            <li class="disabled"><i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.address">Alamat Bisnis Eksklusif</span></li>
 
-            <li class="disabled">
-                <i class="fa-solid fa-minus"></i> Meeting Room (48 Jam) & Podcast Room (12 Jam)
-            </li>
+            <li class="disabled"><i class="fa-solid fa-minus"></i> <span data-i18n="ui.pricing.feature.meeting_podcast">Meeting Room (48 Jam) & Podcast Room (12 Jam)</span></li>
 
-            <li class="disabled">
-                <i class="fa-solid fa-minus"></i> Akses Wifi & Smart TV
-            </li>
+            <li class="disabled"><i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.wifi">Akses Wifi & Smart TV</span></li>
 
-            <li class="disabled">
-                <i class="fa-solid fa-minus"></i> Layanan Print, Scan & Fotocopy
-            </li>
+            <li class="disabled"><i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.print">Layanan Print, Scan & Fotocopy</span></li>
 
-            <li class="disabled">
-                <i class="fa-solid fa-minus"></i> Pengelolaan Surat dan Paket
-            </li>
+            <li class="disabled"><i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.mail">Pengelolaan Surat dan Paket</span></li>
 
-            <li class="disabled">
-                <i class="fa-solid fa-minus"></i> Notifikasi Surat dan Paket Masuk
-            </li>
+            <li class="disabled"><i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.notification">Notifikasi Surat dan Paket Masuk</span></li>
 
-            <li class="disabled">
-                <i class="fa-solid fa-minus"></i> Surat Keterangan Domisili
-            </li>
+            <li class="disabled"><i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.domicile">Surat Keterangan Domisili</span></li>
 
-            <li class="disabled">
-                <i class="fa-solid fa-minus"></i> Akses Komunitas Business
-            </li>
+            <li class="disabled"><i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.community">Akses Komunitas Business</span></li>
 
-            <li class="disabled">
-                <i class="fa-solid fa-minus"></i> Layanan Resepsionis
-            </li>
+            <li class="disabled"><i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.receptionist">Layanan Resepsionis</span></li>
 
-            <li class="disabled">
-                <i class="fa-solid fa-minus"></i> Dashboard Login Customer
-            </li>
+            <li class="disabled"><i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.dashboard">Dashboard Login Customer</span></li>
 
-            <li class="disabled">
-                <i class="fa-solid fa-minus"></i> Rekening Perusahaan Bank Mandiri/OCBC/BCA
-            </li>
+            <li class="disabled"><i class="fa-solid fa-minus"></i> <span data-i18n="ui.pricing.feature.bank_account">Rekening Perusahaan Bank Mandiri/OCBC/BCA</span></li>
 
-            <li class="disabled">
-                <i class="fa-solid fa-minus"></i> Signage Display
-            </li>
+            <li class="disabled"><i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.signage">Signage Display</span></li>
 
-            <li class="disabled">
-                <i class="fa-solid fa-minus"></i> Layanan Call Handling
-            </li>
+            <li class="disabled"><i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.call_handling">Layanan Call Handling</span></li>
         </ul>
 
-        <button onclick="goOrder('firma','premium')" class="btn-pricing w-100">
-            Pilih Basic Package
-        </button>
+        <button onclick="goOrder('firma','premium')" class="btn-pricing w-100" data-i18n="ui.pricing.choose_basic">Pilih Basic Package</button>
     </div>
 </div>
 
 {{-- Bundling --}}
 <div class="col-lg-5 col-md-6">
     <div class="pricing-card featured">
-        <span class="badge">REKOMENDASI</span>
+        <span class="badge" data-i18n="vo.pricing.recommendation">REKOMENDASI</span>
 
         <h4>Business Pack </h4>
 
         <div class="price">Rp 8.500.000</div>
 
         <ul class="feature-list">
-            <li><i class="fa-solid fa-check"></i> Pengecekan Nama Firma</li>
-            <li><i class="fa-solid fa-check"></i> Pemesanan Nama Firma</li>
-            <li><i class="fa-solid fa-check"></i> Akta Pendirian Firma</li>
-            <li><i class="fa-solid fa-check"></i> Sertifikat Pendaftaran Menkumham</li>
-            <li><i class="fa-solid fa-check"></i> NPWP & SKT</li>
-            <li><i class="fa-solid fa-check"></i> Nomor Induk Berusaha</li>
-            <li><i class="fa-solid fa-check"></i> Alamat Bisnis Eksklusif</li>
-            <li><i class="fa-solid fa-check"></i> Meeting Room (48 Jam) & Podcast Room (12 Jam)</li>
-            <li><i class="fa-solid fa-check"></i> Akses Wifi & Smart TV</li>
-            <li><i class="fa-solid fa-check"></i> Layanan Print, Scan & Fotocopy</li>
-            <li><i class="fa-solid fa-check"></i> Pengelolaan Surat dan Paket</li>
-            <li><i class="fa-solid fa-check"></i> Notifikasi Surat dan Paket Masuk</li>
-            <li><i class="fa-solid fa-check"></i> Surat Keterangan Domisili</li>
-            <li><i class="fa-solid fa-check"></i> Akses Komunitas Business</li>
-            <li><i class="fa-solid fa-check"></i> Layanan Resepsionis</li>
-            <li><i class="fa-solid fa-check"></i> Dashboard Login Customer</li>
-            <li><i class="fa-solid fa-check"></i> Rekening Perusahaan Bank Mandiri/OCBC/BCA</li>
-            <li><i class="fa-solid fa-check"></i> Signage Display</li>
-            <li><i class="fa-solid fa-check"></i> Layanan Call Handling</li>
+            <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.check_name_firma">Pengecekan Nama Firma</span></li>
+            <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.book_name_firma">Pemesanan Nama Firma</span></li>
+            <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.deed_firma">Akta Pendirian Firma</span></li>
+            <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.cert_menkumham">Sertifikat Pendaftaran Menkumham</span></li>
+            <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.npwp_skt">NPWP & SKT</span></li>
+            <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.nib">Nomor Induk Berusaha</span></li>
+            <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.address">Alamat Bisnis Eksklusif</span></li>
+            <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.meeting_podcast">Meeting Room (48 Jam) & Podcast Room (12 Jam)</span></li>
+            <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.wifi">Akses Wifi & Smart TV</span></li>
+            <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.print">Layanan Print, Scan & Fotocopy</span></li>
+            <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.mail">Pengelolaan Surat dan Paket</span></li>
+            <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.notification">Notifikasi Surat dan Paket Masuk</span></li>
+            <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.domicile">Surat Keterangan Domisili</span></li>
+            <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.community">Akses Komunitas Business</span></li>
+            <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.receptionist">Layanan Resepsionis</span></li>
+            <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.dashboard">Dashboard Login Customer</span></li>
+            <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.bank_account">Rekening Perusahaan Bank Mandiri/OCBC/BCA</span></li>
+            <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.signage">Signage Display</span></li>
+            <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.call_handling">Layanan Call Handling</span></li>
         </ul>
 
-        <button onclick="goOrder('firma','enterprise')" class="btn-pricing-primary w-100">
-            Pilih Business Package
-        </button>
+        <button onclick="goOrder('firma','enterprise')" class="btn-pricing-primary w-100" data-i18n="ui.pricing.choose_business">Pilih Business Package</button>
     </div>
 </div>
         </div>

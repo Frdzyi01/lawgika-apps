@@ -783,9 +783,9 @@
 <section class="requirements-section">
     <div class="container">
         <div class="section-header">
-            <span class="badge">Persiapan Dokumen</span>
-            <h2>PERSYARATAN DOKUMEN PT PMA</h2>
-            <p>Siapkan berkas berikut, tim kami akan memprosesnya</p>
+            <span class="badge" data-i18n="ui.req.doc_prep">Persiapan Dokumen</span>
+            <h2 data-i18n="pt_pma.req_title">PERSYARATAN DOKUMEN PT PMA</h2>
+            <p data-i18n="ui.req.doc_prep_desc">Siapkan berkas berikut, tim kami akan memprosesnya</p>
         </div>
         <div class="row g-4 justify-content-center">
             <div class="col-md-6">
@@ -797,13 +797,13 @@
                         <h3 data-i18n="pt_pma.req_card1_title">DOKUMEN PERUSAHAAN ASING</h3>
                     </div>
                     <ul class="requirement-list">
-                        <li><i class="fa-solid fa-circle-check"></i> Akta pendirian perusahaan asing (diterjemahkan)</li>
-                        <li><i class="fa-solid fa-circle-check"></i> NPWP perusahaan asing (jika ada)</li>
-                        <li><i class="fa-solid fa-circle-check"></i> SK Kemenkumham perusahaan asing</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Surat kuasa dari pemegang saham asing</li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="pt_pma.req_item_deed">Akta pendirian perusahaan asing (diterjemahkan)</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="pt_pma.req_item_npwp">NPWP perusahaan asing (jika ada)</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="pt_pma.req_item_sk">SK Kemenkumham perusahaan asing</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="pt_pma.req_item_poa">Surat kuasa dari pemegang saham asing</span></li>
                     </ul>
                     <a href="#" class="requirement-cta">
-                        Konsultasi Dokumen <i class="fa-solid fa-arrow-right"></i>
+                        <span data-i18n="pt_pma.req_cta_consult">Konsultasi Dokumen</span> <i class="fa-solid fa-arrow-right"></i>
                     </a>
                 </div>
             </div>
@@ -816,14 +816,12 @@
                         <h3 data-i18n="pt_pma.req_card2_title">DOKUMEN PRIBADI</h3>
                     </div>
                     <ul class="requirement-list">
-                        <li><i class="fa-solid fa-circle-check"></i> Paspor pemegang saham asing (legalisasi)</li>
-                        <li><i class="fa-solid fa-circle-check"></i> KTP & NPWP direktur (WNI)</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Pas foto direktur & komisaris</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Surat domisili sementara (jika WNA)</li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="pt_pma.req_item_passport">Paspor pemegang saham asing (legalisasi)</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="pt_pma.req_item_ktp">KTP & NPWP direktur (WNI)</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="pt_pma.req_item_photo">Pas foto direktur & komisaris</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="pt_pma.req_item_domicile">Surat domisili sementara (jika WNA)</span></li>
                     </ul>
-                    <a href="#" class="requirement-cta">
-                        Upload Dokumen <i class="fa-solid fa-arrow-right"></i>
-                    </a>
+                    <a href="#" class="requirement-cta"><span data-i18n="ui.req.upload_doc">Upload Dokumen</span> <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
             </div>
         </div>
@@ -839,22 +837,22 @@
             </div>
             <div class="col-lg-6">
                 <div class="section-title mb-4">
-                    <span class="subtitle">Informasi PT PMA</span>
-                    <h2 class="mb-3">Mengenal Pendirian PT PMA</h2>
-                    <p class="ms-0 text-start">PT PMA (Penanaman Modal Asing) adalah badan hukum perseroan terbatas yang didirikan untuk investor asing yang ingin menjalankan bisnis di Indonesia dengan kepemilikan modal asing penuh maupun sebagian.</p>
+                    <span class="subtitle" data-i18n="pt_pma.pricing_subtitle">Informasi PT PMA</span>
+                    <h2 class="mb-3" data-i18n="pt_pma.pricing_title">Mengenal Pendirian PT PMA</h2>
+                    <p class="ms-0 text-start" data-i18n="pt_pma.pricing_desc">PT PMA (Penanaman Modal Asing) adalah badan hukum perseroan terbatas yang didirikan untuk investor asing yang ingin menjalankan bisnis di Indonesia dengan kepemilikan modal asing penuh maupun sebagian.</p>
                 </div>
                 
-                <h5 class="fw-bold mb-3" style="color: var(--primary);">Syarat Utama PT PMA:</h5>
+                <h5 class="fw-bold mb-3" style="color: var(--primary);" data-i18n="pt_pma.syarat_title">Syarat Utama PT PMA:</h5>
                 <ul class="solution-list mb-4">
-                    <li><i class="fa-solid fa-circle-check"></i> Rencana investasi minimal Rp 10 Miliar</li>
-                    <li><i class="fa-solid fa-circle-check"></i> Modal disetor minimal Rp 2.5 Miliar</li>
-                    <li><i class="fa-solid fa-circle-check"></i> Minimal 2 pemegang saham (Asing/Lokal)</li>
-                    <li><i class="fa-solid fa-circle-check"></i> Struktur Direksi & Komisaris yang jelas</li>
+                    <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="pt_pma.syarat1">Rencana investasi minimal Rp 10 Miliar</span></li>
+                    <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="pt_pma.syarat2">Modal disetor minimal Rp 2.5 Miliar</span></li>
+                    <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="pt_pma.syarat3">Minimal 2 pemegang saham (Asing/Lokal)</span></li>
+                    <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="pt_pma.syarat4">Struktur Direksi & Komisaris yang jelas</span></li>
                 </ul>
                 
                 <a href="https://wa.me/6281112088600?text=Halo%20Lawgika,%20saya%20ingin%20berkonsultasi%20mengenai%20pendirian%20PT%20PMA." 
                    target="_blank" class="btn-pricing-primary px-5 d-inline-block shadow-sm">
-                    Minta Penawaran Via WhatsApp <i class="fa-brands fa-whatsapp ms-2"></i>
+                    <span data-i18n="pt_pma.wa_btn">Minta Penawaran Via WhatsApp</span> <i class="fa-brands fa-whatsapp ms-2"></i>
                 </a>
             </div>
         </div>

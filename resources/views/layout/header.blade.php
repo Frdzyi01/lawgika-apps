@@ -1619,16 +1619,18 @@
           </div>
         </div>
         <div class="modal-right-thumb position-relative">
-                  <img src="{{ asset('lawgika/meeting.jpeg') }}" alt="img" />
+                  <img src="{{ asset('lawgika/daftar.jpeg') }}" alt="img" />
           <div class="signlogin-btnwrap">
             <button
               id="btn-stay-register"
-              class="theme-btn">
-              create account
+              class="theme-btn"
+              data-i18n="modal.login.create_account">
+              Create Akun
             </button>
             <button
               id="btn-go-login"
-              class="theme-create style-border">
+              class="theme-create style-border"
+              data-i18n="modal.login.submit">
               Log In
             </button>
           </div>
