@@ -243,7 +243,7 @@
           <a href="https://web.facebook.com/lawgika.co.id/" class="text-decoration-none" title="Facebook"><i class="fab fa-facebook-f"></i></a>
           <a href="https://www.instagram.com/lawgika.co.id?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="text-decoration-none" title="Instagram"><i class="fab fa-instagram"></i></a>
           <a href="https://www.tiktok.com/@lawgika.co.id?is_from_webapp=1&sender_device=pc" target="_blank" class="text-decoration-none" title="TikTok"><i class="fab fa-tiktok"></i></a>
-          <a href="https://id.linkedin.com/company/lawgika-associates-law-firm" target="_blank" class="text-decoration-none" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://www.linkedin.com/company/97997770/admin/dashboard/" target="_blank" class="text-decoration-none" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
         </div>
       </div>
     </div>

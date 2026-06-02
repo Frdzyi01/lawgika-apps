@@ -198,7 +198,7 @@
                         <h6 class="fw-bold mb-3 text-uppercase small" style="letter-spacing: 1px;" data-i18n="tentang.contact.follow">Ikuti Kami</h6>
                         <div class="d-flex gap-3">
                             <a href="https://www.instagram.com/lawgika.co.id" target="_blank" class="btn btn-outline-danger rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;"><i class="fab fa-instagram"></i></a>
-                            <a href="https://id.linkedin.com/company/lawgika-associates-law-firm" target="_blank" class="btn btn-outline-danger rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://www.linkedin.com/company/97997770/admin/dashboard/" target="_blank" class="btn btn-outline-danger rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;"><i class="fab fa-linkedin-in"></i></a>
                             <a href="https://web.facebook.com/lawgika.co.id/" class="btn btn-outline-danger rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;"><i class="fab fa-facebook-f"></i></a>
                         </div>
                     </div>
