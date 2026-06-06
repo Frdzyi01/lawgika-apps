@@ -107,6 +107,7 @@
     <meta name="description" content="{{ $description }}" />
     <meta name="keywords" content="{{ $keywords }}" />
     <meta name="google-site-verification" content="4SifO5KpxUTqWPbYNR5_n02fvRYEikrp8D7nTz2X5D0" />
+    <meta name="google-site-verification" content="VNnOC5trJXwmg55x1FQBGiLmSOIdoIqHImznFLVGjJw" />
     <meta name="author" content="Lawgika" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="{{ url()->current() }}" />
