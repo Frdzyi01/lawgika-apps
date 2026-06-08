@@ -3007,8 +3007,7 @@
   </div>
 </section>
 
-<!-- Google Places API Script -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCr2JuXdyrJPsvzmcGRtuukJQAsJT9q_2Y&libraries=places"></script>
+<!-- Google Maps API loaded lazily when section is visible -->
 <script>
 (function() {
     function initGoogleReviews() {
@@ -3458,8 +3457,48 @@
   </div>
 </section>
 
-<!-- Pastikan script Google Maps dengan parameter libraries=places tetap ada -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCr2JuXdyrJPsvzmcGRtuukJQAsJT9q_2Y&libraries=places"></script>
+<!-- Google Maps API: loaded lazily when reviews section enters viewport -->
+<script>
+(function() {
+  // Lazy-load Google Maps API only when needed
+  var gmapsLoaded = false;
+  function loadGoogleMaps(callback) {
+    if (gmapsLoaded) { if(callback) callback(); return; }
+    if (typeof google !== 'undefined' && google.maps && google.maps.places) {
+      gmapsLoaded = true;
+      if(callback) callback();
+      return;
+    }
+    gmapsLoaded = true;
+    var script = document.createElement('script');
+    script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCr2JuXdyrJPsvzmcGRtuukJQAsJT9q_2Y&libraries=places&callback=Function.prototype';
+    script.async = true;
+    script.defer = true;
+    script.onload = function() { if(callback) callback(); };
+    document.head.appendChild(script);
+  }
+
+  // Use IntersectionObserver to only load when section is near viewport
+  var reviewsSection = document.getElementById('google-reviews-wrapper') || document.querySelector('.testimonial-section');
+  if (reviewsSection && 'IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          observer.disconnect();
+          loadGoogleMaps(function() {
+            // Trigger custom event so inline scripts can react
+            document.dispatchEvent(new Event('googlemaps:ready'));
+          });
+        }
+      });
+    }, { rootMargin: '400px' });
+    observer.observe(reviewsSection);
+  } else {
+    // Fallback: load after page load
+    window.addEventListener('load', function() { loadGoogleMaps(); });
+  }
+})();
+</script>
 
 <script>
 (function() {

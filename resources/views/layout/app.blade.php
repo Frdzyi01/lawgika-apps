@@ -362,6 +362,60 @@
         font-weight: 700;
       }
     </style>
+
+    <!-- ======== Structured Data (JSON-LD) for Rich Results & SEO ======== -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LegalService",
+      "name": "Lawgika Bisnis Indonesia",
+      "alternateName": "Lawgika",
+      "url": "https://lawgika.co.id",
+      "logo": "https://lawgika.co.id/lawgika/logo.webp",
+      "image": "https://lawgika.co.id/buyer-file/assets/img/logo.webp",
+      "description": "Lawgika adalah konsultan hukum dan bisnis profesional yang melayani pendirian PT, CV, Yayasan, Virtual Office, HAKI, OSS, Pajak, dan Legalitas Usaha di Indonesia.",
+      "telephone": "+62-21-3970-6065",
+      "email": "informasi@lawgika.co.id",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "World Capital Tower Lt 38 unit 06-07, Mega Kuningan",
+        "addressLocality": "Jakarta Selatan",
+        "addressRegion": "DKI Jakarta",
+        "postalCode": "12950",
+        "addressCountry": "ID"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -6.2271,
+        "longitude": 106.8227
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "08:00",
+          "closes": "17:00"
+        }
+      ],
+      "sameAs": [
+        "https://www.instagram.com/lawgika.co.id",
+        "https://web.facebook.com/lawgika.co.id/",
+        "https://www.linkedin.com/company/97997770",
+        "https://www.tiktok.com/@lawgika.co.id"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Layanan Lawgika",
+        "itemListElement": [
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Pendirian PT Perseroan"}},
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Pendirian PT Perorangan"}},
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Virtual Office Jakarta"}},
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Jasa Pembukuan & Perpajakan"}},
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Hak Kekayaan Intelektual (HAKI)"}}
+        ]
+      }
+    }
+    </script>
 </head>
 
 <body data-page="{{ $pageKey }}">
@@ -410,40 +464,8 @@
     @yield('content')
 
     <!-- Floating WhatsApp -->
-    <a href="https://wa.me/6281112088600" target="_blank" class="floating-whatsapp">
-        <i class="fab fa-whatsapp"></i>
+    <a href="https://wa.me/6281112088600" target="_blank" rel="noopener noreferrer" class="floating-whatsapp" aria-label="Hubungi kami via WhatsApp">
+        <i class="fab fa-whatsapp" aria-hidden="true"></i>
     </a>
-
-    <style>
-        .floating-whatsapp {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background-color: #25d366;
-            color: white;
-            border-radius: 50px;
-            text-align: center;
-            font-size: 35px;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .floating-whatsapp:hover {
-            background-color: #128C7E;
-            color: white;
-            transform: scale(1.1);
-        }
-        
-        .floating-whatsapp i {
-            margin-top: 2px;
-        }
-    </style>
 
     @include('layout.footer')
