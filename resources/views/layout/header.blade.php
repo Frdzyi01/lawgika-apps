@@ -4,12 +4,12 @@
       <div class="offcanvas__top d-flex justify-content-between align-items-center">
         <div class="offcanvas__logo">
           <a href="{{ url('/') }}">
-            <img src="{{ asset('buyer-file/assets/img/lowo-turun-removebg-preview.webp') }}" alt="logo-img" />
+            <img src="{{ asset('buyer-file/assets/img/lowo-turun-removebg-preview.webp') }}" alt="Logo Lawgika" loading="lazy" width="200" height="60" />
           </a>
         </div>
         <div class="offcanvas__close">
-          <button>
-            <i class="fas fa-times"></i>
+          <button aria-label="Tutup menu">
+            <i class="fas fa-times" aria-hidden="true"></i>
           </button>
         </div>
       </div>
@@ -29,16 +29,16 @@
 
           <!-- Layanan -->
           <div class="lw-nav-item has-submenu">
-            <a href="javascript:void(0)" class="lw-nav-link lw-toggle">
+            <a href="{{ url('/perizinan-dan-hukum') }}" class="lw-nav-link lw-toggle" aria-expanded="false" aria-label="Layanan, buka submenu">
               <span data-i18n="nav.services">Layanan</span>
-              <i class="fas fa-chevron-down"></i>
+              <i class="fas fa-chevron-down" aria-hidden="true"></i>
             </a>
             <div class="lw-submenu">
               <!-- Kantor & Ruang Podcast -->
               <div class="lw-sub-item has-submenu">
-                <a href="javascript:void(0)" class="lw-sub-link lw-toggle">
+                <a href="{{ url('/virtual-office') }}" class="lw-sub-link lw-toggle" aria-expanded="false" aria-label="Kantor dan Ruang Podcast, buka submenu">
                   <span data-i18n="nav.services.office_title">Kantor & Ruang Podcast</span>
-                  <i class="fas fa-chevron-down"></i>
+                  <i class="fas fa-chevron-down" aria-hidden="true"></i>
                 </a>
                 <ul class="lw-sub-list">
                   <li><a href="{{ url('/virtual-office') }}">Virtual Office</a></li>
@@ -48,9 +48,9 @@
               </div>
               <!-- Legalitas Perusahaan -->
               <div class="lw-sub-item has-submenu">
-                <a href="javascript:void(0)" class="lw-sub-link lw-toggle">
+                <a href="{{ url('/pendirian-pt') }}" class="lw-sub-link lw-toggle" aria-expanded="false" aria-label="Legalitas Perusahaan, buka submenu">
                   <span data-i18n="nav.services.legal_title">Legalitas Perusahaan</span>
-                  <i class="fas fa-chevron-down"></i>
+                  <i class="fas fa-chevron-down" aria-hidden="true"></i>
                 </a>
                 <ul class="lw-sub-list">
                   <li><a href="{{ url('/pendirian-pt-perorangan') }}">Pendirian PT Perorangan</a></li>
@@ -63,9 +63,9 @@
               </div>
               <!-- Pajak & Pembukuan -->
               <div class="lw-sub-item has-submenu">
-                <a href="javascript:void(0)" class="lw-sub-link lw-toggle">
+                <a href="{{ url('/jasa-pembukuan-perpajakan') }}" class="lw-sub-link lw-toggle" aria-expanded="false" aria-label="Pajak dan Pembukuan, buka submenu">
                   <span data-i18n="nav.services.tax_title">Pajak & Pembukuan</span>
-                  <i class="fas fa-chevron-down"></i>
+                  <i class="fas fa-chevron-down" aria-hidden="true"></i>
                 </a>
                 <ul class="lw-sub-list">
                   <li><a href="{{ url('/jasa-pembukuan-perpajakan') }}">Jasa Pembukuan & Perpajakan</a></li>
@@ -74,9 +74,9 @@
               </div>
               <!-- Perizinan & Hukum -->
               <div class="lw-sub-item has-submenu">
-                <a href="javascript:void(0)" class="lw-sub-link lw-toggle">
+                <a href="{{ url('/perizinan-dan-hukum') }}" class="lw-sub-link lw-toggle" aria-expanded="false" aria-label="Perizinan dan Hukum, buka submenu">
                   <span data-i18n="nav.services.perizinan_title">Perizinan & Hukum</span>
-                  <i class="fas fa-chevron-down"></i>
+                  <i class="fas fa-chevron-down" aria-hidden="true"></i>
                 </a>
                 <ul class="lw-sub-list">
                   <li><a href="{{ url('/haki') }}">Hak Kekayaan Intelektual</a></li>
@@ -92,9 +92,9 @@
 
           <!-- Pusat Pelatihan -->
           <div class="lw-nav-item has-submenu">
-            <a href="javascript:void(0)" class="lw-nav-link lw-toggle">
+            <a href="{{ url('/upcoming-event') }}" class="lw-nav-link lw-toggle" aria-expanded="false" aria-label="Pusat Pelatihan, buka submenu">
               <span data-i18n="nav.training">Pusat Pelatihan</span>
-              <i class="fas fa-chevron-down"></i>
+              <i class="fas fa-chevron-down" aria-hidden="true"></i>
             </a>
            <div class="lw-submenu">
 
@@ -118,9 +118,9 @@
 
           <!-- Profil & Legalitas -->
           <div class="lw-nav-item has-submenu">
-            <a href="javascript:void(0)" class="lw-nav-link lw-toggle">
+            <a href="{{ url('/tentang-kami') }}" class="lw-nav-link lw-toggle" aria-expanded="false" aria-label="Profil dan Legalitas, buka submenu">
               <span data-i18n="nav.profile">Profil & Legalitas</span>
-              <i class="fas fa-chevron-down"></i>
+              <i class="fas fa-chevron-down" aria-hidden="true"></i>
             </a>
             <div class="lw-submenu">
               <ul class="lw-sub-list" style="display: block; padding-left: 0;">
@@ -458,16 +458,16 @@
               <a href="{{ url('/') }}" class="header-logo">
                 <img
                   src="{{ asset('buyer-file/assets/img/logo-removebg.webp') }}"
-                  alt="logo-img"
-                  style="width: 16pc"
+                  alt="Logo Lawgika"
+                  width="192" height="48"
                   fetchpriority="high" />
               </a>
               <a href="{{ url('/') }}" class="header-logo-2">
                 <img
                   src="{{ asset('buyer-file/assets/img/lowo-turun-removebg-preview.webp') }}"
-                  alt="logo-img"
-                  style="width: 16pc"
-                  fetchpriority="high" />
+                  alt="Logo Lawgika"
+                  width="192" height="48"
+                  loading="lazy" />
               </a>
             </div>
           </div>
@@ -914,8 +914,8 @@
             </div>
 
             <div class="header__hamburger d-lg-none my-auto">
-              <div class="sidebar__toggle">
-                <i class="fas fa-bars"></i>
+              <div class="sidebar__toggle" role="button" aria-label="Buka menu navigasi" tabindex="0">
+                <i class="fas fa-bars" aria-hidden="true"></i>
               </div>
             </div>
             <div class="header-button">

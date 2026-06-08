@@ -136,27 +136,51 @@
     <!-- <link rel="shortcut icon" href="{{ asset('buyer-file/assets/img/favicon.svg')}}" /> -->
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('lawgika/logo.webp')}}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('lawgika/logo.webp')}}">
+
+    <!-- ======== Preconnect for Performance ======== -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <!-- Preload Hero Image -->
     <link rel="preload" as="image" href="{{ asset('lawgika/home/hero-business.webp') }}" fetchpriority="high">
-    <!--<< Bootstrap min.css >>-->
+    <!--<< Bootstrap min.css - CRITICAL: load blocking >>-->
     <link rel="stylesheet" href="{{ asset('buyer-file/assets/css/bootstrap.min.css')}}" />
-    <!--<< All Min Css >>-->
+    <!--<< All Min Css (Font Awesome) - CRITICAL: load blocking >>-->
     <link rel="stylesheet" href="{{ asset('buyer-file/assets/css/all.min.css')}}" />
-    <!--<< Animate.css >>-->
-    <link rel="stylesheet" href="{{ asset('buyer-file/assets/css/animate.css')}}" />
-    <!--<< Magnific Popup.css >>-->
-    <link rel="stylesheet" href="{{ asset('buyer-file/assets/css/magnific-popup.css')}}" />
-    <!--<< MeanMenu.css >>-->
-    <link rel="stylesheet" href="{{ asset('buyer-file/assets/css/meanmenu.css')}}" />
-    <!--<< Swiper Bundle.css >>-->
+    <!--<< Swiper Bundle - needed for hero carousel >>-->
     <link rel="stylesheet" href="{{ asset('buyer-file/assets/css/swiper-bundle.min.css')}}" />
-    <!--<< Nice Select.css >>-->
-    <link rel="stylesheet" href="{{ asset('buyer-file/assets/css/nice-select.css')}}" />
-    <!--<< Color.css >>-->
+    <!--<< Color.css - CRITICAL >>-->
     <link rel="stylesheet" href="{{ asset('buyer-file/assets/css/color.css')}}" />
-    <!--<< Main.css >>-->
+    <!--<< Main.css - CRITICAL >>-->
     <link rel="stylesheet" href="{{ asset('buyer-file/assets/css/main.css')}}" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    <!--<< NON-CRITICAL CSS: deferred with preload trick >>-->
+    <!-- Animate.css - only used for scroll animations, not visible on first paint -->
+    <link rel="preload" href="{{ asset('buyer-file/assets/css/animate.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ asset('buyer-file/assets/css/animate.css')}}"></noscript>
+
+    <!-- Magnific Popup - only used for lightbox/modal, not on first paint -->
+    <link rel="preload" href="{{ asset('buyer-file/assets/css/magnific-popup.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ asset('buyer-file/assets/css/magnific-popup.css')}}"></noscript>
+
+    <!-- MeanMenu - mobile menu plugin, not critical for first paint -->
+    <link rel="preload" href="{{ asset('buyer-file/assets/css/meanmenu.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ asset('buyer-file/assets/css/meanmenu.css')}}"></noscript>
+
+    <!-- Nice Select - only used on form select inputs, not critical -->
+    <link rel="preload" href="{{ asset('buyer-file/assets/css/nice-select.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ asset('buyer-file/assets/css/nice-select.css')}}"></noscript>
+
+    <!-- Bootstrap Icons - non-critical, defer it -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" as="style" onload="this.onload=null;this.rel='stylesheet'" crossorigin>
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" crossorigin></noscript>
+
+    <!-- font-display: swap override to prevent FOIT (invisible text during font load) -->
+    <style>
+      @font-face { font-display: swap; }
+    </style>
     <style>
       /* Fix Language Switcher dropdown clipping and stack context on header elements */
       .header-section-1,
