@@ -361,6 +361,52 @@
         color: #4e0616;
         font-weight: 700;
       }
+
+      /* ============================================================
+         Floating WhatsApp Button — Restored after PageSpeed cleanup
+         ============================================================ */
+      .floating-whatsapp {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 9998;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: #25D366;
+        color: #fff !important;
+        font-size: 30px;
+        text-decoration: none;
+        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.45);
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                    box-shadow 0.3s ease;
+        animation: lwWaPulse 2.5s infinite;
+      }
+      .floating-whatsapp:hover {
+        transform: scale(1.12) translateY(-3px);
+        box-shadow: 0 8px 30px rgba(37, 211, 102, 0.55);
+        color: #fff !important;
+      }
+      .floating-whatsapp i {
+        line-height: 1;
+      }
+      @keyframes lwWaPulse {
+        0%   { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.45); }
+        50%  { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.45), 0 0 0 12px rgba(37, 211, 102, 0.15); }
+        100% { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.45); }
+      }
+      @media (max-width: 575px) {
+        .floating-whatsapp {
+          bottom: 20px;
+          right: 20px;
+          width: 52px;
+          height: 52px;
+          font-size: 26px;
+        }
+      }
     </style>
 
     <!-- ======== Structured Data (JSON-LD) for Rich Results & SEO ======== -->

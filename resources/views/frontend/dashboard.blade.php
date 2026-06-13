@@ -3168,11 +3168,15 @@
         }
     }
 
-    // Hindari trap DOMContentLoaded dengan mengecek readyState
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initGoogleReviews);
-    } else {
-        // Jika DOM sudah ready (misal script di-load via AJAX/Turbolinks) jalankan langsung
+    // FIX: Dengarkan event 'googlemaps:ready' yang di-dispatch oleh lazy loader
+    // (bukan langsung jalan saat DOMContentLoaded, karena API belum ter-load)
+    document.addEventListener('googlemaps:ready', function() {
+        initGoogleReviews();
+    });
+
+    // Fallback: jika Google Maps API sudah tersedia (misal dari cache / non-lazy),
+    // jalankan langsung
+    if (typeof google !== 'undefined' && google.maps && google.maps.places) {
         initGoogleReviews();
     }
 })();
