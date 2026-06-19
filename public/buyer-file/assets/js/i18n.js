@@ -93,35 +93,50 @@
     var elems = document.querySelectorAll('[data-i18n]');
     for (var i = 0; i < elems.length; i++) {
       var key = elems[i].getAttribute('data-i18n');
-      elems[i].innerHTML = t(key);
+      var translation = t(key);
+      if (translation !== key) {
+        elems[i].innerHTML = translation;
+      }
     }
 
     /* data-i18n-text → textContent (aman dari XSS untuk input biasa) */
     var textElems = document.querySelectorAll('[data-i18n-text]');
     for (var j = 0; j < textElems.length; j++) {
       var tkey = textElems[j].getAttribute('data-i18n-text');
-      textElems[j].textContent = t(tkey);
+      var ttranslation = t(tkey);
+      if (ttranslation !== tkey) {
+        textElems[j].textContent = ttranslation;
+      }
     }
 
     /* data-i18n-placeholder → placeholder attribute */
     var placeholders = document.querySelectorAll('[data-i18n-placeholder]');
     for (var k = 0; k < placeholders.length; k++) {
       var pkey = placeholders[k].getAttribute('data-i18n-placeholder');
-      placeholders[k].setAttribute('placeholder', t(pkey));
+      var ptranslation = t(pkey);
+      if (ptranslation !== pkey) {
+        placeholders[k].setAttribute('placeholder', ptranslation);
+      }
     }
 
     /* data-i18n-title → title attribute */
     var titles = document.querySelectorAll('[data-i18n-title]');
     for (var l = 0; l < titles.length; l++) {
       var tikey = titles[l].getAttribute('data-i18n-title');
-      titles[l].setAttribute('title', t(tikey));
+      var titranslation = t(tikey);
+      if (titranslation !== tikey) {
+        titles[l].setAttribute('title', titranslation);
+      }
     }
 
     /* data-i18n-aria-label → aria-label attribute */
     var ariaLabels = document.querySelectorAll('[data-i18n-aria]');
     for (var m = 0; m < ariaLabels.length; m++) {
       var akey = ariaLabels[m].getAttribute('data-i18n-aria');
-      ariaLabels[m].setAttribute('aria-label', t(akey));
+      var atranslation = t(akey);
+      if (atranslation !== akey) {
+        ariaLabels[m].setAttribute('aria-label', atranslation);
+      }
     }
 
     /* Update document lang attribute */

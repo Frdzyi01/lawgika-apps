@@ -719,10 +719,10 @@
                     <p class="text-white-50 form-text d-md-block d-none" style="font-size: 1.1rem" data-i18n="jpp.hero_desc">Layanan pembukuan akurat dan pelaporan pajak tepat waktu untuk UMKM, CV, dan PT. Fokus mengembangkan bisnis, serahkan urusan administrasi keuangan pada ahlinya.</p>
                     <div class="d-flex flex-wrap gap-3 mt-4">
                         <a href="https://wa.me/6281112088600?text=Halo%20Lawgika,%20saya%20ingin%20berkonsultasi%20mengenai%20jasa%20pembukuan%20dan%20perpajakan." class="btn-white">
-                            <i class="fa-brands fa-whatsapp me-2"></i>Konsultasi Gratis
+                            <i class="fa-brands fa-whatsapp me-2"></i><span data-i18n="jpp.btn_consult">Konsultasi Gratis</span>
                         </a>
                         <a href="#services" class="btn-outline-white">
-                            Lihat Layanan <i class="fa-solid fa-arrow-right ms-2"></i>
+                            <span data-i18n="jpp.btn_services">Lihat Layanan</span> <i class="fa-solid fa-arrow-right ms-2"></i>
                         </a>
                     </div>
                 </div>
@@ -851,7 +851,7 @@
                         <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="jpp.req.data6">Username & Password Coretax</span></li>
                     </ul>
                     <a href="#" class="requirement-cta">
-                        Konsultasi Data <i class="fa-solid fa-arrow-right"></i>
+                        <span data-i18n="jpp.req.cta1">Konsultasi Data</span> <i class="fa-solid fa-arrow-right"></i>
                     </a>
                 </div>
             </div>
@@ -872,7 +872,7 @@
                         <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="jpp.req.doc6">Data Gaji Karyawan (Jika Ada)</span></li>
                     </ul>
                     <a href="#" class="requirement-cta">
-                        Upload Dokumen <i class="fa-solid fa-arrow-right"></i>
+                        <span data-i18n="jpp.req.cta2">Upload Dokumen</span> <i class="fa-solid fa-arrow-right"></i>
                     </a>
                 </div>
             </div>
@@ -894,17 +894,17 @@
                     <p class="ms-0 text-start"><span data-i18n="jpp.pricing_desc">Kelola administrasi keuangan dan kewajiban perpajakan Anda dengan lebih efisien bersama Lawgika. Kami hadir untuk memastikan bisnis Anda patuh hukum dan memiliki laporan keuangan yang akurat.</span></p>
                 </div>
                 
-                <h5 class="fw-bold mb-3" style="color: var(--primary);">Layanan Yang Anda Dapatkan:</h5>
+                <h5 class="fw-bold mb-3" style="color: var(--primary);" data-i18n="jpp.services_header">Layanan Yang Anda Dapatkan:</h5>
                 <ul class="solution-list mb-4">
-                    <li><i class="fa-solid fa-circle-check"></i> Penyusunan Laporan Keuangan (Neraca & Laba Rugi)</li>
-                    <li><i class="fa-solid fa-circle-check"></i> Perhitungan & Pelaporan SPT Masa (PPh & PPN)</li>
-                    <li><i class="fa-solid fa-circle-check"></i> Review Kepatuhan Pajak (Tax Compliance)</li>
-                    <li><i class="fa-solid fa-circle-check"></i> Konsultasi Akuntansi & Perpajakan Terpadu</li>
+                    <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="jpp.services.item1">Penyusunan Laporan Keuangan (Neraca & Laba Rugi)</span></li>
+                    <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="jpp.services.item2">Perhitungan & Pelaporan SPT Masa (PPh & PPN)</span></li>
+                    <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="jpp.services.item3">Review Kepatuhan Pajak (Tax Compliance)</span></li>
+                    <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="jpp.services.item4">Konsultasi Akuntansi & Perpajakan Terpadu</span></li>
                 </ul>
                 
                 <a href="https://wa.me/6281112088600?text=Halo%20Lawgika,%20saya%20ingin%20berkonsultasi%20mengenai%20jasa%20pembukuan%20dan%20perpajakan." 
                    target="_blank" class="btn-pricing-primary px-5 d-inline-block shadow-sm">
-                    Minta Penawaran Via WhatsApp <i class="fa-brands fa-whatsapp ms-2"></i>
+                    <span data-i18n="jpp.btn_offer">Minta Penawaran Via WhatsApp</span> <i class="fa-brands fa-whatsapp ms-2"></i>
                 </a>
             </div>
         </div>
@@ -923,17 +923,17 @@
                     <p class="ms-0 text-start"><span data-i18n="jpp.why_desc">Maksimalkan efisiensi fiskal bisnis Anda dengan layanan perpajakan yang komprehensif. Kami membantu Anda menavigasi regulasi pajak yang kompleks agar bisnis tetap patuh dan aman dari risiko sanksi.</span></p>
                 </div>
                 
-                <h5 class="fw-bold mb-3" style="color: var(--primary);">Keunggulan Layanan Pajak:</h5>
+                <h5 class="fw-bold mb-3" style="color: var(--primary);" data-i18n="jpp.tax_advantages_header">Keunggulan Layanan Pajak:</h5>
                 <ul class="solution-list mb-4">
-                    <li><i class="fa-solid fa-circle-check"></i> Perencanaan Pajak Strategis (Tax Planning)</li>
-                    <li><i class="fa-solid fa-circle-check"></i> Pengurusan PKP & Administrasi NPWP</li>
-                    <li><i class="fa-solid fa-circle-check"></i> Pendampingan Audit & Sengketa Pajak</li>
-                    <li><i class="fa-solid fa-circle-check"></i> Pelaporan SPT Tahunan Badan & Pribadi</li>
+                    <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="jpp.tax_advantages.item1">Perencanaan Pajak Strategis (Tax Planning)</span></li>
+                    <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="jpp.tax_advantages.item2">Pengurusan PKP & Administrasi NPWP</span></li>
+                    <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="jpp.tax_advantages.item3">Pendampingan Audit & Sengketa Pajak</span></li>
+                    <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="jpp.tax_advantages.item4">Pelaporan SPT Tahunan Badan & Pribadi</span></li>
                 </ul>
                 
                 <a href="https://wa.me/6281112088600?text=Halo%20Lawgika,%20saya%20ingin%20berkonsultasi%20mengenai%20jasa%20perpajakan." 
                    target="_blank" class="btn-pricing-primary px-5 d-inline-block shadow-sm">
-                    Konsultasi Pajak Via WhatsApp <i class="fa-brands fa-whatsapp ms-2"></i>
+                    <span data-i18n="jpp.btn_tax_consult">Konsultasi Pajak Via WhatsApp</span> <i class="fa-brands fa-whatsapp ms-2"></i>
                 </a>
             </div>
         </div>
@@ -960,8 +960,8 @@
                     <div class="benefit-icon">
                         <i class="fa-solid fa-user-tie"></i>
                     </div>
-                    <h4>Tim Profesional</h4>
-                    <p>Pembukuan dan perpajakan perusahaan Anda dikelola oleh tim profesional bersertifikasi dan berpengalaman.</p>
+                    <h4 data-i18n="jpp.benefit.title1">Tim Profesional</h4>
+                    <p data-i18n="jpp.benefit.desc1">Pembukuan dan perpajakan perusahaan Anda dikelola oleh tim profesional bersertifikasi dan berpengalaman.</p>
                 </div>
             </div>
             {{-- Benefit 2 --}}
@@ -970,8 +970,8 @@
                     <div class="benefit-icon">
                         <i class="fa-solid fa-shield-check"></i>
                     </div>
-                    <h4>Kepatuhan Pajak Terjamin</h4>
-                    <p>Kami pastikan setiap pelaporan sesuai regulasi terbaru, menghindarkan bisnis Anda dari sanksi dan denda.</p>
+                    <h4 data-i18n="jpp.benefit.title2">Kepatuhan Pajak Terjamin</h4>
+                    <p data-i18n="jpp.benefit.desc2">Kami pastikan setiap pelaporan sesuai regulasi terbaru, menghindarkan bisnis Anda dari sanksi dan denda.</p>
                 </div>
             </div>
             {{-- Benefit 3 --}}
@@ -980,8 +980,8 @@
                     <div class="benefit-icon">
                         <i class="fa-solid fa-clock"></i>
                     </div>
-                    <h4>Hemat Waktu & Biaya</h4>
-                    <p>Fokus pada pengembangan bisnis, serahkan urusan administrasi keuangan yang rumit kepada kami.</p>
+                    <h4 data-i18n="jpp.benefit.title3">Hemat Waktu & Biaya</h4>
+                    <p data-i18n="jpp.benefit.desc3">Fokus pada pengembangan bisnis, serahkan urusan administrasi keuangan yang rumit kepada kami.</p>
                 </div>
             </div>
             {{-- Benefit 4 --}}
@@ -990,14 +990,14 @@
                     <div class="benefit-icon">
                         <i class="fa-solid fa-clipboard-check"></i>
                     </div>
-                    <h4>Assessment Tepat</h4>
-                    <p>Kami menyediakan assessment gratis agar Anda mendapatkan paket layanan yang tepat sesuai kebutuhan perusahaan.</p>
+                    <h4 data-i18n="jpp.benefit.title4">Assessment Tepat</h4>
+                    <p data-i18n="jpp.benefit.desc4">Kami menyediakan assessment gratis agar Anda mendapatkan paket layanan yang tepat sesuai kebutuhan perusahaan.</p>
                 </div>
             </div>
         </div>
         <div class="text-center mt-5">
             <a href="https://wa.me/6281112088600?text=Halo%20Lawgika,%20saya%20ingin%20berkonsultasi%20mengenai%20jasa%20pembukuan%20dan%20perpajakan." class="btn-benefit-assessment">
-                <i class="fa-brands fa-whatsapp me-2"></i> Dapatkan Assessment Gratis
+                <i class="fa-brands fa-whatsapp me-2"></i> <span data-i18n="jpp.btn_assessment">Dapatkan Assessment Gratis</span>
             </a>
         </div>
     </div>
@@ -1118,7 +1118,7 @@
 <section class="pt-faq">
     <div class="container">
         <div class="section-title text-center mb-5">
-            <span class="subtitle">Bantuan Sentral</span>
+            <span class="subtitle" data-i18n="jpp.faq_subtitle">Bantuan Sentral</span>
             <h2 data-i18n="jpp.faq_title">FAQ Seputar Pembukuan & Pajak</h2>
             <p data-i18n="jpp.faq_desc">Pertanyaan yang paling sering diajukan seputar jasa akuntansi dan perpajakan</p>
         </div>
@@ -1127,60 +1127,60 @@
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Apakah jasa ini termasuk laporan keuangan full set?
+                        <span data-i18n="jpp.faq.q1">Apakah jasa ini termasuk laporan keuangan full set?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="jpp.faq.a1">
                         Ya, tergantung paket yang dipilih. Untuk paket Professional dan Enterprise, Anda akan menerima Laporan Posisi Keuangan (Neraca), Laporan Laba Rugi, Laporan Perubahan Ekuitas, dan Laporan Arus Kas sesuai standar SAK EMKM atau SAK Umum.
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Bagaimana cara menyerahkan data transaksi?
+                        <span data-i18n="jpp.faq.q2">Bagaimana cara menyerahkan data transaksi?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="jpp.faq.a2">
                         Data dapat diserahkan melalui Google Drive, Dropbox, atau email dalam bentuk scan/foto bukti transaksi dan rekening koran. Untuk paket Enterprise, tim kami akan melakukan kunjungan rutin untuk mengambil dokumen fisik jika diperlukan.
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Apakah bisa membantu jika saya telat lapor pajak?
+                        <span data-i18n="jpp.faq.q3">Apakah bisa membantu jika saya telat lapor pajak?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="jpp.faq.a3">
                         Tentu. Kami dapat membantu melakukan pembetulan SPT atau pelaporan SPT masa/tahunan yang terlambat. Namun, perlu diingat bahwa sanksi administrasi (denda) keterlambatan tetap menjadi tanggung jawab wajib pajak sesuai ketentuan UU KUP.
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Berapa lama proses pembuatan laporan bulanan?
+                        <span data-i18n="jpp.faq.q4">Berapa lama proses pembuatan laporan bulanan?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="jpp.faq.a4">
                         Laporan keuangan bulanan akan kami selesaikan maksimal tanggal 15 bulan berikutnya, asalkan seluruh data transaksi sudah kami terima lengkap paling lambat tanggal 5.
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Apakah ada biaya tambahan jika transaksi saya lebih banyak?
+                        <span data-i18n="jpp.faq.q5">Apakah ada biaya tambahan jika transaksi saya lebih banyak?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="jpp.faq.a5">
                         Ya, untuk paket Basic dan Professional, jika volume transaksi melebihi kuota bulanan, akan dikenakan biaya tambahan per transaksi. Detail biaya dapat didiskusikan saat kontrak. Paket Enterprise bebas kuota transaksi.
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Apakah layanan ini termasuk konsultasi perencanaan pajak?
+                        <span data-i18n="jpp.faq.q6">Apakah layanan ini termasuk konsultasi perencanaan pajak?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">
+                    <div class="faq-answer" data-i18n="jpp.faq.a6">
                         Ya, terutama untuk paket Professional dan Enterprise. Kami akan memberikan saran legal untuk efisiensi pajak bisnis Anda sesuai dengan peraturan perpajakan yang berlaku, sehingga Anda dapat menghemat pajak secara sah.
                     </div>
                 </div>

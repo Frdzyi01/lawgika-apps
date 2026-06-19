@@ -406,15 +406,15 @@
         <div class="d-flex flex-wrap gap-3 mt-4">
           <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:12px 20px;">
             <div style="color:var(--gold);font-weight:700;font-size:1.3rem;">500+</div>
-            <div style="color:rgba(255,255,255,.6);font-size:.8rem;">SPT Terlapor</div>
+            <div style="color:rgba(255,255,255,.6);font-size:.8rem;"><span data-i18n="spt_tahunan.stats_reported">SPT Terlapor</span></div>
           </div>
           <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:12px 20px;">
             <div style="color:var(--gold);font-weight:700;font-size:1.3rem;">100%</div>
-            <div style="color:rgba(255,255,255,.6);font-size:.8rem;">Tepat Waktu</div>
+            <div style="color:rgba(255,255,255,.6);font-size:.8rem;"><span data-i18n="spt_tahunan.stats_ontime">Tepat Waktu</span></div>
           </div>
           <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:12px 20px;">
             <div style="color:var(--gold);font-weight:700;font-size:1.3rem;">0</div>
-            <div style="color:rgba(255,255,255,.6);font-size:.8rem;">Kasus Sanksi</div>
+            <div style="color:rgba(255,255,255,.6);font-size:.8rem;"><span data-i18n="spt_tahunan.stats_no_sanction">Kasus Sanksi</span></div>
           </div>
         </div>
       </div>
@@ -483,14 +483,14 @@
           <label class="subj-tab" for="tab_pribadi">
             <input type="radio" name="subject_type" id="tab_pribadi" value="pribadi" onchange="switchSubject('pribadi')" {{ old('subject_type')=='pribadi' ? 'checked' : '' }}>
             <span class="tab-icon">👤</span>
-            <span class="tab-label">Pribadi</span>
-            <span class="tab-desc">SPT Form 1770 / 1770S</span>
+            <span class="tab-label" data-i18n="spt_tahunan.tab_pribadi">Pribadi</span>
+            <span class="tab-desc" data-i18n="spt_tahunan.tab_pribadi_desc">SPT Form 1770 / 1770S</span>
           </label>
           <label class="subj-tab" for="tab_badan">
             <input type="radio" name="subject_type" id="tab_badan" value="badan" onchange="switchSubject('badan')" {{ old('subject_type','badan')=='badan' ? 'checked' : '' }}>
             <span class="tab-icon">🏢</span>
-            <span class="tab-label">Badan</span>
-            <span class="tab-desc">SPT Form 1771 / 1771 $</span>
+            <span class="tab-label" data-i18n="spt_tahunan.tab_badan">Badan</span>
+            <span class="tab-desc" data-i18n="spt_tahunan.tab_badan_desc">SPT Form 1771 / 1771 $</span>
           </label>
         </div>
         @error('subject_type')<p class="f-error">{{ $message }}</p>@enderror
@@ -503,13 +503,13 @@
           <div class="f-row">
             <div class="f-group">
               <label><span data-i18n="spt_tahunan.label_nama">Nama Lengkap</span> <span class="req">*</span></label>
-              <input type="text" name="nama_lengkap" class="f-input {{ $errors->has('nama_lengkap') ? 'is-invalid' : '' }}" placeholder="Sesuai KTP" value="{{ old('nama_lengkap') }}">
+              <input type="text" name="nama_lengkap" class="f-input {{ $errors->has('nama_lengkap') ? 'is-invalid' : '' }}" placeholder="Sesuai KTP" data-i18n-placeholder="spt_tahunan.placeholder_nama" value="{{ old('nama_lengkap') }}">
               @error('nama_lengkap')<p class="f-error">{{ $message }}</p>@enderror
             </div>
             <div class="f-group">
-              <label>NIK (Opsional)</label>
-              <input type="text" name="nik" class="f-input {{ $errors->has('nik') ? 'is-invalid' : '' }}" placeholder="16 digit NIK" maxlength="16" value="{{ old('nik') }}">
-              <p class="f-hint">Membantu verifikasi data lebih cepat</p>
+              <label data-i18n="spt_tahunan.label_nik">NIK (Opsional)</label>
+              <input type="text" name="nik" class="f-input {{ $errors->has('nik') ? 'is-invalid' : '' }}" placeholder="16 digit NIK" data-i18n-placeholder="spt_tahunan.placeholder_nik" maxlength="16" value="{{ old('nik') }}">
+              <p class="f-hint" data-i18n="spt_tahunan.hint_nik">Membantu verifikasi data lebih cepat</p>
               @error('nik')<p class="f-error">{{ $message }}</p>@enderror
             </div>
           </div>
@@ -521,13 +521,13 @@
           <div class="f-row">
             <div class="f-group">
               <label><span data-i18n="spt_tahunan.label_perusahaan">Nama Perusahaan</span> <span class="req">*</span></label>
-              <input type="text" name="perusahaan" class="f-input {{ $errors->has('perusahaan') ? 'is-invalid' : '' }}" placeholder="PT / CV / Firma ..." value="{{ old('perusahaan') }}">
+              <input type="text" name="perusahaan" class="f-input {{ $errors->has('perusahaan') ? 'is-invalid' : '' }}" placeholder="PT / CV / Firma ..." data-i18n-placeholder="spt_tahunan.placeholder_perusahaan" value="{{ old('perusahaan') }}">
               @error('perusahaan')<p class="f-error">{{ $message }}</p>@enderror
             </div>
             <div class="f-group">
-              <label>NPWP Perusahaan (Opsional)</label>
-              <input type="text" name="npwp_perusahaan" class="f-input" placeholder="00.000.000.0-000.000" value="{{ old('npwp_perusahaan') }}">
-              <p class="f-hint">Membantu proses verifikasi</p>
+              <label data-i18n="spt_tahunan.label_npwp_corp">NPWP Perusahaan (Opsional)</label>
+              <input type="text" name="npwp_perusahaan" class="f-input" placeholder="00.000.000.0-000.000" data-i18n-placeholder="spt_tahunan.placeholder_npwp_corp" value="{{ old('npwp_perusahaan') }}">
+              <p class="f-hint" data-i18n="spt_tahunan.hint_npwp_corp">Membantu proses verifikasi</p>
             </div>
           </div>
         </div>
@@ -540,7 +540,7 @@
           <div class="f-group">
             <label><span data-i18n="spt_tahunan.label_tahun">Tahun Pajak</span> <span class="req">*</span></label>
             <select name="tahun_pajak" class="f-input {{ $errors->has('tahun_pajak') ? 'is-invalid' : '' }}">
-              <option value="">Pilih Tahun</option>
+              <option value="" data-i18n="spt_tahunan.option_select_year">Pilih Tahun</option>
               @for($y = date('Y'); $y >= 2018; $y--)
               <option value="{{ $y }}" {{ old('tahun_pajak')==$y ? 'selected':'' }}>{{ $y }}</option>
               @endfor
@@ -550,16 +550,16 @@
           <div class="f-group">
             <label><span data-i18n="spt_tahunan.label_lap_keu">Sudah Ada Laporan Keuangan?</span> <span class="req">*</span></label>
             <select name="laporan_keuangan" class="f-input">
-              <option value="sudah" {{ old('laporan_keuangan')=='sudah'?'selected':'' }}>Sudah ada</option>
-              <option value="belum" {{ old('laporan_keuangan')=='belum'?'selected':'' }}>Belum / Perlu bantuan</option>
+              <option value="sudah" {{ old('laporan_keuangan')=='sudah'?'selected':'' }} data-i18n="spt_tahunan.option_lap_keu_sudah">Sudah ada</option>
+              <option value="belum" {{ old('laporan_keuangan')=='belum'?'selected':'' }} data-i18n="spt_tahunan.option_lap_keu_belum">Belum / Perlu bantuan</option>
             </select>
           </div>
         </div>
         <div class="f-group" style="max-width:380px;">
           <label><span data-i18n="spt_tahunan.label_status">Status Pelaporan Sebelumnya</span> <span class="req">*</span></label>
           <select name="status_lapor" class="f-input">
-            <option value="sudah" {{ old('status_lapor')=='sudah'?'selected':'' }}>Sudah pernah lapor</option>
-            <option value="belum" {{ old('status_lapor')=='belum'?'selected':'' }}>Belum pernah lapor</option>
+            <option value="sudah" {{ old('status_lapor')=='sudah'?'selected':'' }} data-i18n="spt_tahunan.option_status_lapor_sudah">Sudah pernah lapor</option>
+            <option value="belum" {{ old('status_lapor')=='belum'?'selected':'' }} data-i18n="spt_tahunan.option_status_lapor_belum">Belum pernah lapor</option>
           </select>
         </div>
 
@@ -595,10 +595,10 @@
       ] as [$q,$a])
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">
-          <span>{{ $q }}</span>
+          <span>{!! $q !!}</span>
           <i class="bi bi-chevron-down"></i>
         </div>
-        <div class="faq-a">{{ $a }}</div>
+        <div class="faq-a">{!! $a !!}</div>
       </div>
       @endforeach
     </div>
