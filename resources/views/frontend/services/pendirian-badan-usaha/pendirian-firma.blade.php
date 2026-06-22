@@ -717,7 +717,7 @@
     <div class="container">
         <div class="section-header">
             <h2 data-i18n="firma.why_title">MENGAPA MEMILIH KAMI?</h2>
-            <p>Dapatkan berbagai keuntungan tambahan saat mendirikan Firma bersama kami</p>
+            <p data-i18n="firma.why_desc">Dapatkan berbagai keuntungan tambahan saat mendirikan Firma bersama kami</p>
         </div>
         <div class="row g-4 justify-content-center">
             <div class="col-md-4">
@@ -755,9 +755,9 @@
 <section class="process-section">
     <div class="container">
         <div class="section-header">
-            <span class="badge">Tahapan Tuntas</span>
-            <h2>PROSES PENDIRIAN FIRMA</h2>
-            <p>Kami menyederhanakan birokrasi menjadi tahapan yang jelas</p>
+            <span class="badge" data-i18n="ui.process.badge">Tahapan Tuntas</span>
+            <h2 data-i18n="firma.process_title">PROSES PENDIRIAN FIRMA</h2>
+            <p data-i18n="firma.process_desc">Kami menyederhanakan birokrasi menjadi tahapan yang jelas</p>
         </div>
         <div class="process-timeline">
             <div class="process-step">
@@ -800,8 +800,8 @@
                         <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="ui.req.name_firma">Nama Firma (minimal 3 kata)</span></li>
                         <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="ui.req.address_company">Alamat lengkap perusahaan</span></li>
                         <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="ui.req.kbli">Bidang usaha (Kode KBLI)</span></li>
-                        <li><i class="fa-solid fa-circle-check"></i> Susunan para sekutu</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Pembagian modal dan keuntungan</li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="ui.req.partners_firma">Susunan para sekutu</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="ui.req.capital_sharing">Pembagian modal dan keuntungan</span></li>
                     </ul>
                     <a href="#" class="requirement-cta"><span data-i18n="ui.req.consult_data">Konsultasi Data</span> <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
@@ -815,10 +815,10 @@
                         <h3 data-i18n="ui.req_doc_title">KELENGKAPAN DOKUMEN</h3>
                     </div>
                     <ul class="requirement-list">
-                        <li><i class="fa-solid fa-circle-check"></i> Scan KTP para sekutu</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Scan NPWP para sekutu</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Pas foto para sekutu</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Bukti alamat usaha</li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="ui.req.ktp_partners_firma">Scan KTP para sekutu</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="ui.req.npwp_partners_firma">Scan NPWP para sekutu</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="ui.req.photo_partners_firma">Pas foto para sekutu</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="ui.req.proof_address_business">Bukti alamat usaha</span></li>
                     </ul>
                     <a href="#" class="requirement-cta"><span data-i18n="ui.req.upload_doc">Upload Dokumen</span> <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
@@ -832,7 +832,7 @@
     <div class="container">
         <div class="section-title text-center mb-5">
             <span class="subtitle" data-i18n="ui.pricing.pkg_choice_firma">Pilihan Paket Firma</span>
-            <h2>Paket Pendirian Firma</h2>
+            <h2 data-i18n="firma.pricing_title">Paket Pendirian Firma</h2>
             <p data-i18n="firma.pricing_desc">Pilih paket yang sesuai dengan kebutuhan bisnis kolektif Anda</p>
         </div>
 
@@ -840,7 +840,7 @@
            {{-- Izin --}}
 <div class="col-lg-5 col-md-6">
     <div class="pricing-card">
-        <h4> Basic Package</h4>
+        <h4 data-i18n="ui.pricing.pkg_basic"> Basic Package</h4>
         <div class="price">Rp 4.500.000</div>
 
         <ul class="feature-list">
@@ -887,7 +887,7 @@
     <div class="pricing-card featured">
         <span class="badge" data-i18n="vo.pricing.recommendation">REKOMENDASI</span>
 
-        <h4>Business Pack </h4>
+        <h4 data-i18n="ui.pricing.pkg_business">Business Pack </h4>
 
         <div class="price">Rp 8.500.000</div>
 

@@ -690,7 +690,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-lg-end justify-content-start mb-0">
                         <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none" data-i18n="nav.home">Beranda</a></li>
-                        <li class="breadcrumb-item active text-white-50" aria-current="page">Pembuatan PT Perorangan</li>
+                        <li class="breadcrumb-item active text-white-50" aria-current="page" data-i18n="pt_per.breadcrumb">Pembuatan PT Perorangan</li>
                     </ol>
                 </nav>
             </div>
@@ -764,9 +764,9 @@
 <section class="process-section">
     <div class="container">
         <div class="section-header">
-            <span class="badge">Tahapan Tuntas</span>
-            <h2>PROSES PENDIRIAN PT</h2>
-            <p>Kami menyederhanakan birokrasi kompleks menjadi 3 tahap</p>
+            <span class="badge" data-i18n="ui.process.badge">Tahapan Tuntas</span>
+            <h2 data-i18n="pt_per.process_title">PROSES PENDIRIAN PT</h2>
+            <p data-i18n="pt_per.process_desc">Kami menyederhanakan birokrasi kompleks menjadi 3 tahap</p>
         </div>
         <div class="process-timeline">
             <div class="process-step">
@@ -850,7 +850,7 @@
             {{-- Izin --}}
             <div class="col-lg-5 col-md-6">
                 <div class="pricing-card">
-                    <h4>Basic Package</h4>
+                    <h4 data-i18n="ui.pricing.pkg_basic">Basic Package</h4>
                     <div class="price">Rp 1.500.000</div>
                    <ul class="feature-list">
     <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.check_name_pt">Pengecekan Nama PT</span></li>
@@ -880,7 +880,7 @@
             <div class="col-lg-5 col-md-6">
                 <div class="pricing-card featured">
                     <span class="badge" data-i18n="vo.pricing.recommendation">REKOMENDASI</span>
-                    <h4>Business Package</h4>
+                    <h4 data-i18n="ui.pricing.pkg_business">Business Package</h4>
                     <div class="price">Rp 5.800.000</div>
                    <ul class="feature-list">
     <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.check_name_pt">Pengecekan Nama PT</span></li>

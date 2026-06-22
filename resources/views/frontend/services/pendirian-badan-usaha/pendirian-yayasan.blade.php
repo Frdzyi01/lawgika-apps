@@ -717,7 +717,7 @@
     <div class="container">
         <div class="section-header">
             <h2 data-i18n="yayasan.why_title">MENGAPA MEMILIH KAMI?</h2>
-            <p>Dapatkan berbagai keuntungan tambahan saat mendirikan Yayasan bersama kami</p>
+            <p data-i18n="yayasan.why_desc">Dapatkan berbagai keuntungan tambahan saat mendirikan Yayasan bersama kami</p>
         </div>
         <div class="row g-4 justify-content-center">
             <div class="col-md-4">
@@ -755,9 +755,9 @@
 <section class="process-section">
     <div class="container">
         <div class="section-header">
-            <span class="badge">Tahapan Tuntas</span>
-            <h2>PROSES PENDIRIAN YAYASAN</h2>
-            <p>Kami menyederhanakan birokrasi menjadi tahapan yang jelas</p>
+            <span class="badge" data-i18n="ui.process.badge">Tahapan Tuntas</span>
+            <h2 data-i18n="yayasan.process_title">PROSES PENDIRIAN YAYASAN</h2>
+            <p data-i18n="yayasan.process_desc">Kami menyederhanakan birokrasi menjadi tahapan yang jelas</p>
         </div>
         <div class="process-timeline">
             <div class="process-step">
@@ -815,10 +815,10 @@
                         <h3 data-i18n="ui.req_doc_title">KELENGKAPAN DOKUMEN</h3>
                     </div>
                     <ul class="requirement-list">
-                        <li><i class="fa-solid fa-circle-check"></i> Scan KTP pendiri & pengurus</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Scan NPWP pendiri & pengurus</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Pas foto pendiri & pengurus</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Bukti alamat yayasan</li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="ui.req.ktp">Scan KTP pendiri & pengurus</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="ui.req.npwp">Scan NPWP pendiri & pengurus</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="ui.req.photo">Pas foto pendiri & pengurus</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="ui.req.proof_address_yayasan_simple">Bukti alamat yayasan</span></li>
                     </ul>
                     <a href="#" class="requirement-cta"><span data-i18n="ui.req.upload_doc">Upload Dokumen</span> <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
@@ -840,7 +840,7 @@
          {{-- Izin --}}
 <div class="col-lg-5 col-md-6">
     <div class="pricing-card">
-        <h4> Basic Package</h4>
+        <h4 data-i18n="ui.pricing.pkg_basic"> Basic Package</h4>
 
         <div class="price">Rp 4.500.000</div>
 
@@ -888,7 +888,7 @@
     <div class="pricing-card featured">
         <span class="badge" data-i18n="vo.pricing.recommendation">REKOMENDASI</span>
 
-        <h4>Business Pack </h4>
+        <h4 data-i18n="ui.pricing.pkg_business">Business Pack </h4>
 
         <div class="price">Rp 8.500.000</div>
 

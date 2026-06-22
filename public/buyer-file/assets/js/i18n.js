@@ -187,27 +187,28 @@
     /* Desktop switcher */
     var currentFlag = document.getElementById('lw-lang-current-flag');
     var currentName = document.getElementById('lw-lang-current-name');
-    var langMap = {
-      id: { flag: '🇮🇩', name: 'Indonesia' },
-      en: { flag: '🇺🇸', name: 'English' },
-      zh: { flag: '🇨🇳', name: '中文' }
+    var flagMap = {
+      id: '🇮🇩',
+      en: '🇺🇸',
+      zh: '🇨🇳'
     };
-    if (currentFlag && langMap[currentLang]) {
-      currentFlag.textContent = langMap[currentLang].flag;
+    if (currentFlag && flagMap[currentLang]) {
+      currentFlag.textContent = flagMap[currentLang];
     }
-    if (currentName && langMap[currentLang]) {
-      currentName.textContent = langMap[currentLang].name;
+    if (currentName) {
+      currentName.textContent = t('lang.switcher.short');
     }
 
     /* Mobile switcher sync */
     var mobileFlag = document.getElementById('lw-lang-mobile-flag');
     var mobileCurrent = document.getElementById('lw-lang-mobile-current');
-    if (mobileFlag && langMap[currentLang]) {
-      mobileFlag.textContent = langMap[currentLang].flag;
+    if (mobileFlag && flagMap[currentLang]) {
+      mobileFlag.textContent = flagMap[currentLang];
     }
-    if (mobileCurrent && langMap[currentLang]) {
-      mobileCurrent.textContent = langMap[currentLang].name;
+    if (mobileCurrent) {
+      mobileCurrent.textContent = t('lang.switcher.short');
     }
+
 
     /* Tandai item aktif di dropdown */
     var items = document.querySelectorAll('[data-lw-lang]');

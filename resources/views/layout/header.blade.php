@@ -41,9 +41,9 @@
                   <i class="fas fa-chevron-down" aria-hidden="true"></i>
                 </a>
                 <ul class="lw-sub-list">
-                  <li><a href="{{ url('/virtual-office') }}">Virtual Office</a></li>
-                  <li><a href="{{ url('/sewa-meeting-room') }}">Sewa Meeting Room</a></li>
-                  <li><a href="{{ url('/sewa-ruang-podcast') }}">Sewa Ruang Podcast</a></li>
+                  <li><a href="{{ url('/virtual-office') }}" data-i18n="nav.services.virtual_office">Virtual Office</a></li>
+                  <li><a href="{{ url('/sewa-meeting-room') }}" data-i18n="nav.services.meeting_room">Sewa Meeting Room</a></li>
+                  <li><a href="{{ url('/sewa-ruang-podcast') }}" data-i18n="nav.services.podcast_room">Sewa Ruang Podcast</a></li>
                 </ul>
               </div>
               <!-- Legalitas Perusahaan -->
@@ -53,12 +53,12 @@
                   <i class="fas fa-chevron-down" aria-hidden="true"></i>
                 </a>
                 <ul class="lw-sub-list">
-                  <li><a href="{{ url('/pendirian-pt-perorangan') }}">Pendirian PT Perorangan</a></li>
-                  <li><a href="{{ url('/pendirian-pt') }}">Pendirian PT Perseroan</a></li>
-                  <li><a href="{{ url('/pendirian-pt-pma') }}">Pendirian PT PMA</a></li>
-                  <li><a href="{{ url('/pendirian-cv') }}">Pendirian CV</a></li>
-                  <li><a href="{{ url('/pendirian-yayasan') }}">Pendirian Yayasan</a></li>
-                  <li><a href="{{ url('/pendirian-firma') }}">Pendirian Firma</a></li>
+                  <li><a href="{{ url('/pendirian-pt-perorangan') }}" data-i18n="nav.services.pt_perorangan">Pendirian PT Perorangan</a></li>
+                  <li><a href="{{ url('/pendirian-pt') }}" data-i18n="nav.services.pt_perseroan">Pendirian PT Perseroan</a></li>
+                  <li><a href="{{ url('/pendirian-pt-pma') }}" data-i18n="nav.services.pt_pma">Pendirian PT PMA</a></li>
+                  <li><a href="{{ url('/pendirian-cv') }}" data-i18n="nav.services.cv">Pendirian CV</a></li>
+                  <li><a href="{{ url('/pendirian-yayasan') }}" data-i18n="nav.services.yayasan">Pendirian Yayasan</a></li>
+                  <li><a href="{{ url('/pendirian-firma') }}" data-i18n="nav.services.firma">Pendirian Firma</a></li>
                 </ul>
               </div>
               <!-- Pajak & Pembukuan -->
@@ -68,8 +68,8 @@
                   <i class="fas fa-chevron-down" aria-hidden="true"></i>
                 </a>
                 <ul class="lw-sub-list">
-                  <li><a href="{{ url('/jasa-pembukuan-perpajakan') }}">Jasa Pembukuan & Perpajakan</a></li>
-                  <li><a href="{{ url('/pelaporan-spt-tahunan') }}">Pelaporan SPT Tahunan</a></li>
+                  <li><a href="{{ url('/jasa-pembukuan-perpajakan') }}" data-i18n="nav.services.pembukuan">Jasa Pembukuan & Perpajakan</a></li>
+                  <li><a href="{{ url('/pelaporan-spt-tahunan') }}" data-i18n="nav.services.spt">Pelaporan SPT Tahunan</a></li>
                 </ul>
               </div>
               <!-- Perizinan & Hukum -->
@@ -79,12 +79,12 @@
                   <i class="fas fa-chevron-down" aria-hidden="true"></i>
                 </a>
                 <ul class="lw-sub-list">
-                  <li><a href="{{ url('/haki') }}">Hak Kekayaan Intelektual</a></li>
-                  <li><a href="{{ url('/nib-dan-oss') }}">NIB dan OSS</a></li>
-                  <li><a href="{{ url('/laporan-lkpm') }}">Laporan LKPM</a></li>
-                  <li><a href="{{ url('/sertifikat-iso') }}">Sertifikat ISO</a></li>
-                  <li><a href="{{ url('/pengurusan-pkp') }}">Pengurusan PKP</a></li>
-                  <li><a href="{{ url('/perizinan-dan-hukum') }}">Perizinan Lainnya</a></li>
+                  <li><a href="{{ url('/haki') }}" data-i18n="nav.services.haki">Hak Kekayaan Intelektual</a></li>
+                  <li><a href="{{ url('/nib-dan-oss') }}" data-i18n="nav.services.nib">NIB dan OSS</a></li>
+                  <li><a href="{{ url('/laporan-lkpm') }}" data-i18n="nav.services.lkpm">Laporan LKPM</a></li>
+                  <li><a href="{{ url('/sertifikat-iso') }}" data-i18n="nav.services.iso">Sertifikat ISO</a></li>
+                  <li><a href="{{ url('/pengurusan-pkp') }}" data-i18n="nav.services.pkp">Pengurusan PKP</a></li>
+                  <li><a href="{{ url('/perizinan-dan-hukum') }}" data-i18n="nav.services.perizinan_lainnya">Perizinan Lainnya</a></li>
                 </ul>
               </div>
             </div>
@@ -771,9 +771,9 @@
                                   <i class="fas fa-file-contract"></i> <span data-i18n="nav.services.office_title">Kantor &amp; Ruang Podcast</span>
                                 </div>
                                 <ul>
-                                  <li><a href="{{ url('/virtual-office') }}">Virtual Office</a></li>
-                                  <li><a href="{{ url('/sewa-meeting-room') }}">Sewa Meeting Room</a></li>
-                                  <li><a href="{{ url('/sewa-ruang-podcast') }}">Sewa Ruang Podcast</a></li>
+                                  <li><a href="{{ url('/virtual-office') }}" data-i18n="nav.services.virtual_office">Virtual Office</a></li>
+                                  <li><a href="{{ url('/sewa-meeting-room') }}" data-i18n="nav.services.meeting_room">Sewa Meeting Room</a></li>
+                                  <li><a href="{{ url('/sewa-ruang-podcast') }}" data-i18n="nav.services.podcast_room">Sewa Ruang Podcast</a></li>
                                 </ul>
                               </div>
 
@@ -782,12 +782,12 @@
                                   <i class="fas fa-building"></i> <span data-i18n="nav.services.legal_title">Legalitas Perusahaan</span>
                                 </div>
                                 <ul>
-                                  <li><a href="{{ url('/pendirian-pt-perorangan') }}">Pendirian PT Perorangan</a></li>
-                                  <li><a href="{{ url('/pendirian-pt') }}">Pendirian PT Perseroan</a></li>
-                                  <li><a href="{{ url('/pendirian-pt-pma') }}">Pendirian PT PMA</a></li>
-                                  <li><a href="{{ url('/pendirian-cv') }}">Pendirian CV</a></li>
-                                  <li><a href="{{ url('/pendirian-yayasan') }}">Pendirian Yayasan</a></li>
-                                  <li><a href="{{ url('/pendirian-firma') }}">Pendirian Firma</a></li>
+                                  <li><a href="{{ url('/pendirian-pt-perorangan') }}" data-i18n="nav.services.pt_perorangan">Pendirian PT Perorangan</a></li>
+                                  <li><a href="{{ url('/pendirian-pt') }}" data-i18n="nav.services.pt_perseroan">Pendirian PT Perseroan</a></li>
+                                  <li><a href="{{ url('/pendirian-pt-pma') }}" data-i18n="nav.services.pt_pma">Pendirian PT PMA</a></li>
+                                  <li><a href="{{ url('/pendirian-cv') }}" data-i18n="nav.services.cv">Pendirian CV</a></li>
+                                  <li><a href="{{ url('/pendirian-yayasan') }}" data-i18n="nav.services.yayasan">Pendirian Yayasan</a></li>
+                                  <li><a href="{{ url('/pendirian-firma') }}" data-i18n="nav.services.firma">Pendirian Firma</a></li>
 
                                 </ul>
                               </div>
@@ -797,9 +797,9 @@
                                   <i class="fas fa-calculator"></i> <span data-i18n="nav.services.tax_title">Pajak &amp; Pembukuan</span>
                                 </div>
                                 <ul>
-                                  <li><a href="{{ url('/jasa-pembukuan-perpajakan') }}">Jasa Pembukuan & Perpajakan</a></li>
+                                  <li><a href="{{ url('/jasa-pembukuan-perpajakan') }}" data-i18n="nav.services.pembukuan">Jasa Pembukuan & Perpajakan</a></li>
                                   <!-- <li><a href="{{ url('/pendaftaran-npwp') }}">Pendaftaran NPWP</a></li> -->
-                                  <li><a href="{{ url('/pelaporan-spt-tahunan') }}">Pelaporan SPT Tahunan</a></li>
+                                  <li><a href="{{ url('/pelaporan-spt-tahunan') }}" data-i18n="nav.services.spt">Pelaporan SPT Tahunan</a></li>
                                 </ul>
 
                               </div>
@@ -809,14 +809,14 @@
                                   <i class="fas fa-building"></i> <span data-i18n="nav.services.perizinan_title">Perizinan Dan Hukum</span>
                                 </div>
                                 <ul>
-                                  <li><a href="{{ url('/haki') }}">Hak Kekayaan Intelektual</a></li> 
-                                  <li><a href="{{ url('/nib-dan-oss') }}">NIB dan OSS</a></li>
-                                  <li><a href="{{ url('/laporan-lkpm') }}">Laporan LKPM</a></li>
-                                  <li><a href="{{ url('/sertifikat-iso') }}">Sertifikat ISO</a></li>
-                                  <li><a href="{{ url('/pengurusan-pkp') }}">Pengurusan PKP</a></li>
+                                  <li><a href="{{ url('/haki') }}" data-i18n="nav.services.haki">Hak Kekayaan Intelektual</a></li> 
+                                  <li><a href="{{ url('/nib-dan-oss') }}" data-i18n="nav.services.nib">NIB dan OSS</a></li>
+                                  <li><a href="{{ url('/laporan-lkpm') }}" data-i18n="nav.services.lkpm">Laporan LKPM</a></li>
+                                  <li><a href="{{ url('/sertifikat-iso') }}" data-i18n="nav.services.iso">Sertifikat ISO</a></li>
+                                  <li><a href="{{ url('/pengurusan-pkp') }}" data-i18n="nav.services.pkp">Pengurusan PKP</a></li>
                                 </ul>
                                 <a href="{{ url('/perizinan-dan-hukum') }}" class="lw-sidebar-cta" style="padding:13px !important; color:white !important">
-                                  Perizinan Lainnya <i class="fas fa-arrow-right"></i>
+                                  <span data-i18n="nav.services.perizinan_lainnya">Perizinan Lainnya</span> <i class="fas fa-arrow-right"></i>
                                 </a>
                               </div>
                             </div>
@@ -894,7 +894,7 @@
             <div class="lw-lang-switcher d-flex my-auto" id="lw-lang-switcher-desktop" style="margin-left: -3px; margin-right: 10px;">
               <button class="lw-lang-btn" id="lw-lang-trigger" type="button" style="padding: 6px 10px; font-size: 0.8rem;">
                 <span id="lw-lang-current-flag">🇮🇩</span>
-                <span id="lw-lang-current-name" class="d-none d-lg-inline">Indonesia</span>
+                <span id="lw-lang-current-name" class="d-none d-lg-inline" data-i18n="lang.switcher.short">Indonesia</span>
                 <i class="fas fa-angle-down lw-lang-arrow"></i>
               </button>
               <div class="lw-lang-dropdown" id="lw-lang-dropdown" style="right: 0; min-width: 160px;">

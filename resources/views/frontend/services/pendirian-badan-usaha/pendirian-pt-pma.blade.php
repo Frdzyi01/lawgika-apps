@@ -683,7 +683,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-lg-end justify-content-start mb-0">
                         <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none" data-i18n="nav.home">Beranda</a></li>
-                        <li class="breadcrumb-item active text-white-50" aria-current="page">Pendirian PT PMA</li>
+                        <li class="breadcrumb-item active text-white-50" aria-current="page" data-i18n="pt_pma.breadcrumb">Pendirian PT PMA</li>
                     </ol>
                 </nav>
             </div>
@@ -717,7 +717,7 @@
     <div class="container">
         <div class="section-header">
             <h2 data-i18n="pt_pma.why_title">MENGAPA MEMILIH KAMI?</h2>
-            <p>Dapatkan berbagai keuntungan tambahan saat mendirikan PT PMA bersama kami</p>
+            <p data-i18n="pt_pma.why_desc">Dapatkan berbagai keuntungan tambahan saat mendirikan PT PMA bersama kami</p>
         </div>
         <div class="row g-4 justify-content-center">
             <div class="col-md-4">
@@ -755,9 +755,9 @@
 <section class="process-section">
     <div class="container">
         <div class="section-header">
-            <span class="badge">Tahapan Tuntas</span>
-            <h2>PROSES PENDIRIAN PT PMA</h2>
-            <p>Kami menyederhanakan birokrasi PMA menjadi tahapan yang jelas</p>
+            <span class="badge" data-i18n="ui.process.badge">Tahapan Tuntas</span>
+            <h2 data-i18n="pt_pma.process_title">PROSES PENDIRIAN PT PMA</h2>
+            <p data-i18n="pt_pma.process_desc">Kami menyederhanakan birokrasi PMA menjadi tahapan yang jelas</p>
         </div>
         <div class="process-timeline">
             <div class="process-step">

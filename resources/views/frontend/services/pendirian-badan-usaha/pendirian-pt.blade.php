@@ -717,7 +717,7 @@
     <div class="container">
         <div class="section-header">
             <h2 data-i18n="pt.why_title">MENGAPA MEMILIH KAMI?</h2>
-            <p>Dapatkan berbagai keuntungan tambahan saat mendirikan PT bersama kami</p>
+            <p data-i18n="pt.why_desc">Dapatkan berbagai keuntungan tambahan saat mendirikan PT bersama kami</p>
         </div>
         <div class="row g-4 justify-content-center">
             <div class="col-md-4">
@@ -755,9 +755,9 @@
 <section class="process-section">
     <div class="container">
         <div class="section-header">
-            <span class="badge">Tahapan Tuntas</span>
-            <h2>PROSES PENDIRIAN PT</h2>
-            <p>Kami menyederhanakan birokrasi menjadi tahapan yang jelas</p>
+            <span class="badge" data-i18n="ui.process.badge">Tahapan Tuntas</span>
+\            <h2 data-i18n="pt.process_title">PROSES PENDIRIAN PT</h2>
+            <p data-i18n="pt.process_desc">Kami menyederhanakan birokrasi menjadi tahapan yang jelas</p>
         </div>
         <div class="process-timeline">
             <div class="process-step">
@@ -841,7 +841,7 @@
           {{-- Izin --}}
 <div class="col-lg-5 col-md-6">
     <div class="pricing-card">
-        <h4> Basic Package</h4>
+        <h4 data-i18n="ui.pricing.pkg_basic"> Basic Package</h4>
 
         <div class="price">
             <span class="start-text" data-i18n="ui.pricing.start_from">start form</span> Rp 5.000.000
@@ -902,7 +902,7 @@
     <div class="pricing-card featured">
         <span class="badge" data-i18n="vo.pricing.recommendation">REKOMENDASI</span>
 
-        <h4>Business Pack </h4>
+        <h4 data-i18n="ui.pricing.pkg_business">Business Pack </h4>
 
         <div class="price">
             <span class="start-text" data-i18n="ui.pricing.start_from">start form</span> Rp 9.300.000

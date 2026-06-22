@@ -755,9 +755,9 @@
 <section class="process-section">
     <div class="container">
         <div class="section-header">
-            <span class="badge">Tahapan Tuntas</span>
-            <h2>PROSES PENDIRIAN CV</h2>
-            <p>Kami menyederhanakan birokrasi kompleks menjadi 3 tahap</p>
+            <span class="badge" data-i18n="ui.process.badge">Tahapan Tuntas</span>
+            <h2 data-i18n="cv.process_title">PROSES PENDIRIAN CV</h2>
+            <p data-i18n="cv.process_desc">Kami menyederhanakan birokrasi kompleks menjadi 3 tahap</p>
         </div>
         <div class="process-timeline">
             <div class="process-step">
@@ -783,9 +783,9 @@
 <section class="requirements-section">
     <div class="container">
         <div class="section-header">
-            <span class="badge">Persiapan Cepat</span>
-            <h2 data-i18n="cv.req_title" data-i18n="cv.req_title">PERSYARATAN KELENGKAPAN CV</h2>
-            <p>Hanya menyiapkan berkas berikut, biarkan tim kami yang bergerak</p>
+            <span class="badge" data-i18n="ui.req.fast_prep">Persiapan Cepat</span>
+            <h2 data-i18n="cv.req_title">PERSYARATAN KELENGKAPAN CV</h2>
+            <p data-i18n="ui.req.fast_prep_desc">Hanya menyiapkan berkas berikut, biarkan tim kami yang bergerak</p>
         </div>
         <div class="row g-4 justify-content-center">
             <div class="col-md-6">
@@ -800,8 +800,8 @@
                         <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="ui.req.name_cv">Nama CV (minimal 3 kata)</span></li>
                         <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="ui.req.address_company">Alamat lengkap perusahaan</span></li>
                         <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="ui.req.kbli">Bidang usaha (Kode KBLI)</span></li>
-                        <li><i class="fa-solid fa-circle-check"></i> Susunan sekutu aktif & pasif</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Pembagian modal dan keuntungan</li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="ui.req.partners_cv">Susunan sekutu aktif & pasif</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="ui.req.capital_sharing">Pembagian modal dan keuntungan</span></li>
                     </ul>
                     <a href="#" class="requirement-cta"><span data-i18n="ui.req.consult_data">Konsultasi Data</span> <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
@@ -815,10 +815,10 @@
                         <h3 data-i18n="ui.req_doc_title">KELENGKAPAN DOKUMEN</h3>
                     </div>
                     <ul class="requirement-list">
-                        <li><i class="fa-solid fa-circle-check"></i> Scan KTP sekutu aktif</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Scan NPWP sekutu aktif</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Pas foto sekutu aktif</li>
-                        <li><i class="fa-solid fa-circle-check"></i> Bukti alamat usaha</li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="ui.req.ktp_active_partner">Scan KTP sekutu aktif</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="ui.req.npwp_active_partner">Scan NPWP sekutu aktif</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="ui.req.photo_active_partner">Pas foto sekutu aktif</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="ui.req.proof_address_business">Bukti alamat usaha</span></li>
                     </ul>
                     <a href="#" class="requirement-cta"><span data-i18n="ui.req.upload_doc">Upload Dokumen</span> <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
@@ -831,9 +831,9 @@
 <section class="pt-pricing" id="pricing">
     <div class="container">
         <div class="section-title text-center mb-5">
-            <span class="subtitle">Pilihan Paket Transparan</span>
-            <h2>Paket Pendirian CV</h2>
-            <p>Rincian harga jujur dan tegas. Anda bayar sesuai apa yang ditunjukkan tanpa hidden markups.</p>
+            <span class="subtitle" data-i18n="ui.pricing.transparent_choice">Pilihan Paket Transparan</span>
+            <h2 data-i18n="cv.pricing_title">Paket Pendirian CV</h2>
+            <p data-i18n="cv.pricing_desc">Rincian harga jujur dan tegas. Anda bayar sesuai apa yang ditunjukkan tanpa hidden markups.</p>
         </div>
 
         <div class="row g-4 justify-content-center">
@@ -841,7 +841,7 @@
            {{-- Izin --}}
 <div class="col-lg-5 col-md-6">
     <div class="pricing-card">
-        <h4> Basic Package</h4>
+        <h4 data-i18n="ui.pricing.pkg_basic"> Basic Package</h4>
 
         <div class="price">Rp 4.500.000</div>
 
@@ -889,7 +889,7 @@
     <div class="pricing-card featured">
         <span class="badge" data-i18n="vo.pricing.recommendation">REKOMENDASI</span>
 
-       <h4>Business Pack </h4>
+       <h4 data-i18n="ui.pricing.pkg_business">Business Pack </h4>
 
         <div class="price">Rp 8.500.000</div>
 

@@ -388,7 +388,7 @@
                  TAB 1 – Office & Work Space
             ═══════════════════════════════════ --}}
       <div class="layanan-tab-pane active-visible"
-         id="pane-office" role="tabpanel" aria-labelledby="tab-office">
+        id="pane-office" role="tabpanel" aria-labelledby="tab-office">
 
         {{-- Sub-banner --}}
         <div class="layanan-banner">
@@ -445,7 +445,7 @@
                   <div class="layanan-card-title" data-i18n="layanan.card.vo.title">Virtual Office</div>
                   <div class="layanan-card-desc" data-i18n="layanan.card.vo.desc">Hemat biaya operasional hingga 90% dengan alamat kantor prestisius tanpa sewa fisik.</div>
                   <div class="layanan-card-price-label" data-i18n="layanan.card.vo.price_lbl">Price Start From</div>
-                  <div class="layanan-card-price"><span data-i18n="layanan.card.vo.price_val">2.800.000</span><span data-i18n="layanan.card.vo.price_unit">/Tahun*</span></div>
+                  <div class="layanan-card-price"><span data-i18n="layanan.card.vo.price_val">2.800.000</span><span data-i18n="layanan.card.vo.price_unit">/Tahun</span></div>
                   <a href="{{ url('/virtual-office') }}" class="layanan-card-btn" data-i18n="layanan.btn.order_now">Order Now</a>
                 </div>
               </div>
@@ -461,7 +461,7 @@
                   <div class="layanan-card-title" data-i18n="layanan.card.mr.title">Meeting Room</div>
                   <div class="layanan-card-desc" data-i18n="layanan.card.mr.desc">Tempat yang cocok untuk melakukan pertemuan penting dengan klien atau mitra bisnis.</div>
                   <div class="layanan-card-price-label" data-i18n="layanan.card.vo.price_lbl">Price Start From</div>
-                  <div class="layanan-card-price"><span data-i18n="layanan.card.mr.price_val">Rp 4.800.000</span><span data-i18n="layanan.card.mr.price_unit">/60 Jam*</span></div>
+                  <div class="layanan-card-price"><span data-i18n="layanan.card.mr.price_val">Rp 4.800.000</span><span data-i18n="layanan.card.mr.price_unit">/60 Jam</span></div>
                   <a href="{{ url('/sewa-meeting-room') }}" class="layanan-card-btn" data-i18n="layanan.btn.order_now">Order Now</a>
                 </div>
               </div>
@@ -477,7 +477,7 @@
                   <div class="layanan-card-title" data-i18n="layanan.card.ps.title">Podcast Studio</div>
                   <div class="layanan-card-desc" data-i18n="layanan.card.ps.desc">Ruang podcast profesional dengan peralatan lengkap untuk produksi audio berkualitas tinggi.</div>
                   <div class="layanan-card-price-label" data-i18n="layanan.card.vo.price_lbl">Price Start From</div>
-                  <div class="layanan-card-price"><span data-i18n="layanan.card.ps.price_val">Rp 700.000</span><span data-i18n="layanan.card.ps.price_unit">/2 Jam*</span></div>
+                  <div class="layanan-card-price"><span data-i18n="layanan.card.ps.price_val">Rp 700.000</span><span data-i18n="layanan.card.ps.price_unit">/2 Jam</span></div>
                   <a href="{{ url('/sewa-ruang-podcast') }}" class="layanan-card-btn" data-i18n="layanan.btn.order_now">Order Now</a>
                 </div>
               </div>
@@ -734,7 +734,7 @@
         </div>{{-- /swiper --}}
       </div>{{-- /pane-foreign --}}
 
-  </div>{{-- /#layananTabContent --}}
+    </div>{{-- /#layananTabContent --}}
   </div>{{-- /.container --}}
 </section>
 
@@ -892,7 +892,11 @@
 
 {{-- ── Auth state untuk JS (server-side rendered, aman) ── --}}
 <script>
-  var IS_LOGGED_IN = {{ auth()->check() ? 'true' : 'false' }};
+  var IS_LOGGED_IN = {
+    {
+      auth() - > check() ? 'true' : 'false'
+    }
+  };
 
   function openOrderModal(serviceName) {
     if (!IS_LOGGED_IN) {
