@@ -144,7 +144,7 @@
                                 @if($b->payment_status==='approved')
                                     <small class="d-block">{{ __('customer.podcast.index.manual.total') }}: {{ $b->formatSeconds($b->duration * 3600) }}</small>
                                     <small class="d-block">Dipakai: {{ $b->formatted_used_time }}</small>
-                                    @php $sisa=$b->formatted_remaining_time; $bc=$sisa==='{{ __('customer.podcast.index.time') }} habis'?'bg-danger':'bg-success'; @endphp
+                                    @php $sisa=$b->formatted_remaining_time; $bc=$sisa===(__('customer.podcast.index.time') . ' habis')?'bg-danger':'bg-success'; @endphp
                                     <span class="badge {{ $bc }} mt-1">Sisa:  {{ $sisa }}</span>
                                 @else
                                     <span class="text-muted small">–</span>

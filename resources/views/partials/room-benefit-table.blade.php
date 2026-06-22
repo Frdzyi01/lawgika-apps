@@ -119,15 +119,15 @@
                             @php
                                 $badgeStyles = [
                                     'Siap Digunakan'   => 'bg-info text-dark',
-                                    '{{ __('room_benefit.modal.status.in_use') }}' => 'bg-warning text-dark',
-                                    '{{ __('room_benefit.modal.status.finished') }}'          => 'bg-success',
+                                    __('room_benefit.modal.status.in_use') => 'bg-warning text-dark',
+                                    __('room_benefit.modal.status.finished')          => 'bg-success',
                                     'Expired'          => 'bg-danger',
                                     'Nonaktif'         => 'bg-secondary',
                                 ];
                                 $badgeClass = $badgeStyles[$statusLabel] ?? 'bg-secondary';
                             @endphp
                             <span class="badge {{ $badgeClass }}">
-                                @if($statusLabel === '{{ __('room_benefit.modal.status.in_use') }}')
+                                @if($statusLabel === __('room_benefit.modal.status.in_use'))
                                     <i class="fa fa-circle-dot fa-beat me-1"></i>
                                 @endif
                                 {{ match($statusLabel) { 'Siap Digunakan' => __('room_benefit.status.ready'), 'Sedang Digunakan' => __('room_benefit.status.in_use'), 'Selesai' => __('room_benefit.status.finished'), 'Expired' => __('room_benefit.status.expired'), 'Nonaktif' => __('room_benefit.status.inactive'), default => $statusLabel } }}
@@ -155,7 +155,7 @@
 
                                 {{-- Admin-only check-in / check-out buttons --}}
                                 @if($isAdmin ?? false)
-                                    @if($statusLabel === 'Siap Digunakan' || $statusLabel === '{{ __('room_benefit.modal.status.in_use') }}')
+                                    @if($statusLabel === 'Siap Digunakan' || $statusLabel === __('room_benefit.modal.status.in_use'))
                                         @if($isCheckedIn)
                                             <form action="{{ route('admin.benefits.checkout', [$b->id, $roomType ?? 'meeting']) }}"
                                                   method="POST">

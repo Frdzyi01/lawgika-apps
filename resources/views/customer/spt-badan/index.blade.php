@@ -1,5 +1,5 @@
 @extends('layouts-customer.app')
-@section('title', '{{ __('customer.spt.index.title') }}')
+@section('title', __('customer.spt.index.title'))
 @section('content')
 <div class="container-fluid py-4">
   <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">

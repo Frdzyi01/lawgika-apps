@@ -354,7 +354,7 @@
                                      onclick="document.getElementById('file-{{ $loop->index }}').click()">
                                     <i class="fa fa-cloud-arrow-up text-muted mb-2" style="font-size:1.5rem"></i>
                                     <div class="fw-semibold text-muted small">
-                                        {{ $hasRejectedDoc ? '{{ __('customer.orders.show.upload.click_reupload') }}' : '{{ __('customer.orders.show.upload.click_upload') }}' }}
+                                        {{ $hasRejectedDoc ? __('customer.orders.show.upload.click_reupload') : __('customer.orders.show.upload.click_upload') }}
                                     </div>
                                     <div class="text-muted" style="font-size:.75rem">{{ __('customer.orders.show.upload.hint') }}</div>
                                     <div id="fname-{{ $loop->index }}" class="text-primary small mt-1 d-none fw-semibold"></div>
@@ -366,7 +366,7 @@
                                         class="btn {{ $hasRejectedDoc ? 'btn-warning' : 'btn-primary' }} btn-sm w-100 mt-2 d-none"
                                         style="border-radius:8px">
                                     <i class="fa fa-upload me-1"></i>
-                                    {{ $hasRejectedDoc ? '{{ __('customer.orders.show.upload.btn_revision') }}' : '{{ __('customer.orders.show.upload.btn_submit') }}' }}
+                                    {{ $hasRejectedDoc ? __('customer.orders.show.upload.btn_revision') : __('customer.orders.show.upload.btn_submit') }}
                                 </button>
                             </form>
 
@@ -465,7 +465,7 @@
                 <form action="{{ route('customer.orders.payment-proof', $order->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <label class="form-label fw-semibold small">
-                        {{ $order->payment_proof ? 'Update Bukti {{ __('customer.orders.show.payment.title') }}' : 'Upload Bukti {{ __('customer.orders.show.payment.title') }}' }}
+                        {{ $order->payment_proof ? 'Update Bukti ' . __('customer.orders.show.payment.title') : 'Upload Bukti ' . __('customer.orders.show.payment.title') }}
                     </label>
                     <input type="file" name="payment_proof" class="form-control form-control-sm mb-2" required>
                     <small class="text-muted d-block mb-2">{{ __('customer.orders.show.payment.hint') }}</small>

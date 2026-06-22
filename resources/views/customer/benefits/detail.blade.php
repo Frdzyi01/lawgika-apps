@@ -11,13 +11,13 @@
             </a>
             <h1 class="h3 mb-0 text-gray-800">{{ __('customer.benefit.detail.title') }}</h1>
             <small class="text-muted">
-                {{ __('customer.benefit.detail.order') }} <code>{{ $benefit->order->order_number ?? '{{ __('customer.benefit.detail.usage.no') }}'.$benefit->order_id }}</code>
+                {{ __('customer.benefit.detail.order') }} <code>{{ $benefit->order->order_number ?? '#'.$benefit->order_id }}</code>
             </small>
         </div>
         @php
             $statusColors = [
                 'Siap Digunakan'   => 'info',
-                '{{ __('customer.benefit.detail.res.status.in_use') }}' => 'warning',
+                __('customer.benefit.detail.res.status.in_use') => 'warning',
                 'Selesai'          => 'success',
                 'Expired'          => 'danger',
                 'Nonaktif'         => 'secondary',
@@ -38,8 +38,8 @@
         {{-- ── LEFT: Informasi Benefit ── --}}
         <div class="col-lg-5">
             <div class="card shadow mb-4 border-start border-success border-4">
-                <div class="card-header py-3" style="background:linear-gradient(135deg,{{ __('customer.benefit.detail.usage.no') }}d4edda,{{ __('customer.benefit.detail.usage.no') }}c3e6cb);">
-                    <h6 class="m-0 font-weight-bold" style="color:{{ __('customer.benefit.detail.usage.no') }}155724;">
+                <div class="card-header py-3" style="background:linear-gradient(135deg,#d4edda,#c3e6cb);">
+                    <h6 class="m-0 font-weight-bold" style="color:#155724;">
                         🎁 {{ __('customer.benefit.detail.info_title') }}
                     </h6>
                 </div>
@@ -51,7 +51,7 @@
                         <tr>
                             <td class="text-muted ps-0" width="45%">{{ __('customer.benefit.detail.order_no') }}</td>
                             <td class="fw-semibold">
-                                <code>{{ $benefit->order->order_number ?? '{{ __('customer.benefit.detail.usage.no') }}'.$benefit->order_id }}</code>
+                                <code>{{ $benefit->order->order_number ?? '#'.$benefit->order_id }}</code>
                             </td>
                         </tr>
                         <tr>
@@ -212,7 +212,7 @@
                             </thead>
                             <tbody>
                                 @foreach($sessions as $i => $s)
-                                <tr @if($s->is_active) style="background:{{ __('customer.benefit.detail.usage.no') }}fff8e1;" @endif>
+                                <tr @if($s->is_active) style="background:#fff8e1;" @endif>
                                     <td class="ps-4 text-muted">{{ $i + 1 }}</td>
                                     <td>
                                         @if($s->room_type === 'meeting')
@@ -220,7 +220,7 @@
                                                 <i class="fa fa-users me-1"></i>Meeting Room
                                             </span>
                                         @else
-                                            <span class="badge" style="background:{{ __('customer.benefit.detail.usage.no') }}7c3aed;color:{{ __('customer.benefit.detail.usage.no') }}fff;">
+                                            <span class="badge" style="background:#7c3aed;color:#fff;">
                                                 <i class="fa fa-microphone me-1"></i>Podcast Room
                                             </span>
                                         @endif

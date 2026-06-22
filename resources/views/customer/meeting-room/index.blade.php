@@ -101,16 +101,16 @@
                                                 @php
                                                     $remaining = max(0, $package->remaining_hours);
                                                     if (isset($package->expired_at) && now()->greaterThan($package->expired_at)) {
-                                                        $status = "{{ __('customer.mr.index.room.expired') }}";
+                                                        $status = __('customer.mr.index.room.expired');
                                                         $statusBadge = "bg-danger";
                                                     } elseif ($remaining == $package->total_hours) {
-                                                        $status = "{{ __('customer.mr.index.room.not_used') }}";
+                                                        $status = __('customer.mr.index.room.not_used');
                                                         $statusBadge = "bg-info text-dark";
                                                     } elseif ($remaining > 0) {
-                                                        $status = "{{ __('customer.mr.index.room.paused') }}";
+                                                        $status = __('customer.mr.index.room.paused');
                                                         $statusBadge = "bg-warning text-dark";
                                                     } else {
-                                                        $status = "{{ __('customer.mr.index.room.exhausted') }}";
+                                                        $status = __('customer.mr.index.room.exhausted');
                                                         $statusBadge = "bg-secondary";
                                                     }
                                                 @endphp
