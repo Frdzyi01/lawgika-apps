@@ -12,7 +12,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->redirectUsersTo(fn () => auth()->check() && auth()->user()->role === 'admin' ? '/admin' : '/dashboard');
+        $middleware->redirectUsersTo(fn () => auth()->check() && auth()->user()->hasAdminAccess() ? '/admin' : '/dashboard');
         $middleware->redirectGuestsTo('/login');
         $middleware->alias([
             'role' => \App\Http\Middleware\EnsureUserRole::class,

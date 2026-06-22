@@ -221,7 +221,7 @@
           {{-- Jika sudah login --}}
           @auth
           <div class="d-flex flex-column gap-2">
-            @if(Auth::user()->role === 'admin')
+            @if(Auth::user()->hasAdminAccess())
             <a href="{{ route('admin.dashboard') }}" class="theme-btn text-center fw-normal">
               Dashboard <i class="fa-solid fa-arrow-right-long ms-2"></i>
             </a>
@@ -931,7 +931,7 @@
                   Profile
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  @if(Auth::user()->role === 'admin')
+                  @if(Auth::user()->hasAdminAccess())
                   <li><a class="dropdown-item" href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                   @else
                   <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>

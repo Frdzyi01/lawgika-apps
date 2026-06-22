@@ -131,11 +131,11 @@ Route::post('/order-quick', [\App\Http\Controllers\PublicOrderController::class,
 
 // Redirect /home
 Route::get('/home', function () {
-    if (auth()->check() && auth()->user()->role === 'admin') return redirect()->route('admin.dashboard');
+    if (auth()->check() && auth()->user()->hasAdminAccess()) return redirect()->route('admin.dashboard');
     return redirect()->route('customer.dashboard');
 })->middleware('auth')->name('home');
 
-Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'role:admin,admin1,admin2'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
     Route::get('/home', function() { return redirect()->route('admin.dashboard'); })->name('home'); // backward compatibility
     Route::resource('services', \App\Http\Controllers\Admin\ServiceController::class);
@@ -185,7 +185,10 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/surat-menyurat/{id}', [AdminCorrespondenceController::class, 'show'])->name('surat-menyurat.show');
     Route::post('/surat-menyurat/reply/{id}', [AdminCorrespondenceController::class, 'reply'])->name('surat-menyurat.reply');
     Route::post('/surat-menyurat/status/{id}', [AdminCorrespondenceController::class, 'updateStatus'])->name('surat-menyurat.status');
-    Route::resource('users', \App\Http\Controllers\Admin\UserController::class);
+    // Hanya SPV (admin) yang bisa mengakses pengelolaan data akun
+    Route::middleware('role:admin')->group(function () {
+        Route::resource('users', \App\Http\Controllers\Admin\UserController::class);
+    });
 });
 
 Route::middleware(['auth', 'role:customer'])->prefix('dashboard')->name('customer.')->group(function () {

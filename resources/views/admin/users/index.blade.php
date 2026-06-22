@@ -1,6 +1,6 @@
 @extends('layouts-admin.admin')
 
-@section('title', 'Data Akun Client - Lawgika Admin')
+@section('title', 'Manajemen Akun - Lawgika Admin')
 
 @section('content')
 <!--start breadcrumb-->
@@ -24,7 +24,12 @@
 <div class="card radius-10 w-100">
     <div class="card-body">
         <div class="d-flex align-items-center mb-3">
-            <h6 class="mb-0">Daftar Akun Client</h6>
+            <h6 class="mb-0">Manajemen Akun</h6>
+            @if(auth()->user()->isSPV())
+            <a href="{{ route('admin.users.create') }}" class="btn btn-primary btn-sm ms-auto d-flex align-items-center gap-1">
+                <ion-icon name="person-add-outline"></ion-icon> Tambah Akun
+            </a>
+            @endif
         </div>
         
         @if(session('success'))
@@ -34,12 +39,20 @@
             </div>
         @endif
 
+        @if(session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        @endif
+
         <div class="table-responsive mt-2">
             <table class="table align-middle mb-0">
                 <thead class="table-light">
                     <tr>
                         <th>No</th>
-                        <th>Nama Client</th>
+                        <th>Nama</th>
+                        <th>Role</th>
                         <th>Kontak</th>
                         <th>Tanggal Daftar</th>
                         <th>Paket Jasa yang Dibeli</th>
@@ -66,6 +79,19 @@
                             <small class="text-muted">{{ $user->phone ?? '-' }}</small>
                         </td>
                         <td>{{ $user->created_at->format('d M Y') }}</td>
+                        {{-- Badge Role --}}
+                        <td>
+                            @php
+                                $roleLabel = $user->roleLabel();
+                                $badgeClass = match($user->role) {
+                                    'admin', 'spv' => 'bg-gradient-purple',
+                                    'admin1'       => 'bg-gradient-info',
+                                    'admin2'       => 'bg-gradient-success',
+                                    default        => 'bg-secondary',
+                                };
+                            @endphp
+                            <span class="badge {{ $badgeClass }} text-white">{{ $roleLabel }}</span>
+                        </td>
                         <td>
                             @php
                                 $purchasedItems = collect();

@@ -66,6 +66,22 @@
                             <label class="form-label">Alamat</label>
                             <textarea name="address" class="form-control" rows="3">{{ old('address', $user->address) }}</textarea>
                         </div>
+
+                        {{-- Role — hanya SPV yang dapat mengubah role --}}
+                        @if(auth()->user()->isSPV())
+                        <div class="col-12">
+                            <label class="form-label fw-semibold">Role / Jabatan</label>
+                            <select name="role" class="form-select" required>
+                                <option value="customer"  {{ old('role', $user->role) === 'customer'  ? 'selected' : '' }}>Pelanggan</option>
+                                <option value="admin1"    {{ old('role', $user->role) === 'admin1'    ? 'selected' : '' }}>Admin Order (Admin 1)</option>
+                                <option value="admin2"    {{ old('role', $user->role) === 'admin2'    ? 'selected' : '' }}>Admin Konten (Admin 2)</option>
+                                <option value="admin"     {{ old('role', $user->role) === 'admin'     ? 'selected' : '' }}>SPV (Super Admin)</option>
+                            </select>
+                            <small class="text-muted">Hati-hati: mengubah role akan mempengaruhi hak akses pengguna.</small>
+                        </div>
+                        @else
+                        <input type="hidden" name="role" value="{{ $user->role }}">
+                        @endif
                         
                         <div class="col-12 mt-4 text-end">
                             <a href="{{ route('admin.users.index') }}" class="btn btn-secondary px-4">Batal</a>
