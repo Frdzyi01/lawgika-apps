@@ -109,7 +109,7 @@ try:
                                 <li><span><i class="fa-solid fa-check"></i> NPWP & SKT & EFIN*</span></li>
                                 <li><span><i class="fa-solid fa-check"></i> NIB & Sertifikat Standar* & PKKPR*</span></li>
                                 <li><span><i class="fa-solid fa-check"></i> Rekening PT Bank OCBC</span></li>
-                                <li><span><i class="fa-solid fa-check"></i> Alamat Bisnis Eksklusif</span></li>
+                                <li><span><i class="fa-solid fa-check"></i> Alamat Bisnis Ekslusif</span></li>
                                 <li><span><i class="fa-solid fa-check"></i> Fasilitas Ruang Meeting atau podcast 6 jam / bulan</span></li>
                                 <li><span><i class="fa-solid fa-check"></i> Akses Wifi dan Smart TV</span></li>
                                 <li><span><i class="fa-solid fa-check"></i> Layanan Print Scan dan Fotocopy</span></li>
@@ -145,7 +145,7 @@ try:
                                 <li><span><i class="fa-solid fa-check"></i> NPWP & SKT & EFIN*</span></li>
                                 <li><span><i class="fa-solid fa-check"></i> NIB & Sertifikat Standar* & PKKPR*</span></li>
                                 <li><span><i class="fa-solid fa-check"></i> Rekening PT Bank OCBC</span></li>
-                                <li><span><i class="fa-solid fa-check"></i> Alamat Bisnis Eksklusif</span></li>
+                                <li><span><i class="fa-solid fa-check"></i> Alamat Bisnis Ekslusif</span></li>
                                 <li><span><i class="fa-solid fa-check"></i> Fasilitas Ruang Meeting atau podcast 60 jam / tahun</span></li>
                                 <li><span><i class="fa-solid fa-check"></i> Akses Wifi dan Smart TV</span></li>
                                 <li><span><i class="fa-solid fa-check"></i> Layanan Print Scan dan Fotocopy</span></li>

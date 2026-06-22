@@ -846,7 +846,7 @@
                     <div class="price">Rp 2.800.000</div>
 
                     <ul class="feature-list">
-                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.address">ALAMAT BISNIS EKSKLUSIF</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.address">Alamat Bisnis Ekslusif</span></li>
                         <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.mail">PENGELOLAAN SURAT &amp; PAKET MASUK</span></li>
                         <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.notification">NOTIFIKASI SURAT &amp; PAKET MASUK</span></li>
                         <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.domicile">SURAT KETERANGAN DOMISILI</span></li>
@@ -892,7 +892,7 @@
                     <div class="price">Rp 4.800.000</div>
 
                     <ul class="feature-list">
-                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.address">ALAMAT BISNIS EKSKLUSIF</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.address">Alamat Bisnis Ekslusif</span></li>
                         <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.mail">PENGELOLAAN SURAT &amp; PAKET MASUK</span></li>
                         <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.notification">NOTIFIKASI SURAT &amp; PAKET MASUK</span></li>
                         <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.domicile">SURAT KETERANGAN DOMISILI</span></li>
@@ -934,7 +934,7 @@
                     <div class="price">Rp 5.800.000</div>
 
                     <ul class="feature-list">
-                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.address">ALAMAT BISNIS EKSKLUSIF</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.address">Alamat Bisnis Ekslusif</span></li>
                         <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.mail">PENGELOLAAN SURAT &amp; PAKET MASUK</span></li>
                         <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.notification">NOTIFIKASI SURAT &amp; PAKET MASUK</span></li>
                         <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.domicile">SURAT KETERANGAN DOMISILI</span></li>

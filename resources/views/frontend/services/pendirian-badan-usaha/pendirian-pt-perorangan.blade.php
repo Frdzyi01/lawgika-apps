@@ -852,26 +852,26 @@
                 <div class="pricing-card">
                     <h4 data-i18n="ui.pricing.pkg_basic">Basic Package</h4>
                     <div class="price">Rp 1.500.000</div>
-                   <ul class="feature-list">
-    <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.check_name_pt">Pengecekan Nama PT</span></li>
-    <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.book_name_pt">Pemesanan Nama PT</span></li>
-    <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.statement_pt">Pernyataan Pendaftaran</span></li>
-    <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.cert_menkumham">Sertifikat Pendaftaran Menkumham</span></li>
-    <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.npwp_skt">NPWP & SKT</span></li>
-    <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.nib">Nomor Induk Berusaha</span></li>
-    <li class="disabled"><i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.address">Alamat Bisnis Eksklusif</span></li>
-    <li class="disabled"><i class="fa-solid fa-minus"></i> <span data-i18n="ui.pricing.feature.meeting_podcast">Meeting Room (48 Jam) & Podcast Room (12 Jam)</span></li>
-    <li class="disabled"><i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.wifi">Akses Wifi & Smart TV</span></li>
-    <li class="disabled"><i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.print">Layanan Print, Scan & Fotocopy</span></li>
-    <li class="disabled"><i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.mail">Pengelolaan Surat dan Paket</span></li>
-    <li class="disabled"><i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.notification">Notifikasi Surat dan Paket Masuk</span></li>
-    <li class="disabled"><i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.domicile">Surat Keterangan Domisili</span></li>
-    <li class="disabled"><i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.community">Akses Komunitas Business</span></li>
-    <li class="disabled"><i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.receptionist">Layanan Resepsionis</span></li>
-    <li class="disabled"><i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.dashboard">Dashboard Login Customer</span></li>
-    <li class="disabled"><i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.signage">Signage Display</span></li>
-    <li class="disabled"><i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.call_handling">Layanan Call Handling</span></li>
-</ul>
+                    <ul class="feature-list">
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.check_name_pt">Pengecekan Nama PT</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.book_name_pt">Pemesanan Nama PT</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.statement_pt">Pernyataan Pendaftaran</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.cert_menkumham">Sertifikat Pendaftaran Menkumham</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.npwp_skt">NPWP & SKT</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.nib">Nomor Induk Berusaha</span></li>
+                        <li class="disabled"><i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.address">Alamat Bisnis Ekslusif</span></li>
+                        <li class="disabled"><i class="fa-solid fa-minus"></i> <span data-i18n="ui.pricing.feature.meeting_podcast">Meeting Room (48 Jam) & Podcast Room (12 Jam)</span></li>
+                        <li class="disabled"><i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.wifi">Akses Wifi & Smart TV</span></li>
+                        <li class="disabled"><i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.print">Layanan Print, Scan & Fotocopy</span></li>
+                        <li class="disabled"><i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.mail">Pengelolaan Surat dan Paket</span></li>
+                        <li class="disabled"><i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.notification">Notifikasi Surat dan Paket Masuk</span></li>
+                        <li class="disabled"><i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.domicile">Surat Keterangan Domisili</span></li>
+                        <li class="disabled"><i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.community">Akses Komunitas Business</span></li>
+                        <li class="disabled"><i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.receptionist">Layanan Resepsionis</span></li>
+                        <li class="disabled"><i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.dashboard">Dashboard Login Customer</span></li>
+                        <li class="disabled"><i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.signage">Signage Display</span></li>
+                        <li class="disabled"><i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.call_handling">Layanan Call Handling</span></li>
+                    </ul>
                     <button onclick="goOrder('pt-perorangan','basic')" class="btn-pricing w-100" data-i18n="ui.pricing.choose_basic" data-i18n="ui.pricing.choose_basic">Pilih Basic Package</button>
                 </div>
             </div>
@@ -882,26 +882,26 @@
                     <span class="badge" data-i18n="vo.pricing.recommendation">REKOMENDASI</span>
                     <h4 data-i18n="ui.pricing.pkg_business">Business Package</h4>
                     <div class="price">Rp 5.800.000</div>
-                   <ul class="feature-list">
-    <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.check_name_pt">Pengecekan Nama PT</span></li>
-    <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.book_name_pt">Pemesanan Nama PT</span></li>
-    <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.statement_pt">Pernyataan Pendaftaran</span></li>
-    <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.cert_menkumham">Sertifikat Pendaftaran Menkumham</span></li>
-    <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.npwp_skt">NPWP & SKT</span></li>
-    <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.nib">Nomor Induk Berusaha</span></li>
-    <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.address">Alamat Bisnis Eksklusif</span></li>
-    <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.meeting_podcast">Meeting Room (48 Jam) & Podcast Room (12 Jam)</span></li>
-    <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.wifi">Akses Wifi & Smart TV</span></li>
-    <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.print">Layanan Print, Scan & Fotocopy</span></li>
-    <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.mail">Pengelolaan Surat dan Paket</span></li>
-    <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.notification">Notifikasi Surat dan Paket Masuk</span></li>
-    <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.domicile">Surat Keterangan Domisili</span></li>
-    <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.community">Akses Komunitas Business</span></li>
-    <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.receptionist">Layanan Resepsionis</span></li>
-    <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.dashboard">Dashboard Login Customer</span></li>
-    <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.signage">Signage Display</span></li>
-    <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.call_handling">Layanan Call Handling</span></li>
-</ul>
+                    <ul class="feature-list">
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.check_name_pt">Pengecekan Nama PT</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.book_name_pt">Pemesanan Nama PT</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.statement_pt">Pernyataan Pendaftaran</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.cert_menkumham">Sertifikat Pendaftaran Menkumham</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.npwp_skt">NPWP & SKT</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.nib">Nomor Induk Berusaha</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.address">Alamat Bisnis Ekslusif</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.meeting_podcast">Meeting Room (48 Jam) & Podcast Room (12 Jam)</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.wifi">Akses Wifi & Smart TV</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.print">Layanan Print, Scan & Fotocopy</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.mail">Pengelolaan Surat dan Paket</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.notification">Notifikasi Surat dan Paket Masuk</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.domicile">Surat Keterangan Domisili</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.community">Akses Komunitas Business</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.receptionist">Layanan Resepsionis</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.dashboard">Dashboard Login Customer</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.signage">Signage Display</span></li>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.call_handling">Layanan Call Handling</span></li>
+                    </ul>
                     <button onclick="goOrder('pt-perorangan','professional')" class="btn-pricing-primary w-100" data-i18n="ui.pricing.choose_business" data-i18n="ui.pricing.choose_business">Pilih Business Package</button>
                 </div>
             </div>
