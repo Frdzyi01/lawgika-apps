@@ -164,7 +164,69 @@ class WhatsAppService
         return $this->send($phone, $message, $correspondence->user_id);
     }
 
+    public function notifyMeetingRoomCheckIn(MeetingRoomBooking $booking): ?WhatsappLog
+    {
+        $booking->loadMissing('user');
+
+        $phone = $booking->user->phone ?? null;
+        if (empty($phone)) return null;
+
+        $message = $this->buildMeetingRoomCheckInMessage($booking);
+
+        return $this->send($phone, $message, $booking->user_id);
+    }
+
+    public function notifyMeetingRoomCheckOut(MeetingRoomBooking $booking, string $actualDuration, int $billingHours, $checkinAt, $checkoutAt): ?WhatsappLog
+    {
+        $booking->loadMissing('user');
+
+        $phone = $booking->user->phone ?? null;
+        if (empty($phone)) return null;
+
+        $message = $this->buildMeetingRoomCheckOutMessage($booking, $actualDuration, $billingHours, $checkinAt, $checkoutAt);
+
+        return $this->send($phone, $message, $booking->user_id);
+    }
+
+    public function notifyPodcastRoomCheckIn(PodcastRoomBooking $booking): ?WhatsappLog
+    {
+        $booking->loadMissing('user');
+
+        $phone = $booking->user->phone ?? null;
+        if (empty($phone)) return null;
+
+        $message = $this->buildPodcastRoomCheckInMessage($booking);
+
+        return $this->send($phone, $message, $booking->user_id);
+    }
+
+    public function notifyPodcastRoomCheckOut(PodcastRoomBooking $booking, string $actualDuration, int $billingHours, $checkinAt, $checkoutAt): ?WhatsappLog
+    {
+        $booking->loadMissing('user');
+
+        $phone = $booking->user->phone ?? null;
+        if (empty($phone)) return null;
+
+        $message = $this->buildPodcastRoomCheckOutMessage($booking, $actualDuration, $billingHours, $checkinAt, $checkoutAt);
+
+        return $this->send($phone, $message, $booking->user_id);
+    }
+
     // ── Private: Message Builders ─────────────────────────────────────────────
+
+    /**
+     * Standard footer for all messages.
+     */
+    private function getFooter(): array
+    {
+        return [
+            "Salam Hormat,",
+            "",
+            "Tim Lawgika",
+            "Professional Business & Legal Services",
+            "www.lawgika.co.id",
+        ];
+    }
 
     private function buildOrderMessage(Order $order): string
     {
@@ -186,19 +248,22 @@ class WhatsAppService
             "",
             "━━━━━━━━━━━━━━━━━━",
             "",
-            "Nomor Order",
+            "📄 Nomor Order",
             $order->order_number,
             "",
-            "Layanan",
+            "🕒 Waktu Order",
+            now()->format('d M Y H:i'),
+            "",
+            "💼 Layanan",
             $serviceLabel,
             "",
-            "Paket",
+            "📦 Paket",
             $packageLabel,
             "",
-            "Total Pembayaran",
+            "💳 Total Pembayaran",
             "Rp " . number_format($order->total_price, 0, ',', '.'),
             "",
-            "Status",
+            "ℹ️ Status",
             $statusLabel,
         ];
 
@@ -206,27 +271,29 @@ class WhatsAppService
         $benefits = $order->roomBenefits;
         if ($benefits && $benefits->isNotEmpty()) {
             $lines[] = "";
-            $lines[] = "=================================";
+            $lines[] = "━━━━━━━━━━━━━━━━━━";
             $lines[] = "";
-            $lines[] = "Benefit Anda";
+            $lines[] = "🎁 Benefit Anda:";
             $lines[] = "";
 
             foreach ($benefits as $benefit) {
                 $typeLabel = $benefit->type === 'meeting' ? 'Meeting Room' : 'Podcast Room';
                 $hours     = (int) ($benefit->total_minutes / 60);
-                $lines[]   = "{$typeLabel}";
-                $lines[]   = "{$hours} Jam / Tahun";
-                $lines[]   = "";
+                $lines[]   = "- {$typeLabel}: {$hours} Jam / Tahun";
             }
-
-            $lines[] = "=================================";
         }
 
         $lines[] = "";
+        $lines[] = "━━━━━━━━━━━━━━━━━━";
+        $lines[] = "";
         $lines[] = "Silakan login ke Dashboard Client untuk melihat perkembangan pesanan.";
         $lines[] = "";
-        $lines[] = "Terima kasih.";
-        $lines[] = "Lawgika.co.id";
+        $lines[] = "Apabila membutuhkan bantuan, tim kami siap membantu.";
+        $lines[] = "";
+        $lines[] = "━━━━━━━━━━━━━━━━━━";
+        $lines[] = "";
+        
+        $lines = array_merge($lines, $this->getFooter());
 
         return implode("\n", $lines);
     }
@@ -236,30 +303,49 @@ class WhatsAppService
         $clientName = $booking->user->pic_name ?? $booking->user->name ?? $booking->name;
         $tanggal    = $booking->date ? \Carbon\Carbon::parse($booking->date)->format('d M Y') : '-';
         $jam        = $booking->start_time ? \Carbon\Carbon::parse($booking->start_time)->format('H:i') : '-';
+        $noRes      = "MR-" . \Carbon\Carbon::parse($booking->created_at)->format('Ymd') . "-" . str_pad($booking->id, 5, '0', STR_PAD_LEFT);
 
         $lines = [
             "Halo Bapak/Ibu {$clientName},",
             "",
-            "Reservasi Meeting Room berhasil dibuat.",
+            "Terima kasih telah mempercayakan Lawgika.",
+            "",
+            "Reservasi Meeting Room Anda berhasil dibuat.",
             "",
             "━━━━━━━━━━━━━━━━━━",
             "",
-            "Tanggal: {$tanggal}",
-            "Waktu: {$jam}",
-            "Ruangan: " . ($booking->room_name ?? 'Meeting Room'),
-            "Paket: Meeting Room Package ({$booking->duration} Jam)",
-            "Jumlah Peserta: " . ($booking->participants ?? 1) . " Orang",
-            "Status: " . ucfirst($booking->status),
-            "Catatan: " . ($booking->notes ?? '-'),
+            "📅 Tanggal",
+            $tanggal,
+            "",
+            "🕒 Waktu",
+            $jam,
+            "",
+            "🏢 Ruangan",
+            $booking->room_name ?? 'Meeting Room',
+            "",
+            "👥 Jumlah Peserta",
+            ($booking->participants ?? 1) . " Orang",
+            "",
+            "📦 Paket",
+            "Meeting Room Package ({$booking->duration} Jam)",
+            "",
+            "📄 Nomor Reservasi",
+            $noRes,
+            "",
+            "ℹ️ Status",
+            ucfirst($booking->status),
             "",
             "━━━━━━━━━━━━━━━━━━",
             "",
             "Silakan login ke Dashboard Client untuk detail selengkapnya.",
             "",
-            "Terima kasih.",
-            "Lawgika.co.id",
+            "Apabila membutuhkan bantuan, tim kami siap membantu.",
+            "",
+            "━━━━━━━━━━━━━━━━━━",
+            "",
         ];
 
+        $lines = array_merge($lines, $this->getFooter());
         return implode("\n", $lines);
     }
 
@@ -267,28 +353,43 @@ class WhatsAppService
     {
         $clientName = $booking->user->pic_name ?? $booking->user->name ?? $booking->name;
         $tanggal    = $booking->date ? \Carbon\Carbon::parse($booking->date)->format('d M Y') : '-';
+        $noRes      = "PR-" . \Carbon\Carbon::parse($booking->created_at)->format('Ymd') . "-" . str_pad($booking->id, 5, '0', STR_PAD_LEFT);
 
         $lines = [
             "Halo Bapak/Ibu {$clientName},",
             "",
-            "Reservasi Ruang Podcast berhasil dibuat.",
+            "Terima kasih telah mempercayakan Lawgika.",
+            "",
+            "Reservasi Podcast Room Anda berhasil dibuat.",
             "",
             "━━━━━━━━━━━━━━━━━━",
             "",
-            "Tanggal: {$tanggal}",
-            "Ruangan: " . ($booking->room_name ?? 'Ruang Podcastroom Utama'),
-            "Durasi: {$booking->duration} Jam",
-            "Status: " . ucfirst($booking->status),
-            "Catatan: " . ($booking->notes ?? '-'),
+            "📅 Tanggal",
+            $tanggal,
+            "",
+            "🎙 Studio",
+            $booking->room_name ?? 'Ruang Podcastroom Utama',
+            "",
+            "📦 Paket",
+            "Podcast Room Package ({$booking->duration} Jam)",
+            "",
+            "📄 Nomor Reservasi",
+            $noRes,
+            "",
+            "ℹ️ Status",
+            ucfirst($booking->status),
             "",
             "━━━━━━━━━━━━━━━━━━",
             "",
             "Silakan login ke Dashboard Client untuk detail selengkapnya.",
             "",
-            "Terima kasih.",
-            "Lawgika.co.id",
+            "Apabila membutuhkan bantuan, tim kami siap membantu.",
+            "",
+            "━━━━━━━━━━━━━━━━━━",
+            "",
         ];
 
+        $lines = array_merge($lines, $this->getFooter());
         return implode("\n", $lines);
     }
 
@@ -305,21 +406,245 @@ class WhatsAppService
         $lines = [
             "Halo Bapak/Ibu {$clientName},",
             "",
-            "Surat baru telah dikirimkan kepada Anda.",
+            "Terdapat pembaruan pada layanan Surat Menyurat Anda.",
+            "",
+            "Dokumen atau surat baru telah dikirimkan kepada Anda.",
             "",
             "━━━━━━━━━━━━━━━━━━",
             "",
-            "Jenis Surat: {$correspondence->title}",
-            "Status: {$statusLabel}",
+            "📄 Jenis Surat",
+            $correspondence->title,
+            "",
+            "ℹ️ Status",
+            $statusLabel,
             "",
             "━━━━━━━━━━━━━━━━━━",
             "",
             "Silakan login ke Dashboard Client untuk melihat dokumen surat.",
             "",
-            "Terima kasih.",
-            "Lawgika.co.id",
+            "Apabila membutuhkan bantuan, tim kami siap membantu.",
+            "",
+            "Terima kasih atas kepercayaan Anda kepada Lawgika.",
+            "",
+            "━━━━━━━━━━━━━━━━━━",
+            "",
         ];
 
+        $lines = array_merge($lines, $this->getFooter());
+        return implode("\n", $lines);
+    }
+
+    private function buildMeetingRoomCheckInMessage(MeetingRoomBooking $booking): string
+    {
+        $clientName = $booking->user->pic_name ?? $booking->user->name ?? $booking->name;
+        $tanggal    = \Carbon\Carbon::parse($booking->checkin_at)->format('d M Y');
+        $waktu      = \Carbon\Carbon::parse($booking->checkin_at)->format('H:i');
+        $ruangan    = $booking->room_name ?? 'Meeting Room';
+        $noRes      = "MR-" . \Carbon\Carbon::parse($booking->created_at)->format('Ymd') . "-" . str_pad($booking->id, 5, '0', STR_PAD_LEFT);
+
+        $lines = [
+            "Halo Bapak/Ibu {$clientName},",
+            "",
+            "Selamat datang di Lawgika.",
+            "",
+            "Reservasi Meeting Room Anda telah berhasil melakukan CHECK IN.",
+            "",
+            "━━━━━━━━━━━━━━━━━━",
+            "",
+            "📅 Tanggal",
+            $tanggal,
+            "",
+            "🕒 Waktu Check In",
+            $waktu,
+            "",
+            "🏢 Ruangan",
+            $ruangan,
+            "",
+            "👥 Jumlah Peserta",
+            ($booking->participants ?? 1) . " Orang",
+            "",
+            "📄 Nomor Reservasi",
+            $noRes,
+            "",
+            "━━━━━━━━━━━━━━━━━━",
+            "",
+            "Silakan menggunakan fasilitas Meeting Room sesuai jadwal reservasi yang telah ditentukan.",
+            "",
+            "Apabila membutuhkan bantuan selama penggunaan ruangan, tim kami siap membantu.",
+            "",
+            "Terima kasih atas kepercayaan Anda kepada Lawgika.",
+            "",
+            "━━━━━━━━━━━━━━━━━━",
+            "",
+        ];
+
+        $lines = array_merge($lines, $this->getFooter());
+        return implode("\n", $lines);
+    }
+
+    private function buildMeetingRoomCheckOutMessage(MeetingRoomBooking $booking, string $actualDuration, int $billingHours, $checkinAt, $checkoutAt): string
+    {
+        $clientName = $booking->user->pic_name ?? $booking->user->name ?? $booking->name;
+        $tanggal    = \Carbon\Carbon::parse($checkoutAt)->format('d M Y');
+        $jamMasuk   = \Carbon\Carbon::parse($checkinAt)->format('H:i');
+        $jamKeluar  = \Carbon\Carbon::parse($checkoutAt)->format('H:i');
+        $noRes      = "MR-" . \Carbon\Carbon::parse($booking->created_at)->format('Ymd') . "-" . str_pad($booking->id, 5, '0', STR_PAD_LEFT);
+        
+        // Calculate remaining quota if applicable
+        $sisaJam = "-";
+        if ($booking->source_type === 'benefit' && $booking->benefit_id) {
+            $benefit = \App\Models\RoomBenefit::find($booking->benefit_id);
+            if ($benefit) {
+                $sisaJam = floor(($benefit->total_minutes - $benefit->used_minutes) / 60) . " Jam";
+            }
+        } else {
+            $quota = \App\Models\UserRoomQuota::where('user_id', $booking->user_id)->first();
+            if ($quota) {
+                $sisaJam = floor($quota->remaining_seconds / 3600) . " Jam";
+            }
+        }
+
+        $lines = [
+            "Halo Bapak/Ibu {$clientName},",
+            "",
+            "Terima kasih telah menggunakan fasilitas Meeting Room Lawgika.",
+            "",
+            "Reservasi Anda telah berhasil melakukan CHECK OUT.",
+            "",
+            "━━━━━━━━━━━━━━━━━━",
+            "",
+            "📅 Tanggal",
+            $tanggal,
+            "",
+            "🕒 Check In",
+            $jamMasuk,
+            "",
+            "🕓 Check Out",
+            $jamKeluar,
+            "",
+            "⏱ Durasi Penggunaan",
+            $actualDuration,
+            "",
+            "📊 Kuota Terpakai",
+            "{$billingHours} Jam",
+            "",
+            "📈 Sisa Kuota",
+            $sisaJam,
+            "",
+            "📄 Nomor Reservasi",
+            $noRes,
+            "",
+            "━━━━━━━━━━━━━━━━━━",
+            "",
+            "Terima kasih telah mempercayakan kebutuhan bisnis Anda kepada Lawgika.",
+            "",
+            "Kami berharap dapat kembali melayani Anda pada reservasi berikutnya.",
+            "",
+            "━━━━━━━━━━━━━━━━━━",
+            "",
+        ];
+
+        $lines = array_merge($lines, $this->getFooter());
+        return implode("\n", $lines);
+    }
+
+    private function buildPodcastRoomCheckInMessage(PodcastRoomBooking $booking): string
+    {
+        $clientName = $booking->user->pic_name ?? $booking->user->name ?? $booking->name;
+        $tanggal    = \Carbon\Carbon::parse($booking->checkin_at)->format('d M Y');
+        $waktu      = \Carbon\Carbon::parse($booking->checkin_at)->format('H:i');
+        $ruangan    = $booking->room_name ?? 'Ruang Podcastroom Utama';
+        $noRes      = "PR-" . \Carbon\Carbon::parse($booking->created_at)->format('Ymd') . "-" . str_pad($booking->id, 5, '0', STR_PAD_LEFT);
+
+        $lines = [
+            "Halo Bapak/Ibu {$clientName},",
+            "",
+            "Selamat datang di Lawgika.",
+            "",
+            "Reservasi Podcast Room Anda telah berhasil melakukan CHECK IN.",
+            "",
+            "━━━━━━━━━━━━━━━━━━",
+            "",
+            "📅 Tanggal",
+            $tanggal,
+            "",
+            "🕒 Waktu Check In",
+            $waktu,
+            "",
+            "🎙 Studio",
+            $ruangan,
+            "",
+            "📦 Paket",
+            "Podcast Room Package ({$booking->duration} Jam)",
+            "",
+            "📄 Nomor Reservasi",
+            $noRes,
+            "",
+            "━━━━━━━━━━━━━━━━━━",
+            "",
+            "Selamat menikmati sesi podcast Anda.",
+            "",
+            "Semoga proses recording berjalan dengan lancar.",
+            "",
+            "Apabila membutuhkan bantuan selama sesi berlangsung, tim kami siap membantu.",
+            "",
+            "Terima kasih atas kepercayaan Anda kepada Lawgika.",
+            "",
+            "━━━━━━━━━━━━━━━━━━",
+            "",
+        ];
+
+        $lines = array_merge($lines, $this->getFooter());
+        return implode("\n", $lines);
+    }
+
+    private function buildPodcastRoomCheckOutMessage(PodcastRoomBooking $booking, string $actualDuration, int $billingHours, $checkinAt, $checkoutAt): string
+    {
+        $clientName = $booking->user->pic_name ?? $booking->user->name ?? $booking->name;
+        $tanggal    = \Carbon\Carbon::parse($checkoutAt)->format('d M Y');
+        $jamMasuk   = \Carbon\Carbon::parse($checkinAt)->format('H:i');
+        $jamKeluar  = \Carbon\Carbon::parse($checkoutAt)->format('H:i');
+        $ruangan    = $booking->room_name ?? 'Ruang Podcastroom Utama';
+        $noRes      = "PR-" . \Carbon\Carbon::parse($booking->created_at)->format('Ymd') . "-" . str_pad($booking->id, 5, '0', STR_PAD_LEFT);
+
+        $lines = [
+            "Halo Bapak/Ibu {$clientName},",
+            "",
+            "Terima kasih telah menggunakan Podcast Room Lawgika.",
+            "",
+            "Reservasi Anda telah berhasil melakukan CHECK OUT.",
+            "",
+            "━━━━━━━━━━━━━━━━━━",
+            "",
+            "📅 Tanggal",
+            $tanggal,
+            "",
+            "🕒 Check In",
+            $jamMasuk,
+            "",
+            "🕓 Check Out",
+            $jamKeluar,
+            "",
+            "⏱ Durasi Penggunaan",
+            $actualDuration,
+            "",
+            "🎙 Studio",
+            $ruangan,
+            "",
+            "📄 Nomor Reservasi",
+            $noRes,
+            "",
+            "━━━━━━━━━━━━━━━━━━",
+            "",
+            "Semoga pengalaman recording bersama Lawgika menyenangkan.",
+            "",
+            "Kami menantikan kehadiran Anda kembali pada sesi berikutnya.",
+            "",
+            "━━━━━━━━━━━━━━━━━━",
+            "",
+        ];
+
+        $lines = array_merge($lines, $this->getFooter());
         return implode("\n", $lines);
     }
 

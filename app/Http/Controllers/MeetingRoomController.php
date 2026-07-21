@@ -467,7 +467,23 @@ class MeetingRoomController extends Controller
 
         // NO room_benefit_logs entry on check-in — only on check-out
 
-        return redirect()->back()->with('success', 'User berhasil Check In ke ruangan.');
+        // ── WhatsApp Notification ─────────────────────────────────────────────
+        $waMessage = '';
+        try {
+            // Only notify if Admin is the one doing it (or we can just notify regardless)
+            if (Auth::user()->hasAdminAccess()) {
+                $waLog = app(\App\Services\WhatsAppService::class)->notifyMeetingRoomCheckIn($booking);
+                if ($waLog && $waLog->status === \App\Models\WhatsappLog::STATUS_SUCCESS) {
+                    $waMessage = ' WhatsApp notifikasi berhasil dikirim.';
+                } elseif ($waLog) {
+                    $waMessage = ' Tetapi WhatsApp gagal dikirim.';
+                }
+            }
+        } catch (\Exception $e) {
+            $waMessage = ' Tetapi WhatsApp gagal dikirim.';
+        }
+
+        return redirect()->back()->with('success', 'User berhasil Check In ke ruangan.' . $waMessage);
     }
 
     // ── Check-Out ─────────────────────────────────────────────────────────────
@@ -566,7 +582,22 @@ class MeetingRoomController extends Controller
         $actualDuration = $booking->formatSeconds($sessionSeconds);
         $billingInfo = ($billingHours > 1) ? " (Ditagih: {$billingHours} jam)" : " (Ditagih: {$billingHours} jam)";
         
-        return redirect()->back()->with('success', "User berhasil Check Out dari ruangan. Durasi aktual: {$actualDuration}{$billingInfo}");
+        // ── WhatsApp Notification ─────────────────────────────────────────────
+        $waMessage = '';
+        try {
+            if (Auth::user()->hasAdminAccess()) {
+                $waLog = app(\App\Services\WhatsAppService::class)->notifyMeetingRoomCheckOut($booking, $actualDuration, $billingHours, $checkinAt, $checkoutAt);
+                if ($waLog && $waLog->status === \App\Models\WhatsappLog::STATUS_SUCCESS) {
+                    $waMessage = ' WhatsApp notifikasi berhasil dikirim.';
+                } elseif ($waLog) {
+                    $waMessage = ' Tetapi WhatsApp gagal dikirim.';
+                }
+            }
+        } catch (\Exception $e) {
+            $waMessage = ' Tetapi WhatsApp gagal dikirim.';
+        }
+
+        return redirect()->back()->with('success', "User berhasil Check Out dari ruangan. Durasi aktual: {$actualDuration}{$billingInfo}." . $waMessage);
     }
 
     // ── Private helpers ───────────────────────────────────────────────────────
