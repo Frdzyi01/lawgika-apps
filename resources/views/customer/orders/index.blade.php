@@ -20,7 +20,14 @@
                     <td>{{ $order->order_number }}</td>
                     <td>{{ $order->service->name ?? '-' }}</td>
                     <td><span class="badge bg-info">{{ $order->status }}</span></td>
-                    <td>Rp {{ number_format($order->total_price, 0, ',', '.') }}</td>
+                    <td>
+                        @if($order->total_price > 0)
+                            @php $ppnData = \App\Helpers\PpnHelper::calculate($order->total_price); @endphp
+                            Rp {{ number_format($ppnData['grand_total'], 0, ',', '.') }}
+                        @else
+                            -
+                        @endif
+                    </td>
                     <td><a href="{{ route('customer.orders.show', $order->id) }}" class="btn btn-sm btn-outline-primary">{{ __('customer.orders.index.btn_view') }}</a></td>
                 </tr>
                 @endforeach

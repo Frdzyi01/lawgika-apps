@@ -210,11 +210,6 @@
               data-bs-target="#exampleModal">
               <span data-i18n="nav.login">Masuk</span> <i class="fa-solid fa-arrow-right-long ms-2"></i>
             </button>
-            <button class="theme-btn text-center fw-normal offcanvas-close-trigger"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal2">
-              <span data-i18n="nav.register">Daftar</span> <i class="fa-solid fa-user-plus ms-2"></i>
-            </button>
           </div>
           @endguest
 
@@ -1533,116 +1528,20 @@
         </div>
         <div class="modal-right-thumb position-relative">
                   <img src="{{ asset('lawgika/masuk.webp') }}" alt="img" />
-          <div class="signlogin-btnwrap">
-            <button
-              id="btn-go-register"
-              class="theme-create style-border"
-              data-i18n="modal.login.create_account">
-              create account
-            </button>
+          <!-- <div class="signlogin-btnwrap">
             <button
               id="btn-stay-login"
               class="theme-btn"
               data-i18n="modal.login.submit">
               Log In
-            </button>
+            </button> -->
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-<div
-  class="modal modal-common-wrap fade"
-  id="exampleModal2"
-  tabindex="-1"
-  aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-xl">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"></button>
-      </div>
-      <div
-        class="modal-body d-md-flex d-grid gap-md-0 gap-5 align-items-center">
-        <div class="modal-common-content">
-          <div class="box">
-            <h2 data-i18n="modal.register.title">Create account</h2>
 
-            {{-- Inline error di dalam modal register --}}
-            @if ($errors->any() && old('register_attempt'))
-            <div id="lw-register-error-box" style="background:#fff0f1;border:1.5px solid #fca5a5;border-radius:10px;padding:11px 15px;margin-bottom:14px;display:flex;align-items:flex-start;gap:10px;">
-              <i class="fas fa-exclamation-circle" style="color:#4e0616;margin-top:2px;flex-shrink:0;"></i>
-              <div>
-                @foreach ($errors->all() as $error)
-                <p style="margin:0;font-size:0.82rem;color:#b91c1c;font-weight:500;line-height:1.5;">{{ $error }}</p>
-                @endforeach
-              </div>
-            </div>
-            @endif
-
-            <form action="{{ route('register') }}" method="POST" id="register-form" class="login-from">
-              @csrf
-              <input type="hidden" name="register_attempt" value="1">
-              <div class="form-grp cmn-mb">
-                <input type="text" name="name" data-i18n-placeholder="modal.register.name" placeholder="User name" />
-              </div>
-              <div class="form-grp cmn-mb">
-                <input type="email" name="email" data-i18n-placeholder="modal.register.email" placeholder="Email Address" />
-              </div>
-              <div class="form-grp cmn-mb">
-                <input type="password" name="password" data-i18n-placeholder="modal.register.password" placeholder="Enter Password" />
-              </div>
-              <div class="form-grp">
-                <input type="password" name="password_confirmation" data-i18n-placeholder="modal.register.confirm_password" placeholder="Enter Confirm password" />
-              </div>
-            </form>
-
-
-            <div class="pb-xxl-3">
-              <div
-                class="form-check d-flex align-items-center gap-2 from-customradio">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="flexRadioDefault"
-                  id="flexRadioDefault11" />
-                <label class="form-check-label" for="flexRadioDefault11" data-i18n="modal.register.terms">
-                  i accept your terms & conditions
-                </label>
-              </div>
-            </div>
-            <div class="mt-4">
-              <button type="submit" form="register-form" class="theme-btn w-100">
-                <span data-i18n="modal.register.submit"> Daftar </span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="modal-right-thumb position-relative">
-                  <img src="{{ asset('lawgika/daftar.webp') }}" alt="img" />
-          <div class="signlogin-btnwrap">
-            <button
-              id="btn-stay-register"
-              class="theme-btn"
-              data-i18n="modal.login.create_account">
-              Create Akun
-            </button>
-            <button
-              id="btn-go-login"
-              class="theme-create style-border"
-              data-i18n="modal.login.submit">
-              Log In
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <div
   class="modal modal-common-wrap fade"
@@ -1680,11 +1579,6 @@
         <div class="modal-right-thumb position-relative">
           <img src="{{ asset('buyer-file/assets/img/sign/create.webp') }}" alt="img" />
           <div class="signlogin-btnwrap">
-            <button
-              id="btn-forgot-go-register"
-              class="theme-create style-border">
-              create account
-            </button>
             <button
               id="btn-forgot-go-login"
               class="theme-btn">

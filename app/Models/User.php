@@ -25,6 +25,11 @@ class User extends Authenticatable
         'phone',
         'address',
         'company_name',
+        // ── Master Client fields ─────────────────────────────────────────────
+        'pic_name',
+        'npwp',
+        'business_type',
+        'notes',
     ];
 
     /**
@@ -114,5 +119,95 @@ class User extends Authenticatable
     public function podcastRoomBookings()
     {
         return $this->hasMany(PodcastRoomBooking::class);
+    }
+
+    public function correspondences()
+    {
+        return $this->hasMany(Correspondence::class);
+    }
+
+    public function sptBadans()
+    {
+        return $this->hasMany(SptBadan::class);
+    }
+
+    public function roomBenefits()
+    {
+        return $this->hasMany(RoomBenefit::class);
+    }
+
+    public function roomQuotas()
+    {
+        return $this->hasMany(UserRoomQuota::class);
+    }
+
+    // ── Master Client Accessors ──────────────────────────────────────────────
+
+    /**
+     * Display name untuk client: prioritas company_name, fallback ke name.
+     */
+    public function getClientDisplayNameAttribute(): string
+    {
+        return $this->company_name ?: $this->name;
+    }
+
+    /**
+     * Ringkasan quota Meeting Room dari benefit aktif.
+     * Returns: ['total' => int, 'used' => int, 'remaining' => int] (dalam menit)
+     */
+    public function getMeetingQuotaSummaryAttribute(): array
+    {
+        $benefits = $this->roomBenefits()
+            ->where('is_active', true)
+            ->whereIn('type', ['meeting', 'shared'])
+            ->where(function ($q) {
+                $q->whereNull('expired_at')->orWhere('expired_at', '>', now());
+            })
+            ->get();
+
+        $total = $benefits->sum('total_minutes');
+        $used  = $benefits->sum('used_minutes');
+
+        return [
+            'total'     => $total,
+            'used'      => $used,
+            'remaining' => max(0, $total - $used),
+        ];
+    }
+
+    /**
+     * Ringkasan quota Podcast Room dari benefit aktif.
+     * Returns: ['total' => int, 'used' => int, 'remaining' => int] (dalam menit)
+     */
+    public function getPodcastQuotaSummaryAttribute(): array
+    {
+        $benefits = $this->roomBenefits()
+            ->where('is_active', true)
+            ->whereIn('type', ['podcast', 'shared'])
+            ->where(function ($q) {
+                $q->whereNull('expired_at')->orWhere('expired_at', '>', now());
+            })
+            ->get();
+
+        $total = $benefits->sum('total_minutes');
+        $used  = $benefits->sum('used_minutes');
+
+        return [
+            'total'     => $total,
+            'used'      => $used,
+            'remaining' => max(0, $total - $used),
+        ];
+    }
+
+    /**
+     * Paket/order aktif milik client.
+     */
+    public function getActiveOrdersAttribute()
+    {
+        return $this->orders()
+            ->whereIn('status', ['approved', 'processing', 'completed', 'verified'])
+            ->with('service')
+            ->latest()
+            ->get();
     }
 }

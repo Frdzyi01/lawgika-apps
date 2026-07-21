@@ -846,6 +846,7 @@
                     <div class="price">
                         <span class="start-text" data-i18n="ui.pricing.start_from">start form</span> Rp 5.000.000
                     </div>
+                    <small class="text-muted d-block mt-2 mb-3" style="font-size:0.75rem;">*Harga belum termasuk PPN 11%</small>
 
                     <style>
                         .start-text {

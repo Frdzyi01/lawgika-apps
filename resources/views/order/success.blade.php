@@ -305,7 +305,7 @@
 </style>
 
 {{-- Breadcrumb --}}
-<section style="background:#fff;border-bottom:1px solid var(--border);padding:14px 0;">
+<!-- <section style="background:#fff;border-bottom:1px solid var(--border);padding:14px 0;">
     <div class="container">
         <nav style="font-size:.88rem;color:var(--gray);">
             <a href="{{ url('/') }}" style="color:var(--primary);text-decoration:none;font-weight:500">
@@ -319,11 +319,11 @@
             <span data-i18n="order.success_page_title">Order Berhasil</span>
         </nav>
     </div>
-</section>
+</section> -->
 
 <section class="success-page">
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center" style="margin-top: 15%;">
             <div class="col-lg-7 col-md-9 text-center">
 
                 <div class="success-icon-wrap">
@@ -369,11 +369,26 @@
                     </div>
 
                     @if(!is_null($totalBiaya))
-                    <div class="total-biaya-box">
-                        <div>
-                            <div class="tb-label"><i class="fa-solid fa-money-bill-wave me-1"></i><span data-i18n="order.total_amount_title">Total Biaya yang Harus Dibayar</span></div>
+                    <div class="total-biaya-box" style="display:block">
+                        @if(isset($ppnData))
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="text-muted fw-semibold">Subtotal</span>
+                            <span class="fw-bold">Rp {{ number_format($ppnData['subtotal'], 0, ',', '.') }}</span>
                         </div>
-                        <div class="tb-amount">Rp {{ number_format($totalBiaya, 0, ',', '.') }}</div>
+                        <div class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom border-light">
+                            <span class="text-muted fw-semibold">PPN {{ $ppnData['ppn_rate'] }}%</span>
+                            <span class="fw-bold">Rp {{ number_format($ppnData['ppn_amount'], 0, ',', '.') }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-2">
+                            <div class="tb-label"><i class="fa-solid fa-money-bill-wave me-1"></i><span data-i18n="order.total_amount_title">Total Pembayaran</span></div>
+                            <div class="tb-amount">Rp {{ number_format($ppnData['grand_total'], 0, ',', '.') }}</div>
+                        </div>
+                        @else
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="tb-label"><i class="fa-solid fa-money-bill-wave me-1"></i><span data-i18n="order.total_amount_title">Total Biaya yang Harus Dibayar</span></div>
+                            <div class="tb-amount">Rp {{ number_format($totalBiaya, 0, ',', '.') }}</div>
+                        </div>
+                        @endif
                     </div>
                     @endif
                 </div>
@@ -381,25 +396,44 @@
                 {{-- Payment Steps --}}
                 <div class="success-card">
                     <div class="success-card-title"><i class="fa-solid fa-money-bill-transfer me-1"></i><span data-i18n="order.payment_instruction_title">Instruksi Pembayaran</span></div>
+
+                    <div class="mb-4 p-3" style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px;">
+                        <p class="mb-3 text-muted small">Silakan transfer ke salah satu rekening berikut:</p>
+
+                        <div class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom">
+                            <div>
+                                <span class="d-block text-muted" style="font-size:0.8rem">Bank Mandiri</span>
+                                <strong style="font-size:1.15rem; letter-spacing:1px; color:var(--dark)">1760005097561</strong>
+                                <span class="d-block text-muted" style="font-size:0.85rem">a.n PT Lawgika Associates</span>
+                            </div>
+                            <i class="fa-solid fa-copy text-muted" style="cursor:pointer;font-size:1.2rem" onclick="navigator.clipboard.writeText('1760005097561').then(()=>this.style.color='#16a34a')" title="Salin nomor rekening"></i>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <span class="d-block text-muted" style="font-size:0.8rem">BCA (Bank Central Asia)</span>
+                                <strong style="font-size:1.15rem; letter-spacing:1px; color:var(--dark)">664-0800389</strong>
+                                <span class="d-block text-muted" style="font-size:0.85rem">a.n PT Lawgika Associates</span>
+                            </div>
+                            <i class="fa-solid fa-copy text-muted" style="cursor:pointer;font-size:1.2rem" onclick="navigator.clipboard.writeText('6640800389').then(()=>this.style.color='#16a34a')" title="Salin nomor rekening"></i>
+                        </div>
+                    </div>
+
                     <ul class="payment-steps">
                         <li>
                             <span class="step-num">1</span>
-                            <span data-i18n="order.step_bank_wa">Tim kami akan menghubungi Anda via WhatsApp untuk menginformasikan rekening pembayaran dan total biaya sesuai paket yang dipilih.</span>
+                            <span data-i18n="order.step_transfer">Lakukan transfer pembayaran ke salah satu rekening di atas.</span>
                         </li>
                         <li>
                             <span class="step-num">2</span>
-                            <span data-i18n="order.step_transfer">Lakukan transfer pembayaran sesuai instruksi dari tim Lawgika.</span>
-                        </li>
-                        <li>
-                            <span class="step-num">3</span>
                             <span data-i18n="order.step_screenshot">Ambil screenshot / foto bukti pembayaran Anda.</span>
                         </li>
                         <li>
-                            <span class="step-num">4</span>
+                            <span class="step-num">3</span>
                             <span data-i18n="order.step_send_proof_wa">Kirim bukti pembayaran ke WhatsApp kami beserta nomor order.</span>
                         </li>
                         <li>
-                            <span class="step-num">5</span>
+                            <span class="step-num">4</span>
                             <span data-i18n="order.step_confirm_and_process">Tim kami akan mengkonfirmasi dan mulai memproses layanan Anda.</span>
                         </li>
                     </ul>
@@ -427,7 +461,7 @@
 
                 {{-- Actions --}}
                 <div class="d-flex justify-content-center gap-3 flex-wrap mt-2">
-                    <a href="{{ route('customer.dashboard') }}" class="btn-outline-dark-brand">
+                    <a href="{{ route('home') }}" class="btn-outline-dark-brand">
                         <i class="fa-solid fa-gauge-high"></i> <span data-i18n="order.view_dashboard_btn">Lihat Dashboard</span>
                     </a>
                     <a href="{{ url($serviceInfo['url']) }}" class="btn-outline-gray">

@@ -3,7 +3,7 @@
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">{{ __('customer.mr.detail.title') }}</h1>
-        <a href="{{ route('customer.meeting-room.index') }}" class="btn btn-sm btn-secondary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> {{ __('customer.mr.detail.btn.back') }}</a>
+        <a href="{{ url('dashboard/meeting-room') }}" class="btn btn-sm btn-secondary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> {{ __('customer.mr.detail.btn.back') }}</a>
     </div>
 
     <div class="row">
@@ -104,8 +104,9 @@
                                             @if($log->type === 'checkout' && $index > 0 && $logs[$index-1]->type === 'checkin')
                                                 @php
                                                     $diff = \Carbon\Carbon::parse($logs[$index-1]->timestamp)->diffInSeconds($log->timestamp);
+                                                    $billedHours = $booking->calculateBillingHours($diff);
                                                 @endphp
-                                                <span class="text-muted">{{ $booking->formatSeconds($diff) }}</span>
+                                                <span class="text-muted">{{ $billedHours }} jam</span>
                                             @else
                                                 <span class="text-muted">-</span>
                                             @endif

@@ -13,6 +13,7 @@ class MeetingRoomBooking extends Model
         'name',
         'date',
         'start_time',
+        'end_time',
         'duration',
         'participants',
         'status',
@@ -27,17 +28,27 @@ class MeetingRoomBooking extends Model
         'alamat_usaha',
         'bidang_usaha',
         'keperluan',
+        'room_name',
+        'notes',
+        'created_by',
+        'payment_method',
     ];
 
     protected $casts = [
         'date'       => 'date',
         'checkin_at' => 'datetime',
         'checkout_at' => 'datetime',
+        'end_time'   => 'datetime',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class, 'created_by');
     }
 
     public function benefit()

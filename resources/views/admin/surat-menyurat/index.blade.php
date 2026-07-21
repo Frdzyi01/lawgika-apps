@@ -9,9 +9,14 @@
       <h4 class="mb-1 fw-bold">📄 Surat Menyurat Dokumen Legal</h4>
       <p class="text-muted mb-0" style="font-size:.88rem;">Semua korespondensi dokumen PDF dari customer masuk di sini.</p>
     </div>
-    <span class="badge bg-primary rounded-pill px-3 py-2" style="font-size:.85rem;">
-      {{ $correspondences->count() }} Surat
-    </span>
+    <div class="d-flex align-items-center gap-2">
+      <span class="badge bg-primary rounded-pill px-3 py-2" style="font-size:.85rem;">
+        {{ $correspondences->count() }} Surat
+      </span>
+      <a href="{{ route('admin.surat-menyurat.create') }}" class="btn btn-sm btn-primary shadow-sm text-nowrap">
+          <ion-icon name="add-circle-outline" class="align-middle"></ion-icon> Kirim Surat Baru
+      </a>
+    </div>
   </div>
 
   @if(session('success'))

@@ -130,8 +130,9 @@
                                     @if($log->type === 'checkout' && $index > 0 && $logs[$index-1]->type === 'checkin')
                                         @php
                                             $diff = \Carbon\Carbon::parse($logs[$index-1]->timestamp)->diffInSeconds($log->timestamp);
+                                            $billedHours = $booking->calculateBillingHours($diff);
                                         @endphp
-                                        <span class="text-muted">{{ $booking->formatSeconds($diff) }}</span>
+                                        <span class="text-muted">{{ $billedHours }} jam</span>
                                     @else
                                         <span class="text-muted">-</span>
                                     @endif

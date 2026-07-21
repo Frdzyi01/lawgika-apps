@@ -7,12 +7,17 @@ use App\Models\RoomBenefit;
 use App\Models\RoomBenefitLog;
 use App\Models\RoomUsageLog;
 use App\Models\UserRoomQuota;
+use App\Services\WhatsAppService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class PodcastRoomController extends Controller
 {
+    public function __construct(
+        protected WhatsAppService $whatsAppService
+    ) {}
+
     public static array $packages = [
         2 => ['label' => '2 Jam', 'price' => 500000],
     ];
@@ -184,29 +189,111 @@ class PodcastRoomController extends Controller
 
     // ── Admin Index ───────────────────────────────────────────────────────────
 
-    public function adminIndex()
+    public function adminIndex(Request $request)
     {
-        // All benefit-tagged reservations (blade filters by status)
-        $benefitBookings = PodcastRoomBooking::with(['user', 'benefit'])
-            ->where('source_type', 'benefit')
-            ->latest()
-            ->get();
+        $search = $request->input('search');
 
-        // Manual reservations only
-        $bookings = PodcastRoomBooking::with('user')
-            ->where(function ($q) {
-                $q->where('source_type', 'manual')
-                  ->orWhereNull('source_type');   // legacy rows
-            })
-            ->latest()
-            ->get();
+        // All reservations (manual and benefit)
+        $query = PodcastRoomBooking::with(['user', 'benefit'])->latest();
 
-        // Benefit pool cards — only podcast-type benefits
-        $benefits = RoomBenefit::with(['user', 'order'])
-            ->whereIn('type', ['podcast', 'shared'])
-            ->latest()->get();
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('order_number', 'like', "%{$search}%")
+                  ->orWhere('id', 'like', "%{$search}%")
+                  ->orWhere('name', 'like', "%{$search}%")
+                  ->orWhere('room_name', 'like', "%{$search}%");
+            });
+        }
 
-        return view('admin.podcast-room.index', compact('bookings', 'benefits', 'benefitBookings'));
+        $bookings = $query->paginate(10);
+        $bookings->appends(['search' => $search]);
+
+        return view('admin.podcast-room.index', compact('bookings'));
+    }
+
+    // ── Admin: Create & Store (CRM Flow) ──────────────────────────────────────
+
+    public function adminCreate()
+    {
+        return view('admin.podcast-room.create', [
+            'packages' => self::$packages
+        ]);
+    }
+
+    public function adminStore(Request $request)
+    {
+        $rules = [
+            'user_id'         => 'required|exists:users,id',
+            'room_name'       => 'required|string',
+            'podcast_title'   => 'nullable|string|max:255',
+            'date'            => 'required|date',
+            'start_time'      => 'required',
+            'participants'    => 'required|integer|min:1',
+            'source_type'     => 'required|in:manual,benefit',
+            'benefit_id'      => 'nullable|exists:room_benefits,id',
+        ];
+
+        $request->validate($rules);
+
+        $start = \Carbon\Carbon::parse($request->date . ' ' . $request->start_time);
+        $end = \Carbon\Carbon::parse($request->date . ' ' . $request->start_time)->addHour(); // Default end time, updated on checkout
+        
+        // Paket Podcast Room adalah sistem kuota tahunan (12 Jam)
+        $durationHours = 12;
+
+        // Get user for fallback data
+        $user = \App\Models\User::find($request->user_id);
+
+        $orderNum = 'PODCAST-' . ($request->source_type === 'benefit' ? 'BNF-' : '') . date('Ymd') . '-' . strtoupper(Str::random(5));
+
+        // Podcast Pricing logic (same as store)
+        $price = 0;
+        if ($request->source_type === 'manual') {
+            if ($durationHours === 1) {
+                $price = 500000;
+            } elseif ($durationHours === 2) {
+                $price = 800000;
+            } else {
+                $price = 800000 + (($durationHours - 2) * 300000);
+            }
+        }
+
+        $booking = PodcastRoomBooking::create([
+            'user_id'         => $user->id,
+            'created_by'      => Auth::id(),
+            'name'            => $user->name,
+            'order_number'    => $orderNum,
+            'podcast_title'   => $request->podcast_title,
+            'notes'           => $request->notes,
+            'room_name'       => $request->room_name,
+            'date'            => $request->date,
+            'start_time'      => $request->start_time,
+            'end_time'        => $end,
+            'duration'        => $durationHours,
+            'participants'    => $request->participants,
+            'package'         => $durationHours . 'jam',
+            'total_price'     => $price,
+            'source_type'     => $request->source_type,
+            'benefit_id'      => $request->source_type === 'benefit' ? $request->benefit_id : null,
+            'status'          => 'approved',
+            'payment_status'  => 'approved',
+            'payment_method'  => $request->payment_method,
+        ]);
+
+        // ── WhatsApp Notification ─────────────────────────────────────────────
+        $waMessage = '';
+        try {
+            $waLog = $this->whatsAppService->notifyPodcastRoomCreated($booking);
+            if ($waLog && $waLog->status === \App\Models\WhatsappLog::STATUS_SUCCESS) {
+                $waMessage = ' WhatsApp notifikasi berhasil dikirim.';
+            } elseif ($waLog) {
+                $waMessage = ' Tetapi WhatsApp gagal dikirim.';
+            }
+        } catch (\Exception $e) {
+            $waMessage = ' Tetapi WhatsApp gagal dikirim.';
+        }
+
+        return redirect('admin/podcast-room')->with('success', '✅ Reservasi Ruang Podcast berhasil ditambahkan oleh Admin.' . $waMessage);
     }
 
     // ── Admin: Approve / Reject benefit reservation ───────────────────────────
@@ -406,16 +493,7 @@ class PodcastRoomController extends Controller
 
     public function customerIndex()
     {
-        $benefitBookings = PodcastRoomBooking::where('user_id', Auth::id())
-            ->where('source_type', 'benefit')
-            ->latest()
-            ->get();
-
-        $manualBookings = PodcastRoomBooking::where('user_id', Auth::id())
-            ->where(function ($q) {
-                $q->where('source_type', 'manual')
-                  ->orWhereNull('source_type');
-            })
+        $bookings = PodcastRoomBooking::where('user_id', Auth::id())
             ->latest()
             ->get();
 
@@ -426,7 +504,23 @@ class PodcastRoomController extends Controller
             ->latest()
             ->get();
 
-        return view('customer.podcast-room.index', compact('benefitBookings', 'manualBookings', 'benefits'));
+        return view('customer.podcast-room.index', compact('bookings', 'benefits'));
+    }
+
+    public function customerDetail($id)
+    {
+        $booking = PodcastRoomBooking::with('user')->findOrFail($id);
+        
+        if ($booking->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $logs = \App\Models\RoomUsageLog::where('reservation_id', $id)
+            ->where('room_type', 'podcast_room')
+            ->orderBy('timestamp', 'asc')
+            ->get();
+
+        return view('customer.podcast-room.detail', compact('booking', 'logs'));
     }
 
     // ── Private helpers ───────────────────────────────────────────────────────

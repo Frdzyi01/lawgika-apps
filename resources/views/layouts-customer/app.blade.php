@@ -266,7 +266,7 @@
             <li class="nav-item dropdown dropdown-large">
               <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="javascript:;" data-bs-toggle="dropdown">
                 <div class="position-relative">
-                  <span class="notify-badge">8</span>
+                  <span class="notify-badge">{{ isset($customer_notifications) ? $customer_notifications->count() : 0 }}</span>
                   <ion-icon name="notifications-outline"></ion-icon>
                 </div>
               </a>
@@ -278,89 +278,29 @@
                   </div>
                 </a>
                 <div class="header-notifications-list">
-                  <a class="dropdown-item" href="javascript:;">
-                    <div class="d-flex align-items-center">
-                      <div class="notify text-primary"><ion-icon name="cart-outline"></ion-icon></div>
-                      <div class="flex-grow-1">
-                        <h6 class="msg-name">{{ __('customer.nav.notif.new_orders') }} <span class="msg-time float-end">2 min ago</span></h6>
-                        <p class="msg-info">{{ __('customer.nav.notif.new_orders_desc') }}</p>
-                      </div>
-                    </div>
-                  </a>
-                  <a class="dropdown-item" href="javascript:;">
-                    <div class="d-flex align-items-center">
-                      <div class="notify text-danger"><ion-icon name="person-outline"></ion-icon></div>
-                      <div class="flex-grow-1">
-                        <h6 class="msg-name">{{ __('customer.nav.notif.new_customers') }}<span class="msg-time float-end">14 Sec ago</span></h6>
-                        <p class="msg-info">{{ __('customer.nav.notif.new_customers_desc') }}</p>
-                      </div>
-                    </div>
-                  </a>
-                  <a class="dropdown-item" href="javascript:;">
-                    <div class="d-flex align-items-center">
-                      <div class="notify text-success"><ion-icon name="document-outline"></ion-icon></div>
-                      <div class="flex-grow-1">
-                        <h6 class="msg-name">{{ __('customer.nav.notif.pdf_files') }}<span class="msg-time float-end">19 min ago</span></h6>
-                        <p class="msg-info">{{ __('customer.nav.notif.pdf_files_desc') }}</p>
-                      </div>
-                    </div>
-                  </a>
-                  <a class="dropdown-item" href="javascript:;">
-                    <div class="d-flex align-items-center">
-                      <div class="notify text-info"><ion-icon name="checkmark-done-outline"></ion-icon></div>
-                      <div class="flex-grow-1">
-                        <h6 class="msg-name">{{ __('customer.nav.notif.product_approved') }} <span class="msg-time float-end">2 hrs ago</span></h6>
-                        <p class="msg-info">{{ __('customer.nav.notif.product_approved_desc') }}</p>
-                      </div>
-                    </div>
-                  </a>
-                  <a class="dropdown-item" href="javascript:;">
-                    <div class="d-flex align-items-center">
-                      <div class="notify text-warning"><ion-icon name="send-outline"></ion-icon></div>
-                      <div class="flex-grow-1">
-                        <h6 class="msg-name">{{ __('customer.nav.notif.time_response') }} <span class="msg-time float-end">28 min ago</span></h6>
-                        <p class="msg-info">{{ __('customer.nav.notif.time_response_desc') }}</p>
-                      </div>
-                    </div>
-                  </a>
-                  <a class="dropdown-item" href="javascript:;">
-                    <div class="d-flex align-items-center">
-                      <div class="notify text-danger"><ion-icon name="chatbox-ellipses-outline"></ion-icon></div>
-                      <div class="flex-grow-1">
-                        <h6 class="msg-name">{{ __('customer.nav.notif.new_comments') }} <span class="msg-time float-end">4 hrs ago</span></h6>
-                        <p class="msg-info">{{ __('customer.nav.notif.new_comments_desc') }}</p>
-                      </div>
-                    </div>
-                  </a>
-                  <a class="dropdown-item" href="javascript:;">
-                    <div class="d-flex align-items-center">
-                      <div class="notify text-primary"><ion-icon name="albums-outline"></ion-icon></div>
-                      <div class="flex-grow-1">
-                        <h6 class="msg-name">{{ __('customer.nav.notif.new_authors') }}<span class="msg-time float-end">1 day ago</span></h6>
-                        <p class="msg-info">{{ __('customer.nav.notif.new_authors_desc') }}</p>
-                      </div>
-                    </div>
-                  </a>
-                  <a class="dropdown-item" href="javascript:;">
-                    <div class="d-flex align-items-center">
-                      <div class="notify text-success"><ion-icon name="shield-outline"></ion-icon></div>
-                      <div class="flex-grow-1">
-                        <h6 class="msg-name">{{ __('customer.nav.notif.item_shipped') }} <span class="msg-time float-end">5 hrs ago</span></h6>
-                        <p class="msg-info">{{ __('customer.nav.notif.item_shipped_desc') }}</p>
-                      </div>
-                    </div>
-                  </a>
-                  <a class="dropdown-item" href="javascript:;">
-                    <div class="d-flex align-items-center">
-                      <div class="notify text-warning"><ion-icon name="cafe-outline"></ion-icon></div>
-                      <div class="flex-grow-1">
-                        <h6 class="msg-name">{{ __('customer.nav.notif.defense_alerts') }} <span class="msg-time float-end">2 weeks ago</span></h6>
-                        <p class="msg-info">{{ __('customer.nav.notif.defense_alerts_desc') }}</p>
-                      </div>
-                    </div>
-                  </a>
+                  @if(isset($customer_notifications) && $customer_notifications->count() > 0)
+                      @foreach($customer_notifications as $notif)
+                      <a class="dropdown-item" href="{{ $notif['url'] }}">
+                        <div class="d-flex align-items-center">
+                          <div class="notify text-{{ $notif['color'] }}"><ion-icon name="{{ $notif['icon'] }}"></ion-icon></div>
+                          <div class="flex-grow-1">
+                            <h6 class="msg-name">{{ $notif['title'] }} <span class="msg-time float-end">{{ $notif['time']->diffForHumans() }}</span></h6>
+                            <p class="msg-info">{{ $notif['desc'] }}</p>
+                          </div>
+                        </div>
+                      </a>
+                      @endforeach
+                  @else
+                      <a class="dropdown-item" href="javascript:;">
+                        <div class="d-flex align-items-center">
+                          <div class="flex-grow-1 text-center text-muted">
+                            <p class="msg-info">Belum ada notifikasi baru</p>
+                          </div>
+                        </div>
+                      </a>
+                  @endif
                 </div>
-                <a href="javascript:;">
+                <a href="{{ route('customer.notifications.index') }}">
                   <div class="text-center msg-footer">{{ __('customer.nav.notif.view_all') }}</div>
                 </a>
               </div>

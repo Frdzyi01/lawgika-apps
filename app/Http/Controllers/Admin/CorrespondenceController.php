@@ -4,10 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Correspondence;
+use App\Services\WhatsAppService;
 use Illuminate\Http\Request;
 
 class CorrespondenceController extends Controller
 {
+    public function __construct(
+        protected WhatsAppService $whatsAppService
+    ) {}
     /**
      * List semua surat masuk dari customer (root only).
      * GET /admin/surat-menyurat
@@ -20,6 +24,59 @@ class CorrespondenceController extends Controller
             ->get();
 
         return view('admin.surat-menyurat.index', compact('correspondences'));
+    }
+
+    // ── Admin Create & Store (CRM Flow) ───────────────────────────────────────
+
+    public function create()
+    {
+        return view('admin.surat-menyurat.create');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'title'   => 'required|string|max:255',
+            'note'    => 'required|string',
+            'file'    => 'required|file|mimes:pdf|max:5120',
+        ], [
+            'user_id.required' => 'Pilih client penerima surat.',
+            'title.required'   => 'Judul surat wajib diisi.',
+            'note.required'    => 'Catatan/deskripsi surat wajib diisi.',
+            'file.required'    => 'File surat (PDF) wajib diunggah.',
+            'file.mimes'       => 'File harus berformat PDF.',
+            'file.max'         => 'Ukuran file maksimal 5MB.',
+        ]);
+
+        $path = $request->file('file')->store('documents/surat', 'public');
+
+        $correspondence = Correspondence::create([
+            'user_id'     => $request->user_id,
+            'title'       => $request->title,
+            'note'        => $request->note,
+            'file_path'   => $path,
+            'sender_role' => 'admin',
+            'status'      => 'pending',
+            'parent_id'   => null,
+        ]);
+
+        // ── WhatsApp Notification ─────────────────────────────────────────────
+        $waMessage = '';
+        try {
+            $waLog = $this->whatsAppService->notifyCorrespondenceCreated($correspondence);
+            if ($waLog && $waLog->status === \App\Models\WhatsappLog::STATUS_SUCCESS) {
+                $waMessage = ' WhatsApp notifikasi berhasil dikirim.';
+            } elseif ($waLog) {
+                $waMessage = ' Tetapi WhatsApp gagal dikirim.';
+            }
+        } catch (\Exception $e) {
+            $waMessage = ' Tetapi WhatsApp gagal dikirim.';
+        }
+
+        return redirect()
+            ->route('admin.surat-menyurat.index')
+            ->with('success', 'Surat baru berhasil dikirim ke client.' . $waMessage);
     }
 
     /**

@@ -852,6 +852,7 @@
                 <div class="pricing-card">
                     <h4 data-i18n="ui.pricing.pkg_basic">Basic Package</h4>
                     <div class="price">Rp 1.500.000</div>
+                    <small class="text-muted d-block mt-2 mb-3" style="font-size:0.75rem;">*Harga belum termasuk PPN 11%</small>
                     <ul class="feature-list">
                         <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.check_name_pt">Pengecekan Nama PT</span></li>
                         <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.book_name_pt">Pemesanan Nama PT</span></li>
@@ -882,6 +883,7 @@
                     <span class="badge" data-i18n="vo.pricing.recommendation">REKOMENDASI</span>
                     <h4 data-i18n="ui.pricing.pkg_business">Business Package</h4>
                     <div class="price">Rp 5.800.000</div>
+                    <small class="text-muted d-block mt-2 mb-3" style="font-size:0.75rem;">*Harga belum termasuk PPN 11%</small>
                     <ul class="feature-list">
                         <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.check_name_pt">Pengecekan Nama PT</span></li>
                         <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.book_name_pt">Pemesanan Nama PT</span></li>

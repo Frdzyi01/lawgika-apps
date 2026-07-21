@@ -168,8 +168,19 @@
                 <table class="table table-borderless table-sm mb-0" style="font-size:.9rem">
                     <tr><td class="text-muted" width="38%">{{ __('customer.orders.show.info.service') }}</td>
                         <td class="fw-semibold">{{ $order->service?->name ?? $order->service_name ?? '–' }}</td></tr>
-                    <tr><td class="text-muted">{{ __('customer.orders.show.info.total') }}</td>
-                        <td class="fw-semibold">{{ $order->total_price > 0 ? 'Rp ' . number_format($order->total_price,0,',','.') : '–' }}</td></tr>
+                    
+                    @if($order->total_price > 0)
+                        @php $ppnData = \App\Helpers\PpnHelper::calculate($order->total_price); @endphp
+                        <tr><td class="text-muted">Subtotal</td>
+                            <td class="fw-semibold">Rp {{ number_format($ppnData['subtotal'],0,',','.') }}</td></tr>
+                        <tr><td class="text-muted">PPN 11%</td>
+                            <td class="fw-semibold">Rp {{ number_format($ppnData['ppn_amount'],0,',','.') }}</td></tr>
+                        <tr><td class="text-muted fw-bold">Total Pembayaran</td>
+                            <td class="fw-bold text-primary">Rp {{ number_format($ppnData['grand_total'],0,',','.') }}</td></tr>
+                    @else
+                        <tr><td class="text-muted">{{ __('customer.orders.show.info.total') }}</td>
+                            <td class="fw-semibold">–</td></tr>
+                    @endif
                     <tr><td class="text-muted">{{ __('customer.orders.show.info.date') }}</td>
                         <td>{{ $order->created_at->format('d M Y, H:i') }}</td></tr>
                     @if($order->admin_notes)

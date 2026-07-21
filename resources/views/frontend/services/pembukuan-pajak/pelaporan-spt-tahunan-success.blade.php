@@ -280,7 +280,7 @@
          class="btn-primary-s" style="background:#25D366;">
         <i class="bi bi-whatsapp"></i> <span data-i18n="spt_success.btn_wa">Hubungi via WhatsApp</span>
       </a>
-      <a href="{{ route('customer.dashboard') }}" class="btn-outline-s">
+      <a href="{{ route('home') }}" class="btn-outline-s">
         <i class="bi bi-speedometer2"></i> <span data-i18n="spt_success.btn_dashboard">Lihat Dashboard</span>
       </a>
     </div>

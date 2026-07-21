@@ -9,20 +9,27 @@ class PodcastRoomBooking extends Model
 {
     protected $fillable = [
         'user_id', 'source_type', 'benefit_id', 'order_number', 'name', 'podcast_title',
-        'date', 'start_time', 'duration', 'participants', 'package',
+        'date', 'start_time', 'end_time', 'duration', 'participants', 'package',
         'total_price', 'payment_proof', 'payment_status', 'status',
         'checkin_at', 'checkout_at', 'total_used_minutes', 'total_used_seconds',
+        'room_name', 'notes', 'created_by', 'payment_method',
     ];
 
     protected $casts = [
         'date'       => 'date',
         'checkin_at' => 'datetime',
         'checkout_at'=> 'datetime',
+        'end_time'   => 'datetime',
     ];
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function createdBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
     }
 
     public function benefit(): BelongsTo

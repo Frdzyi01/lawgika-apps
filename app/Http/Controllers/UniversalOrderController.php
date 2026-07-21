@@ -26,7 +26,6 @@ class UniversalOrderController extends Controller
         'pt-pma'         => ['label' => 'Pendirian PT PMA',         'url' => '/pendirian-pt-pma',         'db_slug' => 'pendirian-pt-pma'],
         'yayasan'        => ['label' => 'Pendirian Yayasan',        'url' => '/pendirian-yayasan',        'db_slug' => 'pendirian-yayasan'],
         'pendirian-pt'   => ['label' => 'Pendirian PT',             'url' => '/pendirian-pt',             'db_slug' => 'pendirian-pt'],
-        'pt-diatas-1m'   => ['label' => 'Pendirian PT (Legacy)',    'url' => '/pendirian-pt',             'db_slug' => 'pendirian-pt'],
         'virtual-office' => ['label' => 'Virtual Office',           'url' => '/virtual-office',           'db_slug' => 'virtual-office'],
     ];
 
@@ -35,7 +34,7 @@ class UniversalOrderController extends Controller
         'professional' => 'Business Package',
         'enterprise'   => 'Business Package',
         'premium'      => 'Basic Package',
-        'eksklusif'    => 'Basic Package (Lama)',
+        'eksklusif'    => 'Basic Package ',
         'eksekutif'    => 'Paket Eksekutif',
     ];
 
@@ -53,6 +52,24 @@ class UniversalOrderController extends Controller
         'virtual-office' => ['premium' => 2800000, 'eksklusif' => 4800000, 'enterprise' => 5800000],
     ];
 
+    /**
+     * Map active packages per service based on frontend website.
+     * This hides legacy packages like 'eksklusif' (except for virtual-office) and 'eksekutif'.
+     */
+    public static function getActivePackagesPerService(): array
+    {
+        return [
+            'pt-perorangan'  => ['basic', 'professional'],
+            'cv'             => ['premium', 'enterprise'],
+            'firma'          => ['premium', 'enterprise'],
+            'pt-pma'         => ['premium', 'enterprise'],
+            'yayasan'        => ['premium', 'enterprise'],
+            'pendirian-pt'   => ['premium', 'enterprise'],
+            'pt-diatas-1m'   => ['premium', 'enterprise'],
+            'virtual-office' => ['premium', 'eksklusif', 'enterprise'],
+        ];
+    }
+
     // ─────────────────────────────────────────────────────────────────────────
 
     /**
@@ -68,7 +85,7 @@ class UniversalOrderController extends Controller
         // Virtual Office keeps original package names (Premium / Eksklusif / Enterprise)
         // Other services use the rebranded labels (Basic Package / Business Package)
         if ($service === 'virtual-office') {
-            $packageLabel = match($package) {
+            $packageLabel = match ($package) {
                 'premium'    => 'Paket Premium',
                 'eksklusif'  => 'Paket Eksklusif',
                 'enterprise' => 'Paket Enterprise',
@@ -227,7 +244,7 @@ class UniversalOrderController extends Controller
 
         // Virtual Office keeps original package names
         if ($serviceKey === 'virtual-office') {
-            $packageLabel = match($packageKey) {
+            $packageLabel = match ($packageKey) {
                 'premium'    => 'Paket Premium',
                 'eksklusif'  => 'Paket Eksklusif',
                 'enterprise' => 'Paket Enterprise',
@@ -238,13 +255,19 @@ class UniversalOrderController extends Controller
         }
 
         $totalBiaya = null;
+        $ppnData    = null;
+        
         if ($serviceKey === 'pendirian-pt' && $modalDasar && isset(self::$ptPricing[$modalDasar][$packageKey])) {
             $totalBiaya = self::$ptPricing[$modalDasar][$packageKey];
         } elseif (isset(self::$otherPricing[$serviceKey][$packageKey])) {
             $totalBiaya = self::$otherPricing[$serviceKey][$packageKey];
         }
 
-        return view('order.success', compact('serviceKey', 'packageKey', 'serviceInfo', 'packageLabel', 'orderNumber', 'modalDasar', 'totalBiaya'));
+        if ($totalBiaya > 0) {
+            $ppnData = \App\Helpers\PpnHelper::calculate($totalBiaya);
+        }
+
+        return view('order.success', compact('serviceKey', 'packageKey', 'serviceInfo', 'packageLabel', 'orderNumber', 'modalDasar', 'totalBiaya', 'ppnData'));
     }
 
     // ─────────────────────────────────────────────────────────────────────────

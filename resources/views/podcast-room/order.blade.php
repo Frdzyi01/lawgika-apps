@@ -152,7 +152,7 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);}
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="jam"><span data-i18n="pr.label_start_time">Jam Mulai</span> <span class="text-danger">*</span></label>
+                    <label for="jam"><span data-i18n="pr.label_start_time">Jam Booking</span> <span class="text-danger">*</span></label>
                     <input type="time" id="jam" name="jam" class="form-control" required
                         value="{{ old('jam', $jam ?? '') }}"
                         onchange="updateSummary()">
@@ -192,7 +192,7 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);}
                 <span class="value" id="sumTanggal">–</span>
             </div>
             <div class="summary-row">
-                <span class="label" data-i18n="pr.sum_start_time">⏰ Jam Mulai</span>
+                <span class="label" data-i18n="pr.sum_start_time">⏰ Jam Booking</span>
                 <span class="value" id="sumJamMulai">–</span>
             </div>
             <div class="summary-row">
@@ -213,9 +213,19 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);}
                 <span class="value" id="sumTambahan">–</span>
             </div>
 
-            <div class="summary-total">
-                <span class="label" data-i18n="pr.sum_total">💳 Total Pembayaran</span>
-                <span class="value" id="sumTotal">Rp –</span>
+            <div class="summary-total" style="flex-direction:column; align-items:stretch;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                    <span class="label" style="font-weight:normal; font-size:0.9rem;">Subtotal</span>
+                    <span class="value" id="sumSubtotal">Rp –</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; margin-bottom:10px; border-bottom:1px solid #e2e8f0; padding-bottom:10px;">
+                    <span class="label" style="font-weight:normal; font-size:0.9rem;">PPN 11%</span>
+                    <span class="value" id="sumPpn">Rp –</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span class="label" data-i18n="pr.sum_total">💳 Total Pembayaran</span>
+                    <span class="value" id="sumTotal" style="font-size:1.2rem;">Rp –</span>
+                </div>
             </div>
         </div>
 
@@ -270,12 +280,48 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);}
             <div class="bank-box">
                 <h5><i class="fa-solid fa-building-columns me-1"></i> <span data-i18n="order.payment_instruction_transfer">Instruksi Pembayaran (Transfer Bank)</span></h5>
                 <p style="font-size:.88rem;color:var(--gray);margin-bottom:12px;" data-i18n="order.transfer_instruction">Silakan lakukan pembayaran ke rekening berikut:</p>
-                <div class="bank-row"><span style="color:#64748b;">Bank</span><strong>BCA (Bank Central Asia)</strong></div>
-                <div class="bank-row"><span style="color:#64748b;">No. Rekening</span><strong style="letter-spacing:1px;font-size:1.05rem;">869 123 4567</strong></div>
-                <div class="bank-row last"><span style="color:#64748b;">Atas Nama</span><strong>PT Lawgika Associates</strong></div>
-                <div style="margin-top:14px;text-align:right;">
-                    <span style="color:var(--gray);font-size:.9rem;margin-right:8px;" data-i18n="order.total_bill">Total Tagihan:</span>
-                    <strong style="color:var(--primary);font-size:1.4rem;" id="totalDisplay">Rp –</strong>
+                <div style="background:#fff; padding:15px; border-radius:8px; border:1px solid #e2e8f0; margin-bottom: 10px;">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                        <span style="color:#64748b; font-size:0.9rem;">Bank</span>
+                        <strong style="color:#1e1b2b;">Mandiri</strong>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                        <span style="color:#64748b; font-size:0.9rem;">No. Rekening</span>
+                        <strong style="color:#1e1b2b; font-size:1.1rem; letter-spacing:1px;">1760005097561</strong>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; border-top:1px dashed #e2e8f0; padding-top:8px; margin-top:8px;">
+                        <span style="color:#64748b; font-size:0.9rem;">Atas Nama</span>
+                        <strong style="color:#1e1b2b;">PT Lawgika Associates</strong>
+                    </div>
+                </div>
+
+                <div style="background:#fff; padding:15px; border-radius:8px; border:1px solid #e2e8f0;">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                        <span style="color:#64748b; font-size:0.9rem;">Bank</span>
+                        <strong style="color:#1e1b2b;">BCA (Bank Central Asia)</strong>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                        <span style="color:#64748b; font-size:0.9rem;">No. Rekening</span>
+                        <strong style="color:#1e1b2b; font-size:1.1rem; letter-spacing:1px;">664-0800389</strong>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; border-top:1px dashed #e2e8f0; padding-top:8px; margin-top:8px;">
+                        <span style="color:#64748b; font-size:0.9rem;">Atas Nama</span>
+                        <strong style="color:#1e1b2b;">PT Lawgika Associates</strong>
+                    </div>
+                </div>
+                <div style="margin-top:14px;">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                        <span style="color:var(--gray);font-size:.9rem;">Subtotal:</span>
+                        <strong style="color:var(--dark);font-size:1.05rem;" id="subtotalDisplay">Rp –</strong>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:10px; border-bottom:1px solid #e2e8f0; padding-bottom:10px;">
+                        <span style="color:var(--gray);font-size:.9rem;">PPN 11%:</span>
+                        <strong style="color:var(--dark);font-size:1.05rem;" id="ppnDisplay">Rp –</strong>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="color:var(--gray);font-size:1rem;font-weight:700;" data-i18n="order.total_bill">Total Tagihan:</span>
+                        <strong style="color:var(--primary);font-size:1.4rem;" id="totalDisplay">Rp –</strong>
+                    </div>
                 </div>
             </div>
 
@@ -341,7 +387,9 @@ function updateSummary() {
     const tanggal  = document.getElementById('tanggal').value;
     const jam      = document.getElementById('jam').value;
     const durasi   = parseInt(document.getElementById('durasi').value) || 2;
-    const total    = calcPodcastPrice(durasi);
+    const subtotal = calcPodcastPrice(durasi);
+    const ppn      = Math.round(subtotal * 0.11);
+    const total    = subtotal + ppn;
 
     // Jam Selesai
     let jamSelesaiStr = '–';
@@ -367,6 +415,9 @@ function updateSummary() {
     document.getElementById('sumJamMulai').textContent  = jam ? jam + ' WIB' : '–';
     document.getElementById('sumDurasi').textContent    = durasi + ' Jam';
     document.getElementById('sumJamSelesai').textContent = jamSelesaiStr !== '–' ? jamSelesaiStr + ' WIB' : '–';
+    
+    document.getElementById('sumSubtotal').textContent  = formatRupiah(subtotal);
+    document.getElementById('sumPpn').textContent       = formatRupiah(ppn);
     document.getElementById('sumTotal').textContent     = formatRupiah(total);
 
     // Harga Dasar
@@ -386,6 +437,8 @@ function updateSummary() {
     }
 
     // Update total tagihan di bank box
+    document.getElementById('subtotalDisplay').textContent = formatRupiah(subtotal);
+    document.getElementById('ppnDisplay').textContent = formatRupiah(ppn);
     document.getElementById('totalDisplay').textContent = formatRupiah(total);
 }
 

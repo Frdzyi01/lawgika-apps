@@ -120,11 +120,11 @@ Route::get('/promo/{id}', [PromoControllerFrontend::class, 'show'])
 // Frontend Database Peraturan
 Route::get('/database-peraturan', [PeraturanFrontendController::class, 'index'])->name('peraturan.index');
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 // Prevent direct access to /login and /register pages, redirecting to home with a trigger parameter
 Route::get('/login', function() { return redirect('/?login=1'); })->name('login');
-Route::get('/register', function() { return redirect('/?register=1'); })->name('register');
+// Route::get('/register', function() { return redirect('/?register=1'); })->name('register');
 
 // Public Order Route (guest + logged in) — modal quick form
 Route::post('/order-quick', [\App\Http\Controllers\PublicOrderController::class, 'store'])->name('public.order.store');
@@ -138,13 +138,19 @@ Route::get('/home', function () {
 Route::middleware(['auth', 'role:admin,admin1,admin2'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
     Route::get('/home', function() { return redirect()->route('admin.dashboard'); })->name('home'); // backward compatibility
+    Route::get('/notifications', [\App\Http\Controllers\Admin\NotificationController::class, 'index'])->name('notifications.index');
     Route::resource('services', \App\Http\Controllers\Admin\ServiceController::class);
-    Route::resource('orders', \App\Http\Controllers\Admin\OrderController::class)->except(['create', 'store', 'destroy']);
+    Route::resource('orders', \App\Http\Controllers\Admin\OrderController::class)->except(['destroy']);
+    Route::get('orders/document-requirements/{serviceKey}', [\App\Http\Controllers\Admin\OrderController::class, 'getDocumentRequirements'])->name('orders.document-requirements');
     Route::post('documents/{document}/status',  [\App\Http\Controllers\Admin\DocumentController::class, 'updateStatus'])->name('documents.status');
     Route::post('documents/{document}/approve', [\App\Http\Controllers\Admin\DocumentController::class, 'approve'])->name('documents.approve');
     Route::post('documents/{document}/reject',  [\App\Http\Controllers\Admin\DocumentController::class, 'reject'])->name('documents.reject');
     Route::post('documents/{document}/reset',   [\App\Http\Controllers\Admin\DocumentController::class, 'reset'])->name('documents.reset');
     Route::post('orders/{order}/payment-status', [\App\Http\Controllers\Admin\OrderController::class, 'updatePaymentStatus'])->name('orders.payment-status');
+    
+    // Virtual Office Module
+    Route::get('virtual-office', [\App\Http\Controllers\Admin\VirtualOfficeController::class, 'index'])->name('virtual-office.index');
+    Route::get('virtual-office/{id}', [\App\Http\Controllers\Admin\VirtualOfficeController::class, 'show'])->name('virtual-office.show');
 
     // ── Room Benefit System (NEW) ─────────────────────────────────────────────
     Route::post('orders/{order}/approve-benefit', [\App\Http\Controllers\Admin\RoomBenefitController::class, 'approve'])->name('orders.approve-benefit');
@@ -159,7 +165,10 @@ Route::middleware(['auth', 'role:admin,admin1,admin2'])->prefix('admin')->name('
         'berita' => 'berita'
     ]);
 
+    // ── Meeting Room ──────────────────────────────────────────────────────────
     Route::get('/meeting-room', [MeetingRoomController::class, 'adminIndex']);
+    Route::get('/meeting-room/create', [MeetingRoomController::class, 'adminCreate'])->name('meeting-room.create');
+    Route::post('/meeting-room/store', [MeetingRoomController::class, 'adminStore'])->name('meeting-room.store');
     Route::get('/meeting-room/{id}/detail', [MeetingRoomController::class, 'adminDetail']);
     Route::post('/meeting-room/{id}/checkin', [MeetingRoomController::class, 'checkin']);
     Route::post('/meeting-room/{id}/checkout', [MeetingRoomController::class, 'checkout']);
@@ -168,7 +177,10 @@ Route::middleware(['auth', 'role:admin,admin1,admin2'])->prefix('admin')->name('
     Route::post('/meeting-room/{id}/benefit-approve', [MeetingRoomController::class, 'approveBenefitReservation'])->name('admin.meeting-room.benefit-approve');
     Route::post('/meeting-room/{id}/benefit-reject', [MeetingRoomController::class, 'rejectBenefitReservation'])->name('admin.meeting-room.benefit-reject');
 
+    // ── Podcast Room ──────────────────────────────────────────────────────────
     Route::get('/podcast-room', [\App\Http\Controllers\PodcastRoomController::class, 'adminIndex'])->name('podcast-room.index');
+    Route::get('/podcast-room/create', [\App\Http\Controllers\PodcastRoomController::class, 'adminCreate'])->name('podcast-room.create');
+    Route::post('/podcast-room/store', [\App\Http\Controllers\PodcastRoomController::class, 'adminStore'])->name('podcast-room.store');
     Route::get('/podcast-room/{id}/detail', [\App\Http\Controllers\PodcastRoomController::class, 'adminDetail']);
     Route::post('/podcast-room/{id}/checkin', [\App\Http\Controllers\PodcastRoomController::class, 'checkin']);
     Route::post('/podcast-room/{id}/checkout', [\App\Http\Controllers\PodcastRoomController::class, 'checkout']);
@@ -180,19 +192,26 @@ Route::middleware(['auth', 'role:admin,admin1,admin2'])->prefix('admin')->name('
     Route::get('/spt-badan', [\App\Http\Controllers\SptTahunanController::class, 'adminDashboard'])->name('spt-badan.index');
     Route::post('/spt-badan/{id}/status', [\App\Http\Controllers\SptTahunanController::class, 'updateStatus'])->name('spt-badan.status');
 
-    // ── Surat Menyurat Dokumen Legal (NEW) ────────────────────────────────────
+    // ── Surat Menyurat Dokumen Legal ──────────────────────────────────────────
     Route::get('/surat-menyurat', [AdminCorrespondenceController::class, 'index'])->name('surat-menyurat.index');
+    Route::get('/surat-menyurat/create', [AdminCorrespondenceController::class, 'create'])->name('surat-menyurat.create');
+    Route::post('/surat-menyurat/store', [AdminCorrespondenceController::class, 'store'])->name('surat-menyurat.store');
     Route::get('/surat-menyurat/{id}', [AdminCorrespondenceController::class, 'show'])->name('surat-menyurat.show');
     Route::post('/surat-menyurat/reply/{id}', [AdminCorrespondenceController::class, 'reply'])->name('surat-menyurat.reply');
     Route::post('/surat-menyurat/status/{id}', [AdminCorrespondenceController::class, 'updateStatus'])->name('surat-menyurat.status');
-    // Hanya SPV (admin) yang bisa mengakses pengelolaan data akun
-    Route::middleware('role:admin')->group(function () {
+
+    // ── Master Client: Search API untuk semua Admin ───────────────────────────
+    Route::get('/users/search', [\App\Http\Controllers\Admin\UserController::class, 'search'])->name('users.search');
+
+    // ── Master Client: CRUD hanya SPV dan Admin 1 ────────────────────────────
+    Route::middleware('role:admin,spv,admin1')->group(function () {
         Route::resource('users', \App\Http\Controllers\Admin\UserController::class);
     });
 });
 
 Route::middleware(['auth', 'role:customer'])->prefix('dashboard')->name('customer.')->group(function () {
     Route::get('/', [\App\Http\Controllers\Customer\DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/notifications', [\App\Http\Controllers\Customer\NotificationController::class, 'index'])->name('notifications.index');
     Route::resource('orders', \App\Http\Controllers\Customer\OrderController::class)->only(['index', 'show']);
     Route::post('documents', [\App\Http\Controllers\Customer\DocumentController::class, 'store'])->name('documents.store');
     Route::get('documents', [\App\Http\Controllers\Customer\DocumentController::class, 'index'])->name('documents.index');
@@ -204,6 +223,7 @@ Route::middleware(['auth', 'role:customer'])->prefix('dashboard')->name('custome
     Route::post('/meeting-room/{id}/checkout', [MeetingRoomController::class, 'checkout']);
 
     Route::get('/podcast-room', [\App\Http\Controllers\PodcastRoomController::class, 'customerIndex'])->name('podcast-room.index');
+    Route::get('/podcast-room/{id}/detail', [\App\Http\Controllers\PodcastRoomController::class, 'customerDetail'])->name('podcast-room.detail');
 
     // ── Room Benefit Detail (NEW — read-only for customer) ────────────────────
     Route::get('benefits/{benefit}/detail', [\App\Http\Controllers\Customer\RoomBenefitController::class, 'showDetail'])->name('benefits.detail');

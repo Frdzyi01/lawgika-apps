@@ -56,6 +56,17 @@
           {{ auth()->user()->name }}
         </li>
 
+        {{-- ── MASTER CLIENT: Admin1 & SPV ────────────────────────────── --}}
+        @if(auth()->user()->isAdmin1() || auth()->user()->isSPV())
+        <li class="menu-label">Master Client</li>
+        <li>
+          <a href="{{ route('admin.users.index') }}">
+            <div class="parent-icon"><ion-icon name="people-outline"></ion-icon></div>
+            <div class="menu-title">Data Client</div>
+          </a>
+        </li>
+        @endif
+
         {{-- ── KONTEN HALAMAN DEPAN: Admin2 & SPV ───────────────────────── --}}
         @if(auth()->user()->isAdmin2() || auth()->user()->isSPV())
         <li class="menu-label">Content Halaman Depan</li>
@@ -86,6 +97,12 @@
           <a href="{{ route('admin.orders.index') }}">
             <div class="parent-icon"><ion-icon name="cart-outline"></ion-icon></div>
             <div class="menu-title">Pesanan</div>
+          </a>
+        </li>
+        <li>
+          <a href="{{ route('admin.virtual-office.index') }}">
+            <div class="parent-icon"><ion-icon name="business-outline"></ion-icon></div>
+            <div class="menu-title">Virtual Office</div>
           </a>
         </li>
         <li>
@@ -125,17 +142,6 @@
           <ul>
             <li><a href="{{ route('admin.berita.index') }}"><ion-icon name="ellipse-outline"></ion-icon>Berita</a></li>
           </ul>
-        </li>
-        @endif
-
-        {{-- ── MANAJEMEN PENGGUNA: Hanya SPV ────────────────────────────── --}}
-        @if(auth()->user()->isSPV())
-        <li class="menu-label">Pengaturan Sistem</li>
-        <li>
-          <a href="{{ route('admin.users.index') }}">
-            <div class="parent-icon"><ion-icon name="people-outline"></ion-icon></div>
-            <div class="menu-title">Data Akun</div>
-          </a>
         </li>
         @endif
 
@@ -208,7 +214,7 @@
             <li class="nav-item dropdown dropdown-large">
               <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="javascript:;" data-bs-toggle="dropdown">
                 <div class="position-relative">
-                  <span class="notify-badge">8</span>
+                  <span class="notify-badge">{{ isset($admin_notifications) ? $admin_notifications->count() : 0 }}</span>
                   <ion-icon name="notifications-outline"></ion-icon>
                 </div>
               </a>
@@ -216,93 +222,33 @@
                 <a href="javascript:;">
                   <div class="msg-header">
                     <p class="msg-header-title">Notifications</p>
-                    <p class="msg-header-clear ms-auto">Marks all as read</p>
                   </div>
                 </a>
                 <div class="header-notifications-list">
-                  <a class="dropdown-item" href="javascript:;">
-                    <div class="d-flex align-items-center">
-                      <div class="notify text-primary"><ion-icon name="cart-outline"></ion-icon></div>
-                      <div class="flex-grow-1">
-                        <h6 class="msg-name">New Orders <span class="msg-time float-end">2 min ago</span></h6>
-                        <p class="msg-info">You have recived new orders</p>
-                      </div>
-                    </div>
-                  </a>
-                  <a class="dropdown-item" href="javascript:;">
-                    <div class="d-flex align-items-center">
-                      <div class="notify text-danger"><ion-icon name="person-outline"></ion-icon></div>
-                      <div class="flex-grow-1">
-                        <h6 class="msg-name">New Customers<span class="msg-time float-end">14 Sec ago</span></h6>
-                        <p class="msg-info">5 new user registered</p>
-                      </div>
-                    </div>
-                  </a>
-                  <a class="dropdown-item" href="javascript:;">
-                    <div class="d-flex align-items-center">
-                      <div class="notify text-success"><ion-icon name="document-outline"></ion-icon></div>
-                      <div class="flex-grow-1">
-                        <h6 class="msg-name">24 PDF File<span class="msg-time float-end">19 min ago</span></h6>
-                        <p class="msg-info">The pdf files generated</p>
-                      </div>
-                    </div>
-                  </a>
-                  <a class="dropdown-item" href="javascript:;">
-                    <div class="d-flex align-items-center">
-                      <div class="notify text-info"><ion-icon name="checkmark-done-outline"></ion-icon></div>
-                      <div class="flex-grow-1">
-                        <h6 class="msg-name">New Product Approved <span class="msg-time float-end">2 hrs ago</span></h6>
-                        <p class="msg-info">Your new product has approved</p>
-                      </div>
-                    </div>
-                  </a>
-                  <a class="dropdown-item" href="javascript:;">
-                    <div class="d-flex align-items-center">
-                      <div class="notify text-warning"><ion-icon name="send-outline"></ion-icon></div>
-                      <div class="flex-grow-1">
-                        <h6 class="msg-name">Time Response <span class="msg-time float-end">28 min ago</span></h6>
-                        <p class="msg-info">5.1 min avarage time response</p>
-                      </div>
-                    </div>
-                  </a>
-                  <a class="dropdown-item" href="javascript:;">
-                    <div class="d-flex align-items-center">
-                      <div class="notify text-danger"><ion-icon name="chatbox-ellipses-outline"></ion-icon></div>
-                      <div class="flex-grow-1">
-                        <h6 class="msg-name">New Comments <span class="msg-time float-end">4 hrs ago</span></h6>
-                        <p class="msg-info">New customer comments recived</p>
-                      </div>
-                    </div>
-                  </a>
-                  <a class="dropdown-item" href="javascript:;">
-                    <div class="d-flex align-items-center">
-                      <div class="notify text-primary"><ion-icon name="albums-outline"></ion-icon></div>
-                      <div class="flex-grow-1">
-                        <h6 class="msg-name">New 24 authors<span class="msg-time float-end">1 day ago</span></h6>
-                        <p class="msg-info">24 new authors joined last week</p>
-                      </div>
-                    </div>
-                  </a>
-                  <a class="dropdown-item" href="javascript:;">
-                    <div class="d-flex align-items-center">
-                      <div class="notify text-success"><ion-icon name="shield-outline"></ion-icon></div>
-                      <div class="flex-grow-1">
-                        <h6 class="msg-name">Your item is shipped <span class="msg-time float-end">5 hrs ago</span></h6>
-                        <p class="msg-info">Successfully shipped your item</p>
-                      </div>
-                    </div>
-                  </a>
-                  <a class="dropdown-item" href="javascript:;">
-                    <div class="d-flex align-items-center">
-                      <div class="notify text-warning"><ion-icon name="cafe-outline"></ion-icon></div>
-                      <div class="flex-grow-1">
-                        <h6 class="msg-name">Defense Alerts <span class="msg-time float-end">2 weeks ago</span></h6>
-                        <p class="msg-info">45% less alerts last 4 weeks</p>
-                      </div>
-                    </div>
-                  </a>
+                  @if(isset($admin_notifications) && $admin_notifications->count() > 0)
+                      @foreach($admin_notifications as $notif)
+                      <a class="dropdown-item" href="{{ $notif['url'] }}">
+                        <div class="d-flex align-items-center">
+                          <div class="notify text-{{ $notif['color'] }}"><ion-icon name="{{ $notif['icon'] }}"></ion-icon></div>
+                          <div class="flex-grow-1">
+                            <h6 class="msg-name">{{ $notif['title'] }} <span class="msg-time float-end">{{ $notif['time']->diffForHumans() }}</span></h6>
+                            <p class="msg-info">{{ $notif['desc'] }}</p>
+                          </div>
+                        </div>
+                      </a>
+                      @endforeach
+                  @else
+                      <a class="dropdown-item" href="javascript:;">
+                        <div class="d-flex align-items-center">
+                          <div class="flex-grow-1 text-center text-muted">
+                            <p class="msg-info">Belum ada notifikasi baru</p>
+                          </div>
+                        </div>
+                      </a>
+                  @endif
+
                 </div>
-                <a href="javascript:;">
+                <a href="{{ route('admin.notifications.index') }}">
                   <div class="text-center msg-footer">View All Notifications</div>
                 </a>
               </div>
@@ -409,9 +355,9 @@
     <!--end page content wrapper-->
 
     <!--start footer-->
-    <footer class="footer">
+    <!-- <footer class="footer">
       <div class="footer-text">Copyright &copy; 2026. All right reserved.</div>
-    </footer>
+    </footer> -->
     <!--end footer-->
 
     <!--Start Back To Top Button-->

@@ -247,7 +247,7 @@
 </style>
 
 {{-- ── BREADCRUMB ── --}}
-<section style="background:#fff; border-bottom:1px solid var(--border); padding:14px 0;">
+<!-- <section style="background:#fff; border-bottom:1px solid var(--border); padding:14px 0;">
     <div class="container">
         <nav style="font-size:.88rem; color:var(--gray);">
             <a href="{{ url('/') }}" style="color:var(--primary); text-decoration:none; font-weight:500">
@@ -259,12 +259,12 @@
             <span data-i18n="order.success_page_title">Order Berhasil</span>
         </nav>
     </div>
-</section>
+</section> -->
 
 {{-- ── MAIN ── --}}
 <section class="success-page">
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center" style="margin-top: 15%;">
             <div class="col-lg-7 col-md-9 text-center">
 
                 {{-- Success Icon --}}
@@ -351,7 +351,7 @@
 
                 {{-- Actions --}}
                 <div class="d-flex justify-content-center gap-3 flex-wrap mt-2">
-                    <a href="{{ route('customer.dashboard') }}" class="btn-dashboard">
+                    <a href="{{ route('home') }}" class="btn-dashboard">
                         <i class="fa-solid fa-gauge-high"></i> <span data-i18n="order.pt_per.view_dashboard">Lihat Dashboard Order</span>
                     </a>
                     <a href="{{ url('/pendirian-pt-perorangan') }}" class="btn-dashboard" style="border-color:var(--gray); color:var(--gray);">

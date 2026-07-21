@@ -7,11 +7,16 @@ use App\Models\RoomBenefit;
 use App\Models\RoomBenefitLog;
 use App\Models\RoomUsageLog;
 use App\Models\UserRoomQuota;
+use App\Services\WhatsAppService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class MeetingRoomController extends Controller
 {
+    public function __construct(
+        protected WhatsAppService $whatsAppService
+    ) {}
+
     public function index()
     {
         $hasBenefit = $this->getActiveBenefit() ? true : false;
@@ -229,29 +234,100 @@ class MeetingRoomController extends Controller
 
     // ── Admin Index ───────────────────────────────────────────────────────────
 
-    public function adminIndex()
+    public function adminIndex(Request $request)
     {
-        // TABLE 1 sub: All benefit-tagged reservations (filter in blade by status)
-        $benefitBookings = MeetingRoomBooking::with(['user', 'benefit'])
-            ->where('source_type', 'benefit')
-            ->latest()
-            ->get();
+        $search = $request->input('search');
 
-        // TABLE 2: Manual reservations only (existing — untouched)
-        $bookings = MeetingRoomBooking::with('user')
-            ->where(function ($q) {
-                $q->where('source_type', 'manual')
-                  ->orWhereNull('source_type');   // legacy rows
-            })
-            ->latest()
-            ->get();
+        // Load all bookings (both benefit and manual) for the unified index table
+        $query = MeetingRoomBooking::with(['user', 'benefit'])->latest();
+
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('id', 'like', "%{$search}%")
+                  ->orWhere('name', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%")
+                  ->orWhere('room_name', 'like', "%{$search}%");
+            });
+        }
+
+        $bookings = $query->paginate(10);
+        $bookings->appends(['search' => $search]);
 
         // Benefit pool cards — only meeting-type benefits
         $benefits = RoomBenefit::with(['user', 'order'])
             ->whereIn('type', ['meeting', 'shared'])
             ->latest()->get();
 
-        return view('admin.meeting-room.index', compact('bookings', 'benefits', 'benefitBookings'));
+        return view('admin.meeting-room.index', compact('bookings', 'benefits'));
+    }
+
+    // ── Admin: Create & Store (CRM Flow) ──────────────────────────────────────
+
+    public function adminCreate()
+    {
+        return view('admin.meeting-room.create');
+    }
+
+    public function adminStore(Request $request)
+    {
+        $rules = [
+            'user_id'         => 'required|exists:users,id',
+            'room_name'       => 'required|string',
+            'date'            => 'required|date',
+            'start_time'      => 'required',
+            'participants'    => 'required|integer|min:1',
+            'source_type'     => 'required|in:manual,benefit',
+            'benefit_id'      => 'nullable|exists:room_benefits,id',
+        ];
+
+        $request->validate($rules);
+
+        $start = \Carbon\Carbon::parse($request->date . ' ' . $request->start_time);
+        $end = \Carbon\Carbon::parse($request->date . ' ' . $request->start_time)->addHour(); // Default end time, will be overridden on checkout
+        
+        // Paket Meeting Room adalah sistem kuota tahunan (60 Jam)
+        $durationHours = 60;
+
+        // Get user for fallback data
+        $user = \App\Models\User::find($request->user_id);
+
+        $booking = MeetingRoomBooking::create([
+            'user_id'         => $user->id,
+            'created_by'      => Auth::id(),
+            'name'            => $user->name,
+            'nama_perusahaan' => $user->company_name,
+            'email'           => $user->email,
+            'alamat_usaha'    => $user->address,
+            'bidang_usaha'    => $user->business_type,
+            'keperluan'       => $request->notes, // used as notes internally
+            'notes'           => $request->notes,
+            'room_name'       => $request->room_name,
+            'date'            => $request->date,
+            'start_time'      => $request->start_time,
+            'end_time'        => $end,
+            'duration'        => $durationHours,
+            'participants'    => $request->participants,
+            'source_type'     => $request->source_type,
+            'benefit_id'      => $request->source_type === 'benefit' ? $request->benefit_id : null,
+            'status'          => 'approved',
+            'payment_status'  => 'approved',
+            'payment_method'  => $request->payment_method,
+        ]);
+
+        // ── WhatsApp Notification ─────────────────────────────────────────────
+        $waMessage = '';
+        try {
+            $waLog = $this->whatsAppService->notifyMeetingRoomCreated($booking);
+            if ($waLog && $waLog->status === \App\Models\WhatsappLog::STATUS_SUCCESS) {
+                $waMessage = ' WhatsApp notifikasi berhasil dikirim.';
+            } elseif ($waLog) {
+                $waMessage = ' Tetapi WhatsApp gagal dikirim.';
+            }
+        } catch (\Exception $e) {
+            $waMessage = ' Tetapi WhatsApp gagal dikirim.';
+        }
+
+        return redirect('admin/meeting-room')->with('success', '✅ Reservasi Meeting Room berhasil ditambahkan oleh Admin.' . $waMessage);
     }
 
     // ── Admin: Approve benefit reservation (status: pending → approved) ───────
@@ -311,17 +387,8 @@ class MeetingRoomController extends Controller
 
     public function customerIndex()
     {
-        $benefitBookings = MeetingRoomBooking::where('user_id', Auth::id())
-            ->where('source_type', 'benefit')
-            ->latest()
-            ->get();
-
-        $manualBookings = MeetingRoomBooking::with('meetingRoomPackage')
+        $bookings = MeetingRoomBooking::with('meetingRoomPackage')
             ->where('user_id', Auth::id())
-            ->where(function ($q) {
-                $q->where('source_type', 'manual')
-                  ->orWhereNull('source_type');
-            })
             ->latest()
             ->get();
 
@@ -332,7 +399,7 @@ class MeetingRoomController extends Controller
             ->latest()
             ->get();
 
-        return view('customer.meeting-room.index', compact('benefitBookings', 'manualBookings', 'benefits'));
+        return view('customer.meeting-room.index', compact('bookings', 'benefits'));
     }
 
     // ── Payment actions (manual only — existing untouched) ────────────────────
@@ -357,7 +424,7 @@ class MeetingRoomController extends Controller
     {
         $booking = MeetingRoomBooking::findOrFail($id);
 
-        if (Auth::user()->role !== 'admin' && $booking->user_id !== Auth::id()) {
+        if (!Auth::user()->hasAdminAccess() && $booking->user_id !== Auth::id()) {
             abort(403, 'Unauthorized action.');
         }
 
@@ -409,7 +476,7 @@ class MeetingRoomController extends Controller
     {
         $booking = MeetingRoomBooking::findOrFail($id);
 
-        if (Auth::user()->role !== 'admin' && $booking->user_id !== Auth::id()) {
+        if (!Auth::user()->hasAdminAccess() && $booking->user_id !== Auth::id()) {
             abort(403, 'Unauthorized action.');
         }
 

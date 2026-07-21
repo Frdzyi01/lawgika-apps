@@ -842,6 +842,7 @@
                 <div class="pricing-card">
                     <h4 data-i18n="ui.pricing.pkg_basic"> Basic Package</h4>
                     <div class="price">Rp 4.500.000</div>
+                    <small class="text-muted d-block mt-2 mb-3" style="font-size:0.75rem;">*Harga belum termasuk PPN 11%</small>
 
                     <ul class="feature-list">
                         <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.check_name_firma">Pengecekan Nama Firma</span></li>
@@ -890,6 +891,7 @@
                     <h4 data-i18n="ui.pricing.pkg_business">Business Pack </h4>
 
                     <div class="price">Rp 8.500.000</div>
+                    <small class="text-muted d-block mt-2 mb-3" style="font-size:0.75rem;">*Harga belum termasuk PPN 11%</small>
 
                     <ul class="feature-list">
                         <li><i class="fa-solid fa-check"></i> <span data-i18n="ui.pricing.feature.check_name_firma">Pengecekan Nama Firma</span></li>

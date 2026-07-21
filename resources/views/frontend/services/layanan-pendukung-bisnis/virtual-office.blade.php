@@ -844,6 +844,7 @@
                 <div class="pricing-card">
                     <h4 data-i18n="vo.pricing.premium.title">PREMIUM</h4>
                     <div class="price">Rp 2.800.000</div>
+                    <small class="text-muted d-block mt-2 mb-3" style="font-size:0.75rem;">*Harga belum termasuk PPN 11%</small>
 
                     <ul class="feature-list">
                         <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.address">Alamat Bisnis Ekslusif</span></li>
@@ -890,6 +891,7 @@
                     <h4 data-i18n="vo.pricing.eksklusif.title">EKSKLUSIF</h4>
 
                     <div class="price">Rp 4.800.000</div>
+                    <small class="text-muted d-block mt-2 mb-3" style="font-size:0.75rem;">*Harga belum termasuk PPN 11%</small>
 
                     <ul class="feature-list">
                         <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.address">Alamat Bisnis Ekslusif</span></li>
@@ -932,6 +934,7 @@
                     <h4 data-i18n="vo.pricing.enterprise.title">ENTERPRISE</h4>
 
                     <div class="price">Rp 5.800.000</div>
+                    <small class="text-muted d-block mt-2 mb-3" style="font-size:0.75rem;">*Harga belum termasuk PPN 11%</small>
 
                     <ul class="feature-list">
                         <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.address">Alamat Bisnis Ekslusif</span></li>

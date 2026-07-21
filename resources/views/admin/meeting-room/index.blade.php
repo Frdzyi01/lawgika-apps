@@ -3,7 +3,10 @@
 @section('content')
     <div class="container-fluid">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Manajemen Meeting Room</h1>
+            <h1 class="h3 mb-0 text-gray-800"><ion-icon name="business-outline" class="align-middle"></ion-icon> Manajemen Meeting Room</h1>
+            <a href="{{ route('admin.meeting-room.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                <ion-icon name="add-circle-outline" class="align-middle"></ion-icon> Tambah Reservasi
+            </a>
         </div>
 
         @if (session('success'))
@@ -19,178 +22,167 @@
             </div>
         @endif
 
-        {{-- ============================================================ --}}
-        {{-- TABLE 1: Benefit dari Paket PT (quota pool cards)           --}}
-        {{-- ============================================================ --}}
-        @include('partials.room-benefit-table', [
-            'benefits' => $benefits,
-            'roomLabel' => 'Meeting Room',
-            'isAdmin' => true,
-            'roomType' => 'meeting',
-        ])
-
-
-
-        {{-- ============================================================ --}}
-        {{-- TABLE 3: Reservasi Manual (existing — fully untouched)      --}}
-        {{-- ============================================================ --}}
         <div class="card shadow mb-4">
-            <div class="card-header py-3 d-flex align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">📋 Reservasi Manual</h6>
-                <span class="badge bg-primary">{{ $bookings->count() }} Reservasi</span>
+            <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                <h6 class="m-0 font-weight-bold text-primary"><ion-icon name="list-outline" class="align-middle"></ion-icon> Semua Reservasi Meeting Room</h6>
+                
+                <div class="d-flex align-items-center">
+                    <form action="{{ url()->current() }}" method="GET" class="d-flex me-2">
+                        <div class="input-group input-group-sm">
+                            <input type="text" name="search" class="form-control form-control-sm" placeholder="Cari client/order..." value="{{ request('search') }}">
+                            <button class="btn btn-outline-secondary" type="submit"><ion-icon name="search-outline" class="align-middle"></ion-icon></button>
+                            @if(request('search'))
+                                <a href="{{ url()->current() }}" class="btn btn-outline-danger" title="Reset"><ion-icon name="close-outline" class="align-middle"></ion-icon></a>
+                            @endif
+                        </div>
+                    </form>
+                    <span class="badge bg-primary">{{ $bookings->total() }} Reservasi</span>
+                </div>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover">
                         <thead class="table-light">
                             <tr>
-                                <th>ID</th>
-                                <th>Nama Pemesan</th>
-                                <th>Waktu & Peserta</th>
-                                <th>Bukti Bayar</th>
-                                <th>Status Bayar</th>
+                                <th>No. Order</th>
+                                <th>Client</th>
+                                <th>Ruangan</th>
+                                <th>Tanggal & Waktu Booking</th>
+                                <th>Peserta</th>
                                 <th>Pemakaian Waktu</th>
-                                <th>Status Ruangan</th>
+                                <th>Pembayaran</th>
+                                <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($bookings as $booking)
-                                <tr>
-                                    <td>{{ $booking->id }}</td>
-                                    <td>
-                                        {{ $booking->name }}
-                                        @if ($booking->user)
-                                            <br><small class="text-muted">User ID: {{ $booking->user_id }}</small>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @php
-                                            $isPackage = empty($booking->date) && empty($booking->start_time);
-                                        @endphp
+                            @forelse($bookings as $b)
+                            <tr>
+                                <td><code style="font-size:.8rem;">{{ $b->order_number ?? '#'.$b->id }}</code></td>
+                                <td>
+                                    {{ $b->name }}
+                                    @if($b->user)<br><small class="text-muted">{{ $b->user->email }}</small>@endif
+                                </td>
+                                <td>
+                                    {{ $b->room_name ?? 'Meeting Room Utama' }}
+                                </td>
+                                <td>
+                                    @php
+                                        $isPackage = empty($b->date) && empty($b->start_time);
+                                    @endphp
 
-                                        @if ($isPackage)
-                                            <span class="badge bg-success" style="font-size:0.9rem;">📦 Paket Meeting Room
-                                                (60 jam)</span>
+                                    @if ($isPackage)
+                                        <span class="badge bg-success" style="font-size:0.9rem;">📦 Paket Meeting Room</span>
+                                    @else
+                                        {{ \Carbon\Carbon::parse($b->date)->format('d M Y') }}
+                                        <small class="d-block">{{ \Carbon\Carbon::parse($b->start_time)->format('H:i') }}</small>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($isPackage)
+                                        -
+                                    @else
+                                        <span class="badge bg-secondary">{{ $b->participants ?? 1 }} Orang</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    <small class="d-block">Total: {{ $b->formatSeconds($b->duration * 3600) }}</small>
+                                    <small class="d-block">Dipakai: <span class="used-time-display"
+                                            data-status="{{ $b->status }}"
+                                            data-used="{{ $b->used_seconds }}">{{ $b->formatted_used_time ?? '0 menit' }}</span></small>
+                                    @php
+                                        $sisa = $b->formatted_remaining_time ?? '0 menit';
+                                        $bc = ($b->is_expired || $sisa === 'Waktu habis') ? 'bg-danger' : 'bg-success';
+                                    @endphp
+                                    <span class="badge {{ $bc }} mt-1">Sisa: <span class="remaining-time-display" data-status="{{ $b->status }}" data-remaining="{{ $b->remaining_seconds }}">{{ $sisa }}</span></span>
+                                </td>
+                                <td>
+                                    @if($b->source_type === 'benefit')
+                                        <span class="badge bg-info text-dark">Paket PT</span>
+                                        @if($b->benefit)
+                                        <br><small class="text-muted">{{ $b->benefit->paket }}</small>
+                                        @endif
+                                    @else
+                                        <span class="badge bg-secondary">Manual</span>
+                                        @if($b->payment_method)
+                                        <br><small class="text-muted fw-bold">{{ $b->payment_method }}</small>
+                                        @endif
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($b->is_expired)
+                                        <span class="badge bg-danger">❌ Expired</span>
+                                    @elseif($b->source_type === 'manual' && $b->remaining_seconds <= 0 && $b->status !== 'selesai' && $b->payment_status === 'approved')
+                                        <span class="badge bg-danger">⛔ Waktu Habis</span>
+                                    @elseif($b->status === 'checkin')
+                                        <span class="badge bg-primary">🔵 Sedang Digunakan</span>
+                                    @elseif($b->status === 'paused')
+                                        <span class="badge bg-warning text-dark">⏳ Berhenti sementara</span>
+                                    @elseif($b->status === 'selesai')
+                                        <span class="badge bg-dark">✔ Selesai</span>
+                                    @elseif($b->status === 'approved')
+                                        <span class="badge bg-success">✅ Menunggu Check In</span>
+                                    @elseif($b->status === 'rejected')
+                                        <span class="badge bg-danger">❌ Ditolak</span>
+                                    @elseif($b->status === 'pending')
+                                        @if($b->source_type === 'benefit')
+                                            <span class="badge bg-warning text-dark">⏳ Menunggu Approval</span>
                                         @else
-                                            {{ \Carbon\Carbon::parse($booking->date)->format('d M Y') }}
-                                            <small
-                                                class="d-block">{{ \Carbon\Carbon::parse($booking->start_time)->format('H:i') }}</small>
-                                            <small class="text-muted">{{ $booking->participants }} Orang</small>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if ($booking->payment_proof)
-                                            <a href="{{ asset('storage/' . $booking->payment_proof) }}" target="_blank">
-                                                <img src="{{ asset('storage/' . $booking->payment_proof) }}"
-                                                    alt="Bukti Bayar"
-                                                    style="width:70px;height:70px;object-fit:cover;border-radius:8px;border:1px solid #e2e8f0;">
-                                            </a>
-                                        @else
-                                            <span class="text-muted small">–</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if ($booking->payment_status === 'approved')
-                                            <span class="badge bg-success">✅ Disetujui</span>
-                                        @elseif($booking->payment_status === 'rejected')
-                                            <span class="badge bg-danger">❌ Ditolak</span>
-                                        @else
-                                            <span class="badge bg-warning text-dark">⏳ Pending</span>
-                                        @endif
-
-                                        @if ($booking->payment_status === 'pending')
-                                            <div class="mt-1 d-flex gap-1">
-                                                <form
-                                                    action="{{ url('admin/meeting-room/' . $booking->id . '/approve-payment') }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    <button class="btn btn-xs btn-success py-0 px-2"
-                                                        style="font-size:0.75rem;"
-                                                        onclick="return confirm('Setujui pembayaran ini?')">Approve</button>
-                                                </form>
-                                                <form
-                                                    action="{{ url('admin/meeting-room/' . $booking->id . '/reject-payment') }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    <button class="btn btn-xs btn-danger py-0 px-2"
-                                                        style="font-size:0.75rem;"
-                                                        onclick="return confirm('Tolak pembayaran ini?')">Reject</button>
-                                                </form>
-                                            </div>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <small class="d-block">Total:
-                                            {{ $booking->formatSeconds($booking->duration * 3600) }}</small>
-                                        <small class="d-block">Dipakai: <span class="used-time-display"
-                                                data-status="{{ $booking->status }}"
-                                                data-used="{{ $booking->used_seconds }}">{{ $booking->formatted_used_time }}</span></small>
-                                        @php
-                                            $sisa = $booking->formatted_remaining_time;
-                                            $bc =
-                                                $booking->is_expired || $sisa === 'Waktu habis'
-                                                    ? 'bg-danger'
-                                                    : 'bg-success';
-                                        @endphp
-                                        <span class="badge {{ $bc }} mt-1">Sisa: <span
-                                                class="remaining-time-display" data-status="{{ $booking->status }}"
-                                                data-remaining="{{ $booking->remaining_seconds }}">{{ $sisa }}</span></span>
-                                    </td>
-                                    <td>
-                                        @if ($booking->is_expired)
-                                            <span class="badge bg-danger">❌ Expired</span>
-                                        @elseif($booking->remaining_seconds <= 0)
-                                            <span class="badge bg-danger">⛔ Waktu Habis</span>
-                                        @elseif($booking->status === 'checkin')
-                                            <span class="badge bg-success">✅ Aktif</span>
-                                        @elseif($booking->status === 'paused' || $booking->used_seconds > 0)
-                                            <span class="badge bg-warning text-dark">⏳ Berhenti sementara</span>
-                                        @else
-                                            <span class="badge bg-secondary">Pending</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <div class="d-flex flex-column gap-1">
-                                            <a href="{{ url('admin/meeting-room/' . $booking->id . '/detail') }}"
-                                                class="btn btn-sm btn-info text-white"><i class="fas fa-eye"></i> Lihat
-                                                Data</a>
-                                            @if ($booking->payment_status !== 'approved')
-                                                <span class="text-muted small text-center mt-1">Tunggu konfirmasi
-                                                    bayar</span>
-                                            @elseif($booking->is_expired)
-                                                <span
-                                                    class="text-muted small text-danger fw-bold text-center mt-1">Expired</span>
-                                            @elseif($booking->remaining_seconds <= 0)
-                                                <span class="text-muted small text-danger fw-bold text-center mt-1">Waktu
-                                                    Habis</span>
-                                            @elseif($booking->status === 'checkin')
-                                                <form
-                                                    action="{{ url('admin/meeting-room/' . $booking->id . '/checkout') }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    <button class="btn btn-sm btn-warning text-dark w-100"
-                                                        onclick="return confirm('Check Out?')">Check Out</button>
-                                                </form>
+                                            @if($b->payment_status === 'pending')
+                                                <span class="badge bg-warning text-dark">⏳ Pending Pembayaran</span>
                                             @else
-                                                <form
-                                                    action="{{ url('admin/meeting-room/' . $booking->id . '/checkin') }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    <button class="btn btn-sm btn-success w-100"
-                                                        onclick="return confirm('Check In?')">Check In</button>
-                                                </form>
+                                                <span class="badge bg-warning text-dark">⏳ Pending</span>
                                             @endif
-                                        </div>
-                                    </td>
-                                </tr>
+                                        @endif
+                                    @endif
+                                </td>
+                                <td>
+                                    <div class="d-flex flex-column gap-1">
+                                        <a href="{{ url('admin/meeting-room/'.$b->id.'/detail') }}" class="btn btn-sm btn-info text-white"><i class="fas fa-eye"></i> Detail</a>
+
+                                        @if($b->source_type === 'benefit' && $b->status === 'pending')
+                                            <form action="{{ url('admin/meeting-room/'.$b->id.'/benefit-approve') }}" method="POST">
+                                                @csrf
+                                                <button class="btn btn-sm btn-success w-100" onclick="return confirm('Setujui reservasi ini?')">Approve Benefit</button>
+                                            </form>
+                                            <form action="{{ url('admin/meeting-room/'.$b->id.'/benefit-reject') }}" method="POST">
+                                                @csrf
+                                                <button class="btn btn-sm btn-danger w-100" onclick="return confirm('Tolak reservasi ini?')">Reject Benefit</button>
+                                            </form>
+                                        @endif
+
+                                        @if($b->source_type !== 'benefit' && $b->payment_status === 'pending')
+                                            <form action="{{ url('admin/meeting-room/'.$b->id.'/approve-payment') }}" method="POST">
+                                                @csrf<button class="btn btn-sm btn-success w-100" onclick="return confirm('Setujui Pembayaran?')">Approve Bayar</button>
+                                            </form>
+                                            <form action="{{ url('admin/meeting-room/'.$b->id.'/reject-payment') }}" method="POST">
+                                                @csrf<button class="btn btn-sm btn-danger w-100" onclick="return confirm('Tolak Pembayaran?')">Reject Bayar</button>
+                                            </form>
+                                        @endif
+
+                                        @if($b->status === 'approved' || $b->status === 'paused')
+                                            <form action="{{ url('admin/meeting-room/'.$b->id.'/checkin') }}" method="POST">
+                                                @csrf<button class="btn btn-sm btn-success w-100" onclick="return confirm('Check In?')">Check In</button>
+                                            </form>
+                                        @elseif($b->status === 'checkin')
+                                            <form action="{{ url('admin/meeting-room/'.$b->id.'/checkout') }}" method="POST">
+                                                @csrf<button class="btn btn-sm btn-warning text-dark w-100" onclick="return confirm('Check Out?')">Check Out</button>
+                                            </form>
+                                        @endif
+                                    </div>
+                                </td>
+                            </tr>
                             @empty
-                                <tr>
-                                    <td colspan="8" class="text-center">Belum ada data reservasi meeting room.</td>
-                                </tr>
+                            <tr>
+                                <td colspan="8" class="text-center text-muted">Belum ada data reservasi meeting room.</td>
+                            </tr>
                             @endforelse
                         </tbody>
                     </table>
+                </div>
+                
+                <div class="mt-3">
+                    {{ $bookings->links('pagination::bootstrap-5') }}
                 </div>
             </div>
         </div>

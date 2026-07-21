@@ -273,7 +273,7 @@
       <a href="https://wa.me/6281112088600?text={{ $waText }}" target="_blank" rel="noopener" class="btn-g btn-wa">
         <i class="bi bi-whatsapp"></i> <span data-i18n="order.confirm_wa">Konfirmasi via WA</span>
       </a>
-      <a href="{{ route('customer.dashboard') }}" class="btn-g btn-dash">
+      <a href="{{ route('home') }}" class="btn-g btn-dash">
         <i class="bi bi-speedometer2"></i> <span data-i18n="nav.dashboard">Dashboard</span>
       </a>
     </div>

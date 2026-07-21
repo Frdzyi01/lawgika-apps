@@ -274,6 +274,21 @@
                             <h5 style="font-size:1.05rem; font-weight:700; color:var(--dark); margin-bottom:15px;"><i
                                     class="fa-solid fa-building-columns"></i> <span data-i18n="order.payment_instruction_transfer">Instruksi Pembayaran (Transfer Bank)</span></h5>
                             <p style="font-size:0.95rem; color:var(--gray); margin-bottom:10px;" data-i18n="order.transfer_instruction">Silakan lakukan pembayaran ke rekening berikut:</p>
+                            <div style="background:#fff; padding:15px; border-radius:8px; border:1px solid #e2e8f0; margin-bottom: 10px;">
+                                <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                                    <span style="color:#64748b; font-size:0.9rem;">Bank</span>
+                                    <strong style="color:#1e1b2b;">Mandiri</strong>
+                                </div>
+                                <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                                    <span style="color:#64748b; font-size:0.9rem;">No. Rekening</span>
+                                    <strong style="color:#1e1b2b; font-size:1.1rem; letter-spacing:1px;">1760005097561</strong>
+                                </div>
+                                <div style="display:flex; justify-content:space-between; border-top:1px dashed #e2e8f0; padding-top:8px; margin-top:8px;">
+                                    <span style="color:#64748b; font-size:0.9rem;">Atas Nama</span>
+                                    <strong style="color:#1e1b2b;">PT Lawgika Associates</strong>
+                                </div>
+                            </div>
+
                             <div style="background:#fff; padding:15px; border-radius:8px; border:1px solid #e2e8f0;">
                                 <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
                                     <span style="color:#64748b; font-size:0.9rem;">Bank</span>
@@ -281,26 +296,47 @@
                                 </div>
                                 <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
                                     <span style="color:#64748b; font-size:0.9rem;">No. Rekening</span>
-                                    <strong style="color:#1e1b2b; font-size:1.1rem; letter-spacing:1px;">869 123 4567</strong>
+                                    <strong style="color:#1e1b2b; font-size:1.1rem; letter-spacing:1px;">664-0800389</strong>
                                 </div>
-                                <div
-                                    style="display:flex; justify-content:space-between; border-top:1px dashed #e2e8f0; padding-top:8px; margin-top:8px;">
+                                <div style="display:flex; justify-content:space-between; border-top:1px dashed #e2e8f0; padding-top:8px; margin-top:8px;">
                                     <span style="color:#64748b; font-size:0.9rem;">Atas Nama</span>
                                     <strong style="color:#1e1b2b;">PT Lawgika Associates</strong>
                                 </div>
                             </div>
 
-                            <div style="margin-top:15px; text-align:right;">
-                                <span style="color:#64748b; font-size:0.95rem; margin-right:10px;" data-i18n="order.total_bill">Total Tagihan:</span>
-                                <strong style="color:var(--primary); font-size:1.4rem;" id="totalAmountDisplay">
-                                    @if (request('package') == 'paket')
-                                        Rp 4.800.000
-                                    @else
-                                        Rp 150.000
-                                    @endif
-                                </strong>
-                                <input type="hidden" id="package" value="{{ request('package', 'reservasi') }}">
+                            <div style="margin-top:15px;">
+                                <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                                    <span style="color:#64748b; font-size:0.95rem;">Subtotal:</span>
+                                    <strong style="color:#1e1b2b; font-size:1.1rem;" id="subtotalDisplay">
+                                        @if (request('package') == 'paket')
+                                            Rp 4.800.000
+                                        @else
+                                            Rp 150.000
+                                        @endif
+                                    </strong>
+                                </div>
+                                <div style="display:flex; justify-content:space-between; margin-bottom:10px; border-bottom:1px solid #e2e8f0; padding-bottom:10px;">
+                                    <span style="color:#64748b; font-size:0.95rem;">PPN 11%:</span>
+                                    <strong style="color:#1e1b2b; font-size:1.1rem;" id="ppnDisplay">
+                                        @if (request('package') == 'paket')
+                                            Rp 528.000
+                                        @else
+                                            Rp 16.500
+                                        @endif
+                                    </strong>
+                                </div>
+                                <div style="display:flex; justify-content:space-between; align-items:center;">
+                                    <span style="color:#1e1b2b; font-size:1.1rem; font-weight:700;" data-i18n="order.total_bill">Total Pembayaran:</span>
+                                    <strong style="color:var(--primary); font-size:1.4rem;" id="totalAmountDisplay">
+                                        @if (request('package') == 'paket')
+                                            Rp 5.328.000
+                                        @else
+                                            Rp 166.500
+                                        @endif
+                                    </strong>
+                                </div>
                             </div>
+                            <input type="hidden" id="package" value="{{ request('package', 'reservasi') }}">
                         </div>
 
                         <div class="form-group">
@@ -359,14 +395,21 @@
 
         function updateTotal() {
             const packageType = document.getElementById('package').value;
+            let subtotal = 0;
 
             if (packageType === 'paket') {
-                document.getElementById('totalAmountDisplay').innerText = 'Rp ' + hargaPaket.toLocaleString('id-ID');
+                subtotal = hargaPaket;
             } else {
                 const durasi = parseInt(document.getElementById('durasi').value) || 1;
-                let total = durasi * hargaPerJam;
-                document.getElementById('totalAmountDisplay').innerText = 'Rp ' + total.toLocaleString('id-ID');
+                subtotal = durasi * hargaPerJam;
             }
+            
+            const ppn = Math.round(subtotal * 0.11);
+            const total = subtotal + ppn;
+
+            document.getElementById('subtotalDisplay').innerText = 'Rp ' + subtotal.toLocaleString('id-ID');
+            document.getElementById('ppnDisplay').innerText = 'Rp ' + ppn.toLocaleString('id-ID');
+            document.getElementById('totalAmountDisplay').innerText = 'Rp ' + total.toLocaleString('id-ID');
         }
 
         function sendWhatsApp() {

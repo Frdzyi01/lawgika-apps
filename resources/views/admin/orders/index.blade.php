@@ -8,21 +8,28 @@
         <h4 class="mb-0">Manajemen Pesanan</h4>
         <small class="text-muted">Daftar semua pesanan masuk dari pelanggan</small>
     </div>
-    {{-- Filter Status --}}
-    <form method="GET" class="d-flex gap-2">
-        <select name="status" class="form-select form-select-sm" onchange="this.form.submit()">
-            <option value="">Semua Status</option>
-            @foreach(['pending','approved','processing','rejected','completed','cancelled'] as $s)
-                <option value="{{ $s }}" {{ request('status') == $s ? 'selected' : '' }}>{{ ucfirst($s) }}</option>
-            @endforeach
-        </select>
-        <select name="service" class="form-select form-select-sm" onchange="this.form.submit()">
-            <option value="">Semua Layanan</option>
-            <option value="virtual-office" {{ request('service') == 'virtual-office' ? 'selected' : '' }}>Virtual Office</option>
-            <option value="pendirian-pt" {{ request('service') == 'pendirian-pt' ? 'selected' : '' }}>Pendirian PT</option>
-            <option value="pt-perorangan" {{ request('service') == 'pt-perorangan' ? 'selected' : '' }}>PT Perorangan</option>
-        </select>
-    </form>
+    
+    <div class="d-flex gap-2 align-items-center">
+        {{-- Filter Status --}}
+        <form method="GET" class="d-flex gap-2 m-0">
+            <select name="status" class="form-select form-select-sm" onchange="this.form.submit()">
+                <option value="">Semua Status</option>
+                @foreach(['pending','approved','processing','rejected','completed','cancelled'] as $s)
+                    <option value="{{ $s }}" {{ request('status') == $s ? 'selected' : '' }}>{{ ucfirst($s) }}</option>
+                @endforeach
+            </select>
+            <select name="service" class="form-select form-select-sm" onchange="this.form.submit()">
+                <option value="">Semua Layanan</option>
+                <option value="virtual-office" {{ request('service') == 'virtual-office' ? 'selected' : '' }}>Virtual Office</option>
+                <option value="pendirian-pt" {{ request('service') == 'pendirian-pt' ? 'selected' : '' }}>Pendirian PT</option>
+                <option value="pt-perorangan" {{ request('service') == 'pt-perorangan' ? 'selected' : '' }}>PT Perorangan</option>
+            </select>
+        </form>
+
+        <a href="{{ route('admin.orders.create') }}" class="btn btn-sm btn-primary shadow-sm text-nowrap">
+            <ion-icon name="add-circle-outline" class="align-middle"></ion-icon> Buat Pesanan Baru
+        </a>
+    </div>
 </div>
 
 @if(session('success'))
@@ -104,7 +111,8 @@
                         </td>
                         <td>
                             @if($order->total_price > 0)
-                                Rp {{ number_format($order->total_price, 0, ',', '.') }}
+                                @php $ppnData = \App\Helpers\PpnHelper::calculate($order->total_price); @endphp
+                                Rp {{ number_format($ppnData['grand_total'], 0, ',', '.') }}
                             @else
                                 <span class="text-muted">—</span>
                             @endif

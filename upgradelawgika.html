@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Upgrade & Perbaikan - Lawgika Apps</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #1a1a2e;
+            background: #f8f9fa;
+            line-height: 1.6;
+            font-size: 11pt;
+        }
+
+        @page {
+            size: A4;
+            margin: 20mm 18mm 20mm 18mm;
+        }
+
+        @media print {
+            body { background: white; }
+            .page-break { page-break-before: always; }
+            .no-break { page-break-inside: avoid; }
+        }
+
+        .container {
+            max-width: 210mm;
+            margin: 0 auto;
+            background: white;
+            padding: 0;
+        }
+
+        /* ── Cover Page ───────────────────────────── */
+        .cover {
+            text-align: center;
+            padding: 60px 40px;
+            background: linear-gradient(135deg, #0d1b2a 0%, #1b263b 50%, #415a77 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cover-logo {
+            font-size: 48px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #60a5fa, #a78bfa, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .cover-subtitle {
+            font-size: 14px;
+            color: #778da9;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 60px;
+        }
+
+        .cover-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .cover-desc {
+            font-size: 15px;
+            color: #a0b4c8;
+            margin-bottom: 50px;
+            max-width: 500px;
+        }
+
+        .cover-divider {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #60a5fa, #a78bfa);
+            border-radius: 2px;
+            margin: 30px auto;
+        }
+
+        .cover-meta {
+            font-size: 12px;
+            color: #778da9;
+            margin-top: 20px;
+        }
+
+        .cover-meta span {
+            display: block;
+            margin: 4px 0;
+        }
+
+        .cover-badge {
+            display: inline-block;
+            background: rgba(96, 165, 250, 0.15);
+            border: 1px solid rgba(96, 165, 250, 0.3);
+            color: #93c5fd;
+            padding: 6px 20px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        /* ── Section Styles ───────────────────────── */
+        .content-section {
+            padding: 30px 40px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .section-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #3b82f6, #6366f1);
+            color: white;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a1a2e;
+        }
+
+        .section-tag {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tag-bugfix { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+        .tag-upgrade { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
+        .tag-feature { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
+        .tag-ui { background: #fefce8; color: #ca8a04; border: 1px solid #fde68a; }
+        .tag-security { background: #fdf4ff; color: #9333ea; border: 1px solid #e9d5ff; }
+
+        /* ── Item Card ────────────────────────────── */
+        .item-card {
+            background: #fafbfc;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .item-card h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 10px;
+        }
+
+        .item-detail {
+            margin-bottom: 12px;
+        }
+
+        .item-detail-label {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #6b7280;
+            margin-bottom: 4px;
+        }
+
+        .item-detail-value {
+            font-size: 12px;
+            color: #374151;
+        }
+
+        .file-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .file-list li {
+            font-family: 'Courier New', monospace;
+            font-size: 10px;
+            color: #4b5563;
+            padding: 3px 8px;
+            background: #f3f4f6;
+            margin: 3px 0;
+            border-radius: 4px;
+            border-left: 3px solid #6366f1;
+        }
+
+        /* ── Summary Table ────────────────────────── */
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 11px;
+        }
+
+        .summary-table thead th {
+            background: #1e293b;
+            color: white;
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .summary-table thead th:first-child {
+            border-radius: 6px 0 0 0;
+        }
+
+        .summary-table thead th:last-child {
+            border-radius: 0 6px 0 0;
+        }
+
+        .summary-table tbody td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e5e7eb;
+            vertical-align: top;
+        }
+
+        .summary-table tbody tr:nth-child(even) {
+            background: #f9fafb;
+        }
+
+        .summary-table tbody tr:last-child td:first-child {
+            border-radius: 0 0 0 6px;
+        }
+
+        .summary-table tbody tr:last-child td:last-child {
+            border-radius: 0 0 6px 0;
+        }
+
+        /* ── Stats Bar ────────────────────────────── */
+        .stats-bar {
+            display: flex;
+            gap: 12px;
+            margin: 24px 0;
+        }
+
+        .stat-box {
+            flex: 1;
+            text-align: center;
+            padding: 16px 10px;
+            border-radius: 10px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .stat-box .stat-num {
+            font-size: 28px;
+            font-weight: 800;
+            display: block;
+        }
+
+        .stat-box .stat-label {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+
+        .stat-bugfix { background: #fef2f2; }
+        .stat-bugfix .stat-num { color: #dc2626; }
+
+        .stat-feature { background: #eff6ff; }
+        .stat-feature .stat-num { color: #2563eb; }
+
+        .stat-upgrade { background: #f0fdf4; }
+        .stat-upgrade .stat-num { color: #16a34a; }
+
+        .stat-ui { background: #fefce8; }
+        .stat-ui .stat-num { color: #ca8a04; }
+
+        .stat-security { background: #fdf4ff; }
+        .stat-security .stat-num { color: #9333ea; }
+
+        /* ── TOC ──────────────────────────────────── */
+        .toc {
+            padding: 30px 40px;
+        }
+
+        .toc h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .toc-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px dashed #e5e7eb;
+        }
+
+        .toc-num {
+            width: 30px;
+            height: 30px;
+            background: #f3f4f6;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 13px;
+            color: #4b5563;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .toc-text {
+            flex: 1;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .toc-tag {
+            margin-left: 8px;
+        }
+
+        /* ── Footer ───────────────────────────────── */
+        .page-footer {
+            text-align: center;
+            padding: 20px 40px;
+            font-size: 10px;
+            color: #9ca3af;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #eff6ff, #f0fdf4);
+            border: 1px solid #bfdbfe;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .highlight-box h4 {
+            font-size: 13px;
+            font-weight: 700;
+            color: #1e40af;
+            margin-bottom: 8px;
+        }
+
+        .highlight-box p, .highlight-box ul {
+            font-size: 12px;
+            color: #374151;
+        }
+
+        .highlight-box ul {
+            padding-left: 20px;
+            margin-top: 6px;
+        }
+
+        .highlight-box ul li {
+            margin: 4px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- ═══════════════════════════════════════════ COVER PAGE ═══════════════════ -->
+        <div class="cover">
+            <div class="cover-logo">LAWGIKA</div>
+            <div class="cover-subtitle">Virtual Office & Legalitas Platform</div>
+
+            <div class="cover-divider"></div>
+
+            <div class="cover-badge">Dokumen Teknis</div>
+
+            <div class="cover-title">Laporan Upgrade & Perbaikan<br>Sistem Aplikasi Lawgika</div>
+            <div class="cover-desc">
+                Ringkasan lengkap seluruh perubahan, perbaikan bug, fitur baru, dan peningkatan
+                yang dilakukan pada sistem aplikasi web Lawgika Apps.
+            </div>
+
+            <div class="cover-divider"></div>
+
+            <div class="cover-meta">
+                <span><strong>Tanggal Pengerjaan:</strong> 13 – 14 Juli 2026</span>
+                <span><strong>Versi Dokumen:</strong> 1.0</span>
+                <span><strong>Platform:</strong> Laravel PHP — MySQL — Blade Template</span>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════ TABLE OF CONTENTS ═══════════ -->
+        <div class="page-break"></div>
+        <div class="toc">
+            <h2>📋 Daftar Isi Perubahan</h2>
+
+            <div class="stats-bar">
+                <div class="stat-box stat-bugfix">
+                    <span class="stat-num">5</span>
+                    <span class="stat-label">Bug Fix</span>
+                </div>
+                <div class="stat-box stat-feature">
+                    <span class="stat-num">4</span>
+                    <span class="stat-label">Fitur Baru</span>
+                </div>
+                <div class="stat-box stat-upgrade">
+                    <span class="stat-num">2</span>
+                    <span class="stat-label">Upgrade</span>
+                </div>
+                <div class="stat-box stat-ui">
+                    <span class="stat-num">2</span>
+                    <span class="stat-label">UI / Label</span>
+                </div>
+            </div>
+
+            <div class="toc-item">
+                <span class="toc-num">1</span>
+                <span class="toc-text">Fix Bug Search Podcast Room Bookings</span>
+                <span class="section-tag tag-bugfix toc-tag">Bug Fix</span>
+            </div>
+            <div class="toc-item">
+                <span class="toc-num">2</span>
+                <span class="toc-text">Sistem Notifikasi Real-Time untuk Semua Admin</span>
+                <span class="section-tag tag-feature toc-tag">Fitur Baru</span>
+            </div>
+            <div class="toc-item">
+                <span class="toc-num">3</span>
+                <span class="toc-text">Halaman View All Notifikasi</span>
+                <span class="section-tag tag-feature toc-tag">Fitur Baru</span>
+            </div>
+            <div class="toc-item">
+                <span class="toc-num">4</span>
+                <span class="toc-text">Notifikasi Multi-Role Dashboard</span>
+                <span class="section-tag tag-feature toc-tag">Fitur Baru</span>
+            </div>
+            <div class="toc-item">
+                <span class="toc-num">5</span>
+                <span class="toc-text">Form Pesanan Admin — Popup Notifikasi</span>
+                <span class="section-tag tag-upgrade toc-tag">Upgrade</span>
+            </div>
+            <div class="toc-item">
+                <span class="toc-num">6</span>
+                <span class="toc-text">Fix 403 Unauthorized — Checkout Meeting Room</span>
+                <span class="section-tag tag-security toc-tag">Security</span>
+            </div>
+            <div class="toc-item">
+                <span class="toc-num">7</span>
+                <span class="toc-text">Pembulatan Durasi Sesi ke Hitungan Jam</span>
+                <span class="section-tag tag-upgrade toc-tag">Upgrade</span>
+            </div>
+            <div class="toc-item">
+                <span class="toc-num">8</span>
+                <span class="toc-text">Fix 403 Unauthorized — Akses Data Client</span>
+                <span class="section-tag tag-security toc-tag">Security</span>
+            </div>
+            <div class="toc-item">
+                <span class="toc-num">9</span>
+                <span class="toc-text">Auto-Create Reservasi dari Approve Benefit Ruangan</span>
+                <span class="section-tag tag-feature toc-tag">Fitur Baru</span>
+            </div>
+            <div class="toc-item">
+                <span class="toc-num">10</span>
+                <span class="toc-text">Fix SQL Error — Field 'participants' &amp; 'date'</span>
+                <span class="section-tag tag-bugfix toc-tag">Bug Fix</span>
+            </div>
+            <div class="toc-item">
+                <span class="toc-num">11</span>
+                <span class="toc-text">Perubahan Label "Jam Mulai" → "Jam Booking"</span>
+                <span class="section-tag tag-ui toc-tag">UI / Label</span>
+            </div>
+            <div class="toc-item">
+                <span class="toc-num">12</span>
+                <span class="toc-text">Pemisahan Kolom Peserta di Tabel Reservasi</span>
+                <span class="section-tag tag-ui toc-tag">UI / Label</span>
+            </div>
+            <div class="toc-item">
+                <span class="toc-num">13</span>
+                <span class="toc-text">Migrasi Database — Kolom Nullable</span>
+                <span class="section-tag tag-bugfix toc-tag">Bug Fix</span>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════ ITEM 1 ══════════════════════ -->
+        <div class="page-break"></div>
+        <div class="content-section">
+            <div class="section-header">
+                <div class="section-number">1</div>
+                <div>
+                    <div class="section-title">Fix Bug Search Podcast Room Bookings</div>
+                    <span class="section-tag tag-bugfix">Bug Fix</span>
+                </div>
+            </div>
+
+            <div class="item-card no-break">
+                <h4>Deskripsi Masalah</h4>
+                <div class="item-detail">
+                    <div class="item-detail-value">
+                        Ketika melakukan pencarian (search) di halaman reservasi Podcast Room, sistem menampilkan error SQL:
+                        <br><br>
+                        <code style="background:#fee2e2;padding:4px 8px;border-radius:4px;font-size:10px;color:#991b1b;">
+                            SQLSTATE[42S22]: Column not found: 1054 Unknown column 'email' in 'where clause'
+                        </code>
+                        <br><br>
+                        Kolom <strong>'email'</strong> tidak ada pada tabel <code>podcast_room_bookings</code>, namun query pencarian tetap mencoba mencari di kolom tersebut.
+                    </div>
+                </div>
+
+                <div class="item-detail">
+                    <div class="item-detail-label">Solusi</div>
+                    <div class="item-detail-value">
+                        Menghapus kolom 'email' dari query pencarian pada controller Podcast Room karena kolom tersebut tidak ada pada tabel database <code>podcast_room_bookings</code>.
+                    </div>
+                </div>
+
+                <div class="item-detail">
+                    <div class="item-detail-label">File yang Diubah</div>
+                    <ul class="file-list">
+                        <li>app/Http/Controllers/Admin/PodcastRoomController.php</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ══════════════ ITEM 2 ══════════════ -->
+            <div class="section-header" style="margin-top:30px;">
+                <div class="section-number">2</div>
+                <div>
+                    <div class="section-title">Sistem Notifikasi Real-Time untuk Semua Admin</div>
+                    <span class="section-tag tag-feature">Fitur Baru</span>
+                </div>
+            </div>
+
+            <div class="item-card no-break">
+                <h4>Deskripsi Fitur</h4>
+                <div class="item-detail">
+                    <div class="item-detail-value">
+                        Membuat sistem notifikasi di dashboard admin yang secara otomatis menampilkan semua transaksi baru. Setiap notifikasi dapat diklik dan langsung mengarahkan ke halaman detail transaksi yang bersangkutan.
+                    </div>
+                </div>
+
+                <div class="item-detail">
+                    <div class="item-detail-label">Fitur yang Ditambahkan</div>
+                    <div class="item-detail-value">
+                        <ul style="padding-left:16px;">
+                            <li>Ikon lonceng notifikasi di navbar admin</li>
+                            <li>Badge counter untuk jumlah notifikasi belum dibaca</li>
+                            <li>Dropdown preview notifikasi terbaru</li>
+                            <li>Klik notifikasi → navigasi ke halaman terkait</li>
+                            <li>Integrasi dengan semua jenis transaksi (Order, Meeting Room, Podcast Room)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="item-detail">
+                    <div class="item-detail-label">File yang Dibuat / Diubah</div>
+                    <ul class="file-list">
+                        <li>app/Models/AdminNotification.php <strong>[NEW]</strong></li>
+                        <li>app/Http/Controllers/Admin/NotificationController.php <strong>[NEW]</strong></li>
+                        <li>database/migrations/xxxx_create_admin_notifications_table.php <strong>[NEW]</strong></li>
+                        <li>resources/views/layouts-admin/admin.blade.php <strong>[MODIFIED]</strong></li>
+                        <li>routes/web.php <strong>[MODIFIED]</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════ ITEM 3 & 4 ══════════════════ -->
+        <div class="page-break"></div>
+        <div class="content-section">
+            <div class="section-header">
+                <div class="section-number">3</div>
+                <div>
+                    <div class="section-title">Halaman View All Notifikasi</div>
+                    <span class="section-tag tag-feature">Fitur Baru</span>
+                </div>
+            </div>
+
+            <div class="item-card no-break">
+                <h4>Deskripsi Fitur</h4>
+                <div class="item-detail">
+                    <div class="item-detail-value">
+                        Membuat halaman khusus untuk menampilkan seluruh riwayat notifikasi yang pernah masuk, dilengkapi dengan:
+                        <ul style="padding-left:16px;margin-top:6px;">
+                            <li>Daftar lengkap semua notifikasi (read & unread)</li>
+                            <li>Tombol "Tandai Semua Dibaca"</li>
+                            <li>Navigasi langsung ke halaman terkait</li>
+                            <li>Tampilan responsif dengan timestamp relatif</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="item-detail">
+                    <div class="item-detail-label">File yang Dibuat / Diubah</div>
+                    <ul class="file-list">
+                        <li>resources/views/admin/notifications/index.blade.php <strong>[NEW]</strong></li>
+                        <li>app/Http/Controllers/Admin/NotificationController.php <strong>[MODIFIED]</strong></li>
+                        <li>routes/web.php <strong>[MODIFIED]</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ══════════════ ITEM 4 ══════════════ -->
+            <div class="section-header" style="margin-top:30px;">
+                <div class="section-number">4</div>
+                <div>
+                    <div class="section-title">Notifikasi Multi-Role Dashboard</div>
+                    <span class="section-tag tag-feature">Fitur Baru</span>
+                </div>
+            </div>
+
+            <div class="item-card no-break">
+                <h4>Deskripsi Fitur</h4>
+                <div class="item-detail">
+                    <div class="item-detail-value">
+                        Mengimplementasikan sistem notifikasi di semua dashboard sesuai dengan role pengguna. Setiap role hanya menerima notifikasi yang relevan dengan tugasnya.
+                    </div>
+                </div>
+
+                <div class="item-detail">
+                    <div class="item-detail-label">Role & Notifikasi</div>
+                    <div class="item-detail-value">
+                        <table class="summary-table">
+                            <thead>
+                                <tr>
+                                    <th>Role</th>
+                                    <th>Jenis Notifikasi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Admin (SPV)</strong></td>
+                                    <td>Semua transaksi: Order, Meeting Room, Podcast Room, Benefit</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Admin Order</strong></td>
+                                    <td>Transaksi Order & Benefit terkait</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Customer</strong></td>
+                                    <td>Status pesanan & reservasi milik sendiri</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="item-detail">
+                    <div class="item-detail-label">File yang Diubah</div>
+                    <ul class="file-list">
+                        <li>resources/views/layouts-admin/admin.blade.php <strong>[MODIFIED]</strong></li>
+                        <li>resources/views/layouts-customer/app.blade.php <strong>[MODIFIED]</strong></li>
+                        <li>app/Http/Controllers/Admin/NotificationController.php <strong>[MODIFIED]</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════ ITEM 5 & 6 ══════════════════ -->
+        <div class="page-break"></div>
+        <div class="content-section">
+            <div class="section-header">
+                <div class="section-number">5</div>
+                <div>
+                    <div class="section-title">Form Pesanan Admin — Popup Notifikasi</div>
+                    <span class="section-tag tag-upgrade">Upgrade</span>
+                </div>
+            </div>
+
+            <div class="item-card no-break">
+                <h4>Deskripsi Perubahan</h4>
+                <div class="item-detail">
+                    <div class="item-detail-value">
+                        Mengubah form "Buat Pesanan Baru" di panel admin agar tidak bisa langsung diisi. Ketika admin mengklik form tersebut, sistem akan menampilkan popup notifikasi yang menginformasikan bahwa pesanan harus dibuat melalui alur yang benar (sama seperti halaman Meeting Room atau Podcast Room).
+                    </div>
+                </div>
+
+                <div class="item-detail">
+                    <div class="item-detail-label">Perilaku Sebelum</div>
+                    <div class="item-detail-value">
+                        Form bisa langsung diisi oleh admin, namun sering error karena data tidak lengkap.
+                    </div>
+                </div>
+
+                <div class="item-detail">
+                    <div class="item-detail-label">Perilaku Sesudah</div>
+                    <div class="item-detail-value">
+                        Form disabled / tidak bisa diisi. Ketika diklik, muncul popup SweetAlert yang memberi informasi alur pemesanan yang benar.
+                    </div>
+                </div>
+
+                <div class="item-detail">
+                    <div class="item-detail-label">File yang Diubah</div>
+                    <ul class="file-list">
+                        <li>resources/views/admin/orders/create.blade.php <strong>[MODIFIED]</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ══════════════ ITEM 6 ══════════════ -->
+            <div class="section-header" style="margin-top:30px;">
+                <div class="section-number">6</div>
+                <div>
+                    <div class="section-title">Fix 403 Unauthorized — Checkout Meeting Room</div>
+                    <span class="section-tag tag-security">Security Fix</span>
+                </div>
+            </div>
+
+            <div class="item-card no-break">
+                <h4>Deskripsi Masalah</h4>
+                <div class="item-detail">
+                    <div class="item-detail-value">
+                        Ketika Admin Order (<code>admin1@example.com</code>) mencoba melakukan checkout pada sesi meeting room yang sebelumnya di-checkin oleh Admin SPV (<code>admin@example.com</code>), sistem menolak aksi tersebut dan menampilkan error <strong>403 Unauthorized action</strong>.
+                    </div>
+                </div>
+
+                <div class="item-detail">
+                    <div class="item-detail-label">Penyebab</div>
+                    <div class="item-detail-value">
+                        Middleware / policy controller membatasi aksi checkout hanya bisa dilakukan oleh admin yang sama yang melakukan checkin.
+                    </div>
+                </div>
+
+                <div class="item-detail">
+                    <div class="item-detail-label">Solusi</div>
+                    <div class="item-detail-value">
+                        Memperbarui logika autorisasi agar semua admin yang memiliki akses ke manajemen meeting room bisa melakukan checkin dan checkout, tidak terbatas pada admin yang melakukan checkin awal.
+                    </div>
+                </div>
+
+                <div class="item-detail">
+                    <div class="item-detail-label">File yang Diubah</div>
+                    <ul class="file-list">
+                        <li>app/Http/Controllers/Admin/MeetingRoomController.php <strong>[MODIFIED]</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════ ITEM 7 & 8 ══════════════════ -->
+        <div class="page-break"></div>
+        <div class="content-section">
+            <div class="section-header">
+                <div class="section-number">7</div>
+                <div>
+                    <div class="section-title">Pembulatan Durasi Sesi ke Hitungan Jam</div>
+                    <span class="section-tag tag-upgrade">Upgrade</span>
+                </div>
+            </div>
+
+            <div class="item-card no-break">
+                <h4>Deskripsi Perubahan</h4>
+                <div class="item-detail">
+                    <div class="item-detail-value">
+                        Sebelumnya, durasi sesi meeting room dihitung berdasarkan menit aktual. Misalnya: check-in jam 15:00 dan checkout jam 15:14 dihitung 14 menit, sehingga menghasilkan sisa kuota yang masih ada menitnya.
+                        <br><br>
+                        Setelah upgrade, durasi sesi dibulatkan ke atas dalam hitungan <strong>jam</strong>. Contoh:
+                    </div>
+                </div>
+
+                <div class="item-detail">
+                    <div class="item-detail-label">Contoh Perhitungan</div>
+                    <div class="item-detail-value">
+                        <table class="summary-table">
+                            <thead>
+                                <tr>
+                                    <th>Check-in</th>
+                                    <th>Checkout</th>
+                                    <th>Sebelum</th>
+                                    <th>Sesudah</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>15:00</td>
+                                    <td>15:14</td>
+                                    <td>14 menit</td>
+                                    <td><strong>1 jam</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>15:00</td>
+                                    <td>15:30</td>
+                                    <td>30 menit</td>
+                                    <td><strong>1 jam</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>10:00</td>
+                                    <td>11:15</td>
+                                    <td>1 jam 15 menit</td>
+                                    <td><strong>2 jam</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="item-detail">
+                    <div class="item-detail-label">File yang Diubah</div>
+                    <ul class="file-list">
+                        <li>app/Http/Controllers/Admin/MeetingRoomController.php <strong>[MODIFIED]</strong></li>
+                        <li>app/Http/Controllers/Admin/PodcastRoomController.php <strong>[MODIFIED]</strong></li>
+                        <li>resources/views/admin/meeting-room/detail.blade.php <strong>[MODIFIED]</strong></li>
+                        <li>resources/views/admin/podcast-room/detail.blade.php <strong>[MODIFIED]</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ══════════════ ITEM 8 ══════════════ -->
+            <div class="section-header" style="margin-top:30px;">
+                <div class="section-number">8</div>
+                <div>
+                    <div class="section-title">Fix 403 Unauthorized — Akses Data Client</div>
+                    <span class="section-tag tag-security">Security Fix</span>
+                </div>
+            </div>
+
+            <div class="item-card no-break">
+                <h4>Deskripsi Masalah</h4>
+                <div class="item-detail">
+                    <div class="item-detail-value">
+                        Ketika Admin Order membuka halaman detail pesanan (<code>/admin/orders/2</code>) dan mengklik link "Data Client", sistem menampilkan error <strong>403 Unauthorized Access</strong> karena route Data Client hanya diizinkan untuk role <code>admin</code> (SPV).
+                    </div>
+                </div>
+
+                <div class="item-detail">
+                    <div class="item-detail-label">Solusi</div>
+                    <div class="item-detail-value">
+                        Memperbarui middleware route untuk fitur Master Client agar juga mengizinkan akses oleh role <code>admin1</code> (Admin Order) dan <code>spv</code>, sehingga semua admin bisa melihat data client dari halaman detail order.
+                    </div>
+                </div>
+
+                <div class="item-detail">
+                    <div class="item-detail-label">File yang Diubah</div>
+                    <ul class="file-list">
+                        <li>routes/web.php <strong>[MODIFIED]</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════ ITEM 9 & 10 ═════════════════ -->
+        <div class="page-break"></div>
+        <div class="content-section">
+            <div class="section-header">
+                <div class="section-number">9</div>
+                <div>
+                    <div class="section-title">Auto-Create Reservasi dari Approve Benefit Ruangan</div>
+                    <span class="section-tag tag-feature">Fitur Baru</span>
+                </div>
+            </div>
+
+            <div class="item-card no-break">
+                <h4>Deskripsi Fitur</h4>
+                <div class="item-detail">
+                    <div class="item-detail-value">
+                        Ketika admin mengklik tombol <strong>"Approve Benefit"</strong> pada halaman Detail Pesanan, sistem sekarang secara otomatis membuat entry reservasi di tabel Meeting Room Bookings dan Podcast Room Bookings, sehingga data langsung muncul di halaman "Semua Reservasi Meeting Room" dan "Semua Reservasi Podcast Room".
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>Detail Alur Otomatis</h4>
+                    <ul>
+                        <li><strong>Paket PT Perorangan:</strong> Otomatis buat 1× reservasi Meeting Room (12 jam)</li>
+                        <li><strong>Paket Bundling:</strong> Otomatis buat 1× reservasi Meeting Room (48 jam) + 1× reservasi Podcast Room (12 jam)</li>
+                        <li>Status reservasi langsung di-set <code>approved</code> (Menunggu Check-In)</li>
+                        <li>Data client (nama, email, perusahaan) otomatis terisi dari data order</li>
+                    </ul>
+                </div>
+
+                <div class="item-detail">
+                    <div class="item-detail-label">File yang Diubah</div>
+                    <ul class="file-list">
+                        <li>app/Services/RoomBenefitService.php <strong>[MODIFIED]</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ══════════════ ITEM 10 ═════════════ -->
+            <div class="section-header" style="margin-top:30px;">
+                <div class="section-number">10</div>
+                <div>
+                    <div class="section-title">Fix SQL Error — Field 'participants' &amp; Migrasi Database</div>
+                    <span class="section-tag tag-bugfix">Bug Fix</span>
+                </div>
+            </div>
+
+            <div class="item-card no-break">
+                <h4>Deskripsi Masalah</h4>
+                <div class="item-detail">
+                    <div class="item-detail-value">
+                        Setelah implementasi auto-create reservasi dari benefit, ditemukan 2 error SQL berturut-turut:
+                        <br><br>
+                        <strong>Error 1:</strong> <code style="font-size:10px;background:#fee2e2;padding:3px 6px;border-radius:3px;">Field 'participants' doesn't have a default value</code>
+                        <br>Kolom <code>participants</code> pada tabel <code>meeting_room_bookings</code> bersifat wajib (NOT NULL) tanpa default value.
+                        <br><br>
+                        <strong>Error 2:</strong> <code style="font-size:10px;background:#fee2e2;padding:3px 6px;border-radius:3px;">Field 'date' doesn't have a default value</code>
+                        <br>Kolom <code>date</code> dan <code>start_time</code> pada tabel <code>podcast_room_bookings</code> bersifat wajib.
+                    </div>
+                </div>
+
+                <div class="item-detail">
+                    <div class="item-detail-label">Solusi</div>
+                    <div class="item-detail-value">
+                        <ol style="padding-left:16px;">
+                            <li>Menambahkan nilai default <code>participants = 1</code> pada service yang membuat reservasi otomatis.</li>
+                            <li>Membuat migrasi database baru untuk mengubah kolom <code>date</code> dan <code>start_time</code> menjadi <strong>nullable</strong> pada tabel <code>podcast_room_bookings</code>.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="item-detail">
+                    <div class="item-detail-label">File yang Dibuat / Diubah</div>
+                    <ul class="file-list">
+                        <li>app/Services/RoomBenefitService.php <strong>[MODIFIED]</strong></li>
+                        <li>database/migrations/2026_07_14_144036_make_date_and_start_time_nullable_in_podcast_room_bookings_table.php <strong>[NEW]</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════ ITEM 11 & 12 ════════════════ -->
+        <div class="page-break"></div>
+        <div class="content-section">
+            <div class="section-header">
+                <div class="section-number">11</div>
+                <div>
+                    <div class="section-title">Perubahan Label "Jam Mulai" → "Jam Booking"</div>
+                    <span class="section-tag tag-ui">UI / Label</span>
+                </div>
+            </div>
+
+            <div class="item-card no-break">
+                <h4>Deskripsi Perubahan</h4>
+                <div class="item-detail">
+                    <div class="item-detail-value">
+                        Mengubah semua label <strong>"Jam Mulai"</strong> menjadi <strong>"Jam Booking"</strong> di seluruh form dan tabel reservasi, baik pada halaman admin maupun halaman publik/customer.
+                    </div>
+                </div>
+
+                <div class="item-detail">
+                    <div class="item-detail-label">Lokasi Perubahan</div>
+                    <div class="item-detail-value">
+                        <table class="summary-table">
+                            <thead>
+                                <tr>
+                                    <th>Halaman</th>
+                                    <th>Sebelum</th>
+                                    <th>Sesudah</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Admin — Form Meeting Room</td>
+                                    <td>Jam Mulai *</td>
+                                    <td><strong>Jam Booking *</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Admin — Form Podcast Room</td>
+                                    <td>Jam Mulai *</td>
+                                    <td><strong>Jam Booking *</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Public — Order Podcast Room</td>
+                                    <td>Jam Mulai *</td>
+                                    <td><strong>Jam Booking *</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Tabel Admin MR Index</td>
+                                    <td>Tanggal & Jam</td>
+                                    <td><strong>Tanggal & Jam Booking</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Tabel Admin PR Index</td>
+                                    <td>Tanggal & Jam</td>
+                                    <td><strong>Tanggal & Jam Booking</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Tabel Customer MR</td>
+                                    <td>Tanggal & Jam</td>
+                                    <td><strong>Tanggal & Jam Booking</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Tabel Customer PR</td>
+                                    <td>Tanggal & Jam</td>
+                                    <td><strong>Tanggal & Jam Booking</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="item-detail">
+                    <div class="item-detail-label">File yang Diubah</div>
+                    <ul class="file-list">
+                        <li>resources/views/admin/meeting-room/create.blade.php</li>
+                        <li>resources/views/admin/podcast-room/create.blade.php</li>
+                        <li>resources/views/podcast-room/order.blade.php</li>
+                        <li>resources/views/admin/meeting-room/index.blade.php</li>
+                        <li>resources/views/admin/podcast-room/index.blade.php</li>
+                        <li>resources/views/customer/meeting-room/index.blade.php</li>
+                        <li>resources/views/customer/podcast-room/index.blade.php</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ══════════════ ITEM 12 ═════════════ -->
+            <div class="section-header" style="margin-top:30px;">
+                <div class="section-number">12</div>
+                <div>
+                    <div class="section-title">Pemisahan Kolom Peserta di Tabel Reservasi</div>
+                    <span class="section-tag tag-ui">UI / Label</span>
+                </div>
+            </div>
+
+            <div class="item-card no-break">
+                <h4>Deskripsi Perubahan</h4>
+                <div class="item-detail">
+                    <div class="item-detail-value">
+                        Memisahkan kolom <strong>"Waktu & Peserta"</strong> yang sebelumnya digabung menjadi dua kolom terpisah:
+                        <br><br>
+                        <ol style="padding-left:16px;">
+                            <li><strong>Tanggal & Waktu Booking</strong> — menampilkan tanggal dan jam booking</li>
+                            <li><strong>Peserta</strong> — menampilkan jumlah peserta dalam badge terpisah</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="item-detail">
+                    <div class="item-detail-label">File yang Diubah</div>
+                    <ul class="file-list">
+                        <li>resources/views/admin/meeting-room/index.blade.php</li>
+                        <li>resources/views/admin/podcast-room/index.blade.php</li>
+                        <li>resources/views/customer/meeting-room/index.blade.php</li>
+                        <li>resources/views/customer/podcast-room/index.blade.php</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════ SUMMARY TABLE ═══════════════ -->
+        <div class="page-break"></div>
+        <div class="content-section">
+            <div class="section-header">
+                <div class="section-number" style="background:linear-gradient(135deg,#059669,#10b981);">✓</div>
+                <div class="section-title">Ringkasan Keseluruhan Perubahan</div>
+            </div>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th style="width:30px;">#</th>
+                        <th>Item Pekerjaan</th>
+                        <th style="width:80px;">Kategori</th>
+                        <th style="width:80px;">Kompleksitas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Fix Bug Search Podcast Room — Error kolom 'email'</td>
+                        <td><span class="section-tag tag-bugfix">Bug Fix</span></td>
+                        <td>Rendah</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Sistem Notifikasi Real-Time untuk Semua Admin</td>
+                        <td><span class="section-tag tag-feature">Fitur Baru</span></td>
+                        <td>Tinggi</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Halaman View All Notifikasi</td>
+                        <td><span class="section-tag tag-feature">Fitur Baru</span></td>
+                        <td>Sedang</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Notifikasi Multi-Role Dashboard (Admin, Admin Order, Customer)</td>
+                        <td><span class="section-tag tag-feature">Fitur Baru</span></td>
+                        <td>Tinggi</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Form Pesanan Admin — Popup Notifikasi (Non-Editable)</td>
+                        <td><span class="section-tag tag-upgrade">Upgrade</span></td>
+                        <td>Sedang</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Fix 403 Unauthorized — Checkout Meeting Room Lintas Admin</td>
+                        <td><span class="section-tag tag-security">Security</span></td>
+                        <td>Sedang</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>Pembulatan Durasi Sesi ke Hitungan Jam (Ceiling Round)</td>
+                        <td><span class="section-tag tag-upgrade">Upgrade</span></td>
+                        <td>Sedang</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>Fix 403 Unauthorized — Akses Data Client oleh Admin Order</td>
+                        <td><span class="section-tag tag-security">Security</span></td>
+                        <td>Rendah</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>Auto-Create Reservasi MR & PR dari Approve Benefit</td>
+                        <td><span class="section-tag tag-feature">Fitur Baru</span></td>
+                        <td>Tinggi</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>Fix SQL Error — Field 'participants' default value</td>
+                        <td><span class="section-tag tag-bugfix">Bug Fix</span></td>
+                        <td>Rendah</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td>Migrasi Database — Kolom date & start_time nullable (Podcast Room)</td>
+                        <td><span class="section-tag tag-bugfix">Bug Fix</span></td>
+                        <td>Rendah</td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td>Perubahan Label "Jam Mulai" → "Jam Booking" (7 file)</td>
+                        <td><span class="section-tag tag-ui">UI</span></td>
+                        <td>Rendah</td>
+                    </tr>
+                    <tr>
+                        <td>13</td>
+                        <td>Pemisahan Kolom Peserta di Tabel Reservasi (4 file)</td>
+                        <td><span class="section-tag tag-ui">UI</span></td>
+                        <td>Rendah</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="highlight-box" style="margin-top:30px;">
+                <h4>📊 Statistik Pengerjaan</h4>
+                <table class="summary-table" style="margin-top:10px;">
+                    <thead>
+                        <tr>
+                            <th>Metrik</th>
+                            <th>Jumlah</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Total Item Pekerjaan</td><td><strong>13 item</strong></td></tr>
+                        <tr><td>File Baru Dibuat</td><td><strong>5 file</strong></td></tr>
+                        <tr><td>File yang Dimodifikasi</td><td><strong>±20 file</strong></td></tr>
+                        <tr><td>Migrasi Database Baru</td><td><strong>2 migrasi</strong></td></tr>
+                        <tr><td>Bug Fix / Error</td><td><strong>5 perbaikan</strong></td></tr>
+                        <tr><td>Fitur Baru</td><td><strong>4 fitur</strong></td></tr>
+                        <tr><td>Upgrade Fungsional</td><td><strong>2 upgrade</strong></td></tr>
+                        <tr><td>Perbaikan UI / Label</td><td><strong>2 perubahan</strong></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════ FOOTER ══════════════════════ -->
+        <div class="page-footer">
+            <p>Dokumen ini dibuat sebagai referensi RAB untuk proyek upgrade & perbaikan Lawgika Apps.</p>
+            <p style="margin-top:4px;">Tanggal: 14 Juli 2026 &nbsp;|&nbsp; Platform: Laravel PHP &nbsp;|&nbsp; Database: MySQL</p>
+            <p style="margin-top:8px;font-size:9px;color:#c0c0c0;">© 2026 Lawgika Apps — Confidential Document</p>
+        </div>
+
+    </div>
+</body>
+</html>

@@ -113,6 +113,21 @@
                         <td class="text-muted">Tanggal</td>
                         <td>{{ $order->created_at->format('d M Y, H:i') }}</td>
                     </tr>
+                    @if($order->total_price > 0)
+                    @php $ppnData = \App\Helpers\PpnHelper::calculate($order->total_price); @endphp
+                    <tr>
+                        <td class="text-muted">Subtotal</td>
+                        <td class="fw-semibold">Rp {{ number_format($ppnData['subtotal'],0,',','.') }}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-muted">PPN 11%</td>
+                        <td class="fw-semibold">Rp {{ number_format($ppnData['ppn_amount'],0,',','.') }}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-muted fw-bold">Total Pembayaran</td>
+                        <td class="fw-bold text-primary">Rp {{ number_format($ppnData['grand_total'],0,',','.') }}</td>
+                    </tr>
+                    @endif
                     @if($order->notes)
                     <tr>
                         <td class="text-muted">Catatan</td>
@@ -305,6 +320,60 @@
                 </div>
                 @endforeach
             </div>
+            
+            @php
+            $additionalDocs = $order->documents->filter(function($d) use ($documentSummary) {
+                return !array_key_exists($d->document_type, $documentSummary);
+            });
+            @endphp
+            @if($additionalDocs->count() > 0)
+            <div class="card-header bg-transparent border-top border-0 pt-4 pb-2 px-4 d-flex align-items-center justify-content-between">
+                <h6 class="fw-bold mb-0"><i class="fa fa-folder-plus me-2 text-muted"></i>Dokumen Tambahan (Admin)</h6>
+                <span class="badge bg-secondary" style="color: #fff !important;">{{ $additionalDocs->count() }} file</span>
+            </div>
+            <div class="card-body px-4 pb-4">
+                <div class="d-flex flex-column gap-3">
+                    @foreach($additionalDocs as $doc)
+                    @php
+                    $sc = match($doc->status) { 'approved','verified'=>'success','rejected'=>'danger',default=>'warning' };
+                    $si = match($doc->status) { 'approved','verified'=>'fa-circle-check','rejected'=>'fa-circle-xmark',default=>'fa-clock' };
+                    @endphp
+                    <div class="border border-{{ $sc }} rounded-3 p-3 bg-{{ $sc }} bg-opacity-10">
+                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="badge bg-secondary text-uppercase" style="font-size:.7rem; color: #fff !important;">{{ $doc->document_type ?? 'UPLOAD' }}</span>
+                                <span class="fw-semibold" style="font-size:.9rem">{{ $doc->original_name }}</span>
+                                <a href="{{ asset('storage/' . $doc->path) }}" target="_blank" class="text-muted" style="font-size:.8rem">
+                                    <i class="fa fa-eye"></i> Lihat
+                                </a>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="badge bg-{{ $sc }}" style="font-size:.78rem; color: {{ $sc === 'warning' ? '#000' : '#fff' }} !important;">
+                                    <i class="fa {{ $si }} me-1"></i>{{ ucfirst($doc->status) }}
+                                </span>
+                                @if(!in_array($doc->status, ['approved','verified']))
+                                <form action="{{ route('admin.documents.approve', $doc->id) }}" method="POST" class="d-inline">
+                                    @csrf<button type="submit" class="btn btn-success btn-sm" onclick="return confirm('Approve?')"><i class="fa fa-check me-1"></i>Approve</button>
+                                </form>
+                                @endif
+                                @if($doc->status !== 'rejected')
+                                <button type="button" class="btn btn-danger btn-sm"
+                                    onclick="openRejectModal('{{ route('admin.documents.reject', $doc->id) }}', '{{ addslashes($doc->original_name) }}')">
+                                    <i class="fa fa-xmark me-1"></i>Reject
+                                </button>
+                                @endif
+                            </div>
+                        </div>
+                        @if($doc->status === 'rejected' && $doc->rejection_reason)
+                        <div class="alert alert-danger py-2 px-3 mt-2 mb-0" style="font-size:.82rem;border-radius:8px">
+                            <strong>Alasan:</strong> {{ $doc->rejection_reason }}
+                        </div>
+                        @endif
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+            @endif
         </div>
 
         {{-- Fallback: order tanpa service requirement --}}

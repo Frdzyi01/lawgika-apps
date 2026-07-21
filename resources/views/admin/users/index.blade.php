@@ -1,6 +1,6 @@
 @extends('layouts-admin.admin')
 
-@section('title', 'Manajemen Akun - Lawgika Admin')
+@section('title', 'Master Client - Lawgika Admin')
 
 @section('content')
 <!--start breadcrumb-->
@@ -13,7 +13,7 @@
                     <a href="javascript:;"><ion-icon name="home-outline"></ion-icon></a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
-                    Data Akun Client
+                    Master Client
                 </li>
             </ol>
         </nav>
@@ -23,11 +23,13 @@
 
 <div class="card radius-10 w-100">
     <div class="card-body">
-        <div class="d-flex align-items-center mb-3">
-            <h6 class="mb-0">Manajemen Akun</h6>
+        <div class="d-flex align-items-center mb-3 flex-wrap gap-2">
+            <h6 class="mb-0">
+                <ion-icon name="people-outline" class="align-middle"></ion-icon> Master Client
+            </h6>
             @if(auth()->user()->isSPV())
             <a href="{{ route('admin.users.create') }}" class="btn btn-primary btn-sm ms-auto d-flex align-items-center gap-1">
-                <ion-icon name="person-add-outline"></ion-icon> Tambah Akun
+                <ion-icon name="person-add-outline"></ion-icon> Tambah Client
             </a>
             @endif
         </div>
@@ -46,16 +48,61 @@
             </div>
         @endif
 
+        {{-- Search & Filter Bar --}}
+        <form method="GET" action="{{ route('admin.users.index') }}" class="row g-2 mb-3">
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-text"><ion-icon name="search-outline"></ion-icon></span>
+                    <input type="text" name="search" class="form-control" placeholder="Cari nama PT, PIC, telepon, email..." value="{{ request('search') }}">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <select name="role" class="form-select">
+                    <option value="">Semua Role</option>
+                    <option value="customer" {{ request('role') == 'customer' ? 'selected' : '' }}>Customer</option>
+                    <option value="admin1" {{ request('role') == 'admin1' ? 'selected' : '' }}>Admin Order</option>
+                    <option value="admin2" {{ request('role') == 'admin2' ? 'selected' : '' }}>Admin Konten</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-outline-primary w-100">
+                    <ion-icon name="filter-outline"></ion-icon> Filter
+                </button>
+            </div>
+            @if(request('search') || request('role'))
+            <div class="col-md-2">
+                <a href="{{ route('admin.users.index') }}" class="btn btn-outline-secondary w-100">
+                    <ion-icon name="refresh-outline"></ion-icon> Reset
+                </a>
+            </div>
+            @endif
+        </form>
+
+        {{-- Stats Row --}}
+        <div class="row g-2 mb-3">
+            <div class="col-auto">
+                <span class="badge bg-primary fs-6 px-3 py-2">
+                    <ion-icon name="people-outline"></ion-icon> Total: {{ $users->count() }} Data
+                </span>
+            </div>
+            <div class="col-auto">
+                <span class="badge bg-success fs-6 px-3 py-2">
+                    Customer: {{ $users->where('role', 'customer')->count() }}
+                </span>
+            </div>
+        </div>
+
         <div class="table-responsive mt-2">
             <table class="table align-middle mb-0">
                 <thead class="table-light">
                     <tr>
                         <th>No</th>
-                        <th>Nama</th>
-                        <th>Role</th>
+                        <th>Perusahaan / Nama</th>
+                        <th>PIC</th>
                         <th>Kontak</th>
+                        <th>Role</th>
                         <th>Tanggal Daftar</th>
-                        <th>Paket Jasa yang Dibeli</th>
+                        <th>Paket Jasa</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -69,16 +116,23 @@
                                     <ion-icon name="person-outline" class="fs-4 text-primary"></ion-icon>
                                 </div>
                                 <div>
-                                    <h6 class="mb-0 product-title">{{ $user->name }}</h6>
-                                    <p class="mb-0 product-category">{{ $user->company_name ?? 'Personal' }}</p>
+                                    <h6 class="mb-0 product-title">{{ $user->company_name ?: $user->name }}</h6>
+                                    @if($user->company_name)
+                                    <p class="mb-0 product-category small text-muted">{{ $user->name }}</p>
+                                    @endif
+                                    @if($user->business_type)
+                                    <small class="text-muted"><ion-icon name="briefcase-outline" class="align-middle"></ion-icon> {{ $user->business_type }}</small>
+                                    @endif
                                 </div>
                             </div>
+                        </td>
+                        <td>
+                            <span class="d-block">{{ $user->pic_name ?: $user->name }}</span>
                         </td>
                         <td>
                             <small class="d-block text-dark fw-bold">{{ $user->email }}</small>
                             <small class="text-muted">{{ $user->phone ?? '-' }}</small>
                         </td>
-                        <td>{{ $user->created_at->format('d M Y') }}</td>
                         {{-- Badge Role --}}
                         <td>
                             @php
@@ -92,6 +146,7 @@
                             @endphp
                             <span class="badge {{ $badgeClass }} text-white">{{ $roleLabel }}</span>
                         </td>
+                        <td>{{ $user->created_at->format('d M Y') }}</td>
                         <td>
                             @php
                                 $purchasedItems = collect();
@@ -143,7 +198,7 @@
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title">Detail Layanan - {{ $user->name }}</h5>
+                                                <h5 class="modal-title">Detail Layanan - {{ $user->company_name ?: $user->name }}</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
@@ -173,23 +228,28 @@
                             @endif
                         </td>
                         <td>
-                            <div class="d-flex align-items-center gap-3 fs-6">
-                                <a href="{{ route('admin.users.edit', $user->id) }}" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit Akun">
+                            <div class="d-flex align-items-center gap-2 fs-6">
+                                <a href="{{ route('admin.users.show', $user->id) }}" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Lihat Profil">
+                                    <ion-icon name="eye-outline"></ion-icon>
+                                </a>
+                                @if(auth()->user()->isSPV())
+                                <a href="{{ route('admin.users.edit', $user->id) }}" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit Client">
                                     <ion-icon name="pencil-outline"></ion-icon>
                                 </a>
-                                <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Hapus akun client ini?')">
+                                <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Hapus data client ini? Semua data terkait akan ikut dihapus.')">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn p-0 border-0 bg-transparent text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus Akun">
+                                    <button type="submit" class="btn p-0 border-0 bg-transparent text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus Client">
                                         <ion-icon name="trash-outline"></ion-icon>
                                     </button>
                                 </form>
+                                @endif
                             </div>
                         </td>
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="6" class="text-center text-muted py-4">Belum ada data client.</td>
+                        <td colspan="8" class="text-center text-muted py-4">Belum ada data client.</td>
                     </tr>
                     @endforelse
                 </tbody>

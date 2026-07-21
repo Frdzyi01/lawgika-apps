@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Services\DocumentService;
+use App\Services\WhatsAppService;
 use Illuminate\Http\Request;
 use App\Notifications\OrderStatusUpdated;
 
@@ -12,7 +13,8 @@ class OrderController extends Controller
 {
     public function __construct(
         protected DocumentService $documentService,
-        protected \App\Services\RoomBenefitService $benefitService
+        protected \App\Services\RoomBenefitService $benefitService,
+        protected WhatsAppService $whatsAppService
     ) {}
 
     public function index(Request $request)
@@ -90,5 +92,157 @@ class OrderController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Status pembayaran pesanan berhasil diperbarui menjadi: ' . $order->payment_status_label);
+    }
+
+    // ── Admin Create & Store (CRM) ────────────────────────────────────────────
+
+    public function create()
+    {
+        $services = \App\Http\Controllers\UniversalOrderController::$services;
+        $packages = \App\Http\Controllers\UniversalOrderController::$packages;
+        $activePackages = \App\Http\Controllers\UniversalOrderController::getActivePackagesPerService();
+        return view('admin.orders.create', compact('services', 'packages', 'activePackages'));
+    }
+
+    public function getDocumentRequirements($serviceKey)
+    {
+        $serviceInfo = \App\Http\Controllers\UniversalOrderController::$services[$serviceKey] ?? ['db_slug' => $serviceKey];
+        $dbService   = \App\Models\Service::where('slug', $serviceInfo['db_slug'] ?? $serviceKey)->first();
+        if (!$dbService) return response()->json([]);
+        
+        return response()->json($dbService->documentRequirements);
+    }
+
+    public function store(Request $request)
+    {
+        $rules = [
+            'user_id'             => 'required|exists:users,id',
+            'service'             => 'required|string',
+            'package'             => 'required|string|max:100',
+            'status'              => 'required|string',
+            'payment_status'      => 'required|string',
+            'notes'               => 'nullable|string|max:2000',
+            'documents.*.*'       => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
+        ];
+
+        $request->validate($rules);
+
+        $serviceKey  = strtolower($request->service);
+        $packageKey  = strtolower($request->package);
+        $serviceInfo = \App\Http\Controllers\UniversalOrderController::$services[$serviceKey] ?? ['db_slug' => $serviceKey];
+        $dbService   = \App\Models\Service::where('slug', $serviceInfo['db_slug'] ?? $serviceKey)->first();
+
+        // Resolve labels
+        $packageLabel = \App\Http\Controllers\UniversalOrderController::$packages[$packageKey] ?? \Illuminate\Support\Str::title(str_replace('-', ' ', $packageKey));
+        $serviceName  = ($serviceInfo['label'] ?? \Illuminate\Support\Str::title(str_replace('-', ' ', $serviceKey))) . ' – ' . $packageLabel;
+
+        // Fetch client to auto-fill profile data
+        $client = \App\Models\User::find($request->user_id);
+
+        // Build form_data using Client data
+        $formData = [
+            'service'             => $serviceKey,
+            'package'             => $packageKey,
+            'director_name'       => $client->pic_name ?: $client->name, // fallback to name
+            'director_phone'      => $client->phone,
+            'company_name'        => $client->company_name,
+            'pic_name'            => $client->pic_name ?: $client->name,
+            'pic_phone'           => $client->phone,
+            'company_email'       => $client->email,
+            'operational_address' => $client->address,
+            'business_field'      => $client->business_type,
+        ];
+        if ($request->has('modal_dasar')) {
+            $formData['modal_dasar'] = $request->input('modal_dasar');
+        }
+
+        $totalBiaya = 0;
+        if ($serviceKey === 'pendirian-pt' && $request->has('modal_dasar')) {
+            $md = $request->input('modal_dasar');
+            $totalBiaya = \App\Http\Controllers\UniversalOrderController::$ptPricing[$md][$packageKey] ?? 0;
+        } elseif (isset(\App\Http\Controllers\UniversalOrderController::$otherPricing[$serviceKey][$packageKey])) {
+            $totalBiaya = \App\Http\Controllers\UniversalOrderController::$otherPricing[$serviceKey][$packageKey];
+        }
+
+        // Allow overriding total_price if provided
+        if ($request->filled('total_price')) {
+            $totalBiaya = (int) str_replace(['.', ','], '', $request->total_price);
+        }
+
+        $order = Order::create([
+            'order_number' => 'ORD-' . strtoupper(substr($serviceKey, 0, 3)) . '-' . date('Ymd') . '-' . strtoupper(\Illuminate\Support\Str::random(5)),
+            'user_id'      => $request->user_id,
+            'created_by'   => auth()->id(),
+            'service_id'   => $dbService?->id,
+            'service_name' => $serviceName,
+            'status'       => $request->status,
+            'payment_status'=> $request->payment_status,
+            'total_price'  => $totalBiaya,
+            'notes'        => $request->notes,
+            'form_data'    => $formData,
+        ]);
+
+        // ── Handle Upload Dokumen (Admin) ────────────────────────────────────────
+        $uploadedDocuments = $request->file('documents');
+        if (!empty($uploadedDocuments) && is_array($uploadedDocuments)) {
+            foreach ($uploadedDocuments as $docType => $files) {
+                if (is_array($files)) {
+                    foreach ($files as $file) {
+                        if ($file->isValid()) {
+                            $cleanName = \Illuminate\Support\Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
+                            $ext       = $file->getClientOriginalExtension();
+                            $filename  = time() . "_{$cleanName}.{$ext}";
+                            $path      = $file->storeAs('documents/' . $order->id, $filename, 'public');
+
+                            \App\Models\Document::create([
+                                'order_id'      => $order->id,
+                                'user_id'       => $order->user_id,
+                                'service_id'    => $order->service_id,
+                                'document_type' => $docType, // Maps to KTP_DIREKTUR, dll
+                                'type'          => strtolower($docType),
+                                'filename'      => $filename,
+                                'original_name' => $file->getClientOriginalName(),
+                                'path'          => $path,
+                                'status'        => 'approved', // Admin uploads are automatically approved
+                                'approved_at'   => now(),
+                                'approved_by'   => auth()->id(),
+                            ]);
+                        }
+                    }
+                }
+            }
+        }
+
+        // Auto-approve benefit if status is approved
+        if ($order->status === 'approved' && \App\Models\RoomBenefit::isEligibleForOrder($order)) {
+            try {
+                $this->benefitService->approve($order);
+            } catch (\Exception $e) {
+                // Ignore
+            }
+        }
+
+        // ── WhatsApp Notification ─────────────────────────────────────────────
+        $waMessage = '';
+        try {
+            $waLog = $this->whatsAppService->notifyOrderCreated($order);
+            if ($waLog && $waLog->status === \App\Models\WhatsappLog::STATUS_SUCCESS) {
+                $waMessage = ' WhatsApp notifikasi berhasil dikirim.';
+            } elseif ($waLog) {
+                $waMessage = ' Tetapi WhatsApp gagal dikirim.';
+            }
+        } catch (\Exception $e) {
+            $waMessage = ' Tetapi WhatsApp gagal dikirim.';
+        }
+
+        if ($serviceKey === 'virtual-office') {
+            return redirect()->route('admin.virtual-office.index')
+                ->with('success', 'Data Virtual Office baru berhasil ditambahkan oleh Admin.' . $waMessage)
+                ->with($waMessage && str_contains($waMessage, 'gagal') ? 'warning' : 'info', $waMessage ?: null);
+        }
+
+        return redirect()->route('admin.orders.index')
+            ->with('success', 'Pesanan baru berhasil ditambahkan oleh Admin.' . $waMessage)
+            ->with($waMessage && str_contains($waMessage, 'gagal') ? 'warning' : 'info', $waMessage ?: null);
     }
 }
