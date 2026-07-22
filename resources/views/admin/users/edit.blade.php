@@ -49,12 +49,17 @@
                         {{-- ── Role ────────────────────────────── --}}
                         <div class="col-12">
                             <label class="form-label fw-semibold">Role / Jabatan <span class="text-danger">*</span></label>
+                            @if(auth()->user()->isSPV())
                             <select name="role" class="form-select" required>
                                 <option value="customer" {{ old('role', $user->role) === 'customer' ? 'selected' : '' }}>Pelanggan (Client)</option>
                                 <option value="admin1"   {{ old('role', $user->role) === 'admin1'   ? 'selected' : '' }}>Admin Order (Admin 1)</option>
                                 <option value="admin2"   {{ old('role', $user->role) === 'admin2'   ? 'selected' : '' }}>Admin Konten (Admin 2)</option>
                                 <option value="admin"    {{ old('role', $user->role) === 'admin'    ? 'selected' : '' }}>SPV (Super Admin)</option>
                             </select>
+                            @else
+                            <input type="text" class="form-control" value="{{ $user->roleLabel() }}" readonly disabled>
+                            <input type="hidden" name="role" value="{{ $user->role }}">
+                            @endif
                         </div>
 
                         <hr class="my-2">

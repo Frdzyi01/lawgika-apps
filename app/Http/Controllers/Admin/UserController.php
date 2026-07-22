@@ -137,6 +137,11 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+        // Admin selain SPV (misal Admin 1) hanya boleh membuat user dengan role 'customer'
+        if (!auth()->user()->isSPV()) {
+            $request->merge(['role' => 'customer']);
+        }
+
         $request->validate([
             'name'          => 'required|string|max:255',
             'email'         => 'required|email|unique:users,email',
@@ -183,6 +188,11 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
+
+        // Admin selain SPV tidak boleh mengubah role user
+        if (!auth()->user()->isSPV()) {
+            $request->merge(['role' => $user->role]);
+        }
 
         $request->validate([
             'name'          => 'required|string|max:255',

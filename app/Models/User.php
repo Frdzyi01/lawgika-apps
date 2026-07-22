@@ -83,6 +83,14 @@ class User extends Authenticatable
     }
 
     /**
+     * SPV dan Admin 1 (Admin Order) berhak mengelola data client (Master Client).
+     */
+    public function canManageClients(): bool
+    {
+        return $this->isSPV() || $this->isAdmin1();
+    }
+
+    /**
      * True jika user memiliki salah satu role admin (bukan customer).
      */
     public function hasAdminAccess(): bool

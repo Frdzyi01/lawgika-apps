@@ -134,7 +134,7 @@ class ServicesController extends Controller
 
     public function pengurusanPkp()
     {
-        return view('frontend.services.pembukuan-pajak.pengurusan-PKP');
+        return view('frontend.services.pembukuan-pajak.pengurusan-pkp');
     }
 
     public function pelaporanSptTahunan()

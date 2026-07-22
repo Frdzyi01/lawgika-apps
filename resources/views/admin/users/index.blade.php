@@ -27,7 +27,7 @@
             <h6 class="mb-0">
                 <ion-icon name="people-outline" class="align-middle"></ion-icon> Master Client
             </h6>
-            @if(auth()->user()->isSPV())
+            @if(auth()->user()->canManageClients())
             <a href="{{ route('admin.users.create') }}" class="btn btn-primary btn-sm ms-auto d-flex align-items-center gap-1">
                 <ion-icon name="person-add-outline"></ion-icon> Tambah Client
             </a>
@@ -232,7 +232,7 @@
                                 <a href="{{ route('admin.users.show', $user->id) }}" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Lihat Profil">
                                     <ion-icon name="eye-outline"></ion-icon>
                                 </a>
-                                @if(auth()->user()->isSPV())
+                                @if(auth()->user()->canManageClients())
                                 <a href="{{ route('admin.users.edit', $user->id) }}" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit Client">
                                     <ion-icon name="pencil-outline"></ion-icon>
                                 </a>

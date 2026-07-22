@@ -48,6 +48,7 @@
                         {{-- ── Role ────────────────────────────── --}}
                         <div class="col-12">
                             <label class="form-label fw-semibold">Role / Jabatan <span class="text-danger">*</span></label>
+                            @if(auth()->user()->isSPV())
                             <select name="role" class="form-select" required>
                                 <option value="">-- Pilih Role --</option>
                                 <option value="customer" {{ old('role', 'customer') === 'customer' ? 'selected' : '' }}>Pelanggan (Client)</option>
@@ -56,6 +57,11 @@
                                 <option value="admin"    {{ old('role') === 'admin'    ? 'selected' : '' }}>SPV (Super Admin)</option>
                             </select>
                             <small class="text-muted">Role menentukan hak akses pengguna di dashboard admin.</small>
+                            @else
+                            <input type="text" class="form-control" value="Pelanggan (Client)" readonly disabled>
+                            <input type="hidden" name="role" value="customer">
+                            <small class="text-muted">Sebagai Admin Order, akun baru yang ditambahkan otomatis ber-role Pelanggan (Client).</small>
+                            @endif
                         </div>
 
                         <hr class="my-2">

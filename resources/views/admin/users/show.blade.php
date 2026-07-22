@@ -21,7 +21,7 @@
             </ol>
         </nav>
     </div>
-    @if(auth()->user()->isSPV())
+    @if(auth()->user()->canManageClients())
     <div class="ms-auto">
         <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-warning btn-sm">
             <ion-icon name="pencil-outline"></ion-icon> Edit Client
