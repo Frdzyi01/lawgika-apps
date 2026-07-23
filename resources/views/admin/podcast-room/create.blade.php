@@ -78,8 +78,23 @@
                                     <div class="col-md-12">
                                         <label class="form-label">Pilih Ruangan <span class="text-danger">*</span></label>
                                         <select name="room_name" class="form-select" required>
-                                            <option value="Ruang Podcastroom Utama">Ruang Podcastroom Utama</option>
+                                            @php
+                                                $allRooms = ['Ruang Podcastroom Utama'];
+                                                $occupiedList = $occupiedRooms ?? [];
+                                            @endphp
+                                            @foreach($allRooms as $roomOption)
+                                                @php $isOccupied = in_array($roomOption, $occupiedList); @endphp
+                                                <option value="{{ $roomOption }}" {{ $isOccupied ? 'disabled' : '' }}>
+                                                    {{ $roomOption }} {{ $isOccupied ? '🔴 (Sedang Dipakai / Check-In)' : '🟢 (Tersedia)' }}
+                                                </option>
+                                            @endforeach
                                         </select>
+                                        @if(!empty($occupiedList))
+                                        <small class="text-danger mt-1 d-block fw-semibold">
+                                            <ion-icon name="warning-outline" class="align-middle me-1"></ion-icon>
+                                            Ruangan berlabel <strong>(Sedang Dipakai / Check-In)</strong> sedang di-disable dan tidak dapat dipilih hingga sesi client sebelumnya selesai Check Out.
+                                        </small>
+                                        @endif
                                     </div>
 
                                     <div class="col-md-12">

@@ -87,10 +87,23 @@
                                     <div class="col-md-12">
                                         <label class="form-label">Pilih Ruangan <span class="text-danger">*</span></label>
                                         <select name="room_name" class="form-select" required>
-                                            <option value="Ruang Meetingroom 1">Ruang Meetingroom 1</option>
-                                            <option value="Ruang Meetingroom 2">Ruang Meetingroom 2</option>
-                                            <option value="Ruang Meetingroom 3">Ruang Meetingroom 3</option>
+                                            @php
+                                                $allRooms = ['Ruang Meetingroom 1', 'Ruang Meetingroom 2', 'Ruang Meetingroom 3'];
+                                                $occupiedList = $occupiedRooms ?? [];
+                                            @endphp
+                                            @foreach($allRooms as $roomOption)
+                                                @php $isOccupied = in_array($roomOption, $occupiedList); @endphp
+                                                <option value="{{ $roomOption }}" {{ $isOccupied ? 'disabled' : '' }}>
+                                                    {{ $roomOption }} {{ $isOccupied ? '🔴 (Sedang Dipakai / Check-In)' : '🟢 (Tersedia)' }}
+                                                </option>
+                                            @endforeach
                                         </select>
+                                        @if(!empty($occupiedList))
+                                        <small class="text-danger mt-1 d-block fw-semibold">
+                                            <ion-icon name="warning-outline" class="align-middle me-1"></ion-icon>
+                                            Ruangan berlabel <strong>(Sedang Dipakai / Check-In)</strong> sedang di-disable dan tidak dapat dipilih hingga sesi client sebelumnya selesai Check Out.
+                                        </small>
+                                        @endif
                                     </div>
 
                                     <div class="col-md-12">

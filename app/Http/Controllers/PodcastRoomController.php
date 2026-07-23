@@ -215,8 +215,15 @@ class PodcastRoomController extends Controller
 
     public function adminCreate()
     {
+        $occupiedRooms = PodcastRoomBooking::where('status', 'checkin')
+            ->whereNotNull('room_name')
+            ->pluck('room_name')
+            ->unique()
+            ->toArray();
+
         return view('admin.podcast-room.create', [
-            'packages' => self::$packages
+            'packages'      => self::$packages,
+            'occupiedRooms' => $occupiedRooms,
         ]);
     }
 
@@ -234,6 +241,17 @@ class PodcastRoomController extends Controller
         ];
 
         $request->validate($rules);
+
+        // Guard: Cegah memilih/membuat reservasi untuk ruangan yang sedang aktif digunakan (Check-In)
+        $currentlyOccupied = PodcastRoomBooking::where('room_name', $request->room_name)
+            ->where('status', 'checkin')
+            ->exists();
+
+        if ($currentlyOccupied) {
+            return back()->withInput()->withErrors([
+                'room_name' => "🚫 {$request->room_name} saat ini sedang digunakan (Check In) oleh client lain. Ruangan tidak dapat dipilih/dipesan hingga sesi pemakaian selesai (Check Out)."
+            ]);
+        }
 
         $start = \Carbon\Carbon::parse($request->date . ' ' . $request->start_time);
         $end = \Carbon\Carbon::parse($request->date . ' ' . $request->start_time)->addHour(); // Default end time, updated on checkout
@@ -352,6 +370,17 @@ class PodcastRoomController extends Controller
     public function checkin($id)
     {
         $booking = PodcastRoomBooking::findOrFail($id);
+
+        // Guard: Cegah Check In jika ruangan tersebut sedang digunakan (Check In) oleh booking/client lain
+        $roomName = $booking->room_name ?: 'Ruang Podcastroom Utama';
+        $occupiedByOther = PodcastRoomBooking::where('room_name', $roomName)
+            ->where('status', 'checkin')
+            ->where('id', '!=', $booking->id)
+            ->exists();
+
+        if ($occupiedByOther) {
+            return back()->with('error', "🚫 Gagal Check In: {$roomName} saat ini sedang digunakan (Check In) oleh client lain. Selesaikan sesi Check Out pada client sebelumnya terlebih dahulu.");
+        }
 
         // Benefit booking: must be admin-approved
         if ($booking->source_type === 'benefit') {

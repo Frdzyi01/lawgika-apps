@@ -265,7 +265,13 @@ class MeetingRoomController extends Controller
 
     public function adminCreate()
     {
-        return view('admin.meeting-room.create');
+        $occupiedRooms = MeetingRoomBooking::where('status', 'checkin')
+            ->whereNotNull('room_name')
+            ->pluck('room_name')
+            ->unique()
+            ->toArray();
+
+        return view('admin.meeting-room.create', compact('occupiedRooms'));
     }
 
     public function adminStore(Request $request)
@@ -281,6 +287,17 @@ class MeetingRoomController extends Controller
         ];
 
         $request->validate($rules);
+
+        // Guard: Cegah memilih/membuat reservasi untuk ruangan yang sedang aktif digunakan (Check-In)
+        $currentlyOccupied = MeetingRoomBooking::where('room_name', $request->room_name)
+            ->where('status', 'checkin')
+            ->exists();
+
+        if ($currentlyOccupied) {
+            return back()->withInput()->withErrors([
+                'room_name' => "🚫 {$request->room_name} saat ini sedang digunakan (Check In) oleh client lain. Ruangan tidak dapat dipilih/dipesan hingga sesi pemakaian selesai (Check Out)."
+            ]);
+        }
 
         $start = \Carbon\Carbon::parse($request->date . ' ' . $request->start_time);
         $end = \Carbon\Carbon::parse($request->date . ' ' . $request->start_time)->addHour(); // Default end time, will be overridden on checkout
@@ -426,6 +443,17 @@ class MeetingRoomController extends Controller
 
         if (!Auth::user()->hasAdminAccess() && $booking->user_id !== Auth::id()) {
             abort(403, 'Unauthorized action.');
+        }
+
+        // Guard: Cegah Check In jika ruangan tersebut sedang digunakan (Check In) oleh booking/client lain
+        $roomName = $booking->room_name ?: 'Ruang Meetingroom 1';
+        $occupiedByOther = MeetingRoomBooking::where('room_name', $roomName)
+            ->where('status', 'checkin')
+            ->where('id', '!=', $booking->id)
+            ->exists();
+
+        if ($occupiedByOther) {
+            return redirect()->back()->with('error', "🚫 Gagal Check In: {$roomName} saat ini sedang digunakan (Check In) oleh client lain. Selesaikan sesi Check Out pada client sebelumnya terlebih dahulu.");
         }
 
         // Benefit booking: must be admin-approved
