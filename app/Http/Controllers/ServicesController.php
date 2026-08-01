@@ -188,6 +188,11 @@ class ServicesController extends Controller
         return view('frontend.services.layanan-pendukung-bisnis.virtual-office');
     }
 
+    public function panduanPengambilanDokumen()
+    {
+        return view('frontend.services.layanan-pendukung-bisnis.panduan-pengambilan-dokumen');
+    }
+
     public function tentangKami()
     {
         return view('frontend.tentangkami');

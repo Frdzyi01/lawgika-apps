@@ -98,6 +98,16 @@ class Order extends Model
         return $this->hasOne(RoomBenefit::class);
     }
 
+    public function mailNotifications()
+    {
+        return $this->hasMany(VirtualOfficeMailNotification::class, 'virtual_office_id');
+    }
+
+    public function guestNotifications()
+    {
+        return $this->hasMany(VirtualOfficeGuestNotification::class, 'virtual_office_id');
+    }
+
     /** All benefit records for this order (meeting + podcast as separate records) */
     public function roomBenefits()
     {

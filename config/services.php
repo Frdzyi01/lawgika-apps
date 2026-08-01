@@ -49,7 +49,10 @@ return [
             'meeting_room_confirmation' => env('BOTCAKE_TEMPLATE_MEETING_ROOM_CONFIRMATION', '1732248697805244'),
             'meeting_room_checkout'     => env('BOTCAKE_TEMPLATE_MEETING_ROOM_CHECKOUT', '805177639284905'),
             'podcast_room_confirmation' => env('BOTCAKE_TEMPLATE_PODCAST_ROOM_CONFIRMATION', '1827038834946958'),
-            'podcast_room_checkout'     => env('BOTCAKE_TEMPLATE_PODCAST_ROOM_CHECKOUT', '2581822038921591'),
+            'podcastroom_checkout'      => env('BOTCAKE_TEMPLATE_PODCASTROOM_CHECKOUT', '1039778505436096'),
+            'podcast_room_checkout'     => env('BOTCAKE_TEMPLATE_PODCAST_ROOM_CHECKOUT', '1039778505436096'),
+            'virtual_office_mail_notification' => env('BOTCAKE_TEMPLATE_VIRTUAL_OFFICE_MAIL_NOTIFICATION', '2856503864713589'),
+            'virtual_office_guest_notification' => env('BOTCAKE_TEMPLATE_VIRTUAL_OFFICE_GUEST_NOTIFICATION', '1712545996642391'),
         ],
     ],
 

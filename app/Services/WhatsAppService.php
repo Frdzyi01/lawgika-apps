@@ -8,6 +8,8 @@ use App\Models\Order;
 use App\Models\PodcastRoomBooking;
 use App\Models\RoomBenefit;
 use App\Models\UserRoomQuota;
+use App\Models\VirtualOfficeMailNotification;
+use App\Models\VirtualOfficeGuestNotification;
 use App\Models\WhatsappLog;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -177,8 +179,51 @@ class WhatsAppService
         $apiUrl      = config('services.botcake.api_url', 'https://botcake.io/api/public_api/v1');
         $pageId      = config('services.botcake.page_id');
 
+        // ── Validation: Meta 1024 Character Body Limit Validator ──────────────
+        $templateText = $this->getTemplateBodyText((string)$templateId);
+        
+        $renderedText = '';
+        if (!empty($templateText)) {
+            $renderedText = $templateText;
+            foreach ($parameters as $index => $val) {
+                $paramNumber = is_int($index) ? (string)($index + 1) : (string)$index;
+                $renderedText = str_replace('{{' . $paramNumber . '}}', (string)$val, $renderedText);
+            }
+        } else {
+            // Fallback jika template text tidak terdaftar
+            $paramTotalLength = array_reduce($parameters, fn($carry, $item) => $carry + mb_strlen((string)$item), 0);
+            $renderedText = str_repeat('x', $paramTotalLength);
+        }
+
+        $bodyLength     = mb_strlen($renderedText);
+        $allowedLength  = 1024;
+        $remainingChars = $allowedLength - $bodyLength;
+
         // ── Build log message ─────────────────────────────────────────────────
-        $logMessage = "[TEMPLATE ID: {$templateId}] Params: " . json_encode($parameters, JSON_UNESCAPED_UNICODE);
+        $logMessage = "[TEMPLATE ID: {$templateId}] Params: " . json_encode($parameters, JSON_UNESCAPED_UNICODE) . " | Body Length: {$bodyLength}/{$allowedLength} (Remaining: {$remainingChars})";
+
+        // ── Guard: Meta 1024 Character Limit Exceeded ─────────────────────────
+        if ($bodyLength > $allowedLength) {
+            $reason = "Body template melebihi batas Meta (1024 karakter).";
+
+            Log::error('WhatsAppService::sendTemplateById - Meta 1024 Limit Exceeded (ABORTED SENDING)', [
+                'template_id'          => $templateId,
+                'body_length'          => $bodyLength,
+                'allowed_length'       => $allowedLength,
+                'remaining_characters' => $remainingChars,
+                'phone'                => $phone,
+                'reason'               => $reason,
+            ]);
+
+            return WhatsappLog::create([
+                'client_id'    => $clientId,
+                'order_id'     => $orderId,
+                'phone_number' => $phone,
+                'message'      => $logMessage,
+                'status'       => WhatsappLog::STATUS_FAILED,
+                'response'     => "{$reason} (Length: {$bodyLength}/{$allowedLength}, Remaining: {$remainingChars})",
+            ]);
+        }
 
         // ── Guard: access_token kosong ─────────────────────────────────────────
         if (empty($accessToken)) {
@@ -700,7 +745,7 @@ class WhatsAppService
         }
 
         // ── Kirim via Botcake Official WABA API ────────────────────────────────
-        $templateId = config('services.botcake.templates.podcast_room_checkout');
+        $templateId = config('services.botcake.templates.podcastroom_checkout', config('services.botcake.templates.podcast_room_checkout', '1039778505436096'));
 
         return $this->sendTemplateById(
             $phone,
@@ -714,6 +759,188 @@ class WhatsAppService
             ],
             $booking->user_id
         );
+    }
+
+    /**
+     * Notify client when admin receives a Virtual Office Mail / Document.
+     *
+     * Menggunakan WhatsApp Template Message via Botcake Official WABA API.
+     * Template: virtual_office_mail_notification (4 parameter)
+     *
+     * Placeholder mapping:
+     *  {{1}} = Nama PT (Company Name)
+     *  {{2}} = Tanggal Terima
+     *  {{3}} = Jam Terima
+     *  {{4}} = Pengirim (Sender Name)
+     */
+    public function notifyVirtualOfficeMailNotification(VirtualOfficeMailNotification $notification): ?WhatsappLog
+    {
+        $notification->loadMissing(['virtualOffice.user', 'client']);
+
+        $phone = $notification->client->phone
+            ?? $notification->virtualOffice->user->phone
+            ?? ($notification->virtualOffice->form_data['pic_phone'] ?? null);
+
+        if (empty($phone)) {
+            Log::warning('WhatsAppService::notifyVirtualOfficeMailNotification - Nomor telepon kosong.', [
+                'notification_id'   => $notification->id,
+                'virtual_office_id' => $notification->virtual_office_id,
+                'client_id'         => $notification->client_id,
+            ]);
+            $notification->update(['whatsapp_status' => 'FAILED']);
+            return null;
+        }
+
+        // ── Prepare 4 template parameters ─────────────────────────────────────
+        $companyName = $notification->virtualOffice->user->company_name
+            ?? $notification->client->company_name
+            ?? ($notification->virtualOffice->form_data['company_name'] ?? null)
+            ?? $notification->client->name
+            ?? 'Client';
+
+        $tanggal = $notification->received_date
+            ? \Carbon\Carbon::parse($notification->received_date)->format('d M Y')
+            : '-';
+
+        $jam = $notification->received_time
+            ? \Carbon\Carbon::parse($notification->received_time)->format('H:i')
+            : '-';
+
+        $pengirim = $notification->sender_name ?? '-';
+
+        // ── Validate: log warning jika ada parameter kosong ───────────────────
+        $paramLabels = [
+            '{{1}} companyName' => $companyName,
+            '{{2}} tanggal'     => $tanggal,
+            '{{3}} jam'         => $jam,
+            '{{4}} pengirim'    => $pengirim,
+        ];
+
+        foreach ($paramLabels as $label => $value) {
+            if (empty($value) || $value === '-') {
+                Log::warning('WhatsAppService::notifyVirtualOfficeMailNotification - Parameter template kosong/default.', [
+                    'parameter'       => $label,
+                    'value'           => $value,
+                    'notification_id' => $notification->id,
+                ]);
+            }
+        }
+
+        // ── Kirim via Botcake Official WABA API ────────────────────────────────
+        $templateId = config('services.botcake.templates.virtual_office_mail_notification', '2856503864713589');
+
+        $log = $this->sendTemplateById(
+            $phone,
+            $templateId,
+            'UTILITY',
+            [
+                $companyName, // {{1}} Nama PT
+                $tanggal,     // {{2}} Tanggal Terima
+                $jam,         // {{3}} Jam Terima
+                $pengirim,    // {{4}} Pengirim
+            ],
+            $notification->client_id,
+            $notification->virtual_office_id
+        );
+
+        $status = ($log && $log->status === WhatsappLog::STATUS_SUCCESS) ? 'SUCCESS' : 'FAILED';
+        $notification->update(['whatsapp_status' => $status]);
+
+        return $log;
+    }
+
+    /**
+     * Notify client when a guest arrives for Virtual Office.
+     *
+     * Menggunakan WhatsApp Template Message via Botcake Official WABA API.
+     * Template: virtual_office_guest_notification (6 parameter)
+     *
+     * Placeholder mapping:
+     *  {{1}} = Nama PT (Company Name)
+     *  {{2}} = Nama Tamu
+     *  {{3}} = Nomor HP Tamu / Kontak Tamu
+     *  {{4}} = Instansi
+     *  {{5}} = Jam Datang
+     *  {{6}} = Keperluan
+     */
+    public function notifyVirtualOfficeGuest(VirtualOfficeGuestNotification $notification): ?WhatsappLog
+    {
+        $notification->loadMissing(['virtualOffice.user', 'client']);
+
+        $phone = $notification->client->phone
+            ?? $notification->virtualOffice->user->phone
+            ?? ($notification->virtualOffice->form_data['pic_phone'] ?? null);
+
+        if (empty($phone)) {
+            Log::warning('WhatsAppService::notifyVirtualOfficeGuest - Nomor telepon client kosong.', [
+                'notification_id'   => $notification->id,
+                'virtual_office_id' => $notification->virtual_office_id,
+                'client_id'         => $notification->client_id,
+            ]);
+            $notification->update(['whatsapp_status' => 'FAILED']);
+            return null;
+        }
+
+        // ── Prepare 6 template parameters ─────────────────────────────────────
+        $companyName = $notification->virtualOffice->user->company_name
+            ?? $notification->client->company_name
+            ?? ($notification->virtualOffice->form_data['company_name'] ?? null)
+            ?? $notification->client->name
+            ?? 'Client';
+
+        $guestName    = $notification->guest_name ?? '-';
+        $guestPhone   = $notification->guest_phone ?? '-';
+        $guestCompany = $notification->guest_company ?? '-';
+        
+        $arrivalTime  = $notification->arrival_time
+            ? \Carbon\Carbon::parse($notification->arrival_time)->format('H:i')
+            : '-';
+
+        $purpose      = $notification->purpose ?? '-';
+
+        // ── Validate: log warning jika ada parameter kosong ───────────────────
+        $paramLabels = [
+            '{{1}} companyName'  => $companyName,
+            '{{2}} guestName'    => $guestName,
+            '{{3}} guestPhone'   => $guestPhone,
+            '{{4}} guestCompany' => $guestCompany,
+            '{{5}} arrivalTime'  => $arrivalTime,
+            '{{6}} purpose'      => $purpose,
+        ];
+
+        foreach ($paramLabels as $label => $value) {
+            if (empty($value) || $value === '-') {
+                Log::warning('WhatsAppService::notifyVirtualOfficeGuest - Parameter template kosong/default.', [
+                    'parameter'       => $label,
+                    'value'           => $value,
+                    'notification_id' => $notification->id,
+                ]);
+            }
+        }
+
+        // ── Kirim via Botcake Official WABA API ────────────────────────────────
+        $templateId = config('services.botcake.templates.virtual_office_guest_notification', '1712545996642391');
+
+        $log = $this->sendTemplateById(
+            $phone,
+            $templateId,
+            'UTILITY',
+            [
+                $companyName,  // {{1}} Nama PT
+                $guestName,    // {{2}} Nama Tamu
+                $guestPhone,   // {{3}} Kontak Tamu
+                $guestCompany, // {{4}} Instansi
+                $arrivalTime,  // {{5}} Jam Datang
+                $purpose,      // {{6}} Keperluan
+            ],
+            $notification->client_id,
+            $notification->virtual_office_id
+        );
+
+        $status = ($log && $log->status === WhatsappLog::STATUS_SUCCESS) ? 'SUCCESS' : 'FAILED';
+        $notification->update(['whatsapp_status' => $status]);
+
+        return $log;
     }
 
     // ── Private: Message Builders ─────────────────────────────────────────────
@@ -1237,6 +1464,30 @@ class WhatsAppService
         $clean = $this->normalizePhone($phone);
 
         return 'wa_' . $clean;
+    }
+
+    /**
+     * Known template body text structures for Meta 1024 character validation.
+     */
+    protected function getTemplateBodyText(string $templateId): ?string
+    {
+        $templates = [
+            '2856503864713589' => "Halo Ibu/Bapak {{1}},\n\nPemberitahuan: Kami telah menerima dokumen / surat masuk untuk perusahaan Anda dengan rincian berikut:\n\n📌 DETAIL SURAT / DOKUMEN MASUK:\n🏢 Perusahaan  : {{1}}\n📅 Tanggal Terima: {{2}}\n🕒 Jam Terima    : {{3}} WIB\n👤 Pengirim      : {{4}}\n\n━━━━━━━━━━━━━━━━━━\nApabila lebih dari 14 hari sejak notifikasi ini dokumen tidak diambil, maka kehilangan bukan menjadi tanggung jawab kami.\n\n📖 Panduan lengkap pengambilan dokumen:\nhttps://lawgika.co.id/virtual-office/panduan-pengambilan-dokumen\n\nTerima kasih atas perhatian Anda! 😊\n\nSalam,\nLawgika.co.id",
+
+            '1712545996642391' => "Halo Ibu/Bapak {{1}},\n\nKami informasikan bahwa saat ini terdapat tamu yang datang dan menanyakan perusahaan Anda.\n\n━━━━━━━━━━━━━━━━━━\n\nBerikut data tamu:\n\n👤 Nama\n{{2}}\n\n📱 Kontak\n{{3}}\n\n🏢 Instansi\n{{4}}\n\n🕒 Jam Datang\n{{5}}\n\n📝 Keperluan\n{{6}}\n\n━━━━━━━━━━━━━━━━━━\n\nSilakan segera menghubungi tamu yang bersangkutan.\n\nTerima kasih. 🙏\n\nSalam,\nLawgika.co.id",
+
+            '1732248697805244' => "Halo Ibu/Bapak {{1}},\n\nReservasi Meeting Room Anda telah berhasil dikonfirmasi.\n\n📌 DETAIL BOOKING:\n🏢 Ruangan  : {{2}}\n📅 Tanggal  : {{3}}\n🕒 Jam Mulai: {{4}}\n🕒 Selesai  : {{5}}\n⌛ Sisa Kuota: {{6}}\n\nTerima kasih telah menggunakan layanan Lawgika.co.id.",
+
+            '805177639284905'  => "Halo Ibu/Bapak {{1}},\n\nPenggunaan Meeting Room Anda telah selesai (Check Out).\n\n📌 DETAIL PENGGUNAAN:\n🏢 Ruangan  : {{2}}\n📅 Tanggal  : {{3}}\n🕒 Jam Mulai: {{4}}\n🕒 Selesai  : {{5}}\n⌛ Sisa Kuota: {{6}}\n\nTerima kasih atas kunjungan Anda di Lawgika Office!",
+
+            '1827038834946958' => "Halo Ibu/Bapak {{1}},\n\nReservasi Studio Podcast Anda telah berhasil dikonfirmasi.\n\n📌 DETAIL BOOKING:\n📅 Tanggal  : {{2}}\n🕒 Jam Mulai: {{3}}\n🕒 Selesai  : {{4}}\n\nTerima kasih telah menggunakan fasilitas Studio Podcast Lawgika.",
+
+            '1039778505436096' => "Halo Ibu/Bapak {{1}},\n\n\nTerima kasih telah menggunakan fasilitas Studio Podcast Lawgika.\n\n\n━━━━━━━━━━━━━\n\n\n\n\nDETAIL BOOKING:\n\n\n🎙️ Ruangan\nPodcast Studio Lawgika Office, World Capital Tower Lt. 38 Unit 6-7, Mega Kuningan, Setia Budi, Jakarta Selatan, Indonesia\n\n\n\n\n📅 Tanggal\n\n\n{{2}}\n\n\n\n\n🕒 Mulai\n\n\n{{3}}\n\n\n\n\n🕒 Selesai\n\n\n{{4}}\n\n\n━━━━━━━━━━━━━\n\n\nTerima kasih banyak atas kepercayaan Anda telah bertransaksi dengan Lawgika.co.id 😊✨\n\n\nKami berharap untuk mendapat review atas pelayanan terbaik kami melalui:\nhttp://bit.ly/4xZqiGK\n\n\n\nJika ada yang ingin ditanyakan atau dibutuhkan lagi, jangan ragu hubungi kami ya!\n\n\nSee you di next order 😉\n\n\n\nSalam,\nLawgika.co.id",
+
+            '2581822038921591' => "Halo Ibu/Bapak {{1}},\n\nTerima kasih telah menggunakan fasilitas Studio Podcast Lawgika.\n\n━━━━━━━━━━━━━━━━━━\n\nDETAIL BOOKING:\n\n🎙️ Ruangan\nPodcast Studio Lawgika Office, World Capital Tower Lt. 38 Unit 6-7, Mega Kuningan, Setia Budi, Jakarta Selatan, Indonesia\n\n📅 Tanggal\n{{2}}\n\n🕒 Mulai\n{{3}}\n\n🕒 Selesai\n{{4}}\n\n━━━━━━━━━━━━━━━━━━\n\nTerima kasih banyak atas kepercayaan Anda telah bertransaksi dengan Lawgika.co.id 😊✨\n\nKami berharap untuk mendapat review atas pelayanan terbaik kami melalui:\n\nhttp://bit.ly/4xZqiGK\n\nJika ada yang ingin ditanyakan atau dibutuhkan lagi, jangan ragu hubungi kami ya!\n\nSee you di next order 😉\n\nSalam,\n\nLawgika.co.id",
+        ];
+
+        return $templates[(string)$templateId] ?? null;
     }
 }
 

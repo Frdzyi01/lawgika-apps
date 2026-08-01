@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Correspondence;
+use App\Models\VirtualOfficeMailNotification;
+use App\Models\VirtualOfficeGuestNotification;
+use App\Services\WhatsAppService;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -130,5 +133,95 @@ class VirtualOfficeController extends Controller
                 }
             }
         }
+    }
+
+    /**
+     * Store and send Virtual Office Mail Notification via WhatsApp.
+     */
+    public function sendMailNotification(Request $request, $id, WhatsAppService $whatsAppService)
+    {
+        $request->validate([
+            'received_date'   => 'required|date',
+            'received_time'   => 'required',
+            'sender_name'     => 'required|string|max:255',
+            'document_type'   => 'required|string|in:Surat,Paket,Kartu Kredit,Dokumen Legal,Sertifikat,Invoice,Lainnya',
+            'tracking_number' => 'nullable|string|max:255',
+            'internal_note'    => 'nullable|string',
+        ]);
+
+        $vo = Order::with('user')->findOrFail($id);
+
+        $clientId = $vo->user_id ?? auth()->id();
+
+        $notification = VirtualOfficeMailNotification::create([
+            'virtual_office_id' => $vo->id,
+            'client_id'         => $clientId,
+            'received_date'     => $request->received_date,
+            'received_time'     => $request->received_time,
+            'sender_name'       => $request->sender_name,
+            'document_type'     => $request->document_type,
+            'tracking_number'   => $request->tracking_number,
+            'internal_note'    => $request->internal_note,
+            'whatsapp_status'   => 'PENDING',
+            'created_by'        => auth()->id(),
+        ]);
+
+        // Send WhatsApp Template Notification via WhatsAppService
+        $whatsAppService->notifyVirtualOfficeMailNotification($notification);
+
+        if ($request->wantsJson() || $request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Notifikasi surat berhasil dikirim ke WhatsApp Client.',
+                'data'    => $notification->fresh(),
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Notifikasi surat berhasil dikirim ke WhatsApp Client.');
+    }
+
+    /**
+     * Store and send Virtual Office Guest Notification via WhatsApp.
+     */
+    public function sendGuestNotification(Request $request, $id, WhatsAppService $whatsAppService)
+    {
+        $request->validate([
+            'guest_name'    => 'required|string|max:255',
+            'guest_phone'   => 'required|string|max:50',
+            'guest_company' => 'required|string|max:255',
+            'arrival_time'  => 'required',
+            'purpose'       => 'required|string',
+            'internal_note' => 'nullable|string',
+        ]);
+
+        $vo = Order::with('user')->findOrFail($id);
+
+        $clientId = $vo->user_id ?? auth()->id();
+
+        $notification = VirtualOfficeGuestNotification::create([
+            'virtual_office_id' => $vo->id,
+            'client_id'         => $clientId,
+            'guest_name'        => $request->guest_name,
+            'guest_phone'       => $request->guest_phone,
+            'guest_company'     => $request->guest_company,
+            'arrival_time'      => $request->arrival_time,
+            'purpose'           => $request->purpose,
+            'internal_note'     => $request->internal_note,
+            'whatsapp_status'   => 'PENDING',
+            'created_by'        => auth()->id(),
+        ]);
+
+        // Send WhatsApp Template Notification via WhatsAppService
+        $whatsAppService->notifyVirtualOfficeGuest($notification);
+
+        if ($request->wantsJson() || $request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Notifikasi tamu berhasil dikirim ke WhatsApp Client.',
+                'data'    => $notification->fresh(),
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Notifikasi tamu berhasil dikirim ke WhatsApp Client.');
     }
 }

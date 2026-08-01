@@ -106,6 +106,7 @@ Route::get('/layanan-konsultasi-bisnis', function() { return redirect('/sewa-rua
 Route::get('/layanan-visa-kitas', [ServicesController::class, 'layananVisaKitas']);
 Route::get('/layanan-call-answering', [ServicesController::class, 'layananCallAnswering']);
 Route::get('/virtual-office', [ServicesController::class, 'virtualOffice']);
+Route::get('/virtual-office/panduan-pengambilan-dokumen', [ServicesController::class, 'panduanPengambilanDokumen'])->name('virtual-office.panduan-pengambilan-dokumen');
 Route::get('/kerjasama-bisnis', [ServicesController::class, 'kerjasamaBisnis']);
 Route::get('/perizinan-dan-hukum', [ServicesController::class, 'perizinanDanHukum']);
 
@@ -151,6 +152,8 @@ Route::middleware(['auth', 'role:admin,admin1,admin2'])->prefix('admin')->name('
     // Virtual Office Module
     Route::get('virtual-office', [\App\Http\Controllers\Admin\VirtualOfficeController::class, 'index'])->name('virtual-office.index');
     Route::get('virtual-office/{id}', [\App\Http\Controllers\Admin\VirtualOfficeController::class, 'show'])->name('virtual-office.show');
+    Route::post('virtual-office/{id}/mail-notification', [\App\Http\Controllers\Admin\VirtualOfficeController::class, 'sendMailNotification'])->name('virtual-office.mail-notification.store');
+    Route::post('virtual-office/{id}/guest-notification', [\App\Http\Controllers\Admin\VirtualOfficeController::class, 'sendGuestNotification'])->name('virtual-office.guest-notification.store');
 
     // ── Room Benefit System (NEW) ─────────────────────────────────────────────
     Route::post('orders/{order}/approve-benefit', [\App\Http\Controllers\Admin\RoomBenefitController::class, 'approve'])->name('orders.approve-benefit');
