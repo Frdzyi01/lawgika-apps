@@ -35,9 +35,22 @@ return [
         ],
     ],
 
-    'fonnte' => [
-        'token' => env('FONNTE_TOKEN'),
-        'url'   => env('FONNTE_URL', 'https://api.fonnte.com/send'),
+    'pancake' => [
+        'page_access_token' => env('PANCAKE_PAGE_ACCESS_TOKEN'),
+        'page_id'           => env('PANCAKE_PAGE_ID'),
+        'base_url'          => env('PANCAKE_BASE_URL', 'https://pages.fm/api/public_api/v1'),
+    ],
+
+    'botcake' => [
+        'api_url'      => env('BOTCAKE_API_URL', 'https://botcake.io/api/public_api/v1'),
+        'access_token' => env('BOTCAKE_ACCESS_TOKEN'),
+        'page_id'      => env('BOTCAKE_PAGE_ID', env('PANCAKE_PAGE_ID')),
+        'templates'    => [
+            'meeting_room_confirmation' => env('BOTCAKE_TEMPLATE_MEETING_ROOM_CONFIRMATION', '1732248697805244'),
+            'meeting_room_checkout'     => env('BOTCAKE_TEMPLATE_MEETING_ROOM_CHECKOUT', '805177639284905'),
+            'podcast_room_confirmation' => env('BOTCAKE_TEMPLATE_PODCAST_ROOM_CONFIRMATION', '1827038834946958'),
+            'podcast_room_checkout'     => env('BOTCAKE_TEMPLATE_PODCAST_ROOM_CHECKOUT', '2581822038921591'),
+        ],
     ],
 
 ];

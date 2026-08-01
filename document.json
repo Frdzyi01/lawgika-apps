@@ -1,0 +1,4340 @@
+{
+  "openapi": "3.1.0",
+  "x-stoplight": {
+    "id": "cmf6wehq26kr4"
+  },
+  "info": {
+    "title": "Botcake",
+    "version": "1.0",
+    "summary": "",
+    "description": "Public api Botcake"
+  },
+  "servers": [
+    {
+      "url": "https://botcake.io/api/public_api/v1",
+      "description": "Product"
+    }
+  ],
+  "paths": {
+    "/integration_page/list_page_id": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "header",
+          "name": "user-access-token",
+          "required": true,
+          "description": "User access token used for authentication. Identifies the user; no fb_id needed."
+        },
+        {
+          "schema": {
+            "type": "integer",
+            "default": 1
+          },
+          "name": "page",
+          "in": "query",
+          "required": false,
+          "description": "1-based page number (200 per page)."
+        }
+      ],
+      "get": {
+        "summary": "list page id",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {}
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": [
+                      "ln_1657352750",
+                      "igo_17841404283613867",
+                      "821740891023312",
+                      "764848530044139"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-integration_page-list_page_id",
+        "x-stoplight": {
+          "id": "qi5nntowki5yk"
+        },
+        "tags": [
+          "Page & System"
+        ]
+      }
+    },
+    "/pages/{page_id}/customer": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "page_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the customer’s page"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "header",
+          "name": "access-token",
+          "required": true,
+          "description": "Access token of the page used for authentication."
+        },
+        {
+          "schema": {
+            "type": "number"
+          },
+          "in": "query",
+          "name": "page",
+          "description": "The size of each page (maximum 100)"
+        }
+      ],
+      "get": {
+        "summary": "Get customer list",
+        "tags": [
+          "Customer"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {}
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": [
+                      {
+                        "full_name": "Vũ Trọng Hiệu",
+                        "id": "a3b0e154-8bbb-4336-a7f4-e67951749a34",
+                        "phone_number": [
+                          "0369898270",
+                          "0369898279",
+                          "+84369898270",
+                          "84999999999"
+                        ],
+                        "psid": "6370813943019801"
+                      },
+                      {
+                        "full_name": "Tô Lâm Sơn",
+                        "id": "1c19dfd2-9901-4bbe-aaed-7cc5232b80f6",
+                        "phone_number": [
+                          "0823684203"
+                        ],
+                        "psid": "8990247064319246"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-pages-page_id-customer",
+        "x-stoplight": {
+          "id": "gbrlcorkgg2ui"
+        }
+      }
+    },
+    "/pages/{page_id}/customer/{psid}/customer_fields": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "page_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the customer’s page"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "psid",
+          "in": "path",
+          "required": true,
+          "description": "Psid for customer"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "page_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the customer’s page"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "psid",
+          "in": "path",
+          "required": true,
+          "description": "Psid for customer"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "header",
+          "name": "access-token",
+          "required": true,
+          "description": "Access token of the page used for authentication."
+        }
+      ],
+      "get": {
+        "summary": "Get List Custom Field by customer",
+        "tags": [
+          "Customer"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "2XX": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "x-stoplight": {
+                        "id": "24nj267837374"
+                      }
+                    },
+                    "data": {
+                      "type": "array",
+                      "x-stoplight": {
+                        "id": "m97woab71mjez"
+                      },
+                      "items": {}
+                    },
+                    "customer_name": {
+                      "type": "string",
+                      "x-stoplight": {
+                        "id": "xxo161fwymn5w"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "customer_name": "Phạm Văn Mạnh",
+                      "data": [
+                        {
+                          "custom_field_id": 3578,
+                          "value": "104"
+                        },
+                        {
+                          "custom_field_id": 233,
+                          "value": "anhmanhpro9x@gmail.com"
+                        },
+                        {
+                          "custom_field_id": 173,
+                          "value": "true"
+                        },
+                        {
+                          "custom_field_id": 466,
+                          "value": "0915516106"
+                        },
+                        {
+                          "custom_field_id": 357,
+                          "value": "0915516105"
+                        },
+                        {
+                          "custom_field_id": 423,
+                          "value": "[\"https://content.pancake.vn/2-2512/2025/12/16/cd9b80c41309d83b8c34aceb18c0b9079a38c17d.jpg\",\"https://content.pancake.vn/2-2512/2025/12/16/cd9b80c41309d83b8c34aceb18c0b9079a38c17d.jpg\"]"
+                        }
+                      ],
+                      "success": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-pages-page_id-customer-psid-customer_fields",
+        "x-stoplight": {
+          "id": "hensklaeos9tz"
+        }
+      },
+      "post": {
+        "summary": "Update Custom Field",
+        "tags": [
+          "Customer"
+        ],
+        "responses": {
+          "2XX": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "x-stoplight": {
+                        "id": "358wmumnocav0"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "success": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-pages-page_id-customer-psid-customer_fields",
+        "x-stoplight": {
+          "id": "brdsyk4yre6gn"
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "x-stoplight": {
+                      "id": "uivjt3oyoccl6"
+                    },
+                    "uniqueItems": true,
+                    "items": {
+                      "x-stoplight": {
+                        "id": "yl2m0cznup2w1"
+                      },
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "x-stoplight": {
+                            "id": "ycjc6m7o4kncx"
+                          }
+                        },
+                        "value": {
+                          "type": "string",
+                          "x-stoplight": {
+                            "id": "ii3ppicqskc18"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pages/{page_id}/custom_field/{custom_field_id}/get_customers_field": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "page_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the customer’s page"
+        },
+        {
+          "schema": {
+            "type": "number"
+          },
+          "name": "custom_field_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of user field"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "header",
+          "name": "access-token",
+          "required": true,
+          "description": "Access token of the page used for authentication."
+        },
+        {
+          "schema": {
+            "type": "number"
+          },
+          "in": "query",
+          "name": "page",
+          "description": "The size of each page (maximum 100)"
+        }
+      ],
+      "get": {
+        "summary": "Get List Custom Field by many customers",
+        "tags": [
+          "Customer"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "x-stoplight": {
+                        "id": "1m57lc70yegy5"
+                      }
+                    },
+                    "data": {
+                      "type": "array",
+                      "x-stoplight": {
+                        "id": "b8tarectb1vyi"
+                      },
+                      "items": {}
+                    }
+                  }
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "data": [
+                        {
+                          "custom_field_id": 173,
+                          "custom_field_name": "is_free_shipping",
+                          "customer_name": "Phạm Văn Mạnh",
+                          "value": "true"
+                        }
+                      ],
+                      "success": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-pages-page_id-custom_field-custom_field-get_customers_field",
+        "x-stoplight": {
+          "id": "nb761s3ahe2fi"
+        }
+      }
+    },
+    "/pages/{page_id}/get_list_tag": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "page_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the customer’s page"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "header",
+          "name": "access-token",
+          "required": true,
+          "description": "Access token of the page used for authentication."
+        }
+      ],
+      "get": {
+        "summary": "Get list tag",
+        "tags": [
+          "Tag & Custom Field"
+        ],
+        "responses": {
+          "2XX": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "x-stoplight": {
+                        "id": "xuf0cgf9p7cra"
+                      }
+                    },
+                    "data": {
+                      "type": "array",
+                      "x-stoplight": {
+                        "id": "im4mw2y3d17ds"
+                      },
+                      "items": {}
+                    }
+                  }
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "success": true,
+                      "data": [
+                        {
+                          "id": 902,
+                          "name": "Urgent",
+                          "pancake_tag_id": 2
+                        },
+                        {
+                          "id": 901,
+                          "name": "Issue",
+                          "pancake_tag_id": 1
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-pages-page_id-get_list_tag",
+        "x-stoplight": {
+          "id": "jhna2rg7vg684"
+        },
+        "security": []
+      }
+    },
+    "/pages/{page_id}/get_tag_statistic": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "page_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the customer’s page"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "header",
+          "name": "access-token",
+          "required": true,
+          "description": "Access token of the page used for authentication."
+        },
+        {
+          "schema": {
+            "type": "number"
+          },
+          "in": "query",
+          "name": "page",
+          "description": "Phân trang"
+        },
+        {
+          "schema": {
+            "type": "number"
+          },
+          "in": "query",
+          "name": "start_date",
+          "description": "Thời điểm bắt đầu (tính bằng unix timestamp) để lấy thống kê tag",
+          "required": true
+        },
+        {
+          "schema": {
+            "type": "number"
+          },
+          "in": "query",
+          "name": "end_date",
+          "description": "Thời điểm kết thúc (tính bằng unix timestamp) để lấy thống kê tag",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get tag statistics",
+        "tags": [
+          "Tag & Custom Field"
+        ],
+        "responses": {
+          "2XX": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "x-stoplight": {
+                        "id": "6vdglnbskprda"
+                      }
+                    },
+                    "data": {
+                      "type": "array",
+                      "x-stoplight": {
+                        "id": "sjihokdje8fjv"
+                      },
+                      "items": {}
+                    }
+                  }
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "success": true,
+                      "data": [
+                        null
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-pages-page_id-get_tag_statistic",
+        "x-stoplight": {
+          "id": "h2yjum49mewmf"
+        }
+      }
+    },
+    "/pages/{page_id}/custom_fields": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "page_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the customer’s page"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "header",
+          "name": "access-token",
+          "required": true,
+          "description": "Access token of the page used for authentication."
+        },
+        {
+          "schema": {
+            "type": "number"
+          },
+          "in": "query",
+          "name": "page",
+          "description": "Phân trang (Mỗi một trang sẽ có thể get list 50 trang/ lần gọi API)"
+        }
+      ],
+      "get": {
+        "summary": "Get List Custom Field by page",
+        "tags": [
+          "Tag & Custom Field"
+        ],
+        "responses": {
+          "2XX": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "x-stoplight": {
+                        "id": "9y8j1qspbfh7e"
+                      }
+                    },
+                    "data": {
+                      "type": "array",
+                      "x-stoplight": {
+                        "id": "64yg2yoz6i90l"
+                      },
+                      "items": {}
+                    }
+                  }
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "success": true,
+                      "data": [
+                        {
+                          "description": "",
+                          "id": 3593,
+                          "name": "adf1",
+                          "type": 4
+                        },
+                        {
+                          "description": "",
+                          "id": 3592,
+                          "name": "zxcv33",
+                          "type": 0
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-pages-page_id-custom_fields",
+        "x-stoplight": {
+          "id": "z4z74hs8nxdem"
+        }
+      }
+    },
+    "/pages/{page_id}/flows": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "page_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the customer’s page"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "header",
+          "name": "access-token",
+          "required": true,
+          "description": "Access token of the page used for authentication."
+        }
+      ],
+      "get": {
+        "summary": "Get Flows",
+        "tags": [
+          "Flow & Automation"
+        ],
+        "responses": {
+          "2XX": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "x-stoplight": {
+                        "id": "f4xrbn3xi9atb"
+                      }
+                    },
+                    "data": {
+                      "type": "object",
+                      "x-stoplight": {
+                        "id": "o8wm5pt9wn5nx"
+                      },
+                      "properties": {
+                        "flows": {
+                          "type": "array",
+                          "x-stoplight": {
+                            "id": "nqw4soqtzrdl3"
+                          },
+                          "items": {}
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "success": true,
+                      "data": {
+                        "flows": [
+                          {
+                            "id": 3780,
+                            "is_removed": false,
+                            "name": "Private Replies #1",
+                            "parent_id": null
+                          },
+                          {
+                            "id": 3590,
+                            "is_removed": false,
+                            "name": "Messenger Ref URL #9-copy-copy",
+                            "parent_id": null
+                          },
+                          {
+                            "id": 11174,
+                            "is_removed": false,
+                            "name": "Broadcasts-copy",
+                            "parent_id": null
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-pages-page_id-flows",
+        "x-stoplight": {
+          "id": "ai4594r48lexb"
+        }
+      }
+    },
+    "/pages/{page_id}/flows/{path}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "page_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the customer’s page"
+        },
+        {
+          "schema": {
+            "type": "array"
+          },
+          "name": "path",
+          "in": "path",
+          "required": true,
+          "description": "Id folder"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "header",
+          "name": "access-token",
+          "required": true,
+          "description": "Access token of the page used for authentication."
+        }
+      ],
+      "get": {
+        "summary": "Get Flows by path",
+        "tags": [
+          "Flow & Automation"
+        ],
+        "responses": {
+          "2XX": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "x-stoplight": {
+                        "id": "jfrdlbrw3tbum"
+                      }
+                    },
+                    "data": {
+                      "type": "object",
+                      "x-stoplight": {
+                        "id": "wejpinxs5om13"
+                      },
+                      "properties": {
+                        "flows": {
+                          "type": "array",
+                          "x-stoplight": {
+                            "id": "k1zt2p98ocahs"
+                          },
+                          "items": {}
+                        },
+                        "folders": {
+                          "type": "array",
+                          "x-stoplight": {
+                            "id": "pip3rs18199yt"
+                          },
+                          "items": {}
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "success": true,
+                      "data": {
+                        "flows": [
+                          null
+                        ],
+                        "folders": [
+                          null
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-pages-page_id-flows-path",
+        "x-stoplight": {
+          "id": "xn3f5ya21sidp"
+        }
+      }
+    },
+    "/pages/{page_id}/flows/{flow_id}/statistics": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "page_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the customer’s page"
+        },
+        {
+          "schema": {
+            "type": "integer"
+          },
+          "name": "flow_id",
+          "in": "path",
+          "required": true,
+          "description": "Id of flow"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "header",
+          "name": "access-token",
+          "required": true,
+          "description": "Access token of the page used for authentication."
+        }
+      ],
+      "get": {
+        "summary": "Get flow statistics",
+        "tags": [
+          "Flow & Automation"
+        ],
+        "responses": {
+          "2XX": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "x-stoplight": {
+                        "id": "05qkjv161j1rh"
+                      }
+                    },
+                    "data": {
+                      "type": "object",
+                      "x-stoplight": {
+                        "id": "aaahkm3f7vhjl"
+                      },
+                      "properties": {
+                        "delivery": {
+                          "type": "integer",
+                          "x-stoplight": {
+                            "id": "e5sozwj7zq9xg"
+                          }
+                        },
+                        "is_clicked": {
+                          "type": "integer",
+                          "x-stoplight": {
+                            "id": "oimed7lb4aixe"
+                          }
+                        },
+                        "seen": {
+                          "type": "integer",
+                          "x-stoplight": {
+                            "id": "1xme7xjt69ee0"
+                          }
+                        },
+                        "sent": {
+                          "type": "integer",
+                          "x-stoplight": {
+                            "id": "xpks0z4e289p6"
+                          }
+                        },
+                        "total_phone_number": {
+                          "type": "integer",
+                          "x-stoplight": {
+                            "id": "ouk9wzza24r5y"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "data": {
+                        "delivery": 1,
+                        "is_clicked": 1,
+                        "seen": 1,
+                        "sent": 1,
+                        "total_phone_number": 0
+                      },
+                      "success": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-pages-page_id-flows-flow_id-statistics",
+        "x-stoplight": {
+          "id": "1lxslwt3mcpwm"
+        }
+      }
+    },
+    "/pages/{page_id}/sequences/": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "page_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the customer’s page"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "header",
+          "name": "access-token",
+          "required": true,
+          "description": "Access token of the page used for authentication."
+        }
+      ],
+      "get": {
+        "summary": "Get List sequence",
+        "tags": [
+          "Flow & Automation"
+        ],
+        "responses": {
+          "2XX": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "x-stoplight": {
+                        "id": "6jqnm96a4szyb"
+                      }
+                    },
+                    "data": {
+                      "type": "array",
+                      "x-stoplight": {
+                        "id": "tsbl3n8r2yvmd"
+                      },
+                      "items": {}
+                    }
+                  }
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "success": true,
+                      "data": [
+                        {
+                          "id": 591,
+                          "name": "test  adf-copy"
+                        },
+                        {
+                          "id": 585,
+                          "name": "test  adf"
+                        },
+                        {
+                          "id": 583,
+                          "name": "sdfgh"
+                        },
+                        {
+                          "id": 565,
+                          "name": "kjk"
+                        },
+                        {
+                          "id": 566,
+                          "name": "hoang"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-pages-page_id-sequences",
+        "x-stoplight": {
+          "id": "i5563oh9vf4ek"
+        }
+      }
+    },
+    "/pages/{page_id}/sequences/{sequence_id}/statistics": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "page_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the customer’s page"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "sequence_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the sequence"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "header",
+          "name": "access-token",
+          "required": true,
+          "description": "Access token of the page used for authentication."
+        }
+      ],
+      "get": {
+        "summary": "Get Sequence statistics",
+        "tags": [
+          "Flow & Automation"
+        ],
+        "responses": {
+          "2XX": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "x-stoplight": {
+                        "id": "sqasxqscbqmko"
+                      }
+                    },
+                    "data": {
+                      "type": "array",
+                      "x-stoplight": {
+                        "id": "35nzl6eobo5rp"
+                      },
+                      "items": {}
+                    }
+                  }
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "data": [
+                        {
+                          "delivery": 0,
+                          "is_clicked": 0,
+                          "message_id": 5337,
+                          "name": "qazcascas",
+                          "schedule": {
+                            "after": 1,
+                            "after_type": "immediately",
+                            "sending_time_end": "22",
+                            "sending_time_start": "8",
+                            "sending_time_type": "anytime",
+                            "sending_time_weekdays": [
+                              0,
+                              1,
+                              2,
+                              3,
+                              4,
+                              5,
+                              6
+                            ],
+                            "time_type": "time"
+                          },
+                          "seen": 0,
+                          "sends": 1,
+                          "total_phone_number": 0
+                        },
+                        {
+                          "delivery": 0,
+                          "is_clicked": 0,
+                          "message_id": 4845,
+                          "name": null,
+                          "schedule": {
+                            "after": 1,
+                            "after_type": "immediately",
+                            "sending_time_end": "22",
+                            "sending_time_start": "8",
+                            "sending_time_type": "anytime",
+                            "sending_time_weekdays": [
+                              0,
+                              1,
+                              2,
+                              3,
+                              4,
+                              5,
+                              6
+                            ],
+                            "time_type": "time"
+                          },
+                          "seen": 0,
+                          "sends": 0,
+                          "total_phone_number": 0
+                        }
+                      ],
+                      "success": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-pages-page_id-sequences-sequence_id-statistics",
+        "x-stoplight": {
+          "id": "78d2gtromzjhe"
+        }
+      }
+    },
+    "/pages/{page_id}/sequences/{sequence_id}/statistics/{message_id}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "page_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the customer’s page"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "sequence_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the sequence"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "message_id",
+          "in": "path",
+          "required": true,
+          "description": "ID message of the sequence"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "header",
+          "name": "access-token",
+          "required": true,
+          "description": "Access token of the page used for authentication."
+        }
+      ],
+      "get": {
+        "summary": "Get data about customers who have interacted with the sequence",
+        "tags": [
+          "Flow & Automation"
+        ],
+        "responses": {
+          "2XX": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "x-stoplight": {
+                        "id": "b2m7xzyod14pj"
+                      }
+                    },
+                    "data": {
+                      "type": "array",
+                      "x-stoplight": {
+                        "id": "jtqwtb2vf9340"
+                      },
+                      "items": {}
+                    }
+                  }
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "data": [
+                        {
+                          "delivery": false,
+                          "fullname": "Hoàng Cin",
+                          "has_phone_number": null,
+                          "is_clicked": false,
+                          "phone_number": [
+                            "0846237874",
+                            "0398121782",
+                            "0851647316"
+                          ],
+                          "psid": "8168603356601915",
+                          "seen": false
+                        }
+                      ],
+                      "success": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-pages-page_id-sequences-sequence_id-statistics-message_id",
+        "x-stoplight": {
+          "id": "8a7q6kkbziacc"
+        }
+      }
+    },
+    "/pages/{page_id}/keywords": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "page_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the customer’s page"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "header",
+          "name": "access-token",
+          "required": true,
+          "description": "Access token of the page used for authentication."
+        }
+      ],
+      "get": {
+        "summary": "Get Keywords",
+        "tags": [
+          "Keyword & Entry Point"
+        ],
+        "responses": {
+          "2XX": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "x-stoplight": {
+                        "id": "xly06znrrdyv4"
+                      }
+                    },
+                    "data": {
+                      "type": "array",
+                      "x-stoplight": {
+                        "id": "q9jd9qlovwqm4"
+                      },
+                      "items": {}
+                    }
+                  }
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "success": true,
+                      "data": [
+                        {
+                          "flow_id": 11239,
+                          "id": 2934,
+                          "is_activated": false
+                        },
+                        {
+                          "flow_id": null,
+                          "id": 3372,
+                          "is_activated": false
+                        },
+                        {
+                          "flow_id": null,
+                          "id": 2935,
+                          "is_activated": false
+                        },
+                        {
+                          "flow_id": 5982,
+                          "id": 3033,
+                          "is_activated": false
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-pages-page_id-keywords",
+        "x-stoplight": {
+          "id": "0g5lf4q6s7bjz"
+        }
+      }
+    },
+    "/pages/{page_id}/keywords/create": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "page_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the customer’s page"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "header",
+          "name": "access-token",
+          "required": true,
+          "description": "Access token of the page used for authentication."
+        }
+      ],
+      "post": {
+        "summary": "Create keywords",
+        "tags": [
+          "Keyword & Entry Point"
+        ],
+        "responses": {
+          "2XX": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "x-stoplight": {
+                        "id": "7e299ub2ftdbf"
+                      }
+                    },
+                    "keyword": {
+                      "type": "object",
+                      "x-stoplight": {
+                        "id": "zashltcdljuis"
+                      },
+                      "properties": {
+                        "flow_id": {
+                          "type": "integer",
+                          "x-stoplight": {
+                            "id": "hgjssvinlyncl"
+                          }
+                        },
+                        "id": {
+                          "type": "integer",
+                          "x-stoplight": {
+                            "id": "qd0mi60zaoa25"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "keyword": {
+                        "flow_id": null,
+                        "id": 3373
+                      },
+                      "success": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-pages-page_id-keywords-create",
+        "x-stoplight": {
+          "id": "3z3zuh7phozuz"
+        }
+      }
+    },
+    "/pages/{page_id}/keywords/update": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "page_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the customer’s page"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "header",
+          "name": "access-token",
+          "required": true,
+          "description": "Access token of the page used for authentication."
+        }
+      ],
+      "post": {
+        "summary": "Update keywords",
+        "tags": [
+          "Keyword & Entry Point"
+        ],
+        "responses": {
+          "2XX": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "x-stoplight": {
+                        "id": "i3fnm48cmthlg"
+                      }
+                    },
+                    "keyword": {
+                      "type": "object",
+                      "x-stoplight": {
+                        "id": "tjlhzq58isxq7"
+                      },
+                      "properties": {
+                        "flow_id": {
+                          "type": "integer",
+                          "x-stoplight": {
+                            "id": "az2pp823glz8i"
+                          }
+                        },
+                        "id": {
+                          "type": "integer",
+                          "x-stoplight": {
+                            "id": "ame7nbyy0ru6y"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "keyword": {
+                        "flow_id": 11414,
+                        "id": 3355
+                      },
+                      "success": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-pages-page_id-keywords-update",
+        "x-stoplight": {
+          "id": "btzfhp94fywru"
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "keyword_id": {
+                    "type": "integer",
+                    "x-stoplight": {
+                      "id": "ph2xdwrkepsdz"
+                    }
+                  },
+                  "update": {
+                    "type": "object",
+                    "x-stoplight": {
+                      "id": "xrawv4tauysey"
+                    },
+                    "properties": {
+                      "flow_id": {
+                        "type": "integer",
+                        "x-stoplight": {
+                          "id": "zhgplciqlimw8"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pages/{page_id}/ice_breaker": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "page_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the customer’s page"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "header",
+          "name": "access-token",
+          "required": true,
+          "description": "Access token of the page used for authentication."
+        }
+      ],
+      "get": {
+        "summary": "Get ice breakers",
+        "tags": [
+          "Keyword & Entry Point"
+        ],
+        "responses": {
+          "2XX": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "x-stoplight": {
+                        "id": "97o57k48v7sym"
+                      }
+                    },
+                    "data": {
+                      "type": "array",
+                      "x-stoplight": {
+                        "id": "6mahjj8gbyezh"
+                      },
+                      "items": {}
+                    }
+                  }
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "data": [
+                        {
+                          "flow_id": 6227,
+                          "id": 648,
+                          "title": "addd"
+                        }
+                      ],
+                      "success": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-pages-page_id-ice_breaker",
+        "x-stoplight": {
+          "id": "np56lo66ifome"
+        }
+      }
+    },
+    "/pages/{page_id}/main_menu": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "page_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the customer’s page"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "header",
+          "name": "access-token",
+          "required": true,
+          "description": "Access token of the page used for authentication."
+        }
+      ],
+      "get": {
+        "summary": "Get Main Menu",
+        "tags": [
+          "Keyword & Entry Point"
+        ],
+        "responses": {
+          "2XX": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "x-stoplight": {
+                        "id": "vycs03yg85n0i"
+                      }
+                    },
+                    "data": {
+                      "type": "array",
+                      "x-stoplight": {
+                        "id": "yk0bd6etuo2lf"
+                      },
+                      "items": {}
+                    }
+                  }
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "data": [
+                        {
+                          "flow_id": 10601,
+                          "id": 1095,
+                          "title": "manh 12",
+                          "type": "flow"
+                        },
+                        {
+                          "id": 1119,
+                          "title": "zsxcv",
+                          "type": "link",
+                          "url": "324"
+                        },
+                        {
+                          "flow_id": 11404,
+                          "id": 1121,
+                          "title": "",
+                          "type": "flow"
+                        }
+                      ],
+                      "success": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-pages-page_id-main_menu",
+        "x-stoplight": {
+          "id": "gkafu8ifrnm7u"
+        }
+      }
+    },
+    "/pages/{page_id}/tools": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "page_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the customer’s page"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "header",
+          "name": "access-token",
+          "required": true,
+          "description": "Access token of the page used for authentication."
+        }
+      ],
+      "get": {
+        "summary": "Get tools",
+        "tags": [
+          "Page & System"
+        ],
+        "responses": {
+          "2XX": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "x-stoplight": {
+                        "id": "uwid05j1qw2rk"
+                      }
+                    },
+                    "data": {
+                      "type": "array",
+                      "x-stoplight": {
+                        "id": "k1jz0z5m42v94"
+                      },
+                      "items": {}
+                    }
+                  }
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "success": true,
+                      "data": [
+                        {
+                          "id": 5570,
+                          "is_published": true,
+                          "name": "Facebook ADS JSON #1",
+                          "type": "facebook_ads_json"
+                        },
+                        {
+                          "id": 5573,
+                          "is_published": true,
+                          "name": "Facebook ADS JSON #2",
+                          "type": "facebook_ads_json"
+                        },
+                        {
+                          "id": 5641,
+                          "is_published": false,
+                          "name": "teasdfasdf",
+                          "type": "facebook_ads_json"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-pages-page_id-tools",
+        "x-stoplight": {
+          "id": "leaq2z910bfh5"
+        },
+        "description": ""
+      }
+    },
+    "/pages/{page_id}/retrieve_media_url": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "page_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the customer’s page"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "header",
+          "name": "access-token",
+          "required": true,
+          "description": "Access token of the page used for authentication."
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "mime_type",
+          "in": "query",
+          "required": true
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "media_id",
+          "in": "query",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Retrieve Media URL",
+        "tags": [
+          "Media"
+        ],
+        "responses": {
+          "2XX": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "success": false
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-pages-page_id-retrieve_media_url",
+        "x-stoplight": {
+          "id": "mbqg5asbts5wa"
+        }
+      }
+    },
+    "/integration_page/list_access_token": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "header",
+          "name": "user-access-token",
+          "required": true,
+          "description": "User access token used for authentication. Identifies the user; no fb_id needed."
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "page_id",
+          "in": "query",
+          "required": false,
+          "description": "If provided, return the access token for just this page instead of the full list."
+        },
+        {
+          "schema": {
+            "type": "integer",
+            "default": 1
+          },
+          "name": "page",
+          "in": "query",
+          "required": false,
+          "description": "1-based page number (200 per page) when listing all pages."
+        }
+      ],
+      "post": {
+        "summary": "Get list access token",
+        "tags": [
+          "Authentication"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {}
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": [
+                      {
+                        "page_id": "113045297552223",
+                        "public_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0aW1lc3RhbXAiOjE3MjY4ODI4NTAsImlkIjoiMTEzMDQ1Mjk3NTUyMjIzIn0.GXhSWATV28RMprxYMcKp2ZxrpLZMci5rN_YZEWXRPjw"
+                      },
+                      {
+                        "page_id": "103934521820871",
+                        "public_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEwMzkzNDUyMTgyMDg3MSIsInRpbWVzdGFtcCI6MTc2ODM4NzEyNn0.InmAHHYetIvX__nUkzNYdOcCxFqDrH85Xrq_61Gylb4"
+                      },
+                      {
+                        "page_id": "100589658850215",
+                        "public_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0aW1lc3RhbXAiOjE3MjY4ODI4NTAsImlkIjoiMTAwNTg5NjU4ODUwMjE1In0.6SQC-ji4SU14qfNzcf0DLzIMd8t9HlYDbRpLrW12HXI"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-integration_page-list_access_token",
+        "x-stoplight": {
+          "id": "2qcazj39pr7d5"
+        }
+      }
+    },
+    "/pages/{page_id}/flows/send_content": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "page_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the customer’s page"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "header",
+          "name": "access-token",
+          "required": true,
+          "description": "Access token of the page used for authentication."
+        }
+      ],
+      "post": {
+        "summary": "Send content to customer",
+        "tags": [
+          "Send Customer",
+          "WABA API"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "x-stoplight": {
+                        "id": "jzarxf8sn3j93"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "success": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-pages-page_id-flows-send_content",
+        "x-stoplight": {
+          "id": "fzd5cwxgyfkco"
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "psid",
+                  "data"
+                ],
+                "properties": {
+                  "psid": {
+                    "type": "string",
+                    "x-stoplight": {
+                      "id": "41bxcd6wuyt29"
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "x-stoplight": {
+                      "id": "tjjkaliyvcq1v"
+                    },
+                    "required": [
+                      "version"
+                    ],
+                    "properties": {
+                      "version": {
+                        "type": "string",
+                        "x-stoplight": {
+                          "id": "lt5kt0jk7rz2c"
+                        }
+                      },
+                      "content": {
+                        "type": "object",
+                        "x-stoplight": {
+                          "id": "70zbo6du6zif9"
+                        },
+                        "properties": {
+                          "messages": {
+                            "type": "array",
+                            "x-stoplight": {
+                              "id": "dita7mhuueoi7"
+                            },
+                            "items": {
+                              "x-stoplight": {
+                                "id": "wdxdipj4by9fd"
+                              },
+                              "type": "object",
+                              "properties": {
+                                "category": {
+                                  "type": "string",
+                                  "x-stoplight": {
+                                    "id": "d0hz8z5o2s37s"
+                                  }
+                                },
+                                "components": {
+                                  "type": "array",
+                                  "description": "BUTTONS format. URL buttons pass only the dynamic URL suffix in `params[].value`; it is sent to WhatsApp as `sub_type: url` with a text parameter. COPY_CODE uses `coupon_code` and is sent as `sub_type: copy_code` with a coupon_code parameter.",
+                                  "x-stoplight": {
+                                    "id": "n9ndue5o52yjf"
+                                  },
+                                  "items": {
+                                    "type": "object"
+                                  }
+                                },
+                                "language": {
+                                  "type": "string",
+                                  "x-stoplight": {
+                                    "id": "p6qdqggr9cgiz"
+                                  }
+                                },
+                                "template_id": {
+                                  "type": "string",
+                                  "x-stoplight": {
+                                    "id": "1yt8zlfufspcv"
+                                  }
+                                },
+                                "type": {
+                                  "type": "string",
+                                  "x-stoplight": {
+                                    "id": "idlurthuy4aa4"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "message_tag": {
+                    "type": "string",
+                    "x-stoplight": {
+                      "id": "deh2baesg8n1u"
+                    }
+                  },
+                  "payload": {
+                    "type": "object",
+                    "x-stoplight": {
+                      "id": "7zj958k5iogca"
+                    }
+                  }
+                }
+              },
+              "examples": {
+                "Example 1": {
+                  "value": {
+                    "psid": "wa_84384097***",
+                    "data": {
+                      "version": "v2",
+                      "content": {
+                        "messages": [
+                          {
+                            "category": "MARKETING",
+                            "components": [
+                              {
+                                "format": "IMAGE",
+                                "type": "HEADER",
+                                "fb_id": "852278370568266",
+                                "url": ""
+                              },
+                              {
+                                "params": [
+                                  {
+                                    "key": "{{name}}",
+                                    "parameter_name": "name",
+                                    "value": "Full Name"
+                                  },
+                                  {
+                                    "key": "{{tamu}}",
+                                    "parameter_name": "tamu",
+                                    "value": "100"
+                                  }
+                                ],
+                                "type": "BODY"
+                              },
+                              {
+                                "buttons": [
+                                  {
+                                    "type": "URL",
+                                    "text": "View order",
+                                    "url": "https://shop.example.com/orders?order_id={{1}}",
+                                    "params": [
+                                      {
+                                        "key": "{{1}}",
+                                        "index": 0,
+                                        "value": "ABC123"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "COPY_CODE",
+                                    "text": "Copy code",
+                                    "coupon_code": "SALE2026"
+                                  }
+                                ],
+                                "type": "BUTTONS"
+                              }
+                            ],
+                            "language": "id",
+                            "template_id": "1852676328789174",
+                            "type": "whatsapp_message_template"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "description": "BUTTONS example. URL `params[].value` is the dynamic suffix value; COPY_CODE uses `coupon_code`.",
+                  "x-whatsapp-components-output-example": [
+                    {
+                      "type": "button",
+                      "sub_type": "url",
+                      "index": "0",
+                      "parameters": [
+                        {
+                          "type": "text",
+                          "text": "ABC123"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "button",
+                      "sub_type": "copy_code",
+                      "index": "1",
+                      "parameters": [
+                        {
+                          "type": "coupon_code",
+                          "coupon_code": "SALE2026"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pages/{page_id}/flows/send_flow": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "page_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the customer’s page"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "header",
+          "name": "access-token",
+          "required": true,
+          "description": "Access token of the page used for authentication."
+        }
+      ],
+      "post": {
+        "summary": "Send flow to customer",
+        "tags": [
+          "Send Customer"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "x-stoplight": {
+                        "id": "00nafouxn0c7w"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "success": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-pages-page_id-flows-send_flow",
+        "x-stoplight": {
+          "id": "lhwutmzei4hu2"
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "psid",
+                  "flow_id"
+                ],
+                "properties": {
+                  "psid": {
+                    "type": "string",
+                    "x-stoplight": {
+                      "id": "4yjtfyktd1tlb"
+                    }
+                  },
+                  "flow_id": {
+                    "type": "integer",
+                    "x-stoplight": {
+                      "id": "zpcd6ie2wblz0"
+                    }
+                  },
+                  "payload": {
+                    "type": "object",
+                    "description": "`payload` provides variables for the selected flow, e.g. `{{order_id}}` for URL button suffix params or `{{coupon_code}}` for COPY_CODE.",
+                    "x-stoplight": {
+                      "id": "3keu098o56lbj"
+                    }
+                  }
+                }
+              },
+              "examples": {
+                "Flow with dynamic URL and copy-code button variables": {
+                  "value": {
+                    "psid": "wa_84384097***",
+                    "flow_id": 123456,
+                    "payload": {
+                      "order_id": "ABC123",
+                      "coupon_code": "SALE2026"
+                    }
+                  },
+                  "description": "Example request. The selected flow can contain the BUTTONS component shown in `x-buttons-example`.",
+                  "x-buttons-example": {
+                    "type": "BUTTONS",
+                    "buttons": [
+                      {
+                        "type": "URL",
+                        "text": "View order",
+                        "url": "https://shop.example.com/orders?order_id={{1}}",
+                        "params": [
+                          {
+                            "key": "{{1}}",
+                            "index": 0,
+                            "value": "{{order_id}}"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "COPY_CODE",
+                        "text": "Copy code",
+                        "coupon_code": "{{coupon_code}}"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pages/{page_id}/message_templates": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "page_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the customer’s page"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "header",
+          "name": "access-token",
+          "description": "Access token of the page used for authentication.",
+          "required": true
+        },
+        {
+          "schema": {
+            "type": "string",
+            "default": "APPROVED",
+            "example": "APPROVED/ REJECTED"
+          },
+          "in": "query",
+          "name": "status",
+          "description": "Status of template"
+        }
+      ],
+      "get": {
+        "summary": "Get Message Template",
+        "tags": [
+          "WABA API"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "x-stoplight": {
+                        "id": "mwgu2yf7k8i19"
+                      },
+                      "items": {}
+                    },
+                    "success": {
+                      "type": "boolean",
+                      "x-stoplight": {
+                        "id": "kc1mkhog5hljd"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "data": [
+                        {
+                          "category": "MARKETING",
+                          "components": [
+                            {
+                              "example": {
+                                "body_text_named_params": [
+                                  {
+                                    "example": "Hazza",
+                                    "param_name": "nama"
+                                  }
+                                ]
+                              },
+                              "text": "Hai Kak {{nama}} 😊\nSemoga sehat selalu ya!\n\nHazza mau follow up, apakah masih ada yang ingin ditanyakan terkait Pancake, Kak?\n\nSekalian info, hari ini ada promo diskon hingga 15% (maks. Rp500rb) untuk pelanggan baru. Promo berlaku sampai 17 April dan tersisa 3 voucher lagi.\n\nKalau Kakak berminat, Hazza bisa bantu klaim voucher dan setup akun ya 🙌 Silahkan klik tombol dibawah untuk konfirmasi ya kak",
+                              "type": "BODY"
+                            },
+                            {
+                              "buttons": [
+                                {
+                                  "text": "Mau Kak",
+                                  "type": "QUICK_REPLY"
+                                },
+                                {
+                                  "text": "Berhenti Broadcast",
+                                  "type": "QUICK_REPLY"
+                                }
+                              ],
+                              "type": "BUTTONS"
+                            }
+                          ],
+                          "id": "4535111200105468",
+                          "language": "id",
+                          "message_send_ttl_seconds": null,
+                          "name": "fulevel3hzz",
+                          "parameter_format": null,
+                          "status": "APPROVED",
+                          "waba_id": "111227371827184"
+                        }
+                      ],
+                      "success": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-pages-page_id-message_templates",
+        "x-stoplight": {
+          "id": "hoenkbjiftmr8"
+        }
+      }
+    },
+    "/pages/{page_id}/message_templates/sync": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "page_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the customer’s page"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "header",
+          "name": "access-token",
+          "required": true,
+          "description": "Access token of the page used for authentication."
+        }
+      ],
+      "get": {
+        "summary": "Sync Message Template from Meta",
+        "tags": [
+          "WABA API"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "x-stoplight": {
+                        "id": "3dg6tj2krzjkg"
+                      },
+                      "items": {}
+                    },
+                    "success": {
+                      "type": "boolean",
+                      "x-stoplight": {
+                        "id": "c60elkxqtaebc"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "data": [
+                        {
+                          "category": "MARKETING",
+                          "components": [
+                            {
+                              "example": {
+                                "body_text_named_params": [
+                                  {
+                                    "example": "Hazza",
+                                    "param_name": "nama"
+                                  }
+                                ]
+                              },
+                              "text": "Hai Kak {{nama}} 😊\nSemoga sehat selalu ya!\n\nHazza mau follow up, apakah masih ada yang ingin ditanyakan terkait Pancake, Kak?\n\nSekalian info, hari ini ada promo diskon hingga 15% (maks. Rp500rb) untuk pelanggan baru. Promo berlaku sampai 17 April dan tersisa 3 voucher lagi.\n\nKalau Kakak berminat, Hazza bisa bantu klaim voucher dan setup akun ya 🙌 Silahkan klik tombol dibawah untuk konfirmasi ya kak",
+                              "type": "BODY"
+                            },
+                            {
+                              "buttons": [
+                                {
+                                  "text": "Mau Kak",
+                                  "type": "QUICK_REPLY"
+                                },
+                                {
+                                  "text": "Berhenti Broadcast",
+                                  "type": "QUICK_REPLY"
+                                }
+                              ],
+                              "type": "BUTTONS"
+                            }
+                          ],
+                          "id": "4535111200105468",
+                          "language": "id",
+                          "message_send_ttl_seconds": null,
+                          "name": "fulevel3hzz",
+                          "parameter_format": null,
+                          "status": "APPROVED",
+                          "waba_id": "111227371827184"
+                        }
+                      ],
+                      "success": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-pages-page_id-message_templates-sync",
+        "x-stoplight": {
+          "id": "0l9k57t5o5nql"
+        }
+      }
+    },
+    "/pages/{page_id}/upload_media": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "page_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the customer’s page"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "header",
+          "name": "access-token",
+          "description": "Access token of the page used for authentication."
+        }
+      ],
+      "post": {
+        "summary": "Upload Media",
+        "tags": [
+          "WABA API"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "attachment_id": {
+                      "type": "string",
+                      "x-stoplight": {
+                        "id": "1jzxnrcrxl9nd"
+                      }
+                    },
+                    "success": {
+                      "type": "boolean",
+                      "x-stoplight": {
+                        "id": "b8agjnrax69kr"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "attachment_id": "3028531777340972",
+                      "success": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-pages-page_id-upload_media",
+        "x-stoplight": {
+          "id": "lor7qddttv514"
+        },
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "content_type",
+                  "file"
+                ],
+                "properties": {
+                  "content_type": {
+                    "type": "string",
+                    "x-stoplight": {
+                      "id": "fzq4nsbvsp34f"
+                    }
+                  },
+                  "file": {
+                    "type": "string",
+                    "x-stoplight": {
+                      "id": "3dstlf5jeqq83"
+                    },
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pages/{page_id}/marketing_messages/ad_accounts": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "page_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the customer's page"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "header",
+          "name": "access-token",
+          "required": true,
+          "description": "Access token of the page used for authentication."
+        }
+      ],
+      "get": {
+        "summary": "List Ad Accounts",
+        "tags": [
+          "Marketing Message"
+        ],
+        "description": "Returns the Meta ad accounts linked to the page for Marketing Messages. This is the only Marketing Message endpoint that does not require `ad_account_id` — call it first to discover the ad account IDs used by all other endpoints.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "x-stoplight": {
+                        "id": "mmaa01s7k2qv9"
+                      }
+                    },
+                    "ad_accounts": {
+                      "type": "array",
+                      "x-stoplight": {
+                        "id": "mmaa02arx8wbd"
+                      },
+                      "items": {}
+                    }
+                  }
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "success": true,
+                      "ad_accounts": [
+                        {
+                          "id": "act_123456789012345",
+                          "name": "My Marketing Ad Account",
+                          "currency": "VND",
+                          "account_status": 1,
+                          "disable_reason": 0,
+                          "business_country_code": "VN",
+                          "user_id": "1000123",
+                          "is_shared": true
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-pages-page_id-marketing_messages-ad_accounts",
+        "x-stoplight": {
+          "id": "mmaa00opx7k2q9"
+        }
+      }
+    },
+    "/pages/{page_id}/marketing_messages/messages": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "page_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the customer's page"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "header",
+          "name": "access-token",
+          "required": true,
+          "description": "Access token of the page used for authentication."
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "query",
+          "name": "ad_account_id",
+          "required": true,
+          "description": "Ad account ID (act_...)."
+        }
+      ],
+      "get": {
+        "summary": "List Marketing Messages",
+        "tags": [
+          "Marketing Message"
+        ],
+        "description": "Lists the marketing messages stored for the page, newest first, each with its fresh campaign status from Meta. Set `get_insights=true` to also merge Meta delivery insights into each message.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer",
+              "default": 25
+            },
+            "in": "query",
+            "name": "limit",
+            "description": "Page size. Default 25, maximum 100."
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "cursor_after",
+            "description": "Cursor returned by the previous page. Omit for the first page."
+          },
+          {
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "in": "query",
+            "name": "get_insights",
+            "description": "If true, merge Meta delivery insights into each message. Default false."
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "filter",
+            "description": "URL-encoded JSON array of filter objects, e.g. [{\"field\":\"message_type\",\"operator\":\"EQUAL\",\"value\":\"FREEFORM\"}]. Supported: field=message_type operator=EQUAL/NOT_EQUAL; field=search operator=CONTAINS."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "x-stoplight": {
+                        "id": "mmml01okx9w2c"
+                      }
+                    },
+                    "messages": {
+                      "type": "array",
+                      "x-stoplight": {
+                        "id": "mmml02arr7bd3"
+                      },
+                      "items": {}
+                    },
+                    "cursor_after": {
+                      "type": "string",
+                      "x-stoplight": {
+                        "id": "mmml03cur8ft4"
+                      },
+                      "description": "Cursor for the next page, or null when there are no more results."
+                    }
+                  }
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "success": true,
+                      "messages": [
+                        {
+                          "id": "120210000000000000",
+                          "page_id": "1000123",
+                          "ad_account_id": "act_123456789012345",
+                          "name": "April Promo",
+                          "message_type": "FREEFORM",
+                          "status": "ACTIVE",
+                          "effective_status": "ACTIVE",
+                          "currency": "VND",
+                          "budget": 50000,
+                          "created_time": "2026-04-10T03:21:00",
+                          "start_time": "2026-04-10T03:21:00",
+                          "end_time": "2026-05-10T03:21:00",
+                          "campaign_id": "120210000000000001",
+                          "message_set_id": "120210000000000002",
+                          "creative": {
+                            "actor_id": "1000123",
+                            "object_story_spec": {
+                              "page_id": "1000123"
+                            },
+                            "marketing_message_structured_spec": {
+                              "greeting": "Hi there!",
+                              "footer": "Marketing Message"
+                            }
+                          }
+                        }
+                      ],
+                      "cursor_after": "MjU="
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-pages-page_id-marketing_messages-messages",
+        "x-stoplight": {
+          "id": "mmml00opx5h1zp"
+        }
+      },
+      "post": {
+        "summary": "Create Marketing Message",
+        "tags": [
+          "Marketing Message"
+        ],
+        "description": "Creates a FREEFORM marketing message campaign on the linked ad account. A daily budget is required. The campaign is created in a processing state (status IN_PROCESS) and persisted asynchronously.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "x-stoplight": {
+                        "id": "mmmp01oks5n9w"
+                      }
+                    },
+                    "message": {
+                      "type": "object",
+                      "x-stoplight": {
+                        "id": "mmmp02msg3vb7"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "success": true,
+                      "message": {
+                        "id": "120210000000000000",
+                        "name": "April Promo",
+                        "budget": 5000000,
+                        "status": "IN_PROCESS",
+                        "effective_status": "IN_PROCESS",
+                        "start_time": "2026-04-10T03:21:00Z",
+                        "end_time": "2026-05-10T03:21:00Z",
+                        "message_type": "FREEFORM"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-pages-page_id-marketing_messages-messages",
+        "x-stoplight": {
+          "id": "mmmp00opk6yk29"
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "body"
+                ],
+                "properties": {
+                  "body": {
+                    "type": "object",
+                    "x-stoplight": {
+                      "id": "mmmp03body8qz1"
+                    },
+                    "description": "The message definition. May be a JSON object or a JSON-encoded string.",
+                    "required": [
+                      "budget"
+                    ],
+                    "properties": {
+                      "budget": {
+                        "type": "number",
+                        "x-stoplight": {
+                          "id": "mmmp05budg44tn"
+                        },
+                        "description": "Daily budget in the account currency (converted to fractional units server-side). Required."
+                      },
+                      "name": {
+                        "type": "string",
+                        "x-stoplight": {
+                          "id": "mmmp04name83qd"
+                        },
+                        "description": "Message name. Defaults to \"Marketing Message\"."
+                      },
+                      "budget_type": {
+                        "type": "string",
+                        "default": "daily",
+                        "x-stoplight": {
+                          "id": "mmmp06btyp7zwm"
+                        }
+                      },
+                      "currency": {
+                        "type": "string",
+                        "x-stoplight": {
+                          "id": "mmmp07curr5xkd"
+                        },
+                        "description": "Auto-filled from the ad account if omitted."
+                      },
+                      "start_date": {
+                        "type": "integer",
+                        "x-stoplight": {
+                          "id": "mmmp08sdate91v"
+                        },
+                        "description": "Campaign start time (unix). Defaults to now."
+                      },
+                      "end_date": {
+                        "type": "integer",
+                        "x-stoplight": {
+                          "id": "mmmp09edate62b"
+                        },
+                        "description": "Campaign end time (unix). Defaults to 30 days from now."
+                      },
+                      "status": {
+                        "type": "string",
+                        "default": "PAUSED",
+                        "x-stoplight": {
+                          "id": "mmmp10stat4r6t"
+                        },
+                        "description": "Initial status, e.g. PAUSED (default) or ACTIVE."
+                      },
+                      "message_type": {
+                        "type": "string",
+                        "default": "single",
+                        "x-stoplight": {
+                          "id": "mmmp11ctyp3vbx"
+                        },
+                        "description": "Creative layout: single (default), carousel, or text."
+                      },
+                      "greeting_text": {
+                        "type": "string",
+                        "x-stoplight": {
+                          "id": "mmmp12greet8q1"
+                        },
+                        "description": "Greeting shown above the message content."
+                      },
+                      "body": {
+                        "type": "array",
+                        "x-stoplight": {
+                          "id": "mmmp13cards44z"
+                        },
+                        "description": "Message cards. Each card: headline, body_text, uploaded_media ([{ type, image_hash | video_id, image_url }]), buttons ([{ text, link }]).",
+                        "items": {}
+                      }
+                    }
+                  }
+                }
+              },
+              "examples": {
+                "Example 1": {
+                  "value": {
+                    "body": {
+                      "name": "April Promo",
+                      "budget": 50000,
+                      "status": "PAUSED",
+                      "message_type": "single",
+                      "greeting_text": "Hi there!",
+                      "body": [
+                        {
+                          "headline": "Big April Sale",
+                          "body_text": "Get up to 15% off this week only.",
+                          "buttons": [
+                            {
+                              "text": "Shop now",
+                              "link": "https://example.com/sale"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "description": "`ad_account_id` is sent as a query parameter (see path-level parameters). The request body carries the message definition under `body`."
+        }
+      }
+    },
+    "/pages/{page_id}/marketing_messages/messages/{message_id}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "page_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the customer's page"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "message_id",
+          "in": "path",
+          "required": true,
+          "description": "Message campaign ID."
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "header",
+          "name": "access-token",
+          "required": true,
+          "description": "Access token of the page used for authentication."
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "query",
+          "name": "ad_account_id",
+          "required": true,
+          "description": "Ad account ID (act_...)."
+        }
+      ],
+      "get": {
+        "summary": "Get Marketing Message",
+        "tags": [
+          "Marketing Message"
+        ],
+        "description": "Fetches a single marketing message by ID, including its fresh status from Meta. Returns `{ success: false, message: \"Message not found\" }` when the message does not exist.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "x-stoplight": {
+                        "id": "mmmg01okz1n4p"
+                      }
+                    },
+                    "message": {
+                      "type": "object",
+                      "x-stoplight": {
+                        "id": "mmmg02msgjtq9"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "success": true,
+                      "message": {
+                        "id": "120210000000000000",
+                        "page_id": "1000123",
+                        "ad_account_id": "act_123456789012345",
+                        "name": "April Promo",
+                        "message_type": "FREEFORM",
+                        "status": "ACTIVE",
+                        "effective_status": "ACTIVE",
+                        "currency": "VND",
+                        "budget": 50000,
+                        "created_time": "2026-04-10T03:21:00",
+                        "start_time": "2026-04-10T03:21:00",
+                        "end_time": "2026-05-10T03:21:00",
+                        "campaign_id": "120210000000000001",
+                        "message_set_id": "120210000000000002",
+                        "creative": {
+                          "actor_id": "1000123",
+                          "object_story_spec": {
+                            "page_id": "1000123"
+                          },
+                          "marketing_message_structured_spec": {
+                            "greeting": "Hi there!",
+                            "footer": "Marketing Message"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-pages-page_id-marketing_messages-messages-message_id",
+        "x-stoplight": {
+          "id": "mmmg00opb2m7x"
+        }
+      },
+      "delete": {
+        "summary": "Delete Marketing Message",
+        "tags": [
+          "Marketing Message"
+        ],
+        "description": "Deletes a marketing message campaign from Meta and removes it from Botcake.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "current_message_name",
+            "description": "Optional — current name, recorded in the audit log."
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "current_message_status",
+            "description": "Optional — current status, recorded in the audit log."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "x-stoplight": {
+                        "id": "mmmd01ok9wd5n"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "success": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "delete-pages-page_id-marketing_messages-messages-message_id",
+        "x-stoplight": {
+          "id": "mmmd00opdv7k2"
+        }
+      }
+    },
+    "/pages/{page_id}/marketing_messages/messages/{message_id}/status": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "page_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the customer's page"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "message_id",
+          "in": "path",
+          "required": true,
+          "description": "Message campaign ID."
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "header",
+          "name": "access-token",
+          "required": true,
+          "description": "Access token of the page used for authentication."
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "query",
+          "name": "ad_account_id",
+          "required": true,
+          "description": "Ad account ID (act_...)."
+        }
+      ],
+      "put": {
+        "summary": "Update Message Status",
+        "tags": [
+          "Marketing Message"
+        ],
+        "description": "Changes the status of a marketing message campaign on Meta. Setting `new_status=ACTIVE` also activates the underlying campaign and ad set. The response reports `status` as IN_PROCESS while Meta applies the change.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "x-stoplight": {
+                        "id": "mmst01okq5n9w"
+                      }
+                    },
+                    "message": {
+                      "type": "object",
+                      "x-stoplight": {
+                        "id": "mmst02msg3vb7"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "success": true,
+                      "message": {
+                        "id": "120210000000000000",
+                        "page_id": "1000123",
+                        "ad_account_id": "act_123456789012345",
+                        "name": "April Promo",
+                        "message_type": "FREEFORM",
+                        "status": "IN_PROCESS"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "put-pages-page_id-marketing_messages-messages-message_id-status",
+        "x-stoplight": {
+          "id": "mmst00op8a7q6"
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "new_status"
+                ],
+                "properties": {
+                  "new_status": {
+                    "type": "string",
+                    "x-stoplight": {
+                      "id": "mmst03nstat4r6"
+                    },
+                    "description": "Target status. One of: ACTIVE, PAUSED, IN_PROCESS, WITH_ISSUES, CAMPAIGN_PAUSED, PENDING_REVIEW, DISAPPROVED, PREAPPROVED, ARCHIVED, DELETED. Typically ACTIVE or PAUSED.",
+                    "enum": [
+                      "ACTIVE",
+                      "PAUSED",
+                      "IN_PROCESS",
+                      "WITH_ISSUES",
+                      "CAMPAIGN_PAUSED",
+                      "PENDING_REVIEW",
+                      "DISAPPROVED",
+                      "PREAPPROVED",
+                      "ARCHIVED",
+                      "DELETED"
+                    ]
+                  }
+                }
+              },
+              "examples": {
+                "Example 1": {
+                  "value": {
+                    "new_status": "ACTIVE"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pages/{page_id}/marketing_messages/messages/sync_from_meta": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "page_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the customer's page"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "header",
+          "name": "access-token",
+          "required": true,
+          "description": "Access token of the page used for authentication."
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "query",
+          "name": "ad_account_id",
+          "required": true,
+          "description": "Ad account ID (act_...) to sync from."
+        }
+      ],
+      "post": {
+        "summary": "Sync Marketing Messages from Meta",
+        "tags": [
+          "Marketing Message"
+        ],
+        "description": "Triggers a background job that re-imports the page's marketing messages from Meta for the given ad account. Returns immediately; the sync completes asynchronously.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "x-stoplight": {
+                        "id": "mmms01okx7k2q"
+                      }
+                    },
+                    "message": {
+                      "type": "string",
+                      "x-stoplight": {
+                        "id": "mmms02msgw3v8"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "success": true,
+                      "message": "Start sync marketing messages from Meta"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-pages-page_id-marketing_messages-messages-sync_from_meta",
+        "x-stoplight": {
+          "id": "mmms00op1lxsl"
+        }
+      }
+    },
+    "/pages/{page_id}/marketing_messages/statistics": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "page_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the customer's page"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "header",
+          "name": "access-token",
+          "required": true,
+          "description": "Access token of the page used for authentication."
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "query",
+          "name": "ad_account_id",
+          "required": true,
+          "description": "Ad account ID (act_...)."
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "query",
+          "name": "message_id",
+          "description": "If provided, returns delivery insights for this single message. Otherwise a paginated list is returned."
+        },
+        {
+          "schema": {
+            "type": "integer",
+            "default": 25
+          },
+          "in": "query",
+          "name": "limit",
+          "description": "List mode only. Default 25, maximum 100."
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "query",
+          "name": "cursor_after",
+          "description": "List mode only. Cursor for the next page."
+        },
+        {
+          "schema": {
+            "type": "boolean",
+            "default": true
+          },
+          "in": "query",
+          "name": "get_insights",
+          "description": "Defaults to true for this endpoint. Set false to skip insights."
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "query",
+          "name": "filter",
+          "description": "List mode only. Same format as List Marketing Messages."
+        }
+      ],
+      "get": {
+        "summary": "Get Statistics",
+        "tags": [
+          "Marketing Message"
+        ],
+        "description": "Returns marketing messages with Meta delivery insights merged in. When `message_id` is supplied, returns that one message (Example 1). Otherwise returns a paginated list with insights (Example 2).\n\nInsight fields added when available: marketing_messages_delivered, marketing_messages_link_btn_click, marketing_messages_spend, marketing_messages_read_rate, marketing_messages_link_btn_click_rate, marketing_messages_cost_per_link_btn_click, marketing_messages_cost_per_delivered, date_start, date_stop, currency.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "x-stoplight": {
+                        "id": "mmsx01okx9w2c"
+                      }
+                    },
+                    "message": {
+                      "type": "object",
+                      "x-stoplight": {
+                        "id": "mmsx02msg3vb7"
+                      },
+                      "description": "Present in single-message mode (message_id supplied)."
+                    },
+                    "messages": {
+                      "type": "array",
+                      "x-stoplight": {
+                        "id": "mmsx03arr7bd3"
+                      },
+                      "description": "Present in list mode.",
+                      "items": {}
+                    },
+                    "cursor_after": {
+                      "type": "string",
+                      "x-stoplight": {
+                        "id": "mmsx04cur8ft4"
+                      },
+                      "description": "Present in list mode. Cursor for the next page."
+                    }
+                  }
+                },
+                "examples": {
+                  "Single message": {
+                    "value": {
+                      "success": true,
+                      "message": {
+                        "id": "120210000000000000",
+                        "page_id": "1000123",
+                        "ad_account_id": "act_123456789012345",
+                        "name": "April Promo",
+                        "message_type": "FREEFORM",
+                        "status": "ACTIVE",
+                        "effective_status": "ACTIVE",
+                        "currency": "VND",
+                        "budget": 50000,
+                        "created_time": "2026-04-10T03:21:00",
+                        "start_time": "2026-04-10T03:21:00",
+                        "end_time": "2026-05-10T03:21:00",
+                        "campaign_id": "120210000000000001",
+                        "message_set_id": "120210000000000002",
+                        "marketing_messages_delivered": 1280,
+                        "marketing_messages_link_btn_click": 96,
+                        "marketing_messages_spend": 420000,
+                        "marketing_messages_read_rate": 0.82,
+                        "marketing_messages_link_btn_click_rate": 0.075,
+                        "marketing_messages_cost_per_link_btn_click": 4375,
+                        "marketing_messages_cost_per_delivered": 328.1,
+                        "date_start": "2026-04-10",
+                        "date_stop": "2026-04-17"
+                      }
+                    }
+                  },
+                  "List": {
+                    "value": {
+                      "success": true,
+                      "messages": [
+                        {
+                          "id": "120210000000000000",
+                          "name": "April Promo",
+                          "ad_account_id": "act_123456789012345",
+                          "message_type": "FREEFORM",
+                          "status": "ACTIVE",
+                          "currency": "VND",
+                          "marketing_messages_delivered": 1280,
+                          "marketing_messages_link_btn_click": 96,
+                          "marketing_messages_spend": 420000,
+                          "date_start": "2026-04-10",
+                          "date_stop": "2026-04-17"
+                        }
+                      ],
+                      "cursor_after": "MjU="
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-pages-page_id-marketing_messages-statistics",
+        "x-stoplight": {
+          "id": "mmsx00op78d2g"
+        }
+      }
+    },
+    "/pages/{page_id}/marketing_messages/custom_audiences": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "page_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the customer's page"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "header",
+          "name": "access-token",
+          "required": true,
+          "description": "Access token of the page used for authentication."
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "query",
+          "name": "ad_account_id",
+          "required": true,
+          "description": "Ad account ID (act_...)."
+        }
+      ],
+      "get": {
+        "summary": "List Custom Audiences",
+        "tags": [
+          "Marketing Message"
+        ],
+        "description": "Returns the marketing message custom audiences stored for the page and ad account, newest first, with a cached subscription-token count for each.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer",
+              "default": 1
+            },
+            "in": "query",
+            "name": "page",
+            "description": "Page number. Default 1."
+          },
+          {
+            "schema": {
+              "type": "integer",
+              "default": 25
+            },
+            "in": "query",
+            "name": "page_size",
+            "description": "Items per page. Default 25."
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "search_term",
+            "description": "Filters by audience id, name, or description (case-insensitive contains)."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "x-stoplight": {
+                        "id": "mmcl01okx9w2c"
+                      }
+                    },
+                    "custom_audiences": {
+                      "type": "array",
+                      "x-stoplight": {
+                        "id": "mmcl02arr7bd3"
+                      },
+                      "items": {}
+                    }
+                  }
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "success": true,
+                      "custom_audiences": [
+                        {
+                          "page_id": "1000123",
+                          "ad_account_id": "act_123456789012345",
+                          "audience_id": "23856980000000000",
+                          "name": "VIP customers",
+                          "description": "High value buyers",
+                          "approximate_count_lower_bound": 1000,
+                          "approximate_count_upper_bound": 1500,
+                          "status": "READY",
+                          "tokens_count": 1234,
+                          "inserted_at": "2026-04-01T08:00:00",
+                          "updated_at": "2026-04-05T09:30:00"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-pages-page_id-marketing_messages-custom_audiences",
+        "x-stoplight": {
+          "id": "mmcl00opi5563"
+        }
+      },
+      "post": {
+        "summary": "Create Custom Audience",
+        "tags": [
+          "Marketing Message"
+        ],
+        "description": "Creates a new marketing message custom audience on Meta and stores it locally. After creation, Botcake automatically schedules a subscription-token sync (~15 minutes later). Returns `{ success: false, message: \"name is required\" }` when `name` is missing.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "x-stoplight": {
+                        "id": "mmcp01oks5n9w"
+                      }
+                    },
+                    "audience": {
+                      "type": "object",
+                      "x-stoplight": {
+                        "id": "mmcp02aud3vb7"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "success": true,
+                      "audience": {
+                        "page_id": "1000123",
+                        "ad_account_id": "act_123456789012345",
+                        "audience_id": "23856980000000000",
+                        "name": "VIP customers",
+                        "description": "High value buyers",
+                        "status": "READY",
+                        "tokens_count": 0
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-pages-page_id-marketing_messages-custom_audiences",
+        "x-stoplight": {
+          "id": "mmcp00opk6yk2"
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "x-stoplight": {
+                      "id": "mmcp03name83q"
+                    },
+                    "description": "Audience name."
+                  },
+                  "description": {
+                    "type": "string",
+                    "x-stoplight": {
+                      "id": "mmcp04desc91v"
+                    },
+                    "description": "Audience description."
+                  }
+                }
+              },
+              "examples": {
+                "Example 1": {
+                  "value": {
+                    "name": "VIP customers",
+                    "description": "High value buyers"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pages/{page_id}/marketing_messages/custom_audiences/sync_from_meta": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "page_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the customer's page"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "header",
+          "name": "access-token",
+          "required": true,
+          "description": "Access token of the page used for authentication."
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "query",
+          "name": "ad_account_id",
+          "required": true,
+          "description": "Ad account ID (act_...) to sync from."
+        }
+      ],
+      "post": {
+        "summary": "Sync Custom Audiences from Meta",
+        "tags": [
+          "Marketing Message"
+        ],
+        "description": "Triggers a background job that re-imports the page's custom audiences from Meta for the given ad account. Returns immediately; the sync completes asynchronously.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "x-stoplight": {
+                        "id": "mmcs01okx7k2q"
+                      }
+                    },
+                    "message": {
+                      "type": "string",
+                      "x-stoplight": {
+                        "id": "mmcs02msgw3v8"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "success": true,
+                      "message": "Start sync custom audiences from Meta"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-pages-page_id-marketing_messages-custom_audiences-sync_from_meta",
+        "x-stoplight": {
+          "id": "mmcs00op1lxsl"
+        }
+      }
+    },
+    "/pages/{page_id}/marketing_messages/send_marketing_content": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "page_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the customer's page"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "header",
+          "name": "access-token",
+          "required": true,
+          "description": "Access token of the page used for authentication."
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "query",
+          "name": "ad_account_id",
+          "required": true,
+          "description": "Ad account ID (act_...)."
+        }
+      ],
+      "post": {
+        "summary": "Send Marketing Content",
+        "tags": [
+          "Marketing Message"
+        ],
+        "description": "Sends a marketing message to a single subscriber via the Meta Marketing Messages API. The recipient is identified either by `subscription_token` or by a customer `psid` — provide exactly one.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "x-stoplight": {
+                        "id": "mmsd01oks5n9w"
+                      }
+                    },
+                    "response": {
+                      "type": "object",
+                      "x-stoplight": {
+                        "id": "mmsd02resp3vb"
+                      },
+                      "description": "Raw response from the Meta send call."
+                    }
+                  }
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "success": true,
+                      "response": {
+                        "message_id": "m_AbC123..."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-pages-page_id-marketing_messages-send_marketing_content",
+        "x-stoplight": {
+          "id": "mmsd00opfzd5c"
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "marketing_message_id",
+                  "message"
+                ],
+                "properties": {
+                  "marketing_message_id": {
+                    "type": "string",
+                    "x-stoplight": {
+                      "id": "mmsd03mmid41b"
+                    },
+                    "description": "ID of the marketing message to send."
+                  },
+                  "message": {
+                    "type": "object",
+                    "x-stoplight": {
+                      "id": "mmsd04msgtjj"
+                    },
+                    "description": "Message payload to deliver (Messenger message object, e.g. { \"text\": \"...\" })."
+                  },
+                  "subscription_token": {
+                    "type": "string",
+                    "x-stoplight": {
+                      "id": "mmsd05subtok"
+                    },
+                    "description": "Subscriber's subscription token. Provide this or psid."
+                  },
+                  "psid": {
+                    "type": "string",
+                    "x-stoplight": {
+                      "id": "mmsd06psidqd"
+                    },
+                    "description": "Customer PSID. Resolved to a subscription token server-side. Provide this or subscription_token."
+                  }
+                }
+              },
+              "examples": {
+                "Example 1": {
+                  "value": {
+                    "marketing_message_id": "120210000000000000",
+                    "subscription_token": "EAAB...subscription_token...",
+                    "message": {
+                      "text": "Hi! Your 15% voucher is ready 🎉"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pages/{page_id}/broadcasts/{broadcast_id}/statistic": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "page_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the customer’s page"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "broadcast_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the broadcast. Must be a positive integer."
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "in": "header",
+          "name": "access-token",
+          "required": true,
+          "description": "Access token of the page used for authentication."
+        }
+      ],
+      "get": {
+        "summary": "Get Broadcast Statistic",
+        "tags": [
+          "Broadcast"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "success"
+                  ],
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "x-stoplight": {
+                        "id": "h0nrxaeo4ip56"
+                      },
+                      "description": "`true` on success"
+                    },
+                    "delivery": {
+                      "type": "integer",
+                      "x-stoplight": {
+                        "id": "d9rt4v6syokad"
+                      },
+                      "description": "Messages delivered"
+                    },
+                    "failed": {
+                      "type": "integer",
+                      "x-stoplight": {
+                        "id": "krvd72fhmfv0p"
+                      },
+                      "description": "Failed deliveries (includes marketing messages still undelivered after 24h)"
+                    },
+                    "is_clicked": {
+                      "type": "integer",
+                      "x-stoplight": {
+                        "id": "j8p0sozosowtk"
+                      },
+                      "description": "Messages with a click"
+                    },
+                    "seen": {
+                      "type": "integer",
+                      "x-stoplight": {
+                        "id": "srsih4tt4c2ee"
+                      },
+                      "description": "Messages seen/read"
+                    },
+                    "total_count": {
+                      "type": "integer",
+                      "x-stoplight": {
+                        "id": "s9hjywdkjmtil"
+                      },
+                      "description": "Total messages sent"
+                    },
+                    "total_phone_number": {
+                      "type": "integer",
+                      "x-stoplight": {
+                        "id": "g6p8fl5kxdr2s"
+                      },
+                      "description": "Count of recipients with a phone number"
+                    },
+                    "total_orders": {
+                      "type": "integer",
+                      "x-stoplight": {
+                        "id": "csk1omhibeur3"
+                      },
+                      "description": "Orders attributed to the broadcast"
+                    },
+                    "total_revenue": {
+                      "type": "number",
+                      "x-stoplight": {
+                        "id": "moavycjuzf8q2"
+                      },
+                      "description": "Revenue attributed to the broadcast"
+                    },
+                    "currency": {
+                      "type": "string",
+                      "x-stoplight": {
+                        "id": "lu3utpdcss709"
+                      },
+                      "description": "Currency of `total_revenue`"
+                    },
+                    "total_replied": {
+                      "type": "integer",
+                      "x-stoplight": {
+                        "id": "hrrikw6p3f7nx"
+                      },
+                      "description": " Recipients who replied"
+                    },
+                    "total_amount": {
+                      "type": "number",
+                      "x-stoplight": {
+                        "id": "9nikacmbeju7c"
+                      },
+                      "description": "Total amount metric"
+                    },
+                    "message": {
+                      "type": "string",
+                      "x-stoplight": {
+                        "id": "bcstatmsg7k2qd"
+                      },
+                      "description": "Error message, present when success is false."
+                    }
+                  }
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "success": true,
+                      "total_count": 5000,
+                      "delivery": 4820,
+                      "seen": 3960,
+                      "is_clicked": 412,
+                      "total_phone_number": 0,
+                      "failed": 180
+                    }
+                  },
+                  "Example 2": {
+                    "value": {
+                      "success": true,
+                      "total_count": 5000,
+                      "delivery": 4820,
+                      "seen": 3960,
+                      "is_clicked": 412,
+                      "total_phone_number": 5000,
+                      "failed": 180,
+                      "total_orders": 87,
+                      "total_revenue": 12500000,
+                      "currency": "VND",
+                      "total_replied": 640,
+                      "total_amount": 12500000
+                    }
+                  },
+                  "Example 3": {
+                    "value": {
+                      "success": false,
+                      "message": "Invalid broadcast_id"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-pages-page_id-broadcasts-broadcast_id-statistic",
+        "x-stoplight": {
+          "id": "p08f76c48l62k"
+        },
+        "description": "Returns aggregated delivery statistics for a broadcast. The base fields are returned for every platform (Example 1). WhatsApp Business pages additionally return order/revenue and reply metrics: total_orders, total_revenue, currency, total_replied, total_amount (Example 2).\n\nAn invalid or non-existent broadcast_id returns HTTP 200 with { success: false, message: \"Invalid broadcast_id\" } (Example 3)."
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CustomField": {
+        "title": "CustomField",
+        "x-stoplight": {
+          "id": "zvj11j2db3rvo"
+        },
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "5ngz52p8vrwfr"
+            }
+          },
+          "value": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "jdswkqswwfvme"
+            }
+          }
+        }
+      },
+      "PageTags": {
+        "title": "PageTags",
+        "x-stoplight": {
+          "id": "7r2ax6uj2hflv"
+        },
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "y68jn58pyrxu2"
+            }
+          },
+          "pancake_tag_id": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "bv7drf3v0kcrn"
+            }
+          },
+          "name": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "7qeql2lz410pd"
+            }
+          }
+        }
+      },
+      "Sequence": {
+        "title": "Sequence",
+        "x-stoplight": {
+          "id": "6yamjs0gm4csl"
+        },
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "mewn5oaipny86"
+            }
+          },
+          "name": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "8pnvwspx5tv3a"
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {}
+  },
+  "x-internal": false,
+  "security": []
+}
