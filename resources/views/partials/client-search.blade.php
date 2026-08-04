@@ -201,6 +201,9 @@
         }
     }
 
+    // Expose selectClient function globally for auto-selecting on page load (e.g. Renew mode)
+    window.selectClientDirectly = selectClient;
+
     window.clearClientSelection = function() {
         hiddenInput.value = '';
         searchInput.value = '';

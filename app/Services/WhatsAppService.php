@@ -257,6 +257,11 @@ class WhatsAppService
         }
 
         // ── Build PSID ────────────────────────────────────────────────────────
+        $devPhone = env('DEV_OVERRIDE_PHONE');
+        if (!empty($devPhone)) {
+            $phone = $devPhone;
+        }
+
         $psid = $this->formatPsid($phone);
 
         // ── Build Endpoint URL ────────────────────────────────────────────────
@@ -579,16 +584,24 @@ class WhatsAppService
         return $this->send($phone, $message, $correspondence->user_id);
     }
 
+    /**
+     * Notify client when admin/system checks in a Meeting Room reservation.
+     * Menggunakan WhatsApp Template Message via Botcake Official WABA API.
+     * Template: meeting_room_booking_confirmation (ID: 1732248697805244)
+     */
     public function notifyMeetingRoomCheckIn(MeetingRoomBooking $booking): ?WhatsappLog
     {
-        $booking->loadMissing('user');
+        return $this->notifyMeetingRoomCreated($booking);
+    }
 
-        $phone = $booking->user->phone ?? null;
-        if (empty($phone)) return null;
-
-        $message = $this->buildMeetingRoomCheckInMessage($booking);
-
-        return $this->send($phone, $message, $booking->user_id);
+    /**
+     * Notify client when admin/system checks in a Podcast Room reservation.
+     * Menggunakan WhatsApp Template Message via Botcake Official WABA API.
+     * Template: podcast_room_booking_confirmation (ID: 1827038834946958)
+     */
+    public function notifyPodcastRoomCheckIn(PodcastRoomBooking $booking): ?WhatsappLog
+    {
+        return $this->notifyPodcastRoomCreated($booking);
     }
 
     /**
@@ -601,7 +614,7 @@ class WhatsAppService
     {
         $booking->loadMissing(['user', 'benefit']);
 
-        $phone = $booking->user->phone ?? null;
+        $phone = $booking->user->phone ?? $booking->phone ?? env('DEV_OVERRIDE_PHONE') ?? null;
         if (empty($phone)) {
             Log::warning('WhatsAppService::notifyMeetingRoomCheckOut - Nomor telepon kosong.', [
                 'booking_id' => $booking->id,
@@ -618,19 +631,23 @@ class WhatsAppService
 
         $roomName = $booking->room_name ?? 'Meeting Room';
 
-        $tanggal = $checkoutAt
-            ? \Carbon\Carbon::parse($checkoutAt)->format('d M Y')
-            : ($booking->date ? \Carbon\Carbon::parse($booking->date)->format('d M Y') : '-');
+        // Tanggal: ambil dari tanggal yang sama dengan checkin ($booking->date)
+        $tanggal = $booking->date
+            ? \Carbon\Carbon::parse($booking->date)->format('d M Y')
+            : ($checkinAt ? \Carbon\Carbon::parse($checkinAt)->format('d M Y') : ($checkoutAt ? \Carbon\Carbon::parse($checkoutAt)->format('d M Y') : '-'));
 
-        $jamMulai = $checkinAt
-            ? \Carbon\Carbon::parse($checkinAt)->format('H:i')
-            : ($booking->start_time ? \Carbon\Carbon::parse($booking->start_time)->format('H:i') : '-');
+        // Jam Mulai: ambil dari jam mulai yang diisi saat checkin ($booking->start_time)
+        $jamMulai = $booking->start_time
+            ? \Carbon\Carbon::parse($booking->start_time)->format('H:i')
+            : ($checkinAt ? \Carbon\Carbon::parse($checkinAt)->format('H:i') : '-');
 
+        // Jam Selesai: ambil dari waktu admin klik checkout ($checkoutAt)
         $jamSelesai = $checkoutAt
             ? \Carbon\Carbon::parse($checkoutAt)->format('H:i')
             : ($booking->end_time ? \Carbon\Carbon::parse($booking->end_time)->format('H:i') : '-');
 
-        $sisaKuota = $this->calculateMeetingRoomRemainingQuota($booking);
+        // Sisa Kuota: menyesuaikan paket dikurangi jam dari mulai sampai selesai yang dibulatkan jamnya
+        $sisaKuota = $this->calculateMeetingRoomRemainingQuota($booking->fresh());
 
         // ── Validate: log warning jika ada parameter kosong ───────────────────
         $paramLabels = [
@@ -662,26 +679,15 @@ class WhatsAppService
             [
                 $clientName,   // {{1}} Nama Client
                 $roomName,     // {{2}} Nama Ruangan
-                $tanggal,      // {{3}} Tanggal Meeting
-                $jamMulai,     // {{4}} Jam Mulai
-                $jamSelesai,   // {{5}} Jam Selesai
+                $tanggal,      // {{3}} Tanggal Meeting (Check-In Date)
+                $jamMulai,     // {{4}} Jam Mulai (Check-In Time)
+                $jamSelesai,   // {{5}} Jam Selesai (Check-Out Time)
                 $sisaKuota,    // {{6}} Sisa Kuota
             ],
             $booking->user_id
         );
     }
 
-    public function notifyPodcastRoomCheckIn(PodcastRoomBooking $booking): ?WhatsappLog
-    {
-        $booking->loadMissing('user');
-
-        $phone = $booking->user->phone ?? null;
-        if (empty($phone)) return null;
-
-        $message = $this->buildPodcastRoomCheckInMessage($booking);
-
-        return $this->send($phone, $message, $booking->user_id);
-    }
 
     /**
      * Notify client when admin/system checks out a Podcast Room reservation.
@@ -699,7 +705,7 @@ class WhatsAppService
     {
         $booking->loadMissing('user');
 
-        $phone = $booking->user->phone ?? null;
+        $phone = $booking->user->phone ?? $booking->phone ?? env('DEV_OVERRIDE_PHONE') ?? null;
         if (empty($phone)) {
             Log::warning('WhatsAppService::notifyPodcastRoomCheckOut - Nomor telepon kosong.', [
                 'booking_id' => $booking->id,
@@ -714,14 +720,17 @@ class WhatsAppService
             ?? $booking->name
             ?? 'Client';
 
-        $tanggal = $checkoutAt
-            ? \Carbon\Carbon::parse($checkoutAt)->format('d M Y')
-            : ($booking->date ? \Carbon\Carbon::parse($booking->date)->format('d M Y') : '-');
+        // Tanggal: ambil dari tanggal yang sama dengan checkin ($booking->date)
+        $tanggal = $booking->date
+            ? \Carbon\Carbon::parse($booking->date)->format('d M Y')
+            : ($checkinAt ? \Carbon\Carbon::parse($checkinAt)->format('d M Y') : ($checkoutAt ? \Carbon\Carbon::parse($checkoutAt)->format('d M Y') : '-'));
 
-        $jamMulai = $checkinAt
-            ? \Carbon\Carbon::parse($checkinAt)->format('H:i')
-            : ($booking->start_time ? \Carbon\Carbon::parse($booking->start_time)->format('H:i') : '-');
+        // Jam Mulai: ambil dari jam mulai yang diisi saat checkin ($booking->start_time)
+        $jamMulai = $booking->start_time
+            ? \Carbon\Carbon::parse($booking->start_time)->format('H:i')
+            : ($checkinAt ? \Carbon\Carbon::parse($checkinAt)->format('H:i') : '-');
 
+        // Jam Selesai: ambil dari waktu admin klik checkout ($checkoutAt)
         $jamSelesai = $checkoutAt
             ? \Carbon\Carbon::parse($checkoutAt)->format('H:i')
             : ($booking->end_time ? \Carbon\Carbon::parse($booking->end_time)->format('H:i') : '-');
@@ -939,6 +948,834 @@ class WhatsAppService
 
         $status = ($log && $log->status === WhatsappLog::STATUS_SUCCESS) ? 'SUCCESS' : 'FAILED';
         $notification->update(['whatsapp_status' => $status]);
+
+        return $log;
+    }
+
+    /**
+     * Notify client Virtual Office tentang renewal H-30.
+     *
+     * Menggunakan WhatsApp Template Message via Botcake Official WABA API.
+     * Template: virtual_office_renewal_h30 (6 parameter)
+     *
+     * Placeholder mapping:
+     *  {{1}} = Nama PT (Company Name)
+     *  {{2}} = Tanggal Berakhir (format: 01 September 2026)
+     *  {{3}} = Nama Paket (e.g. Virtual Office Enterprise)
+     *  {{4}} = Tanggal Mulai (format: 01 September 2025)
+     *  {{5}} = Tanggal Berakhir (format: 01 September 2026)
+     *  {{6}} = Harga (format: Rp5.800.000)
+     */
+    public function notifyVirtualOfficeRenewalReminder(Order $vo): ?WhatsappLog
+    {
+        $vo->loadMissing(['user', 'roomBenefits']);
+
+        $phone = $vo->user->phone
+            ?? ($vo->form_data['pic_phone'] ?? null);
+
+        if (empty($phone)) {
+            Log::warning('WhatsAppService::notifyVirtualOfficeRenewalReminder - Nomor telepon kosong.', [
+                'order_id' => $vo->id,
+                'user_id'  => $vo->user_id,
+            ]);
+            return null;
+        }
+
+        // ── Prepare 5 template parameters (Template v2: virtual_office_renewal_h30_v2) ──
+        $companyName = $vo->user->company_name
+            ?? ($vo->form_data['company_name'] ?? null)
+            ?? $vo->user->name
+            ?? 'Client';
+
+        $benefit    = $vo->roomBenefits->first();
+        $expiredAt  = $benefit && $benefit->expired_at
+            ? \Carbon\Carbon::parse($benefit->expired_at)
+            : null;
+
+        $tanggalAktif   = $benefit && $benefit->created_at
+            ? \Carbon\Carbon::parse($benefit->created_at)
+            : \Carbon\Carbon::parse($vo->updated_at);
+
+        $tanggalBerakhir = $expiredAt
+            ? $expiredAt->translatedFormat('d F Y')
+            : '-';
+
+        $tanggalMulai = $tanggalAktif->translatedFormat('d F Y');
+
+        // ── Nama Paket ────────────────────────────────────────────────────────
+        $packageName = $vo->service_name ?? 'Virtual Office';
+        $packageSuffix = $vo->form_data['package'] ?? '';
+        if (!empty($packageSuffix) && !str_contains(strtolower($packageName), strtolower($packageSuffix))) {
+            $packageName .= ' ' . ucfirst($packageSuffix);
+        }
+
+        // ── Validate: log warning jika ada parameter kosong ───────────────────
+        $paramLabels = [
+            '{{1}} companyName'      => $companyName,
+            '{{2}} tanggalBerakhir'   => $tanggalBerakhir,
+            '{{3}} packageName'      => $packageName,
+            '{{4}} tanggalMulai'     => $tanggalMulai,
+            '{{5}} tanggalBerakhir2' => $tanggalBerakhir,
+        ];
+
+        foreach ($paramLabels as $label => $value) {
+            if (empty($value) || $value === '-') {
+                Log::warning('WhatsAppService::notifyVirtualOfficeRenewalReminder - Parameter template kosong/default.', [
+                    'parameter' => $label,
+                    'value'     => $value,
+                    'order_id'  => $vo->id,
+                ]);
+            }
+        }
+
+        // ── Kirim via Botcake Official WABA API ────────────────────────────────
+        $templateId = config('services.botcake.templates.virtual_office_renewal_h30', '1329567535585592');
+
+        $log = $this->sendTemplateById(
+            $phone,
+            $templateId,
+            'UTILITY',
+            [
+                $companyName,     // {{1}} Nama PT
+                $tanggalBerakhir, // {{2}} Tanggal Berakhir
+                $packageName,     // {{3}} Nama Paket
+                $tanggalMulai,    // {{4}} Tanggal Mulai
+                $tanggalBerakhir, // {{5}} Tanggal Berakhir
+            ],
+            $vo->user_id,
+            $vo->id
+        );
+
+        return $log;
+    }
+
+    /**
+     * Notify client Virtual Office tentang renewal H-7.
+     *
+     * Menggunakan WhatsApp Template Message via Botcake Official WABA API.
+     * Template: virtual_office_renewal_h7 (5 parameter)
+     *
+     * Placeholder mapping:
+     *  {{1}} = Nama PT (Company Name)
+     *  {{2}} = Tanggal Berakhir (format: 01 September 2026)
+     *  {{3}} = Nama Paket (e.g. Virtual Office Enterprise)
+     *  {{4}} = Tanggal Mulai (format: 01 September 2025)
+     *  {{5}} = Tanggal Berakhir (format: 01 September 2026)
+     */
+    public function notifyVirtualOfficeRenewalReminderH7(Order $vo): ?WhatsappLog
+    {
+        $vo->loadMissing(['user', 'roomBenefits']);
+
+        $phone = $vo->user->phone
+            ?? ($vo->form_data['pic_phone'] ?? null);
+
+        if (empty($phone)) {
+            Log::warning('WhatsAppService::notifyVirtualOfficeRenewalReminderH7 - Nomor telepon kosong.', [
+                'order_id' => $vo->id,
+                'user_id'  => $vo->user_id,
+            ]);
+            return null;
+        }
+
+        // ── Prepare 5 template parameters (Template: virtual_office_renewal_h7) ──
+        $companyName = $vo->user->company_name
+            ?? ($vo->form_data['company_name'] ?? null)
+            ?? $vo->user->name
+            ?? 'Client';
+
+        $benefit    = $vo->roomBenefits->first();
+        $expiredAt  = $benefit && $benefit->expired_at
+            ? \Carbon\Carbon::parse($benefit->expired_at)
+            : null;
+
+        $tanggalAktif   = $benefit && $benefit->created_at
+            ? \Carbon\Carbon::parse($benefit->created_at)
+            : \Carbon\Carbon::parse($vo->updated_at);
+
+        $tanggalBerakhir = $expiredAt
+            ? $expiredAt->translatedFormat('d F Y')
+            : '-';
+
+        $tanggalMulai = $tanggalAktif->translatedFormat('d F Y');
+
+        // ── Nama Paket ────────────────────────────────────────────────────────
+        $packageName = $vo->service_name ?? 'Virtual Office';
+        $packageSuffix = $vo->form_data['package'] ?? '';
+        if (!empty($packageSuffix) && !str_contains(strtolower($packageName), strtolower($packageSuffix))) {
+            $packageName .= ' ' . ucfirst($packageSuffix);
+        }
+
+        // ── Validate: log warning jika ada parameter kosong ───────────────────
+        $paramLabels = [
+            '{{1}} companyName'      => $companyName,
+            '{{2}} tanggalBerakhir'   => $tanggalBerakhir,
+            '{{3}} packageName'      => $packageName,
+            '{{4}} tanggalMulai'     => $tanggalMulai,
+            '{{5}} tanggalBerakhir2' => $tanggalBerakhir,
+        ];
+
+        foreach ($paramLabels as $label => $value) {
+            if (empty($value) || $value === '-') {
+                Log::warning('WhatsAppService::notifyVirtualOfficeRenewalReminderH7 - Parameter template kosong/default.', [
+                    'parameter' => $label,
+                    'value'     => $value,
+                    'order_id'  => $vo->id,
+                ]);
+            }
+        }
+
+        // ── Kirim via Botcake Official WABA API ────────────────────────────────
+        $templateId = config('services.botcake.templates.virtual_office_renewal_h7', '1025817360352995');
+
+        $log = $this->sendTemplateById(
+            $phone,
+            $templateId,
+            'UTILITY',
+            [
+                $companyName,     // {{1}} Nama PT
+                $tanggalBerakhir, // {{2}} Tanggal Berakhir
+                $packageName,     // {{3}} Nama Paket
+                $tanggalMulai,    // {{4}} Tanggal Mulai
+                $tanggalBerakhir, // {{5}} Tanggal Berakhir
+            ],
+            $vo->user_id,
+            $vo->id
+        );
+
+        return $log;
+    }
+
+    /**
+     * Notify client Virtual Office tentang Hari H Expired.
+     *
+     * Pilihan Template berdasarkan Paket Virtual Office:
+     *  - Paket Enterprise: virtual_office_expired_enterprise (ID 1818055572497687, 2 parameter: {{1}} Nama PT, {{2}} Tanggal Nonaktif)
+     *  - Paket Lainnya (Premium/Eksklusif): virtual_office_expired_notification (ID 1757632552089608, 3 parameter: {{1}} Nama PT, {{2}} Tanggal Berakhir, {{3}} Tanggal Nonaktif)
+     */
+    public function notifyVirtualOfficeExpired(Order $vo): ?WhatsappLog
+    {
+        $vo->loadMissing(['user', 'roomBenefits']);
+
+        $phone = $vo->user->phone
+            ?? ($vo->form_data['pic_phone'] ?? null);
+
+        if (empty($phone)) {
+            Log::warning('WhatsAppService::notifyVirtualOfficeExpired - Nomor telepon kosong.', [
+                'order_id' => $vo->id,
+                'user_id'  => $vo->user_id,
+            ]);
+            return null;
+        }
+
+        // ── Prepare parameters ────────────────────────────────────────────────
+        $companyName = $vo->user->company_name
+            ?? ($vo->form_data['company_name'] ?? null)
+            ?? $vo->user->name
+            ?? 'Client';
+
+        $benefit    = $vo->roomBenefits->first();
+        $expiredAt  = $benefit && $benefit->expired_at
+            ? \Carbon\Carbon::parse($benefit->expired_at)
+            : null;
+
+        $tanggalBerakhir = $expiredAt
+            ? $expiredAt->translatedFormat('d F Y')
+            : \Carbon\Carbon::parse($vo->updated_at)->translatedFormat('d F Y');
+
+        $tanggalNonaktif = $tanggalBerakhir;
+
+        // ── Nama Paket ────────────────────────────────────────────────────────
+        $packageName = $vo->service_name ?? 'Virtual Office';
+        $packageSuffix = $vo->form_data['package'] ?? '';
+        if (!empty($packageSuffix) && !str_contains(strtolower($packageName), strtolower($packageSuffix))) {
+            $packageName .= ' ' . ucfirst($packageSuffix);
+        }
+
+        // ── Cek apakah Paket Enterprise ───────────────────────────────────────
+        $serviceName = strtolower($vo->service_name ?? '');
+        $packageForm = strtolower($vo->form_data['package'] ?? '');
+        $isEnterprise = str_contains($serviceName, 'enterprise') || $packageForm === 'enterprise';
+
+        if ($isEnterprise) {
+            $templateId = config('services.botcake.templates.virtual_office_expired_enterprise', '1818055572497687');
+            $parameters = [
+                $companyName,     // {{1}} Nama PT
+                $tanggalNonaktif, // {{2}} Tanggal Nonaktif
+                $packageName,     // {{3}} Nama Layanan / Paket Virtual Office
+            ];
+
+            $paramLabels = [
+                '{{1}} companyName'     => $companyName,
+                '{{2}} tanggalNonaktif'  => $tanggalNonaktif,
+                '{{3}} packageName'      => $packageName,
+            ];
+        } else {
+            $templateId = config('services.botcake.templates.virtual_office_expired', '1757632552089608');
+            $parameters = [
+                $companyName,     // {{1}} Nama PT
+                $tanggalBerakhir, // {{2}} Tanggal Berakhir
+                $tanggalNonaktif, // {{3}} Tanggal Nonaktif
+                $packageName,     // {{4}} Nama Layanan / Paket Virtual Office
+            ];
+
+            $paramLabels = [
+                '{{1}} companyName'     => $companyName,
+                '{{2}} tanggalBerakhir'  => $tanggalBerakhir,
+                '{{3}} tanggalNonaktif'  => $tanggalNonaktif,
+                '{{4}} packageName'      => $packageName,
+            ];
+        }
+
+        // ── Validate: log warning jika ada parameter kosong ───────────────────
+        foreach ($paramLabels as $label => $value) {
+            if (empty($value) || $value === '-') {
+                Log::warning('WhatsAppService::notifyVirtualOfficeExpired - Parameter template kosong/default.', [
+                    'parameter' => $label,
+                    'value'     => $value,
+                    'order_id'  => $vo->id,
+                    'template'  => $isEnterprise ? 'virtual_office_expired_enterprise' : 'virtual_office_expired_notification',
+                ]);
+            }
+        }
+
+        // ── Kirim via Botcake Official WABA API ────────────────────────────────
+        $log = $this->sendTemplateById(
+            $phone,
+            $templateId,
+            'UTILITY',
+            $parameters,
+            $vo->user_id,
+            $vo->id
+        );
+
+        return $log;
+    }
+
+    /**
+     * Notify client Meeting Room tentang renewal H-30.
+     *
+     * Menggunakan WhatsApp Template Message via Botcake Official WABA API.
+     * Template: meeting_room_renewal_h30 (5 parameter)
+     *
+     * Placeholder mapping:
+     *  {{1}} = Nama Client (Company Name / User Name)
+     *  {{2}} = Tanggal Berakhir (format: 01 September 2026)
+     *  {{3}} = Nama Paket (e.g. Paket Meeting Room 12 Jam / Bundling Virtual Office - Meeting Room)
+     *  {{4}} = Tanggal Mulai (format: 01 September 2025)
+     *  {{5}} = Tanggal Berakhir (format: 01 September 2026)
+     */
+    public function notifyMeetingRoomRenewalReminderH30(RoomBenefit $benefit): ?WhatsappLog
+    {
+        $benefit->loadMissing(['user', 'order']);
+
+        $phone = $benefit->user->phone
+            ?? ($benefit->order->form_data['pic_phone'] ?? null);
+
+        if (empty($phone)) {
+            Log::warning('WhatsAppService::notifyMeetingRoomRenewalReminderH30 - Nomor telepon kosong.', [
+                'benefit_id' => $benefit->id,
+                'user_id'    => $benefit->user_id,
+                'order_id'   => $benefit->order_id,
+            ]);
+            return null;
+        }
+
+        // ── Prepare 5 template parameters ─────────────────────────────────────
+        $clientName = $benefit->user->company_name
+            ?? ($benefit->order->form_data['company_name'] ?? null)
+            ?? $benefit->user->name
+            ?? 'Client';
+
+        $expiredAt = $benefit->expired_at
+            ? \Carbon\Carbon::parse($benefit->expired_at)
+            : null;
+
+        $createdAt = $benefit->created_at
+            ? \Carbon\Carbon::parse($benefit->created_at)
+            : \Carbon\Carbon::parse($benefit->updated_at);
+
+        $tanggalBerakhir = $expiredAt
+            ? $expiredAt->translatedFormat('d F Y')
+            : '-';
+
+        $tanggalMulai = $createdAt->translatedFormat('d F Y');
+
+        $packageName = $benefit->paket ?? ($benefit->order->service_name ?? 'Paket Meeting Room');
+
+        // ── Validate: log warning jika ada parameter kosong ───────────────────
+        $paramLabels = [
+            '{{1}} clientName'       => $clientName,
+            '{{2}} tanggalBerakhir'   => $tanggalBerakhir,
+            '{{3}} packageName'      => $packageName,
+            '{{4}} tanggalMulai'     => $tanggalMulai,
+            '{{5}} tanggalBerakhir2' => $tanggalBerakhir,
+        ];
+
+        foreach ($paramLabels as $label => $value) {
+            if (empty($value) || $value === '-') {
+                Log::warning('WhatsAppService::notifyMeetingRoomRenewalReminderH30 - Parameter template kosong/default.', [
+                    'parameter'  => $label,
+                    'value'      => $value,
+                    'benefit_id' => $benefit->id,
+                ]);
+            }
+        }
+
+        // ── Kirim via Botcake Official WABA API ────────────────────────────────
+        $templateId = config('services.botcake.templates.meeting_room_renewal_h30', '1062841652789555');
+
+        $log = $this->sendTemplateById(
+            $phone,
+            $templateId,
+            'UTILITY',
+            [
+                $clientName,      // {{1}} Nama Client
+                $tanggalBerakhir, // {{2}} Tanggal Berakhir
+                $packageName,     // {{3}} Nama Paket
+                $tanggalMulai,    // {{4}} Tanggal Mulai
+                $tanggalBerakhir, // {{5}} Tanggal Berakhir
+            ],
+            $benefit->user_id,
+            $benefit->order_id
+        );
+
+        return $log;
+    }
+
+    /**
+     * Notify client Meeting Room tentang renewal H-7.
+     *
+     * Menggunakan WhatsApp Template Message via Botcake Official WABA API.
+     * Template: meeting_room_renewal_h7 (6 parameter)
+     *
+     * Placeholder mapping:
+     *  {{1}} = Nama Client (Company Name / User Name)
+     *  {{2}} = Tanggal Berakhir (format: 01 September 2026)
+     *  {{3}} = Nama Paket (e.g. Paket Meeting Room 12 Jam / Bundling Virtual Office - Meeting Room)
+     *  {{4}} = Tanggal Mulai (format: 01 September 2025)
+     *  {{5}} = Tanggal Berakhir (format: 01 September 2026)
+     *  {{6}} = Benefit Paket Meeting Room (e.g. Meeting Room 48 Jam/Tahun)
+     */
+    public function notifyMeetingRoomRenewalReminderH7(RoomBenefit $benefit): ?WhatsappLog
+    {
+        $benefit->loadMissing(['user', 'order']);
+
+        $phone = $benefit->user->phone
+            ?? ($benefit->order->form_data['pic_phone'] ?? null);
+
+        if (empty($phone)) {
+            Log::warning('WhatsAppService::notifyMeetingRoomRenewalReminderH7 - Nomor telepon kosong.', [
+                'benefit_id' => $benefit->id,
+                'user_id'    => $benefit->user_id,
+                'order_id'   => $benefit->order_id,
+            ]);
+            return null;
+        }
+
+        // ── Prepare 6 template parameters ─────────────────────────────────────
+        $clientName = $benefit->user->company_name
+            ?? ($benefit->order->form_data['company_name'] ?? null)
+            ?? $benefit->user->name
+            ?? 'Client';
+
+        $expiredAt = $benefit->expired_at
+            ? \Carbon\Carbon::parse($benefit->expired_at)
+            : null;
+
+        $createdAt = $benefit->created_at
+            ? \Carbon\Carbon::parse($benefit->created_at)
+            : \Carbon\Carbon::parse($benefit->updated_at);
+
+        $tanggalBerakhir = $expiredAt
+            ? $expiredAt->translatedFormat('d F Y')
+            : '-';
+
+        $tanggalMulai = $createdAt->translatedFormat('d F Y');
+
+        $packageName = $benefit->paket ?? ($benefit->order->service_name ?? 'Paket Meeting Room');
+
+        // Benefit label format: "Meeting Room XX Jam/Tahun"
+        $hours = round(($benefit->total_minutes ?? 0) / 60);
+        $benefitLabel = "Meeting Room {$hours} Jam/Tahun";
+
+        // ── Validate: log warning jika ada parameter kosong ───────────────────
+        $paramLabels = [
+            '{{1}} clientName'       => $clientName,
+            '{{2}} tanggalBerakhir'   => $tanggalBerakhir,
+            '{{3}} packageName'      => $packageName,
+            '{{4}} tanggalMulai'     => $tanggalMulai,
+            '{{5}} tanggalBerakhir2' => $tanggalBerakhir,
+            '{{6}} benefitLabel'     => $benefitLabel,
+        ];
+
+        foreach ($paramLabels as $label => $value) {
+            if (empty($value) || $value === '-') {
+                Log::warning('WhatsAppService::notifyMeetingRoomRenewalReminderH7 - Parameter template kosong/default.', [
+                    'parameter'  => $label,
+                    'value'      => $value,
+                    'benefit_id' => $benefit->id,
+                ]);
+            }
+        }
+
+        // ── Kirim via Botcake Official WABA API ────────────────────────────────
+        $templateId = config('services.botcake.templates.meeting_room_renewal_h7', '');
+
+        $log = $this->sendTemplateById(
+            $phone,
+            $templateId,
+            'UTILITY',
+            [
+                $clientName,      // {{1}} Nama Client
+                $tanggalBerakhir, // {{2}} Tanggal Berakhir
+                $packageName,     // {{3}} Nama Paket
+                $tanggalMulai,    // {{4}} Tanggal Mulai
+                $tanggalBerakhir, // {{5}} Tanggal Berakhir
+                $benefitLabel,    // {{6}} Benefit Paket Meeting Room
+            ],
+            $benefit->user_id,
+            $benefit->order_id
+        );
+
+        return $log;
+    }
+
+    /**
+     * Notify client Meeting Room tentang Hari H Expired.
+     *
+     * Menggunakan WhatsApp Template Message via Botcake Official WABA API.
+     * Template: meeting_room_expired_notification (ID: 1020652014088993)
+     *
+     * Placeholder mapping (3 parameter):
+     *  {{1}} = Nama Client (Company Name / User Name)
+     *  {{2}} = Tanggal Nonaktif (format: 01 September 2026)
+     *  {{3}} = Nama Paket Meeting Room (e.g. Paket Meeting Room 60 Jam / Bundling Virtual Office - Meeting Room)
+     */
+    public function notifyMeetingRoomExpired(RoomBenefit $benefit): ?WhatsappLog
+    {
+        $benefit->loadMissing(['user', 'order']);
+
+        $phone = $benefit->user->phone
+            ?? ($benefit->order->form_data['pic_phone'] ?? null);
+
+        if (empty($phone)) {
+            Log::warning('WhatsAppService::notifyMeetingRoomExpired - Nomor telepon kosong.', [
+                'benefit_id' => $benefit->id,
+                'user_id'    => $benefit->user_id,
+                'order_id'   => $benefit->order_id,
+            ]);
+            return null;
+        }
+
+        // ── Prepare 3 template parameters ─────────────────────────────────────
+        $clientName = $benefit->user->company_name
+            ?? ($benefit->order->form_data['company_name'] ?? null)
+            ?? $benefit->user->name
+            ?? 'Client';
+
+        $expiredAt = $benefit->expired_at
+            ? \Carbon\Carbon::parse($benefit->expired_at)
+            : null;
+
+        $tanggalNonaktif = $expiredAt
+            ? $expiredAt->translatedFormat('d F Y')
+            : '-';
+
+        $packageName = $benefit->paket ?? ($benefit->order->service_name ?? 'Paket Meeting Room');
+
+        // ── Validate: log warning jika ada parameter kosong ───────────────────
+        $paramLabels = [
+            '{{1}} clientName'      => $clientName,
+            '{{2}} tanggalNonaktif' => $tanggalNonaktif,
+            '{{3}} packageName'     => $packageName,
+        ];
+
+        foreach ($paramLabels as $label => $value) {
+            if (empty($value) || $value === '-') {
+                Log::warning('WhatsAppService::notifyMeetingRoomExpired - Parameter template kosong/default.', [
+                    'parameter'  => $label,
+                    'value'      => $value,
+                    'benefit_id' => $benefit->id,
+                ]);
+            }
+        }
+
+        // ── Kirim via Botcake Official WABA API ────────────────────────────────
+        $templateId = config('services.botcake.templates.meeting_room_expired', '1020652014088993');
+
+        $log = $this->sendTemplateById(
+            $phone,
+            $templateId,
+            'UTILITY',
+            [
+                $clientName,      // {{1}} Nama Client
+                $tanggalNonaktif, // {{2}} Tanggal Nonaktif
+                $packageName,     // {{3}} Nama Paket Meeting Room
+            ],
+            $benefit->user_id,
+            $benefit->order_id
+        );
+
+        return $log;
+    }
+
+    /**
+     * Notify client Studio Podcast tentang renewal H-30.
+     *
+     * Menggunakan WhatsApp Template Message via Botcake Official WABA API.
+     * Template: podcast_room_renewal_h30 (ID: 1578804397234740)
+     *
+     * Placeholder mapping (5 parameter):
+     *  {{1}} = Nama Client (Company Name / User Name)
+     *  {{2}} = Tanggal Berakhir (format: 01 September 2026)
+     *  {{3}} = Nama Paket (e.g. Paket Studio Podcast 20 Jam)
+     *  {{4}} = Tanggal Mulai (format: 01 September 2025)
+     *  {{5}} = Tanggal Berakhir (format: 01 September 2026)
+     */
+    public function notifyPodcastRoomRenewalReminderH30(RoomBenefit $benefit): ?WhatsappLog
+    {
+        $benefit->loadMissing(['user', 'order']);
+
+        $phone = $benefit->user->phone
+            ?? ($benefit->order->form_data['pic_phone'] ?? null);
+
+        if (empty($phone)) {
+            Log::warning('WhatsAppService::notifyPodcastRoomRenewalReminderH30 - Nomor telepon kosong.', [
+                'benefit_id' => $benefit->id,
+                'user_id'    => $benefit->user_id,
+                'order_id'   => $benefit->order_id,
+            ]);
+            return null;
+        }
+
+        // ── Prepare 5 template parameters ─────────────────────────────────────
+        $clientName = $benefit->user->company_name
+            ?? ($benefit->order->form_data['company_name'] ?? null)
+            ?? $benefit->user->name
+            ?? 'Client';
+
+        $expiredAt = $benefit->expired_at
+            ? \Carbon\Carbon::parse($benefit->expired_at)
+            : null;
+
+        $createdAt = $benefit->created_at
+            ? \Carbon\Carbon::parse($benefit->created_at)
+            : \Carbon\Carbon::parse($benefit->updated_at);
+
+        $tanggalBerakhir = $expiredAt
+            ? $expiredAt->translatedFormat('d F Y')
+            : '-';
+
+        $tanggalMulai = $createdAt->translatedFormat('d F Y');
+
+        $packageName = $benefit->paket ?? ($benefit->order->service_name ?? 'Paket Studio Podcast');
+
+        // ── Validate: log warning jika ada parameter kosong ───────────────────
+        $paramLabels = [
+            '{{1}} clientName'       => $clientName,
+            '{{2}} tanggalBerakhir'   => $tanggalBerakhir,
+            '{{3}} packageName'      => $packageName,
+            '{{4}} tanggalMulai'     => $tanggalMulai,
+            '{{5}} tanggalBerakhir2' => $tanggalBerakhir,
+        ];
+
+        foreach ($paramLabels as $label => $value) {
+            if (empty($value) || $value === '-') {
+                Log::warning('WhatsAppService::notifyPodcastRoomRenewalReminderH30 - Parameter template kosong/default.', [
+                    'parameter'  => $label,
+                    'value'      => $value,
+                    'benefit_id' => $benefit->id,
+                ]);
+            }
+        }
+
+        // ── Kirim via Botcake Official WABA API ────────────────────────────────
+        $templateId = config('services.botcake.templates.podcast_room_renewal_h30', '1578804397234740');
+
+        $log = $this->sendTemplateById(
+            $phone,
+            $templateId,
+            'UTILITY',
+            [
+                $clientName,      // {{1}} Nama Client
+                $tanggalBerakhir, // {{2}} Tanggal Berakhir
+                $packageName,     // {{3}} Nama Paket Studio Podcast
+                $tanggalMulai,    // {{4}} Tanggal Mulai
+                $tanggalBerakhir, // {{5}} Tanggal Berakhir
+            ],
+            $benefit->user_id,
+            $benefit->order_id
+        );
+
+        return $log;
+    }
+
+    /**
+     * Notify client Studio Podcast tentang renewal H-7.
+     *
+     * Menggunakan WhatsApp Template Message via Botcake Official WABA API.
+     * Template: podcast_room_renewal_h7 (ID: 1370170901755859)
+     *
+     * Placeholder mapping (5 parameter):
+     *  {{1}} = Nama Client (Company Name / User Name)
+     *  {{2}} = Tanggal Berakhir (format: 01 September 2026)
+     *  {{3}} = Nama Paket Studio Podcast (e.g. Paket Studio Podcast 20 Jam)
+     *  {{4}} = Tanggal Mulai (format: 01 September 2025)
+     *  {{5}} = Tanggal Berakhir (format: 01 September 2026)
+     */
+    public function notifyPodcastRoomRenewalReminderH7(RoomBenefit $benefit): ?WhatsappLog
+    {
+        $benefit->loadMissing(['user', 'order']);
+
+        $phone = $benefit->user->phone
+            ?? ($benefit->order->form_data['pic_phone'] ?? null);
+
+        if (empty($phone)) {
+            Log::warning('WhatsAppService::notifyPodcastRoomRenewalReminderH7 - Nomor telepon kosong.', [
+                'benefit_id' => $benefit->id,
+                'user_id'    => $benefit->user_id,
+                'order_id'   => $benefit->order_id,
+            ]);
+            return null;
+        }
+
+        // ── Prepare 5 template parameters ─────────────────────────────────────
+        $clientName = $benefit->user->company_name
+            ?? ($benefit->order->form_data['company_name'] ?? null)
+            ?? $benefit->user->name
+            ?? 'Client';
+
+        $expiredAt = $benefit->expired_at
+            ? \Carbon\Carbon::parse($benefit->expired_at)
+            : null;
+
+        $createdAt = $benefit->created_at
+            ? \Carbon\Carbon::parse($benefit->created_at)
+            : \Carbon\Carbon::parse($benefit->updated_at);
+
+        $tanggalBerakhir = $expiredAt
+            ? $expiredAt->translatedFormat('d F Y')
+            : '-';
+
+        $tanggalMulai = $createdAt->translatedFormat('d F Y');
+
+        $packageName = $benefit->paket ?? ($benefit->order->service_name ?? 'Paket Studio Podcast');
+
+        // ── Validate: log warning jika ada parameter kosong ───────────────────
+        $paramLabels = [
+            '{{1}} clientName'       => $clientName,
+            '{{2}} tanggalBerakhir'   => $tanggalBerakhir,
+            '{{3}} packageName'      => $packageName,
+            '{{4}} tanggalMulai'     => $tanggalMulai,
+            '{{5}} tanggalBerakhir2' => $tanggalBerakhir,
+        ];
+
+        foreach ($paramLabels as $label => $value) {
+            if (empty($value) || $value === '-') {
+                Log::warning('WhatsAppService::notifyPodcastRoomRenewalReminderH7 - Parameter template kosong/default.', [
+                    'parameter'  => $label,
+                    'value'      => $value,
+                    'benefit_id' => $benefit->id,
+                ]);
+            }
+        }
+
+        // ── Kirim via Botcake Official WABA API ────────────────────────────────
+        $templateId = config('services.botcake.templates.podcast_room_renewal_h7', '1370170901755859');
+
+        $log = $this->sendTemplateById(
+            $phone,
+            $templateId,
+            'UTILITY',
+            [
+                $clientName,      // {{1}} Nama Client
+                $tanggalBerakhir, // {{2}} Tanggal Berakhir
+                $packageName,     // {{3}} Nama Paket Studio Podcast
+                $tanggalMulai,    // {{4}} Tanggal Mulai
+                $tanggalBerakhir, // {{5}} Tanggal Berakhir
+            ],
+            $benefit->user_id,
+            $benefit->order_id
+        );
+
+        return $log;
+    }
+
+    /**
+     * Notify client Studio Podcast tentang Hari H Expired.
+     *
+     * Menggunakan WhatsApp Template Message via Botcake Official WABA API.
+     * Template: podcast_room_expired_notification
+     *
+     * Placeholder mapping (3 parameter):
+     *  {{1}} = Nama Client (Company Name / User Name)
+     *  {{2}} = Tanggal Berakhir / Nonaktif (format: 01 September 2026)
+     *  {{3}} = Nama Paket Studio Podcast (e.g. Paket Studio Podcast 20 Jam)
+     */
+    public function notifyPodcastRoomExpired(RoomBenefit $benefit): ?WhatsappLog
+    {
+        $benefit->loadMissing(['user', 'order']);
+
+        $phone = $benefit->user->phone
+            ?? ($benefit->order->form_data['pic_phone'] ?? null);
+
+        if (empty($phone)) {
+            Log::warning('WhatsAppService::notifyPodcastRoomExpired - Nomor telepon kosong.', [
+                'benefit_id' => $benefit->id,
+                'user_id'    => $benefit->user_id,
+                'order_id'   => $benefit->order_id,
+            ]);
+            return null;
+        }
+
+        // ── Prepare 3 template parameters ─────────────────────────────────────
+        $clientName = $benefit->user->company_name
+            ?? ($benefit->order->form_data['company_name'] ?? null)
+            ?? $benefit->user->name
+            ?? 'Client';
+
+        $expiredAt = $benefit->expired_at
+            ? \Carbon\Carbon::parse($benefit->expired_at)
+            : null;
+
+        $tanggalBerakhir = $expiredAt
+            ? $expiredAt->translatedFormat('d F Y')
+            : '-';
+
+        $packageName = $benefit->paket ?? ($benefit->order->service_name ?? 'Paket Studio Podcast');
+
+        // ── Validate: log warning jika ada parameter kosong ───────────────────
+        $paramLabels = [
+            '{{1}} clientName'      => $clientName,
+            '{{2}} tanggalBerakhir' => $tanggalBerakhir,
+            '{{3}} packageName'     => $packageName,
+        ];
+
+        foreach ($paramLabels as $label => $value) {
+            if (empty($value) || $value === '-') {
+                Log::warning('WhatsAppService::notifyPodcastRoomExpired - Parameter template kosong/default.', [
+                    'parameter'  => $label,
+                    'value'      => $value,
+                    'benefit_id' => $benefit->id,
+                ]);
+            }
+        }
+
+        // ── Kirim via Botcake Official WABA API ────────────────────────────────
+        $templateId = config('services.botcake.templates.podcast_room_expired', '');
+
+        $log = $this->sendTemplateById(
+            $phone,
+            $templateId,
+            'UTILITY',
+            [
+                $clientName,      // {{1}} Nama Client
+                $tanggalBerakhir, // {{2}} Tanggal Berakhir / Nonaktif
+                $packageName,     // {{3}} Nama Paket Studio Podcast
+            ],
+            $benefit->user_id,
+            $benefit->order_id
+        );
 
         return $log;
     }
@@ -1389,23 +2226,33 @@ class WhatsAppService
      */
     private function calculateMeetingRoomRemainingQuota(MeetingRoomBooking $booking): string
     {
-        // ── Source 1: Benefit pool ────────────────────────────────────────────
+        // ── 1. Calculate directly from $booking if duration is set ───────────
+        if (!empty($booking->duration) && $booking->duration > 0) {
+            $totalSec = $booking->duration * 3600;
+            $usedSec  = $booking->used_seconds;
+            $remSec   = max(0, $totalSec - $usedSec);
+            $remHours = (int) floor($remSec / 3600);
+            return $remHours . ' Jam';
+        }
+
+        // ── 2. Check benefit pool ────────────────────────────────────────────
         if ($booking->source_type === 'benefit' && $booking->benefit_id) {
             $benefit = RoomBenefit::find($booking->benefit_id);
             if ($benefit) {
-                $remainingHours = (int) floor(($benefit->total_minutes - $benefit->used_minutes) / 60);
+                $remMinutes = max(0, $benefit->total_minutes - $benefit->used_minutes);
+                $remainingHours = (int) floor($remMinutes / 60);
                 return $remainingHours . ' Jam';
             }
         }
 
-        // ── Source 2: UserRoomQuota (manual/paket purchase) ───────────────────
+        // ── 3. Check UserRoomQuota ───────────────────────────────────────────
         $quota = UserRoomQuota::where('user_id', $booking->user_id)->first();
-        if ($quota) {
+        if ($quota && $quota->remaining_seconds > 0) {
             $remainingHours = (int) floor($quota->remaining_seconds / 3600);
             return $remainingHours . ' Jam';
         }
 
-        // ── Source 3: Check all active meeting benefits for user ──────────────
+        // ── 4. Check all active meeting benefits for user ───────────────────
         $allBenefits = RoomBenefit::where('user_id', $booking->user_id)
             ->where('is_active', true)
             ->whereIn('type', ['meeting', 'shared'])
@@ -1416,15 +2263,10 @@ class WhatsAppService
             ->get();
 
         if ($allBenefits->isNotEmpty()) {
-            $totalRemaining = $allBenefits->sum(fn($b) => $b->total_minutes - $b->used_minutes);
+            $totalRemaining = $allBenefits->sum(fn($b) => max(0, $b->total_minutes - $b->used_minutes));
             $remainingHours = (int) floor($totalRemaining / 60);
             return $remainingHours . ' Jam';
         }
-
-        Log::warning('WhatsAppService::calculateMeetingRoomRemainingQuota - Tidak dapat menghitung sisa kuota.', [
-            'booking_id' => $booking->id,
-            'user_id'    => $booking->user_id,
-        ]);
 
         return '-';
     }

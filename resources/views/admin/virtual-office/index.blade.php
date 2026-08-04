@@ -113,6 +113,27 @@
                                     data-url="{{ route('admin.virtual-office.guest-notification.store', $vo->id) }}">
                                     👥 Tamu Datang
                                 </button>
+
+                                {{-- Action Renew --}}
+                                @php
+                                    $isRenewable = in_array($vo->vo_status, ['Segera Berakhir', 'Expired']) || (isset($vo->sisa_hari) && $vo->sisa_hari <= 30);
+                                @endphp
+
+                                @if($isRenewable)
+                                    <a href="{{ route('admin.orders.create', ['service' => 'virtual-office', 'renew_order_id' => $vo->id]) }}" 
+                                       class="btn btn-sm btn-success d-flex align-items-center gap-1" 
+                                       title="Perpanjang Layanan Virtual Office (H-30 / Expired)">
+                                        🔄 Renew
+                                    </a>
+                                @else
+                                    <button type="button" 
+                                            class="btn btn-sm btn-secondary opacity-50 d-flex align-items-center gap-1" 
+                                            disabled 
+                                            title="Renew hanya dapat digunakan jika layanan H-30 atau sudah Expired (Saat ini sisa {{ $vo->sisa_hari }} hari)">
+                                        🔄 Renew
+                                    </button>
+                                @endif
+
                                 <a href="{{ route('admin.orders.show', $vo->id) }}" class="btn btn-sm btn-outline-primary">
                                     Detail
                                 </a>

@@ -76,25 +76,8 @@
                                 <hr class="my-2">
                                 <div class="row g-3">
                                     <div class="col-md-12">
-                                        <label class="form-label">Pilih Ruangan <span class="text-danger">*</span></label>
-                                        <select name="room_name" class="form-select" required>
-                                            @php
-                                                $allRooms = ['Ruang Podcastroom Utama'];
-                                                $occupiedList = $occupiedRooms ?? [];
-                                            @endphp
-                                            @foreach($allRooms as $roomOption)
-                                                @php $isOccupied = in_array($roomOption, $occupiedList); @endphp
-                                                <option value="{{ $roomOption }}" {{ $isOccupied ? 'disabled' : '' }}>
-                                                    {{ $roomOption }} {{ $isOccupied ? '🔴 (Sedang Dipakai / Check-In)' : '🟢 (Tersedia)' }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @if(!empty($occupiedList))
-                                        <small class="text-danger mt-1 d-block fw-semibold">
-                                            <ion-icon name="warning-outline" class="align-middle me-1"></ion-icon>
-                                            Ruangan berlabel <strong>(Sedang Dipakai / Check-In)</strong> sedang di-disable dan tidak dapat dipilih hingga sesi client sebelumnya selesai Check Out.
-                                        </small>
-                                        @endif
+                                        <label class="form-label">Ruangan Podcast</label>
+                                        <input type="text" name="room_name" class="form-control bg-light" value="Podcast Studio Lawgika Office, World Capital Tower Lt. 38 Unit 6-7" readonly>
                                     </div>
 
                                     <div class="col-md-12">
@@ -110,12 +93,13 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label class="form-label">Tanggal <span class="text-danger">*</span></label>
+                                        <label class="form-label">Tanggal Reservasi <span class="text-danger">*</span></label>
                                         <input type="date" name="date" class="form-control" value="{{ date('Y-m-d') }}" required>
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="form-label">Waktu Pemesanan Booking <span class="text-danger">*</span></label>
-                                        <input type="time" name="start_time" class="form-control" required>
+                                        <label class="form-label">Waktu Pemesanan Booking (Opsional)</label>
+                                        <input type="time" name="start_time" class="form-control">
+                                        <small class="text-muted d-block mt-1">Jam mulai & selesai dapat ditentukan secara presisi saat admin menekan tombol Check-In.</small>
                                     </div>
 
                                     <div class="col-md-6">

@@ -17,11 +17,17 @@ class RoomBenefit extends Model
         'type',
         'is_active',
         'expired_at',
+        'renewal_reminder_h30_sent_at',
+        'renewal_reminder_h7_sent_at',
+        'renewal_reminder_expired_sent_at',
     ];
 
     protected $casts = [
-        'is_active'  => 'boolean',
-        'expired_at' => 'datetime',
+        'is_active'                        => 'boolean',
+        'expired_at'                       => 'datetime',
+        'renewal_reminder_h30_sent_at'     => 'datetime',
+        'renewal_reminder_h7_sent_at'      => 'datetime',
+        'renewal_reminder_expired_sent_at' => 'datetime',
     ];
 
     // ── Eligibility Rules ─────────────────────────────────────────────────────

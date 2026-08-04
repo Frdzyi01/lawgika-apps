@@ -231,10 +231,10 @@ class PodcastRoomController extends Controller
     {
         $rules = [
             'user_id'         => 'required|exists:users,id',
-            'room_name'       => 'required|string',
+            'room_name'       => 'nullable|string',
             'podcast_title'   => 'nullable|string|max:255',
             'date'            => 'required|date',
-            'start_time'      => 'required',
+            'start_time'      => 'nullable',
             'participants'    => 'required|integer|min:1',
             'source_type'     => 'required|in:manual,benefit',
             'benefit_id'      => 'nullable|exists:room_benefits,id',
@@ -242,19 +242,21 @@ class PodcastRoomController extends Controller
 
         $request->validate($rules);
 
-        // Guard: Cegah memilih/membuat reservasi untuk ruangan yang sedang aktif digunakan (Check-In)
-        $currentlyOccupied = PodcastRoomBooking::where('room_name', $request->room_name)
-            ->where('status', 'checkin')
-            ->exists();
+        // Guard: Jika room_name diisi, cegah memilih jika sedang Check-In
+        if ($request->filled('room_name')) {
+            $currentlyOccupied = PodcastRoomBooking::where('room_name', $request->room_name)
+                ->where('status', 'checkin')
+                ->exists();
 
-        if ($currentlyOccupied) {
-            return back()->withInput()->withErrors([
-                'room_name' => "🚫 {$request->room_name} saat ini sedang digunakan (Check In) oleh client lain. Ruangan tidak dapat dipilih/dipesan hingga sesi pemakaian selesai (Check Out)."
-            ]);
+            if ($currentlyOccupied) {
+                return back()->withInput()->withErrors([
+                    'room_name' => "🚫 {$request->room_name} saat ini sedang digunakan (Check In) oleh client lain."
+                ]);
+            }
         }
 
-        $start = \Carbon\Carbon::parse($request->date . ' ' . $request->start_time);
-        $end = \Carbon\Carbon::parse($request->date . ' ' . $request->start_time)->addHour(); // Default end time, updated on checkout
+        $start = $request->filled('start_time') ? \Carbon\Carbon::parse($request->date . ' ' . $request->start_time) : null;
+        $end = $start ? $start->copy()->addHour() : null;
         
         // Paket Podcast Room adalah sistem kuota tahunan (12 Jam)
         $durationHours = 12;
@@ -298,20 +300,7 @@ class PodcastRoomController extends Controller
             'payment_method'  => $request->payment_method,
         ]);
 
-        // ── WhatsApp Notification ─────────────────────────────────────────────
-        $waMessage = '';
-        try {
-            $waLog = $this->whatsAppService->notifyPodcastRoomCreated($booking);
-            if ($waLog && $waLog->status === \App\Models\WhatsappLog::STATUS_SUCCESS) {
-                $waMessage = ' WhatsApp notifikasi berhasil dikirim.';
-            } elseif ($waLog) {
-                $waMessage = ' Tetapi WhatsApp gagal dikirim.';
-            }
-        } catch (\Exception $e) {
-            $waMessage = ' Tetapi WhatsApp gagal dikirim.';
-        }
-
-        return redirect('admin/podcast-room')->with('success', '✅ Reservasi Ruang Podcast berhasil ditambahkan oleh Admin.' . $waMessage);
+        return redirect('admin/podcast-room')->with('success', '✅ Reservasi Ruang Podcast berhasil ditambahkan oleh Admin.');
     }
 
     // ── Admin: Approve / Reject benefit reservation ───────────────────────────
@@ -367,12 +356,20 @@ class PodcastRoomController extends Controller
 
     // ── Check-In ──────────────────────────────────────────────────────────────
 
-    public function checkin($id)
+    public function checkin(Request $request, $id)
     {
         $booking = PodcastRoomBooking::findOrFail($id);
 
+        if (!Auth::user()->hasAdminAccess() && $booking->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $roomName  = $request->input('room_name', $booking->room_name ?: 'Podcast Studio Lawgika');
+        $dateInput = $request->input('date', $booking->date ? \Carbon\Carbon::parse($booking->date)->format('Y-m-d') : date('Y-m-d'));
+        $startTime = $request->input('start_time', $booking->start_time ?: date('H:i'));
+        $endTime   = $request->input('end_time');
+
         // Guard: Cegah Check In jika ruangan tersebut sedang digunakan (Check In) oleh booking/client lain
-        $roomName = $booking->room_name ?: 'Ruang Podcastroom Utama';
         $occupiedByOther = PodcastRoomBooking::where('room_name', $roomName)
             ->where('status', 'checkin')
             ->where('id', '!=', $booking->id)
@@ -404,7 +401,14 @@ class PodcastRoomController extends Controller
             return back()->with('error', 'Waktu reservasi sudah habis.');
         }
 
+        $bookingDate = \Carbon\Carbon::parse($dateInput)->format('Y-m-d');
+        $endTimeVal  = $endTime ? \Carbon\Carbon::parse($bookingDate . ' ' . $endTime) : ($startTime ? \Carbon\Carbon::parse($bookingDate . ' ' . $startTime)->addHour() : null);
+
         $booking->update([
+            'room_name'   => $roomName,
+            'date'        => $bookingDate,
+            'start_time'  => $startTime,
+            'end_time'    => $endTimeVal,
             'status'      => 'checkin',
             'checkin_at'  => now(),
             'checkout_at' => null,
@@ -423,7 +427,7 @@ class PodcastRoomController extends Controller
         $waMessage = '';
         try {
             if (Auth::user()->hasAdminAccess()) {
-                $waLog = app(\App\Services\WhatsAppService::class)->notifyPodcastRoomCheckIn($booking);
+                $waLog = app(\App\Services\WhatsAppService::class)->notifyPodcastRoomCheckIn($booking->fresh());
                 if ($waLog && $waLog->status === \App\Models\WhatsappLog::STATUS_SUCCESS) {
                     $waMessage = ' WhatsApp notifikasi berhasil dikirim.';
                 } elseif ($waLog) {
@@ -434,7 +438,7 @@ class PodcastRoomController extends Controller
             $waMessage = ' Tetapi WhatsApp gagal dikirim.';
         }
 
-        return back()->with('success', 'User berhasil Check In ke ruangan.' . $waMessage);
+        return back()->with('success', 'User berhasil Check In ke ' . $roomName . '.' . $waMessage);
     }
 
     // ── Check-Out ─────────────────────────────────────────────────────────────
@@ -533,15 +537,14 @@ class PodcastRoomController extends Controller
         // ── WhatsApp Notification ─────────────────────────────────────────────
         $waMessage = '';
         try {
-            if (Auth::user()->hasAdminAccess()) {
-                $waLog = app(\App\Services\WhatsAppService::class)->notifyPodcastRoomCheckOut($booking, $actualDuration, $billingHours, $checkinAt, $checkoutAt);
-                if ($waLog && $waLog->status === \App\Models\WhatsappLog::STATUS_SUCCESS) {
-                    $waMessage = ' WhatsApp notifikasi berhasil dikirim.';
-                } elseif ($waLog) {
-                    $waMessage = ' Tetapi WhatsApp gagal dikirim.';
-                }
+            $waLog = app(\App\Services\WhatsAppService::class)->notifyPodcastRoomCheckOut($booking, $actualDuration, $billingHours, $checkinAt, $checkoutAt);
+            if ($waLog && $waLog->status === \App\Models\WhatsappLog::STATUS_SUCCESS) {
+                $waMessage = ' WhatsApp notifikasi berhasil dikirim.';
+            } elseif ($waLog) {
+                $waMessage = ' Tetapi WhatsApp gagal dikirim.';
             }
         } catch (\Exception $e) {
+            Log::error('PodcastRoomController::checkout - Exception WA: ' . $e->getMessage());
             $waMessage = ' Tetapi WhatsApp gagal dikirim.';
         }
 

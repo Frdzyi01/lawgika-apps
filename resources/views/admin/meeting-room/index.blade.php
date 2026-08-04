@@ -161,9 +161,88 @@
                                         @endif
 
                                         @if($b->status === 'approved' || $b->status === 'paused')
-                                            <form action="{{ url('admin/meeting-room/'.$b->id.'/checkin') }}" method="POST">
-                                                @csrf<button class="btn btn-sm btn-success w-100" onclick="return confirm('Check In?')">Check In</button>
-                                            </form>
+                                            <button type="button" class="btn btn-sm btn-success w-100 fw-bold" data-bs-toggle="modal" data-bs-target="#checkinModalMR{{ $b->id }}">
+                                                <i class="fa-solid fa-right-to-bracket me-1"></i> Check In
+                                            </button>
+
+                                            <!-- Modal Check In Meeting Room -->
+                                            <div class="modal fade" id="checkinModalMR{{ $b->id }}" tabindex="-1" aria-labelledby="checkinModalLabelMR{{ $b->id }}" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content text-start">
+                                                        <form action="{{ url('admin/meeting-room/'.$b->id.'/checkin') }}" method="POST">
+                                                            @csrf
+                                                            <div class="modal-header bg-success text-white">
+                                                                <h5 class="modal-title fw-bold" id="checkinModalLabelMR{{ $b->id }}">
+                                                                    <i class="fa-solid fa-door-open me-2"></i> Check In Meeting Room
+                                                                </h5>
+                                                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <!-- Info Client & Tanggal Booking -->
+                                                                <div class="card bg-light border-0 mb-3">
+                                                                    <div class="card-body py-2 px-3 small">
+                                                                        <div class="row">
+                                                                            <div class="col-6"><strong>Client:</strong> {{ $b->user->name ?? $b->name }}</div>
+                                                                            <div class="col-6"><strong>Tanggal Booking:</strong> {{ $b->created_at ? \Carbon\Carbon::parse($b->created_at)->format('d M Y') : ($b->date ? \Carbon\Carbon::parse($b->date)->format('d M Y') : date('d M Y')) }}</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <!-- 1. Pilih Ruangan -->
+                                                                <div class="mb-3">
+                                                                    <label class="form-label fw-bold">Pilih Ruangan <span class="text-danger">*</span></label>
+                                                                    <select name="room_name" class="form-select" required>
+                                                                        @php
+                                                                            $mrRooms = ['Ruang Meetingroom 1', 'Ruang Meetingroom 2', 'Ruang Meetingroom Utama'];
+                                                                        @endphp
+                                                                        @foreach($mrRooms as $rm)
+                                                                            @php
+                                                                                $isOccupiedByOther = \App\Models\MeetingRoomBooking::where('room_name', $rm)
+                                                                                    ->where('status', 'checkin')
+                                                                                    ->where('id', '!=', $b->id)
+                                                                                    ->exists();
+                                                                            @endphp
+                                                                            <option value="{{ $rm }}" 
+                                                                                {{ ($b->room_name ?? '') === $rm ? 'selected' : '' }} 
+                                                                                {{ $isOccupiedByOther ? 'disabled' : '' }}>
+                                                                                {{ $rm }} {{ $isOccupiedByOther ? '(Sedang Dipakai / Check-In)' : '' }}
+                                                                            </option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+
+                                                                <!-- 2. Tanggal Meeting -->
+                                                                <div class="mb-3">
+                                                                    <label class="form-label fw-bold">Tanggal Meeting <span class="text-danger">*</span></label>
+                                                                    <input type="date" name="date" class="form-control" value="{{ $b->date ? \Carbon\Carbon::parse($b->date)->format('Y-m-d') : date('Y-m-d') }}" required>
+                                                                </div>
+
+                                                                <!-- 3. Waktu Pemakaian (Mulai & Selesai) -->
+                                                                <div class="row">
+                                                                    <div class="col-md-6 mb-3">
+                                                                        <label class="form-label fw-bold">Jam Mulai <span class="text-danger">*</span></label>
+                                                                        <input type="time" name="start_time" class="form-control" value="{{ $b->start_time ? \Carbon\Carbon::parse($b->start_time)->format('H:i') : date('H:i') }}" required>
+                                                                    </div>
+                                                                    <div class="col-md-6 mb-3">
+                                                                        <label class="form-label fw-bold">Jam Selesai <span class="text-danger">*</span></label>
+                                                                        <input type="time" name="end_time" class="form-control" value="{{ $b->end_time ? \Carbon\Carbon::parse($b->end_time)->format('H:i') : date('H:i', strtotime('+1 hour')) }}" required>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="alert alert-info py-2 small mb-0">
+                                                                    <i class="fa-solid fa-circle-info me-1"></i> WhatsApp notifikasi konfirmasi Check In akan otomatis dikirimkan ke client setelah disimpan.
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer bg-light">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                                <button type="submit" class="btn btn-success fw-bold">
+                                                                    <i class="fa-solid fa-paper-plane me-1"></i> Check In & Kirim WhatsApp
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         @elseif($b->status === 'checkin')
                                             <form action="{{ url('admin/meeting-room/'.$b->id.'/checkout') }}" method="POST">
                                                 @csrf<button class="btn btn-sm btn-warning text-dark w-100" onclick="return confirm('Check Out?')">Check Out</button>

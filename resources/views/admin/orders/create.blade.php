@@ -25,6 +25,16 @@
 <div class="row">
     <div class="col-lg-10 mx-auto">
         
+        @if(isset($renewOrder) && $renewOrder)
+        <div class="alert alert-info border-0 shadow-sm d-flex align-items-center justify-content-between mb-3">
+            <div>
+                <h6 class="alert-heading mb-1 text-info fw-bold"><ion-icon name="refresh-circle-outline" class="align-middle me-1" style="font-size: 1.3rem;"></ion-icon> Form Perpanjangan (Renew) Virtual Office</h6>
+                <small class="mb-0">Memperpanjang layanan Virtual Office untuk <strong>{{ $preselectedClient->company_name ?? ($preselectedClient->pic_name ?? $preselectedClient->name) }}</strong> (Order Referensi: <code>{{ $renewOrder->order_number }}</code>).</small>
+            </div>
+            <span class="badge bg-primary fs-6">Mode Renew</span>
+        </div>
+        @endif
+
         {{-- Search Component --}}
         @include('partials.client-search', ['inputId' => 'search_client'])
 
@@ -236,5 +246,38 @@
         updatePackageDropdown(serviceSelect.value);
         fetchDocumentRequirements(serviceSelect.value);
     }
+
+    // Auto-fill and pre-select data if preselectedClient or renewOrder is passed
+    @if(isset($preselectedClient) && $preselectedClient)
+        const preselectedClientData = {
+            id: {{ $preselectedClient->id }},
+            company_name: "{{ e($preselectedClient->company_name ?? '') }}",
+            name: "{{ e($preselectedClient->name ?? '') }}",
+            pic_name: "{{ e($preselectedClient->pic_name ?? $preselectedClient->name) }}",
+            phone: "{{ e($preselectedClient->phone ?? '') }}",
+            email: "{{ e($preselectedClient->email ?? '') }}",
+            business_type: "{{ e($preselectedClient->business_type ?? '') }}"
+        };
+
+        setTimeout(() => {
+            if (typeof window.selectClientDirectly === 'function') {
+                window.selectClientDirectly(preselectedClientData);
+            }
+        }, 100);
+    @endif
+
+    @if(isset($renewOrder) && $renewOrder)
+        // Set Layanan to virtual-office
+        serviceSelect.value = 'virtual-office';
+        updatePackageDropdown('virtual-office');
+        fetchDocumentRequirements('virtual-office');
+
+        // Set Paket based on renewOrder
+        const renewPackage = "{{ $renewOrder->form_data['package'] ?? '' }}";
+        if (renewPackage) {
+            const packageSelect = document.getElementById('package_select');
+            packageSelect.value = renewPackage;
+        }
+    @endif
 </script>
 @endpush

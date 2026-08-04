@@ -114,7 +114,7 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label class="form-label">Tanggal Booking <span class="text-danger">*</span></label>
+                                        <label class="form-label">Tanggal Reservasi <span class="text-danger">*</span></label>
                                         <input type="date" name="date" class="form-control" value="{{ date('Y-m-d') }}" required>
                                     </div>
                                     <div class="col-md-6">

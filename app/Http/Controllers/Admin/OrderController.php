@@ -96,12 +96,25 @@ class OrderController extends Controller
 
     // ── Admin Create & Store (CRM) ────────────────────────────────────────────
 
-    public function create()
+    public function create(Request $request)
     {
         $services = \App\Http\Controllers\UniversalOrderController::$services;
         $packages = \App\Http\Controllers\UniversalOrderController::$packages;
         $activePackages = \App\Http\Controllers\UniversalOrderController::getActivePackagesPerService();
-        return view('admin.orders.create', compact('services', 'packages', 'activePackages'));
+
+        $renewOrder = null;
+        $preselectedClient = null;
+
+        if ($request->filled('renew_order_id')) {
+            $renewOrder = \App\Models\Order::with(['user', 'roomBenefits'])->find($request->renew_order_id);
+            if ($renewOrder) {
+                $preselectedClient = $renewOrder->user;
+            }
+        } elseif ($request->filled('client_id')) {
+            $preselectedClient = \App\Models\User::find($request->client_id);
+        }
+
+        return view('admin.orders.create', compact('services', 'packages', 'activePackages', 'renewOrder', 'preselectedClient'));
     }
 
     public function getDocumentRequirements($serviceKey)
@@ -224,21 +237,22 @@ class OrderController extends Controller
 
         // ── WhatsApp Notification ─────────────────────────────────────────────
         $waMessage = '';
-        try {
-            $waLog = $this->whatsAppService->notifyOrderCreated($order);
-            if ($waLog && $waLog->status === \App\Models\WhatsappLog::STATUS_SUCCESS) {
-                $waMessage = ' WhatsApp notifikasi berhasil dikirim.';
-            } elseif ($waLog) {
+        if ($serviceKey !== 'virtual-office') {
+            try {
+                $waLog = $this->whatsAppService->notifyOrderCreated($order);
+                if ($waLog && $waLog->status === \App\Models\WhatsappLog::STATUS_SUCCESS) {
+                    $waMessage = ' WhatsApp notifikasi berhasil dikirim.';
+                } elseif ($waLog) {
+                    $waMessage = ' Tetapi WhatsApp gagal dikirim.';
+                }
+            } catch (\Exception $e) {
                 $waMessage = ' Tetapi WhatsApp gagal dikirim.';
             }
-        } catch (\Exception $e) {
-            $waMessage = ' Tetapi WhatsApp gagal dikirim.';
         }
 
         if ($serviceKey === 'virtual-office') {
             return redirect()->route('admin.virtual-office.index')
-                ->with('success', 'Data Virtual Office baru berhasil ditambahkan oleh Admin.' . $waMessage)
-                ->with($waMessage && str_contains($waMessage, 'gagal') ? 'warning' : 'info', $waMessage ?: null);
+                ->with('success', 'Data Virtual Office baru berhasil ditambahkan oleh Admin.');
         }
 
         return redirect()->route('admin.orders.index')

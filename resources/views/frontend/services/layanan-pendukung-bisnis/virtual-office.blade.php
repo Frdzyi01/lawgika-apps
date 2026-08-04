@@ -849,7 +849,7 @@
                     <ul class="feature-list">
                         <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.address">Alamat Bisnis Ekslusif</span></li>
                         <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.mail">PENGELOLAAN SURAT &amp; PAKET MASUK</span></li>
-                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.notification">NOTIFIKASI SURAT &amp; PAKET MASUK</span></li>
+
                         <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.domicile">SURAT KETERANGAN DOMISILI</span></li>
                         <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.community">AKSES KOMUNITAS BISNIS</span></li>
                         <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.receptionist">LAYANAN RESEPSIONIS</span></li>
@@ -863,8 +863,7 @@
 
                         <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.wifi">AKSES WIFI &amp; SMART TV</span></li>
 
-                        <li class="disabled">
-                            <i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.print">LAYANAN PRINT, SCAN &amp; FOTOCOPY</span>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.print">LAYANAN PRINT, SCAN &amp; FOTOCOPY</span>
                         </li>
 
                         <li class="disabled">
@@ -896,7 +895,7 @@
                     <ul class="feature-list">
                         <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.address">Alamat Bisnis Ekslusif</span></li>
                         <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.mail">PENGELOLAAN SURAT &amp; PAKET MASUK</span></li>
-                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.notification">NOTIFIKASI SURAT &amp; PAKET MASUK</span></li>
+
                         <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.domicile">SURAT KETERANGAN DOMISILI</span></li>
                         <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.community">AKSES KOMUNITAS BISNIS</span></li>
                         <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.receptionist">LAYANAN RESEPSIONIS</span></li>
@@ -908,8 +907,7 @@
 
                         <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.wifi">AKSES WIFI &amp; SMART TV</span></li>
 
-                        <li class="disabled">
-                            <i class="fa-solid fa-minus"></i> <span data-i18n="vo.pricing.feature.print">LAYANAN PRINT, SCAN &amp; FOTOCOPY</span>
+                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.print">LAYANAN PRINT, SCAN &amp; FOTOCOPY</span>
                         </li>
 
                         <li class="disabled">
@@ -939,7 +937,7 @@
                     <ul class="feature-list">
                         <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.address">Alamat Bisnis Ekslusif</span></li>
                         <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.mail">PENGELOLAAN SURAT &amp; PAKET MASUK</span></li>
-                        <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.notification">NOTIFIKASI SURAT &amp; PAKET MASUK</span></li>
+
                         <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.domicile">SURAT KETERANGAN DOMISILI</span></li>
                         <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.community">AKSES KOMUNITAS BISNIS</span></li>
                         <li><i class="fa-solid fa-check"></i> <span data-i18n="vo.pricing.feature.receptionist">LAYANAN RESEPSIONIS</span></li>
