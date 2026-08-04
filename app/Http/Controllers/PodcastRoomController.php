@@ -102,9 +102,31 @@ class PodcastRoomController extends Controller
         }
 
         if ($benefit) {
-            // ── BENEFIT FLOW ──────────────────────────────────────────────────
-            // Tag booking as benefit. Status = 'pending' (waits for admin approval).
-            // NO time deducted. NO log created. Payment not required.
+            // Check if user has an existing package booking
+            $parentBooking = null;
+            if ($benefit->order_id) {
+                $parentBooking = PodcastRoomBooking::find($benefit->order_id);
+            }
+            if (!$parentBooking) {
+                $parentBooking = PodcastRoomBooking::where('user_id', Auth::id())
+                    ->whereIn('payment_status', ['approved'])
+                    ->latest()
+                    ->first();
+            }
+
+            if ($parentBooking) {
+                $parentBooking->update([
+                    'date'          => $request->tanggal,
+                    'start_time'    => $request->jam,
+                    'podcast_title' => $request->podcast_title ?? $parentBooking->podcast_title,
+                    'status'        => 'approved',
+                ]);
+
+                return redirect()->route('customer.podcast-room.index')
+                    ->with('success', 'Jadwal reservasi Ruang Podcast berhasil disimpan!');
+            }
+
+            // Create initial benefit booking if no parent package booking exists
             $durasi   = (int) $request->durasi;
             $orderNum = 'PODCAST-BNF-' . date('Ymd') . '-' . strtoupper(Str::random(5));
 
@@ -121,13 +143,13 @@ class PodcastRoomController extends Controller
                 'participants'   => 1,
                 'package'        => $durasi . 'jam',
                 'total_price'    => 0,
-                'status'         => 'pending',         // admin must approve first
-                'payment_status' => 'approved',        // no payment needed
+                'status'         => 'approved',
+                'payment_status' => 'approved',
                 'payment_proof'  => null,
             ]);
 
             return redirect()->route('customer.podcast-room.index')
-                ->with('success', "✅ Reservasi Ruang Podcast (Benefit Paket PT) berhasil diajukan! Order: {$orderNum}. Menunggu persetujuan admin.");
+                ->with('success', "✅ Reservasi Ruang Podcast berhasil diajukan! Order: {$orderNum}.");
         }
 
         // ── MANUAL FLOW (existing — untouched) ────────────────────────────────
@@ -208,7 +230,13 @@ class PodcastRoomController extends Controller
         $bookings = $query->paginate(10);
         $bookings->appends(['search' => $search]);
 
-        return view('admin.podcast-room.index', compact('bookings'));
+        $pendingReservations = PodcastRoomBooking::with(['user', 'benefit'])
+            ->where('status', 'pending')
+            ->whereNotNull('date')
+            ->latest()
+            ->get();
+
+        return view('admin.podcast-room.index', compact('bookings', 'pendingReservations'));
     }
 
     // ── Admin: Create & Store (CRM Flow) ──────────────────────────────────────
@@ -307,13 +335,15 @@ class PodcastRoomController extends Controller
 
     public function approveBenefitReservation($id)
     {
-        $booking = PodcastRoomBooking::where('source_type', 'benefit')
-            ->where('status', 'pending')
-            ->findOrFail($id);
+        $booking = PodcastRoomBooking::find($id);
+        if ($booking) {
+            $booking->update([
+                'status'         => 'approved',
+                'payment_status' => 'approved',
+            ]);
+        }
 
-        $booking->update(['status' => 'approved']);
-
-        return redirect()->back()->with('success', '✅ Reservasi benefit Ruang Podcast disetujui.');
+        return redirect('admin/podcast-room')->with('success', '✅ Reservasi Ruang Podcast disetujui!');
     }
 
     public function rejectBenefitReservation($id)
@@ -344,7 +374,26 @@ class PodcastRoomController extends Controller
 
     public function approvePayment($id)
     {
-        PodcastRoomBooking::findOrFail($id)->update(['payment_status' => 'approved']);
+        $booking = PodcastRoomBooking::findOrFail($id);
+        $booking->update([
+            'payment_status' => 'approved',
+            'status'         => 'approved',
+        ]);
+
+        if ($booking->user_id && ($booking->duration >= 10 || empty($booking->date))) {
+            RoomBenefit::firstOrCreate([
+                'user_id'  => $booking->user_id,
+                'order_id' => $booking->id,
+                'type'     => 'podcast',
+            ], [
+                'paket'         => 'Paket Podcast Room (' . ($booking->duration ?: 60) . ' Jam)',
+                'total_minutes' => ($booking->duration ?: 60) * 60,
+                'used_minutes'  => round($booking->used_seconds / 60),
+                'is_active'     => true,
+                'expired_at'    => \Carbon\Carbon::parse($booking->created_at)->addYear(),
+            ]);
+        }
+
         return back()->with('success', 'Pembayaran disetujui.');
     }
 
@@ -466,20 +515,15 @@ class PodcastRoomController extends Controller
             return back()->with('error', 'Durasi tidak valid. Silakan hubungi administrator.');
         }
         
-        // ── BILLING ADJUSTMENT: Calculate rounded hours and adjusted price ────
         $billingHours = $booking->calculateBillingHours($sessionSeconds);
         $billingSeconds = $billingHours * 3600;
-        $adjustedPrice = $booking->calculateAdjustedBilling($sessionSeconds);
         
-        // Use ROUNDED billing seconds for all deductions and storage
         $prevUsed       = $booking->total_used_seconds > 0 ? $booking->total_used_seconds : ($booking->total_used_minutes * 60);
-        $newTotalUsed   = $prevUsed + $billingSeconds;  // ✅ Use rounded seconds, not actual
-        $totalSeconds   = $booking->duration * 3600;
-        $newStatus      = ($newTotalUsed >= $totalSeconds) ? 'selesai' : 'paused';
+        $newTotalUsed   = $prevUsed + $billingSeconds;
         
         $booking->update([
-            'status'             => $newStatus,
-            'total_used_seconds' => $newTotalUsed,  // ✅ Now stores rounded seconds
+            'status'             => 'paused', // Set to paused so client can check in again using remaining quota
+            'total_used_seconds' => $newTotalUsed,
             'checkout_at'        => $checkoutAt,
             'checkin_at'         => null,
         ]);
@@ -491,26 +535,22 @@ class PodcastRoomController extends Controller
             'timestamp'      => $checkoutAt,
         ]);
 
-        // ── Deduct from benefit pool + write session log (ONLY at checkout) ───
-        if ($booking->source_type === 'benefit' && $booking->benefit_id) {
-            $benefit = RoomBenefit::find($booking->benefit_id);
-            if ($benefit) {
-                // Use rounded-up billing hours for benefit deduction
-                $billingMinutes = $billingHours * 60;
-                $benefit->used_minutes = min($benefit->total_minutes, $benefit->used_minutes + $billingMinutes);
-                $benefit->save();
+        // ── Deduct from benefit pool ──────────────────────────────────────────
+        $benefit = $booking->benefit_id ? RoomBenefit::find($booking->benefit_id) : RoomBenefit::where('user_id', $booking->user_id)->first();
+        if ($benefit) {
+            $billingMinutes = $billingHours * 60;
+            $benefit->used_minutes = min($benefit->total_minutes, $benefit->used_minutes + $billingMinutes);
+            $benefit->save();
 
-                // ONE row per session — contains both checkin and checkout times
-                RoomBenefitLog::create([
-                    'benefit_id'       => $benefit->id,
-                    'room_type'        => 'podcast',
-                    'duration_minutes' => $billingMinutes,
-                    'action'           => 'checkout',
-                    'action_at'        => $checkoutAt,
-                    'checkin_at'       => $checkinAt,
-                    'checkout_at'      => $checkoutAt,
-                ]);
-            }
+            RoomBenefitLog::create([
+                'benefit_id'       => $benefit->id,
+                'room_type'        => 'podcast',
+                'duration_minutes' => $billingMinutes,
+                'action'           => 'checkout',
+                'action_at'        => $checkoutAt,
+                'checkin_at'       => $checkinAt,
+                'checkout_at'      => $checkoutAt,
+            ]);
         } else {
             // Existing: deduct UserRoomQuota if applicable
             $quota = UserRoomQuota::where('user_id', $booking->user_id)->first();
@@ -591,7 +631,7 @@ class PodcastRoomController extends Controller
     {
         if (!Auth::check()) return null;
 
-        return RoomBenefit::where('user_id', Auth::id())
+        $benefit = RoomBenefit::where('user_id', Auth::id())
             ->where('is_active', true)
             ->whereIn('type', ['podcast', 'shared'])   // podcast-specific benefit
             ->where(function ($q) {
@@ -601,5 +641,35 @@ class PodcastRoomController extends Controller
             ->whereRaw('used_minutes < total_minutes')
             ->latest()
             ->first();
+
+        if ($benefit) {
+            return $benefit;
+        }
+
+        // Check if user has an approved standalone package purchase (e.g. 60 Jam) in PodcastRoomBooking
+        $packageBooking = PodcastRoomBooking::where('user_id', Auth::id())
+            ->whereIn('payment_status', ['approved'])
+            ->where('status', '!=', 'rejected')
+            ->where(function($q) {
+                $q->whereNull('date')->orWhere('duration', '>=', 10);
+            })
+            ->latest()
+            ->first();
+
+        if ($packageBooking && $packageBooking->remaining_seconds > 0) {
+            return RoomBenefit::firstOrCreate([
+                'user_id'  => Auth::id(),
+                'order_id' => $packageBooking->id,
+                'type'     => 'podcast',
+            ], [
+                'paket'         => 'Paket Podcast Room (' . ($packageBooking->duration ?: 60) . ' Jam)',
+                'total_minutes' => ($packageBooking->duration ?: 60) * 60,
+                'used_minutes'  => round($packageBooking->used_seconds / 60),
+                'is_active'     => true,
+                'expired_at'    => \Carbon\Carbon::parse($packageBooking->created_at)->addYear(),
+            ]);
+        }
+
+        return null;
     }
 }

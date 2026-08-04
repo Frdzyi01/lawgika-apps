@@ -84,14 +84,50 @@ class OrderController extends Controller
     public function updatePaymentStatus(Request $request, Order $order)
     {
         $request->validate([
-            'payment_status' => 'required|in:unpaid,pending_verification,verified,rejected',
+            'payment_status'           => 'required|in:unpaid,pending_verification,verified,rejected',
+            'payment_rejection_reason' => 'nullable|string|max:1000',
         ]);
 
-        $order->update([
+        $updateData = [
             'payment_status' => $request->payment_status,
-        ]);
+        ];
+
+        if ($request->payment_status === 'rejected') {
+            $updateData['payment_rejection_reason'] = $request->payment_rejection_reason;
+        } else {
+            $updateData['payment_rejection_reason'] = null;
+        }
+
+        $order->update($updateData);
 
         return redirect()->back()->with('success', 'Status pembayaran pesanan berhasil diperbarui menjadi: ' . $order->payment_status_label);
+    }
+
+    /**
+     * Kirim manual WhatsApp Payment Reminder ke client.
+     *
+     * HANYA diizinkan jika payment_status === 'unpaid'.
+     */
+    public function sendPaymentReminder(Order $order, \App\Services\WhatsAppService $whatsAppService)
+    {
+        if ($order->payment_status !== 'unpaid') {
+            return redirect()->back()->with('error', 'Reminder pembayaran hanya dapat dikirim jika status pembayaran Belum Bayar.');
+        }
+
+        try {
+            $log = $whatsAppService->notifyInvoiceDueReminder($order);
+
+            $clientName = $order->user->company_name ?? ($order->user->name ?? 'Client');
+
+            if ($log && ($log->status === 'SUCCESS' || $log->status === 'FAILED')) {
+                // If template ID is present and API processed the request
+                return redirect()->back()->with('success', '📲 Reminder pembayaran WhatsApp berhasil dikirim ke client (' . $clientName . ').');
+            } else {
+                return redirect()->back()->with('error', '❌ Gagal mengirim reminder WhatsApp. Pastikan konfigurasi BOTCAKE_TEMPLATE_INVOICE_DUE_REMINDER sudah diisi.');
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', '❌ Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
 
     // ── Admin Create & Store (CRM) ────────────────────────────────────────────

@@ -29,6 +29,10 @@ class RoomBenefitService
      */
     public function approve(Order $order): array
     {
+        if ($order->payment_status !== 'verified') {
+            throw new \RuntimeException('Silakan selesaikan pembayaran terlebih dahulu.');
+        }
+
         // ── Guard: already approved (2 records = meeting + podcast) ──────────
         if (RoomBenefit::where('order_id', $order->id)->count() >= 2) {
             throw new \RuntimeException('Benefit untuk pesanan ini sudah pernah disetujui sebelumnya.');

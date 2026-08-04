@@ -472,6 +472,12 @@
                 </div>
                 @endif
 
+                @if($order->payment_status === 'rejected' && $order->payment_rejection_reason)
+                <div class="alert alert-danger py-2 px-3 mb-3" style="font-size:.85rem; border-radius:8px">
+                    <strong><i class="fa fa-circle-xmark me-1"></i>Pembayaran Ditolak:</strong> {{ $order->payment_rejection_reason }}
+                </div>
+                @endif
+
                 @if(!in_array($order->payment_status, ['verified']))
                 <form action="{{ route('customer.orders.payment-proof', $order->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf

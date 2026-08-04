@@ -29,42 +29,66 @@ class AppServiceProvider extends ServiceProvider
         }
 
         View::composer('layouts-admin.admin', function ($view) {
+            $pendingMeetings = MeetingRoomBooking::where('status', 'pending')
+                ->latest()->take(5)->get()->map(function($item) {
+                    return [
+                        'title' => '⚡ Pengajuan Reservasi Meeting Room',
+                        'time'  => $item->updated_at ?? $item->created_at,
+                        'url'   => url('admin/meeting-room'),
+                        'icon'  => 'business-outline',
+                        'color' => 'warning',
+                        'desc'  => ($item->name ?? 'Client') . ' mengajukan reservasi ' . ($item->date ? \Carbon\Carbon::parse($item->date)->format('d M Y') : '')
+                    ];
+                });
+
+            $pendingPodcasts = PodcastRoomBooking::where('status', 'pending')
+                ->latest()->take(5)->get()->map(function($item) {
+                    return [
+                        'title' => '⚡ Pengajuan Reservasi Podcast',
+                        'time'  => $item->updated_at ?? $item->created_at,
+                        'url'   => url('admin/podcast-room'),
+                        'icon'  => 'mic-outline',
+                        'color' => 'warning',
+                        'desc'  => ($item->name ?? 'Client') . ' mengajukan reservasi ' . ($item->date ? \Carbon\Carbon::parse($item->date)->format('d M Y') : '')
+                    ];
+                });
+
             $orders = Order::latest()->take(5)->get()->map(function($item) {
                 return [
                     'title' => 'Layanan: ' . ($item->service_name ?? 'Order Baru'),
-                    'time' => $item->created_at,
-                    'url' => url('admin/orders/' . $item->id),
-                    'icon' => 'cart-outline',
+                    'time'  => $item->created_at,
+                    'url'   => url('admin/orders/' . $item->id),
+                    'icon'  => 'cart-outline',
                     'color' => 'primary',
-                    'desc' => $item->name . ' (' . $item->order_number . ')'
+                    'desc'  => $item->name . ' (' . $item->order_number . ')'
                 ];
             });
 
             $podcasts = PodcastRoomBooking::latest()->take(5)->get()->map(function($item) {
                 return [
                     'title' => 'Podcast Room',
-                    'time' => $item->created_at,
-                    'url' => url('admin/podcast-room?search=' . $item->id),
-                    'icon' => 'mic-outline',
-                    'color' => 'success',
-                    'desc' => $item->name . ' (' . ($item->order_number ?? '#'.$item->id) . ')'
+                    'time'  => $item->created_at,
+                    'url'   => url('admin/podcast-room?search=' . $item->id),
+                    'icon'  => 'mic-outline',
+                    'color' => 'info',
+                    'desc'  => $item->name . ' (' . ($item->order_number ?? '#'.$item->id) . ')'
                 ];
             });
 
             $meetings = MeetingRoomBooking::latest()->take(5)->get()->map(function($item) {
                 return [
                     'title' => 'Meeting Room',
-                    'time' => $item->created_at,
-                    'url' => url('admin/meeting-room?search=' . $item->id),
-                    'icon' => 'business-outline',
+                    'time'  => $item->created_at,
+                    'url'   => url('admin/meeting-room?search=' . $item->id),
+                    'icon'  => 'business-outline',
                     'color' => 'info',
-                    'desc' => $item->name . ' (#' . $item->id . ')'
+                    'desc'  => $item->name . ' (#' . $item->id . ')'
                 ];
             });
 
-            $notifications = $orders->concat($podcasts)->concat($meetings)
+            $notifications = $pendingMeetings->concat($pendingPodcasts)->concat($orders)->concat($podcasts)->concat($meetings)
                                    ->sortByDesc('time')
-                                   ->take(5);
+                                   ->take(10);
 
             $view->with('admin_notifications', $notifications);
         });

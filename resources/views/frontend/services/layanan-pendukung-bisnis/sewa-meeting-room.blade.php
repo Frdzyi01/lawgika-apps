@@ -1211,13 +1211,15 @@
     }
 
     function showNoBenefitAlert() {
-        const titleText = window.LwI18n ? window.LwI18n.t('meeting.modal.denied_title') : 'Akses Ditolak';
-        const bodyText = window.LwI18n ? window.LwI18n.t('meeting.modal.denied_text') : 'Anda tidak memiliki Paket Badan Usaha aktif (Benefit dari Pendirian PT). Silakan Beli Paket Meeting Room terlebih dahulu.';
+        const titleText = window.LwI18n ? window.LwI18n.t('meeting.modal.denied_title') : 'Reservasi Tidak Dapat Dilakukan';
+        const bodyText = window.LwI18n ? window.LwI18n.t('meeting.modal.denied_text') : 'Anda belum memiliki Paket Benefit Meeting Room yang aktif. Silakan membeli Paket Meeting Room terlebih dahulu atau menghubungi tim Lawgika apabila Anda merasa sudah memiliki benefit.';
+        const btnText = window.LwI18n ? (window.LwI18n.t('meeting.modal.denied_button') || 'Mengerti') : 'Mengerti';
         if (typeof Swal !== 'undefined') {
             Swal.fire({
                 icon: 'warning',
                 title: titleText,
                 text: bodyText,
+                confirmButtonText: btnText,
                 confirmButtonColor: '#4e0516'
             });
         } else {

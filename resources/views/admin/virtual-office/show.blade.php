@@ -116,7 +116,10 @@
             </div>
             <div class="card-body">
                 @php
-                $allStatuses = ['draft','waiting_verification','revision','verified','pending','approved','processing','completed','cancelled','rejected'];
+                $selectStatuses = [
+                    'draft'     => 'Dokumen Belum Lengkap',
+                    'completed' => 'Dokumen Terverifikasi',
+                ];
                 $badge = App\Models\Order::STATUS_MAP[$vo->status]['color'] ?? 'secondary';
                 $label = App\Models\Order::STATUS_MAP[$vo->status]['label'] ?? ucfirst($vo->status);
                 @endphp
@@ -126,9 +129,9 @@
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Ubah Status</label>
                         <select name="status" class="form-select">
-                            @foreach($allStatuses as $s)
-                            <option value="{{ $s }}" {{ $vo->status == $s ? 'selected' : '' }}>
-                                {{ App\Models\Order::STATUS_MAP[$s]['label'] ?? ucfirst($s) }}
+                            @foreach($selectStatuses as $val => $lbl)
+                            <option value="{{ $val }}" {{ ($vo->status == $val || ($val == 'completed' && in_array($vo->status, ['verified', 'completed', 'approved']))) ? 'selected' : '' }}>
+                                {{ $lbl }}
                             </option>
                             @endforeach
                         </select>

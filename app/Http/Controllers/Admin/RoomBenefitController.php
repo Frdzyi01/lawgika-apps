@@ -26,6 +26,12 @@ class RoomBenefitController extends Controller
      */
     public function approve(Order $order): RedirectResponse
     {
+        if ($order->payment_status !== 'verified') {
+            return redirect()
+                ->back()
+                ->with('error', 'Silakan selesaikan pembayaran terlebih dahulu.');
+        }
+
         try {
             $this->benefitService->approve($order);
 

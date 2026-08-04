@@ -173,24 +173,54 @@
             </div>
             <div class="card-body px-4 pb-4">
                 @if($order->payment_proof)
-                <div class="mb-3">
-                    <a href="{{ asset('storage/' . $order->payment_proof) }}" target="_blank" class="btn btn-outline-primary btn-sm">
-                        <i class="fa fa-eye me-1"></i>Lihat Bukti Pembayaran
+                <div class="mb-3 text-center p-3 bg-light rounded border">
+                    <a href="{{ asset('storage/' . $order->payment_proof) }}" target="_blank" title="Klik untuk membuka gambar ukuran penuh">
+                        <img src="{{ asset('storage/' . $order->payment_proof) }}" alt="Bukti Pembayaran"
+                            class="img-fluid rounded shadow-sm mb-2"
+                            style="max-height: 250px; object-fit: contain; border: 1px solid #e2e8f0; background: #fff;">
                     </a>
+                    <div>
+                        <a href="{{ asset('storage/' . $order->payment_proof) }}" target="_blank" class="btn btn-outline-primary btn-sm">
+                            <i class="fa fa-external-link-alt me-1"></i>Lihat Gambar Ukuran Penuh
+                        </a>
+                    </div>
                 </div>
                 @else
-                <p class="text-muted mb-3">Belum ada bukti pembayaran.</p>
+                <p class="text-muted mb-3"><i class="fas fa-info-circle me-1"></i>Belum ada bukti pembayaran.</p>
                 @endif
-                <form action="{{ route('admin.orders.payment-status', $order->id) }}" method="POST" class="d-flex align-items-center gap-2">
+                <form action="{{ route('admin.orders.payment-status', $order->id) }}" method="POST" id="payment_status_form">
                     @csrf
-                    <label class="fw-semibold mb-0" style="white-space:nowrap">Ubah Status:</label>
-                    <select name="payment_status" class="form-select form-select-sm" style="max-width:200px">
-                        @foreach(App\Models\Order::PAYMENT_STATUSES as $key => $data)
-                        <option value="{{ $key }}" {{ $order->payment_status == $key ? 'selected' : '' }}>{{ $data['label'] }}</option>
-                        @endforeach
-                    </select>
-                    <button type="submit" class="btn btn-sm btn-primary">Simpan</button>
+                    <div class="d-flex align-items-center gap-2 flex-wrap">
+                        <label class="fw-semibold mb-0" style="white-space:nowrap">Ubah Status:</label>
+                        <select name="payment_status" id="payment_status_select" class="form-select form-select-sm" style="max-width:230px">
+                            @foreach(App\Models\Order::PAYMENT_STATUSES as $key => $data)
+                            <option value="{{ $key }}" {{ $order->payment_status == $key ? 'selected' : '' }}>{{ $data['label'] }}</option>
+                            @endforeach
+                        </select>
+                        <button type="submit" class="btn btn-sm btn-primary">Simpan</button>
+
+                        {{-- Button: Reminder to WA Client (Tampil jika dropdown = 'unpaid', sembunyi jika 'verified'/'rejected') --}}
+                        <button type="button" id="payment_reminder_btn" class="btn btn-sm btn-warning text-dark fw-semibold"
+                            data-bs-toggle="modal" data-bs-target="#paymentReminderModal" title="Kirim Reminder Pembayaran via WhatsApp"
+                            style="{{ ($order->payment_status === 'unpaid') ? '' : 'display:none;' }}">
+                            <i class="fa-brands fa-whatsapp me-1"></i>Reminder to WA Client
+                        </button>
+                    </div>
+
+                    {{-- Form Note saat Pembayaran Ditolak --}}
+                    <div id="payment_rejection_note_container" class="mt-3" style="{{ ($order->payment_status === 'rejected' || old('payment_status') === 'rejected') ? '' : 'display:none;' }}">
+                        <label class="form-label fw-semibold text-danger small mb-1">
+                            <i class="fa fa-pen me-1"></i>Catatan Penolakan Pembayaran:
+                        </label>
+                        <textarea name="payment_rejection_reason" id="payment_rejection_reason_input" class="form-control form-control-sm" rows="2" placeholder="Contoh: Nominal transfer salah / tidak sesuai, bukti transfer tidak terbaca...">{{ old('payment_rejection_reason', $order->payment_rejection_reason) }}</textarea>
+                    </div>
                 </form>
+
+                @if($order->payment_status === 'rejected' && $order->payment_rejection_reason)
+                <div class="alert alert-danger py-2 px-3 mt-3 mb-0" style="font-size:.85rem; border-radius:8px">
+                    <strong><i class="fa fa-circle-xmark me-1"></i>Catatan Penolakan:</strong> {{ $order->payment_rejection_reason }}
+                </div>
+                @endif
             </div>
         </div>
 
@@ -224,34 +254,17 @@
                             <code style="font-size:.72rem;color:#6b7280">{{ $req->document_type }}</code>
                         </div>
                         <span class="badge {{ $fulfilled ? 'bg-success' : 'bg-secondary' }}" style="font-size:.72rem; color: #fff !important;">
-                            {{ $approved }}/{{ $req->min_required }} approved
+                            {{ $approved }}/{{ $req->min_required }} Disetujui
                         </span>
                     </div>
 
                     @if($docs->count() > 0)
                     @foreach($docs as $doc)
-                    @php
-                    $sc = match($doc->status) {
-                    'approved','verified' => 'success',
-                    'rejected' => 'danger',
-                    default => 'warning',
-                    };
-                    $sl = match($doc->status) {
-                    'approved','verified' => 'Disetujui',
-                    'rejected' => 'Ditolak',
-                    default => 'Menunggu',
-                    };
-                    $si = match($doc->status) {
-                    'approved','verified' => 'fa-circle-check',
-                    'rejected' => 'fa-circle-xmark',
-                    default => 'fa-clock',
-                    };
-                    @endphp
                     <div class="doc-file-row">
                         <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
                             {{-- File info --}}
                             <div class="d-flex align-items-center gap-2">
-                                <i class="fa {{ $si }} text-{{ $sc }}"></i>
+                                <i class="fa {{ match($doc->status) { 'approved','verified' => 'fa-circle-check text-success', 'rejected' => 'fa-circle-xmark text-danger', default => 'fa-clock text-warning' } }}"></i>
                                 <div>
                                     <a href="{{ asset('storage/' . $doc->path) }}" target="_blank"
                                         class="fw-semibold text-decoration-none text-body" style="font-size:.88rem">
@@ -265,41 +278,44 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- Actions --}}
+
+                            {{-- Professional Action Buttons & Badges --}}
                             <div class="d-flex align-items-center gap-2 flex-wrap">
-                                <span class="badge bg-{{ $sc }}" style="font-size:.72rem; color: {{ $sc === 'warning' ? '#000' : '#fff' }} !important;">
-                                    <i class="fa {{ $si }} me-1"></i>{{ $sl }}
-                                </span>
-
-                                {{-- Approve --}}
-                                @if(!in_array($doc->status, ['approved','verified']))
-                                <form action="{{ route('admin.documents.approve', $doc->id) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    <button type="submit" class="btn btn-success btn-sm"
-                                        onclick="return confirm('Approve dokumen ini?')" title="Approve">
-                                        <i class="fa fa-check me-1"></i>Approve
+                                @if(in_array($doc->status, ['approved', 'verified']))
+                                    <span class="badge bg-success px-2.5 py-1.5" style="font-size:.78rem; color:#fff !important;">
+                                        <i class="fa fa-circle-check me-1"></i>Disetujui
+                                    </span>
+                                    <button type="button" class="btn btn-outline-danger btn-sm px-2.5 py-1" style="font-size:.78rem;"
+                                        onclick="openRejectModal('{{ route('admin.documents.reject', $doc->id) }}', '{{ addslashes($doc->original_name) }}')"
+                                        title="Tolak Dokumen">
+                                        <i class="fa fa-xmark me-1"></i>Tolak
                                     </button>
-                                </form>
-                                @endif
-
-                                {{-- Reject (modal) --}}
-                                @if($doc->status !== 'rejected')
-                                <button type="button" class="btn btn-danger btn-sm"
-                                    onclick="openRejectModal('{{ route('admin.documents.reject', $doc->id) }}', '{{ addslashes($doc->original_name) }}')"
-                                    title="Reject">
-                                    <i class="fa fa-xmark me-1"></i>Reject
-                                </button>
-                                @endif
-
-                                {{-- Reset --}}
-                                @if(in_array($doc->status, ['approved','verified','rejected']))
-                                <form action="{{ route('admin.documents.reset', $doc->id) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    <button type="submit" class="btn btn-outline-secondary btn-sm"
-                                        onclick="return confirm('Reset ke pending?')" title="Reset">
-                                        <ion-icon name="arrow-undo-outline" style="font-size: 1.1rem; vertical-align: middle;"></ion-icon>
+                                @elseif($doc->status === 'rejected')
+                                    <span class="badge bg-danger px-2.5 py-1.5" style="font-size:.78rem; color:#fff !important;">
+                                        <i class="fa fa-circle-xmark me-1"></i>Ditolak
+                                    </span>
+                                    <form action="{{ route('admin.documents.approve', $doc->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        <button type="submit" class="btn btn-success btn-sm px-2.5 py-1" style="font-size:.78rem;"
+                                            onclick="return confirm('Setujui dokumen ini?')">
+                                            <i class="fa fa-check me-1"></i>Setujui
+                                        </button>
+                                    </form>
+                                @else
+                                    <span class="badge bg-warning text-dark px-2.5 py-1.5" style="font-size:.78rem;">
+                                        <i class="fa fa-clock me-1"></i>Menunggu Verifikasi
+                                    </span>
+                                    <form action="{{ route('admin.documents.approve', $doc->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        <button type="submit" class="btn btn-success btn-sm px-2.5 py-1" style="font-size:.78rem;"
+                                            onclick="return confirm('Setujui dokumen ini?')">
+                                            <i class="fa fa-check me-1"></i>Setujui
+                                        </button>
+                                    </form>
+                                    <button type="button" class="btn btn-outline-danger btn-sm px-2.5 py-1" style="font-size:.78rem;"
+                                        onclick="openRejectModal('{{ route('admin.documents.reject', $doc->id) }}', '{{ addslashes($doc->original_name) }}')">
+                                        <i class="fa fa-xmark me-1"></i>Tolak
                                     </button>
-                                </form>
                                 @endif
                             </div>
                         </div>
@@ -347,20 +363,42 @@
                                     <i class="fa fa-eye"></i> Lihat
                                 </a>
                             </div>
-                            <div class="d-flex align-items-center gap-2">
-                                <span class="badge bg-{{ $sc }}" style="font-size:.78rem; color: {{ $sc === 'warning' ? '#000' : '#fff' }} !important;">
-                                    <i class="fa {{ $si }} me-1"></i>{{ ucfirst($doc->status) }}
-                                </span>
-                                @if(!in_array($doc->status, ['approved','verified']))
-                                <form action="{{ route('admin.documents.approve', $doc->id) }}" method="POST" class="d-inline">
-                                    @csrf<button type="submit" class="btn btn-success btn-sm" onclick="return confirm('Approve?')"><i class="fa fa-check me-1"></i>Approve</button>
-                                </form>
-                                @endif
-                                @if($doc->status !== 'rejected')
-                                <button type="button" class="btn btn-danger btn-sm"
-                                    onclick="openRejectModal('{{ route('admin.documents.reject', $doc->id) }}', '{{ addslashes($doc->original_name) }}')">
-                                    <i class="fa fa-xmark me-1"></i>Reject
-                                </button>
+                            <div class="d-flex align-items-center gap-2 flex-wrap">
+                                @if(in_array($doc->status, ['approved', 'verified']))
+                                    <span class="badge bg-success px-2.5 py-1.5" style="font-size:.78rem; color:#fff !important;">
+                                        <i class="fa fa-circle-check me-1"></i>Disetujui
+                                    </span>
+                                    <button type="button" class="btn btn-outline-danger btn-sm px-2.5 py-1" style="font-size:.78rem;"
+                                        onclick="openRejectModal('{{ route('admin.documents.reject', $doc->id) }}', '{{ addslashes($doc->original_name) }}')"
+                                        title="Tolak Dokumen">
+                                        <i class="fa fa-xmark me-1"></i>Tolak
+                                    </button>
+                                @elseif($doc->status === 'rejected')
+                                    <span class="badge bg-danger px-2.5 py-1.5" style="font-size:.78rem; color:#fff !important;">
+                                        <i class="fa fa-circle-xmark me-1"></i>Ditolak
+                                    </span>
+                                    <form action="{{ route('admin.documents.approve', $doc->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        <button type="submit" class="btn btn-success btn-sm px-2.5 py-1" style="font-size:.78rem;"
+                                            onclick="return confirm('Setujui dokumen ini?')">
+                                            <i class="fa fa-check me-1"></i>Setujui
+                                        </button>
+                                    </form>
+                                @else
+                                    <span class="badge bg-warning text-dark px-2.5 py-1.5" style="font-size:.78rem;">
+                                        <i class="fa fa-clock me-1"></i>Menunggu Verifikasi
+                                    </span>
+                                    <form action="{{ route('admin.documents.approve', $doc->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        <button type="submit" class="btn btn-success btn-sm px-2.5 py-1" style="font-size:.78rem;"
+                                            onclick="return confirm('Setujui dokumen ini?')">
+                                            <i class="fa fa-check me-1"></i>Setujui
+                                        </button>
+                                    </form>
+                                    <button type="button" class="btn btn-outline-danger btn-sm px-2.5 py-1" style="font-size:.78rem;"
+                                        onclick="openRejectModal('{{ route('admin.documents.reject', $doc->id) }}', '{{ addslashes($doc->original_name) }}')">
+                                        <i class="fa fa-xmark me-1"></i>Tolak
+                                    </button>
                                 @endif
                             </div>
                         </div>
@@ -399,20 +437,42 @@
                                     <i class="fa fa-eye"></i> Lihat
                                 </a>
                             </div>
-                            <div class="d-flex align-items-center gap-2">
-                                <span class="badge bg-{{ $sc }}" style="font-size:.78rem; color: {{ $sc === 'warning' ? '#000' : '#fff' }} !important;">
-                                    <i class="fa {{ $si }} me-1"></i>{{ ucfirst($doc->status) }}
-                                </span>
-                                @if(!in_array($doc->status, ['approved','verified']))
-                                <form action="{{ route('admin.documents.approve', $doc->id) }}" method="POST" class="d-inline">
-                                    @csrf<button type="submit" class="btn btn-success btn-sm" onclick="return confirm('Approve?')"><i class="fa fa-check me-1"></i>Approve</button>
-                                </form>
-                                @endif
-                                @if($doc->status !== 'rejected')
-                                <button type="button" class="btn btn-danger btn-sm"
-                                    onclick="openRejectModal('{{ route('admin.documents.reject', $doc->id) }}', '{{ addslashes($doc->original_name) }}')">
-                                    <i class="fa fa-xmark me-1"></i>Reject
-                                </button>
+                            <div class="d-flex align-items-center gap-2 flex-wrap">
+                                @if(in_array($doc->status, ['approved', 'verified']))
+                                    <span class="badge bg-success px-2.5 py-1.5" style="font-size:.78rem; color:#fff !important;">
+                                        <i class="fa fa-circle-check me-1"></i>Disetujui
+                                    </span>
+                                    <button type="button" class="btn btn-outline-danger btn-sm px-2.5 py-1" style="font-size:.78rem;"
+                                        onclick="openRejectModal('{{ route('admin.documents.reject', $doc->id) }}', '{{ addslashes($doc->original_name) }}')"
+                                        title="Tolak Dokumen">
+                                        <i class="fa fa-xmark me-1"></i>Tolak
+                                    </button>
+                                @elseif($doc->status === 'rejected')
+                                    <span class="badge bg-danger px-2.5 py-1.5" style="font-size:.78rem; color:#fff !important;">
+                                        <i class="fa fa-circle-xmark me-1"></i>Ditolak
+                                    </span>
+                                    <form action="{{ route('admin.documents.approve', $doc->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        <button type="submit" class="btn btn-success btn-sm px-2.5 py-1" style="font-size:.78rem;"
+                                            onclick="return confirm('Setujui dokumen ini?')">
+                                            <i class="fa fa-check me-1"></i>Setujui
+                                        </button>
+                                    </form>
+                                @else
+                                    <span class="badge bg-warning text-dark px-2.5 py-1.5" style="font-size:.78rem;">
+                                        <i class="fa fa-clock me-1"></i>Menunggu Verifikasi
+                                    </span>
+                                    <form action="{{ route('admin.documents.approve', $doc->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        <button type="submit" class="btn btn-success btn-sm px-2.5 py-1" style="font-size:.78rem;"
+                                            onclick="return confirm('Setujui dokumen ini?')">
+                                            <i class="fa fa-check me-1"></i>Setujui
+                                        </button>
+                                    </form>
+                                    <button type="button" class="btn btn-outline-danger btn-sm px-2.5 py-1" style="font-size:.78rem;"
+                                        onclick="openRejectModal('{{ route('admin.documents.reject', $doc->id) }}', '{{ addslashes($doc->original_name) }}')">
+                                        <i class="fa fa-xmark me-1"></i>Tolak
+                                    </button>
                                 @endif
                             </div>
                         </div>
@@ -440,7 +500,10 @@
             </div>
             <div class="card-body px-4 pb-4">
                 @php
-                $allStatuses = ['draft','waiting_verification','revision','verified','pending','approved','processing','completed','cancelled','rejected'];
+                $selectStatuses = [
+                    'draft'     => 'Dokumen Belum Lengkap',
+                    'completed' => 'Dokumen Terverifikasi',
+                ];
                 $badge = App\Models\Order::STATUS_MAP[$order->status]['color'] ?? 'secondary';
                 $label = App\Models\Order::STATUS_MAP[$order->status]['label'] ?? ucfirst($order->status);
                 @endphp
@@ -450,9 +513,9 @@
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Ubah Status</label>
                         <select name="status" class="form-select">
-                            @foreach($allStatuses as $s)
-                            <option value="{{ $s }}" {{ $order->status == $s ? 'selected' : '' }}>
-                                {{ App\Models\Order::STATUS_MAP[$s]['label'] ?? ucfirst($s) }}
+                            @foreach($selectStatuses as $val => $lbl)
+                            <option value="{{ $val }}" {{ ($order->status == $val || ($val == 'completed' && in_array($order->status, ['verified', 'completed', 'approved']))) ? 'selected' : '' }}>
+                                {{ $lbl }}
                             </option>
                             @endforeach
                         </select>
@@ -517,6 +580,17 @@
                         </div>
                     </div>
                 </div>
+                @elseif($order->payment_status !== 'verified')
+                <div class="mb-2">
+                    <button type="button" class="btn btn-secondary w-100 opacity-75"
+                        onclick="alert('Silakan selesaikan pembayaran terlebih dahulu (Ubah status pembayaran menjadi Pembayaran Terverifikasi).')">
+                        <i class="fa fa-lock me-1"></i>Approve Benefit
+                    </button>
+                    <div class="alert alert-warning py-2 px-3 mt-2 mb-0" style="font-size:.82rem; border-radius:8px">
+                        <i class="fa fa-triangle-exclamation me-1"></i><strong>Pembayaran Belum Terverifikasi</strong><br>
+                        Silakan selesaikan pembayaran terlebih dahulu untuk mengaktifkan benefit ruangan.
+                    </div>
+                </div>
                 @else
                 <form action="{{ route('admin.orders.approve-benefit', $order->id) }}" method="POST">
                     @csrf
@@ -547,6 +621,72 @@
     </div>
 </div>
 
+{{-- Modal Konfirmasi Reminder WA Pembayaran --}}
+@php
+    $modalClientName  = $order->user->company_name ?? ($order->form_data['company_name'] ?? ($order->user->name ?? 'Client'));
+    $modalClientPhone = $order->user->phone ?? ($order->form_data['pic_phone'] ?? '-');
+    $modalServiceName = $order->service_name ?? ($order->service->name ?? '-');
+    $modalCreatedAt   = $order->created_at ? \Carbon\Carbon::parse($order->created_at) : now();
+    $modalDueDate     = $modalCreatedAt->addDays(3)->translatedFormat('d F Y');
+    $modalPpnData     = \App\Helpers\PpnHelper::calculate($order->total_price);
+    $modalGrandTotal  = 'Rp ' . number_format($modalPpnData['grand_total'], 0, ',', '.');
+@endphp
+<div class="modal fade" id="paymentReminderModal" tabindex="-1" aria-labelledby="paymentReminderModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header bg-warning bg-opacity-10 border-0 pt-4 px-4">
+                <h5 class="modal-title fw-bold text-dark" id="paymentReminderModalLabel">
+                    <i class="fa-brands fa-whatsapp text-success me-2"></i>Reminder Pembayaran
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body px-4 py-3">
+                <p class="text-muted small mb-3">Anda akan mengirimkan Reminder Pembayaran via WhatsApp kepada client berikut:</p>
+                <div class="bg-light rounded-3 p-3 mb-3 border">
+                    <table class="table table-borderless table-sm mb-0 text-body small">
+                        <tr>
+                            <td class="text-muted" width="40%">Nama Client</td>
+                            <td class="fw-bold">: {{ $modalClientName }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted">Nomor WhatsApp</td>
+                            <td class="fw-bold">: {{ $modalClientPhone }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted">Nomor Invoice</td>
+                            <td class="fw-bold">: {{ $order->order_number }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted">Nama Layanan</td>
+                            <td class="fw-bold">: {{ $modalServiceName }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted">Tanggal Jatuh Tempo</td>
+                            <td class="fw-bold">: {{ $modalDueDate }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted">Total Tagihan</td>
+                            <td class="fw-bold text-primary">: {{ $modalGrandTotal }}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="alert alert-info py-2 px-3 mb-0 small" style="font-size:.8rem;">
+                    <i class="fa fa-circle-info me-1"></i>Pesan WhatsApp akan dikirimkan otomatis menggunakan Botcake Official WABA API.
+                </div>
+            </div>
+            <div class="modal-footer bg-light border-0 px-4 pb-4 pt-2">
+                <button type="button" class="btn btn-secondary btn-sm px-3" data-bs-dismiss="modal">Batal</button>
+                <form action="{{ route('admin.orders.send-payment-reminder', $order->id) }}" method="POST" class="d-inline">
+                    @csrf
+                    <button type="submit" class="btn btn-warning btn-sm fw-bold text-dark px-3">
+                        <i class="fa fa-paper-plane me-1"></i>Kirim Reminder
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 @push('scripts')
 <script>
     function openRejectModal(url, docName) {
@@ -554,6 +694,41 @@
         document.getElementById('rejectDocName').textContent = docName;
         new bootstrap.Modal(document.getElementById('rejectModal')).show();
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const paymentSelect = document.getElementById('payment_status_select');
+        const rejectionContainer = document.getElementById('payment_rejection_note_container');
+        const rejectionInput = document.getElementById('payment_rejection_reason_input');
+        const waReminderBtn = document.getElementById('payment_reminder_btn');
+
+        if (paymentSelect) {
+            function updatePaymentUI() {
+                const val = paymentSelect.value;
+
+                // Rejection note container
+                if (rejectionContainer) {
+                    if (val === 'rejected') {
+                        rejectionContainer.style.display = 'block';
+                        if (rejectionInput) rejectionInput.focus();
+                    } else {
+                        rejectionContainer.style.display = 'none';
+                    }
+                }
+
+                // WA Reminder button (Tampil jika Belum Bayar/unpaid, sembunyi jika terverifikasi/ditolak/lainnya)
+                if (waReminderBtn) {
+                    if (val === 'unpaid') {
+                        waReminderBtn.style.display = 'inline-block';
+                    } else {
+                        waReminderBtn.style.display = 'none';
+                    }
+                }
+            }
+
+            paymentSelect.addEventListener('change', updatePaymentUI);
+            updatePaymentUI(); // Initial run on page load
+        }
+    });
 </script>
 @endpush
 @endsection

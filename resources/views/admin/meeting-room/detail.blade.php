@@ -16,24 +16,39 @@
                 <div class="card-body">
                     <table class="table table-borderless">
                         <tr>
-                            <td class="text-muted">Nama Pemesan / User</td>
-                            <td class="fw-bold">{{ $booking->user ? $booking->user->name : $booking->name }}</td>
+                            <td class="text-muted" style="width: 40%">Nama Pemesan / User</td>
+                            <td class="fw-bold">{{ $booking->user ? $booking->user->name : ($booking->name ?? '-') }}</td>
                         </tr>
                         <tr>
-                            <td class="text-muted">Nama Perusahaan</td>
-                            <td class="fw-bold">{{ $booking->nama_perusahaan ?? '-' }}</td>
+                            <td class="text-muted">Nomor HP / WhatsApp</td>
+                            <td class="fw-bold">
+                                @php
+                                    $phone = $booking->phone ?? ($booking->user->phone ?? ($booking->order->phone ?? null));
+                                @endphp
+                                @if($phone)
+                                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $phone) }}" target="_blank" class="text-success text-decoration-none fw-bold">
+                                        <i class="fab fa-whatsapp me-1"></i> {{ $phone }}
+                                    </a>
+                                @else
+                                    <span class="text-muted">-</span>
+                                @endif
+                            </td>
                         </tr>
                         <tr>
                             <td class="text-muted">Alamat Email</td>
-                            <td class="fw-bold">{{ $booking->email ?? '-' }}</td>
+                            <td class="fw-bold">{{ $booking->email ?? ($booking->user->email ?? '-') }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted">Nama Perusahaan</td>
+                            <td class="fw-bold">{{ $booking->nama_perusahaan ?? ($booking->user->company_name ?? '-') }}</td>
                         </tr>
                         <tr>
                             <td class="text-muted">Alamat Aktivitas Usaha</td>
-                            <td class="fw-bold">{{ $booking->alamat_usaha ?? '-' }}</td>
+                            <td class="fw-bold">{{ $booking->alamat_usaha ?? ($booking->user->address ?? '-') }}</td>
                         </tr>
                         <tr>
                             <td class="text-muted">Bidang Usaha</td>
-                            <td class="fw-bold">{{ $booking->bidang_usaha ?? '-' }}</td>
+                            <td class="fw-bold">{{ $booking->bidang_usaha ?? ($booking->user->business_type ?? '-') }}</td>
                         </tr>
                         <tr>
                             <td class="text-muted">Keperluan</td>
@@ -68,9 +83,9 @@
             </div>
         </div>
 
-        <!-- Pemakaian Waktu -->
-        <div class="col-lg-6 mb-4">
-            <div class="card shadow h-100">
+        <!-- Pemakaian Waktu & Bukti Pembayaran -->
+        <div class="col-lg-6 mb-4 d-flex flex-column gap-4">
+            <div class="card shadow">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Pemakaian Waktu</h6>
                 </div>
@@ -92,6 +107,74 @@
                         <span class="fw-bold {{ $text_class }} remaining-time-display" data-status="{{ $booking->status }}" data-remaining="{{ $booking->remaining_seconds }}">{{ $sisa }}</span>
                     </div>
                 </div>
+            </div>
+
+            <!-- Bukti Pembayaran -->
+            @php
+                $proofPath = $booking->payment_proof ?? ($booking->order ? $booking->order->payment_proof : null);
+            @endphp
+            <div class="card shadow">
+                <div class="card-header py-3 d-flex align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-receipt me-1"></i> Bukti Pembayaran</h6>
+                    @if($proofPath)
+                        <span class="badge bg-success" style="color:#fff !important;"><i class="fas fa-check-circle me-1"></i> Terunggah</span>
+                    @else
+                        <span class="badge bg-secondary" style="color:#fff !important;">Belum Diunggah</span>
+                    @endif
+                </div>
+                <div class="card-body">
+                    @if($proofPath)
+                        <div class="text-center p-3 bg-light rounded border">
+                            <a href="{{ asset('storage/' . $proofPath) }}" target="_blank" title="Klik untuk membuka gambar ukuran penuh">
+                                <img src="{{ asset('storage/' . $proofPath) }}" alt="Bukti Pembayaran"
+                                    class="img-fluid rounded shadow-sm"
+                                    style="max-height: 280px; object-fit: contain; border: 1px solid #e2e8f0; background: #fff;">
+                            </a>
+                            <div class="mt-3">
+                                <a href="{{ asset('storage/' . $proofPath) }}" target="_blank" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-external-link-alt me-1"></i> Lihat Gambar Ukuran Penuh
+                                </a>
+                            </div>
+                        </div>
+                    @else
+                        <p class="text-muted text-center my-3"><i class="fas fa-info-circle me-1"></i> Client belum mengunggah bukti pembayaran untuk reservasi ini.</p>
+                    @endif
+                </div>
+            </div>
+        </div>
+    <!-- Card Table Jadwal Pengajuan Reservasi -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex justify-content-between align-items-center">
+            <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-calendar-alt me-1"></i> Jadwal Pengajuan Reservasi</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Tanggal Reservasi</th>
+                            <th>Jam Mulai</th>
+                            <th>Durasi Sesi</th>
+                            <th>Jumlah Peserta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if($booking->date && $booking->start_time)
+                            <tr>
+                                <td class="fw-bold text-dark">{{ \Carbon\Carbon::parse($booking->date)->format('d M Y') }}</td>
+                                <td class="fw-bold text-primary">{{ substr($booking->start_time, 0, 5) }} WIB</td>
+                                <td>1 Sesi ({{ $booking->duration }} Jam)</td>
+                                <td>{{ $booking->participants ?? 1 }} Orang</td>
+                            </tr>
+                        @else
+                            <tr>
+                                <td colspan="4" class="text-center py-4 text-muted">
+                                    <i class="fas fa-info-circle me-1"></i> Client belum mengajukan jadwal tanggal & jam reservasi.
+                                </td>
+                            </tr>
+                        @endif
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

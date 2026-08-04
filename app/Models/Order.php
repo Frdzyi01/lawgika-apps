@@ -36,11 +36,11 @@ class Order extends Model
         'waiting_verification'=> ['label' => 'Menunggu Verifikasi',        'color' => 'warning'],
         'revision'            => ['label' => 'Perlu Revisi Dokumen',       'color' => 'danger'],
         'verified'            => ['label' => 'Dokumen Terverifikasi',      'color' => 'success'],
+        'completed'           => ['label' => 'Dokumen Terverifikasi',      'color' => 'success'],
         // Legacy
         'pending'             => ['label' => 'Menunggu',                   'color' => 'warning'],
         'approved'            => ['label' => 'Disetujui',                  'color' => 'success'],
         'processing'          => ['label' => 'Diproses',                   'color' => 'info'],
-        'completed'           => ['label' => 'Selesai',                    'color' => 'primary'],
         'cancelled'           => ['label' => 'Dibatalkan',                 'color' => 'secondary'],
         'rejected'            => ['label' => 'Ditolak',                    'color' => 'danger'],
     ];
@@ -48,6 +48,13 @@ class Order extends Model
     // ── Payment statuses ──────────────────────────────────────────────────────
 
     const PAYMENT_STATUSES = [
+        'unpaid'   => ['label' => 'Belum Bayar',               'color' => 'secondary'],
+        'verified' => ['label' => 'Pembayaran Terverifikasi',  'color' => 'success'],
+        'rejected' => ['label' => 'Pembayaran Ditolak',        'color' => 'danger'],
+    ];
+
+    /** Extended lookup for label resolution */
+    const ALL_PAYMENT_STATUSES = [
         'unpaid'               => ['label' => 'Belum Bayar',               'color' => 'secondary'],
         'pending_verification' => ['label' => 'Menunggu Verifikasi',       'color' => 'warning'],
         'verified'             => ['label' => 'Pembayaran Terverifikasi',  'color' => 'success'],
@@ -58,12 +65,12 @@ class Order extends Model
 
     public function getPaymentStatusLabelAttribute(): string
     {
-        return self::PAYMENT_STATUSES[$this->payment_status]['label'] ?? ucfirst($this->payment_status);
+        return self::ALL_PAYMENT_STATUSES[$this->payment_status]['label'] ?? ucfirst($this->payment_status);
     }
 
     public function getPaymentStatusColorAttribute(): string
     {
-        return self::PAYMENT_STATUSES[$this->payment_status]['color'] ?? 'secondary';
+        return self::ALL_PAYMENT_STATUSES[$this->payment_status]['color'] ?? 'secondary';
     }
 
     public function getStatusLabelAttribute(): string

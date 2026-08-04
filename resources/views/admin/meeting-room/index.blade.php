@@ -22,6 +22,71 @@
             </div>
         @endif
 
+        @if(isset($pendingReservations) && $pendingReservations->count() > 0)
+        <!-- Tabel Notifikasi Pengajuan Reservasi Baru (Tampil Hanya Jika Ada Client Yang Mengajukan Reservasi) -->
+        <div class="card border-warning shadow mb-4" style="border-left: 5px solid #ffc107;">
+            <div class="card-header py-3 bg-warning text-dark d-flex align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-dark">
+                    <i class="fas fa-bell me-2"></i> 🔔 NOTIFIKASI: Ada {{ $pendingReservations->count() }} Pengajuan Reservasi Baru!
+                </h6>
+                <span class="badge bg-dark text-white">Membutuhkan Konfirmasi Admin</span>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>No. Order</th>
+                                <th>Client</th>
+                                <th>Tanggal & Waktu yang Diajukan</th>
+                                <th>Durasi & Peserta</th>
+                                <th>Keperluan</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($pendingReservations as $p)
+                            <tr>
+                                <td class="fw-bold text-primary">#{{ $p->id }}</td>
+                                <td>
+                                    <div class="fw-bold text-dark">{{ $p->name ?? ($p->user ? $p->user->name : '-') }}</div>
+                                    <div class="small text-muted">{{ $p->email ?? '-' }}</div>
+                                </td>
+                                <td>
+                                    @if($p->date)
+                                        <div class="fw-bold text-dark"><i class="fas fa-calendar-alt me-1"></i> {{ \Carbon\Carbon::parse($p->date)->format('d M Y') }}</div>
+                                        <div class="small text-primary"><i class="fas fa-clock me-1"></i> {{ substr($p->start_time, 0, 5) }} WIB</div>
+                                    @else
+                                        <span class="badge bg-secondary">Belum Memilih Tanggal</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    <div class="fw-bold">{{ $p->duration }} Jam</div>
+                                    <div class="small text-muted">{{ $p->participants ?? 1 }} Orang</div>
+                                </td>
+                                <td>{{ $p->keperluan ?? '-' }}</td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <form action="{{ url('admin/meeting-room/' . $p->id . '/benefit-approve') }}" method="POST" class="d-inline">
+                                            @csrf
+                                            <button type="submit" class="btn btn-sm btn-success fw-bold" onclick="return confirm('Setujui pengajuan reservasi ini?')">
+                                                <i class="fas fa-check me-1"></i> Setujui Reservasi
+                                            </button>
+                                        </form>
+                                        <a href="{{ url('admin/meeting-room/' . $p->id . '/detail') }}" class="btn btn-sm btn-info">
+                                            <i class="fas fa-eye me-1"></i> Detail
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        @endif
+
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex justify-content-between align-items-center">
                 <h6 class="m-0 font-weight-bold text-primary"><ion-icon name="list-outline" class="align-middle"></ion-icon> Semua Reservasi Meeting Room</h6>
@@ -67,19 +132,19 @@
                                     {{ $b->room_name ?? 'Meeting Room Utama' }}
                                 </td>
                                 <td>
-                                    @php
-                                        $isPackage = empty($b->date) && empty($b->start_time);
-                                    @endphp
-
-                                    @if ($isPackage)
-                                        <span class="badge bg-success" style="font-size:0.9rem;">📦 Paket Meeting Room</span>
-                                    @else
+                                    @if (!empty($b->date))
                                         {{ \Carbon\Carbon::parse($b->date)->format('d M Y') }}
-                                        <small class="d-block">{{ \Carbon\Carbon::parse($b->start_time)->format('H:i') }}</small>
+                                        @if($b->start_time)
+                                            <small class="d-block">{{ \Carbon\Carbon::parse($b->start_time)->format('H:i') }}</small>
+                                        @endif
+                                    @elseif ($b->source_type === 'benefit')
+                                        <span class="badge bg-info text-dark" style="font-size:0.85rem;"><i class="fas fa-gift me-1"></i> Benefit PT (Belum Terjadwal)</span>
+                                    @else
+                                        <span class="badge bg-primary" style="font-size:0.85rem;"><i class="fas fa-box me-1"></i> Pembelian Paket ({{ $b->duration }} Jam)</span>
                                     @endif
                                 </td>
                                 <td>
-                                    @if ($isPackage)
+                                    @if (empty($b->date))
                                         -
                                     @else
                                         <span class="badge bg-secondary">{{ $b->participants ?? 1 }} Orang</span>
@@ -120,7 +185,7 @@
                                         <span class="badge bg-warning text-dark">⏳ Berhenti sementara</span>
                                     @elseif($b->status === 'selesai')
                                         <span class="badge bg-dark">✔ Selesai</span>
-                                    @elseif($b->status === 'approved')
+                                    @elseif($b->status === 'approved' || $b->payment_status === 'approved')
                                         <span class="badge bg-success">✅ Menunggu Check In</span>
                                     @elseif($b->status === 'rejected')
                                         <span class="badge bg-danger">❌ Ditolak</span>
@@ -160,7 +225,7 @@
                                             </form>
                                         @endif
 
-                                        @if($b->status === 'approved' || $b->status === 'paused')
+                                        @if(($b->status === 'approved' || $b->status === 'paused' || $b->payment_status === 'approved' || $b->source_type === 'benefit') && $b->status !== 'checkin' && $b->status !== 'selesai' && $b->status !== 'rejected')
                                             <button type="button" class="btn btn-sm btn-success w-100 fw-bold" data-bs-toggle="modal" data-bs-target="#checkinModalMR{{ $b->id }}">
                                                 <i class="fa-solid fa-right-to-bracket me-1"></i> Check In
                                             </button>

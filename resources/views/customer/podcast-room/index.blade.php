@@ -74,18 +74,15 @@
                                     <span class="badge bg-warning text-dark">⏳ Berhenti sementara</span>
                                 @elseif($b->status === 'selesai')
                                     <span class="badge bg-dark">✔ Selesai</span>
-                                @elseif($b->status === 'approved')
+                                @elseif($b->status === 'approved' || $b->payment_status === 'approved')
                                     <span class="badge bg-success">✅ Menunggu Check In</span>
-                                @elseif($b->status === 'rejected')
+                                @elseif($b->status === 'rejected' || $b->payment_status === 'rejected')
                                     <span class="badge bg-danger">❌ Ditolak</span>
                                 @elseif($b->status === 'pending')
                                     @if($b->source_type === 'benefit')
                                         <span class="badge bg-warning text-dark">⏳ Menunggu Approval</span>
                                     @else
-                                        @if($b->payment_status === 'pending')
-                                            <span class="badge bg-warning text-dark">⏳ Pending Pembayaran</span>
-                                        @else
-                                        @endif
+                                        <span class="badge bg-warning text-dark">⏳ Pending Pembayaran</span>
                                     @endif
                                 @endif
                             </td>

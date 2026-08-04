@@ -1780,6 +1780,93 @@ class WhatsAppService
         return $log;
     }
 
+    /**
+     * Notify client tentang Manual Reminder Pembayaran (Invoice Due Reminder).
+     *
+     * Menggunakan WhatsApp Template Message via Botcake Official WABA API.
+     * Template Key: invoice_due_reminder (BOTCAKE_TEMPLATE_INVOICE_DUE_REMINDER)
+     *
+     * Placeholder mapping (5 parameter):
+     *  {{1}} = Nama Client
+     *  {{2}} = Nama Layanan
+     *  {{3}} = Nomor Invoice / Order
+     *  {{4}} = Tanggal Jatuh Tempo (e.g. 07 August 2026)
+     *  {{5}} = Total Tagihan (e.g. Rp 6.438.000)
+     */
+    public function notifyInvoiceDueReminder(Order $order): ?WhatsappLog
+    {
+        $order->loadMissing(['user', 'service']);
+
+        $phone = $order->user->phone
+            ?? ($order->form_data['pic_phone'] ?? null);
+
+        if (empty($phone)) {
+            Log::warning('WhatsAppService::notifyInvoiceDueReminder - Nomor telepon kosong.', [
+                'order_id' => $order->id,
+                'user_id'  => $order->user_id,
+            ]);
+            return null;
+        }
+
+        // ── Prepare 5 template parameters ─────────────────────────────────────
+        $clientName = $order->user->company_name
+            ?? ($order->form_data['company_name'] ?? null)
+            ?? $order->user->name
+            ?? 'Client';
+
+        $serviceName = $order->service_name
+            ?? ($order->service->name ?? 'Layanan Lawgika');
+
+        $orderNumber = $order->order_number;
+
+        $createdAt = $order->created_at
+            ? \Carbon\Carbon::parse($order->created_at)
+            : now();
+        $dueDate = $createdAt->addDays(3)->translatedFormat('d F Y');
+
+        $ppnData = \App\Helpers\PpnHelper::calculate($order->total_price);
+        $totalAmount = 'Rp ' . number_format($ppnData['grand_total'], 0, ',', '.');
+
+        // ── Validate: log warning jika ada parameter kosong ───────────────────
+        $paramLabels = [
+            '{{1}} clientName'  => $clientName,
+            '{{2}} serviceName' => $serviceName,
+            '{{3}} orderNumber' => $orderNumber,
+            '{{4}} dueDate'     => $dueDate,
+            '{{5}} totalAmount' => $totalAmount,
+        ];
+
+        foreach ($paramLabels as $label => $value) {
+            if (empty($value) || $value === '-') {
+                Log::warning('WhatsAppService::notifyInvoiceDueReminder - Parameter template kosong/default.', [
+                    'parameter' => $label,
+                    'value'     => $value,
+                    'order_id'  => $order->id,
+                ]);
+            }
+        }
+
+        // ── Kirim via Botcake Official WABA API ────────────────────────────────
+        $templateId = config('services.botcake.templates.invoice_due_reminder', '');
+
+        $log = $this->sendTemplateById(
+            $phone,
+            $templateId,
+            'UTILITY',
+            [
+                $clientName,  // {{1}} Nama Client
+                $serviceName, // {{2}} Nama Layanan
+                $orderNumber, // {{3}} Nomor Invoice
+                $dueDate,     // {{4}} Tanggal Jatuh Tempo
+                $totalAmount, // {{5}} Total Tagihan
+            ],
+            $order->user_id,
+            $order->id
+        );
+
+        return $log;
+    }
+
     // ── Private: Message Builders ─────────────────────────────────────────────
 
     /**

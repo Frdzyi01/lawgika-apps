@@ -341,18 +341,32 @@
 
                         <div class="form-group">
                             <label for="payment_proof"><span data-i18n="order.upload_payment_proof">Upload Bukti Pembayaran</span> <span class="text-danger">*</span></label>
-                            <div style="border:2px dashed #e2e8f0; border-radius:10px; padding:20px; text-align:center; cursor:pointer;"
+                            <div id="dropzone_box" style="border:2px dashed #cbd5e1; border-radius:12px; padding:20px; text-align:center; cursor:pointer; background:#fafafa; transition:all 0.2s ease;"
                                 onclick="document.getElementById('payment_proof').click()">
-                                <i class="fa-solid fa-cloud-arrow-up"
-                                    style="font-size:2rem; color:var(--primary); margin-bottom:8px; display:block;"></i>
-                                <p style="color:var(--gray); margin:0; font-size:0.9rem;" data-i18n="order.upload_proof_click">Klik untuk upload bukti transfer / pembayaran</p>
-                                <p style="color:#94a3b8; margin:4px 0 0; font-size:0.8rem;" data-i18n="order.upload_proof_hint_2mb">JPG, PNG, JPEG — Maks. 2MB</p>
-                                <p id="file-name"
-                                    style="color:var(--primary); font-weight:600; margin:8px 0 0; font-size:0.9rem; display:none;">
-                                </p>
+                                
+                                {{-- Empty / Initial State --}}
+                                <div id="dropzone_default">
+                                    <i class="fa-solid fa-cloud-arrow-up"
+                                        style="font-size:2.2rem; color:var(--primary); margin-bottom:8px; display:block;"></i>
+                                    <p style="color:var(--gray); margin:0; font-size:0.9rem; font-weight:600;" data-i18n="order.upload_proof_click">Klik untuk upload bukti transfer / pembayaran</p>
+                                    <p style="color:#94a3b8; margin:4px 0 0; font-size:0.8rem;" data-i18n="order.upload_proof_hint_2mb">JPG, PNG, JPEG — Maks. 2MB</p>
+                                </div>
+
+                                {{-- Preview State --}}
+                                <div id="dropzone_preview" style="display:none;">
+                                    <div style="position:relative; display:inline-block; margin-bottom:10px;">
+                                        <img id="image_preview_img" src="" alt="Bukti Transfer" style="max-height:140px; max-width:100%; border-radius:8px; border:1px solid #e2e8f0; box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-center gap-2 flex-wrap">
+                                        <span class="badge bg-success" style="font-size:.78rem; color:#fff !important;"><i class="fa fa-circle-check me-1"></i>File Terpilih</span>
+                                        <span id="file_name_display" style="color:var(--dark); font-weight:600; font-size:0.9rem;"></span>
+                                        <span id="file_size_display" class="text-muted" style="font-size:0.8rem;"></span>
+                                    </div>
+                                    <p class="text-muted mb-0 mt-2" style="font-size:0.78rem;"><i class="fa fa-rotate me-1"></i>Klik untuk mengganti gambar</p>
+                                </div>
                             </div>
                             <input type="file" id="payment_proof" name="payment_proof"
-                                accept="image/jpg,image/jpeg,image/png" required style="display:none;"
+                                accept="image/jpeg,image/png,.jpg,.jpeg,.png" required style="display:none;"
                                 onchange="showFileName(this)">
                         </div>
                     </div>
@@ -383,10 +397,33 @@
 
     <script>
         function showFileName(input) {
-            const label = document.getElementById('file-name');
+            const defaultState = document.getElementById('dropzone_default');
+            const previewState = document.getElementById('dropzone_preview');
+            const imgPreview   = document.getElementById('image_preview_img');
+            const nameDisplay  = document.getElementById('file_name_display');
+            const sizeDisplay  = document.getElementById('file_size_display');
+            const box          = document.getElementById('dropzone_box');
+
             if (input.files && input.files[0]) {
-                label.textContent = '✅ ' + input.files[0].name;
-                label.style.display = 'block';
+                const file = input.files[0];
+                
+                if (nameDisplay) nameDisplay.textContent = file.name;
+                if (sizeDisplay) {
+                    const sizeInMB = (file.size / (1024 * 1024)).toFixed(2);
+                    sizeDisplay.textContent = `(${sizeInMB} MB)`;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    if (imgPreview) imgPreview.src = e.target.result;
+                    if (defaultState) defaultState.style.display = 'none';
+                    if (previewState) previewState.style.display = 'block';
+                    if (box) {
+                        box.style.border = '2px solid #22c55e';
+                        box.style.background = '#f0fdf4';
+                    }
+                };
+                reader.readAsDataURL(file);
             }
         }
 
@@ -394,32 +431,40 @@
         const hargaPaket = 4800000;
 
         function updateTotal() {
-            const packageType = document.getElementById('package').value;
+            const packageEl = document.getElementById('package');
+            if (!packageEl) return;
+            const packageType = packageEl.value;
             let subtotal = 0;
 
             if (packageType === 'paket') {
                 subtotal = hargaPaket;
             } else {
-                const durasi = parseInt(document.getElementById('durasi').value) || 1;
+                const durasiEl = document.getElementById('durasi');
+                const durasi = durasiEl ? (parseInt(durasiEl.value) || 1) : 1;
                 subtotal = durasi * hargaPerJam;
             }
             
             const ppn = Math.round(subtotal * 0.11);
             const total = subtotal + ppn;
 
-            document.getElementById('subtotalDisplay').innerText = 'Rp ' + subtotal.toLocaleString('id-ID');
-            document.getElementById('ppnDisplay').innerText = 'Rp ' + ppn.toLocaleString('id-ID');
-            document.getElementById('totalAmountDisplay').innerText = 'Rp ' + total.toLocaleString('id-ID');
+            const subtotalDisp = document.getElementById('subtotalDisplay');
+            const ppnDisp = document.getElementById('ppnDisplay');
+            const totalAmountDisp = document.getElementById('totalAmountDisplay');
+
+            if (subtotalDisp) subtotalDisp.innerText = 'Rp ' + subtotal.toLocaleString('id-ID');
+            if (ppnDisp) ppnDisp.innerText = 'Rp ' + ppn.toLocaleString('id-ID');
+            if (totalAmountDisp) totalAmountDisp.innerText = 'Rp ' + total.toLocaleString('id-ID');
         }
 
         function sendWhatsApp() {
-            const nama = document.getElementById('nama').value;
-            const nama_perusahaan = document.getElementById('nama_perusahaan').value;
-            const email = document.getElementById('email').value;
-            const alamat_usaha = document.getElementById('alamat_usaha').value;
-            const bidang_usaha = document.getElementById('bidang_usaha').value;
-            const keperluan = document.getElementById('keperluan').value;
-            const packageType = document.getElementById('package').value;
+            const nama = document.getElementById('nama') ? document.getElementById('nama').value : '';
+            const nama_perusahaan = document.getElementById('nama_perusahaan') ? document.getElementById('nama_perusahaan').value : '';
+            const email = document.getElementById('email') ? document.getElementById('email').value : '';
+            const alamat_usaha = document.getElementById('alamat_usaha') ? document.getElementById('alamat_usaha').value : '';
+            const bidang_usaha = document.getElementById('bidang_usaha') ? document.getElementById('bidang_usaha').value : '';
+            const keperluan = document.getElementById('keperluan') ? document.getElementById('keperluan').value : '';
+            const packageEl = document.getElementById('package');
+            const packageType = packageEl ? packageEl.value : 'reservasi';
 
             if (packageType === 'paket') {
                 if (!nama_perusahaan || !email || !alamat_usaha || !bidang_usaha || !keperluan) {
@@ -441,16 +486,16 @@
 
 Mohon konfirmasinya. Terima kasih.`;
 
-                const phone = '628111234567';
+                const phone = '6281112088600';
                 const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
                 window.open(url, '_blank');
             } else {
-                const tanggal = document.getElementById('tanggal').value;
-                const jam = document.getElementById('jam').value;
-                const durasi = document.getElementById('durasi').value;
-                const peserta = document.getElementById('peserta').value;
+                const tanggal = document.getElementById('tanggal') ? document.getElementById('tanggal').value : '-';
+                const jam = document.getElementById('jam') ? document.getElementById('jam').value : '-';
+                const durasi = document.getElementById('durasi') ? document.getElementById('durasi').value : '-';
+                const peserta = document.getElementById('peserta') ? document.getElementById('peserta').value : '-';
 
-                if (!tanggal || !jam || !durasi || !nama_perusahaan || !email || !alamat_usaha || !bidang_usaha || !keperluan) {
+                if (!nama_perusahaan || !email || !alamat_usaha || !bidang_usaha || !keperluan) {
                     alert('Mohon lengkapi semua data formulir terlebih dahulu.');
                     return;
                 }
@@ -469,7 +514,9 @@ Mohon konfirmasinya. Terima kasih.`;
 - Peserta: ${peserta} Orang
 - Tipe Pemesanan: Reservasi Reguler/Gunakan Kuota
 
-                const phone = '628111234567';
+Mohon konfirmasinya. Terima kasih.`;
+
+                const phone = '6281112088600';
                 const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
                 window.open(url, '_blank');
             }

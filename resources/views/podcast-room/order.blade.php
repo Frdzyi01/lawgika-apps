@@ -326,26 +326,49 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);}
             </div>
 
             <div class="form-group">
-                <label for="payment_proof_click"><span data-i18n="order.upload_payment_proof">Upload Bukti Pembayaran</span> <span class="text-danger">*</span></label>
-                <div style="border:2px dashed #e2e8f0;border-radius:10px;padding:20px;text-align:center;cursor:pointer;"
+                <label for="payment_proof"><span data-i18n="order.upload_payment_proof">Upload Bukti Pembayaran</span> <span class="text-danger">*</span></label>
+                <div id="dropzone_box" style="border:2px dashed #cbd5e1; border-radius:12px; padding:20px; text-align:center; cursor:pointer; background:#fafafa; transition:all 0.2s ease;"
                     onclick="document.getElementById('payment_proof').click()">
-                    <i class="fa-solid fa-cloud-arrow-up" style="font-size:2rem;color:var(--primary);display:block;margin-bottom:8px;"></i>
-                    <p style="color:var(--gray);margin:0;font-size:.88rem;" data-i18n="pr.upload_proof_click">Klik untuk upload bukti transfer</p>
-                    <p style="color:#94a3b8;margin:4px 0 0;font-size:.78rem;" data-i18n="order.upload_proof_hint_2mb">JPG, PNG, JPEG — Maks. 2MB</p>
-                    <p id="fileName" style="color:var(--primary);font-weight:600;margin:8px 0 0;font-size:.88rem;display:none;"></p>
+                    
+                    {{-- Empty / Initial State --}}
+                    <div id="dropzone_default">
+                        <i class="fa-solid fa-cloud-arrow-up"
+                            style="font-size:2.2rem; color:var(--primary); margin-bottom:8px; display:block;"></i>
+                        <p style="color:var(--gray); margin:0; font-size:0.9rem; font-weight:600;" data-i18n="pr.upload_proof_click">Klik untuk upload bukti transfer</p>
+                        <p style="color:#94a3b8; margin:4px 0 0; font-size:0.8rem;" data-i18n="order.upload_proof_hint_2mb">JPG, PNG, JPEG — Maks. 2MB</p>
+                    </div>
+
+                    {{-- Preview State --}}
+                    <div id="dropzone_preview" style="display:none;">
+                        <div style="position:relative; display:inline-block; margin-bottom:10px;">
+                            <img id="image_preview_img" src="" alt="Bukti Transfer" style="max-height:140px; max-width:100%; border-radius:8px; border:1px solid #e2e8f0; box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center gap-2 flex-wrap">
+                            <span class="badge bg-success" style="font-size:.78rem; color:#fff !important;"><i class="fa fa-circle-check me-1"></i>File Terpilih</span>
+                            <span id="file_name_display" style="color:var(--dark); font-weight:600; font-size:0.9rem;"></span>
+                            <span id="file_size_display" class="text-muted" style="font-size:0.8rem;"></span>
+                        </div>
+                        <p class="text-muted mb-0 mt-2" style="font-size:0.78rem;"><i class="fa fa-rotate me-1"></i>Klik untuk mengganti gambar</p>
+                    </div>
                 </div>
+                <input type="file" id="payment_proof" name="payment_proof"
+                    accept="image/jpeg,image/png,.jpg,.jpeg,.png" required style="display:none;" onchange="showFile(this)">
             </div>
-            <input type="file" id="payment_proof" name="payment_proof"
-                accept="image/jpg,image/jpeg,image/png" required style="display:none;" onchange="showFile(this)">
         </div>
 
         <div style="background:#fef9c3;border:1px solid #fde047;border-radius:10px;padding:13px;font-size:.88rem;color:#713f12;margin-bottom:18px;">
             <strong data-i18n="order.info_label">⚡ Info:</strong> <span data-i18n="mr.info_desc_part1">Setelah reservasi, admin akan mengkonfirmasi pembayaran Anda. Check In hanya bisa dilakukan setelah pembayaran</span> <strong><span data-i18n="mr.info_desc_part2">disetujui</span></strong>.
         </div>
 
-        <button type="submit" class="btn-submit">
-            <i class="fa-solid fa-calendar-check me-1"></i> <span data-i18n="pr.submit_btn">Pesan Ruang Podcast Sekarang</span>
-        </button>
+        <div style="display:flex; gap:15px;">
+            <button type="submit" class="btn-submit" style="flex:1; margin-top:0;">
+                <i class="fa-solid fa-calendar-check me-1"></i> <span data-i18n="pr.submit_btn">Pesan Ruang Podcast Sekarang</span>
+            </button>
+            <button type="button" class="btn-submit" onclick="sendWhatsApp()"
+                style="flex:1; margin-top:0; background:#25D366; color:#fff; border:none;">
+                <i class="fa-brands fa-whatsapp me-1"></i> <span data-i18n="order.contact_wa_btn">Hubungi WhatsApp</span>
+            </button>
+        </div>
         <div style="text-align:center;margin-top:14px;">
             <a href="{{ url('/sewa-ruang-podcast') }}" style="color:var(--gray);font-size:.88rem;text-decoration:none;">
                 <i class="fa-solid fa-arrow-left me-1"></i> <span data-i18n="pr.back_to_slots">Kembali ke Pilih Slot</span>
@@ -443,10 +466,33 @@ function updateSummary() {
 }
 
 function showFile(input) {
-    const lbl = document.getElementById('fileName');
+    const defaultState = document.getElementById('dropzone_default');
+    const previewState = document.getElementById('dropzone_preview');
+    const imgPreview   = document.getElementById('image_preview_img');
+    const nameDisplay  = document.getElementById('file_name_display');
+    const sizeDisplay  = document.getElementById('file_size_display');
+    const box          = document.getElementById('dropzone_box');
+
     if (input.files && input.files[0]) {
-        lbl.textContent = '✅ ' + input.files[0].name;
-        lbl.style.display = 'block';
+        const file = input.files[0];
+        
+        if (nameDisplay) nameDisplay.textContent = file.name;
+        if (sizeDisplay) {
+            const sizeInMB = (file.size / (1024 * 1024)).toFixed(2);
+            sizeDisplay.textContent = `(${sizeInMB} MB)`;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            if (imgPreview) imgPreview.src = e.target.result;
+            if (defaultState) defaultState.style.display = 'none';
+            if (previewState) previewState.style.display = 'block';
+            if (box) {
+                box.style.border = '2px solid #22c55e';
+                box.style.background = '#f0fdf4';
+            }
+        };
+        reader.readAsDataURL(file);
     }
 }
 
@@ -490,6 +536,39 @@ function onBenefitChoiceChange() {
         paySection.style.display  = 'none';
         payProofInput.required    = false;
     }
+}
+
+function sendWhatsApp() {
+    const nama = document.getElementById('nama') ? document.getElementById('nama').value : '';
+    const nama_perusahaan = document.getElementById('nama_perusahaan') ? document.getElementById('nama_perusahaan').value : '';
+    const email = document.getElementById('email') ? document.getElementById('email').value : '';
+    const bidang_usaha = document.getElementById('bidang_usaha') ? document.getElementById('bidang_usaha').value : '';
+    const keperluan = document.getElementById('keperluan') ? document.getElementById('keperluan').value : '';
+    const tanggal = document.getElementById('tanggal') ? document.getElementById('tanggal').value : '-';
+    const jam = document.getElementById('jam') ? document.getElementById('jam').value : '-';
+    const durasi = document.getElementById('durasi') ? document.getElementById('durasi').value : '-';
+
+    if (!tanggal || !jam || !durasi || !nama || !email) {
+        alert('Mohon lengkapi data pemesanan terlebih dahulu.');
+        return;
+    }
+
+    const text = `Halo Admin Lawgika, saya ingin memverifikasi pemesanan Sewa Ruang Podcast:
+
+- Nama: ${nama || '-'}
+- Nama Perusahaan: ${nama_perusahaan || '-'}
+- Email: ${email || '-'}
+- Bidang Usaha: ${bidang_usaha || '-'}
+- Keperluan: ${keperluan || '-'}
+- Tanggal: ${tanggal}
+- Jam Mulai: ${jam} WIB
+- Durasi: ${durasi} Jam
+
+Mohon konfirmasi pembayaran & reservasi ini. Terima kasih.`;
+
+    const phone = '6281112088600';
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+    window.open(url, '_blank');
 }
 
 document.addEventListener('DOMContentLoaded', () => {

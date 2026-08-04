@@ -161,9 +161,36 @@ class MeetingRoomController extends Controller
         $benefit = $this->getActiveBenefit();
 
         if ($benefit) {
-            // ── BENEFIT FLOW ──────────────────────────────────────────────────
-            // Tag booking as benefit. Status = 'pending' (waits for admin approval).
-            // NO time deducted. NO log created. Payment not required.
+            // Check if user has an existing package booking
+            $parentBooking = null;
+            if ($benefit->order_id) {
+                $parentBooking = MeetingRoomBooking::find($benefit->order_id);
+            }
+            if (!$parentBooking) {
+                $parentBooking = MeetingRoomBooking::where('user_id', Auth::id())
+                    ->whereIn('payment_status', ['approved'])
+                    ->latest()
+                    ->first();
+            }
+
+            if ($parentBooking) {
+                $parentBooking->update([
+                    'date'            => $request->tanggal,
+                    'start_time'      => $request->jam,
+                    'participants'    => $request->peserta,
+                    'nama_perusahaan' => $request->nama_perusahaan ?? $parentBooking->nama_perusahaan,
+                    'email'           => $request->email ?? $parentBooking->email,
+                    'alamat_usaha'    => $request->alamat_usaha ?? $parentBooking->alamat_usaha,
+                    'bidang_usaha'    => $request->bidang_usaha ?? $parentBooking->bidang_usaha,
+                    'keperluan'       => $request->keperluan ?? $parentBooking->keperluan,
+                    'status'          => 'pending', // Set to pending so Admin receives pending reservation request notification
+                ]);
+
+                return redirect()->route('customer.meeting-room.index')
+                    ->with('success', 'Pengajuan reservasi Meeting Room berhasil dikirim! Menunggu konfirmasi admin.');
+            }
+
+            // Create initial benefit booking if no parent package booking exists
             MeetingRoomBooking::create([
                 'user_id'        => Auth::id(),
                 'source_type'    => 'benefit',
@@ -173,8 +200,8 @@ class MeetingRoomController extends Controller
                 'start_time'     => $request->jam,
                 'duration'       => $request->durasi,
                 'participants'   => $request->peserta,
-                'status'         => 'pending',         // admin must approve first
-                'payment_status' => 'approved',        // no payment needed
+                'status'         => 'approved',
+                'payment_status' => 'approved',
                 'payment_proof'  => null,
                 'nama_perusahaan' => $request->nama_perusahaan,
                 'email'           => $request->email,
@@ -184,7 +211,7 @@ class MeetingRoomController extends Controller
             ]);
 
             return redirect()->route('customer.meeting-room.index')
-                ->with('success', '✅ Reservasi Meeting Room (Benefit Paket PT) berhasil diajukan! Menunggu persetujuan admin.');
+                ->with('success', '✅ Reservasi Meeting Room berhasil diajukan!');
         }
 
         // ── MANUAL FLOW (existing — untouched) ────────────────────────────────
@@ -253,12 +280,17 @@ class MeetingRoomController extends Controller
         $bookings = $query->paginate(10);
         $bookings->appends(['search' => $search]);
 
-        // Benefit pool cards — only meeting-type benefits
         $benefits = RoomBenefit::with(['user', 'order'])
             ->whereIn('type', ['meeting', 'shared'])
             ->latest()->get();
 
-        return view('admin.meeting-room.index', compact('bookings', 'benefits'));
+        $pendingReservations = MeetingRoomBooking::with(['user', 'benefit'])
+            ->where('status', 'pending')
+            ->whereNotNull('date')
+            ->latest()
+            ->get();
+
+        return view('admin.meeting-room.index', compact('bookings', 'benefits', 'pendingReservations'));
     }
 
     // ── Admin: Create & Store (CRM Flow) ──────────────────────────────────────
@@ -340,13 +372,13 @@ class MeetingRoomController extends Controller
 
     public function approveBenefitReservation($id)
     {
-        $booking = MeetingRoomBooking::where('source_type', 'benefit')
-            ->where('status', 'pending')
-            ->findOrFail($id);
+        $booking = MeetingRoomBooking::findOrFail($id);
+        $booking->update([
+            'status'         => 'approved',
+            'payment_status' => 'approved',
+        ]);
 
-        $booking->update(['status' => 'approved']);
-
-        return redirect()->back()->with('success', '✅ Reservasi benefit disetujui. Customer sudah bisa menggunakan ruangan.');
+        return redirect()->back()->with('success', '✅ Reservasi disetujui! Client dapat melakukan Check In.');
     }
 
     public function rejectBenefitReservation($id)
@@ -413,7 +445,25 @@ class MeetingRoomController extends Controller
     public function approvePayment($id)
     {
         $booking = MeetingRoomBooking::findOrFail($id);
-        $booking->update(['payment_status' => 'approved']);
+        $booking->update([
+            'payment_status' => 'approved',
+            'status'         => 'approved',
+        ]);
+
+        if ($booking->user_id && ($booking->duration >= 10 || empty($booking->date))) {
+            RoomBenefit::firstOrCreate([
+                'user_id'  => $booking->user_id,
+                'order_id' => $booking->id,
+                'type'     => 'meeting',
+            ], [
+                'paket'         => 'Paket Meeting Room (' . ($booking->duration ?: 60) . ' Jam)',
+                'total_minutes' => ($booking->duration ?: 60) * 60,
+                'used_minutes'  => round($booking->used_seconds / 60),
+                'is_active'     => true,
+                'expired_at'    => \Carbon\Carbon::parse($booking->created_at)->addYear(),
+            ]);
+        }
+
         return redirect()->back()->with('success', 'Pembayaran telah disetujui.');
     }
 
@@ -542,19 +592,15 @@ class MeetingRoomController extends Controller
             return redirect()->back()->with('error', 'Durasi tidak valid. Silakan hubungi administrator.');
         }
         
-        // ── BILLING ADJUSTMENT: Calculate rounded hours ───────────────────────
         $billingHours = $booking->calculateBillingHours($sessionSeconds);
         $billingSeconds = $billingHours * 3600;
         
-        // Use ROUNDED billing seconds for all deductions and storage
         $prevUsed       = $booking->total_used_seconds > 0 ? $booking->total_used_seconds : ($booking->total_used_minutes * 60);
-        $newTotalUsed   = $prevUsed + $billingSeconds;  // ✅ Use rounded seconds, not actual
-        $totalSeconds   = $booking->duration * 3600;
-        $newStatus      = ($newTotalUsed >= $totalSeconds) ? 'selesai' : 'paused';
+        $newTotalUsed   = $prevUsed + $billingSeconds;
         
         $booking->update([
-            'status'             => $newStatus,
-            'total_used_seconds' => $newTotalUsed,  // ✅ Now stores rounded seconds
+            'status'             => 'paused', // Set to paused so client can check in again using remaining quota
+            'total_used_seconds' => $newTotalUsed,
             'checkout_at'        => $checkoutAt,
             'checkin_at'         => null,
         ]);
@@ -566,26 +612,22 @@ class MeetingRoomController extends Controller
             'timestamp'      => $checkoutAt,
         ]);
 
-        // ── Deduct from benefit pool + write session log (ONLY at checkout) ───
-        if ($booking->source_type === 'benefit' && $booking->benefit_id) {
-            $benefit = RoomBenefit::find($booking->benefit_id);
-            if ($benefit) {
-                // Use rounded-up billing hours for benefit deduction
-                $billingMinutes = $billingHours * 60;
-                $benefit->used_minutes = min($benefit->total_minutes, $benefit->used_minutes + $billingMinutes);
-                $benefit->save();
+        // ── Deduct from benefit pool ──────────────────────────────────────────
+        $benefit = $booking->benefit_id ? RoomBenefit::find($booking->benefit_id) : RoomBenefit::where('user_id', $booking->user_id)->first();
+        if ($benefit) {
+            $billingMinutes = $billingHours * 60;
+            $benefit->used_minutes = min($benefit->total_minutes, $benefit->used_minutes + $billingMinutes);
+            $benefit->save();
 
-                // ONE row per session — contains both checkin and checkout times
-                RoomBenefitLog::create([
-                    'benefit_id'       => $benefit->id,
-                    'room_type'        => 'meeting',
-                    'duration_minutes' => $billingMinutes,
-                    'action'           => 'checkout',
-                    'action_at'        => $checkoutAt,
-                    'checkin_at'       => $checkinAt,
-                    'checkout_at'      => $checkoutAt,
-                ]);
-            }
+            RoomBenefitLog::create([
+                'benefit_id'       => $benefit->id,
+                'room_type'        => 'meeting',
+                'duration_minutes' => $billingMinutes,
+                'action'           => 'checkout',
+                'action_at'        => $checkoutAt,
+                'checkin_at'       => $checkinAt,
+                'checkout_at'      => $checkoutAt,
+            ]);
         } else {
             // Existing: deduct UserRoomQuota if applicable
             $quota = UserRoomQuota::where('user_id', $booking->user_id)->first();
@@ -632,7 +674,7 @@ class MeetingRoomController extends Controller
     {
         if (!Auth::check()) return null;
 
-        return RoomBenefit::where('user_id', Auth::id())
+        $benefit = RoomBenefit::where('user_id', Auth::id())
             ->where('is_active', true)
             ->whereIn('type', ['meeting', 'shared'])   // meeting-specific benefit
             ->where(function ($q) {
@@ -642,5 +684,35 @@ class MeetingRoomController extends Controller
             ->whereRaw('used_minutes < total_minutes')
             ->latest()
             ->first();
+
+        if ($benefit) {
+            return $benefit;
+        }
+
+        // Check if user has an approved standalone package purchase (e.g. 60 Jam) in MeetingRoomBooking
+        $packageBooking = MeetingRoomBooking::where('user_id', Auth::id())
+            ->whereIn('payment_status', ['approved'])
+            ->where('status', '!=', 'rejected')
+            ->where(function($q) {
+                $q->whereNull('date')->orWhere('duration', '>=', 10);
+            })
+            ->latest()
+            ->first();
+
+        if ($packageBooking && $packageBooking->remaining_seconds > 0) {
+            return RoomBenefit::firstOrCreate([
+                'user_id'  => Auth::id(),
+                'order_id' => $packageBooking->id,
+                'type'     => 'meeting',
+            ], [
+                'paket'         => 'Paket Meeting Room (' . ($packageBooking->duration ?: 60) . ' Jam)',
+                'total_minutes' => ($packageBooking->duration ?: 60) * 60,
+                'used_minutes'  => round($packageBooking->used_seconds / 60),
+                'is_active'     => true,
+                'expired_at'    => \Carbon\Carbon::parse($packageBooking->created_at)->addYear(),
+            ]);
+        }
+
+        return null;
     }
 }

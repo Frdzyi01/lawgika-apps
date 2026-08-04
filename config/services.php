@@ -65,6 +65,7 @@ return [
             'podcast_room_renewal_h30'          => env('BOTCAKE_TEMPLATE_PODCAST_RENEWAL_H30', '1578804397234740'),
             'podcast_room_renewal_h7'           => env('BOTCAKE_TEMPLATE_PODCAST_RENEWAL_H7', '1370170901755859'),
             'podcast_room_expired'              => env('BOTCAKE_TEMPLATE_PODCAST_EXPIRED', '1036193012494079'),
+            'invoice_due_reminder'              => env('BOTCAKE_TEMPLATE_INVOICE_DUE_REMINDER', '2861491057548512'),
         ],
     ],
 

@@ -109,8 +109,8 @@
                             <label class="form-label">Status Pembayaran <span class="text-danger">*</span></label>
                             <select name="payment_status" class="form-select" required>
                                 <option value="unpaid">Belum Bayar</option>
-                                <option value="pending_verification">Menunggu Verifikasi</option>
-                                <option value="verified" selected>Terverifikasi (Lunas)</option>
+                                <option value="verified" selected>Pembayaran Terverifikasi</option>
+                                <option value="rejected">Pembayaran Ditolak</option>
                             </select>
                         </div>
                         

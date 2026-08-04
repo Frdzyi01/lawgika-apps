@@ -148,6 +148,7 @@ Route::middleware(['auth', 'role:admin,admin1,admin2'])->prefix('admin')->name('
     Route::post('documents/{document}/reject',  [\App\Http\Controllers\Admin\DocumentController::class, 'reject'])->name('documents.reject');
     Route::post('documents/{document}/reset',   [\App\Http\Controllers\Admin\DocumentController::class, 'reset'])->name('documents.reset');
     Route::post('orders/{order}/payment-status', [\App\Http\Controllers\Admin\OrderController::class, 'updatePaymentStatus'])->name('orders.payment-status');
+    Route::post('orders/{order}/send-payment-reminder', [\App\Http\Controllers\Admin\OrderController::class, 'sendPaymentReminder'])->name('orders.send-payment-reminder');
     
     // Virtual Office Module
     Route::get('virtual-office', [\App\Http\Controllers\Admin\VirtualOfficeController::class, 'index'])->name('virtual-office.index');
@@ -173,24 +174,24 @@ Route::middleware(['auth', 'role:admin,admin1,admin2'])->prefix('admin')->name('
     Route::get('/meeting-room/create', [MeetingRoomController::class, 'adminCreate'])->name('meeting-room.create');
     Route::post('/meeting-room/store', [MeetingRoomController::class, 'adminStore'])->name('meeting-room.store');
     Route::get('/meeting-room/{id}/detail', [MeetingRoomController::class, 'adminDetail']);
-    Route::post('/meeting-room/{id}/checkin', [MeetingRoomController::class, 'checkin']);
-    Route::post('/meeting-room/{id}/checkout', [MeetingRoomController::class, 'checkout']);
-    Route::post('/meeting-room/{id}/approve-payment', [MeetingRoomController::class, 'approvePayment'])->name('admin.meeting-room.approve');
-    Route::post('/meeting-room/{id}/reject-payment', [MeetingRoomController::class, 'rejectPayment'])->name('admin.meeting-room.reject');
-    Route::post('/meeting-room/{id}/benefit-approve', [MeetingRoomController::class, 'approveBenefitReservation'])->name('admin.meeting-room.benefit-approve');
-    Route::post('/meeting-room/{id}/benefit-reject', [MeetingRoomController::class, 'rejectBenefitReservation'])->name('admin.meeting-room.benefit-reject');
+    Route::match(['get', 'post'], '/meeting-room/{id}/checkin', [MeetingRoomController::class, 'checkin']);
+    Route::match(['get', 'post'], '/meeting-room/{id}/checkout', [MeetingRoomController::class, 'checkout']);
+    Route::match(['get', 'post'], '/meeting-room/{id}/approve-payment', [MeetingRoomController::class, 'approvePayment'])->name('admin.meeting-room.approve');
+    Route::match(['get', 'post'], '/meeting-room/{id}/reject-payment', [MeetingRoomController::class, 'rejectPayment'])->name('admin.meeting-room.reject');
+    Route::match(['get', 'post'], '/meeting-room/{id}/benefit-approve', [MeetingRoomController::class, 'approveBenefitReservation'])->name('admin.meeting-room.benefit-approve');
+    Route::match(['get', 'post'], '/meeting-room/{id}/benefit-reject', [MeetingRoomController::class, 'rejectBenefitReservation'])->name('admin.meeting-room.benefit-reject');
 
     // ── Podcast Room ──────────────────────────────────────────────────────────
     Route::get('/podcast-room', [\App\Http\Controllers\PodcastRoomController::class, 'adminIndex'])->name('podcast-room.index');
     Route::get('/podcast-room/create', [\App\Http\Controllers\PodcastRoomController::class, 'adminCreate'])->name('podcast-room.create');
     Route::post('/podcast-room/store', [\App\Http\Controllers\PodcastRoomController::class, 'adminStore'])->name('podcast-room.store');
     Route::get('/podcast-room/{id}/detail', [\App\Http\Controllers\PodcastRoomController::class, 'adminDetail']);
-    Route::post('/podcast-room/{id}/checkin', [\App\Http\Controllers\PodcastRoomController::class, 'checkin']);
-    Route::post('/podcast-room/{id}/checkout', [\App\Http\Controllers\PodcastRoomController::class, 'checkout']);
-    Route::post('/podcast-room/{id}/approve-payment', [\App\Http\Controllers\PodcastRoomController::class, 'approvePayment'])->name('admin.podcast-room.approve');
-    Route::post('/podcast-room/{id}/reject-payment', [\App\Http\Controllers\PodcastRoomController::class, 'rejectPayment'])->name('admin.podcast-room.reject');
-    Route::post('/podcast-room/{id}/benefit-approve', [\App\Http\Controllers\PodcastRoomController::class, 'approveBenefitReservation'])->name('admin.podcast-room.benefit-approve');
-    Route::post('/podcast-room/{id}/benefit-reject', [\App\Http\Controllers\PodcastRoomController::class, 'rejectBenefitReservation'])->name('admin.podcast-room.benefit-reject');
+    Route::match(['get', 'post'], '/podcast-room/{id}/checkin', [\App\Http\Controllers\PodcastRoomController::class, 'checkin']);
+    Route::match(['get', 'post'], '/podcast-room/{id}/checkout', [\App\Http\Controllers\PodcastRoomController::class, 'checkout']);
+    Route::match(['get', 'post'], '/podcast-room/{id}/approve-payment', [\App\Http\Controllers\PodcastRoomController::class, 'approvePayment'])->name('admin.podcast-room.approve');
+    Route::match(['get', 'post'], '/podcast-room/{id}/reject-payment', [\App\Http\Controllers\PodcastRoomController::class, 'rejectPayment'])->name('admin.podcast-room.reject');
+    Route::match(['get', 'post'], '/podcast-room/{id}/benefit-approve', [\App\Http\Controllers\PodcastRoomController::class, 'approveBenefitReservation'])->name('admin.podcast-room.benefit-approve');
+    Route::match(['get', 'post'], '/podcast-room/{id}/benefit-reject', [\App\Http\Controllers\PodcastRoomController::class, 'rejectBenefitReservation'])->name('admin.podcast-room.benefit-reject');
 
     Route::get('/spt-badan', [\App\Http\Controllers\SptTahunanController::class, 'adminDashboard'])->name('spt-badan.index');
     Route::post('/spt-badan/{id}/status', [\App\Http\Controllers\SptTahunanController::class, 'updateStatus'])->name('spt-badan.status');
