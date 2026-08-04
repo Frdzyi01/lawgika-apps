@@ -395,7 +395,7 @@ class PodcastRoomController extends Controller
         }
 
         return back()->with('success', 'Pembayaran disetujui.');
-    }
+    } 
 
     public function rejectPayment($id)
     {
