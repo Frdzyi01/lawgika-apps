@@ -2981,10 +2981,11 @@
     </div>
     <div class="tesimonial-wrapper">
       <div class="swiper testimonial-slider">
-        <div class="swiper-wrapper" id="google-reviews-wrapper">
-          <!-- Loading State Dummy Slide -->
-          <div class="swiper-slide fallback-slide">
-            <div class="testimonial-card-items">
+        <div class="swiper-wrapper">
+          
+          <!-- Testimonial 1 -->
+          <div class="swiper-slide">
+            <div class="testimonial-card-items" style="height: 100%;">
               <div class="star">
                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
               </div>
@@ -2994,18 +2995,100 @@
               <div class="client-image bg-cover" style="background-image: url('{{ asset('buyer-file/assets/img/testimonial/circle.webp') }}');">
                 <div class="circle-shape"><img src="{{ asset('buyer-file/assets/img/testimonial/circle.webp') }}" alt="" loading="lazy" /></div>
               </div>
-              <p data-i18n="dashboard.testimonial.loading">Sedang memuat ulasan terbaru dari pelanggan kami langsung melalui Google Maps...</p>
+              <p>Pendampingan dari Lawgika membuat proses legalitas bisnis menjadi rapi dan sesuai tenggat waktu. Tim sangat profesional dan responsif!</p>
               <div class="client-info">
-                <h4 data-i18n="dashboard.testimonial.loading_title">Memuat Review...</h4>
-                <span>Google Maps</span>
+                <h4>Budi Santoso</h4>
+                <span>CEO Startup Teknologi</span>
               </div>
             </div>
           </div>
+
+          <!-- Testimonial 2 -->
+          <div class="swiper-slide">
+            <div class="testimonial-card-items" style="height: 100%;">
+              <div class="star">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+              <div class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="44" height="33" viewBox="0 0 44 33" fill="none"><path d="M16 16.2929L0.5 31.7929V0.5H16V16.2929ZM43.5 16.2929L28 31.7929V0.5H43.5V16.2929Z" stroke="white" /></svg>
+              </div>
+              <div class="client-image bg-cover" style="background-image: url('{{ asset('buyer-file/assets/img/testimonial/circle.webp') }}');">
+                <div class="circle-shape"><img src="{{ asset('buyer-file/assets/img/testimonial/circle.webp') }}" alt="" loading="lazy" /></div>
+              </div>
+              <p>Pengurusan HAKI dan pendaftaran merek berjalan lancar tanpa kendala. Sangat merekomendasikan Lawgika untuk urusan legal bisnis.</p>
+              <div class="client-info">
+                <h4>Sarah Wijaya</h4>
+                <span>Founder FnB Brand</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 3 -->
+          <div class="swiper-slide">
+            <div class="testimonial-card-items" style="height: 100%;">
+              <div class="star">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+              <div class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="44" height="33" viewBox="0 0 44 33" fill="none"><path d="M16 16.2929L0.5 31.7929V0.5H16V16.2929ZM43.5 16.2929L28 31.7929V0.5H43.5V16.2929Z" stroke="white" /></svg>
+              </div>
+              <div class="client-image bg-cover" style="background-image: url('{{ asset('buyer-file/assets/img/testimonial/circle.webp') }}');">
+                <div class="circle-shape"><img src="{{ asset('buyer-file/assets/img/testimonial/circle.webp') }}" alt="" loading="lazy" /></div>
+              </div>
+              <p>Virtual Office dari Lawgika sangat membantu kelancaran operasional perusahaan kami di zona premium dengan harga terjangkau.</p>
+              <div class="client-info">
+                <h4>Andi Pratama</h4>
+                <span>Direktur PT. Maju Bersama</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 4 -->
+          <div class="swiper-slide">
+            <div class="testimonial-card-items" style="height: 100%;">
+              <div class="star">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+              <div class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="44" height="33" viewBox="0 0 44 33" fill="none"><path d="M16 16.2929L0.5 31.7929V0.5H16V16.2929ZM43.5 16.2929L28 31.7929V0.5H43.5V16.2929Z" stroke="white" /></svg>
+              </div>
+              <div class="client-image bg-cover" style="background-image: url('{{ asset('buyer-file/assets/img/testimonial/circle.webp') }}');">
+                <div class="circle-shape"><img src="{{ asset('buyer-file/assets/img/testimonial/circle.webp') }}" alt="" loading="lazy" /></div>
+              </div>
+              <p>Serviced Office yang nyaman, staf yang ramah, dan lokasi strategis. Sempurna untuk aktivitas rapat dengan klien penting.</p>
+              <div class="client-info">
+                <h4>Lestari Ningsih</h4>
+                <span>Konsultan Independen</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 5 -->
+          <div class="swiper-slide">
+            <div class="testimonial-card-items" style="height: 100%;">
+              <div class="star">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+              <div class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="44" height="33" viewBox="0 0 44 33" fill="none"><path d="M16 16.2929L0.5 31.7929V0.5H16V16.2929ZM43.5 16.2929L28 31.7929V0.5H43.5V16.2929Z" stroke="white" /></svg>
+              </div>
+              <div class="client-image bg-cover" style="background-image: url('{{ asset('buyer-file/assets/img/testimonial/circle.webp') }}');">
+                <div class="circle-shape"><img src="{{ asset('buyer-file/assets/img/testimonial/circle.webp') }}" alt="" loading="lazy" /></div>
+              </div>
+              <p>Layanan yang diberikan Lawgika melebihi ekspektasi. Semua izin usaha selesai tepat waktu, memudahkan kami untuk berekspansi.</p>
+              <div class="client-info">
+                <h4>Dedi Gunawan</h4>
+                <span>Direktur Eksekutif</span>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
   </div>
 </section>
+
 
 <!-- Google Maps API loaded lazily when section is visible -->
 <script>
@@ -3461,116 +3544,6 @@
   </div>
 </section>
 
-<!-- Google Maps API: loaded lazily when reviews section enters viewport -->
-<script>
-(function() {
-  // Lazy-load Google Maps API only when needed
-  var gmapsLoaded = false;
-  function loadGoogleMaps(callback) {
-    if (gmapsLoaded) { if(callback) callback(); return; }
-    if (typeof google !== 'undefined' && google.maps && google.maps.places) {
-      gmapsLoaded = true;
-      if(callback) callback();
-      return;
-    }
-    gmapsLoaded = true;
-    var script = document.createElement('script');
-    script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCr2JuXdyrJPsvzmcGRtuukJQAsJT9q_2Y&libraries=places&callback=Function.prototype';
-    script.async = true;
-    script.defer = true;
-    script.onload = function() { if(callback) callback(); };
-    document.head.appendChild(script);
-  }
-
-  // Use IntersectionObserver to only load when section is near viewport
-  var reviewsSection = document.getElementById('google-reviews-wrapper') || document.querySelector('.testimonial-section');
-  if (reviewsSection && 'IntersectionObserver' in window) {
-    var observer = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          observer.disconnect();
-          loadGoogleMaps(function() {
-            // Trigger custom event so inline scripts can react
-            document.dispatchEvent(new Event('googlemaps:ready'));
-          });
-        }
-      });
-    }, { rootMargin: '400px' });
-    observer.observe(reviewsSection);
-  } else {
-    // Fallback: load after page load
-    window.addEventListener('load', function() { loadGoogleMaps(); });
-  }
-})();
-</script>
-
-<script>
-(function() {
-    // Fungsi utama untuk mengambil Google Reviews
-    function fetchGoogleReviews() {
-        const PLACE_ID = 'ChIJWXlW0i8dai4RKRssNdgO7r4'; // Place ID bisnis Anda
-
-        // 1. Validasi apakah library Google Maps API dan "places" sudah ter-load dengan benar
-        if (typeof google === 'undefined' || typeof google.maps === 'undefined' || typeof google.maps.places === 'undefined') {
-            console.error('❌ Google Maps API belum ter-load atau library "places" tidak disertakan.');
-            return;
-        }
-
-        try {
-            // 2. Buat elemen dummy map (syarat mutlak dari Google untuk menjalankan PlacesService)
-            // Elemen ini harus di-append sementara ke dalam document.body agar tidak silent fail.
-            const dummyMap = document.createElement('div');
-            dummyMap.style.display = 'none';
-            document.body.appendChild(dummyMap);
-
-            // 3. Inisialisasi Google PlacesService
-            const service = new google.maps.places.PlacesService(dummyMap);
-
-            // 4. Request detail API berdasarkan Place ID (Fokus hanya pada field 'reviews' agar lebih cepat dan hemat)
-            service.getDetails({
-                placeId: PLACE_ID,
-                fields: ['reviews']
-            }, function(place, status) {
-                
-                // 5. Cek apakah response status OK dan data review benar-benar tersedia
-                if (status === google.maps.places.PlacesServiceStatus.OK && place && place.reviews) {
-                    
-                    // 6. Mapping hasil data mentah dari Google menjadi Array Object yang bersih
-                    const cleanReviewsArray = place.reviews.map(function(review) {
-                        return {
-                            author_name: review.author_name || 'Anonymous', // Fallback jika nama tidak ada
-                            rating: review.rating || 0, // Bintang (1-5)
-                            text: review.text || '', // Handle kasus jika orang hanya memberi bintang tanpa tulisan
-                            profile_photo_url: review.profile_photo_url || null, // Avatar
-                            relative_time_description: review.relative_time_description || 'Baru-baru ini' // Cth: "2 weeks ago"
-                        };
-                    });
-
-                    // 7. Outputkan array bersih ke dalam Console Log
-                    console.log('✅ BERHASIL - Data Google Reviews:', cleanReviewsArray);
-
-                } else {
-                    // Handle ketika request di-banned, limit terlampaui, atau Place ID tidak punya review
-                    console.warn('⚠️ PERINGATAN - Gagal memuat ulasan. Status dari Google API:', status);
-                    console.log('Jika status adalah "REQUEST_DENIED", pastikan "Places API" (Legacy) telah di-enable di Google Cloud Console untuk API Key Anda.');
-                }
-            });
-
-        } catch (error) {
-            // Menangkap error logic Javascript secara internal
-            console.error('❌ ERROR - Terjadi kesalahan internal saat memproses Google Places API:', error);
-        }
-    }
-
-    // 8. Eksekusi ekstrim aman (Menghindari "DOMContentLoaded trap")
-    // Jika script diload asinkronus (Turbolinks, Livewire, dll), readyState sudah complete dan aman dijalankan
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', fetchGoogleReviews);
-    } else {
-        fetchGoogleReviews();
-    }
-})();
-</script>
 
 
 @endsection
