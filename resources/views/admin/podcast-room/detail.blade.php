@@ -138,6 +138,7 @@
                 </div>
             </div>
         </div>
+    @if(empty($booking->created_by))
     <!-- Card Table Jadwal Pengajuan Reservasi -->
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-center">
@@ -174,6 +175,7 @@
             </div>
         </div>
     </div>
+    @endif
 
     <!-- Riwayat Check In / Out -->
     <div class="card shadow mb-4">

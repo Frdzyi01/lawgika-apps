@@ -257,11 +257,6 @@ class WhatsAppService
         }
 
         // ── Build PSID ────────────────────────────────────────────────────────
-        $devPhone = env('DEV_OVERRIDE_PHONE');
-        if (!empty($devPhone)) {
-            $phone = $devPhone;
-        }
-
         $psid = $this->formatPsid($phone);
 
         // ── Build Endpoint URL ────────────────────────────────────────────────
@@ -614,7 +609,7 @@ class WhatsAppService
     {
         $booking->loadMissing(['user', 'benefit']);
 
-        $phone = $booking->user->phone ?? $booking->phone ?? env('DEV_OVERRIDE_PHONE') ?? null;
+        $phone = $booking->user->phone ?? $booking->phone ?? null;
         if (empty($phone)) {
             Log::warning('WhatsAppService::notifyMeetingRoomCheckOut - Nomor telepon kosong.', [
                 'booking_id' => $booking->id,
@@ -705,7 +700,7 @@ class WhatsAppService
     {
         $booking->loadMissing('user');
 
-        $phone = $booking->user->phone ?? $booking->phone ?? env('DEV_OVERRIDE_PHONE') ?? null;
+        $phone = $booking->user->phone ?? $booking->phone ?? null;
         if (empty($phone)) {
             Log::warning('WhatsAppService::notifyPodcastRoomCheckOut - Nomor telepon kosong.', [
                 'booking_id' => $booking->id,
