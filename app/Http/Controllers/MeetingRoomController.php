@@ -452,9 +452,9 @@ class MeetingRoomController extends Controller
 
         if ($booking->user_id && ($booking->duration >= 10 || empty($booking->date))) {
             RoomBenefit::firstOrCreate([
-                'user_id'  => $booking->user_id,
-                'order_id' => $booking->id,
-                'type'     => 'meeting',
+                'user_id'                 => $booking->user_id,
+                'meeting_room_booking_id' => $booking->id,
+                'type'                    => 'meeting',
             ], [
                 'paket'         => 'Paket Meeting Room (' . ($booking->duration ?: 60) . ' Jam)',
                 'total_minutes' => ($booking->duration ?: 60) * 60,

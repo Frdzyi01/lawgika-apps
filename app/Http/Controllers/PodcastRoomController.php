@@ -382,9 +382,9 @@ class PodcastRoomController extends Controller
 
         if ($booking->user_id && ($booking->duration >= 10 || empty($booking->date))) {
             RoomBenefit::firstOrCreate([
-                'user_id'  => $booking->user_id,
-                'order_id' => $booking->id,
-                'type'     => 'podcast',
+                'user_id'                 => $booking->user_id,
+                'podcast_room_booking_id' => $booking->id,
+                'type'                    => 'podcast',
             ], [
                 'paket'         => 'Paket Podcast Room (' . ($booking->duration ?: 60) . ' Jam)',
                 'total_minutes' => ($booking->duration ?: 60) * 60,

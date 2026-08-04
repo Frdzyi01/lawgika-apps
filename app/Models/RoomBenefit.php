@@ -11,6 +11,8 @@ class RoomBenefit extends Model
     protected $fillable = [
         'user_id',
         'order_id',
+        'meeting_room_booking_id',
+        'podcast_room_booking_id',
         'paket',
         'total_minutes',
         'used_minutes',
