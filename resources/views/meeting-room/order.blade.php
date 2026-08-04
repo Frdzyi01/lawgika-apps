@@ -146,25 +146,25 @@
                 <div class="form-group">
                     <label for="nama_perusahaan" data-i18n="order.label_company_name">Nama Perusahaan</label>
                     <input type="text" id="nama_perusahaan" name="nama_perusahaan" class="form-control" required
-                        placeholder="Masukkan nama perusahaan" data-i18n-placeholder="mr.placeholder_company_name" value="{{ old('nama_perusahaan', request('package') == 'reservasi' ? ($ptData['company_name'] ?? '') : '') }}" {{ request('package') == 'reservasi' ? 'readonly' : '' }}>
+                        placeholder="Masukkan nama perusahaan" data-i18n-placeholder="mr.placeholder_company_name" value="{{ old('nama_perusahaan', request('package') == 'reservasi' ? ($ptData['company_name'] ?? '') : '') }}">
                 </div>
 
                 <div class="form-group">
                     <label for="email" data-i18n="order.label_email">Alamat Email</label>
                     <input type="email" id="email" name="email" class="form-control" required
-                        placeholder="Masukkan alamat email" data-i18n-placeholder="mr.placeholder_email" value="{{ old('email', request('package') == 'reservasi' ? ($ptData['company_email'] ?? '') : '') }}" {{ request('package') == 'reservasi' ? 'readonly' : '' }}>
+                        placeholder="Masukkan alamat email" data-i18n-placeholder="mr.placeholder_email" value="{{ old('email', request('package') == 'reservasi' ? ($ptData['company_email'] ?? '') : '') }}">
                 </div>
 
                 <div class="form-group">
                     <label for="alamat_usaha" data-i18n="mr.label_business_address">Alamat Aktivitas Usaha</label>
                     <textarea id="alamat_usaha" name="alamat_usaha" class="form-control" required
-                        placeholder="Masukkan alamat aktivitas usaha" data-i18n-placeholder="mr.placeholder_business_address" rows="3" {{ request('package') == 'reservasi' ? 'readonly' : '' }}>{{ old('alamat_usaha', request('package') == 'reservasi' ? ($ptData['operational_address'] ?? '') : '') }}</textarea>
+                        placeholder="Masukkan alamat aktivitas usaha" data-i18n-placeholder="mr.placeholder_business_address" rows="3">{{ old('alamat_usaha', request('package') == 'reservasi' ? ($ptData['operational_address'] ?? '') : '') }}</textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="bidang_usaha" data-i18n="order.label_business_field">Bidang Usaha</label>
                     <input type="text" id="bidang_usaha" name="bidang_usaha" class="form-control" required
-                        placeholder="Masukkan bidang usaha" data-i18n-placeholder="mr.placeholder_business_field" value="{{ old('bidang_usaha', request('package') == 'reservasi' ? ($ptData['business_field'] ?? '') : '') }}" {{ request('package') == 'reservasi' ? 'readonly' : '' }}>
+                        placeholder="Masukkan bidang usaha" data-i18n-placeholder="mr.placeholder_business_field" value="{{ old('bidang_usaha', request('package') == 'reservasi' ? ($ptData['business_field'] ?? '') : '') }}">
                 </div>
 
                 <div class="form-group">
