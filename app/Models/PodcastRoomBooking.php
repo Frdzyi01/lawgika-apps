@@ -131,11 +131,15 @@ class PodcastRoomBooking extends Model
         }
 
         $billingHours = $this->calculateBillingHours($sessionSeconds);
-        
-        // Calculate price per hour from original booking
-        // Podcast room: 500k per 2 hours = 250k per hour
-        $pricePerHour = $this->duration > 0 ? ($this->total_price / $this->duration) : 250000;
-        
-        return $billingHours * $pricePerHour;
+
+        if ($billingHours === 20) {
+            return 5000000;
+        } elseif ($billingHours === 1) {
+            return 500000;
+        } elseif ($billingHours === 2) {
+            return 700000;
+        } else {
+            return 700000 + (($billingHours - 2) * 300000);
+        }
     }
 }

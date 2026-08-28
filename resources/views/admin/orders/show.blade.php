@@ -148,7 +148,7 @@
         @endphp
         <div class="card border-0 shadow-sm mb-4" style="border-left:4px solid #4e0516!important">
             <div class="card-header bg-transparent border-0 pt-4 pb-2 px-4">
-                <h6 class="fw-bold mb-0"><i class="fa fa-building me-2" style="color:#4e0516"></i>Data PT Perorangan Professional</h6>
+                <h6 class="fw-bold mb-0"><i class="fa fa-building me-2" style="color:#4e0516"></i>Data Client</h6>
             </div>
             <div class="card-body px-4 pb-4">
                 <table class="table table-borderless text-body order-detail-table">

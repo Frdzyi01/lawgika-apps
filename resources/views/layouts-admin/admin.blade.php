@@ -94,12 +94,6 @@
         @if(auth()->user()->isAdmin1() || auth()->user()->isSPV())
         <li class="menu-label">Penjualan & Jasa</li>
         <li>
-          <a href="{{ route('admin.orders.index') }}">
-            <div class="parent-icon"><ion-icon name="cart-outline"></ion-icon></div>
-            <div class="menu-title">Pesanan</div>
-          </a>
-        </li>
-        <li>
           <a href="{{ route('admin.virtual-office.index') }}">
             <div class="parent-icon"><ion-icon name="business-outline"></ion-icon></div>
             <div class="menu-title">Virtual Office</div>
@@ -115,12 +109,6 @@
           <a href="{{ url('admin/podcast-room') }}">
             <div class="parent-icon"><ion-icon name="mic-outline"></ion-icon></div>
             <div class="menu-title">Reservasi Ruang Podcast</div>
-          </a>
-        </li>
-        <li>
-          <a href="{{ route('admin.spt-badan.index') }}">
-            <div class="parent-icon"><ion-icon name="document-text-outline"></ion-icon></div>
-            <div class="menu-title">Laporan SPT Badan</div>
           </a>
         </li>
         <li>

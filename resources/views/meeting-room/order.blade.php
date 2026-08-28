@@ -140,31 +140,31 @@
                 <div class="form-group">
                     <label for="nama" data-i18n="order.label_fullname">Nama Lengkap</label>
                     <input type="text" id="nama" name="nama" class="form-control" required
-                        placeholder="Masukkan nama Anda" data-i18n-placeholder="mr.placeholder_fullname" value="{{ old('nama', auth()->user()->name ?? '') }}" readonly>
+                        placeholder="Masukkan nama Anda" data-i18n-placeholder="mr.placeholder_fullname" value="{{ old('nama', auth()->user()->name ?? '') }}" readonly style="background:#f8f5f6; color:#64748b;">
                 </div>
 
                 <div class="form-group">
                     <label for="nama_perusahaan" data-i18n="order.label_company_name">Nama Perusahaan</label>
                     <input type="text" id="nama_perusahaan" name="nama_perusahaan" class="form-control" required
-                        placeholder="Masukkan nama perusahaan" data-i18n-placeholder="mr.placeholder_company_name" value="{{ old('nama_perusahaan', request('package') == 'reservasi' ? ($ptData['company_name'] ?? '') : '') }}">
+                        placeholder="Masukkan nama perusahaan" data-i18n-placeholder="mr.placeholder_company_name" value="{{ old('nama_perusahaan', $ptData['company_name'] ?? (auth()->user()->company_name ?? '')) }}" readonly style="background:#f8f5f6; color:#64748b;">
                 </div>
 
                 <div class="form-group">
                     <label for="email" data-i18n="order.label_email">Alamat Email</label>
                     <input type="email" id="email" name="email" class="form-control" required
-                        placeholder="Masukkan alamat email" data-i18n-placeholder="mr.placeholder_email" value="{{ old('email', request('package') == 'reservasi' ? ($ptData['company_email'] ?? '') : '') }}">
+                        placeholder="Masukkan alamat email" data-i18n-placeholder="mr.placeholder_email" value="{{ old('email', $ptData['company_email'] ?? (auth()->user()->email ?? '')) }}" readonly style="background:#f8f5f6; color:#64748b;">
                 </div>
 
                 <div class="form-group">
                     <label for="alamat_usaha" data-i18n="mr.label_business_address">Alamat Aktivitas Usaha</label>
                     <textarea id="alamat_usaha" name="alamat_usaha" class="form-control" required
-                        placeholder="Masukkan alamat aktivitas usaha" data-i18n-placeholder="mr.placeholder_business_address" rows="3">{{ old('alamat_usaha', request('package') == 'reservasi' ? ($ptData['operational_address'] ?? '') : '') }}</textarea>
+                        placeholder="Masukkan alamat aktivitas usaha" data-i18n-placeholder="mr.placeholder_business_address" rows="3" readonly style="background:#f8f5f6; color:#64748b;">{{ old('alamat_usaha', $ptData['operational_address'] ?? (auth()->user()->address ?? '')) }}</textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="bidang_usaha" data-i18n="order.label_business_field">Bidang Usaha</label>
                     <input type="text" id="bidang_usaha" name="bidang_usaha" class="form-control" required
-                        placeholder="Masukkan bidang usaha" data-i18n-placeholder="mr.placeholder_business_field" value="{{ old('bidang_usaha', request('package') == 'reservasi' ? ($ptData['business_field'] ?? '') : '') }}">
+                        placeholder="Masukkan bidang usaha" data-i18n-placeholder="mr.placeholder_business_field" value="{{ old('bidang_usaha', $ptData['business_field'] ?? (auth()->user()->business_field ?? '')) }}" readonly style="background:#f8f5f6; color:#64748b;">
                 </div>
 
                 <div class="form-group">

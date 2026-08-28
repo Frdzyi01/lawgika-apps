@@ -81,9 +81,21 @@
                                     </div>
 
                                     <div class="col-md-12">
-                                        <label class="form-label">Paket Booking <span class="text-danger">*</span></label>
-                                        <select name="paket" class="form-select" required>
-                                            <option value="Podcast Room Package (12 Jam / 1 Tahun)" selected>Podcast Room Package (12 Jam / 1 Tahun)</option>
+                                        <label class="form-label">Paket / Durasi Booking <span class="text-danger">*</span></label>
+                                        <select name="paket" class="form-select" id="paket_select" required>
+                                            <option value="20" selected>Podcast Room Package (20 Jam / 1 Tahun) - Rp 5.000.000</option>
+                                            <option value="1">Sewa Sesi Per Jam (1 Jam - Rp 500.000)</option>
+                                            <option value="2">Sewa Sesi Per Jam (2 Jam - Rp 700.000)</option>
+                                            <option value="3">Sewa Sesi Per Jam (3 Jam - Rp 1.000.000)</option>
+                                            <option value="4">Sewa Sesi Per Jam (4 Jam - Rp 1.300.000)</option>
+                                            <option value="5">Sewa Sesi Per Jam (5 Jam - Rp 1.600.000)</option>
+                                            <option value="6">Sewa Sesi Per Jam (6 Jam - Rp 1.900.000)</option>
+                                            <option value="7">Sewa Sesi Per Jam (7 Jam - Rp 2.200.000)</option>
+                                            <option value="8">Sewa Sesi Per Jam (8 Jam - Rp 2.500.000)</option>
+                                            <option value="9">Sewa Sesi Per Jam (9 Jam - Rp 2.800.000)</option>
+                                            <option value="10">Sewa Sesi Per Jam (10 Jam - Rp 3.100.000)</option>
+                                            <option value="11">Sewa Sesi Per Jam (11 Jam - Rp 3.400.000)</option>
+                                            <option value="12">Sewa Sesi Per Jam (12 Jam - Rp 3.700.000)</option>
                                         </select>
                                     </div>
 

@@ -313,12 +313,6 @@
                     Melakukan tanda tangan pada formulir serah terima dokumen di lokasi resepsionis.
                 </li>
             </ul>
-            <div class="warning-box">
-                <p>
-                    <i class="fa-solid fa-triangle-exclamation"></i>
-                    <span><strong>KHUSUS KARTU KREDIT:</strong> Wajib diambil langsung oleh pemilik kartu yang bersangkutan dengan menunjukkan ID fisik.</span>
-                </p>
-            </div>
         </div>
 
         <!-- 2. Pickup oleh Ojol -->
@@ -339,12 +333,7 @@
                     Memberikan catatan khusus kepada driver mengenai rincian dokumen yang akan diambil beserta nama lengkap penerima.
                 </li>
             </ul>
-            <div class="warning-box">
-                <p>
-                    <i class="fa-solid fa-triangle-exclamation"></i>
-                    <span><strong>KHUSUS KARTU KREDIT:</strong> Tidak diperbolehkan dikirim menggunakan kurir Ojol demi keamanan data finansial Anda.</span>
-                </p>
-            </div>
+          
         </div>
 
         <!-- 3. Special Request -->

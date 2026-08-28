@@ -19,7 +19,8 @@ class PodcastRoomController extends Controller
     ) {}
 
     public static array $packages = [
-        2 => ['label' => '2 Jam', 'price' => 500000],
+        2  => ['label' => '2 Jam', 'price' => 700000],
+        20 => ['label' => 'Paket 20 Jam / 1 Tahun', 'price' => 5000000],
     ];
 
     public function index()
@@ -45,13 +46,19 @@ class PodcastRoomController extends Controller
         $quota   = UserRoomQuota::where('user_id', Auth::id())->first();
         $benefit = $this->getActiveBenefit();
 
+        $isPackage = $request->get('package') === 'paket';
+        $package   = $isPackage ? 'paket' : 'reservasi';
+        $durasi    = $isPackage ? 20 : (int) $request->get('durasi', 2);
+        if ($durasi < 1) $durasi = 2;
+
         return view('podcast-room.order', [
             'tanggal'       => $request->get('tanggal'),
             'jam'           => $request->get('jam'),
-            'durasi'        => $request->get('durasi', 2),
+            'durasi'        => $durasi,
+            'package'       => $package,
             'packages'      => self::$packages,
             'quota'         => $quota,
-            'activeBenefit' => $benefit,
+            'activeBenefit' => $isPackage ? null : $benefit,
         ]);
     }
 
@@ -63,12 +70,17 @@ class PodcastRoomController extends Controller
             $request->merge(['nama' => auth()->user()->name]);
         }
 
+        $isPackage = $request->query('package') === 'paket' || $request->input('package') === 'paket';
+
+        $durasi = $isPackage ? 20 : (int) $request->input('durasi', 2);
+        if ($durasi < 1) $durasi = 2;
+
         $rules = [
             'nama'          => 'required|string|max:255',
             'podcast_title' => 'nullable|string|max:255',
-            'tanggal'       => 'required|date',
-            'jam'           => 'required',
-            'durasi'        => 'required|integer|min:1|max:12',
+            'tanggal'       => $isPackage ? 'nullable|date' : 'required|date',
+            'jam'           => $isPackage ? 'nullable' : 'required',
+            'durasi'        => 'required|integer|min:1|max:20',
             'use_quota'     => 'nullable|boolean',
         ];
 
@@ -83,15 +95,17 @@ class PodcastRoomController extends Controller
 
         $request->validate($rules);
 
-        // Double-booking guard
-        $conflict = PodcastRoomBooking::where('date', $request->tanggal)
-            ->where('start_time', 'like', $request->jam . '%')
-            ->whereNotIn('status', ['rejected'])
-            ->exists();
+        // Double-booking guard (hanya jika tanggal dan jam diisi)
+        if ($request->tanggal && $request->jam) {
+            $conflict = PodcastRoomBooking::where('date', $request->tanggal)
+                ->where('start_time', 'like', $request->jam . '%')
+                ->whereNotIn('status', ['rejected'])
+                ->exists();
 
-        if ($conflict) {
-            return back()->withInput()
-                ->withErrors(['jam' => 'Slot waktu tersebut sudah dipesan. Silakan pilih waktu lain.']);
+            if ($conflict) {
+                return back()->withInput()
+                    ->withErrors(['jam' => 'Slot waktu tersebut sudah dipesan. Silakan pilih waktu lain.']);
+            }
         }
 
         $benefit = $this->getActiveBenefit();
@@ -174,13 +188,15 @@ class PodcastRoomController extends Controller
         $durasi = (int) $request->durasi;
         if ($durasi < 1) $durasi = 1;
 
-        // Podcast Pricing: 1 jam = 500.000, 2 jam = 800.000, >2 jam = 800.000 + (n-2) * 300.000
-        if ($durasi === 1) {
+        // Podcast Pricing: 20 jam = 5.000.000, 1 jam = 500.000, 2 jam = 700.000, >2 jam = 700.000 + (n-2) * 300.000
+        if ($durasi === 20) {
+            $price = 5000000;
+        } elseif ($durasi === 1) {
             $price = 500000;
         } elseif ($durasi === 2) {
-            $price = 800000;
+            $price = 700000;
         } else {
-            $price = 800000 + (($durasi - 2) * 300000);
+            $price = 700000 + (($durasi - 2) * 300000);
         }
         $orderNum = 'PODCAST-' . date('Ymd') . '-' . strtoupper(Str::random(5));
 
@@ -204,7 +220,9 @@ class PodcastRoomController extends Controller
 
         $msg = $request->input('use_quota')
             ? "Reservasi Ruang Podcast menggunakan quota berhasil! Nomor Order: {$orderNum}. Status langsung disetujui."
-            : "Reservasi Ruang Podcast berhasil! Nomor Order: {$orderNum}. Menunggu konfirmasi pembayaran admin.";
+            : ($isPackage 
+                ? "Pembelian Paket Podcast Room (20 Jam / 1 Tahun) berhasil! Nomor Order: {$orderNum}. Menunggu konfirmasi pembayaran admin." 
+                : "Reservasi Ruang Podcast berhasil! Nomor Order: {$orderNum}. Menunggu konfirmasi pembayaran admin.");
 
         return redirect()->route('customer.podcast-room.index')->with('success', $msg);
     }
@@ -286,8 +304,18 @@ class PodcastRoomController extends Controller
         $start = $request->filled('start_time') ? \Carbon\Carbon::parse($request->date . ' ' . $request->start_time) : null;
         $end = $start ? $start->copy()->addHour() : null;
         
-        // Paket Podcast Room adalah sistem kuota tahunan (12 Jam)
-        $durationHours = 12;
+        // Parse durasi jam dari input paket atau durasi
+        $paketInput = $request->input('paket');
+        if (is_numeric($paketInput)) {
+            $durationHours = (int) $paketInput;
+        } elseif (preg_match('/(\d+)\s*Jam/i', (string) $paketInput, $m)) {
+            $durationHours = (int) $m[1];
+        } else {
+            $durationHours = (int) $request->input('durasi', 20);
+        }
+        if ($durationHours < 1) $durationHours = 20;
+
+        $packageLabel = $durationHours === 20 ? 'Podcast Room Package (20 Jam / 1 Tahun)' : 'Sewa Sesi (' . $durationHours . ' Jam)';
 
         // Get user for fallback data
         $user = \App\Models\User::find($request->user_id);
@@ -297,12 +325,14 @@ class PodcastRoomController extends Controller
         // Podcast Pricing logic (same as store)
         $price = 0;
         if ($request->source_type === 'manual') {
-            if ($durationHours === 1) {
+            if ($durationHours === 20) {
+                $price = 5000000;
+            } elseif ($durationHours === 1) {
                 $price = 500000;
             } elseif ($durationHours === 2) {
-                $price = 800000;
+                $price = 700000;
             } else {
-                $price = 800000 + (($durationHours - 2) * 300000);
+                $price = 700000 + (($durationHours - 2) * 300000);
             }
         }
 
@@ -319,7 +349,7 @@ class PodcastRoomController extends Controller
             'end_time'        => $end,
             'duration'        => $durationHours,
             'participants'    => $request->participants,
-            'package'         => $durationHours . 'jam',
+            'package'         => $packageLabel,
             'total_price'     => $price,
             'source_type'     => $request->source_type,
             'benefit_id'      => $request->source_type === 'benefit' ? $request->benefit_id : null,
@@ -386,8 +416,8 @@ class PodcastRoomController extends Controller
                 'podcast_room_booking_id' => $booking->id,
                 'type'                    => 'podcast',
             ], [
-                'paket'         => 'Paket Podcast Room (' . ($booking->duration ?: 60) . ' Jam)',
-                'total_minutes' => ($booking->duration ?: 60) * 60,
+                'paket'         => 'Paket Podcast Room (' . ($booking->duration ?: 20) . ' Jam)',
+                'total_minutes' => ($booking->duration ?: 20) * 60,
                 'used_minutes'  => round($booking->used_seconds / 60),
                 'is_active'     => true,
                 'expired_at'    => \Carbon\Carbon::parse($booking->created_at)->addYear(),
@@ -572,7 +602,8 @@ class PodcastRoomController extends Controller
 
         // Display actual duration but billing is based on rounded hours
         $actualDuration = $booking->formatSeconds($sessionSeconds);
-        $billingInfo = ($billingHours > 1) ? " (Ditagih: {$billingHours} jam - Rp " . number_format($adjustedPrice, 0, ',', '.') . ")" : " (Ditagih: {$billingHours} jam - Rp " . number_format($adjustedPrice, 0, ',', '.') . ")";
+        $adjustedPrice  = $booking->calculateAdjustedBilling($sessionSeconds);
+        $billingInfo    = " (Ditagih: {$billingHours} jam - Rp " . number_format($adjustedPrice, 0, ',', '.') . ")";
         
         // ── WhatsApp Notification ─────────────────────────────────────────────
         $waMessage = '';
@@ -658,12 +689,12 @@ class PodcastRoomController extends Controller
 
         if ($packageBooking && $packageBooking->remaining_seconds > 0) {
             return RoomBenefit::firstOrCreate([
-                'user_id'  => Auth::id(),
-                'order_id' => $packageBooking->id,
-                'type'     => 'podcast',
+                'user_id'                 => Auth::id(),
+                'podcast_room_booking_id' => $packageBooking->id,
+                'type'                    => 'podcast',
             ], [
-                'paket'         => 'Paket Podcast Room (' . ($packageBooking->duration ?: 60) . ' Jam)',
-                'total_minutes' => ($packageBooking->duration ?: 60) * 60,
+                'paket'         => 'Paket Podcast Room (' . ($packageBooking->duration ?: 20) . ' Jam)',
+                'total_minutes' => ($packageBooking->duration ?: 20) * 60,
                 'used_minutes'  => round($packageBooking->used_seconds / 60),
                 'is_active'     => true,
                 'expired_at'    => \Carbon\Carbon::parse($packageBooking->created_at)->addYear(),

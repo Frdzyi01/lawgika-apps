@@ -611,11 +611,15 @@
                 border: 2px solid var(--primary);
                 position: relative;
                 overflow: hidden;
-                transition: transform 0.3s ease;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                display: flex;
+                flex-direction: column;
+                height: 100%;
             }
 
             .pricing-card:hover {
-                transform: translateY(-5px);
+                transform: translateY(-6px);
+                box-shadow: 0 20px 45px rgba(78, 5, 22, 0.15);
             }
 
             .pricing-header {
@@ -626,7 +630,7 @@
             }
 
             .pricing-header h3 {
-                font-size: 1.6rem;
+                font-size: 1.5rem;
                 font-weight: 800;
                 margin: 0 0 5px;
                 color: #fff;
@@ -641,6 +645,9 @@
             .pricing-body {
                 padding: 30px 24px;
                 text-align: center;
+                display: flex;
+                flex-direction: column;
+                flex-grow: 1;
             }
 
             .pricing-price {
@@ -663,6 +670,7 @@
                 padding: 0;
                 margin: 0 0 30px;
                 text-align: left;
+                flex-grow: 1;
             }
 
             .feature-list li {
@@ -732,8 +740,8 @@
 
             /* Premium Podcast Note Wrap */
             .podcast-note-wrap {
-                max-width: 500px;
-                margin: 22px auto 0;
+                max-width: 750px;
+                margin: 35px auto 0;
                 background: #fdfdfd;
                 border: 1px solid #f0f1f3;
                 border-radius: 14px;
@@ -782,14 +790,38 @@
                 line-height: 1.6;
                 margin: 0;
             }
+            .pricing-card.featured {
+                border: 2px solid var(--accent);
+                box-shadow: 0 15px 45px rgba(201, 160, 61, 0.25);
+            }
+
+            .pricing-card.featured .pricing-header {
+                background: linear-gradient(135deg, var(--primary) 0%, #35030f 100%);
+            }
+
+            .pricing-card-badge {
+                position: absolute;
+                top: 0;
+                right: 0;
+                background: var(--accent);
+                color: #fff;
+                font-weight: 800;
+                padding: 6px 16px;
+                border-bottom-left-radius: 12px;
+                font-size: 0.78rem;
+                letter-spacing: 0.5px;
+                text-transform: uppercase;
+                z-index: 10;
+            }
         </style>
 
-        <div class="row justify-content-center">
-            <div class="col-lg-4 col-md-7">
+        <div class="row justify-content-center g-4">
+            {{-- KIRI: Sewa Per Sesi / Jam --}}
+            <div class="col-lg-5 col-md-6">
                 <div class="pricing-card">
                     <div class="pricing-header">
-                        <h3 data-i18n="podcast.pricing.card.title">PAKET PODCAST ROOM</h3>
-                        <p data-i18n="podcast.pricing.card.subtitle">Fasilitas lengkap untuk rekaman Anda</p>
+                        <h3 data-i18n="podcast.pricing.card.title">SEWA PER SESI</h3>
+                        <p data-i18n="podcast.pricing.card.subtitle">Fasilitas lengkap untuk rekaman fleksibel</p>
                     </div>
                     <div class="pricing-body">
                         <div class="pricing-price">Rp 700.000</div>
@@ -812,9 +844,49 @@
                             <li><i class="fa-solid fa-check"></i> <span data-i18n="podcast.pricing.card.benefit6">Akses Ruang Tunggu &amp; Pantry</span></li>
                         </ul>
 
-                        <button type="button" class="btn-pricing-primary" onclick="openPodcastBookingModal()" data-i18n="podcast.pricing.card.cta">
-                            <i class="fa-solid fa-calendar-check me-2"></i> Pilih Jadwal &amp; Pesan
-                        </button>
+                        <div class="mt-auto">
+                            <button type="button" class="btn-pricing-primary" onclick="openPodcastBookingModal()" data-i18n="podcast.pricing.card.cta">
+                                <i class="fa-solid fa-calendar-check me-2"></i> Pilih Jadwal &amp; Pesan
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- KANAN: Paket 20 Jam / 1 Tahun (Featured) --}}
+            <div class="col-lg-5 col-md-6">
+                <div class="pricing-card featured">
+                    <div class="pricing-card-badge" data-i18n="podcast.pricing.card2.badge">Paling Hemat</div>
+                    <div class="pricing-header">
+                        <h3 data-i18n="podcast.pricing.card2.title">PAKET 20 JAM / TAHUN</h3>
+                        <p data-i18n="podcast.pricing.card2.subtitle">Investasi terbaik untuk kreator &amp; bisnis</p>
+                    </div>
+                    <div class="pricing-body">
+                        <div class="pricing-price" style="color: var(--primary);">Rp 5.000.000</div>
+                        <div class="pricing-desc" data-i18n="podcast.pricing.card2.desc">
+                            Masa Berlaku 1 Tahun <br>
+                            <span style="color: #15803d; font-weight: 700; font-size: 0.85rem;">(Hanya Rp 250.000 / jam — Hemat s/d 50%)</span>
+                        </div>
+
+                        <div class="short-rental-box" style="border-color: #86efac; background: #f0fdf4;">
+                            <div class="title" style="color: #15803d;" data-i18n="podcast.pricing.card2.box_title">Investasi Cerdas Konten Kreator</div>
+                            <div class="desc" style="color: #166534;" data-i18n="podcast.pricing.card2.box_desc">Total <strong>20 Jam</strong> bebas pakai fleksibel kapan saja selama <strong>12 Bulan</strong>.</div>
+                        </div>
+
+                        <ul class="feature-list">
+                            <li><i class="fa-solid fa-check" style="color: var(--primary);"></i> <span data-i18n="podcast.pricing.card2.benefit1">Total Kuota 20 Jam Penggunaan</span></li>
+                            <li><i class="fa-solid fa-check" style="color: var(--primary);"></i> <span data-i18n="podcast.pricing.card2.benefit2">Masa Berlaku 1 Tahun (Fleksibel)</span></li>
+                            <li><i class="fa-solid fa-check" style="color: var(--primary);"></i> <span data-i18n="podcast.pricing.card2.benefit3">Bebas Reservasi Jadwal Kapan Saja</span></li>
+                            <li><i class="fa-solid fa-check" style="color: var(--primary);"></i> <span data-i18n="podcast.pricing.card2.benefit4">Peralatan Podcast &amp; Akustik Premium</span></li>
+                            <li><i class="fa-solid fa-check" style="color: var(--primary);"></i> <span data-i18n="podcast.pricing.card2.benefit5">Didampingi Tim Operator Studio</span></li>
+                            <li><i class="fa-solid fa-check" style="color: var(--primary);"></i> <span data-i18n="podcast.pricing.card2.benefit6">Free Flow Mineral Water &amp; Pantry</span></li>
+                        </ul>
+
+                        <div class="mt-auto">
+                            <a href="{{ route('podcast-room.order', ['package' => 'paket', 'durasi' => 20]) }}" class="btn-pricing-primary" style="background: var(--accent); color: #1e1b2b; font-weight: 800; border: 2px solid var(--accent);" data-i18n="podcast.pricing.card2.cta">
+                                <i class="fa-solid fa-box-open me-2"></i> Beli Paket Sekarang
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -827,8 +899,8 @@
                     <i class="fa-solid fa-circle-info"></i>
                 </div>
                 <div class="podcast-note-content">
-                    <h5 data-i18n="podcast.note.title1">Aturan Harga</h5>
-                    <p data-i18n="podcast.note.desc1">Durasi 2 jam pertama menggunakan harga paket <strong>Rp 700.000</strong>. Setelah melewati 2 jam, dikenakan tambahan <strong>Rp 300.000 / jam</strong> berikutnya.</p>
+                    <h5 data-i18n="podcast.note.title1">Sewa Per Sesi vs Paket 20 Jam</h5>
+                    <p data-i18n="podcast.note.desc1">Untuk sewa per sesi, durasi 2 jam pertama Rp 700.000 (+ Rp 300.000/jam berikutnya). Untuk kebutuhan produksi podcast berkala, <strong>Paket 20 Jam / Tahun (Rp 5.000.000)</strong> jauh lebih hemat dan kuotanya dapat digunakan fleksibel selama 1 tahun.</p>
                 </div>
             </div>
 
@@ -861,15 +933,15 @@
             <div class="col-lg-8 mx-auto">
                 <div class="faq-item">
                     <div class="faq-question"><span data-i18n="podcast.faq.q1">Berapa jumlah maksimal orang di dalam studio?</span> <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer" data-i18n="podcast.faq.a1">Studio kami dirancang optimal untuk 2 hingga 4 orang pembicara sekaligus agar kualitas audio tetap fokus dan tidak *bocor*.</div>
+                    <div class="faq-answer" data-i18n="podcast.faq.a1">Studio kami dirancang optimal untuk 2 hingga 4 orang pembicara sekaligus agar kualitas audio tetap fokus dan tidak bocor.</div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question"><span data-i18n="podcast.faq.q2">Apakah saya perlu membawa *memory card* atau *harddisk* sendiri?</span> <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer" data-i18n="podcast.faq.a2">Ya, kami sangat menyarankan Anda membawa *storage* sendiri untuk memudahkan pemindahan *file* raw (mentah) langsung setelah sesi rekaman selesai.</div>
+                    <div class="faq-question"><span data-i18n="podcast.faq.q2">Apakah saya perlu membawa memory card atau harddisk sendiri?</span> <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer" data-i18n="podcast.faq.a2">Ya, kami sangat menyarankan Anda membawa storage sendiri untuk memudahkan pemindahan file raw (mentah) langsung setelah sesi rekaman selesai.</div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question"><span data-i18n="podcast.faq.q3">Apakah sudah termasuk layanan *editing* video/audio?</span> <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-answer" data-i18n="podcast.faq.a3">Paket sewa standar hanya mencakup penggunaan ruangan dan peralatan. Untuk layanan tambahan *editing* pasca produksi, silakan konsultasikan dengan tim teknis kami di lokasi.</div>
+                    <div class="faq-question"><span data-i18n="podcast.faq.q3">Apakah sudah termasuk layanan editing video/audio?</span> <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer" data-i18n="podcast.faq.a3">Paket sewa standar hanya mencakup penggunaan ruangan dan peralatan. Untuk layanan tambahan editing pasca produksi, silakan konsultasikan dengan tim teknis kami di lokasi.</div>
                 </div>
             </div>
         </div>
@@ -1231,6 +1303,7 @@
     // === Podcast Dynamic Pricing Formula ===
     function calcPodcastPrice(jam) {
         if (jam <= 0) return 0;
+        if (jam === 20) return 5000000;
         if (jam === 1) return 500000;
         if (jam === 2) return 700000;
         return 700000 + ((jam - 2) * 300000);

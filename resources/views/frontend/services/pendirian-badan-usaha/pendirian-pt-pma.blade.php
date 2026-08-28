@@ -897,16 +897,43 @@
 </section>
 
 <script>
-    // ── Universal goOrder ──────────────────────────────────────────────────
+    // ── Universal goOrder via WhatsApp ─────────────────────────────────────
     function goOrder(service, pkg) {
-        @guest
-        const loginModal = new bootstrap.Modal(document.getElementById('exampleModal'));
-        loginModal.show();
-        return;
-        @endguest
-        @auth
-        window.location.href = '/order/' + service + '/' + pkg;
-        @endauth
+        let serviceName = 'Legalitas Perusahaan';
+        switch (service) {
+            case 'pt-perorangan':
+                serviceName = 'Pendirian PT Perorangan';
+                break;
+            case 'pendirian-PT':
+            case 'pt':
+                serviceName = 'Pendirian PT Perseroan';
+                break;
+            case 'cv':
+                serviceName = 'Pendirian CV';
+                break;
+            case 'yayasan':
+                serviceName = 'Pendirian Yayasan';
+                break;
+            case 'firma':
+                serviceName = 'Pendirian Firma';
+                break;
+            case 'pt-pma':
+                serviceName = 'Pendirian PT PMA';
+                break;
+            default:
+                serviceName = service;
+        }
+
+        let pkgName = 'Paket Basic';
+        if (pkg === 'professional' || pkg === 'enterprise' || pkg === 'business') {
+            pkgName = 'Paket Business';
+        } else {
+            pkgName = 'Paket Basic';
+        }
+
+        const message = `Halo Admin Lawgika, saya ingin memesan ${pkgName} untuk ${serviceName}. Mohon informasi lebih lanjut.`;
+        const waUrl = 'https://wa.me/6281112088600?text=' + encodeURIComponent(message);
+        window.open(waUrl, '_blank');
     }
 
     document.addEventListener("DOMContentLoaded", function() {

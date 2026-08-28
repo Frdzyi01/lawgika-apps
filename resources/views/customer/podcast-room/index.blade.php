@@ -45,8 +45,14 @@
                                 @endif
                             </td>
                             <td>
-                                {{ \Carbon\Carbon::parse($b->date)->format('d M Y') }}
-                                <small class="d-block">{{ \Carbon\Carbon::parse($b->start_time)->format('H:i') }}</small>
+                                @if($b->date)
+                                    {{ \Carbon\Carbon::parse($b->date)->format('d M Y') }}
+                                    @if($b->start_time)
+                                        <small class="d-block">{{ \Carbon\Carbon::parse($b->start_time)->format('H:i') }}</small>
+                                    @endif
+                                @else
+                                    <span class="badge bg-light text-dark border">Paket Kuota (Fleksibel)</span>
+                                @endif
                             </td>
                             <td>{{ $b->duration }} Jam</td>
                             <td><span class="badge bg-secondary">{{ $b->participants ?? 1 }} Orang</span></td>

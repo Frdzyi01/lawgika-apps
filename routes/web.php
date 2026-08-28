@@ -123,6 +123,13 @@ Route::get('/database-peraturan', [PeraturanFrontendController::class, 'index'])
 
 Auth::routes(['register' => false]);
 
+Route::match(['get', 'post'], '/logout', function (\Illuminate\Http\Request $request) {
+    Auth::logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+    return redirect('/?login=1');
+})->name('logout');
+
 // Prevent direct access to /login and /register pages, redirecting to home with a trigger parameter
 Route::get('/login', function() { return redirect('/?login=1'); })->name('login');
 // Route::get('/register', function() { return redirect('/?register=1'); })->name('register');

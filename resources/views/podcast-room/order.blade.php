@@ -112,8 +112,13 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);}
 <div class="order-container">
     <div class="order-header">
         <div style="font-size:2.8rem;margin-bottom:10px;">🎙️</div>
-        <h2 data-i18n="pr.reserv_title">Reservasi Ruang Podcast</h2>
-        <p data-i18n="pr.reserv_subtitle">Lengkapi form di bawah, upload bukti transfer, lalu klik Pesan.</p>
+        @if(($package ?? '') == 'paket' || request('package') == 'paket')
+            <h2 data-i18n="pr.buy_package_title">Beli Paket Podcast Room</h2>
+            <p data-i18n="pr.buy_package_subtitle">Dapatkan akses kuota 20 jam podcast studio untuk 1 tahun</p>
+        @else
+            <h2 data-i18n="pr.reserv_title">Reservasi Ruang Podcast</h2>
+            <p data-i18n="pr.reserv_subtitle">Lengkapi form di bawah, upload bukti transfer, lalu klik Pesan.</p>
+        @endif
     </div>
 
     @if($errors->any())
@@ -126,6 +131,49 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);}
 
     <form action="{{ route('podcast-room.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
+
+        {{-- Benefit Choice (hanya muncul saat reservasi jika user punya active benefit) --}}
+        @if(($package ?? '') !== 'paket' && isset($activeBenefit) && $activeBenefit)
+            <div id="benefitChoiceBox" style="background:#f0fdf4; border:1.5px solid #86efac; border-radius:12px; padding:20px; margin-bottom:24px;">
+                <h5 style="color:#15803d; font-weight:800; margin-bottom:8px; display:flex; align-items:center; gap:8px;">
+                    <i class="fa-solid fa-gift" style="color:#16a34a;"></i>
+                    <span data-i18n="pr.benefit_box_title">Anda Memiliki Benefit Paket</span>
+                </h5>
+                <p style="color:#166534; margin-bottom:14px; font-size:.92rem; line-height:1.5;">
+                    Benefit: <strong>{{ $activeBenefit->paket }}</strong> — <span data-i18n="pr.remaining">Sisa:</span> <strong>{{ \App\Models\RoomBenefit::formatMinutes($activeBenefit->remaining_minutes) }}</strong>
+                    (Berlaku hingga {{ $activeBenefit->expired_at ? $activeBenefit->expired_at->format('d M Y') : __('mr.no_expired') }})
+                </p>
+                <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                    <label style="cursor:pointer; padding:10px 18px; border:2px solid #16a34a; border-radius:8px; font-weight:600; font-size:.88rem; display:flex; align-items:center; gap:8px; background:#fff;">
+                        <input type="radio" name="benefit_choice" value="use_benefit" id="useBenefitRadio"
+                            {{ old('benefit_choice','use_benefit') === 'use_benefit' ? 'checked' : '' }}
+                            onchange="onBenefitChoiceChange()" style="margin:0;">
+                        <span style="color:#15803d;" data-i18n="pr.use_benefit_free">✅ Gunakan Benefit Gratis (Potong Kuota)</span>
+                    </label>
+                    <label style="cursor:pointer; padding:10px 18px; border:2px solid #cbd5e1; border-radius:8px; font-weight:600; font-size:.88rem; display:flex; align-items:center; gap:8px; background:#fff;">
+                        <input type="radio" name="benefit_choice" value="pay_manual" id="payManualRadio"
+                            {{ old('benefit_choice') === 'pay_manual' ? 'checked' : '' }}
+                            onchange="onBenefitChoiceChange()" style="margin:0;">
+                        <span style="color:#374151;" data-i18n="pr.pay_manual_label">Bayar Mandiri (Upload Bukti Transfer)</span>
+                    </label>
+                </div>
+            </div>
+            <input type="hidden" name="pay_manually" id="payManuallyInput" value="{{ old('benefit_choice') === 'pay_manual' ? '1' : '0' }}">
+        @endif
+
+        @if(($package ?? '') !== 'paket' && isset($quota) && !now()->greaterThan($quota->expired_at) && $quota->remaining_seconds > 0)
+            <div style="background:#fdf2f8; border:1px solid #fbcfe8; border-radius:10px; padding:20px; margin-bottom:20px;">
+                <h5 style="color:#be185d; font-weight:700; margin-bottom:10px;"><i class="fa-solid fa-gem"></i> <span data-i18n="mr.has_quota_title">Anda Memiliki Quota Ruangan!</span></h5>
+                <p style="margin-bottom:15px; color:#831843;"><span data-i18n="mr.remaining_quota">Sisa quota Anda:</span> <strong>{{ $quota->formatted_remaining_time }}</strong>
+                    (Berlaku hingga {{ \Carbon\Carbon::parse($quota->expired_at)->format('d M Y') }})</p>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="use_quota" id="use_quota" value="1" checked onchange="togglePaymentProof()">
+                    <label class="form-check-label fw-bold text-dark" style="margin-bottom:0;" for="use_quota">
+                        <span data-i18n="mr.use_quota_label">Gunakan Quota untuk Reservasi ini (Bebas Biaya)</span>
+                    </label>
+                </div>
+            </div>
+        @endif
 
         <div class="form-group">
             <label for="nama"><span data-i18n="order.label_fullname">Nama Lengkap</span> <span class="text-danger">*</span></label>
@@ -140,48 +188,82 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);}
                 placeholder="Misal: The Business Talk" data-i18n-placeholder="pr.placeholder_podcast_title" value="{{ old('podcast_title') }}">
         </div>
 
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="tanggal"><span data-i18n="mr.label_use_date">Tanggal Penggunaan</span> <span class="text-danger">*</span></label>
-                    <input type="date" id="tanggal" name="tanggal" class="form-control" required
-                        min="{{ date('Y-m-d') }}"
-                        value="{{ old('tanggal', $tanggal ?? '') }}"
-                        onchange="updateSummary()">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="jam"><span data-i18n="pr.label_start_time">Jam Booking</span> <span class="text-danger">*</span></label>
-                    <input type="time" id="jam" name="jam" class="form-control" required
-                        value="{{ old('jam', $jam ?? '') }}"
-                        onchange="updateSummary()">
-                </div>
-            </div>
-        </div>
+        @if(($package ?? '') === 'paket' || request('package') === 'paket')
+            {{-- Package Purchase Box (Khusus Pembelian Paket 20 Jam Baru) --}}
+            <input type="hidden" name="package" value="paket">
+            <input type="hidden" name="durasi" id="durasi" value="20">
+            <input type="hidden" id="durasi_display" value="20">
+            <input type="hidden" id="tanggal" name="tanggal" value="">
+            <input type="hidden" id="jam" name="jam" value="">
+            <input type="hidden" id="jam_selesai_display" value="">
 
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label><span data-i18n="pr.label_duration">Durasi (Jam)</span> <span class="text-danger">*</span></label>
-                    <div class="durasi-stepper">
-                        <button type="button" onclick="updateDurasi(-1)">−</button>
-                        <input type="text" id="durasi_display" class="form-control"
-                            value="{{ old('durasi', $durasi ?? 2) }}" readonly>
-                        <button type="button" onclick="updateDurasi(1)">+</button>
+            <div style="background:#f0fdf4; border:1.5px solid #86efac; border-radius:12px; padding:20px; margin-bottom:24px;">
+                <h5 style="color:#15803d; font-weight:800; margin-bottom:12px; display:flex; align-items:center; gap:8px;">
+                    <i class="fa-solid fa-box-open" style="color:#16a34a;"></i>
+                    <span data-i18n="pr.package_box_title">Paket Podcast Room (20 Jam / 1 Tahun)</span>
+                </h5>
+                <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                    <span style="color:#166534;" data-i18n="pr.package_duration">Total Kuota:</span>
+                    <strong style="color:#14532d;">20 Jam</strong>
+                </div>
+                <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                    <span style="color:#166534;" data-i18n="pr.package_validity">Masa Berlaku:</span>
+                    <strong style="color:#14532d;">1 Tahun (12 Bulan)</strong>
+                </div>
+                <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                    <span style="color:#166534;" data-i18n="pr.package_benefit_note">Fasilitas:</span>
+                    <strong style="color:#14532d;">Studio Lengkap, Operator, AC, WiFi, Pantry</strong>
+                </div>
+                <div style="display:flex; justify-content:space-between; border-top:1px dashed #86efac; padding-top:10px; margin-top:10px;">
+                    <span style="color:#166534;" data-i18n="pr.package_price">Harga Paket:</span>
+                    <strong style="color:#15803d; font-size:1.25rem;">Rp 5.000.000</strong>
+                </div>
+            </div>
+        @else
+            {{-- Reservation Booking Mode (Jadwal Tanggal & Jam Booking untuk Benefit maupun Bayar Mandiri) --}}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="tanggal"><span data-i18n="mr.label_use_date">Tanggal Penggunaan</span> <span class="text-danger">*</span></label>
+                        <input type="date" id="tanggal" name="tanggal" class="form-control" required
+                            min="{{ date('Y-m-d') }}"
+                            value="{{ old('tanggal', $tanggal ?? '') }}"
+                            onchange="updateSummary()">
                     </div>
-                    <input type="hidden" id="durasi" name="durasi" value="{{ old('durasi', $durasi ?? 2) }}">
-                    <div style="font-size:.78rem;color:var(--gray);margin-top:5px;" data-i18n="pr.min_duration_hint">Minimum 1 jam</div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="jam"><span data-i18n="pr.label_start_time">Jam Booking</span> <span class="text-danger">*</span></label>
+                        <input type="time" id="jam" name="jam" class="form-control" required
+                            value="{{ old('jam', $jam ?? '') }}"
+                            onchange="updateSummary()">
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label data-i18n="pr.label_end_time">Jam Selesai</label>
-                    <input type="text" id="jam_selesai_display" class="form-control" readonly
-                        placeholder="Otomatis terhitung" data-i18n-placeholder="pr.placeholder_auto_calc" style="background:#f8f5f6;color:var(--gray);">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label><span data-i18n="pr.label_duration">Durasi (Jam)</span> <span class="text-danger">*</span></label>
+                        <div class="durasi-stepper">
+                            <button type="button" onclick="updateDurasi(-1)">−</button>
+                            <input type="text" id="durasi_display" class="form-control"
+                                value="{{ old('durasi', ($durasi == 20 ? 2 : ($durasi ?? 2))) }}" readonly>
+                            <button type="button" onclick="updateDurasi(1)">+</button>
+                        </div>
+                        <input type="hidden" id="durasi" name="durasi" value="{{ old('durasi', ($durasi == 20 ? 2 : ($durasi ?? 2))) }}">
+                        <div style="font-size:.78rem;color:var(--gray);margin-top:5px;" data-i18n="pr.min_duration_hint">Minimum 1 jam</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label data-i18n="pr.label_end_time">Jam Selesai</label>
+                        <input type="text" id="jam_selesai_display" class="form-control" readonly
+                            placeholder="Otomatis terhitung" data-i18n-placeholder="pr.placeholder_auto_calc" style="background:#f8f5f6;color:var(--gray);">
+                    </div>
                 </div>
             </div>
-        </div>
+        @endif
 
         {{-- ===== RINGKASAN BOOKING ===== --}}
         <div class="booking-summary" id="bookingSummary">
@@ -204,6 +286,11 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);}
                 <span class="value" id="sumJamSelesai">–</span>
             </div>
 
+            <div class="summary-row" id="rowBiayaBenefit" style="display:none;">
+                <span class="label">💳 Biaya Reservasi</span>
+                <span class="value text-success fw-bold">Rp 0 (Memotong Kuota Benefit)</span>
+            </div>
+
             <div class="summary-row" id="rowHargaDasar">
                 <span class="label" data-i18n="pr.sum_base_price">💰 Harga Paket (1–2 Jam)</span>
                 <span class="value" id="sumHargaDasar">–</span>
@@ -213,7 +300,7 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);}
                 <span class="value" id="sumTambahan">–</span>
             </div>
 
-            <div class="summary-total" style="flex-direction:column; align-items:stretch;">
+            <div class="summary-total" id="summaryTotalBlock" style="flex-direction:column; align-items:stretch;">
                 <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
                     <span class="label" style="font-weight:normal; font-size:0.9rem;">Subtotal</span>
                     <span class="value" id="sumSubtotal">Rp –</span>
@@ -230,50 +317,10 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);}
         </div>
 
         {{-- ===== PRICE NOTES ===== --}}
-        <div class="price-note">
-            <p>📌 <strong data-i18n="pr.price_rules_title">Aturan Harga:</strong> <span data-i18n="pr.price_rules_desc_part1">Durasi 2 jam pertama menggunakan harga paket</span> <strong>Rp 800.000</strong>. <span data-i18n="pr.price_rules_desc_part2">Setelah melewati 2 jam, dikenakan tambahan</span> <strong>Rp 300.000 per jam</strong>.</p>
+        <div class="price-note" id="priceNote">
+            <p>📌 <strong data-i18n="pr.price_rules_title">Aturan Harga:</strong> <span data-i18n="pr.price_rules_desc_part1">Durasi 2 jam pertama menggunakan harga paket</span> <strong>Rp 700.000</strong>. <span data-i18n="pr.price_rules_desc_part2">Setelah melewati 2 jam, dikenakan tambahan</span> <strong>Rp 300.000 per jam</strong>.</p>
             <p>⏰ <strong data-i18n="pr.prep_time_hint">Harap datang 15 menit sebelum jadwal dimulai</strong> <span data-i18n="pr.prep_time_hint_part2">untuk persiapan dan pengecekan peralatan.</span></p>
         </div>
-
-        @if(isset($quota) && !now()->greaterThan($quota->expired_at) && $quota->remaining_seconds > 0)
-            <div style="background:#fdf2f8; border:1px solid #fbcfe8; border-radius:10px; padding:20px; margin-bottom:20px;">
-                <h5 style="color:#be185d; font-weight:700; margin-bottom:10px;"><i class="fa-solid fa-gem"></i> <span data-i18n="mr.has_quota_title">Anda Memiliki Quota Ruangan!</span></h5>
-                <p style="margin-bottom:15px; color:#831843;"><span data-i18n="mr.remaining_quota">Sisa quota Anda:</span> <strong>{{ $quota->formatted_remaining_time }}</strong>
-                    (Berlaku hingga {{ \Carbon\Carbon::parse($quota->expired_at)->format('d M Y') }})</p>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="use_quota" id="use_quota" value="1" checked onchange="togglePaymentProof()">
-                    <label class="form-check-label fw-bold text-dark" style="margin-bottom:0;" for="use_quota">
-                        <span data-i18n="mr.use_quota_label">Gunakan Quota untuk Reservasi ini (Bebas Biaya)</span>
-                    </label>
-                </div>
-            </div>
-        @endif
-
-        {{-- Benefit Choice (jika user punya active benefit dari paket PT) --}}
-        @if(isset($activeBenefit) && $activeBenefit)
-            <div id="benefitChoiceBox" style="background:#f0fdf4; border:1px solid #86efac; border-radius:10px; padding:20px; margin-bottom:20px;">
-                <h5 style="color:#15803d; font-weight:700; margin-bottom:8px;"><i class="fa-solid fa-gift"></i> <span data-i18n="pr.benefit_box_title">Anda Memiliki Benefit Paket</span></h5>
-                <p style="color:#166534; margin-bottom:14px; font-size:.9rem;">
-                    Benefit: <strong>{{ $activeBenefit->paket }}</strong> — <span data-i18n="pr.remaining">Sisa:</span> <strong>{{ \App\Models\RoomBenefit::formatMinutes($activeBenefit->remaining_minutes) }}</strong>
-                    (Berlaku hingga {{ $activeBenefit->expired_at ? $activeBenefit->expired_at->format('d M Y') : __('mr.no_expired') }})
-                </p>
-                <div style="display:flex; gap:10px; flex-wrap:wrap;">
-                    <label style="cursor:pointer; padding:10px 18px; border:2px solid #16a34a; border-radius:8px; font-weight:600; font-size:.88rem; display:flex; align-items:center; gap:6px;">
-                        <input type="radio" name="benefit_choice" value="use_benefit" id="useBenefitRadio"
-                            {{ old('benefit_choice','use_benefit') === 'use_benefit' ? 'checked' : '' }}
-                            onchange="onBenefitChoiceChange()" style="margin:0;">
-                        <span style="color:#15803d;" data-i18n="pr.use_benefit_free">✅ Gunakan Benefit Gratis</span>
-                    </label>
-                    <label style="cursor:pointer; padding:10px 18px; border:2px solid #94a3b8; border-radius:8px; font-weight:600; font-size:.88rem; display:flex; align-items:center; gap:6px;">
-                        <input type="radio" name="benefit_choice" value="pay_manual" id="payManualRadio"
-                            {{ old('benefit_choice') === 'pay_manual' ? 'checked' : '' }}
-                            onchange="onBenefitChoiceChange()" style="margin:0;">
-                        <span style="color:#374151;" data-i18n="pr.pay_manual_label"> Bayar Mandiri (Upload Bukti Transfer)</span>
-                    </label>
-                </div>
-            </div>
-            <input type="hidden" name="pay_manually" id="payManuallyInput" value="{{ old('benefit_choice') === 'pay_manual' ? '1' : '0' }}">
-        @endif
 
         {{-- Payment Info --}}
         <div id="payment-section">
@@ -356,13 +403,13 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);}
             </div>
         </div>
 
-        <div style="background:#fef9c3;border:1px solid #fde047;border-radius:10px;padding:13px;font-size:.88rem;color:#713f12;margin-bottom:18px;">
-            <strong data-i18n="order.info_label">⚡ Info:</strong> <span data-i18n="mr.info_desc_part1">Setelah reservasi, admin akan mengkonfirmasi pembayaran Anda. Check In hanya bisa dilakukan setelah pembayaran</span> <strong><span data-i18n="mr.info_desc_part2">disetujui</span></strong>.
+        <div id="infoAlert" style="background:#fef9c3;border:1px solid #fde047;border-radius:10px;padding:13px;font-size:.88rem;color:#713f12;margin-bottom:18px;">
+            <strong data-i18n="order.info_label">⚡ Info:</strong> <span id="infoAlertText">Setelah reservasi, admin akan mengkonfirmasi pembayaran Anda. Check In hanya bisa dilakukan setelah pembayaran disetujui.</span>
         </div>
 
         <div style="display:flex; gap:15px;">
             <button type="submit" class="btn-submit" style="flex:1; margin-top:0;">
-                <i class="fa-solid fa-calendar-check me-1"></i> <span data-i18n="pr.submit_btn">Pesan Ruang Podcast Sekarang</span>
+                <i class="fa-solid fa-calendar-check me-1"></i> <span id="submitBtnText" data-i18n="pr.submit_btn">Pesan Ruang Podcast Sekarang</span>
             </button>
             <button type="button" class="btn-submit" onclick="sendWhatsApp()"
                 style="flex:1; margin-top:0; background:#25D366; color:#fff; border:none;">
@@ -383,9 +430,10 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);}
 function calcPodcastPrice(jam) {
     jam = parseInt(jam) || 0;
     if (jam <= 0) return 0;
+    if (jam === 20) return 5000000;
     if (jam === 1) return 500000;
-    if (jam === 2) return 800000;
-    return 800000 + ((jam - 2) * 300000);
+    if (jam === 2) return 700000;
+    return 700000 + ((jam - 2) * 300000);
 }
 
 function formatRupiah(amount) {
@@ -399,7 +447,7 @@ function updateDurasi(step) {
     let val = parseInt(h.value) || 2;
     val += step;
     if (val < 1) val = 1;
-    if (val > 12) val = 12;
+    if (val > 20) val = 20;
     h.value = val;
     d.value = val;
     updateSummary();
@@ -407,62 +455,97 @@ function updateDurasi(step) {
 
 // ===== Update Ringkasan & Harga =====
 function updateSummary() {
-    const tanggal  = document.getElementById('tanggal').value;
-    const jam      = document.getElementById('jam').value;
-    const durasi   = parseInt(document.getElementById('durasi').value) || 2;
+    const isPackage = {{ (($package ?? '') === 'paket' || request('package') === 'paket') ? 'true' : 'false' }};
+    const tanggalEl = document.getElementById('tanggal');
+    const jamEl     = document.getElementById('jam');
+    const durasiEl  = document.getElementById('durasi');
+
+    const tanggal  = tanggalEl ? tanggalEl.value : '';
+    const jam      = jamEl ? jamEl.value : '';
+    const durasi   = isPackage ? 20 : (parseInt(durasiEl ? durasiEl.value : 2) || 2);
     const subtotal = calcPodcastPrice(durasi);
     const ppn      = Math.round(subtotal * 0.11);
     const total    = subtotal + ppn;
 
     // Jam Selesai
     let jamSelesaiStr = '–';
-    if (jam) {
+    if (jam && !isPackage) {
         const [hh, mm] = jam.split(':').map(Number);
         const selesai  = new Date(0, 0, 0, hh + durasi, mm);
         jamSelesaiStr  = selesai.getHours().toString().padStart(2,'0') + ':' + selesai.getMinutes().toString().padStart(2,'0');
     }
 
     // Update display jam selesai
-    document.getElementById('jam_selesai_display').value = jamSelesaiStr !== '–' ? jamSelesaiStr : '';
+    const jamSelesaiDisplay = document.getElementById('jam_selesai_display');
+    if (jamSelesaiDisplay) {
+        jamSelesaiDisplay.value = jamSelesaiStr !== '–' ? jamSelesaiStr : '';
+    }
 
     // Tanggal formatted
     let tanggalFormatted = '–';
-    if (tanggal) {
+    if (isPackage) {
+        tanggalFormatted = 'Fleksibel (Berlaku 1 Tahun)';
+    } else if (tanggal) {
         const d = new Date(tanggal + 'T00:00:00');
         const months = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
         tanggalFormatted = d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
     }
 
     // Populate Summary
-    document.getElementById('sumTanggal').textContent   = tanggalFormatted;
-    document.getElementById('sumJamMulai').textContent  = jam ? jam + ' WIB' : '–';
-    document.getElementById('sumDurasi').textContent    = durasi + ' Jam';
-    document.getElementById('sumJamSelesai').textContent = jamSelesaiStr !== '–' ? jamSelesaiStr + ' WIB' : '–';
+    if (document.getElementById('sumTanggal')) {
+        document.getElementById('sumTanggal').textContent = tanggalFormatted;
+    }
+    if (document.getElementById('sumJamMulai')) {
+        document.getElementById('sumJamMulai').textContent = isPackage ? 'Sesuai Reservasi Nanti' : (jam ? jam + ' WIB' : '–');
+    }
+    if (document.getElementById('sumDurasi')) {
+        document.getElementById('sumDurasi').textContent = durasi === 20 ? '20 Jam (Paket 1 Tahun)' : durasi + ' Jam';
+    }
+    if (document.getElementById('sumJamSelesai')) {
+        document.getElementById('sumJamSelesai').textContent = isPackage ? 'Masa Aktif 12 Bulan' : (jamSelesaiStr !== '–' ? jamSelesaiStr + ' WIB' : '–');
+    }
     
-    document.getElementById('sumSubtotal').textContent  = formatRupiah(subtotal);
-    document.getElementById('sumPpn').textContent       = formatRupiah(ppn);
-    document.getElementById('sumTotal').textContent     = formatRupiah(total);
+    if (document.getElementById('sumSubtotal')) document.getElementById('sumSubtotal').textContent = formatRupiah(subtotal);
+    if (document.getElementById('sumPpn')) document.getElementById('sumPpn').textContent = formatRupiah(ppn);
+    if (document.getElementById('sumTotal')) document.getElementById('sumTotal').textContent = formatRupiah(total);
+
+    const useBenefitRadio = document.getElementById('useBenefitRadio');
+    const payManualRadio  = document.getElementById('payManualRadio');
+    const isUsingBenefit  = (useBenefitRadio && useBenefitRadio.checked) || (!payManualRadio && document.getElementById('benefitChoiceBox'));
 
     // Harga Dasar
-    const hargaDasar = durasi >= 2 ? 800000 : 500000;
-    document.getElementById('sumHargaDasar').textContent = formatRupiah(hargaDasar);
+    let hargaDasarText = formatRupiah(durasi === 1 ? 500000 : 700000);
+    if (durasi === 20) {
+        hargaDasarText = 'Rp 5.000.000 (Paket 20 Jam / 1 Tahun)';
+    }
+    if (document.getElementById('sumHargaDasar')) {
+        document.getElementById('sumHargaDasar').textContent = hargaDasarText;
+    }
+    if (isUsingBenefit && document.getElementById('rowHargaDasar')) {
+        document.getElementById('rowHargaDasar').style.display = 'none';
+    }
 
     // Tambahan Jam
     const rowTambahan   = document.getElementById('rowTambahan');
     const sumTambahan   = document.getElementById('sumTambahan');
-    if (durasi > 2) {
+    if (durasi > 2 && durasi !== 20 && !isUsingBenefit) {
         const tambahanJam   = durasi - 2;
         const tambahanHarga = tambahanJam * 300000;
-        sumTambahan.textContent = tambahanJam + ' jam × Rp 300.000 = ' + formatRupiah(tambahanHarga);
-        rowTambahan.style.display = 'flex';
+        if (sumTambahan) sumTambahan.textContent = tambahanJam + ' jam × Rp 300.000 = ' + formatRupiah(tambahanHarga);
+        if (rowTambahan) rowTambahan.style.display = 'flex';
     } else {
-        rowTambahan.style.display = 'none';
+        if (rowTambahan) rowTambahan.style.display = 'none';
     }
 
     // Update total tagihan di bank box
-    document.getElementById('subtotalDisplay').textContent = formatRupiah(subtotal);
-    document.getElementById('ppnDisplay').textContent = formatRupiah(ppn);
-    document.getElementById('totalDisplay').textContent = formatRupiah(total);
+    if (document.getElementById('subtotalDisplay')) document.getElementById('subtotalDisplay').textContent = formatRupiah(subtotal);
+    if (document.getElementById('ppnDisplay')) document.getElementById('ppnDisplay').textContent = formatRupiah(ppn);
+    if (document.getElementById('totalDisplay')) document.getElementById('totalDisplay').textContent = formatRupiah(total);
+
+    const submitBtnText = document.getElementById('submitBtnText');
+    if (submitBtnText && isPackage) {
+        submitBtnText.textContent = 'Beli Paket Podcast Sekarang';
+    }
 }
 
 function showFile(input) {
@@ -502,69 +585,103 @@ function togglePaymentProof() {
     const paymentSection    = document.getElementById('payment-section');
     const paymentProofInput = document.getElementById('payment_proof');
 
-    // Jika user memilih bayar mandiri (meski punya benefit)
     if (payManualRadio && payManualRadio.checked) {
-        paymentSection.style.display = 'block';
-        paymentProofInput.required   = true;
+        if (paymentSection) paymentSection.style.display = 'block';
+        if (paymentProofInput) paymentProofInput.required   = true;
         return;
     }
-    // Jika menggunakan quota lama
-    if (useQuota && useQuota.checked) {
-        paymentSection.style.display = 'none';
-        paymentProofInput.required   = false;
+    if ((useQuota && useQuota.checked) || document.getElementById('benefitChoiceBox')) {
+        if (paymentSection) paymentSection.style.display = 'none';
+        if (paymentProofInput) paymentProofInput.required   = false;
     } else {
-        paymentSection.style.display = 'block';
-        paymentProofInput.required   = true;
+        if (paymentSection) paymentSection.style.display = 'block';
+        if (paymentProofInput) paymentProofInput.required   = true;
     }
 }
 
 function onBenefitChoiceChange() {
+    const isPackage      = {{ (($package ?? '') === 'paket' || request('package') === 'paket') ? 'true' : 'false' }};
     const useBenefit     = document.getElementById('useBenefitRadio');
     const payManually    = document.getElementById('payManualRadio');
     const payManInput    = document.getElementById('payManuallyInput');
     const paySection     = document.getElementById('payment-section');
     const payProofInput  = document.getElementById('payment_proof');
+    const priceNote      = document.getElementById('priceNote');
+    const rowHargaDasar  = document.getElementById('rowHargaDasar');
+    const rowTambahan    = document.getElementById('rowTambahan');
+    const summaryTotal   = document.getElementById('summaryTotalBlock');
+    const rowBiayaBenefit= document.getElementById('rowBiayaBenefit');
+    const infoAlertText  = document.getElementById('infoAlertText');
+    const submitBtnText  = document.getElementById('submitBtnText');
+
+    const isUsingBenefit = (useBenefit && useBenefit.checked) || (!payManually && document.getElementById('benefitChoiceBox'));
 
     if (payManually && payManually.checked) {
-        // Pilih bayar mandiri
+        // Mode Bayar Mandiri
         if (payManInput) payManInput.value = '1';
-        paySection.style.display  = 'block';
-        payProofInput.required    = true;
-    } else {
-        // Pilih pakai benefit gratis
+        if (paySection) paySection.style.display       = 'block';
+        if (payProofInput) payProofInput.required      = true;
+        if (priceNote) priceNote.style.display         = 'block';
+        if (rowHargaDasar) rowHargaDasar.style.display   = 'flex';
+        if (summaryTotal) summaryTotal.style.display     = 'block';
+        if (rowBiayaBenefit) rowBiayaBenefit.style.display = 'none';
+        if (infoAlertText) infoAlertText.textContent   = 'Setelah reservasi, admin akan mengkonfirmasi pembayaran Anda. Check In hanya bisa dilakukan setelah pembayaran disetujui.';
+        if (submitBtnText) submitBtnText.textContent   = isPackage ? 'Beli Paket Podcast Sekarang' : 'Pesan Ruang Podcast Sekarang';
+    } else if (isUsingBenefit) {
+        // Mode Pakai Benefit Gratis
         if (payManInput) payManInput.value = '0';
-        paySection.style.display  = 'none';
-        payProofInput.required    = false;
+        if (paySection) paySection.style.display       = 'none';
+        if (payProofInput) payProofInput.required      = false;
+        if (priceNote) priceNote.style.display         = 'none';
+        if (rowHargaDasar) rowHargaDasar.style.display   = 'none';
+        if (rowTambahan) rowTambahan.style.display       = 'none';
+        if (summaryTotal) summaryTotal.style.display     = 'none';
+        if (rowBiayaBenefit) rowBiayaBenefit.style.display = 'flex';
+        if (infoAlertText) infoAlertText.textContent   = 'Reservasi ini menggunakan kuota benefit Anda dan akan langsung dikonfirmasi (bebas biaya tambahan).';
+        if (submitBtnText) submitBtnText.textContent   = 'Kirim Reservasi Benefit (Gratis)';
     }
+
+    updateSummary();
 }
 
 function sendWhatsApp() {
+    const isPackage = {{ (($package ?? '') === 'paket' || request('package') === 'paket') ? 'true' : 'false' }};
     const nama = document.getElementById('nama') ? document.getElementById('nama').value : '';
-    const nama_perusahaan = document.getElementById('nama_perusahaan') ? document.getElementById('nama_perusahaan').value : '';
-    const email = document.getElementById('email') ? document.getElementById('email').value : '';
-    const bidang_usaha = document.getElementById('bidang_usaha') ? document.getElementById('bidang_usaha').value : '';
-    const keperluan = document.getElementById('keperluan') ? document.getElementById('keperluan').value : '';
-    const tanggal = document.getElementById('tanggal') ? document.getElementById('tanggal').value : '-';
-    const jam = document.getElementById('jam') ? document.getElementById('jam').value : '-';
-    const durasi = document.getElementById('durasi') ? document.getElementById('durasi').value : '-';
+    const podcast_title = document.getElementById('podcast_title') ? document.getElementById('podcast_title').value : '';
+    const tanggal = document.getElementById('tanggal') ? document.getElementById('tanggal').value : '';
+    const jam = document.getElementById('jam') ? document.getElementById('jam').value : '';
+    const durasi = isPackage ? '20' : (document.getElementById('durasi') ? document.getElementById('durasi').value : '2');
 
-    if (!tanggal || !jam || !durasi || !nama || !email) {
-        alert('Mohon lengkapi data pemesanan terlebih dahulu.');
+    if (!nama) {
+        alert('Mohon lengkapi nama Anda terlebih dahulu.');
         return;
     }
 
-    const text = `Halo Admin Lawgika, saya ingin memverifikasi pemesanan Sewa Ruang Podcast:
+    let text = '';
+    if (isPackage) {
+        text = `Halo Admin Lawgika, saya ingin konfirmasi pemesanan Paket Podcast Room:
 
 - Nama: ${nama || '-'}
-- Nama Perusahaan: ${nama_perusahaan || '-'}
-- Email: ${email || '-'}
-- Bidang Usaha: ${bidang_usaha || '-'}
-- Keperluan: ${keperluan || '-'}
+- Jenis Paket: Paket Podcast Studio (20 Jam / 1 Tahun)
+- Judul Podcast: ${podcast_title || '-'}
+- Total Tagihan: Rp 5.550.000 (Termasuk PPN 11%)
+
+Mohon info konfirmasi pembayaran. Terima kasih.`;
+    } else {
+        if (!tanggal || !jam) {
+            alert('Mohon lengkapi tanggal dan jam booking terlebih dahulu.');
+            return;
+        }
+        text = `Halo Admin Lawgika, saya ingin memverifikasi pemesanan Sewa Ruang Podcast:
+
+- Nama: ${nama || '-'}
+- Judul Podcast: ${podcast_title || '-'}
 - Tanggal: ${tanggal}
 - Jam Mulai: ${jam} WIB
 - Durasi: ${durasi} Jam
 
 Mohon konfirmasi pembayaran & reservasi ini. Terima kasih.`;
+    }
 
     const phone = '6281112088600';
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
@@ -576,8 +693,11 @@ document.addEventListener('DOMContentLoaded', () => {
     onBenefitChoiceChange();
     togglePaymentProof();
 
-    // Min date = today
-    document.getElementById('tanggal').min = new Date().toISOString().split('T')[0];
+    // Min date = today (jika ada input tanggal date)
+    const tglInput = document.getElementById('tanggal');
+    if (tglInput && tglInput.type === 'date') {
+        tglInput.min = new Date().toISOString().split('T')[0];
+    }
 });
 </script>
 @endsection

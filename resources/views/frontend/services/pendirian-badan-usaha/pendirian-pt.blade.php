@@ -989,17 +989,123 @@
     </div>
 </section>
 
+<style>
+.pt-modal-opt-btn {
+    transition: all 0.2s ease-in-out;
+    border: 2px solid #4e0516 !important;
+    background-color: #ffffff;
+    color: #212529;
+}
+.pt-modal-opt-btn:hover {
+    background-color: #4e0516 !important;
+    border-color: #4e0516 !important;
+    color: #ffffff !important;
+}
+.pt-modal-opt-btn:hover small,
+.pt-modal-opt-btn:hover .sub-label,
+.pt-modal-opt-btn:hover i {
+    color: rgba(255, 255, 255, 0.95) !important;
+}
+</style>
+
+{{-- ===== MODAL KATEGORI MODAL PT PERSEROAN ===== --}}
+<div class="modal fade" id="modalKategoriModalPt" tabindex="-1" aria-labelledby="modalKategoriModalPtLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg" style="border-radius: 16px; overflow: hidden;">
+            <div class="modal-header border-0 pb-0 pt-4 px-4">
+                <h5 class="modal-title fw-bold text-dark" id="modalKategoriModalPtLabel" data-i18n="pt_modal.title">Pilih Kategori Modal Perusahaan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body px-4 py-4">
+                <p class="text-muted small mb-4" data-i18n="pt_modal.desc">Silakan pilih skala modal usaha PT Perseroan yang ingin Anda dirikan:</p>
+                
+                <div class="d-grid gap-3">
+                    <button type="button" onclick="confirmPtModal(0)" class="btn pt-modal-opt-btn p-3 text-start d-flex align-items-center justify-content-between rounded-3">
+                        <div>
+                            <div class="fw-bold fs-6" data-i18n="pt_modal.opt1_title">Modal Di bawah Rp 1 Miliar</div>
+                            <small class="sub-label text-muted" data-i18n="pt_modal.opt1_desc">Untuk PT skala Kecil</small>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-muted"></i>
+                    </button>
+
+                    <button type="button" onclick="confirmPtModal(1)" class="btn pt-modal-opt-btn p-3 text-start d-flex align-items-center justify-content-between rounded-3">
+                        <div>
+                            <div class="fw-bold fs-6" data-i18n="pt_modal.opt2_title">Modal Di atas Rp 1 Miliar</div>
+                            <small class="sub-label text-muted" data-i18n="pt_modal.opt2_desc">Untuk PT skala Menengah</small>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-muted"></i>
+                    </button>
+                    
+                    <button type="button" onclick="confirmPtModal(2)" class="btn pt-modal-opt-btn p-3 text-start d-flex align-items-center justify-content-between rounded-3">
+                        <div>
+                            <div class="fw-bold fs-6" data-i18n="pt_modal.opt3_title">Modal Rp 5 Miliar</div>
+                            <small class="sub-label text-muted" data-i18n="pt_modal.opt3_desc">Untuk PT skala Besar</small>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-muted"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
-    // ── Universal goOrder ──────────────────────────────────────────────────
+    let selectedPtPackageKey = 'basic';
+
+    // ── Universal goOrder via WhatsApp dengan Modal Selection ───────────────────
     function goOrder(service, pkg) {
-        @guest
-        const loginModal = new bootstrap.Modal(document.getElementById('exampleModal'));
-        loginModal.show();
-        return;
-        @endguest
-        @auth
-        window.location.href = '/order/' + service + '/' + pkg;
-        @endauth
+        if (pkg === 'professional' || pkg === 'enterprise' || pkg === 'business') {
+            selectedPtPackageKey = 'business';
+        } else {
+            selectedPtPackageKey = 'basic';
+        }
+
+        const modalEl = document.getElementById('modalKategoriModalPt');
+        if (modalEl) {
+            const modal = new bootstrap.Modal(modalEl);
+            modal.show();
+        } else {
+            confirmPtModal(0);
+        }
+    }
+
+    function confirmPtModal(modalIdx) {
+        const modalEl = document.getElementById('modalKategoriModalPt');
+        const modalInstance = bootstrap.Modal.getInstance(modalEl);
+        if (modalInstance) {
+            modalInstance.hide();
+        }
+
+        sendPtOrderToWa(modalIdx);
+    }
+
+    function sendPtOrderToWa(modalIdx) {
+        const t = (window.LwI18n && window.LwI18n.t) ? window.LwI18n.t : function(key) { return null; };
+        
+        let pkgLabel = (selectedPtPackageKey === 'business') ? 'Paket Business' : 'Paket Basic';
+        if (t('ui.pricing.pkg_business') && selectedPtPackageKey === 'business') {
+            pkgLabel = t('ui.pricing.pkg_business');
+        } else if (t('ui.pricing.pkg_basic') && selectedPtPackageKey === 'basic') {
+            pkgLabel = t('ui.pricing.pkg_basic');
+        }
+
+        const modalKeys = ['pt_modal.opt1_title', 'pt_modal.opt2_title', 'pt_modal.opt3_title'];
+        const defaultModals = ['Modal Di bawah Rp 1 Miliar', 'Modal Di atas Rp 1 Miliar', 'Modal Rp 5 Miliar'];
+        
+        let modalLabel = defaultModals[modalIdx] || defaultModals[0];
+        if (t(modalKeys[modalIdx])) {
+            modalLabel = t(modalKeys[modalIdx]);
+        }
+
+        let message = `Halo Admin Lawgika, saya ingin memesan ${pkgLabel} untuk Pendirian PT Perseroan (Kategori Modal: ${modalLabel}). Mohon informasi lebih lanjut.`;
+        
+        let tWaMsg = t('pt_modal.wa_msg');
+        if (tWaMsg && tWaMsg !== 'pt_modal.wa_msg') {
+            message = tWaMsg.replace('{package}', pkgLabel).replace('{modal}', modalLabel);
+        }
+
+        const waUrl = 'https://wa.me/6281112088600?text=' + encodeURIComponent(message);
+        window.open(waUrl, '_blank');
     }
 
     document.addEventListener("DOMContentLoaded", function() {
