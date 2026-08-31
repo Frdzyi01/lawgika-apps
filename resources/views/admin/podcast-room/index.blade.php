@@ -304,7 +304,10 @@
             </h1>
             <p class="admin-page-subtitle">Kelola pengajuan sewa studio podcast, verifikasi add-on perlengkapan, dan pantau sesi recording client.</p>
         </div>
-        <div>
+        <div class="d-flex gap-2 flex-wrap">
+            <a href="{{ url('admin/podcast-room/calendar') }}" class="btn btn-outline-primary btn-sm px-3 py-2 rounded-3 fw-bold" style="font-size:0.85rem;">
+                <i class="fa-solid fa-calendar-days me-1"></i> Kalender Reservasi
+            </a>
             <a href="{{ route('admin.podcast-room.create') }}" class="btn btn-primary btn-sm px-3 py-2 rounded-3 fw-bold shadow-sm" style="font-size:0.85rem;">
                 <i class="fa-solid fa-plus me-1"></i> Tambah Reservasi Manual
             </a>

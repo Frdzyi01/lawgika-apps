@@ -310,6 +310,112 @@ class PodcastRoomController extends Controller
         return view('admin.podcast-room.index', compact('bookings', 'pendingReservations'));
     }
 
+    // ── Admin: Calendar (Read-Only Visualization) ─────────────────────────────
+
+    public function calendar()
+    {
+        return view('admin.podcast-room.calendar');
+    }
+
+    public function calendarEvents(Request $request)
+    {
+        $start = $request->input('start');
+        $end   = $request->input('end');
+
+        if (!$start || !$end) {
+            return response()->json([]);
+        }
+
+        $events = collect();
+
+        // 1. Scheduled / Active Bookings (Pending, Approved, Check In)
+        $bookings = PodcastRoomBooking::with('user')
+            ->whereNotNull('date')
+            ->whereNotNull('start_time')
+            ->whereBetween('date', [$start, $end])
+            ->whereNotIn('status', ['rejected'])
+            ->get();
+
+        foreach ($bookings as $b) {
+            $startTime = $b->start_time ? \Carbon\Carbon::parse($b->start_time)->format('H:i') : null;
+            $endTime   = $b->end_time ? \Carbon\Carbon::parse($b->end_time)->format('H:i') : null;
+
+            // Fallback: if no end_time, calculate from start_time + duration (max 4h for display)
+            if (!$endTime && $startTime) {
+                $displayDuration = min($b->duration, 4);
+                $endTime = \Carbon\Carbon::parse($b->start_time)->addHours($displayDuration)->format('H:i');
+            }
+
+            if ($startTime) {
+                $events->push([
+                    'id'             => $b->id,
+                    'title'          => !empty($b->name) ? $b->name : ($b->user->name ?? 'Reservasi Podcast'),
+                    'date'           => \Carbon\Carbon::parse($b->date)->format('Y-m-d'),
+                    'start_time'     => $startTime,
+                    'end_time'       => $endTime,
+                    'order_number'   => $b->order_number,
+                    'room_name'      => $b->room_name ?: 'Studio Podcast',
+                    'status'         => $b->status,
+                    'payment_status' => $b->payment_status,
+                    'detail_url'     => url('admin/podcast-room/' . $b->id . '/detail'),
+                ]);
+            }
+        }
+
+        // 2. Completed / Checked-out Sessions History from RoomUsageLog
+        $logs = RoomUsageLog::where('room_type', 'podcast_room')
+            ->whereDate('timestamp', '>=', $start)
+            ->whereDate('timestamp', '<=', $end)
+            ->orderBy('reservation_id')
+            ->orderBy('timestamp')
+            ->get();
+
+        $checkins = [];
+        $bookingMap = PodcastRoomBooking::with('user')
+            ->whereIn('id', $logs->pluck('reservation_id')->unique())
+            ->get()
+            ->keyBy('id');
+
+        foreach ($logs as $log) {
+            if ($log->type === 'checkin') {
+                $checkins[$log->reservation_id] = $log;
+            } elseif ($log->type === 'checkout' && isset($checkins[$log->reservation_id])) {
+                $checkinLog  = $checkins[$log->reservation_id];
+                $checkoutLog = $log;
+                $booking     = $bookingMap->get($log->reservation_id);
+
+                if ($booking) {
+                    $cIn  = $checkinLog->timestamp;
+                    $cOut = $checkoutLog->timestamp;
+
+                    $startTime = $cIn->format('H:i');
+                    if ($cOut->diffInMinutes($cIn) < 30) {
+                        $endTime = $cIn->copy()->addHour()->format('H:i');
+                    } else {
+                        $endTime = $cOut->format('H:i');
+                    }
+
+                    $events->push([
+                        'id'             => $booking->id,
+                        'title'          => !empty($booking->name) ? $booking->name : ($booking->user->name ?? 'Reservasi Podcast'),
+                        'date'           => $cIn->format('Y-m-d'),
+                        'start_time'     => $startTime,
+                        'end_time'       => $endTime,
+                        'order_number'   => $booking->order_number,
+                        'room_name'      => $booking->room_name ?: 'Studio Podcast',
+                        'status'         => 'selesai',
+                        'payment_status' => 'approved',
+                        'detail_url'     => url('admin/podcast-room/' . $booking->id . '/detail'),
+                    ]);
+                }
+
+                unset($checkins[$log->reservation_id]);
+            }
+        }
+
+        return response()->json($events->values());
+    }
+
     // ── Admin: Create & Store (CRM Flow) ──────────────────────────────────────
 
     public function adminCreate()
