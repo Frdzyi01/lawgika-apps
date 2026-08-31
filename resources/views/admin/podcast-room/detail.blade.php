@@ -277,9 +277,18 @@
                     </form>
                 @endif
             @elseif(($booking->status === 'approved' || $booking->payment_status === 'approved') && $booking->status !== 'checkin' && $booking->status !== 'selesai' && $booking->status !== 'rejected')
-                <button type="button" class="btn btn-success btn-sm px-3 py-2 rounded-3 fw-bold shadow-sm" data-bs-toggle="modal" data-bs-target="#checkinModalDetail">
-                    <i class="fa-solid fa-door-open me-1"></i> Check In Studio
-                </button>
+                @if(empty($booking->start_time))
+                    <button type="button" class="btn btn-primary btn-sm px-3 py-2 rounded-3 fw-bold shadow-sm" data-bs-toggle="modal" data-bs-target="#createSessionModalDetail" style="background:#4e0516; border-color:#4e0516;">
+                        <i class="fa-solid fa-calendar-check me-1"></i> Reservasi Check In
+                    </button>
+                @else
+                    <button type="button" class="btn btn-success btn-sm px-3 py-2 rounded-3 fw-bold shadow-sm" data-bs-toggle="modal" data-bs-target="#checkinModalDetail">
+                        <i class="fa-solid fa-door-open me-1"></i> Check In Studio
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary btn-sm px-3 py-2 rounded-3 fw-bold" data-bs-toggle="modal" data-bs-target="#createSessionModalDetail" title="Ubah Jadwal Reservasi">
+                        <i class="fa-solid fa-pen-to-square me-1"></i> Ubah Jadwal
+                    </button>
+                @endif
             @elseif($booking->status === 'checkin')
                 <form action="{{ url('admin/podcast-room/'.$booking->id.'/checkout') }}" method="POST" class="d-inline">
                     @csrf
@@ -743,13 +752,206 @@
     </div>
 </div>
 
-{{-- Modal Check In Podcast Room (for Detail page) --}}
+{{-- Modal Form Reservasi Check-In Studio Podcast (for Detail page) --}}
 @if(($booking->status === 'approved' || $booking->payment_status === 'approved') && $booking->status !== 'checkin' && $booking->status !== 'selesai' && $booking->status !== 'rejected')
-<div class="modal fade" id="checkinModalDetail" tabindex="-1" aria-hidden="true">
+@php
+    $timeSlots = [];
+    for($h = 0; $h <= 23; $h++) { $timeSlots[] = sprintf('%02d:00', $h); }
+    $endTimeSlots = [];
+    for($h = 1; $h <= 24; $h++) { $endTimeSlots[] = $h === 24 ? '24:00' : sprintf('%02d:00', $h); }
+    $selStart = $booking->start_time ? \Carbon\Carbon::parse($booking->start_time)->format('H:00') : '';
+    $selEnd   = $booking->end_time ? \Carbon\Carbon::parse($booking->end_time)->format('H:00') : '';
+@endphp
+<div class="modal fade" id="createSessionModalDetail" data-booking-id="{{ $booking->id }}" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-start">
+            <form action="{{ route('admin.podcast-room.create-session') }}" method="POST">
+                @csrf
+                <input type="hidden" name="booking_id" value="{{ $booking->id }}">
+                <div class="modal-header text-white" style="background:#4e0516;">
+                    <h5 class="modal-title fw-bold">
+                        <i class="fa-solid fa-calendar-plus me-2"></i> Form Reservasi Check-In Studio Podcast
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="card bg-light border-0 mb-3">
+                        <div class="card-body py-2 px-3 small">
+                            <div class="row">
+                                <div class="col-6"><strong>Client:</strong> {{ $booking->user->name ?? $booking->name }}</div>
+                                <div class="col-6"><strong>Sisa Kuota:</strong> <span class="text-success fw-bold">{{ $booking->formatted_remaining_time }}</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Pilih Studio Podcast <span class="text-danger">*</span></label>
+                        <select name="room_name" class="form-select" required onchange="refreshModalSlots(this.closest('.modal'), '{{ url('admin/podcast-room/booked-slots') }}', '{{ $booking->id }}')">
+                            <option value="Podcast Studio Lawgika Office, World Capital Tower Lt. 38 Unit 6-7" selected>Podcast Studio Lawgika Office, World Capital Tower Lt. 38 Unit 6-7</option>
+                            <option value="Podcast Studio Utama" {{ ($booking->room_name ?? '') === 'Podcast Studio Utama' ? 'selected' : '' }}>Podcast Studio Utama</option>
+                            <option value="Podcast Room 1" {{ ($booking->room_name ?? '') === 'Podcast Room 1' ? 'selected' : '' }}>Podcast Room 1</option>
+                            <option value="Podcast Room 2" {{ ($booking->room_name ?? '') === 'Podcast Room 2' ? 'selected' : '' }}>Podcast Room 2</option>
+                        </select>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label fw-bold">Tanggal Pemakaian <span class="text-danger">*</span></label>
+                            <input type="date" name="date" class="form-control slot-date-input" value="{{ $booking->date ? \Carbon\Carbon::parse($booking->date)->format('Y-m-d') : date('Y-m-d') }}" required onchange="refreshModalSlots(this.closest('.modal'), '{{ url('admin/podcast-room/booked-slots') }}', '{{ $booking->id }}')">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label fw-bold">Jam Check-In / Mulai <span class="text-danger">*</span></label>
+                            <select name="start_time" class="form-select slot-start-select" required onchange="handleStartTimeChange(this)">
+                                <option value="" disabled {{ empty($selStart) ? 'selected' : '' }}>-- Pilih Jam Mulai --</option>
+                                @foreach($timeSlots as $ts)
+                                    <option value="{{ $ts }}" {{ $selStart === $ts ? 'selected' : '' }}>{{ $ts }} WIB</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label fw-bold">Jam Check-Out <small class="text-muted fw-normal" style="font-size:0.72rem;">(Estimasi)</small></label>
+                            <select name="end_time" class="form-select slot-end-select">
+                                <option value="">-- Pilih Jam Selesai --</option>
+                                @foreach($endTimeSlots as $ts)
+                                    <option value="{{ $ts }}" {{ $selEnd === $ts ? 'selected' : '' }}>{{ $ts }} WIB</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Jumlah Peserta (Opsional)</label>
+                            <input type="number" name="participants" class="form-control" min="1" value="{{ $booking->participants ?? 1 }}">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Materi / Judul Podcast (Opsional)</label>
+                            <input type="text" name="podcast_title" class="form-control" value="{{ $booking->podcast_title ?? '' }}" placeholder="Misal: Sesi Diskusi Bisnis...">
+                        </div>
+                    </div>
+
+                    <!-- Add-On Tambahan (Opsional) -->
+                    <div class="card border-0 bg-light rounded-3 p-3 mb-3">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <span class="fw-bold text-dark" style="font-size:0.88rem;">
+                                <i class="fa-solid fa-sliders text-muted me-1"></i> Add-On Tambahan <small class="text-muted fw-normal">(Opsional)</small>
+                            </span>
+                            <span class="badge bg-white text-muted border px-2 py-1" style="font-size:0.72rem;">
+                                <i class="fa-regular fa-clock me-1"></i> Tarif per jam durasi
+                            </span>
+                        </div>
+
+                        <div class="d-flex flex-column gap-2">
+                            <!-- 1. Mikrofon (+1 Unit Maks) -->
+                            <div class="addon-modal-row" id="row_mic_detail" onclick="toggleDetailAddon('mic', 50000)">
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="addon-modal-icon"><i class="fa-solid fa-microphone"></i></div>
+                                    <div>
+                                        <div class="fw-bold text-dark" style="font-size:0.84rem;">Mikrofon <span class="badge bg-secondary text-white px-1.5 py-0.5" style="font-size:0.65rem;">Maks. 1</span></div>
+                                        <div class="text-muted" style="font-size:0.75rem;">+ Rp 50.000 / jam</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1 fw-bold addon-btn-toggle" id="btn_toggle_mic_detail" style="font-size:0.75rem;">
+                                        <i class="fa-solid fa-plus me-1"></i> <span>Pilih</span>
+                                    </button>
+                                    <input type="hidden" name="addon_mic" id="addon_mic_detail" value="0">
+                                </div>
+                            </div>
+
+                            <!-- 2. Headphone (+1 Unit Maks) -->
+                            <div class="addon-modal-row" id="row_headphone_detail" onclick="toggleDetailAddon('headphone', 50000)">
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="addon-modal-icon"><i class="fa-solid fa-headphones"></i></div>
+                                    <div>
+                                        <div class="fw-bold text-dark" style="font-size:0.84rem;">Headphone <span class="badge bg-secondary text-white px-1.5 py-0.5" style="font-size:0.65rem;">Maks. 1</span></div>
+                                        <div class="text-muted" style="font-size:0.75rem;">+ Rp 50.000 / jam</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1 fw-bold addon-btn-toggle" id="btn_toggle_headphone_detail" style="font-size:0.75rem;">
+                                        <i class="fa-solid fa-plus me-1"></i> <span>Pilih</span>
+                                    </button>
+                                    <input type="hidden" name="addon_headphone" id="addon_headphone_detail" value="0">
+                                </div>
+                            </div>
+
+                            <!-- 3. Kamera (Maks 2) -->
+                            <div class="addon-modal-row" id="row_camera_detail">
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="addon-modal-icon"><i class="fa-solid fa-video"></i></div>
+                                    <div>
+                                        <div class="fw-bold text-dark" style="font-size:0.84rem;">Kamera Tambahan <span class="badge bg-secondary text-white px-1.5 py-0.5" style="font-size:0.65rem;">Maks. 2</span></div>
+                                        <div class="text-muted" style="font-size:0.75rem;">+ Rp 150.000 / jam / unit</div>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center gap-1 bg-white border rounded-pill px-2 py-0.5" onclick="event.stopPropagation()">
+                                    <button type="button" class="btn btn-sm p-0 text-muted fw-bold" style="width:20px; height:20px;" onclick="changeDetailCamQty(-1)" id="btn_cam_minus_detail" disabled>−</button>
+                                    <span class="fw-bold px-2 text-dark" id="val_addon_camera_detail" style="font-size:0.85rem;">0</span>
+                                    <button type="button" class="btn btn-sm p-0 text-dark fw-bold" style="width:20px; height:20px;" onclick="changeDetailCamQty(1)" id="btn_cam_plus_detail">+</button>
+                                    <input type="hidden" name="addon_camera" id="addon_camera_detail" value="0">
+                                </div>
+                            </div>
+
+                            <!-- 4. Operator Podcast (Maks 1) -->
+                            <div class="addon-modal-row" id="row_operator_detail" onclick="toggleDetailAddon('operator', 100000)">
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="addon-modal-icon"><i class="fa-solid fa-headset"></i></div>
+                                    <div>
+                                        <div class="fw-bold text-dark" style="font-size:0.84rem;">Operator Podcast <span class="badge bg-secondary text-white px-1.5 py-0.5" style="font-size:0.65rem;">Maks. 1</span></div>
+                                        <div class="text-muted" style="font-size:0.75rem;">+ Rp 100.000 / jam</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1 fw-bold addon-btn-toggle" id="btn_toggle_operator_detail" style="font-size:0.75rem;">
+                                        <i class="fa-solid fa-plus me-1"></i> <span>Pilih</span>
+                                    </button>
+                                    <input type="hidden" name="addon_operator" id="addon_operator_detail" value="0">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Opsi Pembayaran Add-On (muncul jika add-on dipilih) -->
+                        <div class="mt-3 pt-2.5 border-top" id="payment_addon_box_detail" style="display:none;">
+                            <label class="form-label fw-bold small text-dark mb-1">
+                                <i class="fa-brands fa-whatsapp text-success me-1"></i> Opsi Pembayaran Add-On <span class="text-danger">*</span>
+                            </label>
+                            <select name="addon_payment_method" class="form-select form-select-sm bg-white border" required>
+                                <option value="Payment Add-On via WhatsApp" selected>Payment Add-On via WhatsApp</option>
+                            </select>
+                            <small class="text-muted d-block mt-1" style="font-size:0.72rem;">
+                                *Pembayaran biaya add-on alat/operator diselesaikan secara terpisah melalui konfirmasi WhatsApp admin.
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Catatan (Opsional)</label>
+                        <textarea name="notes" class="form-control" rows="2" placeholder="Catatan internal...">{{ $booking->notes ?? '' }}</textarea>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn text-white fw-bold" style="background:#4e0516; border-color:#4e0516;">
+                        <i class="fa-solid fa-check me-1"></i> Simpan Reservasi &amp; Aktifkan Check-In
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{-- Modal Check In Podcast Room (for Detail page) --}}
+@php
+    $ciStart = $booking->start_time ? \Carbon\Carbon::parse($booking->start_time)->format('H:00') : '';
+    $ciEnd   = $booking->end_time ? \Carbon\Carbon::parse($booking->end_time)->format('H:00') : ($booking->start_time ? \Carbon\Carbon::parse($booking->start_time)->addHour()->format('H:00') : '');
+@endphp
+<div class="modal fade" id="checkinModalDetail" data-booking-id="{{ $booking->id }}" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content text-start">
             <form action="{{ url('admin/podcast-room/'.$booking->id.'/checkin') }}" method="POST">
                 @csrf
+                <input type="hidden" name="booking_id" value="{{ $booking->id }}">
                 <div class="modal-header bg-success text-white">
                     <h5 class="modal-title fw-bold">
                         <i class="fa-solid fa-door-open me-2"></i> Check In Studio Podcast
@@ -768,7 +970,7 @@
 
                     <div class="mb-3">
                         <label class="form-label fw-bold">Pilih Studio Podcast <span class="text-danger">*</span></label>
-                        <select name="room_name" class="form-select" required>
+                        <select name="room_name" class="form-select" required onchange="refreshModalSlots(this.closest('.modal'), '{{ url('admin/podcast-room/booked-slots') }}', '{{ $booking->id }}')">
                             @php
                                 $pcRooms = ['Studio Podcast 1', 'Studio Podcast 2', 'Studio Podcast Utama'];
                             @endphp
@@ -790,17 +992,27 @@
 
                     <div class="mb-3">
                         <label class="form-label fw-bold">Tanggal Sesi <span class="text-danger">*</span></label>
-                        <input type="date" name="date" class="form-control" value="{{ $booking->date ? \Carbon\Carbon::parse($booking->date)->format('Y-m-d') : date('Y-m-d') }}" required>
+                        <input type="date" name="date" class="form-control slot-date-input" value="{{ $booking->date ? \Carbon\Carbon::parse($booking->date)->format('Y-m-d') : date('Y-m-d') }}" required onchange="refreshModalSlots(this.closest('.modal'), '{{ url('admin/podcast-room/booked-slots') }}', '{{ $booking->id }}')">
                     </div>
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-bold">Jam Mulai <span class="text-danger">*</span></label>
-                            <input type="time" name="start_time" class="form-control" value="{{ $booking->start_time ? \Carbon\Carbon::parse($booking->start_time)->format('H:i') : date('H:i') }}" required>
+                            <select name="start_time" class="form-select slot-start-select" required onchange="handleStartTimeChange(this)">
+                                <option value="" disabled {{ empty($ciStart) ? 'selected' : '' }}>-- Pilih Jam Mulai --</option>
+                                @foreach($timeSlots as $ts)
+                                    <option value="{{ $ts }}" {{ $ciStart === $ts ? 'selected' : '' }}>{{ $ts }} WIB</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-bold">Jam Selesai <span class="text-danger">*</span></label>
-                            <input type="time" name="end_time" class="form-control" value="{{ $booking->end_time ? \Carbon\Carbon::parse($booking->end_time)->format('H:i') : date('H:i', strtotime('+' . ($booking->duration ?? 1) . ' hours')) }}" required>
+                            <select name="end_time" class="form-select slot-end-select" required>
+                                <option value="" disabled {{ empty($ciEnd) ? 'selected' : '' }}>-- Pilih Jam Selesai --</option>
+                                @foreach($endTimeSlots as $ts)
+                                    <option value="{{ $ts }}" {{ $ciEnd === $ts ? 'selected' : '' }}>{{ $ts }} WIB</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
 
@@ -822,6 +1034,43 @@
 @endsection
 
 @push('scripts')
+<style>
+/* Add-On Modal Selector Items */
+.addon-modal-row {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.addon-modal-row:hover {
+    border-color: #4e0516;
+    background: #fff8f8;
+}
+.addon-modal-row.active {
+    border-color: #4e0516;
+    background: #fdf2f4;
+}
+.addon-modal-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: #f1f5f9;
+    color: #475569;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+}
+.addon-modal-row.active .addon-modal-icon {
+    background: #4e0516;
+    color: #ffffff;
+}
+</style>
 <script>
     function formatSecs(seconds) {
         if (seconds <= 0) return 'Waktu habis';
@@ -852,5 +1101,179 @@
             }
         });
     }, 1000);
+
+    /* Detail Add-On Interactive Helpers */
+    function toggleDetailAddon(key, pricePerHour) {
+        const inputEl = document.getElementById(`addon_${key}_detail`);
+        const rowEl   = document.getElementById(`row_${key}_detail`);
+        const btnEl   = document.getElementById(`btn_toggle_${key}_detail`);
+        if (!inputEl || !rowEl || !btnEl) return;
+
+        let isSelected = parseInt(inputEl.value) > 0;
+        if (isSelected) {
+            inputEl.value = "0";
+            rowEl.classList.remove('active');
+            btnEl.className = 'btn btn-sm btn-outline-secondary rounded-pill px-3 py-1 fw-bold addon-btn-toggle';
+            btnEl.innerHTML = '<i class="fa-solid fa-plus me-1"></i> <span>Pilih</span>';
+        } else {
+            inputEl.value = "1";
+            rowEl.classList.add('active');
+            btnEl.className = 'btn btn-sm btn-danger text-white rounded-pill px-3 py-1 fw-bold addon-btn-toggle';
+            btnEl.innerHTML = '<i class="fa-solid fa-check me-1"></i> <span>Dipilih</span>';
+        }
+        checkDetailAddonPaymentBox();
+    }
+
+    function changeDetailCamQty(delta) {
+        const inputEl = document.getElementById('addon_camera_detail');
+        const valEl   = document.getElementById('val_addon_camera_detail');
+        const rowEl   = document.getElementById('row_camera_detail');
+        const btnMinus = document.getElementById('btn_cam_minus_detail');
+        const btnPlus  = document.getElementById('btn_cam_plus_detail');
+        if (!inputEl || !valEl) return;
+
+        let current = parseInt(inputEl.value) || 0;
+        let next = Math.max(0, Math.min(2, current + delta));
+        inputEl.value = next;
+        valEl.innerText = next;
+
+        if (btnMinus) btnMinus.disabled = (next <= 0);
+        if (btnPlus)  btnPlus.disabled  = (next >= 2);
+
+        if (next > 0) {
+            rowEl.classList.add('active');
+        } else {
+            rowEl.classList.remove('active');
+        }
+        checkDetailAddonPaymentBox();
+    }
+
+    function checkDetailAddonPaymentBox() {
+        const mic = parseInt(document.getElementById('addon_mic_detail')?.value || 0);
+        const hp  = parseInt(document.getElementById('addon_headphone_detail')?.value || 0);
+        const cam = parseInt(document.getElementById('addon_camera_detail')?.value || 0);
+        const op  = parseInt(document.getElementById('addon_operator_detail')?.value || 0);
+
+        const box = document.getElementById('payment_addon_box_detail');
+        if (box) {
+            if (mic > 0 || hp > 0 || cam > 0 || op > 0) {
+                box.style.display = 'block';
+            } else {
+                box.style.display = 'none';
+            }
+        }
+    }
+
+    /* Dynamic Slot Availability Helpers */
+    function refreshModalSlots(modalEl, endpointUrl, excludeId) {
+        if (!modalEl) return;
+        const dateInput = modalEl.querySelector('input[name="date"]');
+        const roomSelect = modalEl.querySelector('select[name="room_name"]');
+        const startSelect = modalEl.querySelector('.slot-start-select');
+        const endSelect = modalEl.querySelector('.slot-end-select');
+
+        if (!dateInput || !startSelect) return;
+        const date = dateInput.value;
+        const room = roomSelect ? roomSelect.value : '';
+
+        if (!date) return;
+
+        const effectiveExcludeId = excludeId || modalEl.getAttribute('data-booking-id') || '{{ $booking->id }}';
+
+        fetch(`${endpointUrl}?date=${date}&room_name=${encodeURIComponent(room)}&exclude_id=${effectiveExcludeId}`)
+            .then(r => r.json())
+            .then(occupied => {
+                modalEl._occupiedSlots = occupied;
+
+                Array.from(startSelect.options).forEach(opt => {
+                    if (!opt.value) return;
+                    if (occupied.includes(opt.value)) {
+                        opt.disabled = true;
+                        opt.innerText = `${opt.value} (Sudah Terisi / Dibooking)`;
+                        opt.style.color = '#dc2626';
+                    } else {
+                        opt.disabled = false;
+                        opt.innerText = `${opt.value} WIB`;
+                        opt.style.color = '';
+                    }
+                });
+
+                updateEndTimeOptions(modalEl);
+            })
+            .catch(err => console.error('Error fetching booked slots:', err));
+    }
+
+    function updateEndTimeOptions(modalEl) {
+        const startSelect = modalEl.querySelector('.slot-start-select');
+        const endSelect = modalEl.querySelector('.slot-end-select');
+        if (!startSelect || !endSelect) return;
+
+        const occupied = modalEl._occupiedSlots || [];
+        const startVal = startSelect.value;
+        if (!startVal) {
+            Array.from(endSelect.options).forEach(opt => {
+                if (!opt.value) return;
+                opt.disabled = false;
+                opt.innerText = `${opt.value} WIB`;
+                opt.style.color = '';
+            });
+            return;
+        }
+
+        const startH = parseInt(startVal.split(':')[0]);
+
+        // Find the nearest occupied slot that begins after startH
+        let nextOccupiedH = 25;
+        for (let h = startH + 1; h <= 23; h++) {
+            const slotStr = String(h).padStart(2, '0') + ':00';
+            if (occupied.includes(slotStr)) {
+                nextOccupiedH = h;
+                break;
+            }
+        }
+
+        Array.from(endSelect.options).forEach(opt => {
+            if (!opt.value) return;
+            const endH = opt.value === '24:00' ? 24 : parseInt(opt.value.split(':')[0]);
+
+            if (endH <= startH) {
+                opt.disabled = true;
+                opt.innerText = `${opt.value} WIB`;
+                opt.style.color = '#94a3b8';
+            } else if (endH > nextOccupiedH) {
+                opt.disabled = true;
+                opt.innerText = `${opt.value} (Bentrok Jadwal)`;
+                opt.style.color = '#dc2626';
+            } else {
+                opt.disabled = false;
+                opt.innerText = `${opt.value} WIB`;
+                opt.style.color = '';
+            }
+        });
+
+        // Adjust end time only if current value is invalid
+        const currentEndH = endSelect.value ? (endSelect.value === '24:00' ? 24 : parseInt(endSelect.value.split(':')[0])) : 0;
+        if (!endSelect.value || currentEndH <= startH || currentEndH > nextOccupiedH) {
+            const preferredEndH = Math.min(startH + 1, nextOccupiedH);
+            const preferredVal = preferredEndH === 24 ? '24:00' : String(preferredEndH).padStart(2, '0') + ':00';
+            endSelect.value = preferredVal;
+        }
+    }
+
+    function handleStartTimeChange(selectEl) {
+        const modalEl = selectEl.closest('.modal');
+        if (!modalEl) return;
+        updateEndTimeOptions(modalEl);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('show.bs.modal', function() {
+                const endpoint = "{{ url('admin/podcast-room/booked-slots') }}";
+                const bookingId = modal.getAttribute('data-booking-id') || (modal.querySelector('input[name="booking_id"]') ? modal.querySelector('input[name="booking_id"]').value : '{{ $booking->id }}');
+                refreshModalSlots(modal, endpoint, bookingId);
+            });
+        });
+    });
 </script>
 @endpush

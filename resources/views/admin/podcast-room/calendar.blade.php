@@ -71,7 +71,7 @@
     text-align: center;
 }
 
-/* Calendar Grid */
+/* Calendar Container & Scrollable Body */
 .cal-container {
     background: #ffffff;
     border: 1px solid #e2e8f0;
@@ -81,21 +81,38 @@
     box-shadow: 0 2px 10px rgba(0,0,0,0.02);
     position: relative;
 }
-.cal-grid {
-    display: grid;
-    grid-template-columns: 62px repeat(7, 1fr);
-    min-height: 700px;
+.cal-scrollable {
+    max-height: 660px;
+    overflow-y: auto;
+    overflow-x: auto;
+    position: relative;
+    scroll-behavior: smooth;
+}
+.cal-scrollable::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+.cal-scrollable::-webkit-scrollbar-track {
+    background: #f8fafc;
+}
+.cal-scrollable::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+.cal-scrollable::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
 }
 
-/* Day Headers */
+/* Day Headers (Sticky) */
 .cal-day-header-row {
     display: grid;
     grid-template-columns: 62px repeat(7, 1fr);
     border-bottom: 2px solid #e2e8f0;
     position: sticky;
     top: 0;
-    z-index: 10;
+    z-index: 20;
     background: #fafbfc;
+    min-width: 750px;
 }
 .cal-day-header-corner {
     padding: 12px 4px;
@@ -141,12 +158,13 @@
     display: grid;
     grid-template-columns: 62px repeat(7, 1fr);
     position: relative;
+    min-width: 750px;
 }
 .cal-time-col {
     border-right: 1px solid #f1f5f9;
 }
 .cal-time-slot {
-    height: 60px;
+    height: 56px;
     padding: 2px 6px 0 0;
     text-align: right;
     font-size: 0.7rem;
@@ -161,7 +179,7 @@
 }
 .cal-day-col:last-child { border-right: none; }
 .cal-hour-line {
-    height: 60px;
+    height: 56px;
     border-bottom: 1px solid #f1f5f9;
 }
 
@@ -172,7 +190,7 @@
     right: 0;
     height: 2px;
     background: #ef4444;
-    z-index: 8;
+    z-index: 12;
     pointer-events: none;
 }
 .cal-now-line::before {
@@ -204,7 +222,7 @@
 .cal-event:hover {
     box-shadow: 0 4px 14px rgba(0,0,0,0.15);
     transform: scale(1.02);
-    z-index: 9;
+    z-index: 15;
 }
 .cal-event-title {
     font-weight: 700;
@@ -230,17 +248,20 @@
 .cal-event.status-pending {
     background: #fffbeb;
     color: #92400e;
-    border-left-color: #f59e0b;
+    border: 1px solid #fef3c7;
+    border-left: 3px solid #f59e0b;
 }
 .cal-event.status-approved {
     background: #eef2ff;
     color: #3730a3;
-    border-left-color: #6366f1;
+    border: 1px solid #e0e7ff;
+    border-left: 3px solid #6366f1;
 }
 .cal-event.status-checkin {
     background: #f0fdf4;
     color: #166534;
-    border-left-color: #22c55e;
+    border: 1px solid #dcfce7;
+    border-left: 3px solid #22c55e;
 }
 .cal-event.status-selesai {
     background: #f1f5f9;
@@ -352,7 +373,7 @@
     align-items: center;
     justify-content: center;
     background: rgba(255,255,255,0.85);
-    z-index: 15;
+    z-index: 25;
     flex-direction: column;
     gap: 8px;
 }
@@ -363,16 +384,6 @@
     color: #64748b;
     margin: 0;
 }
-
-/* Responsive */
-@media (max-width: 768px) {
-    .cal-grid, .cal-day-header-row, .cal-body {
-        min-width: 700px;
-    }
-    .cal-container {
-        overflow-x: auto;
-    }
-}
 </style>
 
 <div class="container-fluid py-2">
@@ -382,7 +393,7 @@
             <h1 class="cal-page-title">
                 <i class="fa-solid fa-calendar-days text-primary"></i> Kalender Reservasi Podcast Room
             </h1>
-            <p class="cal-page-subtitle">Visualisasi jadwal penggunaan Studio Podcast dalam tampilan mingguan.</p>
+            <p class="cal-page-subtitle">Visualisasi jadwal penggunaan Studio Podcast dalam tampilan mingguan 24 Jam.</p>
         </div>
         <div class="d-flex gap-2 flex-wrap">
             <a href="{{ url('admin/podcast-room') }}" class="btn btn-outline-secondary btn-sm px-3 py-2 rounded-3 fw-bold" style="font-size:0.85rem;">
@@ -407,17 +418,20 @@
         <div class="cal-nav-range" id="calRange"></div>
         <div>
             <span class="badge bg-light text-dark border px-3 py-2 fw-bold" style="font-size:0.8rem;">
-                <i class="fa-solid fa-calendar-week me-1 text-primary"></i> Week View
+                <i class="fa-solid fa-calendar-week me-1 text-primary"></i> Week View (24 Jam)
             </span>
         </div>
     </div>
 
     {{-- Calendar Container --}}
     <div class="cal-container" id="calContainer">
-        {{-- Day Headers --}}
-        <div class="cal-day-header-row" id="calHeaders"></div>
-        {{-- Body: time column + 7 day columns --}}
-        <div class="cal-body" id="calBody"></div>
+        <div class="cal-scrollable" id="calScrollable">
+            {{-- Day Headers (Sticky) --}}
+            <div class="cal-day-header-row" id="calHeaders"></div>
+            {{-- Body: time column + 7 day columns --}}
+            <div class="cal-body" id="calBody"></div>
+        </div>
+
         {{-- Loading overlay --}}
         <div class="cal-overlay-msg" id="calLoading" style="display:none;">
             <div class="spinner-border text-primary" role="status"></div>
@@ -441,9 +455,9 @@
 <script>
 (function() {
     const EVENTS_URL  = "{{ url('admin/podcast-room/calendar-events') }}";
-    const HOURS_START = 8;
-    const HOURS_END   = 22;
-    const HOUR_HEIGHT = 60; // px per hour
+    const HOURS_START = 0;
+    const HOURS_END   = 23;
+    const HOUR_HEIGHT = 56; // px per hour
 
     const DAY_NAMES_SHORT = ['MIN', 'SEN', 'SEL', 'RAB', 'KAM', 'JUM', 'SAB'];
     const MONTH_NAMES = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
@@ -457,6 +471,7 @@
 
     let currentWeekStart = getMonday(new Date());
     let eventsData = [];
+    let hasAutoScrolled = false;
 
     function getMonday(d) {
         const dt = new Date(d);
@@ -510,17 +525,18 @@
         const el = document.getElementById('calBody');
         let html = '';
 
-        // Time column
+        // Time column (00:00 to 24:00)
         html += '<div class="cal-time-col">';
-        for (let h = HOURS_START; h <= HOURS_END; h++) {
-            html += `<div class="cal-time-slot">${String(h).padStart(2,'0')}:00</div>`;
+        for (let h = HOURS_START; h <= 24; h++) {
+            const label = h === 24 ? '24:00' : `${String(h).padStart(2,'0')}:00`;
+            html += `<div class="cal-time-slot">${label}</div>`;
         }
         html += '</div>';
 
         // Day columns
         days.forEach((d, idx) => {
             html += `<div class="cal-day-col" data-date="${formatDateISO(d)}" data-col="${idx}">`;
-            for (let h = HOURS_START; h <= HOURS_END; h++) {
+            for (let h = HOURS_START; h <= 23; h++) {
                 html += `<div class="cal-hour-line" data-hour="${h}"></div>`;
             }
             html += '</div>';
@@ -544,7 +560,6 @@
     }
 
     function renderNowLine() {
-        // Remove old
         document.querySelectorAll('.cal-now-line').forEach(e => e.remove());
 
         const now = new Date();
@@ -554,7 +569,6 @@
 
         const h = now.getHours();
         const m = now.getMinutes();
-        if (h < HOURS_START || h > HOURS_END) return;
 
         const topPx = (h - HOURS_START) * HOUR_HEIGHT + (m / 60) * HOUR_HEIGHT;
         const line = document.createElement('div');
@@ -564,7 +578,6 @@
     }
 
     function renderEvents() {
-        // Clear old events
         document.querySelectorAll('.cal-event').forEach(e => e.remove());
 
         eventsData.forEach(ev => {
@@ -575,15 +588,19 @@
             const [eh, em] = ev.end_time.split(':').map(Number);
 
             const startMin = sh * 60 + sm;
-            const endMin   = eh * 60 + em;
+            const actualEndH = (eh === 0 && startMin > 0) ? 24 : eh;
+            let endMin     = actualEndH * 60 + em;
+            if (endMin <= startMin) {
+                endMin = startMin + 60;
+            }
             const gridStartMin = HOURS_START * 60;
 
             const topPx    = ((startMin - gridStartMin) / 60) * HOUR_HEIGHT;
-            const heightPx = Math.max(((endMin - startMin) / 60) * HOUR_HEIGHT, 24);
+            const heightPx = Math.max(((endMin - startMin) / 60) * HOUR_HEIGHT, 26);
 
             const statusClass = 'status-' + (ev.status || 'approved');
             const statusLabel = STATUS_LABELS[ev.status] || ev.status;
-            const showStatus  = heightPx >= 48;
+            const showStatus  = heightPx >= 44;
 
             const block = document.createElement('div');
             block.className = `cal-event ${statusClass}`;
@@ -602,6 +619,15 @@
 
             col.appendChild(block);
         });
+    }
+
+    function autoScrollToCurrentTime() {
+        const scrollEl = document.getElementById('calScrollable');
+        if (!scrollEl) return;
+        const now = new Date();
+        const curHour = now.getHours();
+        const targetHour = Math.max(0, Math.min(curHour - 1, 18));
+        scrollEl.scrollTop = targetHour * HOUR_HEIGHT;
     }
 
     // ── Data Fetch ────────────────────────────────────────────────────────────
@@ -625,6 +651,10 @@
             eventsData = data;
             document.getElementById('calLoading').style.display = 'none';
             renderEvents();
+            if (!hasAutoScrolled) {
+                autoScrollToCurrentTime();
+                hasAutoScrolled = true;
+            }
         })
         .catch(() => {
             document.getElementById('calLoading').style.display = 'none';
@@ -644,6 +674,7 @@
     window.calToday = function() {
         currentWeekStart = getMonday(new Date());
         calRender();
+        autoScrollToCurrentTime();
     };
 
     // ── Popover ───────────────────────────────────────────────────────────────

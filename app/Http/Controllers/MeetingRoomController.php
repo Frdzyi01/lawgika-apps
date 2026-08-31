@@ -56,15 +56,89 @@ class MeetingRoomController extends Controller
 
     public function getBookedSlots(Request $request)
     {
-        $date   = $request->get('date');
-        $booked = MeetingRoomBooking::whereDate('date', $date)
-            ->whereNotIn('payment_status', ['rejected'])
-            ->pluck('start_time')
-            ->map(fn($t) => substr($t, 0, 5))
-            ->values()
-            ->toArray();
+        $date      = $request->get('date');
+        $roomName  = $request->get('room_name');
+        $excludeId = $request->get('exclude_id');
 
-        return response()->json($booked);
+        $occupied = $this->calculateOccupiedHours($date, $roomName, $excludeId);
+        return response()->json($occupied);
+    }
+
+    public function calculateOccupiedHours($date, $roomName = null, $excludeId = null)
+    {
+        if (!$date) return [];
+        $occupiedHours = [];
+
+        // 1. Active / Approved bookings with date & start_time
+        $bookings = MeetingRoomBooking::whereDate('date', $date)
+            ->whereNotNull('start_time')
+            ->whereNotIn('status', ['rejected', 'cancelled'])
+            ->when($excludeId, fn($q) => $q->where('id', '!=', $excludeId))
+            ->when($roomName, fn($q) => $q->where('room_name', $roomName))
+            ->get();
+
+        foreach ($bookings as $b) {
+            $sh = (int) substr($b->start_time, 0, 2);
+            if ($b->end_time) {
+                $eh = (int) \Carbon\Carbon::parse($b->end_time)->format('H');
+                if ($eh === 0 && $sh > 0) {
+                    $eh = 24;
+                } elseif ($eh === 0 && \Carbon\Carbon::parse($b->end_time)->day > \Carbon\Carbon::parse($b->date)->day) {
+                    $eh = 24;
+                }
+                if ($eh <= $sh) {
+                    $eh = $sh + 1;
+                }
+            } else {
+                $eh = $sh + min($b->duration, 2);
+            }
+
+            for ($h = $sh; $h < $eh; $h++) {
+                $occupiedHours[] = sprintf('%02d:00', $h);
+            }
+        }
+
+        // 2. Completed / checkout logs on that date
+        $logsQuery = RoomUsageLog::where('room_type', 'meeting_room')
+            ->whereDate('timestamp', $date)
+            ->when($excludeId, fn($q) => $q->where('reservation_id', '!=', $excludeId))
+            ->orderBy('reservation_id')
+            ->orderBy('timestamp');
+
+        if ($roomName) {
+            $logsQuery->whereIn('reservation_id', function($sub) use ($roomName) {
+                $sub->select('id')->from('meeting_room_bookings')->where('room_name', $roomName);
+            });
+        }
+
+        $logs = $logsQuery->get();
+
+        $checkins = [];
+        foreach ($logs as $log) {
+            if ($log->type === 'checkin') {
+                $checkins[$log->reservation_id] = $log;
+            } elseif ($log->type === 'checkout' && isset($checkins[$log->reservation_id])) {
+                $cIn  = $checkins[$log->reservation_id]->timestamp;
+                $cOut = $log->timestamp;
+                $sh   = (int) $cIn->format('H');
+                $outH = (int) $cOut->format('H');
+                $outM = (int) $cOut->format('i');
+                $outS = (int) $cOut->format('s');
+
+                $eh = ($outM > 0 || $outS > 0) ? ($outH + 1) : $outH;
+                if ($eh <= $sh) {
+                    $eh = $sh + 1;
+                }
+                if ($eh > 24) $eh = 24;
+
+                for ($h = $sh; $h < $eh; $h++) {
+                    $occupiedHours[] = sprintf('%02d:00', $h);
+                }
+                unset($checkins[$log->reservation_id]);
+            }
+        }
+
+        return array_values(array_unique($occupiedHours));
     }
 
     // ── Store ─────────────────────────────────────────────────────────────────
@@ -339,8 +413,20 @@ class MeetingRoomController extends Controller
 
             // Fallback: if no end_time, calculate from start_time + duration (max 4h for display)
             if (!$endTime && $startTime) {
-                $displayDuration = min($b->duration, 4);
-                $endTime = \Carbon\Carbon::parse($b->start_time)->addHours($displayDuration)->format('H:i');
+                $displayDuration = min($b->duration ?: 2, 2);
+                $eh = (int) substr($startTime, 0, 2) + $displayDuration;
+                $endTime = $eh >= 24 ? '24:00' : sprintf('%02d:00', $eh);
+            }
+
+            // If currently checked in and current time is past scheduled end_time (ngaret sedang berlangsung)
+            if ($b->status === 'checkin' && $b->checkin_at && $startTime) {
+                $nowH = (int) now()->format('H');
+                $nowM = (int) now()->format('i');
+                $currentEndH = ($nowM > 0) ? ($nowH + 1) : $nowH;
+                $schedEndH = (int) substr($endTime, 0, 2);
+                if ($currentEndH > $schedEndH) {
+                    $endTime = $currentEndH >= 24 ? '24:00' : sprintf('%02d:00', $currentEndH);
+                }
             }
 
             if ($startTime) {
@@ -386,17 +472,40 @@ class MeetingRoomController extends Controller
                     $cIn  = $checkinLog->timestamp;
                     $cOut = $checkoutLog->timestamp;
 
-                    $startTime = $cIn->format('H:i');
-                    if ($cOut->diffInMinutes($cIn) < 30) {
-                        $endTime = $cIn->copy()->addHour()->format('H:i');
+                    // Jam Mulai: ambil dari reservasi awal jika ada, atau jam check-in riil
+                    $startTime = $booking->start_time 
+                        ? \Carbon\Carbon::parse($booking->start_time)->format('H:i') 
+                        : $cIn->format('H:i');
+                    
+                    // Jam Selesai: ambil waktu checkout riil saat admin klik checkout, dibulatkan ke depan (.00)
+                    $outH = (int) $cOut->format('H');
+                    $outM = (int) $cOut->format('i');
+                    $outS = (int) $cOut->format('s');
+                    $endH = ($outM > 0 || $outS > 0) ? ($outH + 1) : $outH;
+
+                    // Jika ada jadwal reservasi awal (misal 13:00), ambil yang lebih besar (jika ngaret, ikuti checkout riil)
+                    if ($booking->end_time) {
+                        $reservedEndH = (int) \Carbon\Carbon::parse($booking->end_time)->format('H');
+                        if ($reservedEndH === 0 && \Carbon\Carbon::parse($booking->end_time)->day > \Carbon\Carbon::parse($booking->date)->day) {
+                            $reservedEndH = 24;
+                        }
+                        $endH = max($endH, $reservedEndH);
+                    }
+
+                    $sh = (int) substr($startTime, 0, 2);
+                    if ($endH <= $sh) {
+                        $endH = $sh + 1;
+                    }
+                    if ($endH >= 24) {
+                        $endTime = '24:00';
                     } else {
-                        $endTime = $cOut->format('H:i');
+                        $endTime = sprintf('%02d:00', $endH);
                     }
 
                     $events->push([
                         'id'             => $booking->id,
                         'title'          => !empty($booking->name) ? $booking->name : ($booking->user->name ?? 'Reservasi Meeting'),
-                        'date'           => $cIn->format('Y-m-d'),
+                        'date'           => $booking->date ? \Carbon\Carbon::parse($booking->date)->format('Y-m-d') : $cIn->format('Y-m-d'),
                         'start_time'     => $startTime,
                         'end_time'       => $endTime,
                         'order_number'   => $booking->id,
@@ -512,6 +621,7 @@ class MeetingRoomController extends Controller
             'booking_id'      => 'required|exists:meeting_room_bookings,id',
             'date'            => 'required|date',
             'start_time'      => 'required',
+            'end_time'        => 'nullable',
             'room_name'       => 'required|string',
             'nama_perusahaan' => 'nullable|string|max:255',
             'keperluan'       => 'nullable|string',
@@ -521,21 +631,29 @@ class MeetingRoomController extends Controller
 
         $booking = MeetingRoomBooking::findOrFail($request->booking_id);
 
-        // Room occupancy guard
-        $occupied = MeetingRoomBooking::where('room_name', $request->room_name)
-            ->where('date', $request->date)
-            ->where('start_time', 'like', $request->start_time . '%')
-            ->where('status', 'checkin')
-            ->where('id', '!=', $booking->id)
-            ->exists();
-
-        if ($occupied) {
-            return back()->with('error', "🚫 {$request->room_name} sedang digunakan (Check In) oleh client lain pada slot tersebut.");
+        // Room occupancy guard for entire requested duration
+        $occupiedSlots = $this->calculateOccupiedHours($request->date, $request->room_name, $booking->id);
+        $sh = (int) substr($request->start_time, 0, 2);
+        $eh = $request->filled('end_time') ? (int) substr($request->end_time, 0, 2) : ($sh + 1);
+        if ($eh <= $sh) {
+            $eh = ($request->end_time === '24:00') ? 24 : ($sh + 1);
         }
+        for ($h = $sh; $h < $eh; $h++) {
+            $reqSlot = sprintf('%02d:00', $h);
+            if (in_array($reqSlot, $occupiedSlots)) {
+                return back()->withInput()->with('error', "🚫 Jam {$reqSlot} pada ruangan {$request->room_name} sudah digunakan atau dibooking oleh client lain.");
+            }
+        }
+
+        $bookingDate = \Carbon\Carbon::parse($request->date)->format('Y-m-d');
+        $endTimeVal = $request->filled('end_time') 
+            ? \Carbon\Carbon::parse($bookingDate . ' ' . $request->end_time) 
+            : ($request->filled('start_time') ? \Carbon\Carbon::parse($bookingDate . ' ' . $request->start_time)->addHours(2) : null);
 
         $booking->update([
             'date'            => $request->date,
             'start_time'      => $request->start_time,
+            'end_time'        => $endTimeVal,
             'room_name'       => $request->room_name ?: $booking->room_name,
             'nama_perusahaan' => $request->nama_perusahaan ?: $booking->nama_perusahaan,
             'keperluan'       => $request->keperluan ?: $booking->keperluan,
@@ -676,6 +794,21 @@ class MeetingRoomController extends Controller
 
         if ($occupiedByOther) {
             return redirect()->back()->with('error', "🚫 Gagal Check In: {$roomName} saat ini sedang digunakan (Check In) oleh client lain. Selesaikan sesi Check Out pada client sebelumnya terlebih dahulu.");
+        }
+
+        if ($startTime) {
+            $occupiedSlots = $this->calculateOccupiedHours($dateInput, $roomName, $booking->id);
+            $sh = (int) substr($startTime, 0, 2);
+            $eh = $endTime ? (int) substr($endTime, 0, 2) : ($sh + 1);
+            if ($eh <= $sh) {
+                $eh = ($endTime === '24:00') ? 24 : ($sh + 1);
+            }
+            for ($h = $sh; $h < $eh; $h++) {
+                $reqSlot = sprintf('%02d:00', $h);
+                if (in_array($reqSlot, $occupiedSlots)) {
+                    return back()->withInput()->with('error', "🚫 Jam {$reqSlot} pada ruangan {$roomName} sudah digunakan atau dibooking oleh client lain.");
+                }
+            }
         }
 
         if ($booking->status === 'selesai') {

@@ -256,9 +256,18 @@
                     </form>
                 @endif
             @elseif(($booking->status === 'approved' || $booking->payment_status === 'approved') && $booking->status !== 'checkin' && $booking->status !== 'selesai' && $booking->status !== 'rejected')
-                <button type="button" class="btn btn-success btn-sm px-3 py-2 rounded-3 fw-bold shadow-sm" data-bs-toggle="modal" data-bs-target="#checkinModalDetail">
-                    <i class="fa-solid fa-door-open me-1"></i> Check In Ruangan
-                </button>
+                @if(empty($booking->start_time))
+                    <button type="button" class="btn btn-primary btn-sm px-3 py-2 rounded-3 fw-bold shadow-sm" data-bs-toggle="modal" data-bs-target="#createSessionModalDetail">
+                        <i class="fa-solid fa-calendar-check me-1"></i> Reservasi Check In
+                    </button>
+                @else
+                    <button type="button" class="btn btn-success btn-sm px-3 py-2 rounded-3 fw-bold shadow-sm" data-bs-toggle="modal" data-bs-target="#checkinModalDetail">
+                        <i class="fa-solid fa-door-open me-1"></i> Check In Ruangan
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary btn-sm px-3 py-2 rounded-3 fw-bold" data-bs-toggle="modal" data-bs-target="#createSessionModalDetail" title="Ubah Jadwal Reservasi">
+                        <i class="fa-solid fa-pen-to-square me-1"></i> Ubah Jadwal
+                    </button>
+                @endif
             @elseif($booking->status === 'checkin')
                 <form action="{{ url('admin/meeting-room/'.$booking->id.'/checkout') }}" method="POST" class="d-inline">
                     @csrf
@@ -679,13 +688,110 @@
     </div>
 </div>
 
-{{-- Modal Check In Meeting Room (for Detail page) --}}
+{{-- Modal Form Reservasi Check-In Meeting (for Detail page) --}}
 @if(($booking->status === 'approved' || $booking->status === 'paused' || $booking->payment_status === 'approved') && $booking->status !== 'checkin' && $booking->status !== 'selesai' && $booking->status !== 'rejected')
-<div class="modal fade" id="checkinModalDetail" tabindex="-1" aria-hidden="true">
+@php
+    $timeSlots = [];
+    for($h = 0; $h <= 23; $h++) { $timeSlots[] = sprintf('%02d:00', $h); }
+    $endTimeSlots = [];
+    for($h = 1; $h <= 24; $h++) { $endTimeSlots[] = $h === 24 ? '24:00' : sprintf('%02d:00', $h); }
+    $selStart = $booking->start_time ? \Carbon\Carbon::parse($booking->start_time)->format('H:00') : '';
+    $selEnd   = $booking->end_time ? \Carbon\Carbon::parse($booking->end_time)->format('H:00') : '';
+@endphp
+<div class="modal fade" id="createSessionModalDetail" data-booking-id="{{ $booking->id }}" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-start">
+            <form action="{{ route('admin.meeting-room.create-session') }}" method="POST">
+                @csrf
+                <input type="hidden" name="booking_id" value="{{ $booking->id }}">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title fw-bold">
+                        <i class="fa-solid fa-calendar-plus me-2"></i> Form Reservasi Check-In Meeting Room
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="card bg-light border-0 mb-3">
+                        <div class="card-body py-2 px-3 small">
+                            <div class="row">
+                                <div class="col-6"><strong>Client:</strong> {{ $booking->user->name ?? $booking->name }}</div>
+                                <div class="col-6"><strong>Sisa Kuota:</strong> <span class="text-success fw-bold">{{ $booking->formatted_remaining_time }}</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Pilih Ruangan Meeting <span class="text-danger">*</span></label>
+                        <select name="room_name" class="form-select" required onchange="refreshModalSlots(this.closest('.modal'), '{{ url('admin/meeting-room/booked-slots') }}', '{{ $booking->id }}')">
+                            <option value="Ruang Meetingroom Utama" {{ ($booking->room_name ?? '') === 'Ruang Meetingroom Utama' ? 'selected' : '' }}>Ruang Meetingroom Utama</option>
+                            <option value="Ruang Meetingroom 1" {{ ($booking->room_name ?? '') === 'Ruang Meetingroom 1' ? 'selected' : '' }}>Ruang Meetingroom 1</option>
+                            <option value="Ruang Meetingroom 2" {{ ($booking->room_name ?? '') === 'Ruang Meetingroom 2' ? 'selected' : '' }}>Ruang Meetingroom 2</option>
+                        </select>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label fw-bold">Tanggal Meeting <span class="text-danger">*</span></label>
+                            <input type="date" name="date" class="form-control slot-date-input" value="{{ $booking->date ? \Carbon\Carbon::parse($booking->date)->format('Y-m-d') : date('Y-m-d') }}" required onchange="refreshModalSlots(this.closest('.modal'), '{{ url('admin/meeting-room/booked-slots') }}', '{{ $booking->id }}')">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label fw-bold">Jam Check-In / Mulai <span class="text-danger">*</span></label>
+                            <select name="start_time" class="form-select slot-start-select" required onchange="handleStartTimeChange(this)">
+                                <option value="" disabled {{ empty($selStart) ? 'selected' : '' }}>-- Pilih Jam Mulai --</option>
+                                @foreach($timeSlots as $ts)
+                                    <option value="{{ $ts }}" {{ $selStart === $ts ? 'selected' : '' }}>{{ $ts }} WIB</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label fw-bold">Jam Check-Out <small class="text-muted fw-normal" style="font-size:0.72rem;">(Estimasi)</small></label>
+                            <select name="end_time" class="form-select slot-end-select">
+                                <option value="">-- Pilih Jam Selesai --</option>
+                                @foreach($endTimeSlots as $ts)
+                                    <option value="{{ $ts }}" {{ $selEnd === $ts ? 'selected' : '' }}>{{ $ts }} WIB</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Jumlah Peserta (Opsional)</label>
+                            <input type="number" name="participants" class="form-control" min="1" value="{{ $booking->participants ?? 1 }}">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Keperluan / Agenda (Opsional)</label>
+                            <input type="text" name="keperluan" class="form-control" value="{{ $booking->keperluan ?? '' }}" placeholder="Misal: Rapat Koordinasi...">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Catatan (Opsional)</label>
+                        <textarea name="notes" class="form-control" rows="2" placeholder="Catatan internal...">{{ $booking->notes ?? '' }}</textarea>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary fw-bold">
+                        <i class="fa-solid fa-check me-1"></i> Simpan Reservasi &amp; Aktifkan Check-In
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{-- Modal Check In Meeting Room (for Detail page) --}}
+@php
+    $ciStart = $booking->start_time ? \Carbon\Carbon::parse($booking->start_time)->format('H:00') : '';
+    $ciEnd   = $booking->end_time ? \Carbon\Carbon::parse($booking->end_time)->format('H:00') : ($booking->start_time ? \Carbon\Carbon::parse($booking->start_time)->addHour()->format('H:00') : '');
+@endphp
+<div class="modal fade" id="checkinModalDetail" data-booking-id="{{ $booking->id }}" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content text-start">
             <form action="{{ url('admin/meeting-room/'.$booking->id.'/checkin') }}" method="POST">
                 @csrf
+                <input type="hidden" name="booking_id" value="{{ $booking->id }}">
                 <div class="modal-header bg-success text-white">
                     <h5 class="modal-title fw-bold">
                         <i class="fa-solid fa-door-open me-2"></i> Check In Meeting Room
@@ -704,7 +810,7 @@
 
                     <div class="mb-3">
                         <label class="form-label fw-bold">Pilih Ruangan <span class="text-danger">*</span></label>
-                        <select name="room_name" class="form-select" required>
+                        <select name="room_name" class="form-select" required onchange="refreshModalSlots(this.closest('.modal'), '{{ url('admin/meeting-room/booked-slots') }}', '{{ $booking->id }}')">
                             @php
                                 $mrRooms = ['Ruang Meetingroom 1', 'Ruang Meetingroom 2', 'Ruang Meetingroom Utama'];
                             @endphp
@@ -726,17 +832,27 @@
 
                     <div class="mb-3">
                         <label class="form-label fw-bold">Tanggal Meeting <span class="text-danger">*</span></label>
-                        <input type="date" name="date" class="form-control" value="{{ $booking->date ? \Carbon\Carbon::parse($booking->date)->format('Y-m-d') : date('Y-m-d') }}" required>
+                        <input type="date" name="date" class="form-control slot-date-input" value="{{ $booking->date ? \Carbon\Carbon::parse($booking->date)->format('Y-m-d') : date('Y-m-d') }}" required onchange="refreshModalSlots(this.closest('.modal'), '{{ url('admin/meeting-room/booked-slots') }}', '{{ $booking->id }}')">
                     </div>
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-bold">Jam Mulai <span class="text-danger">*</span></label>
-                            <input type="time" name="start_time" class="form-control" value="{{ $booking->start_time ? \Carbon\Carbon::parse($booking->start_time)->format('H:i') : date('H:i') }}" required>
+                            <select name="start_time" class="form-select slot-start-select" required onchange="handleStartTimeChange(this)">
+                                <option value="" disabled {{ empty($ciStart) ? 'selected' : '' }}>-- Pilih Jam Mulai --</option>
+                                @foreach($timeSlots as $ts)
+                                    <option value="{{ $ts }}" {{ $ciStart === $ts ? 'selected' : '' }}>{{ $ts }} WIB</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-bold">Jam Selesai <span class="text-danger">*</span></label>
-                            <input type="time" name="end_time" class="form-control" value="{{ $booking->end_time ? \Carbon\Carbon::parse($booking->end_time)->format('H:i') : date('H:i', strtotime('+1 hour')) }}" required>
+                            <select name="end_time" class="form-select slot-end-select" required>
+                                <option value="" disabled {{ empty($ciEnd) ? 'selected' : '' }}>-- Pilih Jam Selesai --</option>
+                                @foreach($endTimeSlots as $ts)
+                                    <option value="{{ $ts }}" {{ $ciEnd === $ts ? 'selected' : '' }}>{{ $ts }} WIB</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
 
@@ -788,5 +904,117 @@
             }
         });
     }, 1000);
+
+    /* Dynamic Slot Availability Helpers */
+    function refreshModalSlots(modalEl, endpointUrl, excludeId) {
+        if (!modalEl) return;
+        const dateInput = modalEl.querySelector('input[name="date"]');
+        const roomSelect = modalEl.querySelector('select[name="room_name"]');
+        const startSelect = modalEl.querySelector('.slot-start-select');
+        const endSelect = modalEl.querySelector('.slot-end-select');
+
+        if (!dateInput || !startSelect) return;
+        const date = dateInput.value;
+        const room = roomSelect ? roomSelect.value : '';
+
+        if (!date) return;
+
+        const effectiveExcludeId = excludeId || modalEl.getAttribute('data-booking-id') || '{{ $booking->id }}';
+
+        fetch(`${endpointUrl}?date=${date}&room_name=${encodeURIComponent(room)}&exclude_id=${effectiveExcludeId}`)
+            .then(r => r.json())
+            .then(occupied => {
+                modalEl._occupiedSlots = occupied;
+
+                Array.from(startSelect.options).forEach(opt => {
+                    if (!opt.value) return;
+                    if (occupied.includes(opt.value)) {
+                        opt.disabled = true;
+                        opt.innerText = `${opt.value} (Sudah Terisi / Dibooking)`;
+                        opt.style.color = '#dc2626';
+                    } else {
+                        opt.disabled = false;
+                        opt.innerText = `${opt.value} WIB`;
+                        opt.style.color = '';
+                    }
+                });
+
+                updateEndTimeOptions(modalEl);
+            })
+            .catch(err => console.error('Error fetching booked slots:', err));
+    }
+
+    function updateEndTimeOptions(modalEl) {
+        const startSelect = modalEl.querySelector('.slot-start-select');
+        const endSelect = modalEl.querySelector('.slot-end-select');
+        if (!startSelect || !endSelect) return;
+
+        const occupied = modalEl._occupiedSlots || [];
+        const startVal = startSelect.value;
+        if (!startVal) {
+            Array.from(endSelect.options).forEach(opt => {
+                if (!opt.value) return;
+                opt.disabled = false;
+                opt.innerText = `${opt.value} WIB`;
+                opt.style.color = '';
+            });
+            return;
+        }
+
+        const startH = parseInt(startVal.split(':')[0]);
+
+        // Find the nearest occupied slot that begins after startH
+        let nextOccupiedH = 25;
+        for (let h = startH + 1; h <= 23; h++) {
+            const slotStr = String(h).padStart(2, '0') + ':00';
+            if (occupied.includes(slotStr)) {
+                nextOccupiedH = h;
+                break;
+            }
+        }
+
+        Array.from(endSelect.options).forEach(opt => {
+            if (!opt.value) return;
+            const endH = opt.value === '24:00' ? 24 : parseInt(opt.value.split(':')[0]);
+
+            if (endH <= startH) {
+                opt.disabled = true;
+                opt.innerText = `${opt.value} WIB`;
+                opt.style.color = '#94a3b8';
+            } else if (endH > nextOccupiedH) {
+                opt.disabled = true;
+                opt.innerText = `${opt.value} (Bentrok Jadwal)`;
+                opt.style.color = '#dc2626';
+            } else {
+                opt.disabled = false;
+                opt.innerText = `${opt.value} WIB`;
+                opt.style.color = '';
+            }
+        });
+
+        // Adjust end time only if current value is invalid
+        const currentEndH = endSelect.value ? (endSelect.value === '24:00' ? 24 : parseInt(endSelect.value.split(':')[0])) : 0;
+        if (!endSelect.value || currentEndH <= startH || currentEndH > nextOccupiedH) {
+            const preferredEndH = Math.min(startH + 1, nextOccupiedH);
+            const preferredVal = preferredEndH === 24 ? '24:00' : String(preferredEndH).padStart(2, '0') + ':00';
+            endSelect.value = preferredVal;
+        }
+    }
+
+    function handleStartTimeChange(selectEl) {
+        const modalEl = selectEl.closest('.modal');
+        if (!modalEl) return;
+        updateEndTimeOptions(modalEl);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('show.bs.modal', function() {
+                const endpoint = "{{ url('admin/meeting-room/booked-slots') }}";
+                const bookingId = modal.getAttribute('data-booking-id') || (modal.querySelector('input[name="booking_id"]') ? modal.querySelector('input[name="booking_id"]').value : '{{ $booking->id }}');
+                refreshModalSlots(modal, endpoint, bookingId);
+            });
+        });
+    });
 </script>
 @endpush
