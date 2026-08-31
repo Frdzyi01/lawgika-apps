@@ -346,6 +346,44 @@ class MeetingRoomController extends Controller
     {
         $search = $request->input('search');
 
+        // Auto-sync: Ensure every active meeting RoomBenefit has a corresponding MeetingRoomBooking
+        $activeMeetingBenefits = RoomBenefit::with(['user', 'order'])
+            ->whereIn('type', ['meeting', 'shared'])
+            ->where('is_active', true)
+            ->get();
+
+        foreach ($activeMeetingBenefits as $bnf) {
+            $hasBooking = MeetingRoomBooking::where('benefit_id', $bnf->id)->exists();
+            if (!$hasBooking) {
+                $user = $bnf->user;
+                $clientName = $user?->company_name ?? ($user?->pic_name ?? ($user?->name ?? 'Client'));
+                $companyName = $user?->company_name ?? null;
+
+                $mb = MeetingRoomBooking::create([
+                    'user_id'            => $bnf->user_id,
+                    'source_type'        => 'benefit',
+                    'benefit_id'         => $bnf->id,
+                    'order_number'       => $bnf->order?->order_number ?? ('#MR-BNF-' . str_pad($bnf->id, 5, '0', STR_PAD_LEFT)),
+                    'name'               => $clientName,
+                    'nama_perusahaan'    => $companyName,
+                    'email'              => $user?->email,
+                    'date'               => null,
+                    'start_time'         => null,
+                    'end_time'           => null,
+                    'duration'           => round($bnf->total_minutes / 60) ?: 48,
+                    'total_used_seconds' => $bnf->used_minutes * 60,
+                    'participants'       => 1,
+                    'package'            => $bnf->paket,
+                    'status'             => 'approved',
+                    'payment_status'     => 'approved',
+                    'total_price'        => 0,
+                    'notes'              => 'Benefit kuota dari ' . ($bnf->order?->order_number ?? 'Order'),
+                ]);
+
+                $bnf->update(['meeting_room_booking_id' => $mb->id]);
+            }
+        }
+
         // Load only approved, active, or completed bookings for Table 2 (exclude pending approvals)
         $query = MeetingRoomBooking::with(['user', 'benefit'])
             ->where(function ($q) {

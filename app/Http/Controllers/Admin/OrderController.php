@@ -100,6 +100,14 @@ class OrderController extends Controller
 
         $order->update($updateData);
 
+        if ($order->payment_status === 'verified' && \App\Models\RoomBenefit::isEligibleForOrder($order)) {
+            try {
+                $this->benefitService->approve($order);
+            } catch (\Exception $e) {
+                // Benefit might already exist or other error
+            }
+        }
+
         return redirect()->back()->with('success', 'Status pembayaran pesanan berhasil diperbarui menjadi: ' . $order->payment_status_label);
     }
 

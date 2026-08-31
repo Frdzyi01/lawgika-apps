@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Models\Order;
 use App\Models\RoomBenefit;
 use App\Models\RoomBenefitLog;
+use App\Models\MeetingRoomBooking;
+use App\Models\PodcastRoomBooking;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -29,7 +31,7 @@ class RoomBenefitService
      */
     public function approve(Order $order): array
     {
-        if ($order->payment_status !== 'verified') {
+        if ($order->payment_status !== 'verified' && $order->status !== 'approved') {
             throw new \RuntimeException('Silakan selesaikan pembayaran terlebih dahulu.');
         }
 
@@ -87,6 +89,8 @@ class RoomBenefitService
         return DB::transaction(function () use ($order, $paketLabel, $benefitType) {
 
             $expiredAt = Carbon::now()->addYear();
+            $clientName = $order->user->company_name ?? ($order->user->pic_name ?? ($order->user->name ?? 'Client'));
+            $companyName = $order->user->company_name ?? ($order->form_data['company_name'] ?? null);
 
             if ($benefitType === 'meeting_only_12') {
                 // Virtual Office Premium → Meeting Room ONLY 12 jam
@@ -100,6 +104,29 @@ class RoomBenefitService
                     'is_active'     => true,
                     'expired_at'    => $expiredAt,
                 ]);
+
+                $meetingBooking = MeetingRoomBooking::create([
+                    'user_id'         => $order->user_id,
+                    'source_type'     => 'benefit',
+                    'benefit_id'      => $meetingBenefit->id,
+                    'order_number'    => $order->order_number,
+                    'name'            => $clientName,
+                    'nama_perusahaan' => $companyName,
+                    'email'           => $order->user?->email,
+                    'date'            => null,
+                    'start_time'      => null,
+                    'end_time'        => null,
+                    'duration'        => 12,
+                    'total_used_seconds' => 0,
+                    'participants'    => 1,
+                    'package'         => $meetingBenefit->paket,
+                    'status'          => 'approved',
+                    'payment_status'  => 'approved',
+                    'total_price'     => 0,
+                    'notes'           => 'Benefit otomatis dari Order ' . $order->order_number,
+                ]);
+
+                $meetingBenefit->update(['meeting_room_booking_id' => $meetingBooking->id]);
 
                 return [$meetingBenefit];
             }
@@ -119,6 +146,29 @@ class RoomBenefitService
                 'expired_at'    => $expiredAt,
             ]);
 
+            $meetingBooking = MeetingRoomBooking::create([
+                'user_id'         => $order->user_id,
+                'source_type'     => 'benefit',
+                'benefit_id'      => $meetingBenefit->id,
+                'order_number'    => $order->order_number,
+                'name'            => $clientName,
+                'nama_perusahaan' => $companyName,
+                'email'           => $order->user?->email,
+                'date'            => null,
+                'start_time'      => null,
+                'end_time'        => null,
+                'duration'        => 48,
+                'total_used_seconds' => 0,
+                'participants'    => 1,
+                'package'         => $meetingBenefit->paket,
+                'status'          => 'approved',
+                'payment_status'  => 'approved',
+                'total_price'     => 0,
+                'notes'           => 'Benefit otomatis dari Order ' . $order->order_number,
+            ]);
+
+            $meetingBenefit->update(['meeting_room_booking_id' => $meetingBooking->id]);
+
             // 2. Podcast Room — 12 jam = 720 menit
             $podcastBenefit = RoomBenefit::create([
                 'user_id'       => $order->user_id,
@@ -130,6 +180,28 @@ class RoomBenefitService
                 'is_active'     => true,
                 'expired_at'    => $expiredAt,
             ]);
+
+            $podcastBooking = PodcastRoomBooking::create([
+                'user_id'         => $order->user_id,
+                'source_type'     => 'benefit',
+                'benefit_id'      => $podcastBenefit->id,
+                'order_number'    => $order->order_number,
+                'name'            => $clientName,
+                'email'           => $order->user?->email,
+                'date'            => null,
+                'start_time'      => null,
+                'end_time'        => null,
+                'duration'        => 12,
+                'total_used_seconds' => 0,
+                'participants'    => 1,
+                'package'         => $podcastBenefit->paket,
+                'status'          => 'approved',
+                'payment_status'  => 'approved',
+                'total_price'     => 0,
+                'notes'           => 'Benefit otomatis dari Order ' . $order->order_number,
+            ]);
+
+            $podcastBenefit->update(['podcast_room_booking_id' => $podcastBooking->id]);
 
             return [$meetingBenefit, $podcastBenefit];
         });

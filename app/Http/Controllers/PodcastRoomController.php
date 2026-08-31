@@ -354,6 +354,42 @@ class PodcastRoomController extends Controller
     {
         $search = $request->input('search');
 
+        // Auto-sync: Ensure every active podcast RoomBenefit has a corresponding PodcastRoomBooking
+        $activePodcastBenefits = RoomBenefit::with(['user', 'order'])
+            ->where('type', 'podcast')
+            ->where('is_active', true)
+            ->get();
+
+        foreach ($activePodcastBenefits as $bnf) {
+            $hasBooking = PodcastRoomBooking::where('benefit_id', $bnf->id)->exists();
+            if (!$hasBooking) {
+                $user = $bnf->user;
+                $clientName = $user?->company_name ?? ($user?->pic_name ?? ($user?->name ?? 'Client'));
+
+                $pb = PodcastRoomBooking::create([
+                    'user_id'            => $bnf->user_id,
+                    'source_type'        => 'benefit',
+                    'benefit_id'         => $bnf->id,
+                    'order_number'       => $bnf->order?->order_number ?? ('#POD-BNF-' . str_pad($bnf->id, 5, '0', STR_PAD_LEFT)),
+                    'name'               => $clientName,
+                    'email'              => $user?->email,
+                    'date'               => null,
+                    'start_time'         => null,
+                    'end_time'           => null,
+                    'duration'           => round($bnf->total_minutes / 60) ?: 12,
+                    'total_used_seconds' => $bnf->used_minutes * 60,
+                    'participants'       => 1,
+                    'package'            => $bnf->paket,
+                    'status'             => 'approved',
+                    'payment_status'     => 'approved',
+                    'total_price'        => 0,
+                    'notes'              => 'Benefit kuota dari ' . ($bnf->order?->order_number ?? 'Order'),
+                ]);
+
+                $bnf->update(['podcast_room_booking_id' => $pb->id]);
+            }
+        }
+
         // Load only approved, active, or completed bookings for Table 2 (exclude pending approvals)
         $query = PodcastRoomBooking::with(['user', 'benefit'])
             ->where(function ($q) {
