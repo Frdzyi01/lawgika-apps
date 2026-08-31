@@ -1,227 +1,864 @@
 @extends('layouts-admin.admin')
+
 @section('content')
-<div class="container-fluid">
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800"><ion-icon name="mic-outline" class="align-middle"></ion-icon> Manajemen Ruang Podcast</h1>
-        <a href="{{ route('admin.podcast-room.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <ion-icon name="add-circle-outline" class="align-middle"></ion-icon> Tambah Reservasi
-        </a>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+<style>
+/* ===== Enterprise Dashboard Styling ===== */
+.admin-page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 22px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+.admin-page-title {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0;
+    letter-spacing: -0.3px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.admin-page-subtitle {
+    font-size: 0.84rem;
+    color: #64748b;
+    margin: 4px 0 0 0;
+}
+
+/* KPI Summary Cards */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+    margin-bottom: 24px;
+}
+.kpi-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+}
+.kpi-info-label {
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+.kpi-info-val {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1;
+}
+.kpi-icon-box {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+}
+.kpi-warning { background: #fffbeb; color: #d97706; border: 1px solid #fef3c7; }
+.kpi-primary { background: #f0fdf4; color: #16a34a; border: 1px solid #dcfce7; }
+.kpi-indigo  { background: #fdf2f8; color: #db2777; border: 1px solid #fce7f3; }
+
+/* Table Container Card */
+.table-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+    margin-bottom: 26px;
+    overflow: hidden;
+}
+.table-card-header {
+    background: #ffffff;
+    border-bottom: 1px solid #f1f5f9;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+.table-card-header.pending-style {
+    background: #fffdfb;
+    border-bottom: 1px solid #fed7aa;
+}
+.table-card-title {
+    font-size: 0.96rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.table-modern {
+    width: 100%;
+    margin-bottom: 0;
+    vertical-align: middle;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+.table-modern thead th {
+    background: #f8fafc;
+    color: #475569;
+    font-size: 0.74rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    padding: 12px 16px;
+    border-bottom: 1px solid #e2e8f0;
+    border-top: none;
+    white-space: nowrap;
+}
+.table-modern tbody td {
+    padding: 13px 16px;
+    font-size: 0.86rem;
+    color: #334155;
+    border-bottom: 1px solid #f1f5f9;
+    background: #ffffff;
+}
+.table-modern tbody tr:last-child td {
+    border-bottom: none;
+}
+.table-modern tbody tr:hover td {
+    background: #f8fafc;
+}
+
+/* User & Schedule formatters */
+.client-name-title {
+    font-weight: 700;
+    color: #0f172a;
+    font-size: 0.88rem;
+    display: block;
+}
+.client-sub-detail {
+    font-size: 0.76rem;
+    color: #64748b;
+}
+.wa-link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: #16a34a;
+    font-weight: 600;
+    font-size: 0.78rem;
+    text-decoration: none;
+    transition: color 0.15s;
+}
+.wa-link-btn:hover {
+    color: #15803d;
+    text-decoration: underline;
+}
+.order-code-badge {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.8rem;
+    font-weight: 700;
+    background: #f1f5f9;
+    color: #1e293b;
+    border: 1px solid #e2e8f0;
+    padding: 3px 8px;
+    border-radius: 6px;
+    display: inline-block;
+}
+
+/* Buttons in Table */
+.btn-action-group {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+}
+.btn-approve {
+    background: #16a34a;
+    color: #ffffff;
+    border: none;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: background 0.15s;
+}
+.btn-approve:hover {
+    background: #15803d;
+    color: #ffffff;
+}
+.btn-reject {
+    background: #ffffff;
+    color: #dc2626;
+    border: 1px solid #fca5a5;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.15s;
+}
+.btn-reject:hover {
+    background: #fef2f2;
+    border-color: #ef4444;
+    color: #b91c1c;
+}
+.btn-table-detail {
+    background: #ffffff;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    text-decoration: none;
+    transition: all 0.15s;
+}
+.btn-table-detail:hover {
+    background: #f1f5f9;
+    color: #1e293b;
+    border-color: #94a3b8;
+}
+
+/* Add-on Modal Styles */
+.addon-modal-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    background: #ffffff;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    user-select: none;
+}
+.addon-modal-row:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+}
+.addon-modal-row.active {
+    background: #fdf6f7;
+    border-color: #f1c7cf;
+}
+.addon-modal-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    color: #4e0516;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+}
+.addon-modal-row.active .addon-modal-icon {
+    background: #4e0516;
+    color: #ffffff;
+    border-color: #4e0516;
+}
+.addon-modal-row.active .addon-btn-toggle {
+    background: #4e0516 !important;
+    border-color: #4e0516 !important;
+    color: #ffffff !important;
+}
+
+/* Empty State */
+.empty-box-state {
+    padding: 38px 20px;
+    text-align: center;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+</style>
+
+<div class="container-fluid py-2">
+    {{-- Page Header --}}
+    <div class="admin-page-header">
+        <div>
+            <h1 class="admin-page-title">
+                <i class="fa-solid fa-microphone-lines text-primary"></i> Manajemen Podcast Room
+            </h1>
+            <p class="admin-page-subtitle">Kelola pengajuan sewa studio podcast, verifikasi add-on perlengkapan, dan pantau sesi recording client.</p>
+        </div>
+        <div>
+            <a href="{{ route('admin.podcast-room.create') }}" class="btn btn-primary btn-sm px-3 py-2 rounded-3 fw-bold shadow-sm" style="font-size:0.85rem;">
+                <i class="fa-solid fa-plus me-1"></i> Tambah Reservasi Manual
+            </a>
+        </div>
     </div>
 
-    @if(session('success'))
-    <div class="alert alert-success alert-dismissible fade show">{{ session('success') }}<button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show border-0 rounded-3 shadow-sm mb-4" role="alert">
+            <div class="d-flex align-items-center">
+                <i class="fa-solid fa-circle-check text-success fs-5 me-2"></i>
+                <div class="fw-semibold">{{ session('success') }}</div>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
     @endif
-    @if(session('error'))
-    <div class="alert alert-danger alert-dismissible fade show">{{ session('error') }}<button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
+    @if (session('error'))
+        <div class="alert alert-danger alert-dismissible fade show border-0 rounded-3 shadow-sm mb-4" role="alert">
+            <div class="d-flex align-items-center">
+                <i class="fa-solid fa-triangle-exclamation text-danger fs-5 me-2"></i>
+                <div class="fw-semibold">{{ session('error') }}</div>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
     @endif
 
-    @if(isset($pendingReservations) && $pendingReservations->count() > 0)
-    <!-- Tabel Notifikasi Pengajuan Reservasi Baru (Tampil Hanya Jika Ada Client Yang Mengajukan Reservasi) -->
-    <div class="card border-warning shadow mb-4" style="border-left: 5px solid #ffc107;">
-        <div class="card-header py-3 bg-warning text-dark d-flex align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-dark">
-                <i class="fas fa-bell me-2"></i> 🔔 NOTIFIKASI: Ada {{ $pendingReservations->count() }} Pengajuan Reservasi Baru!
-            </h6>
-            <span class="badge bg-dark text-white">Membutuhkan Konfirmasi Admin</span>
+    {{-- Top Summary Stats (KPI) --}}
+    @php
+        $pendingCount = isset($pendingReservations) ? $pendingReservations->count() : 0;
+        $activeCheckinCount = \App\Models\PodcastRoomBooking::where('status', 'checkin')->count();
+        $totalBookingsCount = $bookings->total();
+    @endphp
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div>
+                <div class="kpi-info-label">Menunggu Approval</div>
+                <div class="kpi-info-val {{ $pendingCount > 0 ? 'text-warning' : 'text-dark' }}">{{ $pendingCount }} <small class="text-muted fw-normal fs-6">Pengajuan</small></div>
+            </div>
+            <div class="kpi-icon-box kpi-warning">
+                <i class="fa-solid fa-bell"></i>
+            </div>
         </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered align-middle mb-0">
-                    <thead class="table-light">
-                        <tr>
-                            <th>No. Order</th>
-                            <th>Client</th>
-                            <th>Tanggal & Waktu yang Diajukan</th>
-                            <th>Durasi & Judul</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($pendingReservations as $p)
-                        <tr>
-                            <td class="fw-bold text-primary">#{{ $p->id }}</td>
-                            <td>
-                                <div class="fw-bold text-dark">{{ $p->name ?? ($p->user ? $p->user->name : '-') }}</div>
-                                <div class="small text-muted">{{ $p->email ?? '-' }}</div>
-                            </td>
-                            <td>
-                                @if($p->date)
-                                    <div class="fw-bold text-dark"><i class="fas fa-calendar-alt me-1"></i> {{ \Carbon\Carbon::parse($p->date)->format('d M Y') }}</div>
-                                    <div class="small text-primary"><i class="fas fa-clock me-1"></i> {{ substr($p->start_time, 0, 5) }} WIB</div>
-                                @else
-                                    <span class="badge bg-secondary">Belum Memilih Tanggal</span>
-                                @endif
-                            </td>
-                            <td>
-                                <div class="fw-bold">{{ $p->duration }} Jam</div>
-                                <div class="small text-muted">{{ $p->podcast_title ?? '-' }}</div>
-                            </td>
-                            <td>
-                                <div class="d-flex gap-2">
-                                    <form action="{{ url('admin/podcast-room/' . $p->id . '/benefit-approve') }}" method="POST" class="d-inline">
-                                        @csrf
-                                        <button type="submit" class="btn btn-sm btn-success fw-bold" onclick="return confirm('Setujui pengajuan reservasi ini?')">
-                                            <i class="fas fa-check me-1"></i> Setujui Reservasi
-                                        </button>
-                                    </form>
-                                    <a href="{{ url('admin/podcast-room/' . $p->id . '/detail') }}" class="btn btn-sm btn-info">
-                                        <i class="fas fa-eye me-1"></i> Detail
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+
+        <div class="kpi-card">
+            <div>
+                <div class="kpi-info-label">Sedang Digunakan</div>
+                <div class="kpi-info-val text-success">{{ $activeCheckinCount }} <small class="text-muted fw-normal fs-6">Studio Aktif</small></div>
+            </div>
+            <div class="kpi-icon-box kpi-primary">
+                <i class="fa-solid fa-microphone"></i>
+            </div>
+        </div>
+
+        <div class="kpi-card">
+            <div>
+                <div class="kpi-info-label">Total Kuota / Reservasi</div>
+                <div class="kpi-info-val text-dark">{{ $totalBookingsCount }} <small class="text-muted fw-normal fs-6">Terdaftar</small></div>
+            </div>
+            <div class="kpi-icon-box kpi-indigo">
+                <i class="fa-solid fa-folder-open"></i>
             </div>
         </div>
     </div>
-    @endif
 
-    <div class="card shadow mb-4">
-        <div class="card-header py-3 d-flex justify-content-between align-items-center">
-            <h6 class="m-0 font-weight-bold text-primary"><ion-icon name="list-outline" class="align-middle"></ion-icon> Semua Reservasi Podcast</h6>
+    {{-- ========================================================================= --}}
+    {{-- TABEL 1: PERMINTAAN RESERVASI BARU (MENUNGGU APPROVAL ADMIN)             --}}
+    {{-- ========================================================================= --}}
+    <div class="table-card" style="{{ $pendingCount > 0 ? 'border-color: #fbd38d;' : '' }}">
+        <div class="table-card-header {{ $pendingCount > 0 ? 'pending-style' : '' }}">
+            <h6 class="table-card-title">
+                <i class="fa-solid fa-inbox text-warning"></i>
+                <span>1. Permintaan Reservasi Baru <small class="text-muted fw-normal">(Menunggu Approval Admin)</small></span>
+            </h6>
+            <div>
+                @if($pendingCount > 0)
+                    <span class="badge bg-warning text-dark px-3 py-1.5 rounded-pill fw-bold">
+                        <i class="fa-solid fa-clock me-1"></i> {{ $pendingCount }} Pengajuan Masuk
+                    </span>
+                @else
+                    <span class="badge bg-light text-muted border px-2.5 py-1 rounded-pill fw-normal" style="font-size:0.78rem;">
+                        <i class="fa-solid fa-check text-success me-1"></i> Tidak ada antrean pending
+                    </span>
+                @endif
+            </div>
+        </div>
+
+        <div class="p-0">
+            @if($pendingCount > 0)
+                <div class="table-responsive">
+                    <table class="table table-modern">
+                        <thead>
+                            <tr>
+                                <th class="ps-4">No. Order</th>
+                                <th>Client / Pemesan</th>
+                                <th>Tipe &amp; Add-On</th>
+                                <th>Jadwal Diajukan</th>
+                                <th>Durasi &amp; Judul</th>
+                                <th>Biaya / Tagihan</th>
+                                <th class="pe-4 text-end">Aksi Verifikasi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($pendingReservations as $p)
+                            <tr>
+                                <td class="ps-4">
+                                    <span class="order-code-badge">
+                                        {{ $p->order_number ?? ('#POD-' . str_pad($p->id, 5, '0', STR_PAD_LEFT)) }}
+                                    </span>
+                                    <div class="client-sub-detail mt-1">
+                                        {{ \Carbon\Carbon::parse($p->created_at)->format('d M Y H:i') }} WIB
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="client-name-title">{{ $p->name ?? ($p->user ? $p->user->name : '-') }}</span>
+                                    @if($p->nama_perusahaan || ($p->user && $p->user->company_name))
+                                        <div class="client-sub-detail"><i class="fa-regular fa-building me-1"></i> {{ $p->nama_perusahaan ?? $p->user->company_name }}</div>
+                                    @endif
+                                    @php
+                                        $phone = $p->phone ?? ($p->user->phone ?? null);
+                                    @endphp
+                                    @if($phone)
+                                        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $phone) }}" target="_blank" class="wa-link-btn mt-0.5">
+                                            <i class="fa-brands fa-whatsapp"></i> {{ $phone }}
+                                        </a>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($p->source_type === 'benefit')
+                                        <span class="badge bg-info-subtle text-info border border-info-subtle px-2 py-1 rounded fw-semibold" style="font-size:0.78rem;">
+                                            <i class="fa-solid fa-gift me-1"></i> Kuota Benefit PT
+                                        </span>
+                                    @else
+                                        <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-2 py-1 rounded fw-semibold" style="font-size:0.78rem;">
+                                            <i class="fa-solid fa-credit-card me-1"></i> Bayar Mandiri / Paket
+                                        </span>
+                                    @endif
+                                    @if($p->notes)
+                                        <div class="client-sub-detail mt-1 text-dark">
+                                            <span class="badge bg-light text-dark border"><i class="fa-solid fa-sliders me-1"></i> {{ Str::limit($p->notes, 35) }}</span>
+                                        </div>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($p->date)
+                                        <div>
+                                            <span class="fw-bold text-dark"><i class="fa-regular fa-calendar text-primary me-1"></i> {{ \Carbon\Carbon::parse($p->date)->translatedFormat('d M Y') }}</span>
+                                            <div class="client-sub-detail text-primary fw-semibold"><i class="fa-regular fa-clock me-1"></i> {{ substr($p->start_time, 0, 5) }} WIB</div>
+                                        </div>
+                                    @else
+                                        <span class="badge bg-light text-muted border px-2 py-0.5">Belum Memilih Jadwal</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    <div class="fw-bold text-dark">{{ $p->duration }} Jam</div>
+                                    <div class="client-sub-detail">{{ $p->podcast_title ?? '-' }}</div>
+                                </td>
+                                <td>
+                                    @if($p->total_price > 0)
+                                        <div class="fw-bold text-primary">Rp {{ number_format($p->total_price, 0, ',', '.') }}</div>
+                                    @else
+                                        <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1 rounded" style="font-size:0.76rem;">
+                                            <i class="fa-solid fa-check me-1"></i> Bebas Biaya (Benefit)
+                                        </span>
+                                    @endif
+                                    @php
+                                        $proof = $p->payment_proof ?? null;
+                                    @endphp
+                                    @if($proof)
+                                        <a href="{{ asset('storage/' . $proof) }}" target="_blank" class="badge bg-light text-primary border px-2 py-0.5 text-decoration-none mt-1 d-inline-block">
+                                            <i class="fa-solid fa-image me-1"></i> Bukti Bayar
+                                        </a>
+                                    @endif
+                                </td>
+                                <td class="pe-4 text-end">
+                                    <div class="btn-action-group">
+                                        @if($p->source_type === 'benefit')
+                                            {{-- Approve Benefit --}}
+                                            <form action="{{ url('admin/podcast-room/' . $p->id . '/benefit-approve') }}" method="POST" class="d-inline">
+                                                @csrf
+                                                <button type="submit" class="btn-approve" onclick="return confirm('Setujui pengajuan reservasi podcast ini?')">
+                                                    <i class="fa-solid fa-check"></i> Setujui
+                                                </button>
+                                            </form>
+                                            {{-- Reject Benefit --}}
+                                            <form action="{{ url('admin/podcast-room/' . $p->id . '/benefit-reject') }}" method="POST" class="d-inline">
+                                                @csrf
+                                                <button type="submit" class="btn-reject" onclick="return confirm('Tolak pengajuan reservasi ini?')">
+                                                    <i class="fa-solid fa-xmark"></i> Tolak
+                                                </button>
+                                            </form>
+                                        @else
+                                            {{-- Approve Manual Payment --}}
+                                            <form action="{{ url('admin/podcast-room/' . $p->id . '/approve-payment') }}" method="POST" class="d-inline">
+                                                @csrf
+                                                <button type="submit" class="btn-approve" onclick="return confirm('Setujui pembayaran & reservasi podcast ini? Kuota akan otomatis aktif.')">
+                                                    <i class="fa-solid fa-check"></i> Setujui
+                                                </button>
+                                            </form>
+                                            {{-- Reject Manual Payment --}}
+                                            <form action="{{ url('admin/podcast-room/' . $p->id . '/reject-payment') }}" method="POST" class="d-inline">
+                                                @csrf
+                                                <button type="submit" class="btn-reject" onclick="return confirm('Tolak pembayaran ini?')">
+                                                    <i class="fa-solid fa-xmark"></i> Tolak
+                                                </button>
+                                            </form>
+                                        @endif
+                                        <a href="{{ url('admin/podcast-room/' . $p->id . '/detail') }}" class="btn-table-detail" title="Lihat Detail">
+                                            <i class="fa-solid fa-eye"></i> Detail
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            @else
+                <div class="empty-box-state">
+                    <i class="fa-solid fa-circle-check text-success fs-3 mb-2 d-block opacity-75"></i>
+                    <h6 class="fw-bold text-dark mb-1" style="font-size:0.92rem;">Tidak Ada Pengajuan Reservasi yang Menunggu Approval</h6>
+                    <p class="text-muted small mb-0">Reservasi studio podcast baru yang diajukan oleh client akan otomatis tampil di sini.</p>
+                </div>
+            @endif
+        </div>
+    </div>
+
+
+    {{-- ========================================================================= --}}
+    {{-- TABEL 2: SEMUA RESERVASI & KUOTA TERDAFTAR (ACTIVE / RIWAYAT)             --}}
+    {{-- ========================================================================= --}}
+    <div class="table-card">
+        <div class="table-card-header">
+            <h6 class="table-card-title">
+                <i class="fa-solid fa-list-check text-primary"></i>
+                <span>2. Semua Reservasi &amp; Kuota Terdaftar</span>
+            </h6>
             
-            <div class="d-flex align-items-center">
-                <form action="{{ url()->current() }}" method="GET" class="d-flex me-2">
+            <div class="d-flex align-items-center gap-2">
+                <form action="{{ url()->current() }}" method="GET" class="d-flex">
                     <div class="input-group input-group-sm">
-                        <input type="text" name="search" class="form-control form-control-sm" placeholder="Cari client/order..." value="{{ request('search') }}">
-                        <button class="btn btn-outline-secondary" type="submit"><ion-icon name="search-outline" class="align-middle"></ion-icon></button>
+                        <span class="input-group-text bg-white border-end-0 text-muted"><i class="fa-solid fa-magnifying-glass"></i></span>
+                        <input type="text" name="search" class="form-control form-control-sm border-start-0 ps-0" placeholder="Cari client, order, studio..." value="{{ request('search') }}" style="min-width:210px;">
                         @if(request('search'))
-                            <a href="{{ url()->current() }}" class="btn btn-outline-danger" title="Reset"><ion-icon name="close-outline" class="align-middle"></ion-icon></a>
+                            <a href="{{ url()->current() }}" class="btn btn-outline-secondary" title="Reset"><i class="fa-solid fa-xmark"></i></a>
                         @endif
                     </div>
                 </form>
-                <span class="badge bg-primary">{{ $bookings->total() }} Reservasi</span>
+                <span class="badge bg-light text-dark border px-2.5 py-1.5 rounded-pill fw-semibold" style="font-size:0.78rem;">
+                    {{ $bookings->total() }} Total
+                </span>
             </div>
         </div>
-        <div class="card-body">
+
+        <div class="p-0">
             <div class="table-responsive">
-                <table class="table table-bordered table-hover">
-                    <thead class="table-light">
+                <table class="table table-modern">
+                    <thead>
                         <tr>
-                            <th>No. Order</th>
-                            <th>Client</th>
+                            <th class="ps-4">No. Order</th>
+                            <th>Client / Kontak</th>
                             <th>Studio</th>
-                            <th>Tanggal & Waktu Booking</th>
+                            <th>Jadwal / Status Kuota</th>
                             <th>Peserta</th>
                             <th>Pemakaian Waktu</th>
-                            <th>Pembayaran</th>
-                            <th>Status</th>
-                            <th>Aksi</th>
+                            <th>Pembayaran &amp; Add-On</th>
+                            <th>Status Studio</th>
+                            <th class="pe-4 text-end">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse($bookings as $b)
                         <tr>
-                            <td><code style="font-size:.8rem;">{{ $b->order_number ?? '#'.$b->id }}</code></td>
-                            <td>
-                                {{ $b->name }}
-                                @if($b->user)<br><small class="text-muted">{{ $b->user->email }}</small>@endif
+                            <td class="ps-4">
+                                <span class="order-code-badge">
+                                    {{ $b->order_number ?? ('#POD-' . str_pad($b->id, 5, '0', STR_PAD_LEFT)) }}
+                                </span>
                             </td>
                             <td>
-                                {{ $b->room_name ?? 'Podcast Room Utama' }}
-                                @if($b->podcast_title)
-                                <br><small class="text-muted">Judul: {{ $b->podcast_title }}</small>
-                                @endif
+                                <span class="client-name-title">{{ $b->name }}</span>
+                                @if($b->user)<div class="client-sub-detail">{{ $b->user->email }}</div>@endif
                             </td>
                             <td>
-                                @if (!empty($b->date))
-                                    {{ \Carbon\Carbon::parse($b->date)->format('d M Y') }}
-                                    @if($b->start_time)
-                                        <small class="d-block">{{ \Carbon\Carbon::parse($b->start_time)->format('H:i') }}</small>
+                                @if(!empty($b->start_time) && !empty($b->room_name))
+                                    <span class="badge bg-light text-dark border px-2 py-1 fw-semibold">
+                                        <i class="fa-solid fa-microphone-lines text-primary me-1"></i> {{ $b->room_name }}
+                                    </span>
+                                    @if($b->podcast_title)
+                                        <div class="client-sub-detail mt-0.5">"{{ $b->podcast_title }}"</div>
                                     @endif
+                                @else
+                                    <span class="text-muted">–</span>
+                                @endif
+                            </td>
+                            <td>
+                                @if (!empty($b->start_time))
+                                    <div>
+                                        <span class="fw-semibold text-dark">{{ \Carbon\Carbon::parse($b->date ?: now())->translatedFormat('d M Y') }}</span>
+                                        <div class="client-sub-detail text-primary fw-bold">{{ \Carbon\Carbon::parse($b->start_time)->format('H:i') }} WIB</div>
+                                    </div>
                                 @elseif ($b->source_type === 'benefit')
-                                    <span class="badge bg-info text-dark" style="font-size:0.85rem;"><i class="fas fa-gift me-1"></i> Benefit PT (Belum Terjadwal)</span>
+                                    <span class="badge bg-info-subtle text-info border border-info-subtle px-2 py-0.5 rounded" style="font-size:0.76rem;">
+                                        <i class="fa-solid fa-gift me-1"></i> Benefit Kuota PT
+                                    </span>
                                 @else
-                                    <span class="badge bg-primary" style="font-size:0.85rem;"><i class="fas fa-box me-1"></i> Pembelian Paket ({{ $b->duration }} Jam)</span>
+                                    <span class="badge bg-light text-muted border px-2 py-0.5 rounded" style="font-size:0.76rem;">
+                                        <i class="fa-solid fa-calendar-xmark me-1 text-secondary"></i> Belum Reservasi
+                                    </span>
                                 @endif
                             </td>
                             <td>
-                                @if (empty($b->date))
-                                    -
+                                @if (empty($b->start_time))
+                                    <span class="text-muted">–</span>
                                 @else
-                                    <span class="badge bg-secondary">{{ $b->participants ?? 1 }} Orang</span>
+                                    <span class="badge bg-light text-dark border">{{ $b->participants ?? 1 }} Orang</span>
                                 @endif
                             </td>
                             <td>
-                                <small class="d-block">Total: {{ $b->formatSeconds($b->duration * 3600) }}</small>
-                                <small class="d-block">Dipakai: <span class="used-time-display"
+                                <div class="client-sub-detail">Total: <strong class="text-dark">{{ $b->formatSeconds($b->duration * 3600) }}</strong></div>
+                                <div class="client-sub-detail">Dipakai: <span class="used-time-display text-primary fw-bold"
                                         data-status="{{ $b->status }}"
-                                        data-used="{{ $b->used_seconds }}">{{ $b->formatted_used_time ?? '0 menit' }}</span></small>
+                                        data-used="{{ $b->used_seconds }}">{{ $b->formatted_used_time ?? '0 menit' }}</span></div>
                                 @php
                                     $sisa = $b->formatted_remaining_time ?? '0 menit';
                                     $bc = ($b->is_expired || $sisa === 'Waktu habis') ? 'bg-danger' : 'bg-success';
                                 @endphp
-                                <span class="badge {{ $bc }} mt-1">Sisa: <span class="remaining-time-display" data-status="{{ $b->status }}" data-remaining="{{ $b->remaining_seconds }}">{{ $sisa }}</span></span>
+                                <span class="badge {{ $bc }} mt-1" style="font-size:0.72rem;">Sisa: <span class="remaining-time-display" data-status="{{ $b->status }}" data-remaining="{{ $b->remaining_seconds }}">{{ $sisa }}</span></span>
                             </td>
                             <td>
                                 @if($b->source_type === 'benefit')
-                                    <span class="badge bg-info text-dark">Paket PT</span>
+                                    <span class="badge bg-light text-dark border">Paket PT</span>
                                     @if($b->benefit)
-                                    <br><small class="text-muted">{{ $b->benefit->paket }}</small>
+                                        <div class="client-sub-detail mt-0.5">{{ $b->benefit->paket }}</div>
                                     @endif
                                 @else
-                                    <span class="badge bg-secondary">Manual</span>
+                                    <span class="badge bg-light text-secondary border">Manual</span>
                                     @if($b->payment_method)
-                                    <br><small class="text-muted fw-bold">{{ $b->payment_method }}</small>
+                                        <div class="client-sub-detail fw-semibold mt-0.5">{{ $b->payment_method }}</div>
                                     @endif
+                                @endif
+                                @if($b->total_price > 0)
+                                    <div class="client-sub-detail text-primary fw-bold mt-0.5">Rp {{ number_format($b->total_price, 0, ',', '.') }}</div>
+                                @endif
+                                @if($b->notes)
+                                    <div class="client-sub-detail mt-1">
+                                        <span class="badge bg-light text-dark border"><i class="fa-solid fa-sliders me-1"></i> {{ Str::limit($b->notes, 30) }}</span>
+                                    </div>
                                 @endif
                             </td>
                             <td>
                                 @if($b->is_expired)
-                                    <span class="badge bg-danger">❌ Expired</span>
+                                    <span class="badge bg-danger text-white px-2 py-1 rounded" style="font-size:0.75rem;"><i class="fa-solid fa-ban me-1"></i> Expired</span>
                                 @elseif($b->source_type === 'manual' && $b->remaining_seconds <= 0 && $b->status !== 'selesai' && $b->payment_status === 'approved')
-                                    <span class="badge bg-danger">⛔ Waktu Habis</span>
+                                    <span class="badge bg-danger text-white px-2 py-1 rounded" style="font-size:0.75rem;"><i class="fa-solid fa-hourglass-end me-1"></i> Habis</span>
                                 @elseif($b->status === 'checkin')
-                                    <span class="badge bg-primary">🔵 Sedang Digunakan</span>
+                                    <span class="badge bg-primary text-white px-2 py-1 rounded shadow-sm d-inline-flex align-items-center gap-1" style="font-size:0.75rem;"><span class="spinner-grow spinner-grow-sm text-white" style="width:0.5rem; height:0.5rem;"></span> Digunakan (<span class="row-live-timer" data-checkin="{{ $b->checkin_at ? \Carbon\Carbon::parse($b->checkin_at)->timestamp : now()->timestamp }}">00:00</span>)</span>
                                 @elseif($b->status === 'paused')
-                                    <span class="badge bg-warning text-dark">⏳ Berhenti sementara</span>
+                                    <span class="badge bg-warning text-dark px-2 py-1 rounded" style="font-size:0.75rem;"><i class="fa-solid fa-pause me-1"></i> Berhenti</span>
                                 @elseif($b->status === 'selesai')
-                                    <span class="badge bg-dark">✔ Selesai</span>
-                                @elseif($b->status === 'approved' || $b->payment_status === 'approved')
-                                    <span class="badge bg-success">✅ Menunggu Check In</span>
+                                    <span class="badge bg-dark text-white px-2 py-1 rounded" style="font-size:0.75rem;"><i class="fa-solid fa-check-double me-1"></i> Selesai</span>
+                                @elseif(empty($b->start_time) && ($b->status === 'approved' || $b->payment_status === 'approved'))
+                                    <span class="badge bg-info text-dark px-2 py-1 rounded" style="font-size:0.75rem;"><i class="fa-solid fa-clock me-1"></i> Paket Kuota Aktif</span>
+                                @elseif(!empty($b->start_time) && ($b->status === 'approved' || $b->payment_status === 'approved'))
+                                    <span class="badge bg-success text-white px-2 py-1 rounded" style="font-size:0.75rem;"><i class="fa-solid fa-circle-check me-1"></i> Siap Check In</span>
                                 @elseif($b->status === 'rejected')
-                                    <span class="badge bg-danger">❌ Ditolak</span>
+                                    <span class="badge bg-danger text-white px-2 py-1 rounded" style="font-size:0.75rem;"><i class="fa-solid fa-xmark me-1"></i> Ditolak</span>
                                 @elseif($b->status === 'pending')
-                                    @if($b->source_type === 'benefit')
-                                        <span class="badge bg-warning text-dark">⏳ Menunggu Approval</span>
-                                    @else
-                                        @if($b->payment_status === 'pending')
-                                            <span class="badge bg-warning text-dark">⏳ Pending Pembayaran</span>
-                                        @else
-                                            <span class="badge bg-warning text-dark">⏳ Pending</span>
-                                        @endif
-                                    @endif
+                                    <span class="badge bg-warning text-dark px-2 py-1 rounded" style="font-size:0.75rem;"><i class="fa-solid fa-clock me-1"></i> Pending</span>
                                 @endif
                             </td>
-                            <td>
-                                <div class="d-flex flex-column gap-1">
-                                    <a href="{{ url('admin/podcast-room/'.$b->id.'/detail') }}" class="btn btn-sm btn-info text-white"><i class="fas fa-eye"></i> Detail</a>
+                            <td class="pe-4 text-end">
+                                <div class="btn-action-group">
+                                    <a href="{{ url('admin/podcast-room/'.$b->id.'/detail') }}" class="btn-table-detail">
+                                        <i class="fa-solid fa-eye"></i> Detail
+                                    </a>
 
-                                    @if($b->source_type === 'benefit' && $b->status === 'pending')
-                                        <form action="{{ url('admin/podcast-room/'.$b->id.'/benefit-approve') }}" method="POST">
-                                            @csrf
-                                            <button class="btn btn-sm btn-success w-100" onclick="return confirm('Setujui reservasi ini?')">Approve Benefit</button>
-                                        </form>
-                                        <form action="{{ url('admin/podcast-room/'.$b->id.'/benefit-reject') }}" method="POST">
-                                            @csrf
-                                            <button class="btn btn-sm btn-danger w-100" onclick="return confirm('Tolak reservasi ini?')">Reject Benefit</button>
-                                        </form>
+                                    {{-- 1. Tombol Reservasi Check In (muncul jika belum ada jam reservasi aktif) --}}
+                                    @if(empty($b->start_time) && $b->remaining_seconds > 0 && ($b->status === 'approved' || $b->payment_status === 'approved'))
+                                        <button type="button" class="btn btn-sm text-white px-2.5 py-1 fw-bold rounded-2 shadow-sm" data-bs-toggle="modal" data-bs-target="#createSessionModalPR{{ $b->id }}" style="font-size:0.78rem; background:#4e0516; border-color:#4e0516;">
+                                            <i class="fa-solid fa-calendar-plus me-1"></i> Reservasi Check In
+                                        </button>
                                     @endif
 
-                                    @if($b->source_type !== 'benefit' && $b->payment_status === 'pending')
-                                        <form action="{{ url('admin/podcast-room/'.$b->id.'/approve-payment') }}" method="POST">
-                                            @csrf<button class="btn btn-sm btn-success w-100" onclick="return confirm('Setujui Pembayaran?')">Approve Bayar</button>
-                                        </form>
-                                        <form action="{{ url('admin/podcast-room/'.$b->id.'/reject-payment') }}" method="POST">
-                                            @csrf<button class="btn btn-sm btn-danger w-100" onclick="return confirm('Tolak Pembayaran?')">Reject Bayar</button>
-                                        </form>
-                                    @endif
+                                    <!-- Modal Form Reservasi Check-In -->
+                                    <div class="modal fade" id="createSessionModalPR{{ $b->id }}" tabindex="-1" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content text-start">
+                                                <form action="{{ route('admin.podcast-room.create-session') }}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="booking_id" value="{{ $b->id }}">
+                                                    <div class="modal-header text-white" style="background:#4e0516;">
+                                                        <h5 class="modal-title fw-bold">
+                                                            <i class="fa-solid fa-calendar-plus me-2"></i> Form Reservasi Check-In Studio Podcast
+                                                        </h5>
+                                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="card bg-light border-0 mb-3">
+                                                            <div class="card-body py-2 px-3 small">
+                                                                <div class="row">
+                                                                    <div class="col-6"><strong>Client:</strong> {{ $b->user->name ?? $b->name }}</div>
+                                                                    <div class="col-6"><strong>Sisa Kuota:</strong> <span class="text-success fw-bold">{{ $b->formatted_remaining_time }}</span></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
-                                    @if(($b->status === 'approved' || $b->status === 'paused' || $b->payment_status === 'approved' || $b->source_type === 'benefit') && $b->status !== 'checkin' && $b->status !== 'selesai' && $b->status !== 'rejected')
-                                        <button type="button" class="btn btn-sm btn-success w-100 fw-bold" data-bs-toggle="modal" data-bs-target="#checkinModalPR{{ $b->id }}">
-                                            <i class="fa-solid fa-right-to-bracket me-1"></i> Check In
+                                                        <div class="mb-3">
+                                                            <label class="form-label fw-bold">Pilih Studio Podcast <span class="text-danger">*</span></label>
+                                                            <select name="room_name" class="form-select" required>
+                                                                <option value="Podcast Studio Lawgika Office, World Capital Tower Lt. 38 Unit 6-7" selected>Podcast Studio Lawgika Office, World Capital Tower Lt. 38 Unit 6-7</option>
+                                                                <option value="Podcast Studio Utama" {{ ($b->room_name ?? '') === 'Podcast Studio Utama' ? 'selected' : '' }}>Podcast Studio Utama</option>
+                                                                <option value="Podcast Room 1" {{ ($b->room_name ?? '') === 'Podcast Room 1' ? 'selected' : '' }}>Podcast Room 1</option>
+                                                                <option value="Podcast Room 2" {{ ($b->room_name ?? '') === 'Podcast Room 2' ? 'selected' : '' }}>Podcast Room 2</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-md-6 mb-3">
+                                                                <label class="form-label fw-bold">Tanggal Pemakaian <span class="text-danger">*</span></label>
+                                                                <input type="date" name="date" class="form-control" value="{{ $b->date ? \Carbon\Carbon::parse($b->date)->format('Y-m-d') : date('Y-m-d') }}" required>
+                                                            </div>
+                                                            <div class="col-md-6 mb-3">
+                                                                <label class="form-label fw-bold">Jam Check-In / Mulai <span class="text-danger">*</span></label>
+                                                                <input type="time" name="start_time" class="form-control" value="{{ $b->start_time ? \Carbon\Carbon::parse($b->start_time)->format('H:i') : date('H:i') }}" required>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-md-6 mb-3">
+                                                                <label class="form-label fw-bold">Jumlah Peserta (Opsional)</label>
+                                                                <input type="number" name="participants" class="form-control" min="1" value="{{ $b->participants ?? 1 }}">
+                                                            </div>
+                                                            <div class="col-md-6 mb-3">
+                                                                <label class="form-label fw-bold">Materi / Judul Podcast (Opsional)</label>
+                                                                <input type="text" name="podcast_title" class="form-control" value="{{ $b->podcast_title ?? '' }}" placeholder="Misal: Sesi Diskusi Bisnis...">
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Add-On Tambahan (Opsional) -->
+                                                        <div class="card border-0 bg-light rounded-3 p-3 mb-3">
+                                                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                                                <span class="fw-bold text-dark" style="font-size:0.88rem;">
+                                                                    <i class="fa-solid fa-sliders text-muted me-1"></i> Add-On Tambahan <small class="text-muted fw-normal">(Opsional)</small>
+                                                                </span>
+                                                                <span class="badge bg-white text-muted border px-2 py-1" style="font-size:0.72rem;">
+                                                                    <i class="fa-regular fa-clock me-1"></i> Tarif per jam durasi
+                                                                </span>
+                                                            </div>
+
+                                                            <div class="d-flex flex-column gap-2">
+                                                                <!-- 1. Mikrofon (+1 Unit Maks) -->
+                                                                <div class="addon-modal-row" id="row_mic_{{ $b->id }}" onclick="toggleModalAddon('{{ $b->id }}', 'mic', 50000)">
+                                                                    <div class="d-flex align-items-center gap-2">
+                                                                        <div class="addon-modal-icon"><i class="fa-solid fa-microphone-lines"></i></div>
+                                                                        <div>
+                                                                            <div class="fw-bold text-dark" style="font-size:0.84rem;">Mikrofon Tambahan <span class="badge bg-secondary text-white px-1.5 py-0.5" style="font-size:0.65rem;">Maks. 1</span></div>
+                                                                            <div class="text-muted" style="font-size:0.75rem;">+ Rp 50.000 / jam</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div>
+                                                                        <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1 fw-bold addon-btn-toggle" id="btn_toggle_mic_{{ $b->id }}" style="font-size:0.75rem;">
+                                                                            <i class="fa-solid fa-plus me-1"></i> <span>Pilih</span>
+                                                                        </button>
+                                                                        <input type="hidden" name="addon_mic" id="addon_mic_{{ $b->id }}" value="0">
+                                                                    </div>
+                                                                </div>
+
+                                                                <!-- 2. Headphone (+1 Unit Maks) -->
+                                                                <div class="addon-modal-row" id="row_headphone_{{ $b->id }}" onclick="toggleModalAddon('{{ $b->id }}', 'headphone', 50000)">
+                                                                    <div class="d-flex align-items-center gap-2">
+                                                                        <div class="addon-modal-icon"><i class="fa-solid fa-headphones-simple"></i></div>
+                                                                        <div>
+                                                                            <div class="fw-bold text-dark" style="font-size:0.84rem;">Headphone Tambahan <span class="badge bg-secondary text-white px-1.5 py-0.5" style="font-size:0.65rem;">Maks. 1</span></div>
+                                                                            <div class="text-muted" style="font-size:0.75rem;">+ Rp 50.000 / jam</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div>
+                                                                        <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1 fw-bold addon-btn-toggle" id="btn_toggle_headphone_{{ $b->id }}" style="font-size:0.75rem;">
+                                                                            <i class="fa-solid fa-plus me-1"></i> <span>Pilih</span>
+                                                                        </button>
+                                                                        <input type="hidden" name="addon_headphone" id="addon_headphone_{{ $b->id }}" value="0">
+                                                                    </div>
+                                                                </div>
+
+                                                                <!-- 3. Kamera Tambahan (Maks 2 Unit) -->
+                                                                <div class="addon-modal-row" id="row_camera_{{ $b->id }}">
+                                                                    <div class="d-flex align-items-center gap-2">
+                                                                        <div class="addon-modal-icon"><i class="fa-solid fa-video"></i></div>
+                                                                        <div>
+                                                                            <div class="fw-bold text-dark" style="font-size:0.84rem;">Kamera Tambahan <span class="badge bg-secondary text-white px-1.5 py-0.5" style="font-size:0.65rem;">Maks. 2</span></div>
+                                                                            <div class="text-muted" style="font-size:0.75rem;">+ Rp 150.000 / unit / jam</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="d-flex align-items-center gap-1 bg-white border rounded-pill px-2 py-0.5" onclick="event.stopPropagation()">
+                                                                        <button type="button" class="btn btn-sm p-0 text-muted fw-bold" style="width:20px; height:20px;" onclick="changeModalCamQty('{{ $b->id }}', -1)" id="btn_cam_minus_{{ $b->id }}" disabled>−</button>
+                                                                        <span class="fw-bold px-2 text-dark" id="val_addon_camera_{{ $b->id }}" style="font-size:0.85rem;">0</span>
+                                                                        <button type="button" class="btn btn-sm p-0 text-dark fw-bold" style="width:20px; height:20px;" onclick="changeModalCamQty('{{ $b->id }}', 1)" id="btn_cam_plus_{{ $b->id }}">+</button>
+                                                                        <input type="hidden" name="addon_camera" id="addon_camera_{{ $b->id }}" value="0">
+                                                                    </div>
+                                                                </div>
+
+                                                                <!-- 4. Operator Podcast (Maks 1) -->
+                                                                <div class="addon-modal-row" id="row_operator_{{ $b->id }}" onclick="toggleModalAddon('{{ $b->id }}', 'operator', 100000)">
+                                                                    <div class="d-flex align-items-center gap-2">
+                                                                        <div class="addon-modal-icon"><i class="fa-solid fa-headset"></i></div>
+                                                                        <div>
+                                                                            <div class="fw-bold text-dark" style="font-size:0.84rem;">Operator Podcast <span class="badge bg-secondary text-white px-1.5 py-0.5" style="font-size:0.65rem;">Maks. 1</span></div>
+                                                                            <div class="text-muted" style="font-size:0.75rem;">+ Rp 100.000 / jam</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div>
+                                                                        <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1 fw-bold addon-btn-toggle" id="btn_toggle_operator_{{ $b->id }}" style="font-size:0.75rem;">
+                                                                            <i class="fa-solid fa-plus me-1"></i> <span>Pilih</span>
+                                                                        </button>
+                                                                        <input type="hidden" name="addon_operator" id="addon_operator_{{ $b->id }}" value="0">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Opsi Pembayaran Add-On (muncul jika add-on dipilih) -->
+                                                            <div class="mt-3 pt-2.5 border-top" id="payment_addon_box_{{ $b->id }}" style="display:none;">
+                                                                <label class="form-label fw-bold small text-dark mb-1">
+                                                                    <i class="fa-brands fa-whatsapp text-success me-1"></i> Opsi Pembayaran Add-On <span class="text-danger">*</span>
+                                                                </label>
+                                                                <select name="addon_payment_method" class="form-select form-select-sm bg-white border" required>
+                                                                    <option value="Payment Add-On via WhatsApp" selected>Payment Add-On via WhatsApp</option>
+                                                                </select>
+                                                                <small class="text-muted d-block mt-1" style="font-size:0.72rem;">
+                                                                    *Pembayaran biaya add-on alat/operator diselesaikan secara terpisah melalui konfirmasi WhatsApp admin.
+                                                                </small>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label class="form-label fw-bold">Catatan (Opsional)</label>
+                                                            <textarea name="notes" class="form-control" rows="2" placeholder="Catatan internal...">{{ $b->notes ?? '' }}</textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer bg-light">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                        <button type="submit" class="btn text-white fw-bold" style="background:#4e0516; border-color:#4e0516;">
+                                                            <i class="fa-solid fa-check me-1"></i> Simpan Reservasi &amp; Aktifkan Check-In
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {{-- 2. Tombol Check In (muncul setelah reservasi check in disimpan) --}}
+                                    @if(!empty($b->start_time) && ($b->status === 'approved' || $b->status === 'paused' || $b->payment_status === 'approved') && $b->status !== 'checkin' && $b->status !== 'selesai' && $b->status !== 'rejected' && $b->status !== 'pending')
+                                        <button type="button" class="btn btn-sm btn-success px-2.5 py-1 fw-bold rounded-2 shadow-sm" data-bs-toggle="modal" data-bs-target="#checkinModalPR{{ $b->id }}" style="font-size:0.78rem;">
+                                            <i class="fa-solid fa-door-open me-1"></i> Check In
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary px-2 py-1 rounded-2" data-bs-toggle="modal" data-bs-target="#createSessionModalPR{{ $b->id }}" title="Ubah Jadwal Reservasi" style="font-size:0.75rem;">
+                                            <i class="fa-solid fa-pen-to-square"></i>
                                         </button>
 
                                         <!-- Modal Check In Podcast Room -->
@@ -232,7 +869,7 @@
                                                         @csrf
                                                         <div class="modal-header bg-success text-white">
                                                             <h5 class="modal-title fw-bold" id="checkinModalLabelPR{{ $b->id }}">
-                                                                <i class="fa-solid fa-microphone me-2"></i> Check In Ruang Podcast
+                                                                <i class="fa-solid fa-microphone-lines me-2"></i> Check In Studio Podcast
                                                             </h5>
                                                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
@@ -247,15 +884,32 @@
                                                                 </div>
                                                             </div>
 
-                                                            <!-- 1. Ruangan -->
+                                                            <!-- 1. Pilih Ruangan -->
                                                             <div class="mb-3">
-                                                                <label class="form-label fw-bold">Ruangan</label>
-                                                                <input type="text" name="room_name" class="form-control bg-light" value="Podcast Studio Lawgika Office, World Capital Tower Lt. 38 Unit 6-7" readonly>
+                                                                <label class="form-label fw-bold">Pilih Studio Podcast <span class="text-danger">*</span></label>
+                                                                <select name="room_name" class="form-select" required>
+                                                                    @php
+                                                                        $prRooms = ['Podcast Room 1', 'Podcast Room 2', 'Podcast Studio Utama'];
+                                                                    @endphp
+                                                                    @foreach($prRooms as $rm)
+                                                                        @php
+                                                                            $isOccupiedByOther = \App\Models\PodcastRoomBooking::where('room_name', $rm)
+                                                                                ->where('status', 'checkin')
+                                                                                ->where('id', '!=', $b->id)
+                                                                                ->exists();
+                                                                        @endphp
+                                                                        <option value="{{ $rm }}" 
+                                                                            {{ ($b->room_name ?? '') === $rm ? 'selected' : '' }} 
+                                                                            {{ $isOccupiedByOther ? 'disabled' : '' }}>
+                                                                            {{ $rm }} {{ $isOccupiedByOther ? '(Sedang Dipakai / Check-In)' : '' }}
+                                                                        </option>
+                                                                    @endforeach
+                                                                </select>
                                                             </div>
 
-                                                            <!-- 2. Tanggal Meeting / Penggunaan -->
+                                                            <!-- 2. Tanggal Pemakaian -->
                                                             <div class="mb-3">
-                                                                <label class="form-label fw-bold">Tanggal Meeting <span class="text-danger">*</span></label>
+                                                                <label class="form-label fw-bold">Tanggal Pemakaian <span class="text-danger">*</span></label>
                                                                 <input type="date" name="date" class="form-control" value="{{ $b->date ? \Carbon\Carbon::parse($b->date)->format('Y-m-d') : date('Y-m-d') }}" required>
                                                             </div>
 
@@ -286,8 +940,11 @@
                                             </div>
                                         </div>
                                     @elseif($b->status === 'checkin')
-                                        <form action="{{ url('admin/podcast-room/'.$b->id.'/checkout') }}" method="POST">
-                                            @csrf<button class="btn btn-sm btn-warning text-dark w-100" onclick="return confirm('Check Out?')">Check Out</button>
+                                        <form action="{{ url('admin/podcast-room/'.$b->id.'/checkout') }}" method="POST" class="d-inline">
+                                            @csrf
+                                            <button class="btn btn-sm btn-warning text-dark px-2.5 py-1 fw-bold rounded-2" onclick="return confirm('Lakukan Check Out untuk sesi studio podcast ini?')" style="font-size:0.78rem;">
+                                                <i class="fa-solid fa-right-from-bracket me-1"></i> Check Out
+                                            </button>
                                         </form>
                                     @endif
                                 </div>
@@ -295,50 +952,106 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="8" class="text-center text-muted">Belum ada data reservasi ruang podcast.</td>
+                            <td colspan="9" class="text-center py-4 text-muted">Belum ada data reservasi studio podcast.</td>
                         </tr>
                         @endforelse
                     </tbody>
                 </table>
             </div>
             
-            <div class="mt-3">
+            <div class="p-3 border-top d-flex justify-content-end">
                 {{ $bookings->links('pagination::bootstrap-5') }}
             </div>
         </div>
     </div>
 </div>
 @endsection
-@push('scripts')
-<script>
-    function formatSecs(seconds) {
-        if (seconds <= 0) return 'Waktu habis';
-        const h = Math.floor(seconds / 3600);
-        const m = Math.floor((seconds % 3600) / 60);
-        const s = Math.floor(seconds % 60);
-        return h + " jam " + m + " menit " + s + " detik";
-    }
 
-    setInterval(() => {
-        document.querySelectorAll('.used-time-display').forEach(el => {
-            if (el.dataset.status === 'checkin') {
-                let used = parseInt(el.dataset.used);
-                used++;
-                el.dataset.used = used;
-                el.innerText = formatSecs(used);
+@push('scripts')
+    <script>
+        function formatLiveBadgeTime(seconds) {
+            const h = Math.floor(seconds / 3600);
+            const m = Math.floor((seconds % 3600) / 60);
+            const s = Math.floor(seconds % 60);
+            if (h > 0) {
+                return h + "j " + (m < 10 ? '0' : '') + m + "m " + (s < 10 ? '0' : '') + s + "d";
             }
-        });
-        document.querySelectorAll('.remaining-time-display').forEach(el => {
-            if (el.dataset.status === 'checkin') {
-                let rem = parseInt(el.dataset.remaining);
-                if (rem > 0) {
-                    rem--;
-                    el.dataset.remaining = rem;
-                    el.innerText = formatSecs(rem);
-                    if (rem === 0) location.reload();
+            return (m < 10 ? '0' : '') + m + ":" + (s < 10 ? '0' : '') + s;
+        }
+
+        function tickRowTimers() {
+            const nowTs = Math.floor(Date.now() / 1000);
+            document.querySelectorAll('.row-live-timer').forEach(el => {
+                const cTs = parseInt(el.dataset.checkin);
+                if (cTs) {
+                    const elapsed = Math.max(0, nowTs - cTs);
+                    el.innerText = formatLiveBadgeTime(elapsed);
+                }
+            });
+        }
+        setInterval(tickRowTimers, 1000);
+        tickRowTimers();
+
+        /* Add-On Modal Interactive Helpers */
+        function toggleModalAddon(bookingId, key, pricePerHour) {
+            const inputEl = document.getElementById(`addon_${key}_${bookingId}`);
+            const rowEl   = document.getElementById(`row_${key}_${bookingId}`);
+            const btnEl   = document.getElementById(`btn_toggle_${key}_${bookingId}`);
+            if (!inputEl || !rowEl || !btnEl) return;
+
+            let isSelected = parseInt(inputEl.value) > 0;
+            if (isSelected) {
+                inputEl.value = "0";
+                rowEl.classList.remove('active');
+                btnEl.className = 'btn btn-sm btn-outline-secondary rounded-pill px-3 py-1 fw-bold addon-btn-toggle';
+                btnEl.innerHTML = '<i class="fa-solid fa-plus me-1"></i> <span>Pilih</span>';
+            } else {
+                inputEl.value = "1";
+                rowEl.classList.add('active');
+                btnEl.className = 'btn btn-sm btn-danger text-white rounded-pill px-3 py-1 fw-bold addon-btn-toggle';
+                btnEl.innerHTML = '<i class="fa-solid fa-check me-1"></i> <span>Dipilih</span>';
+            }
+            checkModalAddonPaymentBox(bookingId);
+        }
+
+        function changeModalCamQty(bookingId, delta) {
+            const inputEl = document.getElementById(`addon_camera_${bookingId}`);
+            const valEl   = document.getElementById(`val_addon_camera_${bookingId}`);
+            const rowEl   = document.getElementById(`row_camera_${bookingId}`);
+            const btnMinus = document.getElementById(`btn_cam_minus_${bookingId}`);
+            const btnPlus  = document.getElementById(`btn_cam_plus_${bookingId}`);
+            if (!inputEl || !valEl) return;
+
+            let current = parseInt(inputEl.value) || 0;
+            let next = Math.max(0, Math.min(2, current + delta));
+            inputEl.value = next;
+            valEl.innerText = next;
+
+            if (btnMinus) btnMinus.disabled = (next <= 0);
+            if (btnPlus)  btnPlus.disabled  = (next >= 2);
+
+            if (next > 0) {
+                rowEl.classList.add('active');
+            } else {
+                rowEl.classList.remove('active');
+            }
+            checkModalAddonPaymentBox(bookingId);
+        }
+
+        function checkModalAddonPaymentBox(bookingId) {
+            const mic = parseInt(document.getElementById(`addon_mic_${bookingId}`)?.value || 0);
+            const hp  = parseInt(document.getElementById(`addon_headphone_${bookingId}`)?.value || 0);
+            const cam = parseInt(document.getElementById(`addon_camera_${bookingId}`)?.value || 0);
+            const op  = parseInt(document.getElementById(`addon_operator_${bookingId}`)?.value || 0);
+
+            const box = document.getElementById(`payment_addon_box_${bookingId}`);
+            if (box) {
+                if (mic > 0 || hp > 0 || cam > 0 || op > 0) {
+                    box.style.display = 'block';
+                } else {
+                    box.style.display = 'none';
                 }
             }
-        });
-    }, 1000);
-</script>
+        }
+    </script>
 @endpush

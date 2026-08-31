@@ -813,6 +813,167 @@
                 text-transform: uppercase;
                 z-index: 10;
             }
+
+            .btn-terms-outline {
+                width: 100%;
+                padding: 12px 20px;
+                border-radius: 50px;
+                font-weight: 700;
+                font-size: 0.9rem;
+                transition: all 0.25s ease;
+                text-align: center;
+                border: 1.5px dashed var(--primary);
+                background: rgba(78, 5, 22, 0.04);
+                color: var(--primary);
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                text-decoration: none;
+                margin-top: 10px;
+            }
+
+            .btn-terms-outline:hover {
+                background: var(--primary);
+                color: #fff;
+                border-style: solid;
+                transform: translateY(-2px);
+                box-shadow: 0 6px 16px rgba(78, 5, 22, 0.18);
+            }
+
+            /* Modal Syarat & Ketentuan Podcast */
+            .podcast-terms-modal-overlay {
+                position: fixed;
+                inset: 0;
+                background: rgba(15, 23, 42, 0.7);
+                backdrop-filter: blur(6px);
+                -webkit-backdrop-filter: blur(6px);
+                z-index: 10500;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 20px;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+            .podcast-terms-modal-overlay.active {
+                opacity: 1;
+                pointer-events: auto;
+            }
+            .podcast-terms-modal {
+                background: #ffffff;
+                border-radius: 20px;
+                width: 100%;
+                max-width: 680px;
+                max-height: 90vh;
+                display: flex;
+                flex-direction: column;
+                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+                border: 1px solid rgba(226, 232, 240, 0.8);
+                overflow: hidden;
+                transform: scale(0.95) translateY(10px);
+                transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+            .podcast-terms-modal-overlay.active .podcast-terms-modal {
+                transform: scale(1) translateY(0);
+            }
+            .ptm-header {
+                padding: 20px 24px;
+                background: #fdf8f9;
+                border-bottom: 1px solid #f1e2e5;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .ptm-close {
+                background: transparent;
+                border: none;
+                font-size: 1.8rem;
+                line-height: 1;
+                color: #94a3b8;
+                cursor: pointer;
+                transition: color 0.2s;
+                padding: 0 4px;
+            }
+            .ptm-close:hover {
+                color: #4e0516;
+            }
+            .ptm-body {
+                padding: 22px 24px;
+                overflow-y: auto;
+                flex: 1;
+            }
+            .p-terms-list {
+                display: flex;
+                flex-direction: column;
+                gap: 11px;
+            }
+            .p-terms-item {
+                display: flex;
+                gap: 14px;
+                padding: 12px 15px;
+                background: #f8fafc;
+                border: 1px solid #edf2f7;
+                border-radius: 12px;
+                transition: all 0.2s ease;
+            }
+            .p-terms-item:hover {
+                background: #fdf2f4;
+                border-color: #fce7eb;
+                transform: translateX(3px);
+            }
+            .p-terms-num {
+                width: 28px;
+                height: 28px;
+                border-radius: 50%;
+                background: #4e0516;
+                color: #fff;
+                font-weight: 700;
+                font-size: 0.82rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+                margin-top: 1px;
+            }
+            .p-terms-text {
+                font-size: 0.88rem;
+                line-height: 1.55;
+                color: #334155;
+            }
+            .p-terms-text strong {
+                color: #1e293b;
+                display: block;
+                margin-bottom: 2px;
+            }
+            .p-terms-text p {
+                margin-bottom: 0;
+                color: #475569;
+            }
+            .ptm-footer {
+                padding: 16px 24px;
+                border-top: 1px solid #f1e2e5;
+                background: #fafafa;
+                display: flex;
+                justify-content: flex-end;
+            }
+            .btn-ptm-agree {
+                background: #4e0516;
+                color: #fff;
+                border: none;
+                padding: 12px 26px;
+                border-radius: 10px;
+                font-weight: 600;
+                font-size: 0.92rem;
+                cursor: pointer;
+                transition: all 0.2s;
+            }
+            .btn-ptm-agree:hover {
+                background: #6e0c24;
+                box-shadow: 0 4px 14px rgba(78, 5, 22, 0.25);
+            }
         </style>
 
         <div class="row justify-content-center g-4">
@@ -844,9 +1005,12 @@
                             <li><i class="fa-solid fa-check"></i> <span data-i18n="podcast.pricing.card.benefit6">Akses Ruang Tunggu &amp; Pantry</span></li>
                         </ul>
 
-                        <div class="mt-auto">
+                        <div class="mt-auto d-flex flex-column gap-2">
                             <button type="button" class="btn-pricing-primary" onclick="openPodcastBookingModal()" data-i18n="podcast.pricing.card.cta">
                                 <i class="fa-solid fa-calendar-check me-2"></i> Pilih Jadwal &amp; Pesan
+                            </button>
+                            <button type="button" class="btn-terms-outline" onclick="openPodcastTermsModal()">
+                                <i class="fa-solid fa-file-contract me-1"></i> Syarat &amp; Ketentuan
                             </button>
                         </div>
                     </div>
@@ -1240,6 +1404,11 @@
                 <p style="font-size:0.9rem; color:#64748b; line-height:1.6;" data-i18n="podcast.modal.instruction">
                     Pilih tanggal dan waktu yang tersedia untuk produksi podcast Anda bersama Lawgika.
                 </p>
+                <div style="margin-top:14px; padding-top:14px; border-top:1px dashed #e2e8f0;">
+                    <a href="javascript:void(0)" onclick="openPodcastTermsModal()" style="font-size:0.84rem; color:var(--primary); font-weight:600; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
+                        <i class="fa-solid fa-file-contract"></i> <span>Lihat Syarat &amp; Ketentuan Sewa Studio</span>
+                    </a>
+                </div>
             </div>
         </div>
         <div class="bm-right">
@@ -1272,8 +1441,164 @@
             </div>
             <div class="bm-footer">
                 <button class="btn-bm-cancel" onclick="closeBookingModal()" data-i18n="podcast.modal.cancel">Batal</button>
-                <button class="btn-bm-submit" id="btnReservasi" disabled onclick="submitBooking()" data-i18n="podcast.modal.submit">Lanjut ke Pembayaran</button>
+                <button class="btn-bm-submit" id="btnReservasi" disabled onclick="submitBooking()" data-i18n="podcast.modal.submit">Lanjut ke Form Pemesanan</button>
             </div>
+        </div>
+    </div>
+</div>
+
+{{-- ===== MODAL SYARAT & KETENTUAN SEWA STUDIO PODCAST ===== --}}
+<div class="podcast-terms-modal-overlay" id="podcastTermsModalOverlay" style="display:none;" onclick="if(event.target===this) closePodcastTermsModal()">
+    <div class="podcast-terms-modal">
+        <div class="ptm-header">
+            <div class="d-flex align-items-center gap-2">
+                <span style="font-size: 1.35rem;">📌</span>
+                <h4 class="mb-0 fw-bold" style="color: #4e0516; font-size: 1.18rem;">Syarat &amp; Ketentuan Sewa Studio Podcast Lawgika</h4>
+            </div>
+            <button type="button" class="ptm-close" onclick="closePodcastTermsModal()">&times;</button>
+        </div>
+        <div class="ptm-body">
+            <p class="text-muted small mb-3">Harap membaca dan memahami 19 butir syarat &amp; ketentuan penggunaan studio podcast Lawgika berikut:</p>
+            <div class="p-terms-list">
+                <div class="p-terms-item">
+                    <div class="p-terms-num">1</div>
+                    <div class="p-terms-text">
+                        <strong>Waktu Reservasi</strong>
+                        <p>Reservasi wajib dilakukan dan dikonfirmasi selambat-lambatnya <strong>1 (satu) hari</strong> sebelum jadwal penggunaan studio.</p>
+                    </div>
+                </div>
+                <div class="p-terms-item">
+                    <div class="p-terms-num">2</div>
+                    <div class="p-terms-text">
+                        <strong>Validitas Reservasi</strong>
+                        <p>Reservasi dianggap valid setelah pembayaran <strong>diterima oleh Lawgika</strong>.</p>
+                    </div>
+                </div>
+                <div class="p-terms-item">
+                    <div class="p-terms-num">3</div>
+                    <div class="p-terms-text">
+                        <strong>Waktu Kehadiran</strong>
+                        <p>Penyewa <strong>wajib hadir 30 menit</strong> sebelum jadwal dimulai.</p>
+                    </div>
+                </div>
+                <div class="p-terms-item">
+                    <div class="p-terms-num">4</div>
+                    <div class="p-terms-text">
+                        <strong>Keterlambatan Kedatangan</strong>
+                        <p>Keterlambatan kedatangan <strong>tidak menambah</strong> durasi penggunaan studio.</p>
+                    </div>
+                </div>
+                <div class="p-terms-item">
+                    <div class="p-terms-num">5</div>
+                    <div class="p-terms-text">
+                        <strong>Media Penyimpanan Data</strong>
+                        <p>Customer disarankan membawa/menyediakan media penyimpanan data (flashdisk/SSD/HDD external) untuk mentransfer file audio dan visual.</p>
+                    </div>
+                </div>
+                <div class="p-terms-item">
+                    <div class="p-terms-num">6</div>
+                    <div class="p-terms-text">
+                        <strong>Properti &amp; Peralatan Tambahan</strong>
+                        <p>Apabila penyewa ingin membawa properti, peralatan, dekorasi, atau kebutuhan tambahan lainnya, <strong>wajib menginformasikannya kepada Lawgika</strong> sebelum hari penggunaan.</p>
+                    </div>
+                </div>
+                <div class="p-terms-item">
+                    <div class="p-terms-num">7</div>
+                    <div class="p-terms-text">
+                        <strong>Penggunaan TV Studio</strong>
+                        <p>Apabila memerlukan penggunaan TV mohon kirimkan file ukuran <strong>4K dengan format MP4</strong> sebelum hari penggunaan.</p>
+                    </div>
+                </div>
+                <div class="p-terms-item">
+                    <div class="p-terms-num">8</div>
+                    <div class="p-terms-text">
+                        <strong>Perpanjangan Waktu (Overtime)</strong>
+                        <p>Perpanjangan waktu penggunaan (overtime) akan dikenakan biaya tambahan sesuai tarif yang berlaku dan ditagihkan setelah sesi podcast selesai.</p>
+                    </div>
+                </div>
+                <div class="p-terms-item">
+                    <div class="p-terms-num">9</div>
+                    <div class="p-terms-text">
+                        <strong>Ketentuan Reschedule</strong>
+                        <p>Reschedule dapat dilakukan maksimal <strong>1 (satu) kali</strong> dengan pemberitahuan minimal <strong>1 x 24 jam</strong> sebelum jadwal penggunaan dan bergantung pada ketersediaan studio.</p>
+                    </div>
+                </div>
+                <div class="p-terms-item">
+                    <div class="p-terms-num">10</div>
+                    <div class="p-terms-text">
+                        <strong>Kebijakan Pembatalan (Non-Refundable)</strong>
+                        <p>Pembatalan setelah pembayaran dilakukan <strong>tidak dapat dikembalikan (non-refundable)</strong>.</p>
+                    </div>
+                </div>
+                <div class="p-terms-item">
+                    <div class="p-terms-num">11</div>
+                    <div class="p-terms-text">
+                        <strong>Tanggung Jawab Fasilitas</strong>
+                        <p>Penyewa <strong>bertanggung jawab</strong> atas setiap kerusakan atau kehilangan fasilitas yang disebabkan oleh penyewa maupun pihak yang dibawa oleh penyewa.</p>
+                    </div>
+                </div>
+                <div class="p-terms-item">
+                    <div class="p-terms-num">12</div>
+                    <div class="p-terms-text">
+                        <strong>Bantuan Operator Awal</strong>
+                        <p>Operator podcast hanya membantu untuk setup audio dan visual di awal sesuai permintaan customer.</p>
+                    </div>
+                </div>
+                <div class="p-terms-item">
+                    <div class="p-terms-num">13</div>
+                    <div class="p-terms-text">
+                        <strong>Setup Khusus &amp; Bantuan Tambahan</strong>
+                        <p>Jika membutuhkan setup khusus atau bantuan operator, mohon diinformasikan saat reservasi.</p>
+                    </div>
+                </div>
+                <div class="p-terms-item">
+                    <div class="p-terms-num">14</div>
+                    <div class="p-terms-text">
+                        <strong>Penggunaan Tanpa Operator Lawgika</strong>
+                        <p>Bagi customer yang tidak menggunakan jasa operator dari Lawgika, maka setiap kendala setelah video take bukan menjadi tanggung jawab dari Lawgika.</p>
+                    </div>
+                </div>
+                <div class="p-terms-item">
+                    <div class="p-terms-num">15</div>
+                    <div class="p-terms-text">
+                        <strong>Antisipasi Kendala Teknis / Recording</strong>
+                        <p>Dimohon untuk mengantisipasi kemungkinan kamera mati, overheat, hal yang berkaitan dengan recording berhenti.</p>
+                    </div>
+                </div>
+                <div class="p-terms-item">
+                    <div class="p-terms-num">16</div>
+                    <div class="p-terms-text">
+                        <strong>Kualifikasi Operator Mandiri</strong>
+                        <p>Untuk customer yang tidak menggunakan layanan operator disarankan untuk menyediakan operator yang berpengalaman dengan podcast.</p>
+                    </div>
+                </div>
+                <div class="p-terms-item">
+                    <div class="p-terms-num">17</div>
+                    <div class="p-terms-text">
+                        <strong>Batasan Tanggung Jawab Konten</strong>
+                        <p>Lawgika hanya bertindak sebagai penyedia fasilitas studio podcast dan tidak bertanggung jawab atas isi, materi, pernyataan, maupun konsekuensi hukum dari konten yang dibuat atau disampaikan oleh penyewa.</p>
+                    </div>
+                </div>
+                <div class="p-terms-item">
+                    <div class="p-terms-num">18</div>
+                    <div class="p-terms-text">
+                        <strong>Ketertiban &amp; Kepatuhan Norma Hukum</strong>
+                        <p>Dilarang menggunakan studio untuk kegiatan yang bertentangan dengan peraturan perundang-undangan, ketertiban umum, atau norma yang berlaku.</p>
+                    </div>
+                </div>
+                <div class="p-terms-item">
+                    <div class="p-terms-num">19</div>
+                    <div class="p-terms-text">
+                        <strong>Persetujuan Penggunaan Fasilitas</strong>
+                        <p>Dengan melakukan pembayaran dan/atau menggunakan fasilitas studio, penyewa dianggap telah <strong>membaca, memahami, dan menyetujui</strong> seluruh syarat dan ketentuan ini.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ptm-footer">
+            <button type="button" class="btn-ptm-agree" onclick="closePodcastTermsModal()">
+                <i class="fa-solid fa-check me-1"></i> Saya Mengerti &amp; Setuju
+            </button>
         </div>
     </div>
 </div>
@@ -1448,6 +1773,24 @@
         // Redirect ke endpoint order podcast
         const url = `/podcast-room/order?tanggal=${selTanggal}&jam=${selJam}&durasi=${selDurasi}`;
         window.location.href = url;
+    }
+
+    // ===== Syarat & Ketentuan Modal Handlers =====
+    function openPodcastTermsModal() {
+        const overlay = document.getElementById('podcastTermsModalOverlay');
+        if (!overlay) return;
+        overlay.style.display = 'flex';
+        void overlay.offsetWidth;
+        overlay.classList.add('active');
+    }
+
+    function closePodcastTermsModal() {
+        const overlay = document.getElementById('podcastTermsModalOverlay');
+        if (!overlay) return;
+        overlay.classList.remove('active');
+        setTimeout(() => {
+            overlay.style.display = 'none';
+        }, 300);
     }
 </script>
 

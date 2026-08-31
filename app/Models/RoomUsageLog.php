@@ -11,6 +11,7 @@ class RoomUsageLog extends Model
         'room_type',
         'type',
         'timestamp',
+        'notes',
     ];
 
     protected $casts = [

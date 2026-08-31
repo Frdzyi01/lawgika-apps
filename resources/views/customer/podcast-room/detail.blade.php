@@ -1,171 +1,671 @@
 @extends('layouts-customer.app')
+
 @section('content')
-<div class="container-fluid">
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Detail Reservasi Podcast Room</h1>
-        <a href="{{ url('dashboard/podcast-room') }}" class="btn btn-sm btn-secondary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Kembali</a>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+<style>
+/* Header Styling */
+.detail-header-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 22px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+.detail-page-title {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.order-pill-code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    background: #f1f5f9;
+    color: #1e293b;
+    border: 1px solid #cbd5e1;
+    padding: 4px 10px;
+    border-radius: 8px;
+}
+
+/* 3-Stat Time Metrics Strip */
+.time-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+.time-stat-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+.time-stat-label {
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+.time-stat-value {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.2;
+}
+.time-stat-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+.stat-icon-purple { background: #faf5ff; color: #9333ea; }
+.stat-icon-blue   { background: #eff6ff; color: #2563eb; }
+.stat-icon-amber  { background: #fffbeb; color: #d97706; }
+.stat-icon-green  { background: #f0fdf4; color: #16a34a; }
+.stat-icon-red    { background: #fef2f2; color: #dc2626; }
+
+/* Dashboard Cards */
+.detail-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+    overflow: hidden;
+    margin-bottom: 24px;
+}
+.detail-card-header {
+    background: #ffffff;
+    border-bottom: 1px solid #f1f5f9;
+    padding: 16px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.detail-card-title {
+    font-size: 0.96rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.detail-card-body {
+    padding: 20px 22px;
+}
+
+/* Key-Value Item Rows */
+.kv-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.kv-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding-bottom: 11px;
+    border-bottom: 1px dashed #f1f5f9;
+    gap: 16px;
+}
+.kv-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+.kv-label {
+    font-size: 0.86rem;
+    color: #64748b;
+    font-weight: 500;
+    width: 38%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.kv-value {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #1e293b;
+    text-align: right;
+    flex: 1;
+    word-break: break-word;
+}
+
+/* Add-on Chips */
+.addon-badge-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 6px;
+}
+.addon-badge-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: #f8fafc;
+    color: #334155;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 3px 8px;
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+/* Informational Callout Box */
+.info-callout-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 0.84rem;
+    color: #475569;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 14px;
+}
+.info-callout-box i {
+    color: #9333ea;
+    font-size: 1.1rem;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+/* Proof Image */
+.proof-img-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 14px;
+    text-align: center;
+}
+.proof-img-preview {
+    max-height: 240px;
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    object-fit: contain;
+    background: #ffffff;
+}
+
+/* Modern Table for Logs */
+.table-log {
+    width: 100%;
+    margin-bottom: 0;
+    vertical-align: middle;
+}
+.table-log thead th {
+    background: #f8fafc;
+    color: #475569;
+    font-size: 0.74rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    padding: 11px 16px;
+    border-bottom: 1px solid #e2e8f0;
+    white-space: nowrap;
+}
+.table-log tbody td {
+    padding: 12px 16px;
+    font-size: 0.86rem;
+    color: #334155;
+    border-bottom: 1px solid #f1f5f9;
+}
+</style>
+
+<div class="container-fluid py-2">
+    {{-- Header Section --}}
+    <div class="detail-header-section">
+        <div>
+            <div class="d-flex align-items-center gap-2 mb-1">
+                <h1 class="detail-page-title">
+                    <i class="fa-solid fa-microphone-lines" style="color: #9333ea;"></i> Detail Reservasi Studio Podcast
+                </h1>
+                <span class="order-pill-code">
+                    {{ $booking->order_number ?? ('#PC-' . str_pad($booking->id, 5, '0', STR_PAD_LEFT)) }}
+                </span>
+            </div>
+            <p class="text-muted small mb-0">Informasi penggunaan studio podcast, rincian jadwal, add-on fasilitas, dan riwayat sesi ruangan Anda.</p>
+        </div>
+
+        <div class="d-flex align-items-center gap-2 flex-wrap">
+            <a href="{{ url('dashboard/podcast-room') }}" class="btn btn-outline-secondary btn-sm px-3 py-2 rounded-3 fw-semibold">
+                <i class="fa-solid fa-arrow-left me-1"></i> Kembali ke Dashboard
+            </a>
+            @if($booking->status === 'selesai')
+                <a href="{{ url('podcast-room/order') }}" class="btn btn-primary btn-sm px-3 py-2 rounded-3 fw-bold shadow-sm">
+                    <i class="fa-solid fa-calendar-plus me-1"></i> Ajukan Reservasi Sesi Baru
+                </a>
+            @endif
+        </div>
     </div>
 
-    <div class="row">
-        <!-- Informasi Order -->
-        <div class="col-lg-6 mb-4">
-            <div class="card shadow h-100">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Informasi Order</h6>
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show border-0 rounded-3 shadow-sm mb-4" role="alert">
+            <div class="d-flex align-items-center">
+                <i class="fa-solid fa-circle-check text-success fs-5 me-2"></i>
+                <div class="fw-semibold">{{ session('success') }}</div>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    @endif
+
+    {{-- 3-Stat Time Metrics Strip (Pemantauan Kuota Studio) --}}
+    @php
+        $sisa = $booking->formatted_remaining_time ?? '0 menit';
+        $isExhausted = ($booking->is_expired || $sisa === 'Waktu habis');
+    @endphp
+    <div class="time-stat-grid">
+        <div class="time-stat-card">
+            <div>
+                <div class="time-stat-label">Total Alokasi Durasi</div>
+                <div class="time-stat-value">{{ $booking->formatSeconds($booking->duration * 3600) }}</div>
+            </div>
+            <div class="time-stat-icon stat-icon-purple">
+                <i class="fa-solid fa-hourglass-start"></i>
+            </div>
+        </div>
+
+        <div class="time-stat-card">
+            <div>
+                <div class="time-stat-label">Durasi Terpakai</div>
+                <div class="time-stat-value text-primary used-time-display" data-status="{{ $booking->status }}" data-used="{{ $booking->used_seconds }}">
+                    {{ $booking->formatted_used_time ?? '0 menit' }}
                 </div>
-                <div class="card-body">
-                    <table class="table table-borderless">
-                        <tr>
-                            <td class="text-muted" style="width: 40%">Nama Pemesan</td>
-                            <td class="fw-bold">{{ $booking->name }}</td>
-                        </tr>
-                        <tr>
-                            <td class="text-muted">Nama User</td>
-                            <td class="fw-bold">{{ $booking->user ? $booking->user->name : '-' }}</td>
-                        </tr>
-                        <tr>
-                            <td class="text-muted">Judul Podcast</td>
-                            <td class="fw-bold">{{ $booking->podcast_title ?? '-' }}</td>
-                        </tr>
-                        <tr>
-                            <td class="text-muted">Tanggal Order</td>
-                            <td class="fw-bold">{{ \Carbon\Carbon::parse($booking->created_at)->format('d M Y H:i:s') }}</td>
-                        </tr>
-                        <tr>
-                            <td class="text-muted">Tanggal Expired</td>
-                            <td class="fw-bold text-danger">{{ \Carbon\Carbon::parse($booking->created_at)->addYear()->format('d M Y H:i:s') }}</td>
-                        </tr>
-                        <tr>
-                            <td class="text-muted">Status Ruangan</td>
-                            <td>
-                                @if($booking->is_expired)
-                                    <span class="badge bg-danger">❌ Expired</span>
-                                @elseif($booking->remaining_seconds <= 0)
-                                    <span class="badge bg-danger">⛔ Waktu Habis</span>
-                                @elseif($booking->status === 'checkin')
-                                    <span class="badge bg-primary">🔵 Aktif (Sedang Digunakan)</span>
-                                @elseif($booking->status === 'paused' || $booking->used_seconds > 0)
-                                    <span class="badge bg-warning text-dark">⏳ Berhenti sementara</span>
-                                @elseif($booking->status === 'approved' || $booking->payment_status === 'approved')
-                                    <span class="badge bg-success">✅ Menunggu Check In</span>
-                                @elseif($booking->status === 'rejected' || $booking->payment_status === 'rejected')
-                                    <span class="badge bg-danger">❌ Ditolak</span>
+            </div>
+            <div class="time-stat-icon stat-icon-amber">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+            </div>
+        </div>
+
+        <div class="time-stat-card">
+            <div>
+                <div class="time-stat-label">Sisa Waktu Tersedia</div>
+                <div class="time-stat-value {{ $isExhausted ? 'text-danger' : 'text-success' }} remaining-time-display" data-status="{{ $booking->status }}" data-remaining="{{ $booking->remaining_seconds }}">
+                    {{ $sisa }}
+                </div>
+            </div>
+            <div class="time-stat-icon {{ $isExhausted ? 'stat-icon-red' : 'stat-icon-green' }}">
+                <i class="fa-solid {{ $isExhausted ? 'fa-hourglass-end' : 'fa-hourglass-half' }}"></i>
+            </div>
+        </div>
+    </div>
+
+    {{-- Main Row Layout --}}
+    <div class="row">
+        <!-- Kolom Kiri: Rincian Paket & Data Pemesan -->
+        <div class="col-lg-6 mb-4">
+            {{-- Card Rincian Paket Studio & Status --}}
+            <div class="detail-card mb-4">
+                <div class="detail-card-header">
+                    <h6 class="detail-card-title">
+                        <i class="fa-solid fa-podcast" style="color: #9333ea;"></i> Rincian Paket Studio Anda
+                    </h6>
+                    <span class="badge bg-success-subtle text-success border border-success-subtle px-2.5 py-1 rounded-pill fw-bold">
+                        <i class="fa-solid fa-circle-check me-1"></i> Kuota Aktif
+                    </span>
+                </div>
+                <div class="detail-card-body">
+                    <div class="kv-list">
+                        <div class="kv-row">
+                            <span class="kv-label"><i class="fa-solid fa-tag text-muted"></i> Nama Paket</span>
+                            <span class="kv-value fw-bold" style="color: #9333ea;">
+                                @if($booking->benefit)
+                                    {{ $booking->benefit->paket }}
                                 @else
-                                    <span class="badge bg-warning text-dark">⏳ Pending</span>
+                                    Sewa Studio Podcast ({{ $booking->duration }} Jam)
                                 @endif
-                            </td>
-                        </tr>
-                    </table>
+                            </span>
+                        </div>
+
+                        <div class="kv-row">
+                            <span class="kv-label"><i class="fa-solid fa-gift text-muted"></i> Jenis Alokasi</span>
+                            <span class="kv-value">
+                                @if($booking->source_type === 'benefit' || $booking->benefit_id)
+                                    <span class="badge bg-info-subtle text-info border border-info-subtle px-2.5 py-1 rounded-pill fw-bold">
+                                        <i class="fa-solid fa-gift me-1"></i> Kuota Benefit PT (Bundling Layanan)
+                                    </span>
+                                @else
+                                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-2.5 py-1 rounded-pill fw-bold">
+                                        <i class="fa-solid fa-credit-card me-1"></i> Pembelian Sewa Mandiri
+                                    </span>
+                                @endif
+                            </span>
+                        </div>
+
+                        <div class="kv-row">
+                            <span class="kv-label"><i class="fa-regular fa-clock text-muted"></i> Alokasi Durasi Sesi</span>
+                            <span class="kv-value fw-bold text-dark">{{ $booking->duration }} Jam ({{ $booking->duration * 60 }} Menit)</span>
+                        </div>
+
+                        <div class="kv-row">
+                            <span class="kv-label"><i class="fa-solid fa-battery-half text-muted"></i> Status Ruangan</span>
+                            <span class="kv-value">
+                                @if($booking->is_expired)
+                                    <span class="badge bg-danger text-white px-2 py-0.5 rounded">Masa Berlaku Expired</span>
+                                @elseif($booking->remaining_seconds <= 0)
+                                    <span class="badge bg-danger text-white px-2 py-0.5 rounded">Waktu Habis</span>
+                                @elseif($booking->status === 'checkin')
+                                    <span class="badge bg-success text-white px-2 py-0.5 rounded"><i class="fa-solid fa-circle-play me-1"></i> Sedang Digunakan (Check-In)</span>
+                                @elseif($booking->status === 'approved')
+                                    <span class="badge bg-primary text-white px-2 py-0.5 rounded">Disetujui &amp; Siap Digunakan</span>
+                                @elseif($booking->status === 'selesai')
+                                    <span class="badge bg-secondary text-white px-2 py-0.5 rounded">Selesai (Sudah Check Out)</span>
+                                @else
+                                    <span class="badge bg-warning text-dark px-2 py-0.5 rounded">Menunggu Approval</span>
+                                @endif
+                            </span>
+                        </div>
+
+                        <div class="kv-row">
+                            <span class="kv-label"><i class="fa-regular fa-calendar-plus text-muted"></i> Tanggal Transaksi</span>
+                            <span class="kv-value">{{ \Carbon\Carbon::parse($booking->created_at)->format('d M Y H:i') }} WIB</span>
+                        </div>
+
+                        <div class="kv-row">
+                            <span class="kv-label"><i class="fa-regular fa-calendar-xmark text-muted"></i> Masa Berlaku</span>
+                            <span class="kv-value text-danger fw-bold">{{ \Carbon\Carbon::parse($booking->created_at)->addYear()->format('d M Y') }} (1 Tahun)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Card Data Pemesan & Podcast --}}
+            <div class="detail-card">
+                <div class="detail-card-header">
+                    <h6 class="detail-card-title">
+                        <i class="fa-solid fa-user-tie text-primary"></i> Data Pemesan &amp; Podcast
+                    </h6>
+                </div>
+
+                <div class="detail-card-body">
+                    <div class="kv-list">
+                        <div class="kv-row">
+                            <span class="kv-label"><i class="fa-regular fa-user text-muted"></i> Nama Pemesan</span>
+                            <span class="kv-value">{{ $booking->user ? $booking->user->name : ($booking->name ?? '-') }}</span>
+                        </div>
+
+                        <div class="kv-row">
+                            <span class="kv-label"><i class="fa-regular fa-envelope text-muted"></i> Alamat Email</span>
+                            <span class="kv-value">{{ $booking->email ?? ($booking->user->email ?? '-') }}</span>
+                        </div>
+
+                        <div class="kv-row">
+                            <span class="kv-label"><i class="fa-solid fa-microphone text-muted"></i> Judul Podcast</span>
+                            <span class="kv-value fw-bold text-dark">{{ $booking->podcast_title ?? '-' }}</span>
+                        </div>
+
+                        <div class="kv-row">
+                            <span class="kv-label"><i class="fa-regular fa-building text-muted"></i> Nama Perusahaan</span>
+                            <span class="kv-value">{{ $booking->nama_perusahaan ?? ($booking->user->company_name ?? '-') }}</span>
+                        </div>
+
+                        <div class="kv-row">
+                            <span class="kv-label"><i class="fa-solid fa-map-location-dot text-muted"></i> Domisili / Alamat</span>
+                            <span class="kv-value">{{ $booking->alamat_usaha ?? ($booking->user->address ?? '-') }}</span>
+                        </div>
+
+                        @if($booking->notes)
+                            <div class="kv-row">
+                                <span class="kv-label"><i class="fa-solid fa-sliders text-muted"></i> Fasilitas / Add-On</span>
+                                <div class="kv-value">
+                                    <div class="addon-badge-wrap">
+                                        @php
+                                            $cleanNotes = str_replace('Add-On: ', '', $booking->notes);
+                                            $addonItems = array_map('trim', explode(',', $cleanNotes));
+                                        @endphp
+                                        @foreach($addonItems as $item)
+                                            @if(!empty($item))
+                                                <span class="addon-badge-item">
+                                                    @if(stripos($item, 'Mikrofon') !== false) 🎙️
+                                                    @elseif(stripos($item, 'Headphone') !== false || stripos($item, 'Headset') !== false) 🎧
+                                                    @elseif(stripos($item, 'Kamera') !== false) 📹
+                                                    @elseif(stripos($item, 'Operator') !== false) 🧑‍💼
+                                                    @else ✨
+                                                    @endif
+                                                    {{ $item }}
+                                                </span>
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Pemakaian Waktu & Bukti Pembayaran -->
+        <!-- Kolom Kanan: Jadwal Sesi & Bukti Pembayaran -->
         <div class="col-lg-6 mb-4 d-flex flex-column gap-4">
-            <div class="card shadow">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Pemakaian Waktu</h6>
+            {{-- Card Jadwal Pengajuan & Ruangan --}}
+            <div class="detail-card mb-0">
+                <div class="detail-card-header">
+                    <h6 class="detail-card-title">
+                        <i class="fa-regular fa-calendar-check text-primary"></i> Jadwal Sesi Reservasi &amp; Studio
+                    </h6>
+                    @if($booking->room_name && $booking->date)
+                        <span class="badge bg-light text-dark border px-2.5 py-1 fw-bold">
+                            <i class="fa-solid fa-door-open me-1" style="color:#9333ea;"></i> {{ $booking->room_name }}
+                        </span>
+                    @else
+                        <span class="badge bg-light text-muted border px-2.5 py-1">
+                            Studio Belum Ditugaskan
+                        </span>
+                    @endif
                 </div>
-                <div class="card-body">
-                    <div class="d-flex justify-content-between mb-3 border-bottom pb-2">
-                        <span class="text-muted">Total Waktu:</span>
-                        <span class="fw-bold">{{ $booking->formatSeconds($booking->duration * 3600) }}</span>
+                <div class="detail-card-body">
+                    <div class="kv-list">
+                        <div class="kv-row">
+                            <span class="kv-label"><i class="fa-regular fa-calendar text-muted"></i> Tanggal Penggunaan</span>
+                            <span class="kv-value">
+                                @if($booking->date)
+                                    <span class="fw-bold text-dark">{{ \Carbon\Carbon::parse($booking->date)->translatedFormat('l, d F Y') }}</span>
+                                @else
+                                    <span class="badge bg-secondary-subtle text-secondary border px-2.5 py-1 rounded fw-semibold">
+                                        <i class="fa-solid fa-calendar-xmark me-1"></i> Belum Memilih Jadwal Sesi
+                                    </span>
+                                @endif
+                            </span>
+                        </div>
+
+                        <div class="kv-row">
+                            <span class="kv-label"><i class="fa-regular fa-clock text-muted"></i> Jam Sesi</span>
+                            <span class="kv-value">
+                                @if($booking->start_time && $booking->date)
+                                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-2.5 py-1 fw-bold" style="font-size:0.84rem;">
+                                        {{ \Carbon\Carbon::parse($booking->start_time)->format('H:i') }} WIB
+                                        @if($booking->end_time)
+                                            - {{ \Carbon\Carbon::parse($booking->end_time)->format('H:i') }} WIB
+                                        @endif
+                                    </span>
+                                @else
+                                    <span class="text-muted">–</span>
+                                @endif
+                            </span>
+                        </div>
+
+                        <div class="kv-row">
+                            <span class="kv-label"><i class="fa-solid fa-hourglass text-muted"></i> Durasi Sesi</span>
+                            <span class="kv-value">{{ ($booking->date) ? ($booking->duration . ' Jam') : '–' }}</span>
+                        </div>
+
+                        <div class="kv-row">
+                            <span class="kv-label"><i class="fa-solid fa-door-open text-muted"></i> Ruangan Ditugaskan</span>
+                            <span class="kv-value">
+                                @if($booking->room_name && $booking->date)
+                                    <span class="fw-bold text-dark">{{ $booking->room_name }}</span>
+                                @else
+                                    <span class="text-muted">Menyesuaikan Saat Check In di Lokasi</span>
+                                @endif
+                            </span>
+                        </div>
                     </div>
-                    <div class="d-flex justify-content-between mb-3 border-bottom pb-2">
-                        <span class="text-muted">Sudah Dipakai:</span>
-                        <span class="fw-bold text-primary used-time-display" data-status="{{ $booking->status }}" data-used="{{ $booking->used_seconds }}">{{ $booking->formatted_used_time }}</span>
-                    </div>
-                    <div class="d-flex justify-content-between mb-3">
-                        <span class="text-muted">Sisa Waktu:</span>
-                        @php 
-                            $sisa = $booking->formatted_remaining_time; 
-                            $text_class = ($booking->is_expired || $sisa === 'Waktu habis') ? 'text-danger' : 'text-success';
-                        @endphp
-                        <span class="fw-bold {{ $text_class }} remaining-time-display" data-status="{{ $booking->status }}" data-remaining="{{ $booking->remaining_seconds }}">{{ $sisa }}</span>
-                    </div>
+
+                    @if(!$booking->date)
+                        <div class="info-callout-box">
+                            <i class="fa-solid fa-circle-info"></i>
+                            <div>
+                                <strong>Tidak Ada Jadwal Sesi Aktif:</strong> Sesi sebelumnya telah selesai (Check Out). Anda memiliki sisa kuota aktif <strong>{{ $booking->duration }} Jam</strong> yang dapat digunakan kapan saja. Silakan klik tombol <strong>[Ajukan Reservasi Sesi Baru]</strong> di atas untuk memesan jadwal berikutnya.
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
 
-            <!-- Bukti Pembayaran Card -->
+            {{-- Card Bukti Pembayaran / Billing --}}
             @php
-                $proofPath = $booking->payment_proof ?? ($booking->order ? $booking->order->payment_proof : null);
+                $proofPath = $booking->payment_proof ?? null;
             @endphp
-            <div class="card shadow">
-                <div class="card-header py-3 d-flex align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-receipt me-1"></i> Bukti Pembayaran</h6>
-                    @if($proofPath)
-                        <span class="badge bg-success" style="color:#fff !important;"><i class="fas fa-check-circle me-1"></i> Terunggah</span>
+            <div class="detail-card mb-0">
+                <div class="detail-card-header">
+                    <h6 class="detail-card-title">
+                        <i class="fa-solid fa-receipt text-primary"></i> Status Tagihan &amp; Pembayaran
+                    </h6>
+                    @if($booking->source_type === 'benefit' && (!$booking->total_price || $booking->total_price == 0))
+                        <span class="badge bg-success-subtle text-success border border-success-subtle px-2.5 py-1 rounded-pill fw-bold">
+                            <i class="fa-solid fa-check me-1"></i> Bebas Biaya (Benefit PT)
+                        </span>
+                    @elseif($proofPath)
+                        <span class="badge bg-success text-white px-2.5 py-1 rounded-pill fw-bold">
+                            <i class="fa-solid fa-circle-check me-1"></i> Bukti Terverifikasi
+                        </span>
                     @else
-                        <span class="badge bg-secondary" style="color:#fff !important;">Order via WA / Direct Approval</span>
+                        <span class="badge bg-light text-muted border px-2.5 py-1 rounded-pill">
+                            Tanpa Bukti Transfer
+                        </span>
                     @endif
                 </div>
-                <div class="card-body">
+
+                <div class="detail-card-body">
+                    @if($booking->total_price > 0)
+                        <div class="d-flex align-items-center justify-content-between p-3 bg-light rounded-3 mb-3 border">
+                            <span class="text-muted fw-semibold">Total Tagihan &amp; Add-On:</span>
+                            <span class="fs-5 fw-bold text-primary">Rp {{ number_format($booking->total_price, 0, ',', '.') }}</span>
+                        </div>
+                    @endif
+
                     @if($proofPath)
-                        <div class="text-center p-3 bg-light rounded border">
-                            <a href="{{ asset('storage/' . $proofPath) }}" target="_blank" title="Klik untuk membuka gambar ukuran penuh">
-                                <img src="{{ asset('storage/' . $proofPath) }}" alt="Bukti Pembayaran"
-                                    class="img-fluid rounded shadow-sm"
-                                    style="max-height: 260px; object-fit: contain; border: 1px solid #e2e8f0; background: #fff;">
+                        <div class="proof-img-box">
+                            <a href="{{ asset('storage/' . $proofPath) }}" target="_blank">
+                                <img src="{{ asset('storage/' . $proofPath) }}" alt="Bukti Pembayaran" class="proof-img-preview mb-2">
                             </a>
-                            <div class="mt-3">
-                                <a href="{{ asset('storage/' . $proofPath) }}" target="_blank" class="btn btn-sm btn-primary">
-                                    <i class="fas fa-external-link-alt me-1"></i> Lihat Gambar Ukuran Penuh
+                            <div class="mt-2">
+                                <a href="{{ asset('storage/' . $proofPath) }}" target="_blank" class="btn btn-outline-primary btn-sm px-3 rounded-2 fw-semibold">
+                                    <i class="fa-solid fa-up-right-from-square me-1"></i> Buka Gambar Ukuran Penuh
                                 </a>
                             </div>
                         </div>
                     @else
-                        <p class="text-muted text-center my-3"><i class="fas fa-info-circle me-1"></i> Bukti pembayaran tidak diunggah langsung (Order via WA / Diproses langsung oleh Admin).</p>
+                        <div class="text-center py-3 text-muted">
+                            <i class="fa-solid fa-circle-info fs-4 text-muted mb-1 d-block opacity-50"></i>
+                            @if($booking->source_type === 'benefit')
+                                <p class="small mb-0">Pemesanan ini dipotong langsung dari kuota benefit aktif Anda tanpa biaya tambahan.</p>
+                            @else
+                                <p class="small mb-0">Pembayaran diproses melalui transfer atau diproses langsung oleh Admin Lawgika.</p>
+                            @endif
+                        </div>
                     @endif
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Riwayat Check In / Out -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Riwayat Check In / Check Out</h6>
+    {{-- Riwayat Sesi Check In / Check Out --}}
+    <div class="detail-card">
+        <div class="detail-card-header">
+            <h6 class="detail-card-title">
+                <i class="fa-solid fa-clock-rotate-left text-primary"></i> Riwayat Penggunaan Studio (Sesi Check In / Out)
+            </h6>
+            <span class="badge bg-light text-dark border px-2.5 py-1 fw-bold">{{ $logs->count() }} Entri Log</span>
         </div>
-        <div class="card-body">
+        <div class="p-0">
             <div class="table-responsive">
-                <table class="table table-bordered table-hover">
-                    <thead class="table-light">
+                <table class="table table-log">
+                    <thead>
                         <tr>
-                            <th>No</th>
-                            <th>Tipe</th>
+                            <th class="ps-4" style="width: 50px;">No</th>
+                            <th>Aktivitas Sesi</th>
                             <th>Tanggal</th>
-                            <th>Jam</th>
-                            <th>Durasi Sesi</th>
+                            <th>Waktu (WIB)</th>
+                            <th>Durasi Pemakaian</th>
+                            <th class="pe-4">Fasilitas / Add-On Device</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse($logs as $index => $log)
                             <tr>
-                                <td>{{ $index + 1 }}</td>
+                                <td class="ps-4 fw-bold text-muted">{{ $index + 1 }}</td>
                                 <td>
                                     @if($log->type === 'checkin')
-                                        <span class="badge bg-success"><i class="fas fa-sign-in-alt"></i> Check In</span>
+                                        <span class="badge bg-success text-white px-2.5 py-1 rounded"><i class="fa-solid fa-door-open me-1"></i> Check In Studio</span>
                                     @else
-                                        <span class="badge bg-danger"><i class="fas fa-sign-out-alt"></i> Check Out</span>
+                                        <span class="badge bg-secondary text-white px-2.5 py-1 rounded"><i class="fa-solid fa-right-from-bracket me-1"></i> Check Out Selesai</span>
                                     @endif
                                 </td>
-                                <td>{{ \Carbon\Carbon::parse($log->timestamp)->format('d M Y') }}</td>
-                                <td>{{ \Carbon\Carbon::parse($log->timestamp)->format('H:i:s') }}</td>
+                                <td class="fw-semibold text-dark">{{ \Carbon\Carbon::parse($log->timestamp)->translatedFormat('d M Y') }}</td>
+                                <td class="font-monospace text-primary fw-bold">{{ \Carbon\Carbon::parse($log->timestamp)->format('H:i:s') }} WIB</td>
                                 <td>
                                     @if($log->type === 'checkout' && $index > 0 && $logs[$index-1]->type === 'checkin')
                                         @php
                                             $diff = \Carbon\Carbon::parse($logs[$index-1]->timestamp)->diffInSeconds($log->timestamp);
-                                            $billedHours = $booking->calculateBillingHours($diff);
                                         @endphp
-                                        <span class="text-muted">{{ $billedHours }} jam</span>
+                                        <span class="badge bg-light text-dark border">{{ $booking->formatSeconds($diff) }}</span>
                                     @else
-                                        <span class="text-muted">-</span>
+                                        <span class="text-muted">–</span>
+                                    @endif
+                                </td>
+                                <td class="pe-4">
+                                    @php
+                                        $logNotes = $log->notes ?: ($log->type === 'checkout' && $index > 0 ? $logs[$index-1]->notes : null);
+                                    @endphp
+                                    @if($logNotes)
+                                        @php
+                                            $cleanNotes = str_replace('Add-On: ', '', $logNotes);
+                                            $cleanNotes = preg_replace('/\[Payment:[^\]]+\]/', '', $cleanNotes);
+                                            $addonItems = array_filter(array_map('trim', explode(',', $cleanNotes)));
+                                        @endphp
+                                        <div class="d-flex flex-wrap gap-1">
+                                            @foreach($addonItems as $item)
+                                                @if(!empty($item))
+                                                    <span class="badge bg-light text-dark border px-2 py-1" style="font-size:0.72rem; font-weight:600;">
+                                                        @if(stripos($item, 'Mikrofon') !== false) 🎙️
+                                                        @elseif(stripos($item, 'Headphone') !== false || stripos($item, 'Headset') !== false) 🎧
+                                                        @elseif(stripos($item, 'Kamera') !== false) 📹
+                                                        @elseif(stripos($item, 'Operator') !== false) 🧑‍💼
+                                                        @else ✨
+                                                        @endif
+                                                        {{ $item }}
+                                                    </span>
+                                                @endif
+                                            @endforeach
+                                        </div>
+                                    @else
+                                        <span class="badge bg-light text-muted border px-2 py-0.5" style="font-size:0.72rem;">Standar Studio</span>
                                     @endif
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="text-center">Belum ada riwayat penggunaan.</td>
+                                <td colspan="6" class="text-center py-4 text-muted">
+                                    <i class="fa-solid fa-inbox fs-4 mb-2 d-block opacity-50"></i>
+                                    Belum ada catatan riwayat sesi penggunaan studio podcast.
+                                </td>
                             </tr>
                         @endforelse
                     </tbody>

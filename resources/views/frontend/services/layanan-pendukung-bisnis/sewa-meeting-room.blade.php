@@ -317,6 +317,183 @@
         box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
     }
 
+    .btn-terms-outline {
+        width: 100%;
+        padding: 12px 20px;
+        border-radius: 14px;
+        font-weight: 600;
+        font-size: 0.88rem;
+        transition: all 0.25s ease;
+        text-align: center;
+        border: 1.5px dashed var(--primary);
+        background: rgba(78, 5, 22, 0.04);
+        color: var(--primary);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        text-decoration: none;
+    }
+
+    .btn-terms-outline:hover {
+        background: var(--primary);
+        color: #fff;
+        border-style: solid;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(78, 5, 22, 0.18);
+    }
+
+    /* Modal Syarat & Ketentuan Meeting Room */
+    .meeting-terms-modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.7);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        z-index: 10500;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .meeting-terms-modal-overlay.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .meeting-terms-modal {
+        background: #ffffff;
+        border-radius: 20px;
+        width: 100%;
+        max-width: 650px;
+        max-height: 90vh;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        border: 1px solid rgba(226, 232, 240, 0.8);
+        overflow: hidden;
+        transform: scale(0.95) translateY(10px);
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .meeting-terms-modal-overlay.active .meeting-terms-modal {
+        transform: scale(1) translateY(0);
+    }
+
+    .mtm-header {
+        padding: 20px 24px;
+        background: #fdf8f9;
+        border-bottom: 1px solid #f1e2e5;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .mtm-close {
+        background: transparent;
+        border: none;
+        font-size: 1.8rem;
+        line-height: 1;
+        color: #94a3b8;
+        cursor: pointer;
+        transition: color 0.2s;
+        padding: 0 4px;
+    }
+
+    .mtm-close:hover {
+        color: #4e0516;
+    }
+
+    .mtm-body {
+        padding: 22px 24px;
+        overflow-y: auto;
+        flex: 1;
+    }
+
+    .terms-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .terms-item {
+        display: flex;
+        gap: 14px;
+        padding: 13px 16px;
+        background: #f8fafc;
+        border: 1px solid #edf2f7;
+        border-radius: 12px;
+        transition: all 0.2s ease;
+    }
+
+    .terms-item:hover {
+        background: #fdf2f4;
+        border-color: #fce7eb;
+        transform: translateX(3px);
+    }
+
+    .terms-num {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: #4e0516;
+        color: #fff;
+        font-weight: 700;
+        font-size: 0.82rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        margin-top: 1px;
+    }
+
+    .terms-text {
+        font-size: 0.88rem;
+        line-height: 1.55;
+        color: #334155;
+    }
+
+    .terms-text strong {
+        color: #1e293b;
+        display: block;
+        margin-bottom: 2px;
+    }
+
+    .terms-text p {
+        margin-bottom: 0;
+        color: #475569;
+    }
+
+    .mtm-footer {
+        padding: 16px 24px;
+        border-top: 1px solid #f1e2e5;
+        background: #fafafa;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .btn-mtm-agree {
+        background: #4e0516;
+        color: #fff;
+        border: none;
+        padding: 12px 26px;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 0.92rem;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .btn-mtm-agree:hover {
+        background: #6e0c24;
+        box-shadow: 0 4px 14px rgba(78, 5, 22, 0.25);
+    }
+
     /* FAQ */
     .pt-faq {
         padding: 80px 0;
@@ -762,12 +939,15 @@
                     <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="meeting.pricing.card1.benefit3">Pembatalan mohon diinformasikan minimal 12 jam sebelumnya</span></li>
                     <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="meeting.pricing.card1.benefit4">Akses fasilitas premium Lawgika Office</span></li>
                 </ul>
-                <div class="mt-auto">
+                <div class="mt-auto d-flex flex-column gap-2">
                     @if($hasBenefit)
                         <button type="button" class="btn-pricing-modern" onclick="openBookingModal('reservasi', window.LwI18n ? window.LwI18n.t('meeting.modal.pkg_body_usaha') : 'Paket Badan Usaha', window.LwI18n ? window.LwI18n.t('meeting.modal.duration_val') : '60 mnt')" data-i18n="meeting.pricing.card1.cta">Booking Sekarang</button>
                     @else
                         <button type="button" class="btn-pricing-modern" onclick="showNoBenefitAlert()" data-i18n="meeting.pricing.card1.cta">Booking Sekarang</button>
                     @endif
+                    <button type="button" class="btn-terms-outline" onclick="openMeetingTermsModal()" data-i18n="meeting.pricing.terms_btn">
+                        <i class="fa-solid fa-file-contract me-1"></i> Syarat & Ketentuan
+                    </button>
                 </div>
             </div>
 
@@ -1120,6 +1300,11 @@
                 <p style="font-size:0.9rem; color:#64748b; line-height:1.6;" data-i18n="meeting.modal.instruction">
                     Pilih tanggal dan waktu yang tersedia untuk jadwal meeting room Anda.
                 </p>
+                <div style="margin-top:14px; padding-top:14px; border-top:1px dashed #e2e8f0;">
+                    <a href="javascript:void(0)" onclick="openMeetingTermsModal()" style="font-size:0.84rem; color:var(--primary); font-weight:600; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
+                        <i class="fa-solid fa-file-contract"></i> <span>Lihat Syarat &amp; Ketentuan Reservasi</span>
+                    </a>
+                </div>
             </div>
         </div>
         <div class="bm-right">
@@ -1157,6 +1342,85 @@
                 <button class="btn-bm-cancel" onclick="closeBookingModal()" data-i18n="meeting.modal.cancel">Batal</button>
                 <button class="btn-bm-submit" id="btnReservasi" disabled onclick="submitBooking()" data-i18n="meeting.modal.submit">Lanjut ke Pembayaran</button>
             </div>
+        </div>
+    </div>
+</div>
+
+{{-- ===== MODAL SYARAT & KETENTUAN SEWA MEETING ROOM ===== --}}
+<div class="meeting-terms-modal-overlay" id="meetingTermsModalOverlay" style="display:none;" onclick="if(event.target===this) closeMeetingTermsModal()">
+    <div class="meeting-terms-modal">
+        <div class="mtm-header">
+            <div class="d-flex align-items-center gap-2">
+                <span style="font-size: 1.3rem;">📌</span>
+                <h4 class="mb-0 fw-bold" style="color: #4e0516; font-size: 1.15rem;">Syarat &amp; Ketentuan Sewa Meeting Room Lawgika</h4>
+            </div>
+            <button type="button" class="mtm-close" onclick="closeMeetingTermsModal()">&times;</button>
+        </div>
+        <div class="mtm-body">
+            <p class="text-muted small mb-3">Harap membaca syarat dan ketentuan penggunaan ruang meeting di bawah ini sebelum melakukan reservasi:</p>
+            <div class="terms-list">
+                <div class="terms-item">
+                    <div class="terms-num">1</div>
+                    <div class="terms-text">
+                        <strong>Waktu Reservasi</strong>
+                        <p>Reservasi wajib dilakukan dan dikonfirmasi selambat-lambatnya <strong>1 (satu) hari</strong> sebelum jadwal penggunaan ruangan.</p>
+                    </div>
+                </div>
+                <div class="terms-item">
+                    <div class="terms-num">2</div>
+                    <div class="terms-text">
+                        <strong>Keterlambatan Kedatangan</strong>
+                        <p>Keterlambatan kedatangan <strong>tidak menambah</strong> durasi penggunaan ruangan.</p>
+                    </div>
+                </div>
+                <div class="terms-item">
+                    <div class="terms-num">3</div>
+                    <div class="terms-text">
+                        <strong>Peralatan / Properti Tambahan</strong>
+                        <p>Apabila penyewa ingin membawa properti, peralatan, dekorasi, atau kebutuhan tambahan lainnya, <strong>wajib menginformasikannya kepada Lawgika</strong> sebelum hari penggunaan.</p>
+                    </div>
+                </div>
+                <div class="terms-item">
+                    <div class="terms-num">4</div>
+                    <div class="terms-text">
+                        <strong>Perpanjangan Waktu (Overtime)</strong>
+                        <p>Perpanjangan waktu penggunaan (overtime) akan dikenakan <strong>pemotongan kuota meeting</strong>.</p>
+                    </div>
+                </div>
+                <div class="terms-item">
+                    <div class="terms-num">5</div>
+                    <div class="terms-text">
+                        <strong>Ketentuan Reschedule</strong>
+                        <p>Reschedule dapat dilakukan maksimal <strong>1 (satu) kali</strong> dengan pemberitahuan minimal <strong>1 x 24 jam</strong> sebelum jadwal penggunaan dan bergantung pada ketersediaan ruangan.</p>
+                    </div>
+                </div>
+                <div class="terms-item">
+                    <div class="terms-num">6</div>
+                    <div class="terms-text">
+                        <strong>Tanggung Jawab Fasilitas</strong>
+                        <p>Penyewa <strong>bertanggung jawab</strong> atas setiap kerusakan atau kehilangan fasilitas yang disebabkan oleh penyewa maupun pihak yang dibawa oleh penyewa.</p>
+                    </div>
+                </div>
+                <div class="terms-item">
+                    <div class="terms-num">7</div>
+                    <div class="terms-text">
+                        <strong>Ketertiban &amp; Kepatuhan Hukum</strong>
+                        <p>Dilarang menggunakan ruangan untuk kegiatan yang <strong>bertentangan dengan peraturan perundang-undangan</strong>, ketertiban umum, atau norma yang berlaku.</p>
+                    </div>
+                </div>
+                <div class="terms-item">
+                    <div class="terms-num">8</div>
+                    <div class="terms-text">
+                        <strong>Persetujuan Penggunaan</strong>
+                        <p>Dengan menggunakan fasilitas ruangan meeting, penyewa dianggap telah <strong>membaca, memahami, dan menyetujui</strong> seluruh syarat dan ketentuan ini.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mtm-footer">
+            <button type="button" class="btn-mtm-agree" onclick="closeMeetingTermsModal()">
+                <i class="fa-solid fa-check me-1"></i> Saya Mengerti &amp; Setuju
+            </button>
         </div>
     </div>
 </div>
@@ -1334,6 +1598,24 @@
         const url =
             `{{ route('meeting-room.order') }}?tanggal=${selectedDate}&jam=${selectedTime}&package=${selectedPackage}`;
         window.location.href = url;
+    }
+
+    // ===== Syarat & Ketentuan Modal Handlers =====
+    function openMeetingTermsModal() {
+        const overlay = document.getElementById('meetingTermsModalOverlay');
+        if (!overlay) return;
+        overlay.style.display = 'flex';
+        void overlay.offsetWidth;
+        overlay.classList.add('active');
+    }
+
+    function closeMeetingTermsModal() {
+        const overlay = document.getElementById('meetingTermsModalOverlay');
+        if (!overlay) return;
+        overlay.classList.remove('active');
+        setTimeout(() => {
+            overlay.style.display = 'none';
+        }, 300);
     }
 </script>
 @endsection

@@ -161,48 +161,53 @@ class MeetingRoomController extends Controller
         $benefit = $this->getActiveBenefit();
 
         if ($benefit) {
-            // Check if user has an existing package booking
-            $parentBooking = null;
-            if ($benefit->order_id) {
-                $parentBooking = MeetingRoomBooking::find($benefit->order_id);
-            }
-            if (!$parentBooking) {
-                $parentBooking = MeetingRoomBooking::where('user_id', Auth::id())
-                    ->whereIn('payment_status', ['approved'])
-                    ->latest()
-                    ->first();
+            // Check if user has sufficient remaining benefit quota
+            $remainingMinutes = $benefit->total_minutes - $benefit->used_minutes;
+            $requestedMinutes = $request->durasi * 60;
+            if ($remainingMinutes < $requestedMinutes) {
+                $remHours = floor($remainingMinutes / 60);
+                return back()->withInput()->withErrors(['durasi' => "Sisa kuota Meeting Room Anda ({$remHours} jam) tidak mencukupi untuk durasi yang diajukan ({$request->durasi} jam)."]);
             }
 
-            if ($parentBooking) {
-                $parentBooking->update([
+            // Check if user already has a master package booking
+            $masterBooking = MeetingRoomBooking::where('user_id', Auth::id())
+                ->where(function($q) use ($benefit) {
+                    $q->where('duration', '>=', 10);
+                    if ($benefit && $benefit->meeting_room_booking_id) {
+                        $q->orWhere('id', $benefit->meeting_room_booking_id);
+                    }
+                })
+                ->where('status', '!=', 'selesai')
+                ->latest()
+                ->first();
+
+            if ($masterBooking) {
+                $masterBooking->update([
                     'date'            => $request->tanggal,
                     'start_time'      => $request->jam,
-                    'participants'    => $request->peserta,
-                    'nama_perusahaan' => $request->nama_perusahaan ?? $parentBooking->nama_perusahaan,
-                    'email'           => $request->email ?? $parentBooking->email,
-                    'alamat_usaha'    => $request->alamat_usaha ?? $parentBooking->alamat_usaha,
-                    'bidang_usaha'    => $request->bidang_usaha ?? $parentBooking->bidang_usaha,
-                    'keperluan'       => $request->keperluan ?? $parentBooking->keperluan,
-                    'status'          => 'pending', // Set to pending so Admin receives pending reservation request notification
+                    'room_name'       => $request->room_name ?: ($masterBooking->room_name ?: 'Ruang Meetingroom Utama'),
+                    'nama_perusahaan' => $request->nama_perusahaan ?: $masterBooking->nama_perusahaan,
+                    'keperluan'       => $request->keperluan ?: $masterBooking->keperluan,
+                    'participants'    => $request->peserta ?: $masterBooking->participants,
+                    'status'          => 'pending', // Menunggu approval admin
                 ]);
 
                 return redirect()->route('customer.meeting-room.index')
-                    ->with('success', 'Pengajuan reservasi Meeting Room berhasil dikirim! Menunggu konfirmasi admin.');
+                    ->with('success', "✅ Pengajuan reservasi Meeting Room ({$request->durasi} Jam) berhasil diajukan! Menunggu persetujuan admin.");
             }
 
-            // Create initial benefit booking if no parent package booking exists
-            MeetingRoomBooking::create([
-                'user_id'        => Auth::id(),
-                'source_type'    => 'benefit',
-                'benefit_id'     => $benefit->id,
-                'name'           => $request->nama,
-                'date'           => $request->tanggal,
-                'start_time'     => $request->jam,
-                'duration'       => $request->durasi,
-                'participants'   => $request->peserta,
-                'status'         => 'approved',
-                'payment_status' => 'approved',
-                'payment_proof'  => null,
+            $createdBooking = MeetingRoomBooking::create([
+                'user_id'         => Auth::id(),
+                'source_type'     => 'benefit',
+                'benefit_id'      => $benefit->id,
+                'name'            => $request->nama,
+                'date'            => $request->tanggal,
+                'start_time'      => $request->jam,
+                'duration'        => round($benefit->total_minutes / 60) ?: 60,
+                'participants'    => $request->peserta,
+                'status'          => 'pending', // Menunggu approval admin
+                'payment_status'  => 'approved', // Bebas biaya (Benefit)
+                'payment_proof'   => null,
                 'nama_perusahaan' => $request->nama_perusahaan,
                 'email'           => $request->email,
                 'alamat_usaha'    => $request->alamat_usaha,
@@ -210,8 +215,10 @@ class MeetingRoomController extends Controller
                 'keperluan'       => $request->keperluan,
             ]);
 
+            $benefit->update(['meeting_room_booking_id' => $createdBooking->id]);
+
             return redirect()->route('customer.meeting-room.index')
-                ->with('success', '✅ Reservasi Meeting Room berhasil diajukan!');
+                ->with('success', '✅ Pengajuan reservasi Meeting Room berhasil dikirim! Menunggu konfirmasi persetujuan admin.');
         }
 
         // ── MANUAL FLOW (existing — untouched) ────────────────────────────────
@@ -265,8 +272,13 @@ class MeetingRoomController extends Controller
     {
         $search = $request->input('search');
 
-        // Load all bookings (both benefit and manual) for the unified index table
-        $query = MeetingRoomBooking::with(['user', 'benefit'])->latest();
+        // Load only approved, active, or completed bookings for Table 2 (exclude pending approvals)
+        $query = MeetingRoomBooking::with(['user', 'benefit'])
+            ->where(function ($q) {
+                $q->whereIn('status', ['approved', 'checkin', 'paused', 'selesai'])
+                  ->where('payment_status', 'approved');
+            })
+            ->latest();
 
         if ($search) {
             $query->where(function ($q) use ($search) {
@@ -285,8 +297,10 @@ class MeetingRoomController extends Controller
             ->latest()->get();
 
         $pendingReservations = MeetingRoomBooking::with(['user', 'benefit'])
-            ->where('status', 'pending')
-            ->whereNotNull('date')
+            ->where(function ($q) {
+                $q->where('status', 'pending')
+                  ->orWhere('payment_status', 'pending');
+            })
             ->latest()
             ->get();
 
@@ -342,6 +356,20 @@ class MeetingRoomController extends Controller
         // Get user for fallback data
         $user = \App\Models\User::find($request->user_id);
 
+        $benefitId = $request->benefit_id;
+        if ($request->source_type === 'manual') {
+            $benefit = RoomBenefit::create([
+                'user_id'       => $user->id,
+                'paket'         => 'Paket Meeting Room (60 Jam / 1 Tahun)',
+                'total_minutes' => 60 * 60,
+                'used_minutes'  => 0,
+                'type'          => 'meeting',
+                'is_active'     => true,
+                'expired_at'    => now()->addYear(),
+            ]);
+            $benefitId = $benefit->id;
+        }
+
         $booking = MeetingRoomBooking::create([
             'user_id'         => $user->id,
             'created_by'      => Auth::id(),
@@ -350,22 +378,65 @@ class MeetingRoomController extends Controller
             'email'           => $user->email,
             'alamat_usaha'    => $user->address,
             'bidang_usaha'    => $user->business_type,
-            'keperluan'       => $request->notes, // used as notes internally
+            'keperluan'       => $request->notes,
             'notes'           => $request->notes,
-            'room_name'       => $request->room_name,
-            'date'            => $request->date,
-            'start_time'      => $request->start_time,
+            'room_name'       => $request->room_name ?: 'Ruang Meetingroom Utama',
+            'date'            => null, // null for package pool
+            'start_time'      => null,
             'end_time'        => $end,
             'duration'        => $durationHours,
             'participants'    => $request->participants,
             'source_type'     => $request->source_type,
-            'benefit_id'      => $request->source_type === 'benefit' ? $request->benefit_id : null,
+            'benefit_id'      => $benefitId,
             'status'          => 'approved',
             'payment_status'  => 'approved',
-            'payment_method'  => $request->payment_method,
+            'payment_method'  => $request->payment_method ?: 'Payment WA',
         ]);
 
-        return redirect('admin/meeting-room')->with('success', '✅ Reservasi Meeting Room berhasil ditambahkan oleh Admin.');
+        return redirect('admin/meeting-room')->with('success', "✅ Paket Meeting Room (60 Jam) untuk {$user->name} berhasil ditambahkan! Kuota 60 Jam aktif.");
+    }
+
+    // ── Admin: Setup Specific Reservation Session on Booking ─────────────────
+
+    public function createSession(Request $request)
+    {
+        $request->validate([
+            'booking_id'      => 'required|exists:meeting_room_bookings,id',
+            'date'            => 'required|date',
+            'start_time'      => 'required',
+            'room_name'       => 'required|string',
+            'nama_perusahaan' => 'nullable|string|max:255',
+            'keperluan'       => 'nullable|string',
+            'participants'    => 'nullable|integer|min:1',
+            'notes'           => 'nullable|string',
+        ]);
+
+        $booking = MeetingRoomBooking::findOrFail($request->booking_id);
+
+        // Room occupancy guard
+        $occupied = MeetingRoomBooking::where('room_name', $request->room_name)
+            ->where('date', $request->date)
+            ->where('start_time', 'like', $request->start_time . '%')
+            ->where('status', 'checkin')
+            ->where('id', '!=', $booking->id)
+            ->exists();
+
+        if ($occupied) {
+            return back()->with('error', "🚫 {$request->room_name} sedang digunakan (Check In) oleh client lain pada slot tersebut.");
+        }
+
+        $booking->update([
+            'date'            => $request->date,
+            'start_time'      => $request->start_time,
+            'room_name'       => $request->room_name ?: $booking->room_name,
+            'nama_perusahaan' => $request->nama_perusahaan ?: $booking->nama_perusahaan,
+            'keperluan'       => $request->keperluan ?: $booking->keperluan,
+            'participants'    => (int) ($request->participants ?: $booking->participants ?: 1),
+            'notes'           => $request->notes ?: $booking->notes,
+            'status'          => 'approved',
+        ]);
+
+        return redirect()->back()->with('success', "✅ Reservasi Check-In untuk {$booking->name} pada " . \Carbon\Carbon::parse($request->date)->format('d M Y') . " {$request->start_time} WIB berhasil disimpan! Tombol Check In sekarang aktif.");
     }
 
     // ── Admin: Approve benefit reservation (status: pending → approved) ───────
@@ -396,7 +467,7 @@ class MeetingRoomController extends Controller
 
     public function adminDetail($id)
     {
-        $booking = MeetingRoomBooking::with('user')->findOrFail($id);
+        $booking = MeetingRoomBooking::with(['user', 'benefit'])->findOrFail($id);
         $logs    = RoomUsageLog::where('reservation_id', $id)
             ->where('room_type', 'meeting_room')
             ->orderBy('timestamp', 'asc')
@@ -409,7 +480,7 @@ class MeetingRoomController extends Controller
 
     public function customerDetail($id)
     {
-        $booking = MeetingRoomBooking::with('user')->findOrFail($id);
+        $booking = MeetingRoomBooking::with(['user', 'benefit'])->findOrFail($id);
         
         if ($booking->user_id !== Auth::id()) {
             abort(403, 'Unauthorized action.');
@@ -499,19 +570,25 @@ class MeetingRoomController extends Controller
             return redirect()->back()->with('error', "🚫 Gagal Check In: {$roomName} saat ini sedang digunakan (Check In) oleh client lain. Selesaikan sesi Check Out pada client sebelumnya terlebih dahulu.");
         }
 
-        // Benefit booking: must be admin-approved
-        if ($booking->source_type === 'benefit') {
-            if ($booking->status !== 'approved' && $booking->status !== 'paused') {
-                return redirect()->back()->with('error', 'Reservasi benefit belum disetujui admin.');
+        if ($booking->status === 'selesai') {
+            return redirect()->back()->with('error', '🚫 Sesi reservasi ini sudah selesai (sudah pernah Check Out). Silakan ajukan atau buat reservasi baru untuk sesi berikutnya.');
+        }
+
+        // Authorization check for non-admin client
+        if (!Auth::user()->hasAdminAccess()) {
+            if ($booking->source_type === 'benefit') {
+                if ($booking->status !== 'approved') {
+                    return redirect()->back()->with('error', 'Reservasi benefit belum disetujui admin.');
+                }
+            } else {
+                if ($booking->payment_status !== 'approved') {
+                    return redirect()->back()->with('error', 'Pembayaran belum dikonfirmasi admin. Check In tidak bisa dilakukan.');
+                }
             }
-        } else {
-            // Manual: payment must be approved
-            if ($booking->payment_status !== 'approved') {
-                return redirect()->back()->with('error', 'Pembayaran belum dikonfirmasi admin. Check In tidak bisa dilakukan.');
-            }
-            if ($booking->status === 'checkin') {
-                return redirect()->back()->with('error', 'Booking ini sudah di Check In.');
-            }
+        }
+
+        if ($booking->status === 'checkin') {
+            return redirect()->back()->with('error', 'Booking ini sedang berjalan (sudah di Check In).');
         }
 
         if ($booking->is_expired) {
@@ -526,13 +603,14 @@ class MeetingRoomController extends Controller
         $endTimeVal  = $endTime ? \Carbon\Carbon::parse($bookingDate . ' ' . $endTime) : ($startTime ? \Carbon\Carbon::parse($bookingDate . ' ' . $startTime)->addHour() : null);
 
         $booking->update([
-            'room_name'   => $roomName,
-            'date'        => $bookingDate,
-            'start_time'  => $startTime,
-            'end_time'    => $endTimeVal,
-            'status'      => 'checkin',
-            'checkin_at'  => now(),
-            'checkout_at' => null,
+            'room_name'      => $roomName,
+            'date'           => $bookingDate,
+            'start_time'     => $startTime,
+            'end_time'       => $endTimeVal,
+            'status'         => 'checkin',
+            'payment_status' => 'approved', // Auto-approve on admin checkin
+            'checkin_at'     => now(),
+            'checkout_at'    => null,
         ]);
 
         // Always write to room_usage_logs (existing)
@@ -541,6 +619,7 @@ class MeetingRoomController extends Controller
             'room_type'      => 'meeting_room',
             'type'           => 'checkin',
             'timestamp'      => now(),
+            'notes'          => $booking->notes,
         ]);
 
         // NO room_benefit_logs entry on check-in — only on check-out
@@ -597,10 +676,20 @@ class MeetingRoomController extends Controller
         
         $prevUsed       = $booking->total_used_seconds > 0 ? $booking->total_used_seconds : ($booking->total_used_minutes * 60);
         $newTotalUsed   = $prevUsed + $billingSeconds;
+        $totalQuotaSecs = $booking->duration * 3600;
+        $hasRemainingQuota = ($booking->duration >= 10) ? ($totalQuotaSecs > $newTotalUsed) : false;
+        
+        $sessionNotes = $booking->notes;
         
         $booking->update([
-            'status'             => 'paused', // Set to paused so client can check in again using remaining quota
+            'status'             => $hasRemainingQuota ? 'approved' : 'selesai',
             'total_used_seconds' => $newTotalUsed,
+            'start_time'         => null, // Reset start_time so it returns to "Reservasi Check In" state!
+            'date'               => $hasRemainingQuota ? null : $booking->date,
+            'room_name'          => $hasRemainingQuota ? null : $booking->room_name,
+            'keperluan'          => $hasRemainingQuota ? null : $booking->keperluan,
+            'participants'       => $hasRemainingQuota ? 1 : $booking->participants,
+            'notes'              => $hasRemainingQuota ? null : $booking->notes, // Reset notes on checkout!
             'checkout_at'        => $checkoutAt,
             'checkin_at'         => null,
         ]);
@@ -610,6 +699,7 @@ class MeetingRoomController extends Controller
             'room_type'      => 'meeting_room',
             'type'           => 'checkout',
             'timestamp'      => $checkoutAt,
+            'notes'          => $sessionNotes,
         ]);
 
         // ── Deduct from benefit pool ──────────────────────────────────────────
@@ -647,9 +737,9 @@ class MeetingRoomController extends Controller
             }
         }
 
-        // Display actual duration but billing is based on rounded hours
+        // Display actual duration and quota deduction
         $actualDuration = $booking->formatSeconds($sessionSeconds);
-        $billingInfo = ($billingHours > 1) ? " (Ditagih: {$billingHours} jam)" : " (Ditagih: {$billingHours} jam)";
+        $billingInfo    = " (Pemakaian Kuota: {$billingHours} Jam)";
         
         // ── WhatsApp Notification ─────────────────────────────────────────────
         $waMessage = '';
@@ -661,7 +751,7 @@ class MeetingRoomController extends Controller
                 $waMessage = ' Tetapi WhatsApp gagal dikirim.';
             }
         } catch (\Exception $e) {
-            Log::error('MeetingRoomController::checkout - Exception WA: ' . $e->getMessage());
+            \Illuminate\Support\Facades\Log::error('MeetingRoomController::checkout - Exception WA: ' . $e->getMessage());
             $waMessage = ' Tetapi WhatsApp gagal dikirim.';
         }
 

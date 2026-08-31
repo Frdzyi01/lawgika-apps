@@ -101,20 +101,6 @@ class RoomBenefitService
                     'expired_at'    => $expiredAt,
                 ]);
 
-                \App\Models\MeetingRoomBooking::create([
-                    'user_id'         => $order->user_id,
-                    'source_type'     => 'benefit',
-                    'benefit_id'      => $meetingBenefit->id,
-                    'name'            => $order->user->name ?? $order->user->pic_name ?? 'Client',
-                    'duration'        => 12,
-                    'status'          => 'approved',
-                    'created_by'      => auth()->id(),
-                    'participants'    => 1,
-                    'nama_perusahaan' => $order->user->company_name ?? '',
-                    'email'           => $order->user->email,
-                    'notes'           => 'Otomatis dibuat dari benefit paket ' . $paketLabel,
-                ]);
-
                 return [$meetingBenefit];
             }
 
@@ -133,20 +119,6 @@ class RoomBenefitService
                 'expired_at'    => $expiredAt,
             ]);
 
-            \App\Models\MeetingRoomBooking::create([
-                'user_id'         => $order->user_id,
-                'source_type'     => 'benefit',
-                'benefit_id'      => $meetingBenefit->id,
-                'name'            => $order->user->name ?? $order->user->pic_name ?? 'Client',
-                'duration'        => 48,
-                'status'          => 'approved',
-                'created_by'      => auth()->id(),
-                'participants'    => 1,
-                'nama_perusahaan' => $order->user->company_name ?? '',
-                'email'           => $order->user->email,
-                'notes'           => 'Otomatis dibuat dari benefit paket ' . $paketLabel,
-            ]);
-
             // 2. Podcast Room — 12 jam = 720 menit
             $podcastBenefit = RoomBenefit::create([
                 'user_id'       => $order->user_id,
@@ -157,19 +129,6 @@ class RoomBenefitService
                 'type'          => 'podcast',
                 'is_active'     => true,
                 'expired_at'    => $expiredAt,
-            ]);
-
-            \App\Models\PodcastRoomBooking::create([
-                'user_id'       => $order->user_id,
-                'source_type'   => 'benefit',
-                'benefit_id'    => $podcastBenefit->id,
-                'name'          => $order->user->name ?? $order->user->pic_name ?? 'Client',
-                'podcast_title' => 'Benefit ' . $paketLabel,
-                'duration'      => 12,
-                'status'        => 'approved',
-                'created_by'    => auth()->id(),
-                'package'       => $paketLabel,
-                'notes'         => 'Otomatis dibuat dari benefit paket ' . $paketLabel,
             ]);
 
             return [$meetingBenefit, $podcastBenefit];

@@ -70,10 +70,31 @@ class PodcastRoomController extends Controller
             $request->merge(['nama' => auth()->user()->name]);
         }
 
-        $isPackage = $request->query('package') === 'paket' || $request->input('package') === 'paket';
+        $isPackage = ($request->input('package') === 'paket' || $request->query('package') === 'paket');
 
-        $durasi = $isPackage ? 20 : (int) $request->input('durasi', 2);
-        if ($durasi < 1) $durasi = 2;
+        $durasi = (int) $request->input('durasi', 2);
+        if ($durasi < 1) $durasi = 1;
+
+        // Add-On values & calculations (Strict limits: max 1 mic, max 1 headphone, max 2 camera, max 1 operator)
+        $addonMicQty       = min(1, max(0, (int) $request->input('addon_mic', 0)));
+        $addonHeadphoneQty = min(1, max(0, (int) $request->input('addon_headphone', 0)));
+        $addonCameraQty    = min(2, max(0, (int) $request->input('addon_camera', 0)));
+        $addonOperatorQty  = min(1, max(0, (int) $request->input('addon_operator', 0)));
+
+        $addonMicCost       = $addonMicQty * 50000 * $durasi;
+        $addonHeadphoneCost = $addonHeadphoneQty * 50000 * $durasi;
+        $addonCameraCost    = $addonCameraQty * 150000 * $durasi;
+        $addonOperatorCost  = $addonOperatorQty * 100000 * $durasi;
+
+        $totalAddon = $addonMicCost + $addonHeadphoneCost + $addonCameraCost + $addonOperatorCost;
+
+        $addonNotes = [];
+        if ($addonMicQty > 0)       $addonNotes[] = "Mikrofon {$addonMicQty} unit (Rp " . number_format($addonMicCost, 0, ',', '.') . ")";
+        if ($addonHeadphoneQty > 0) $addonNotes[] = "Headphone {$addonHeadphoneQty} unit (Rp " . number_format($addonHeadphoneCost, 0, ',', '.') . ")";
+        if ($addonCameraQty > 0)    $addonNotes[] = "Kamera {$addonCameraQty} unit (Rp " . number_format($addonCameraCost, 0, ',', '.') . ")";
+        if ($addonOperatorQty > 0)  $addonNotes[] = "Operator Podcast (Rp " . number_format($addonOperatorCost, 0, ',', '.') . ")";
+
+        $notesText = !empty($addonNotes) ? "Add-On: " . implode(', ', $addonNotes) : null;
 
         $rules = [
             'nama'          => 'required|string|max:255',
@@ -82,15 +103,29 @@ class PodcastRoomController extends Controller
             'jam'           => $isPackage ? 'nullable' : 'required',
             'durasi'        => 'required|integer|min:1|max:20',
             'use_quota'     => 'nullable|boolean',
+            'addon_mic'     => 'nullable|integer|min:0|max:1',
+            'addon_headphone'=> 'nullable|integer|min:0|max:1',
+            'addon_camera'  => 'nullable|integer|min:0|max:2',
+            'addon_operator'=> 'nullable|integer|min:0|max:1',
         ];
 
-        if (!$request->input('use_quota') && !$this->getActiveBenefit()) {
-            $rules['payment_proof'] = 'required|image|mimes:jpg,jpeg,png|max:2048';
-        }
+        $benefit = $this->getActiveBenefit();
+        $isPayManual = ($request->input('pay_manually') == '1' || $request->input('benefit_choice') === 'pay_manual');
 
-        // Jika user punya benefit tapi memilih bayar mandiri
-        if (!$request->input('use_quota') && $request->input('pay_manually') == '1') {
+        if ($isPackage) {
             $rules['payment_proof'] = 'required|image|mimes:jpg,jpeg,png|max:2048';
+        } else {
+            if ($benefit && !$isPayManual) {
+                // If using benefit and has add-on cost, require payment proof
+                if ($totalAddon > 0) {
+                    $rules['payment_proof'] = 'required|image|mimes:jpg,jpeg,png|max:2048';
+                }
+            } else {
+                // Manual flow
+                if (!$request->input('use_quota')) {
+                    $rules['payment_proof'] = 'required|image|mimes:jpg,jpeg,png|max:2048';
+                }
+            }
         }
 
         $request->validate($rules);
@@ -108,65 +143,78 @@ class PodcastRoomController extends Controller
             }
         }
 
-        $benefit = $this->getActiveBenefit();
-
-        // Jika user sengaja memilih bayar mandiri (skip benefit)
-        if ($request->input('pay_manually') == '1') {
-            $benefit = null; // Paksa masuk manual flow
+        // Upload payment proof if provided
+        $path = null;
+        if ($request->hasFile('payment_proof')) {
+            $path = $request->file('payment_proof')->store('payment_proofs/podcast', 'public');
         }
 
-        if ($benefit) {
-            // Check if user has an existing package booking
-            $parentBooking = null;
-            if ($benefit->order_id) {
-                $parentBooking = PodcastRoomBooking::find($benefit->order_id);
-            }
-            if (!$parentBooking) {
-                $parentBooking = PodcastRoomBooking::where('user_id', Auth::id())
-                    ->whereIn('payment_status', ['approved'])
-                    ->latest()
-                    ->first();
+        // ── 1. BENEFIT FLOW (Gunakan Benefit / Kuota Paket) ────────────────────────
+        if ($benefit && !$isPayManual && !$isPackage) {
+            // Validate that requested duration does not exceed remaining benefit quota
+            $remainingMinutes = $benefit->total_minutes - $benefit->used_minutes;
+            $requestedMinutes = $durasi * 60;
+            if ($remainingMinutes < $requestedMinutes) {
+                $remHours = floor($remainingMinutes / 60);
+                return back()->withInput()->withErrors(['durasi' => "Sisa kuota Ruang Podcast Anda ({$remHours} jam) tidak mencukupi untuk durasi yang diajukan ({$durasi} jam)."]);
             }
 
-            if ($parentBooking) {
-                $parentBooking->update([
-                    'date'          => $request->tanggal,
-                    'start_time'    => $request->jam,
-                    'podcast_title' => $request->podcast_title ?? $parentBooking->podcast_title,
-                    'status'        => 'approved',
+            // Check if user already has a master package booking
+            $masterBooking = PodcastRoomBooking::where('user_id', Auth::id())
+                ->where(function($q) use ($benefit) {
+                    $q->where('duration', '>=', 10);
+                    if ($benefit && $benefit->podcast_room_booking_id) {
+                        $q->orWhere('id', $benefit->podcast_room_booking_id);
+                    }
+                })
+                ->where('status', '!=', 'selesai')
+                ->latest()
+                ->first();
+
+            if ($masterBooking) {
+                $masterBooking->update([
+                    'date'           => $request->tanggal,
+                    'start_time'     => $request->jam,
+                    'room_name'      => $request->room_name ?: ($masterBooking->room_name ?: 'Podcast Studio Utama'),
+                    'podcast_title'  => $request->podcast_title ?: $masterBooking->podcast_title,
+                    'participants'   => (int) ($request->peserta ?: $request->participants ?: 1),
+                    'status'         => 'pending', // Menunggu persetujuan admin
+                    'payment_proof'  => $path ?: $masterBooking->payment_proof,
+                    'notes'          => $notesText ?: $masterBooking->notes,
                 ]);
 
                 return redirect()->route('customer.podcast-room.index')
-                    ->with('success', 'Jadwal reservasi Ruang Podcast berhasil disimpan!');
+                    ->with('success', "✅ Pengajuan reservasi Ruang Podcast ({$durasi} Jam) berhasil diajukan untuk Order {$masterBooking->order_number}! Menunggu persetujuan admin.");
             }
 
-            // Create initial benefit booking if no parent package booking exists
-            $durasi   = (int) $request->durasi;
             $orderNum = 'PODCAST-BNF-' . date('Ymd') . '-' . strtoupper(Str::random(5));
-
-            PodcastRoomBooking::create([
+            $createdBooking = PodcastRoomBooking::create([
                 'user_id'        => Auth::id(),
                 'source_type'    => 'benefit',
                 'benefit_id'     => $benefit->id,
                 'order_number'   => $orderNum,
                 'name'           => $request->nama,
                 'podcast_title'  => $request->podcast_title,
+                'room_name'      => $request->room_name ?: 'Podcast Studio Utama',
                 'date'           => $request->tanggal,
                 'start_time'     => $request->jam,
-                'duration'       => $durasi,
-                'participants'   => 1,
-                'package'        => $durasi . 'jam',
+                'duration'       => round($benefit->total_minutes / 60) ?: 20,
+                'participants'   => (int) ($request->peserta ?: $request->participants ?: 1),
+                'package'        => $benefit->paket,
                 'total_price'    => 0,
-                'status'         => 'approved',
+                'status'         => 'pending',
                 'payment_status' => 'approved',
-                'payment_proof'  => null,
+                'payment_proof'  => $path,
+                'notes'          => $notesText,
             ]);
 
+            $benefit->update(['podcast_room_booking_id' => $createdBooking->id]);
+
             return redirect()->route('customer.podcast-room.index')
-                ->with('success', "✅ Reservasi Ruang Podcast berhasil diajukan! Order: {$orderNum}.");
+                ->with('success', "✅ Pengajuan reservasi Ruang Podcast berhasil dikirim! Menunggu persetujuan admin.");
         }
 
-        // ── MANUAL FLOW (existing — untouched) ────────────────────────────────
+        // ── 2. MANUAL / DIRECT FLOW ──────────────────────────────────────────
         if ($request->input('use_quota')) {
             $quota = UserRoomQuota::where('user_id', Auth::id())->first();
             if (!$quota) {
@@ -175,29 +223,26 @@ class PodcastRoomController extends Controller
             if (now()->greaterThan($quota->expired_at)) {
                 return back()->withInput()->withErrors(['quota' => 'Quota Anda sudah expired.']);
             }
-            if ($quota->remaining_seconds < $request->durasi * 3600) {
+            if ($quota->remaining_seconds < $durasi * 3600) {
                 return back()->withInput()->withErrors(['quota' => 'Sisa waktu quota tidak mencukupi untuk durasi ini.']);
             }
         }
 
-        $path = null;
-        if ($request->hasFile('payment_proof')) {
-            $path = $request->file('payment_proof')->store('payment_proofs/podcast', 'public');
-        }
-
-        $durasi = (int) $request->durasi;
-        if ($durasi < 1) $durasi = 1;
-
         // Podcast Pricing: 20 jam = 5.000.000, 1 jam = 500.000, 2 jam = 700.000, >2 jam = 700.000 + (n-2) * 300.000
-        if ($durasi === 20) {
-            $price = 5000000;
+        if ($durasi === 20 || $isPackage) {
+            $basePrice = 5000000;
         } elseif ($durasi === 1) {
-            $price = 500000;
+            $basePrice = 500000;
         } elseif ($durasi === 2) {
-            $price = 700000;
+            $basePrice = 700000;
         } else {
-            $price = 700000 + (($durasi - 2) * 300000);
+            $basePrice = 700000 + (($durasi - 2) * 300000);
         }
+
+        $subtotal   = $basePrice + $totalAddon;
+        $ppn        = (int) round($subtotal * 0.11);
+        $totalPrice = $subtotal + $ppn;
+
         $orderNum = 'PODCAST-' . date('Ymd') . '-' . strtoupper(Str::random(5));
 
         PodcastRoomBooking::create([
@@ -207,15 +252,16 @@ class PodcastRoomController extends Controller
             'order_number'   => $orderNum,
             'name'           => $request->nama,
             'podcast_title'  => $request->podcast_title,
-            'date'           => $request->tanggal,
-            'start_time'     => $request->jam,
+            'date'           => $isPackage ? null : $request->tanggal,
+            'start_time'     => $isPackage ? null : $request->jam,
             'duration'       => $durasi,
             'participants'   => 1,
-            'package'        => $durasi . 'jam',
-            'total_price'    => $price,
+            'package'        => $isPackage ? 'Podcast Room Package (20 Jam / 1 Tahun)' : ($durasi . ' Jam'),
+            'total_price'    => $totalPrice,
             'status'         => 'pending',
             'payment_proof'  => $path,
             'payment_status' => $request->input('use_quota') ? 'approved' : 'pending',
+            'notes'          => $notesText,
         ]);
 
         $msg = $request->input('use_quota')
@@ -233,8 +279,13 @@ class PodcastRoomController extends Controller
     {
         $search = $request->input('search');
 
-        // All reservations (manual and benefit)
-        $query = PodcastRoomBooking::with(['user', 'benefit'])->latest();
+        // Load only approved, active, or completed bookings for Table 2 (exclude pending approvals)
+        $query = PodcastRoomBooking::with(['user', 'benefit'])
+            ->where(function ($q) {
+                $q->whereIn('status', ['approved', 'checkin', 'paused', 'selesai'])
+                  ->where('payment_status', 'approved');
+            })
+            ->latest();
 
         if ($search) {
             $query->where(function ($q) use ($search) {
@@ -249,8 +300,10 @@ class PodcastRoomController extends Controller
         $bookings->appends(['search' => $search]);
 
         $pendingReservations = PodcastRoomBooking::with(['user', 'benefit'])
-            ->where('status', 'pending')
-            ->whereNotNull('date')
+            ->where(function ($q) {
+                $q->where('status', 'pending')
+                  ->orWhere('payment_status', 'pending');
+            })
             ->latest()
             ->get();
 
@@ -336,6 +389,23 @@ class PodcastRoomController extends Controller
             }
         }
 
+        $isPackagePurchase = ($durationHours === 20);
+
+        // If package purchase (20 Jam), activate RoomBenefit pool
+        $benefitId = $request->benefit_id;
+        if ($isPackagePurchase && $request->source_type === 'manual') {
+            $benefit = RoomBenefit::create([
+                'user_id'       => $user->id,
+                'paket'         => 'Paket Podcast Room (20 Jam / 1 Tahun)',
+                'total_minutes' => 20 * 60,
+                'used_minutes'  => 0,
+                'type'          => 'podcast',
+                'is_active'     => true,
+                'expired_at'    => now()->addYear(),
+            ]);
+            $benefitId = $benefit->id;
+        }
+
         $booking = PodcastRoomBooking::create([
             'user_id'         => $user->id,
             'created_by'      => Auth::id(),
@@ -343,22 +413,99 @@ class PodcastRoomController extends Controller
             'order_number'    => $orderNum,
             'podcast_title'   => $request->podcast_title,
             'notes'           => $request->notes,
-            'room_name'       => $request->room_name,
-            'date'            => $request->date,
-            'start_time'      => $request->start_time,
+            'room_name'       => $request->room_name ?: 'Podcast Studio Utama',
+            'date'            => $isPackagePurchase ? null : $request->date, // null for package so it requires reservation session first
+            'start_time'      => $isPackagePurchase ? null : $request->start_time,
             'end_time'        => $end,
             'duration'        => $durationHours,
             'participants'    => $request->participants,
             'package'         => $packageLabel,
             'total_price'     => $price,
             'source_type'     => $request->source_type,
-            'benefit_id'      => $request->source_type === 'benefit' ? $request->benefit_id : null,
+            'benefit_id'      => $benefitId,
             'status'          => 'approved',
             'payment_status'  => 'approved',
-            'payment_method'  => $request->payment_method,
+            'payment_method'  => $request->payment_method ?: 'Payment WA',
         ]);
 
-        return redirect('admin/podcast-room')->with('success', '✅ Reservasi Ruang Podcast berhasil ditambahkan oleh Admin.');
+        $msg = $isPackagePurchase 
+            ? "✅ Paket Podcast Room (20 Jam) untuk {$user->name} berhasil ditambahkan! Kuota 20 Jam aktif. Silakan buat reservasi sesi saat client ingin menggunakan studio."
+            : "✅ Reservasi Ruang Podcast ({$durationHours} Jam) untuk {$user->name} berhasil ditambahkan!";
+
+        return redirect('admin/podcast-room')->with('success', $msg);
+    }
+
+    // ── Admin: Setup Specific Reservation Session on Booking ─────────────────
+
+    public function createSession(Request $request)
+    {
+        $request->validate([
+            'booking_id'           => 'required|exists:podcast_room_bookings,id',
+            'date'                 => 'required|date',
+            'start_time'           => 'required',
+            'room_name'            => 'required|string',
+            'podcast_title'        => 'nullable|string|max:255',
+            'participants'         => 'nullable|integer|min:1',
+            'addon_mic'            => 'nullable|integer|min:0|max:1',
+            'addon_headphone'      => 'nullable|integer|min:0|max:1',
+            'addon_camera'         => 'nullable|integer|min:0|max:2',
+            'addon_operator'       => 'nullable|integer|min:0|max:1',
+            'addon_payment_method' => 'nullable|string',
+            'notes'                => 'nullable|string',
+        ]);
+
+        $booking = PodcastRoomBooking::findOrFail($request->booking_id);
+
+        // Room occupancy guard
+        $occupied = PodcastRoomBooking::where('room_name', $request->room_name)
+            ->where('date', $request->date)
+            ->where('start_time', 'like', $request->start_time . '%')
+            ->where('status', 'checkin')
+            ->where('id', '!=', $booking->id)
+            ->exists();
+
+        if ($occupied) {
+            return back()->with('error', "🚫 {$request->room_name} sedang digunakan (Check In) oleh client lain pada slot tersebut.");
+        }
+
+        // Build Add-On notes
+        $addonList = [];
+        if ((int)$request->input('addon_mic', 0) > 0) {
+            $addonList[] = 'Mikrofon (1 Unit)';
+        }
+        if ((int)$request->input('addon_headphone', 0) > 0) {
+            $addonList[] = 'Headphone (1 Unit)';
+        }
+        $camQty = (int)$request->input('addon_camera', 0);
+        if ($camQty > 0) {
+            $addonList[] = "Kamera ({$camQty} Unit)";
+        }
+        if ((int)$request->input('addon_operator', 0) > 0) {
+            $addonList[] = 'Operator Podcast (1 Orang)';
+        }
+
+        $notesContent = '';
+        if (!empty($addonList)) {
+            $notesContent = 'Add-On: ' . implode(', ', $addonList);
+            if ($request->input('addon_payment_method')) {
+                $notesContent .= ' [Payment: ' . $request->input('addon_payment_method') . ']';
+            }
+        }
+        if ($request->filled('notes')) {
+            $notesContent = $notesContent ? ($notesContent . ' | ' . $request->notes) : $request->notes;
+        }
+
+        $booking->update([
+            'date'          => $request->date,
+            'start_time'    => $request->start_time,
+            'room_name'     => $request->room_name ?: $booking->room_name,
+            'podcast_title' => $request->podcast_title ?: $booking->podcast_title,
+            'participants'  => (int) ($request->participants ?: $booking->participants ?: 1),
+            'notes'         => $notesContent ?: $booking->notes,
+            'status'        => 'approved',
+        ]);
+
+        return redirect()->back()->with('success', "✅ Reservasi Check-In untuk {$booking->name} pada " . \Carbon\Carbon::parse($request->date)->format('d M Y') . " {$request->start_time} WIB berhasil disimpan! Tombol Check In sekarang aktif.");
     }
 
     // ── Admin: Approve / Reject benefit reservation ───────────────────────────
@@ -458,19 +605,25 @@ class PodcastRoomController extends Controller
             return back()->with('error', "🚫 Gagal Check In: {$roomName} saat ini sedang digunakan (Check In) oleh client lain. Selesaikan sesi Check Out pada client sebelumnya terlebih dahulu.");
         }
 
-        // Benefit booking: must be admin-approved
-        if ($booking->source_type === 'benefit') {
-            if ($booking->status !== 'approved' && $booking->status !== 'paused') {
-                return back()->with('error', 'Reservasi benefit belum disetujui admin.');
+        if ($booking->status === 'selesai') {
+            return back()->with('error', '🚫 Sesi reservasi podcast ini sudah selesai (sudah pernah Check Out). Silakan ajukan atau buat reservasi baru untuk sesi berikutnya.');
+        }
+
+        // Authorization check for non-admin client
+        if (!Auth::user()->hasAdminAccess()) {
+            if ($booking->source_type === 'benefit') {
+                if ($booking->status !== 'approved') {
+                    return back()->with('error', 'Reservasi benefit belum disetujui admin.');
+                }
+            } else {
+                if ($booking->payment_status !== 'approved') {
+                    return back()->with('error', 'Pembayaran belum dikonfirmasi. Check In tidak bisa dilakukan.');
+                }
             }
-        } else {
-            // Manual: payment must be approved
-            if ($booking->payment_status !== 'approved') {
-                return back()->with('error', 'Pembayaran belum dikonfirmasi. Check In tidak bisa dilakukan.');
-            }
-            if ($booking->status === 'checkin') {
-                return back()->with('error', 'Booking ini sudah di Check In.');
-            }
+        }
+
+        if ($booking->status === 'checkin') {
+            return back()->with('error', 'Booking studio ini sedang berjalan (sudah di Check In).');
         }
 
         if ($booking->is_expired) {
@@ -484,13 +637,14 @@ class PodcastRoomController extends Controller
         $endTimeVal  = $endTime ? \Carbon\Carbon::parse($bookingDate . ' ' . $endTime) : ($startTime ? \Carbon\Carbon::parse($bookingDate . ' ' . $startTime)->addHour() : null);
 
         $booking->update([
-            'room_name'   => $roomName,
-            'date'        => $bookingDate,
-            'start_time'  => $startTime,
-            'end_time'    => $endTimeVal,
-            'status'      => 'checkin',
-            'checkin_at'  => now(),
-            'checkout_at' => null,
+            'room_name'      => $roomName,
+            'date'           => $bookingDate,
+            'start_time'     => $startTime,
+            'end_time'       => $endTimeVal,
+            'status'         => 'checkin',
+            'payment_status' => 'approved', // Auto-approve on admin checkin
+            'checkin_at'     => now(),
+            'checkout_at'    => null,
         ]);
 
         RoomUsageLog::create([
@@ -498,6 +652,7 @@ class PodcastRoomController extends Controller
             'room_type'      => 'podcast_room',
             'type'           => 'checkin',
             'timestamp'      => now(),
+            'notes'          => $booking->notes,
         ]);
 
         // NO room_benefit_logs entry on check-in — only on check-out
@@ -550,10 +705,20 @@ class PodcastRoomController extends Controller
         
         $prevUsed       = $booking->total_used_seconds > 0 ? $booking->total_used_seconds : ($booking->total_used_minutes * 60);
         $newTotalUsed   = $prevUsed + $billingSeconds;
+        $totalQuotaSecs = $booking->duration * 3600;
+        $hasRemainingQuota = ($booking->duration >= 10) ? ($totalQuotaSecs > $newTotalUsed) : false;
+        
+        $sessionNotes = $booking->notes;
         
         $booking->update([
-            'status'             => 'paused', // Set to paused so client can check in again using remaining quota
+            'status'             => $hasRemainingQuota ? 'approved' : 'selesai',
             'total_used_seconds' => $newTotalUsed,
+            'start_time'         => null, // Reset start_time so it returns to "Reservasi Check In" state!
+            'date'               => $hasRemainingQuota ? null : $booking->date,
+            'room_name'          => $hasRemainingQuota ? null : $booking->room_name,
+            'podcast_title'      => $hasRemainingQuota ? null : $booking->podcast_title,
+            'participants'       => $hasRemainingQuota ? 1 : $booking->participants,
+            'notes'              => $hasRemainingQuota ? null : $booking->notes, // Reset Add-On and notes on checkout!
             'checkout_at'        => $checkoutAt,
             'checkin_at'         => null,
         ]);
@@ -563,6 +728,7 @@ class PodcastRoomController extends Controller
             'room_type'      => 'podcast_room',
             'type'           => 'checkout',
             'timestamp'      => $checkoutAt,
+            'notes'          => $sessionNotes,
         ]);
 
         // ── Deduct from benefit pool ──────────────────────────────────────────
@@ -600,10 +766,9 @@ class PodcastRoomController extends Controller
             }
         }
 
-        // Display actual duration but billing is based on rounded hours
+        // Display actual duration and quota deduction
         $actualDuration = $booking->formatSeconds($sessionSeconds);
-        $adjustedPrice  = $booking->calculateAdjustedBilling($sessionSeconds);
-        $billingInfo    = " (Ditagih: {$billingHours} jam - Rp " . number_format($adjustedPrice, 0, ',', '.') . ")";
+        $quotaInfo      = " (Pemakaian Kuota: {$billingHours} Jam)";
         
         // ── WhatsApp Notification ─────────────────────────────────────────────
         $waMessage = '';
@@ -615,11 +780,11 @@ class PodcastRoomController extends Controller
                 $waMessage = ' Tetapi WhatsApp gagal dikirim.';
             }
         } catch (\Exception $e) {
-            Log::error('PodcastRoomController::checkout - Exception WA: ' . $e->getMessage());
+            \Illuminate\Support\Facades\Log::error('PodcastRoomController::checkout - Exception WA: ' . $e->getMessage());
             $waMessage = ' Tetapi WhatsApp gagal dikirim.';
         }
 
-        return back()->with('success', "User berhasil Check Out dari ruangan. Durasi aktual: {$actualDuration}{$billingInfo}." . $waMessage);
+        return back()->with('success', "User berhasil Check Out dari ruangan. Durasi aktual: {$actualDuration}{$quotaInfo}." . $waMessage);
     }
 
     // ── Customer Index ────────────────────────────────────────────────────────

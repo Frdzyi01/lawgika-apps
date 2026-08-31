@@ -83,7 +83,7 @@
                                     <div class="col-md-12">
                                         <label class="form-label">Paket / Durasi Booking <span class="text-danger">*</span></label>
                                         <select name="paket" class="form-select" id="paket_select" required>
-                                            <option value="20" selected>Podcast Room Package (20 Jam / 1 Tahun) - Rp 5.000.000</option>
+                                            <option value="20" selected>Podcast Room Package (20 Jam / 1 Tahun Kuota) - Rp 5.000.000</option>
                                             <option value="1">Sewa Sesi Per Jam (1 Jam - Rp 500.000)</option>
                                             <option value="2">Sewa Sesi Per Jam (2 Jam - Rp 700.000)</option>
                                             <option value="3">Sewa Sesi Per Jam (3 Jam - Rp 1.000.000)</option>
@@ -97,6 +97,9 @@
                                             <option value="11">Sewa Sesi Per Jam (11 Jam - Rp 3.400.000)</option>
                                             <option value="12">Sewa Sesi Per Jam (12 Jam - Rp 3.700.000)</option>
                                         </select>
+                                        <small class="text-muted d-block mt-1">
+                                            <i class="fa-solid fa-circle-info text-info"></i> Memilih <strong>Paket 20 Jam</strong> akan mendaftarkan saldo kuota 20 jam ke client. Check-in dilakukan bertahap setelah reservasi sesi dibuat.
+                                        </small>
                                     </div>
 
                                     <div class="col-md-6">

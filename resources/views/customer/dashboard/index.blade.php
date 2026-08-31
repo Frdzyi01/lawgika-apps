@@ -28,8 +28,113 @@
     </div>
 </div>
 
-{{-- Shared Quota Banner --}}
-@if(isset($quota))
+{{-- Active Room Benefits Banner (Meeting & Podcast Room) --}}
+@if(isset($roomBenefits) && $roomBenefits->count() > 0)
+    <div class="row mb-4">
+        <div class="col-12">
+            @foreach($roomBenefits as $rb)
+                @php
+                    $isPodcast = $rb->type === 'podcast';
+                    $themeColor = $isPodcast ? '#4e0516' : '#2563eb';
+                    $btnRoute   = $isPodcast ? route('podcast-room.order') : route('meeting-room.order');
+                    $indexRoute = $isPodcast ? route('customer.podcast-room.index') : route('customer.meeting-room.index');
+                    $pct        = $rb->total_minutes > 0 ? ($rb->used_minutes / $rb->total_minutes) * 100 : 0;
+                    $icon       = $isPodcast ? 'mic-outline' : 'business-outline';
+                    $isCurrentlyActive = ($isPodcast && $activePodcast) || (!$isPodcast && $activeMeeting);
+                    $activeSession     = $isPodcast ? $activePodcast : $activeMeeting;
+                    $detailUrl         = $activeSession ? ($isPodcast ? route('customer.podcast-room.detail', $activeSession->id) : route('customer.meeting-room.detail', $activeSession->id)) : null;
+
+                    $isBenefitFromPT = !empty($rb->order_id) || ($isPodcast ? ($rb->total_minutes == 12 * 60) : ($rb->total_minutes == 48 * 60));
+                    if ($isPodcast) {
+                        $badgeText = $isBenefitFromPT ? 'Paket Benefit Studio Podcast' : 'Paket Podcast Room (20 Jam)';
+                    } else {
+                        $badgeText = $isBenefitFromPT ? 'Paket Benefit Meeting Room' : 'Paket Meeting Room (60 Jam)';
+                    }
+                @endphp
+                <div class="card border-0 shadow-sm mb-3" style="border-radius:16px; border-left: 5px solid {{ $themeColor }} !important;">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                            <div>
+                                <span class="badge {{ $isPodcast ? 'bg-danger' : 'bg-primary' }} text-white rounded-pill px-2.5 py-1 mb-1" style="font-size:0.72rem;">
+                                    {{ $badgeText }}
+                                </span>
+                                @if($isCurrentlyActive)
+                                    <span class="badge bg-danger text-white rounded-pill px-2 py-0.5 ms-1 shadow-sm" style="font-size:0.7rem;">
+                                        <i class="fa-solid fa-circle-dot text-white me-1"></i> Sedang Digunakan
+                                    </span>
+                                @endif
+                                <h5 class="fw-bold mb-0 text-dark">
+                                    <ion-icon name="{{ $icon }}" class="me-1 align-middle" style="color:{{ $themeColor }};"></ion-icon> {{ $rb->paket }}
+                                </h5>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                @if($rb->expired_at)
+                                    <span class="badge bg-light text-muted border rounded-pill px-3 py-2" style="font-size:0.78rem;">
+                                        {{ __('customer.dashboard.valid_until') }} {{ \Carbon\Carbon::parse($rb->expired_at)->format('d M Y') }}
+                                    </span>
+                                @endif
+
+                                @if($isCurrentlyActive && $activeSession)
+                                    <a href="{{ $detailUrl }}" class="btn btn-sm btn-danger px-3.5 py-2 fw-bold rounded-pill shadow-sm d-flex align-items-center gap-2" style="background:#4e0516; border-color:#4e0516;">
+                                        <span class="spinner-grow spinner-grow-sm text-white" role="status" style="width:0.65rem; height:0.65rem;"></span>
+                                        <span>Waktu Pemakaian: <span class="active-session-timer" data-checkin-time="{{ $activeSession->checkin_at ? \Carbon\Carbon::parse($activeSession->checkin_at)->timestamp : now()->timestamp }}">0 jam 0 menit 0 detik</span></span>
+                                    </a>
+                                @else
+                                    <a href="{{ $btnRoute }}" class="btn btn-sm text-white px-3 py-2 fw-bold rounded-pill shadow-sm" style="background:{{ $themeColor }}; border-color:{{ $themeColor }};">
+                                        <ion-icon name="calendar-outline" class="me-1 align-middle"></ion-icon> Ajukan Reservasi
+                                    </a>
+                                @endif
+
+                                <a href="{{ $indexRoute }}" class="btn btn-sm btn-outline-secondary px-3 py-2 rounded-pill">
+                                    Riwayat
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="row g-2 mb-2">
+                            <div class="col-sm-4">
+                                <small class="text-muted d-block">{{ __('customer.dashboard.remaining_time') }}</small>
+                                @if($isCurrentlyActive && $activeSession)
+                                    <strong class="fs-5 text-success active-remaining-timer"
+                                        data-total-quota="{{ $rb->total_minutes * 60 }}"
+                                        data-base-used="{{ $rb->used_minutes * 60 }}"
+                                        data-checkin-time="{{ $activeSession->checkin_at ? \Carbon\Carbon::parse($activeSession->checkin_at)->timestamp : now()->timestamp }}">
+                                        {{ \App\Models\RoomBenefit::formatMinutes($rb->remaining_minutes) }}
+                                    </strong>
+                                @else
+                                    <strong class="fs-5 text-success">{{ \App\Models\RoomBenefit::formatMinutes($rb->remaining_minutes) }}</strong>
+                                @endif
+                            </div>
+                            <div class="col-sm-4">
+                                <small class="text-muted d-block">{{ __('customer.dashboard.used_time') }}</small>
+                                @if($isCurrentlyActive && $activeSession)
+                                    <strong class="fs-5 text-primary active-used-timer"
+                                        data-base-used="{{ $rb->used_minutes * 60 }}"
+                                        data-checkin-time="{{ $activeSession->checkin_at ? \Carbon\Carbon::parse($activeSession->checkin_at)->timestamp : now()->timestamp }}">
+                                        {{ \App\Models\RoomBenefit::formatMinutes($rb->used_minutes) }}
+                                    </strong>
+                                @else
+                                    <strong class="fs-5 text-primary">{{ \App\Models\RoomBenefit::formatMinutes($rb->used_minutes) }}</strong>
+                                @endif
+                            </div>
+                            <div class="col-sm-4 text-sm-end">
+                                <small class="text-muted d-block">{{ __('customer.dashboard.total_quota') }}</small>
+                                <strong class="fs-5 text-dark">{{ \App\Models\RoomBenefit::formatMinutes($rb->total_minutes) }}</strong>
+                            </div>
+                        </div>
+
+                        <div class="progress" style="height: 10px; border-radius: 6px; background-color: #f1f5f9;">
+                            <div class="progress-bar" role="progressbar" style="background-color: {{ $themeColor }}; width: {{ $pct }}%;" aria-valuenow="{{ $pct }}" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
+@endif
+
+{{-- Legacy Shared Quota Banner (if exists) --}}
+@if(isset($quota) && (!isset($roomBenefits) || $roomBenefits->count() == 0))
 <div class="row mb-4">
     <div class="col-12">
         <div class="card border-0 shadow-sm" style="border-radius:16px; border-left: 5px solid #be185d !important;">
@@ -153,4 +258,47 @@
     </div>
 </div>
 
+@push('scripts')
+<script>
+function formatLiveDuration(seconds) {
+    if (seconds <= 0) return '0 jam 0 menit 0 detik';
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = Math.floor(seconds % 60);
+    return h + " jam " + m + " menit " + s + " detik";
+}
+
+function updateCustomerLiveTimers() {
+    const nowTs = Math.floor(Date.now() / 1000);
+
+    document.querySelectorAll('.active-session-timer').forEach(el => {
+        const checkinTs = parseInt(el.dataset.checkinTime);
+        if (checkinTs) {
+            const elapsed = Math.max(0, nowTs - checkinTs);
+            el.innerText = formatLiveDuration(elapsed);
+        }
+    });
+
+    document.querySelectorAll('.active-used-timer').forEach(el => {
+        const baseUsed = parseInt(el.dataset.baseUsed) || 0;
+        const checkinTs = parseInt(el.dataset.checkinTime) || nowTs;
+        const sessionElapsed = Math.max(0, nowTs - checkinTs);
+        const currentUsed = baseUsed + sessionElapsed;
+        el.innerText = formatLiveDuration(currentUsed);
+    });
+
+    document.querySelectorAll('.active-remaining-timer').forEach(el => {
+        const total = parseInt(el.dataset.totalQuota) || 0;
+        const baseUsed = parseInt(el.dataset.baseUsed) || 0;
+        const checkinTs = parseInt(el.dataset.checkinTime) || nowTs;
+        const sessionElapsed = Math.max(0, nowTs - checkinTs);
+        const currentRemaining = Math.max(0, total - (baseUsed + sessionElapsed));
+        el.innerText = formatLiveDuration(currentRemaining);
+    });
+}
+
+setInterval(updateCustomerLiveTimers, 1000);
+updateCustomerLiveTimers();
+</script>
+@endpush
 @endsection

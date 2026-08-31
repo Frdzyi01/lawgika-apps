@@ -180,6 +180,7 @@ Route::middleware(['auth', 'role:admin,admin1,admin2'])->prefix('admin')->name('
     Route::get('/meeting-room', [MeetingRoomController::class, 'adminIndex']);
     Route::get('/meeting-room/create', [MeetingRoomController::class, 'adminCreate'])->name('meeting-room.create');
     Route::post('/meeting-room/store', [MeetingRoomController::class, 'adminStore'])->name('meeting-room.store');
+    Route::post('/meeting-room/create-session', [MeetingRoomController::class, 'createSession'])->name('meeting-room.create-session');
     Route::get('/meeting-room/{id}/detail', [MeetingRoomController::class, 'adminDetail']);
     Route::match(['get', 'post'], '/meeting-room/{id}/checkin', [MeetingRoomController::class, 'checkin']);
     Route::match(['get', 'post'], '/meeting-room/{id}/checkout', [MeetingRoomController::class, 'checkout']);
@@ -192,6 +193,7 @@ Route::middleware(['auth', 'role:admin,admin1,admin2'])->prefix('admin')->name('
     Route::get('/podcast-room', [\App\Http\Controllers\PodcastRoomController::class, 'adminIndex'])->name('podcast-room.index');
     Route::get('/podcast-room/create', [\App\Http\Controllers\PodcastRoomController::class, 'adminCreate'])->name('podcast-room.create');
     Route::post('/podcast-room/store', [\App\Http\Controllers\PodcastRoomController::class, 'adminStore'])->name('podcast-room.store');
+    Route::post('/podcast-room/create-session', [\App\Http\Controllers\PodcastRoomController::class, 'createSession'])->name('podcast-room.create-session');
     Route::get('/podcast-room/{id}/detail', [\App\Http\Controllers\PodcastRoomController::class, 'adminDetail']);
     Route::match(['get', 'post'], '/podcast-room/{id}/checkin', [\App\Http\Controllers\PodcastRoomController::class, 'checkin']);
     Route::match(['get', 'post'], '/podcast-room/{id}/checkout', [\App\Http\Controllers\PodcastRoomController::class, 'checkout']);
