@@ -354,35 +354,51 @@ class MeetingRoomController extends Controller
             ->get();
 
         foreach ($activeMeetingBenefits as $bnf) {
-            $hasBooking = MeetingRoomBooking::where('benefit_id', $bnf->id)->exists();
-            if (!$hasBooking) {
-                $user = $bnf->user;
-                $clientName = $user?->company_name ?? ($user?->pic_name ?? ($user?->name ?? 'Client'));
-                $companyName = $user?->company_name ?? null;
-
-                $mb = MeetingRoomBooking::create([
-                    'user_id'            => $bnf->user_id,
-                    'source_type'        => 'benefit',
-                    'benefit_id'         => $bnf->id,
-                    'order_number'       => $bnf->order?->order_number ?? ('#MR-BNF-' . str_pad($bnf->id, 5, '0', STR_PAD_LEFT)),
-                    'name'               => $clientName,
-                    'nama_perusahaan'    => $companyName,
-                    'email'              => $user?->email,
-                    'date'               => null,
-                    'start_time'         => null,
-                    'end_time'           => null,
-                    'duration'           => round($bnf->total_minutes / 60) ?: 48,
-                    'total_used_seconds' => $bnf->used_minutes * 60,
-                    'participants'       => 1,
-                    'package'            => $bnf->paket,
-                    'status'             => 'approved',
-                    'payment_status'     => 'approved',
-                    'total_price'        => 0,
-                    'notes'              => 'Benefit kuota dari ' . ($bnf->order?->order_number ?? 'Order'),
-                ]);
-
-                $bnf->update(['meeting_room_booking_id' => $mb->id]);
+            // Check if this benefit already has a linked booking
+            $existingBooking = null;
+            if ($bnf->meeting_room_booking_id) {
+                $existingBooking = MeetingRoomBooking::find($bnf->meeting_room_booking_id);
             }
+            if (!$existingBooking) {
+                $existingBooking = MeetingRoomBooking::where('benefit_id', $bnf->id)->first();
+            }
+
+            if ($existingBooking) {
+                // Booking already exists! Ensure mutual foreign keys are synced and never duplicate
+                if (!$existingBooking->benefit_id) {
+                    $existingBooking->update(['benefit_id' => $bnf->id]);
+                }
+                if ($bnf->meeting_room_booking_id !== $existingBooking->id) {
+                    $bnf->update(['meeting_room_booking_id' => $existingBooking->id]);
+                }
+                continue;
+            }
+
+            $user = $bnf->user;
+            $clientName = $user?->company_name ?? ($user?->pic_name ?? ($user?->name ?? 'Client'));
+            $companyName = $user?->company_name ?? null;
+
+            $mb = MeetingRoomBooking::create([
+                'user_id'            => $bnf->user_id,
+                'source_type'        => 'benefit',
+                'benefit_id'         => $bnf->id,
+                'name'               => $clientName,
+                'nama_perusahaan'    => $companyName,
+                'email'              => $user?->email,
+                'date'               => null,
+                'start_time'         => null,
+                'end_time'           => null,
+                'duration'           => round($bnf->total_minutes / 60) ?: 48,
+                'total_used_seconds' => $bnf->used_minutes * 60,
+                'participants'       => 1,
+                'package'            => $bnf->paket,
+                'status'             => 'approved',
+                'payment_status'     => 'approved',
+                'total_price'        => 0,
+                'notes'              => 'Benefit kuota dari ' . ($bnf->order?->order_number ?? 'Order'),
+            ]);
+
+            $bnf->update(['meeting_room_booking_id' => $mb->id]);
         }
 
         // Load only approved, active, or completed bookings for Table 2 (exclude pending approvals)
@@ -791,16 +807,32 @@ class MeetingRoomController extends Controller
         ]);
 
         if ($booking->user_id && ($booking->duration >= 10 || empty($booking->date))) {
-            RoomBenefit::firstOrCreate([
-                'user_id'                 => $booking->user_id,
-                'meeting_room_booking_id' => $booking->id,
-                'type'                    => 'meeting',
-            ], [
-                'paket'         => 'Paket Meeting Room (' . ($booking->duration ?: 60) . ' Jam)',
-                'total_minutes' => ($booking->duration ?: 60) * 60,
-                'used_minutes'  => round($booking->used_seconds / 60),
-                'is_active'     => true,
-                'expired_at'    => \Carbon\Carbon::parse($booking->created_at)->addYear(),
+            $benefit = RoomBenefit::where('meeting_room_booking_id', $booking->id)
+                ->orWhere('id', $booking->benefit_id)
+                ->first();
+
+            if (!$benefit) {
+                $benefit = RoomBenefit::create([
+                    'user_id'                 => $booking->user_id,
+                    'meeting_room_booking_id' => $booking->id,
+                    'type'                    => 'meeting',
+                    'paket'                   => 'Paket Meeting Room (' . ($booking->duration ?: 60) . ' Jam)',
+                    'total_minutes'           => ($booking->duration ?: 60) * 60,
+                    'used_minutes'            => round($booking->used_seconds / 60),
+                    'is_active'               => true,
+                    'expired_at'              => \Carbon\Carbon::parse($booking->created_at)->addYear(),
+                ]);
+            } else {
+                $benefit->update([
+                    'is_active'               => true,
+                    'meeting_room_booking_id' => $booking->id,
+                    'expired_at'              => $benefit->expired_at ?: \Carbon\Carbon::parse($booking->created_at)->addYear(),
+                ]);
+            }
+
+            // Always link the booking's benefit_id so it's recognized by auto-sync and never duplicated
+            $booking->update([
+                'benefit_id' => $benefit->id,
             ]);
         }
 
@@ -1074,17 +1106,31 @@ class MeetingRoomController extends Controller
             ->first();
 
         if ($packageBooking && $packageBooking->remaining_seconds > 0) {
-            return RoomBenefit::firstOrCreate([
-                'user_id'  => Auth::id(),
-                'order_id' => $packageBooking->id,
-                'type'     => 'meeting',
-            ], [
-                'paket'         => 'Paket Meeting Room (' . ($packageBooking->duration ?: 60) . ' Jam)',
-                'total_minutes' => ($packageBooking->duration ?: 60) * 60,
-                'used_minutes'  => round($packageBooking->used_seconds / 60),
-                'is_active'     => true,
-                'expired_at'    => \Carbon\Carbon::parse($packageBooking->created_at)->addYear(),
+            $existing = RoomBenefit::where('meeting_room_booking_id', $packageBooking->id)
+                ->orWhere('id', $packageBooking->benefit_id)
+                ->first();
+
+            if ($existing) {
+                if (!$packageBooking->benefit_id) {
+                    $packageBooking->update(['benefit_id' => $existing->id]);
+                }
+                return $existing;
+            }
+
+            $benefit = RoomBenefit::create([
+                'user_id'                 => Auth::id(),
+                'meeting_room_booking_id' => $packageBooking->id,
+                'type'                    => 'meeting',
+                'paket'                   => 'Paket Meeting Room (' . ($packageBooking->duration ?: 60) . ' Jam)',
+                'total_minutes'           => ($packageBooking->duration ?: 60) * 60,
+                'used_minutes'            => round($packageBooking->used_seconds / 60),
+                'is_active'               => true,
+                'expired_at'              => \Carbon\Carbon::parse($packageBooking->created_at)->addYear(),
             ]);
+
+            $packageBooking->update(['benefit_id' => $benefit->id]);
+
+            return $benefit;
         }
 
         return null;
