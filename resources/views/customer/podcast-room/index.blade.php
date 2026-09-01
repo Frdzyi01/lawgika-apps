@@ -42,9 +42,15 @@
                                     <i class="fa-regular fa-calendar-check me-1 text-danger"></i> Berlaku s.d. {{ \Carbon\Carbon::parse($ben->expired_at)->format('d M Y') }}
                                 </span>
                             @endif
-                            <a href="{{ route('podcast-room.order') }}" class="btn btn-sm btn-danger px-3 py-2 fw-bold rounded-pill shadow-sm" style="background:#4e0516; border-color:#4e0516;">
-                                <i class="fa-solid fa-calendar-plus me-1"></i> Ajukan Reservasi Baru
-                            </a>
+                            @if($ben->remaining_minutes > 0)
+                                <a href="{{ url('/sewa-ruang-podcast?book=true') }}" class="btn btn-sm btn-danger px-3 py-2 fw-bold rounded-pill shadow-sm" style="background:#4e0516; border-color:#4e0516;">
+                                    <i class="fa-solid fa-calendar-plus me-1"></i> Ajukan Reservasi Baru
+                                </a>
+                            @else
+                                <button type="button" class="btn btn-sm btn-danger px-3 py-2 fw-bold rounded-pill shadow-sm" style="background:#4e0516; border-color:#4e0516;" onclick="showNoQuotaAlert()">
+                                    <i class="fa-solid fa-calendar-plus me-1"></i> Ajukan Reservasi Baru
+                                </button>
+                            @endif
                         </div>
                     </div>
 
@@ -90,9 +96,9 @@
         @endforeach
     @else
         <div class="d-flex justify-content-end mb-3">
-            <a href="{{ route('podcast-room.order') }}" class="btn btn-sm btn-danger px-3 py-2 fw-bold rounded-pill shadow-sm" style="background:#4e0516; border-color:#4e0516;">
-                <i class="fa-solid fa-calendar-plus me-1"></i> Buat Reservasi Studio Podcast
-            </a>
+            <button type="button" class="btn btn-sm btn-danger px-3 py-2 fw-bold rounded-pill shadow-sm" style="background:#4e0516; border-color:#4e0516;" onclick="showNoQuotaAlert()">
+                <i class="fa-solid fa-calendar-plus me-1"></i> Ajukan Reservasi Baru
+            </button>
         </div>
     @endif
 
@@ -190,7 +196,31 @@
 </div>
 @endsection
 @push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+function showNoQuotaAlert() {
+    Swal.fire({
+        icon: 'warning',
+        title: 'Belum Memiliki Paket / Kuota',
+        html: `
+            <div style="text-align: center; color: #475569; font-size: 0.95rem; line-height: 1.6;">
+                <p class="mb-2">Anda belum memiliki <strong>Paket Benefit</strong> atau <strong>kuota Studio Podcast</strong> yang aktif.</p>
+                <p class="mb-0">Silakan membeli paket terlebih dahulu untuk menikmati fasilitas studio podcast.</p>
+            </div>
+        `,
+        showCancelButton: true,
+        confirmButtonText: '<i class="fa-solid fa-cart-shopping me-1"></i> Beli Paket Sekarang',
+        cancelButtonText: 'Batal',
+        confirmButtonColor: '#4e0516',
+        cancelButtonColor: '#64748b',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = "{{ route('podcast-room.order', ['package' => 'paket']) }}";
+        }
+    });
+}
+
 function formatLiveBadgeTime(seconds) {
     const h = Math.floor(seconds / 3600);
     const m = Math.floor((seconds % 3600) / 60);

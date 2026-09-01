@@ -1006,9 +1006,15 @@
                         </ul>
 
                         <div class="mt-auto d-flex flex-column gap-2">
-                            <button type="button" class="btn-pricing-primary" onclick="openPodcastBookingModal()" data-i18n="podcast.pricing.card.cta">
-                                <i class="fa-solid fa-calendar-check me-2"></i> Pilih Jadwal &amp; Pesan
-                            </button>
+                            @if(!empty($hasBenefit) && $hasBenefit)
+                                <button type="button" class="btn-pricing-primary" onclick="openPodcastBookingModal('reservasi', '{{ addslashes($activeBenefit->paket ?? 'Paket Benefit Studio Podcast') }}')" data-i18n="podcast.pricing.card.cta">
+                                    <i class="fa-solid fa-calendar-check me-2"></i> Booking Sekarang
+                                </button>
+                            @else
+                                <button type="button" class="btn-pricing-primary" onclick="showNoBenefitAlert()" data-i18n="podcast.pricing.card.cta">
+                                    <i class="fa-solid fa-calendar-check me-2"></i> Booking Sekarang
+                                </button>
+                            @endif
                             <button type="button" class="btn-terms-outline" onclick="openPodcastTermsModal()">
                                 <i class="fa-solid fa-file-contract me-1"></i> Syarat &amp; Ketentuan
                             </button>
@@ -1047,7 +1053,7 @@
                         </ul>
 
                         <div class="mt-auto">
-                            <a href="{{ route('podcast-room.order', ['package' => 'paket', 'durasi' => 20]) }}" class="btn-pricing-primary" style="background: var(--accent); color: #1e1b2b; font-weight: 800; border: 2px solid var(--accent);" data-i18n="podcast.pricing.card2.cta">
+                            <a href="{{ route('podcast-room.order', ['package' => 'paket']) }}" class="btn-pricing-primary" style="background: var(--accent); color: #1e1b2b; font-weight: 800; border: 2px solid var(--accent);" data-i18n="podcast.pricing.card2.cta">
                                 <i class="fa-solid fa-box-open me-2"></i> Beli Paket Sekarang
                             </a>
                         </div>
@@ -1603,6 +1609,7 @@
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     // JS Logic dari Podcast Rental, disesuaikan untuk Modal
     let selDurasi = null;
@@ -1638,8 +1645,47 @@
         return 'Rp ' + amount.toLocaleString('id-ID');
     }
 
-    function openPodcastBookingModal() {
+    let selectedBookingMode = 'normal';
+
+    function openPodcastBookingModal(mode = 'normal', packageName = 'Paket Podcast Room', durasiText = '2 Jam') {
+        selectedBookingMode = mode;
+        const pkgEl = document.getElementById('bmPackageName');
+        const durEl = document.getElementById('bmDuration');
+        const btnSubmit = document.getElementById('btnReservasi');
+
+        if (mode === 'reservasi') {
+            if (pkgEl) pkgEl.innerText = packageName || 'Paket Benefit Studio Podcast';
+            if (durEl) durEl.innerText = durasiText || '2 Jam';
+            if (btnSubmit) btnSubmit.innerText = 'Lanjutkan Reservasi';
+        } else {
+            if (pkgEl) pkgEl.innerText = 'Paket Podcast Room';
+            if (durEl) durEl.innerText = '2 Jam';
+            if (btnSubmit) btnSubmit.innerText = 'Lanjut ke Form Pemesanan';
+        }
         openBookingModal(2, 700000);
+    }
+
+    function showNoBenefitAlert() {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Belum Memiliki Paket / Kuota',
+            html: `
+                <div style="text-align: center; color: #475569; font-size: 0.95rem; line-height: 1.6;">
+                    <p class="mb-2">Anda belum memiliki <strong>Paket Benefit</strong> atau <strong>kuota Studio Podcast</strong> yang aktif.</p>
+                    <p class="mb-0">Silakan membeli Paket Podcast Room terlebih dahulu untuk melakukan reservasi.</p>
+                </div>
+            `,
+            showCancelButton: true,
+            confirmButtonText: '<i class="fa-solid fa-cart-shopping me-1"></i> Beli Paket Sekarang',
+            cancelButtonText: 'Batal',
+            confirmButtonColor: '#4e0516',
+            cancelButtonColor: '#64748b',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "{{ route('podcast-room.order', ['package' => 'paket']) }}";
+            }
+        });
     }
 
     function openBookingModal(durasi, price) {
@@ -1771,9 +1817,23 @@
         if (!selTanggal || !selJam || !selDurasi) return;
 
         // Redirect ke endpoint order podcast
-        const url = `/podcast-room/order?tanggal=${selTanggal}&jam=${selJam}&durasi=${selDurasi}`;
+        const pkgParam = (selectedBookingMode === 'reservasi') ? '&package=reservasi' : '';
+        const url = `/podcast-room/order?tanggal=${selTanggal}&jam=${selJam}&durasi=${selDurasi}${pkgParam}`;
         window.location.href = url;
     }
+
+    // Auto open modal jika terdapat query parameter ?book=true atau ?reservasi=1
+    document.addEventListener('DOMContentLoaded', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('book') === 'true' || urlParams.get('reservasi') === '1') {
+            @if(!empty($hasBenefit) && $hasBenefit)
+                const pkgName = {!! json_encode($activeBenefit->paket ?? 'Paket Benefit Studio Podcast') !!};
+                openPodcastBookingModal('reservasi', pkgName, '2 Jam');
+            @else
+                showNoBenefitAlert();
+            @endif
+        }
+    });
 
     // ===== Syarat & Ketentuan Modal Handlers =====
     function openPodcastTermsModal() {

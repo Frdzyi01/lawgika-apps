@@ -248,7 +248,7 @@
                 <i class="fa-solid fa-arrow-left me-1"></i> Kembali ke Dashboard
             </a>
             @if($booking->status === 'selesai')
-                <a href="{{ url('podcast-room/order') }}" class="btn btn-primary btn-sm px-3 py-2 rounded-3 fw-bold shadow-sm">
+                <a href="{{ url('/sewa-ruang-podcast?book=true') }}" class="btn btn-primary btn-sm px-3 py-2 rounded-3 fw-bold shadow-sm" style="background:#4e0516; border-color:#4e0516;">
                     <i class="fa-solid fa-calendar-plus me-1"></i> Ajukan Reservasi Sesi Baru
                 </a>
             @endif

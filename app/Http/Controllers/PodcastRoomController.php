@@ -25,7 +25,9 @@ class PodcastRoomController extends Controller
 
     public function index()
     {
-        return view('frontend.services.layanan-pendukung-bisnis.sewa-ruang-podcast');
+        $activeBenefit = $this->getActiveBenefit();
+        $hasBenefit    = $activeBenefit ? true : false;
+        return view('frontend.services.layanan-pendukung-bisnis.sewa-ruang-podcast', compact('hasBenefit', 'activeBenefit'));
     }
 
     public function getBookedSlots(Request $request)
@@ -121,8 +123,19 @@ class PodcastRoomController extends Controller
         $quota   = UserRoomQuota::where('user_id', Auth::id())->first();
         $benefit = $this->getActiveBenefit();
 
-        $isPackage = $request->get('package') === 'paket';
-        $package   = $isPackage ? 'paket' : 'reservasi';
+        $package = $request->get('package', 'reservasi');
+
+        // Jika user tidak memiliki paket benefit dan mencoba akses 'reservasi', arahkan ke beli paket
+        if ($package === 'reservasi' && !$benefit) {
+            return redirect()->route('podcast-room.order', [
+                'package' => 'paket',
+                'tanggal' => $request->get('tanggal'),
+                'jam'     => $request->get('jam'),
+                'durasi'  => 20
+            ])->with('error', 'Anda belum memiliki paket benefit atau kuota Studio Podcast yang aktif. Silakan membeli paket terlebih dahulu.');
+        }
+
+        $isPackage = ($package === 'paket');
         $durasi    = $isPackage ? 20 : (int) $request->get('durasi', 2);
         if ($durasi < 1) $durasi = 2;
 
@@ -133,7 +146,7 @@ class PodcastRoomController extends Controller
             'package'       => $package,
             'packages'      => self::$packages,
             'quota'         => $quota,
-            'activeBenefit' => $isPackage ? null : $benefit,
+            'activeBenefit' => $benefit,
         ]);
     }
 
@@ -883,6 +896,11 @@ class PodcastRoomController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
+        // Guard: Cegah Check In jika booking belum memiliki jadwal reservasi (hanya beli paket kuota)
+        if (empty($booking->start_time) || empty($booking->date)) {
+            return back()->with('error', '🚫 Tidak dapat Check In: Booking ini merupakan paket kuota dan belum memiliki jadwal reservasi sesi. Silakan lakukan reservasi sesi terlebih dahulu.');
+        }
+
         $roomName  = $request->input('room_name', $booking->room_name ?: 'Podcast Studio Lawgika');
         $dateInput = $request->input('date', $booking->date ? \Carbon\Carbon::parse($booking->date)->format('Y-m-d') : date('Y-m-d'));
         $startTime = $request->input('start_time', $booking->start_time ?: date('H:i'));
@@ -1099,6 +1117,8 @@ class PodcastRoomController extends Controller
 
     public function customerIndex()
     {
+        $activeBenefit = $this->getActiveBenefit();
+
         $bookings = PodcastRoomBooking::where('user_id', Auth::id())
             ->latest()
             ->get();
@@ -1110,7 +1130,9 @@ class PodcastRoomController extends Controller
             ->latest()
             ->get();
 
-        return view('customer.podcast-room.index', compact('bookings', 'benefits'));
+        $hasQuota = ($activeBenefit && $activeBenefit->remaining_minutes > 0);
+
+        return view('customer.podcast-room.index', compact('bookings', 'benefits', 'activeBenefit', 'hasQuota'));
     }
 
     public function customerDetail($id)

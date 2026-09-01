@@ -36,7 +36,7 @@
                 @php
                     $isPodcast = $rb->type === 'podcast';
                     $themeColor = $isPodcast ? '#4e0516' : '#2563eb';
-                    $btnRoute   = $isPodcast ? route('podcast-room.order') : url('/sewa-meeting-room?book=true');
+                    $btnRoute   = $isPodcast ? url('/sewa-ruang-podcast?book=true') : url('/sewa-meeting-room?book=true');
                     $indexRoute = $isPodcast ? route('customer.podcast-room.index') : route('customer.meeting-room.index');
                     $pct        = $rb->total_minutes > 0 ? ($rb->used_minutes / $rb->total_minutes) * 100 : 0;
                     $icon       = $isPodcast ? 'mic-outline' : 'business-outline';
@@ -80,8 +80,8 @@
                                         <span>Waktu Pemakaian: <span class="active-session-timer" data-checkin-time="{{ $activeSession->checkin_at ? \Carbon\Carbon::parse($activeSession->checkin_at)->timestamp : now()->timestamp }}">0 jam 0 menit 0 detik</span></span>
                                     </a>
                                 @else
-                                    @if(!$isPodcast && $rb->remaining_minutes <= 0)
-                                        <button type="button" class="btn btn-sm text-white px-3 py-2 fw-bold rounded-pill shadow-sm" style="background:{{ $themeColor }}; border-color:{{ $themeColor }};" onclick="showNoQuotaAlert()">
+                                    @if($rb->remaining_minutes <= 0)
+                                        <button type="button" class="btn btn-sm text-white px-3 py-2 fw-bold rounded-pill shadow-sm" style="background:{{ $themeColor }}; border-color:{{ $themeColor }};" onclick="showNoQuotaAlert('{{ $isPodcast ? 'podcast' : 'meeting' }}')">
                                             <ion-icon name="calendar-outline" class="me-1 align-middle"></ion-icon> Ajukan Reservasi
                                         </button>
                                     @else
@@ -267,25 +267,33 @@
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-function showNoQuotaAlert() {
+function showNoQuotaAlert(type = 'meeting') {
+    const isPodcast = (type === 'podcast');
+    const roomTitle = isPodcast ? 'Studio Podcast' : 'Meeting Room';
+    const roomText = isPodcast ? 'studio podcast' : 'ruang meeting';
+    const buyUrl = isPodcast 
+        ? "{{ route('podcast-room.order', ['package' => 'paket']) }}"
+        : "{{ route('meeting-room.order', ['package' => 'paket']) }}";
+    const btnColor = isPodcast ? '#4e0516' : '#2563eb';
+
     Swal.fire({
         icon: 'warning',
         title: 'Belum Memiliki Paket / Kuota',
         html: `
             <div style="text-align: center; color: #475569; font-size: 0.95rem; line-height: 1.6;">
-                <p class="mb-2">Anda belum memiliki <strong>Paket Benefit</strong> atau <strong>kuota Meeting Room</strong> yang aktif.</p>
-                <p class="mb-0">Silakan membeli paket terlebih dahulu untuk menikmati fasilitas ruang meeting.</p>
+                <p class="mb-2">Anda belum memiliki <strong>Paket Benefit</strong> atau <strong>kuota ${roomTitle}</strong> yang aktif.</p>
+                <p class="mb-0">Silakan membeli paket terlebih dahulu untuk menikmati fasilitas ${roomText}.</p>
             </div>
         `,
         showCancelButton: true,
         confirmButtonText: '<i class="fa-solid fa-cart-shopping me-1"></i> Beli Paket Sekarang',
         cancelButtonText: 'Batal',
-        confirmButtonColor: '#2563eb',
+        confirmButtonColor: btnColor,
         cancelButtonColor: '#64748b',
         reverseButtons: true
     }).then((result) => {
         if (result.isConfirmed) {
-            window.location.href = "{{ route('meeting-room.order', ['package' => 'paket']) }}";
+            window.location.href = buyUrl;
         }
     });
 }
