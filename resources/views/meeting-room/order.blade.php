@@ -344,39 +344,34 @@
                             value="{{ old('jam', $jam ?? '') }}">
                     </div>
 
-                    @if (request('package') == 'reservasi')
-                        <input type="hidden" name="peserta" value="1">
-                        <input type="hidden" name="durasi" value="1">
-                    @else
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="peserta" data-i18n="mr.label_participants">Jumlah Peserta</label>
-                                    <input type="number" id="peserta" name="peserta" class="form-control" min="1"
-                                        required placeholder="Contoh: 8" data-i18n-placeholder="mr.placeholder_participants" value="{{ old('peserta') }}">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="durasi" data-i18n="mr.label_rent_duration">Durasi Sewa (Jam)</label>
-                                    <input type="number" id="durasi" name="durasi" class="form-control" min="1"
-                                        required placeholder="Contoh: 2" data-i18n-placeholder="mr.placeholder_rent_duration" value="{{ old('durasi', $durasi ?? 1) }}"
-                                        onchange="updateTotal()">
-                                </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="peserta" data-i18n="mr.label_participants">Jumlah Peserta</label>
+                                <input type="number" id="peserta" name="peserta" class="form-control" min="1"
+                                    required placeholder="Contoh: 8" data-i18n-placeholder="mr.placeholder_participants" value="{{ old('peserta', 1) }}">
                             </div>
                         </div>
-                    @endif
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="durasi" data-i18n="mr.label_rent_duration">Durasi Sewa (Jam)</label>
+                                <input type="number" id="durasi" name="durasi" class="form-control" min="1"
+                                    required placeholder="Contoh: 1" data-i18n-placeholder="mr.placeholder_rent_duration" value="{{ old('durasi', $durasi ?? 1) }}"
+                                    onchange="updateTotal()">
+                            </div>
+                        </div>
+                    </div>
                 @endif
 
                 @if(request('package') == 'reservasi')
                     <div
                         style="background:#fdf2f8; border:1px solid #fbcfe8; border-radius:10px; padding:20px; margin-bottom:20px;">
-                        <h5 style="color:#be185d; font-weight:700; margin-bottom:10px;"><i class="fa-solid fa-gem"></i> <span data-i18n="mr.benefit_box_title">Benefit Paket Pendirian PT</span></h5>
-                        <p style="margin-bottom:8px; color:#831843;" data-i18n="mr.benefit_box_desc">Anda memiliki benefit reservasi Meeting Room dari Paket Pendirian PT. Silakan lengkapi form reservasi atas waktu dan tanggal yang diinginkan, dan pesanan akan diteruskan ke admin.</p>
+                        <h5 style="color:#be185d; font-weight:700; margin-bottom:10px;"><i class="fa-solid fa-gem"></i> <span>{{ $activeBenefit->paket ?? 'Paket Benefit Meeting Room' }}</span></h5>
+                        <p style="margin-bottom:8px; color:#831843;">Anda memiliki kuota reservasi Meeting Room yang aktif. Reservasi ini akan langsung menggunakan kuota Anda tanpa biaya tambahan.</p>
                         @if(isset($activeBenefit))
                             <p style="margin-bottom:0; color:#831843;">
-                                <span data-i18n="mr.remaining_quota">Sisa quota Anda:</span> <strong>{{ \App\Models\RoomBenefit::formatMinutes($activeBenefit->remaining_minutes) }}</strong>
-                                (Berlaku hingga {{ $activeBenefit->expired_at ? $activeBenefit->expired_at->format('d M Y') : __('mr.no_expired') }})
+                                <span>Sisa kuota Anda:</span> <strong>{{ \App\Models\RoomBenefit::formatMinutes($activeBenefit->remaining_minutes) }}</strong>
+                                (Berlaku hingga {{ $activeBenefit->expired_at ? \Carbon\Carbon::parse($activeBenefit->expired_at)->format('d M Y') : 'Tanpa Batas Waktu' }})
                             </p>
                         @endif
                         <input type="hidden" name="use_quota" value="1">

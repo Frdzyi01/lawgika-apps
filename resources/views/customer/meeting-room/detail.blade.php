@@ -209,9 +209,14 @@
 
 <div class="container-fluid py-2">
     {{-- Header Section --}}
-    <div class="detail-header-section">
+    @php
+        $sisa = $booking->formatted_remaining_time ?? '0 menit';
+        $isExhausted = ($booking->is_expired || $sisa === 'Waktu habis');
+    @endphp
+
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
         <div>
-            <div class="d-flex align-items-center gap-2 mb-1">
+            <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
                 <h1 class="detail-page-title">
                     <i class="fa-solid fa-people-roof text-primary"></i> Detail Reservasi Meeting Room
                 </h1>
@@ -227,9 +232,15 @@
                 <i class="fa-solid fa-arrow-left me-1"></i> Kembali ke Dashboard
             </a>
             @if($booking->status === 'selesai')
-                <a href="{{ url('meeting-room/order') }}" class="btn btn-primary btn-sm px-3 py-2 rounded-3 fw-bold shadow-sm">
-                    <i class="fa-solid fa-calendar-plus me-1"></i> Ajukan Reservasi Sesi Baru
-                </a>
+                @if(!$isExhausted)
+                    <a href="{{ url('/sewa-meeting-room?book=true') }}" class="btn btn-primary btn-sm px-3 py-2 rounded-3 fw-bold shadow-sm">
+                        <i class="fa-solid fa-calendar-plus me-1"></i> Ajukan Reservasi Sesi Baru
+                    </a>
+                @else
+                    <button type="button" class="btn btn-primary btn-sm px-3 py-2 rounded-3 fw-bold shadow-sm" onclick="showNoQuotaAlert()">
+                        <i class="fa-solid fa-calendar-plus me-1"></i> Ajukan Reservasi Sesi Baru
+                    </button>
+                @endif
             @endif
         </div>
     </div>
@@ -245,10 +256,6 @@
     @endif
 
     {{-- 3-Stat Time Metrics Strip --}}
-    @php
-        $sisa = $booking->formatted_remaining_time ?? '0 menit';
-        $isExhausted = ($booking->is_expired || $sisa === 'Waktu habis');
-    @endphp
     <div class="time-stat-grid">
         <div class="time-stat-card">
             <div>
@@ -613,7 +620,31 @@
 @endsection
 
 @push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+    function showNoQuotaAlert() {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Belum Memiliki Paket / Kuota',
+            html: `
+                <div style="text-align: center; color: #475569; font-size: 0.95rem; line-height: 1.6;">
+                    <p class="mb-2">Anda belum memiliki <strong>Paket Benefit</strong> atau <strong>kuota Meeting Room</strong> yang aktif.</p>
+                    <p class="mb-0">Silakan membeli paket terlebih dahulu untuk menikmati fasilitas ruang meeting.</p>
+                </div>
+            `,
+            showCancelButton: true,
+            confirmButtonText: '<i class="fa-solid fa-cart-shopping me-1"></i> Beli Paket Sekarang',
+            cancelButtonText: 'Batal',
+            confirmButtonColor: '#2563eb',
+            cancelButtonColor: '#64748b',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "{{ route('meeting-room.order', ['package' => 'paket']) }}";
+            }
+        });
+    }
+
     function formatSecs(seconds) {
         if (seconds <= 0) return 'Waktu habis';
         const h = Math.floor(seconds / 3600);

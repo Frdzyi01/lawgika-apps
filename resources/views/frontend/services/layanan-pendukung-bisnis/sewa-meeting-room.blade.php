@@ -941,7 +941,7 @@
                 </ul>
                 <div class="mt-auto d-flex flex-column gap-2">
                     @if($hasBenefit)
-                        <button type="button" class="btn-pricing-modern" onclick="openBookingModal('reservasi', window.LwI18n ? window.LwI18n.t('meeting.modal.pkg_body_usaha') : 'Paket Badan Usaha', window.LwI18n ? window.LwI18n.t('meeting.modal.duration_val') : '60 mnt')" data-i18n="meeting.pricing.card1.cta">Booking Sekarang</button>
+                        <button type="button" class="btn-pricing-modern" onclick="openBookingModal('reservasi', '{{ addslashes($activeBenefit->paket ?? 'Paket Badan Usaha') }}', window.LwI18n ? window.LwI18n.t('meeting.modal.duration_val') : '60 mnt')" data-i18n="meeting.pricing.card1.cta">Booking Sekarang</button>
                     @else
                         <button type="button" class="btn-pricing-modern" onclick="showNoBenefitAlert()" data-i18n="meeting.pricing.card1.cta">Booking Sekarang</button>
                     @endif
@@ -1425,6 +1425,7 @@
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     let selectedPackage = '';
     let selectedDate = null;
@@ -1450,10 +1451,15 @@
         document.getElementById('bmPackageName').innerText = pkgName;
         document.getElementById('bmDuration').innerText = duration;
 
+        const submitBtn = document.getElementById('btnReservasi');
+        if (submitBtn) {
+            submitBtn.innerText = (pkgId === 'reservasi') ? 'Lanjutkan Reservasi' : 'Lanjut ke Pembayaran';
+        }
+
         selectedDate = null;
         selectedTime = null;
         document.getElementById('bmTimeCol').classList.remove('active');
-        document.getElementById('btnReservasi').disabled = true;
+        if (submitBtn) submitBtn.disabled = true;
 
         currentMonth = new Date().getMonth();
         currentYear = new Date().getFullYear();
@@ -1475,19 +1481,28 @@
     }
 
     function showNoBenefitAlert() {
-        const titleText = window.LwI18n ? window.LwI18n.t('meeting.modal.denied_title') : 'Reservasi Tidak Dapat Dilakukan';
-        const bodyText = window.LwI18n ? window.LwI18n.t('meeting.modal.denied_text') : 'Anda belum memiliki Paket Benefit Meeting Room yang aktif. Silakan membeli Paket Meeting Room terlebih dahulu atau menghubungi tim Lawgika apabila Anda merasa sudah memiliki benefit.';
-        const btnText = window.LwI18n ? (window.LwI18n.t('meeting.modal.denied_button') || 'Mengerti') : 'Mengerti';
+        const titleText = window.LwI18n ? window.LwI18n.t('meeting.modal.denied_title') : 'Belum Memiliki Paket / Kuota';
+        const bodyText = window.LwI18n ? window.LwI18n.t('meeting.modal.denied_text') : 'Anda belum memiliki Paket Benefit atau kuota Meeting Room yang aktif. Silakan membeli Paket Meeting Room terlebih dahulu untuk melakukan reservasi.';
         if (typeof Swal !== 'undefined') {
             Swal.fire({
                 icon: 'warning',
                 title: titleText,
                 text: bodyText,
-                confirmButtonText: btnText,
-                confirmButtonColor: '#4e0516'
+                showCancelButton: true,
+                confirmButtonText: '<i class="fa-solid fa-cart-shopping me-1"></i> Beli Paket Sekarang',
+                cancelButtonText: 'Batal',
+                confirmButtonColor: '#4e0516',
+                cancelButtonColor: '#64748b',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "{{ route('meeting-room.order', ['package' => 'paket']) }}";
+                }
             });
         } else {
-            alert(bodyText);
+            if (confirm(bodyText + '\n\nBeli Paket Sekarang?')) {
+                window.location.href = "{{ route('meeting-room.order', ['package' => 'paket']) }}";
+            }
         }
     }
 
@@ -1617,5 +1632,18 @@
             overlay.style.display = 'none';
         }, 300);
     }
+
+    // ===== Auto-open modal jika diakses dari Dashboard Client / link reservasi kuota =====
+    document.addEventListener("DOMContentLoaded", function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('book') === 'true' || urlParams.get('reservasi') === '1') {
+            @if($hasBenefit)
+                const pkgName = {!! json_encode($activeBenefit->paket ?? 'Paket Badan Usaha') !!};
+                openBookingModal('reservasi', pkgName, '60 mnt');
+            @else
+                showNoBenefitAlert();
+            @endif
+        }
+    });
 </script>
 @endsection

@@ -19,8 +19,9 @@ class MeetingRoomController extends Controller
 
     public function index()
     {
-        $hasBenefit = $this->getActiveBenefit() ? true : false;
-        return view('frontend.services.layanan-pendukung-bisnis.sewa-meeting-room', compact('hasBenefit'));
+        $activeBenefit = $this->getActiveBenefit();
+        $hasBenefit    = $activeBenefit ? true : false;
+        return view('frontend.services.layanan-pendukung-bisnis.sewa-meeting-room', compact('hasBenefit', 'activeBenefit'));
     }
 
     public function order(Request $request)
@@ -30,14 +31,14 @@ class MeetingRoomController extends Controller
 
         $package = $request->get('package', 'reservasi');
 
-        // Jika user tidak memiliki paket benefit (Paket Badan Usaha) dan mencoba akses 'reservasi', arahkan ke beli paket
+        // Jika user tidak memiliki paket benefit dan mencoba akses 'reservasi', arahkan ke beli paket
         if ($package === 'reservasi' && !$benefit) {
             return redirect()->route('meeting-room.order', [
                 'package' => 'paket',
                 'tanggal' => $request->get('tanggal'),
                 'jam'     => $request->get('jam'),
                 'durasi'  => $request->get('durasi', 1)
-            ])->with('error', 'Anda belum memiliki Paket Badan Usaha aktif. Silakan Beli Paket Meeting Room.');
+            ])->with('error', 'Anda belum memiliki paket benefit atau kuota Meeting Room yang aktif. Silakan membeli paket terlebih dahulu.');
         }
 
         $ptOrder = $benefit ? $benefit->order : null;
@@ -760,6 +761,8 @@ class MeetingRoomController extends Controller
 
     public function customerIndex()
     {
+        $activeBenefit = $this->getActiveBenefit();
+
         $bookings = MeetingRoomBooking::with('meetingRoomPackage')
             ->where('user_id', Auth::id())
             ->latest()
@@ -772,7 +775,9 @@ class MeetingRoomController extends Controller
             ->latest()
             ->get();
 
-        return view('customer.meeting-room.index', compact('bookings', 'benefits'));
+        $hasQuota = ($activeBenefit && $activeBenefit->remaining_minutes > 0);
+
+        return view('customer.meeting-room.index', compact('bookings', 'benefits', 'activeBenefit', 'hasQuota'));
     }
 
     // ── Payment actions (manual only — existing untouched) ────────────────────
