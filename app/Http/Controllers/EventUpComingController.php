@@ -46,7 +46,7 @@ class EventUpComingController extends Controller
         $data = $request->validated();
 
         if ($request->hasFile('banner')) {
-            $data['banner'] = $request->file('banner')->store('event', 'public');
+            $data['banner'] = $this->handleBannerUpload($request->file('banner'));
         }
 
         // Konversi narasumber dari string koma ke array JSON
@@ -83,10 +83,10 @@ class EventUpComingController extends Controller
         $data = $request->validated();
 
         if ($request->hasFile('banner')) {
-            if ($event_upcoming->banner) {
+            if ($event_upcoming->banner && Storage::disk('public')->exists($event_upcoming->banner)) {
                 Storage::disk('public')->delete($event_upcoming->banner);
             }
-            $data['banner'] = $request->file('banner')->store('event', 'public');
+            $data['banner'] = $this->handleBannerUpload($request->file('banner'));
         } else {
             unset($data['banner']);
         }
@@ -99,6 +99,58 @@ class EventUpComingController extends Controller
         $event_upcoming->update($data);
 
         return redirect()->route('admin.event-upcoming.index')->with('success', 'Event berhasil diperbarui.');
+    }
+
+    /**
+     * Handle upload banner event dengan auto center-crop ke rasio 1:1 (600x600 px).
+     */
+    private function handleBannerUpload(\Illuminate\Http\UploadedFile $file): string
+    {
+        $filename = 'event/' . uniqid('event_') . '.jpg';
+        $targetW  = 600;
+        $targetH  = 600;
+
+        Storage::disk('public')->makeDirectory('event');
+
+        $mime = $file->getMimeType();
+        $realPath = $file->getRealPath();
+
+        if ($mime === 'image/png') {
+            $src = @imagecreatefrompng($realPath);
+        } elseif ($mime === 'image/webp' && function_exists('imagecreatefromwebp')) {
+            $src = @imagecreatefromwebp($realPath);
+        } else {
+            $src = @imagecreatefromjpeg($realPath);
+            if (!$src) {
+                $src = @imagecreatefromstring(file_get_contents($realPath));
+            }
+        }
+
+        if (!$src) {
+            return $file->store('event', 'public');
+        }
+
+        [$origW, $origH] = getimagesize($realPath);
+        if (!$origW || !$origH) {
+            $origW = imagesx($src);
+            $origH = imagesy($src);
+        }
+
+        $minSide = min($origW, $origH);
+        $cropX = (int) round(($origW - $minSide) / 2);
+        $cropY = (int) round(($origH - $minSide) / 2);
+
+        $dst = imagecreatetruecolor($targetW, $targetH);
+        imagefill($dst, 0, 0, imagecolorallocate($dst, 255, 255, 255));
+        imagecopyresampled($dst, $src, 0, 0, $cropX, $cropY, $targetW, $targetH, $minSide, $minSide);
+
+        $path = storage_path('app/public/' . $filename);
+        imagejpeg($dst, $path, 90);
+
+        imagedestroy($src);
+        imagedestroy($dst);
+
+        return $filename;
     }
 
     /**

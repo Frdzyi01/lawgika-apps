@@ -100,7 +100,7 @@
                                 <label class="form-label">Upload Gambar Baru</label>
                                 <input type="file" name="gambar" class="form-control mb-2" accept="image/png, image/jpeg, image/jpg">
                                 <small class="text-muted d-block">Biarkan kosong jika tidak ingin mengubah gambar.</small>
-                                <small class="text-muted d-block text-warning mt-1">Jika diisi, akan otomatis di-resize ke: <strong>450x294 px</strong>.</small>
+                                <small class="text-muted d-block text-warning mt-1">Jika diisi, akan otomatis dijadikan rasio 1:1 (persegi / 600x600 px).</small>
                             </div>
 
                         </div>

@@ -38,9 +38,9 @@
                 <a href="{{ route('berita.show', $item->slug) }}" class="berita-card-link text-decoration-none" aria-label="Baca berita: {{ $item->judul }}">
                     <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden blog-card text-dark">
                         {{-- Thumbnail --}}
-                        <div class="position-relative overflow-hidden" style="height: 250px;">
+                        <div class="position-relative overflow-hidden" style="width: 100%; aspect-ratio: 1 / 1;">
                             @if($item->gambar)
-                                <img loading="lazy" src="{{ asset('storage/' . $item->gambar) }}" class="w-100 h-100 object-fit-cover hover-scale transition-all" alt="{{ $item->judul }}">
+                                <img loading="lazy" src="{{ asset('storage/' . $item->gambar) }}" class="w-100 h-100 object-fit-cover hover-scale transition-all" alt="{{ $item->judul }}" style="aspect-ratio: 1 / 1; object-fit: cover;">
                             @else
                                 <div class="w-100 h-100 bg-secondary d-flex align-items-center justify-content-center text-white-50">
                                     <i class="fas fa-image fa-3x"></i>

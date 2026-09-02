@@ -87,151 +87,167 @@
 {{-- ===== KATALOG PROMO SECTION ===== --}}
 <style>
   .promo-catalog-section {
-    background: #f7f6f8;
+    background: #f8f9fa;
     padding: 64px 0 80px;
   }
 
-  /* ---- Section header ---- */
-  .promo-section-label {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    color: #4e0616;
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
-  .promo-section-title {
-    font-size: 2rem;
-    font-weight: 800;
-    color: #1a0208;
-    margin-bottom: 6px;
-  }
-  .promo-section-sub {
-    color: #6b7280;
-    font-size: 0.95rem;
-    margin-bottom: 40px;
+  .sp-header {
+    margin-bottom: 28px;
   }
 
-  /* ---- Promo card ---- */
-  .promo-card {
+  .sp-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #fff1f3;
+    color: #4e0616;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    border-radius: 50px;
+    padding: 4px 12px;
+    margin-bottom: 8px;
+  }
+
+  .sp-main-title {
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: #111827;
+    letter-spacing: -0.3px;
+    margin-bottom: 0;
+    line-height: 1.2;
+  }
+
+  .sp-main-title span {
+    color: #4e0616;
+  }
+
+  /* ---- Promo cards: identical to homepage (Photo 2) ---- */
+  .sp-card {
     background: #fff;
-    border-radius: 16px;
+    border-radius: 14px;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.07);
+    border: none;
     overflow: hidden;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    height: 100%;
-    border: 1px solid #f0edf3;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
   }
-  .promo-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 36px rgba(78, 6, 22,0.14);
-    border-color: rgba(78, 6, 22,0.18);
+
+  .sp-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.11);
   }
-  .promo-card-img-wrap {
+
+  .sp-card-img-wrap {
     position: relative;
     overflow: hidden;
-    height: 210px;
-    background: #f3f4f6;
     flex-shrink: 0;
+    width: 100%;
+    aspect-ratio: 1 / 1;
   }
-  .promo-card-img-wrap img {
+
+  .sp-card-img-wrap img {
     width: 100%;
     height: 100%;
+    aspect-ratio: 1 / 1;
     object-fit: cover;
-    transition: transform 0.40s ease;
+    display: block;
+    transition: transform 0.4s ease;
   }
-  .promo-card:hover .promo-card-img-wrap img {
-    transform: scale(1.06);
+
+  .sp-card:hover .sp-card-img-wrap img {
+    transform: scale(1.05);
   }
-  .promo-card-badge {
+
+  .sp-img-badge {
     position: absolute;
-    top: 14px;
-    left: 14px;
+    top: 12px;
+    left: 12px;
     background: #4e0616;
     color: #fff;
-    font-size: 0.73rem;
-    font-weight: 700;
-    letter-spacing: 0.8px;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
     text-transform: uppercase;
-    padding: 4px 12px;
+    padding: 4px 10px;
     border-radius: 50px;
+    line-height: 1;
+    z-index: 2;
   }
-  .promo-card-body {
-    padding: 22px 22px 14px;
+
+  .sp-card-body {
+    padding: 18px 18px 22px;
     flex: 1;
+    display: flex;
+    flex-direction: column;
   }
-  .promo-card-title {
-    font-size: 1.08rem;
+
+  .sp-card-title {
+    font-size: 1rem;
     font-weight: 700;
-    color: #1a0208;
-    margin-bottom: 10px;
-    line-height: 1.42;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    color: #111827;
+    margin-bottom: 8px;
+    line-height: 1.3;
   }
-  .promo-card-desc {
+
+  .sp-card-desc {
+    font-size: 0.83rem;
     color: #6b7280;
-    font-size: 0.88rem;
-    line-height: 1.65;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    line-height: 1.6;
+    flex: 1;
+    margin-bottom: 14px;
   }
-  .promo-card-meta {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 0 22px 16px;
-    font-size: 0.80rem;
-    color: #9ca3af;
+
+  .sp-price-block {
+    margin-bottom: 14px;
   }
-  .promo-card-meta i { font-size: 0.78rem; }
-  .promo-card-footer {
-    padding: 0 22px 22px;
-  }
-  .promo-card-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    background: #4e0616;
-    color: #fff !important;
+
+  .sp-price-new {
+    font-size: 1.1rem;
     font-weight: 700;
+    color: #4e0616;
+  }
+
+  .promo-card-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #111827;
     font-size: 0.88rem;
-    padding: 11px 22px;
-    border-radius: 10px;
+    font-weight: 700;
     text-decoration: none;
-    transition: background 0.22s ease, transform 0.18s ease, box-shadow 0.22s ease;
-    box-shadow: 0 4px 14px rgba(78, 6, 22,0.30);
-    width: 100%;
+    transition: color 0.2s ease, gap 0.2s ease;
+    margin-top: auto;
   }
+
   .promo-card-btn:hover {
-    background: #b91c1c;
-    color: #fff !important;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 22px rgba(78, 6, 22,0.38);
+    color: #4e0616;
+    gap: 10px;
   }
-  .promo-card-btn i { transition: transform 0.20s; }
-  .promo-card-btn:hover i { transform: translateX(4px); }
+
+  .promo-card-btn i {
+    font-size: 0.75rem;
+    transition: transform 0.2s;
+  }
+
+  .promo-card-btn:hover i {
+    transform: translateX(3px);
+  }
 
   /* ---- No promo state ---- */
   .promo-empty {
     text-align: center;
     padding: 80px 0;
   }
+
   .promo-empty-icon {
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    background: rgba(78, 6, 22,0.08);
+    background: rgba(78, 6, 22, 0.08);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -239,21 +255,29 @@
     color: #4e0616;
     margin-bottom: 22px;
   }
+
   .promo-empty h3 {
     font-size: 1.3rem;
     font-weight: 700;
     color: #1a0208;
     margin-bottom: 8px;
   }
-  .promo-empty p { color: #9ca3af; font-size: 0.92rem; }
+
+  .promo-empty p {
+    color: #9ca3af;
+    font-size: 0.92rem;
+  }
 </style>
 
 <section class="promo-catalog-section">
   <div class="container" style="max-width:1200px;">
 
-    <div class="promo-section-label"><i class="fas fa-fire"></i> <span data-i18n="promo.section_label">Promo Aktif</span></div>
-    <h2 class="promo-section-title" data-i18n="promo.section_title">Semua Penawaran Terbaik</h2>
-    <p class="promo-section-sub" data-i18n="promo.section_sub">Jangan lewatkan kesempatan emas ini — pilih promo yang sesuai kebutuhan Anda.</p>
+    <div class="sp-header">
+      <div>
+        <div class="sp-eyebrow"><i class="fas fa-bolt"></i> <span data-i18n="dashboard.promo.eyebrow">Penawaran Terbatas</span></div>
+        <h2 class="sp-main-title" data-i18n="dashboard.promo.title">Special <span>Promo</span> Lawgika</h2>
+      </div>
+    </div>
 
     @if($promos->isEmpty())
       <div class="promo-empty">
@@ -264,35 +288,37 @@
     @else
       <div class="row g-4">
         @foreach($promos as $promo)
-        <div class="col-lg-4 col-md-6">
-          <div class="promo-card">
+        <div class="col-12 col-md-6 col-lg-3">
+          <div class="sp-card">
 
-            <div class="promo-card-img-wrap">
+            <div class="sp-card-img-wrap">
               @if($promo->gambar)
-                <img loading="lazy" src="{{ asset('storage/'.$promo->gambar) }}" alt="{{ $promo->judul }}" loading="lazy">
+                <img loading="lazy" src="{{ asset('storage/' . $promo->gambar) }}" alt="{{ $promo->judul }}" loading="lazy">
               @else
-                <img loading="lazy" src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=600&q=70&auto=format&fit=crop" alt="{{ $promo->judul }}" loading="lazy">
+                <img loading="lazy" src="{{ asset('lawgika/home/promo-placeholder.webp') }}" alt="{{ $promo->judul }}" loading="lazy">
               @endif
 
-              @if($promo->diskon)
-                <span class="promo-card-badge">
-                  {{ $promo->tipe_diskon === 'persen' ? $promo->diskon.'%' : 'Rp '.number_format($promo->diskon,0,',','.') }} OFF
+              <span class="sp-img-badge">
+                @if($promo->tipe_diskon === 'persen')
+                  HEMAT {{ number_format($promo->diskon, 0) }}%
+                @else
+                  HEMAT Rp {{ number_format($promo->diskon, 0, ',', '.') }}
+                @endif
+              </span>
+            </div>
+
+            <div class="sp-card-body">
+              <div class="sp-card-title">{{ $promo->judul }}</div>
+              <div class="sp-card-desc">{{ Str::limit($promo->deskripsi, 100) }}</div>
+              <div class="sp-price-block">
+                <span class="sp-price-new">
+                  @if($promo->tipe_diskon === 'persen')
+                    Diskon {{ number_format($promo->diskon, 0) }}%
+                  @else
+                    Rp {{ number_format($promo->diskon, 0, ',', '.') }}
+                  @endif
                 </span>
-              @endif
-            </div>
-
-            <div class="promo-card-body">
-              <div class="promo-card-title">{{ $promo->judul }}</div>
-              <p class="promo-card-desc">{{ \Illuminate\Support\Str::limit($promo->deskripsi, 110) }}</p>
-            </div>
-
-            @if($promo->tanggal_berakhir)
-            <div class="promo-card-meta">
-              <span><i class="fas fa-calendar-alt"></i> <span data-i18n="promo.valid_until">Berlaku s.d.</span> {{ $promo->tanggal_berakhir->format('d M Y') }}</span>
-            </div>
-            @endif
-
-            <div class="promo-card-footer">
+              </div>
               <a href="{{ route('promo.show', $promo->id) }}" class="promo-card-btn" id="promo-btn-{{ $promo->id }}">
                 <span data-i18n="promo.view_detail">Lihat Detail</span> <i class="fas fa-arrow-right"></i>
               </a>

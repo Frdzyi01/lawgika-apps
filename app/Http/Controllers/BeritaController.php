@@ -153,55 +153,53 @@ class BeritaController extends Controller
     }
 
     /**
-     * Handle image upload dengan resize ke 450x294 menggunakan PHP GD.
+     * Handle image upload dengan auto center-crop ke rasio 1:1 (600x600 px) menggunakan PHP GD.
      */
     private function handleImageUpload(\Illuminate\Http\UploadedFile $file): string
     {
         $filename  = 'berita/' . uniqid('img_') . '.jpg';
-        $targetW   = 450;
-        $targetH   = 294;
+        $targetW   = 600;
+        $targetH   = 600;
 
         // Pastikan direktori ada
         Storage::disk('public')->makeDirectory('berita');
 
         $mime = $file->getMimeType();
+        $realPath = $file->getRealPath();
 
         // Buat resource gambar dari upload
         if ($mime === 'image/png') {
-            $src = imagecreatefrompng($file->getRealPath());
-        } elseif ($mime === 'image/jpeg' || $mime === 'image/jpg') {
-            $src = imagecreatefromjpeg($file->getRealPath());
+            $src = @imagecreatefrompng($realPath);
+        } elseif ($mime === 'image/webp' && function_exists('imagecreatefromwebp')) {
+            $src = @imagecreatefromwebp($realPath);
         } else {
-            // Fallback: coba jpeg
-            $src = imagecreatefromjpeg($file->getRealPath());
+            $src = @imagecreatefromjpeg($realPath);
+            if (!$src) {
+                $src = @imagecreatefromstring(file_get_contents($realPath));
+            }
         }
 
-        [$origW, $origH] = getimagesize($file->getRealPath());
-
-        // Resize ke 450x294 (cover: crop center)
-        $origRatio  = $origW / $origH;
-        $targetRatio = $targetW / $targetH;
-
-        if ($origRatio > $targetRatio) {
-            // Gambar lebih lebar → crop kiri-kanan
-            $cropH = $origH;
-            $cropW = (int) round($origH * $targetRatio);
-            $cropX = (int) round(($origW - $cropW) / 2);
-            $cropY = 0;
-        } else {
-            // Gambar lebih tinggi → crop atas-bawah
-            $cropW = $origW;
-            $cropH = (int) round($origW / $targetRatio);
-            $cropX = 0;
-            $cropY = (int) round(($origH - $cropH) / 2);
+        if (!$src) {
+            return $file->store('berita', 'public');
         }
+
+        [$origW, $origH] = getimagesize($realPath);
+        if (!$origW || !$origH) {
+            $origW = imagesx($src);
+            $origH = imagesy($src);
+        }
+
+        // Auto center-crop to 1:1 square
+        $minSide = min($origW, $origH);
+        $cropX = (int) round(($origW - $minSide) / 2);
+        $cropY = (int) round(($origH - $minSide) / 2);
 
         $dst = imagecreatetruecolor($targetW, $targetH);
 
-        // Preserve transparency for PNG
+        // Preserve white background for transparency
         imagefill($dst, 0, 0, imagecolorallocate($dst, 255, 255, 255));
 
-        imagecopyresampled($dst, $src, 0, 0, $cropX, $cropY, $targetW, $targetH, $cropW, $cropH);
+        imagecopyresampled($dst, $src, 0, 0, $cropX, $cropY, $targetW, $targetH, $minSide, $minSide);
 
         // Simpan ke storage/app/public/berita/
         $path = storage_path('app/public/' . $filename);

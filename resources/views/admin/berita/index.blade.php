@@ -127,9 +127,9 @@
                     <tr>
                         <td>{{ $beritas->firstItem() + $loop->index }}</td>
                         <td>
-                            <div class="product-box border bg-light rounded d-flex justify-content-center align-items-center" style="width: 80px; height: 50px;">
+                            <div class="product-box border bg-light rounded d-flex justify-content-center align-items-center" style="width: 50px; height: 50px;">
                                 @if($item->gambar)
-                                    <img src="{{ asset('storage/' . $item->gambar) }}" alt="{{ $item->judul }}" style="width:80px;height:50px;object-fit:cover;border-radius:4px;">
+                                    <img src="{{ asset('storage/' . $item->gambar) }}" alt="{{ $item->judul }}" style="width:50px;height:50px;object-fit:cover;border-radius:4px;">
                                 @else
                                     <ion-icon name="image-outline" class="fs-4 text-primary"></ion-icon>
                                 @endif

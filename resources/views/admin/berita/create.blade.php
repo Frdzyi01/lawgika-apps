@@ -92,7 +92,7 @@
                             <div class="mb-3">
                                 <label class="form-label">Upload Gambar <span class="text-danger">*</span></label>
                                 <input type="file" name="gambar" class="form-control mb-2" accept="image/png, image/jpeg, image/jpg" required>
-                                <small class="text-muted d-block">Akan otomatis di-resize ke: <strong>450x294 px</strong>. Maksimal 2MB.</small>
+                                <small class="text-muted d-block">Akan otomatis dijadikan rasio 1:1 (persegi / 600x600 px). Maksimal 2MB.</small>
                             </div>
 
                         </div>

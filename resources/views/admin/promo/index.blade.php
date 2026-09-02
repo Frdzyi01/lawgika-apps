@@ -284,9 +284,10 @@
                         <label class="form-label">Upload Gambar</label>
                         <input
                             type="file"
-                            class="form-control"
+                            class="form-control mb-1"
                             name="gambar"
                             accept="image/*" />
+                        <small class="text-muted d-block">Foto otomatis dijadikan rasio 1:1 (persegi). Rekomendasi min. 600x600 px.</small>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Judul Promo</label>
@@ -373,7 +374,8 @@
                     @method('PUT')
                     <div class="mb-3">
                         <label class="form-label">Upload Gambar Baru (opsional)</label>
-                        <input type="file" class="form-control" name="gambar" accept="image/*" />
+                        <input type="file" class="form-control mb-1" name="gambar" accept="image/*" />
+                        <small class="text-muted d-block">Foto otomatis dijadikan rasio 1:1 (persegi). Rekomendasi min. 600x600 px.</small>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Judul Promo</label>

@@ -302,9 +302,10 @@
                         <label class="form-label">Upload Banner</label>
                         <input
                             type="file"
-                            class="form-control"
+                            class="form-control mb-1"
                             name="banner"
                             accept="image/*" />
+                        <small class="text-muted d-block">Banner otomatis dijadikan rasio 1:1 (persegi). Rekomendasi min. 600x600 px.</small>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Nama Event</label>
@@ -412,7 +413,8 @@
                     @method('PUT')
                     <div class="mb-3">
                         <label class="form-label">Upload Banner Baru (opsional)</label>
-                        <input type="file" class="form-control" name="banner" accept="image/*" />
+                        <input type="file" class="form-control mb-1" name="banner" accept="image/*" />
+                        <small class="text-muted d-block">Banner otomatis dijadikan rasio 1:1 (persegi). Rekomendasi min. 600x600 px.</small>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Nama Event</label>

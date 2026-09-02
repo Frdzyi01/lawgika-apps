@@ -60,10 +60,12 @@
                     <div class="row g-0">
                         @if($event->banner)
                         <div class="col-md-4">
-                            <img loading="lazy" src="{{ asset('storage/' . $event->banner) }}"
-                                alt="{{ $event->nama_event }}"
-                                class="img-fluid h-100 w-100 object-fit-cover"
-                                style="object-fit: cover; min-height: 180px;">
+                            <div class="h-100 w-100 overflow-hidden" style="aspect-ratio: 1 / 1;">
+                                <img loading="lazy" src="{{ asset('storage/' . $event->banner) }}"
+                                    alt="{{ $event->nama_event }}"
+                                    class="w-100 h-100 object-fit-cover"
+                                    style="aspect-ratio: 1 / 1; object-fit: cover;">
+                            </div>
                         </div>
                         @endif
                         <div class="col-md-8">
