@@ -513,7 +513,7 @@
                             </div>
                         </div>
                         <div class="modal-buttons">
-                            <a href="https://wa.me/6281111111?text=Halo%20Lawgika,%20saya%20ingin%20mendaftar%20event%20${encodeURIComponent(event.nama_event)}" target="_blank" class="btn-daftar"><i class="fas fa-ticket-alt me-2"></i> ${regNow}</a>
+                            <a href="https://wa.me/6281112088600?text=Halo%20Lawgika,%20saya%20ingin%20mendaftar%20event%20${encodeURIComponent(event.nama_event)}" target="_blank" class="btn-daftar"><i class="fas fa-ticket-alt me-2"></i> ${regNow}</a>
                             <a href="{{ route('upcoming.event') }}" class="btn-lihat-semua"><i class="fas fa-calendar-week me-2"></i> ${viewAll}</a>
                         </div>
                     </div>
