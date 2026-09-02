@@ -60,7 +60,7 @@
                     <div class="row g-0">
                         @if($event->banner)
                         <div class="col-md-4">
-                            <div class="h-100 w-100 overflow-hidden" style="aspect-ratio: 1 / 1;">
+                            <div class="h-100 w-100 overflow-hidden" style="aspect-ratio: 1 / 1; cursor: pointer;" onclick="openEventPopup({{ $event->id }})">
                                 <img loading="lazy" src="{{ asset('storage/' . $event->banner) }}"
                                     alt="{{ $event->nama_event }}"
                                     class="w-100 h-100 object-fit-cover"
@@ -71,7 +71,7 @@
                         <div class="col-md-8">
                             <div class="card-body p-4">
                                 <div class="d-flex justify-content-between align-items-start flex-wrap">
-                                    <h3 class="card-title fw-bold mb-2">{{ $event->nama_event }}</h3>
+                                    <h3 class="card-title fw-bold mb-2" role="button" onclick="openEventPopup({{ $event->id }})" style="cursor: pointer;">{{ $event->nama_event }}</h3>
                                     @if($event->status_aktif)
                                     <span class="badge bg-success rounded-pill px-3 py-1" data-i18n="event.status_active">Aktif</span>
                                     @else
@@ -114,8 +114,10 @@
                                 </div>
 
                                 <button
+                                    type="button"
                                     onclick="openEventPopup({{ $event->id }})"
-                                    class="btn btn-danger rounded-pill px-4">
+                                    class="btn btn-danger rounded-pill px-4"
+                                    style="cursor: pointer; background: #4e0616; border-color: #4e0616;">
                                     <span data-i18n="event.view_detail">Lihat Detail</span> <i class="fas fa-arrow-right ms-2"></i>
                                 </button>
                             </div>
@@ -379,27 +381,35 @@
 </style>
 
 <script>
+    const t = (key, fallback) => (window.LwI18n && typeof window.LwI18n.t === 'function') ? window.LwI18n.t(key) : fallback;
+
     function openEventPopup(eventId) {
         console.log('[EventPopup] Opening event ID:', eventId);
 
-        document.getElementById('eventModalContent').innerHTML = `
-        <div class="text-center py-5">
-            <i class="fas fa-spinner fa-spin fa-2x text-danger"></i>
-            <p class="mt-2 text-muted">' + LwI18n.t('event.loading_detail') + '</p>
-        </div>
-    `;
-        document.getElementById('eventModal').classList.add('active');
+        const modalContent = document.getElementById('eventModalContent');
+        const modal = document.getElementById('eventModal');
+
+        if (!modalContent || !modal) return;
+
+        modalContent.innerHTML = `
+            <div class="text-center py-5">
+                <i class="fas fa-spinner fa-spin fa-2x text-danger"></i>
+                <p class="mt-2 text-muted">${t('event.loading_detail', 'Memuat data event...')}</p>
+            </div>
+        `;
+        modal.classList.add('active');
 
         fetch(`/event-upcoming/${eventId}/detail`)
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Event tidak ditemukan');
+                }
+                return response.json();
+            })
             .then(event => {
-                // DEBUG: Log raw values dari backend
-                console.log('[EventPopup] Raw status_aktif:', event.status_aktif);
-                console.log('[EventPopup] Type of status_aktif:', typeof event.status_aktif);
-                console.log('[EventPopup] label_status:', event.label_status);
-                console.log('[EventPopup] Full event data:', event);
+                console.log('[EventPopup] Event data:', event);
 
-                let formattedDate = LwI18n.t('event.date_tbd');
+                let formattedDate = t('event.date_tbd', 'Belum ditentukan');
                 if (event.tanggal_mulai) {
                     const date = new Date(event.tanggal_mulai);
                     formattedDate = date.toLocaleDateString('id-ID', {
@@ -412,9 +422,10 @@
                 let bannerHtml = '';
                 if (event.banner) {
                     bannerHtml = `<img loading="lazy" src="/storage/${event.banner}" alt="${escapeHtml(event.nama_event)}" class="modal-event-img">`;
+                } else {
+                    bannerHtml = `<img loading="lazy" src="{{ asset('lawgika/home/event-placeholder.webp') }}" alt="${escapeHtml(event.nama_event)}" class="modal-event-img">`;
                 }
 
-                // STATUS CHECK — metode paling aman, cek semua kemungkinan tipe
                 let isAktif = false;
                 if (event.status_aktif === true ||
                     event.status_aktif === 1 ||
@@ -423,26 +434,21 @@
                     Number(event.status_aktif) === 1) {
                     isAktif = true;
                 }
-                // Fallback: gunakan label_status dari backend jika ada
                 if (event.label_status) {
                     isAktif = (event.label_status === 'Aktif');
                 }
 
-                console.log('[EventPopup] Final isAktif:', isAktif);
-
                 let statusBadge = isAktif ?
-                    '<span class="modal-event-badge aktif">● ' + LwI18n.t('event.status_active') + '</span>' :
-                    '<span class="modal-event-badge selesai">● ' + LwI18n.t('event.status_completed') + '</span>';
+                    `<span class="modal-event-badge aktif">● ${t('event.status_active', 'Aktif')}</span>` :
+                    `<span class="modal-event-badge selesai">● ${t('event.status_completed', 'Selesai')}</span>`;
 
-                // Format harga
                 let hargaText = '';
                 if (event.harga && event.harga > 0) {
-                    hargaText = `Rp ${event.harga.toLocaleString('id-ID')}`;
+                    hargaText = `Rp ${Number(event.harga).toLocaleString('id-ID')}`;
                 } else {
-                    hargaText = '<span data-i18n="event.free">Gratis</span>';
+                    hargaText = t('event.free', 'Gratis');
                 }
 
-                // Format narasumber
                 let narasumberText = '-';
                 if (event.narasumber) {
                     if (typeof event.narasumber === 'string') {
@@ -452,80 +458,100 @@
                     }
                 }
 
-                // Tipe event badge
                 let tipeEventBadge = (event.tipe_event === 'berbayar' || event.harga > 0) ?
                     '<span class="modal-event-badge berbayar">💰 Berbayar</span>' :
-                    '<span class="modal-event-badge gratis">🎉 <span data-i18n="event.free">Gratis</span></span>';
+                    `<span class="modal-event-badge gratis">🎉 ${t('event.free', 'Gratis')}</span>`;
 
-                document.getElementById('eventModalContent').innerHTML = `
-                ${bannerHtml}
-                <div class="modal-event-body">
-                    <h3 class="modal-event-title">
-                        ${escapeHtml(event.nama_event)} ${statusBadge} ${tipeEventBadge}
-                    </h3>
-                    <div class="modal-event-date">
-                        <i class="fas fa-calendar-alt me-2 text-danger"></i> ${formattedDate}
+                const noDesc = t('event.no_description', 'Tidak ada deskripsi');
+                const locLabel = t('event.location', 'Lokasi');
+                const timeLabel = t('event.time', 'Waktu');
+                const timeValue = escapeHtml(event.waktu_event) || escapeHtml(event.waktu) || t('event.tbd', 'Belum ditentukan');
+                const capLabel = t('event.capacity', 'Kapasitas');
+                const capValue = event.kapasitas ? `${Number(event.kapasitas).toLocaleString()} ${t('event.participants', 'peserta')}` : t('event.unlimited', 'Tidak terbatas');
+                const speakerLabel = t('event.speaker', 'Narasumber');
+                const priceLabel = t('event.price', 'Harga');
+                const regNow = t('event.register_now', 'Daftar Sekarang');
+                const viewAll = t('event.view_all', 'Lihat Semua Event');
+
+                modalContent.innerHTML = `
+                    ${bannerHtml}
+                    <div class="modal-event-body">
+                        <h3 class="modal-event-title">
+                            ${escapeHtml(event.nama_event)} ${statusBadge} ${tipeEventBadge}
+                        </h3>
+                        <div class="modal-event-date">
+                            <i class="fas fa-calendar-alt me-2 text-danger"></i> ${formattedDate}
+                        </div>
+                        <div class="modal-event-desc">
+                            ${escapeHtml(event.deskripsi) || `<em class="text-muted">${noDesc}</em>`}
+                        </div>
+                        <div class="modal-event-info">
+                            <div class="modal-event-info-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span class="info-label">${locLabel}</span>
+                                <span class="info-value">${escapeHtml(event.lokasi) || '-'}</span>
+                            </div>
+                            <div class="modal-event-info-item">
+                                <i class="fas fa-clock"></i>
+                                <span class="info-label">${timeLabel}</span>
+                                <span class="info-value">${timeValue}</span>
+                            </div>
+                            <div class="modal-event-info-item">
+                                <i class="fas fa-users"></i>
+                                <span class="info-label">${capLabel}</span>
+                                <span class="info-value">${capValue}</span>
+                            </div>
+                            <div class="modal-event-info-item">
+                                <i class="fas fa-chalkboard-user"></i>
+                                <span class="info-label">${speakerLabel}</span>
+                                <span class="info-value">${escapeHtml(narasumberText)}</span>
+                            </div>
+                            <div class="modal-event-info-item">
+                                <i class="fas fa-ticket"></i>
+                                <span class="info-label">${priceLabel}</span>
+                                <span class="info-value ${event.harga > 0 ? 'text-danger fw-bold' : 'text-success fw-bold'}">${hargaText}</span>
+                            </div>
+                        </div>
+                        <div class="modal-buttons">
+                            <a href="https://wa.me/6281111111?text=Halo%20Lawgika,%20saya%20ingin%20mendaftar%20event%20${encodeURIComponent(event.nama_event)}" target="_blank" class="btn-daftar"><i class="fas fa-ticket-alt me-2"></i> ${regNow}</a>
+                            <a href="{{ route('upcoming.event') }}" class="btn-lihat-semua"><i class="fas fa-calendar-week me-2"></i> ${viewAll}</a>
+                        </div>
                     </div>
-                    <div class="modal-event-desc">
-                        ${escapeHtml(event.deskripsi) || '<em class="text-muted">' + LwI18n.t('event.no_description') + '</em>'}
-                    </div>
-                    <div class="modal-event-info">
-                        <div class="modal-event-info-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span class="info-label">' + LwI18n.t('event.location') + '</span>
-                            <span class="info-value">${escapeHtml(event.lokasi) || '-'}</span>
-                        </div>
-                        <div class="modal-event-info-item">
-                            <i class="fas fa-clock"></i>
-                            <span class="info-label">' + LwI18n.t('event.time') + '</span>
-                            <span class="info-value">${escapeHtml(event.waktu_event) || escapeHtml(event.waktu) || LwI18n.t('event.tbd')}</span>
-                        </div>
-                        <div class="modal-event-info-item">
-                            <i class="fas fa-users"></i>
-                            <span class="info-label">' + LwI18n.t('event.capacity') + '</span>
-                            <span class="info-value">${event.kapasitas ? event.kapasitas.toLocaleString() + ' ' + LwI18n.t('event.participants')' : LwI18n.t('event.unlimited')}</span>
-                        </div>
-                        <div class="modal-event-info-item">
-                            <i class="fas fa-chalkboard-user"></i>
-                            <span class="info-label">' + LwI18n.t('event.speaker') + '</span>
-                            <span class="info-value">${escapeHtml(narasumberText)}</span>
-                        </div>
-                        <div class="modal-event-info-item">
-                            <i class="fas fa-ticket"></i>
-                            <span class="info-label">' + LwI18n.t('event.price') + '</span>
-                            <span class="info-value ${event.harga > 0 ? 'text-danger fw-bold' : 'text-success fw-bold'}">${hargaText}</span>
-                        </div>
-                    </div>
-                    <div class="modal-buttons">
-                        <a href="#" class="btn-daftar"><i class="fas fa-ticket-alt me-2"></i> ' + LwI18n.t('event.register_now') + '</a>
-                        <a href="{{ route('upcoming.event') }}" class="btn-lihat-semua"><i class="fas fa-calendar-week me-2"></i> ' + LwI18n.t('event.view_all') + '</a>
-                    </div>
-                </div>
-            `;
+                `;
             })
             .catch(error => {
                 console.error('[EventPopup] Error:', error);
-                document.getElementById('eventModalContent').innerHTML = `
-                <div class="text-center py-5">
-                    <i class="fas fa-exclamation-triangle fa-2x text-danger"></i>
-                    <p class="mt-2 text-danger">' + LwI18n.t('event.failed_load') + '</p>
-                    <button onclick="closeEventModal()" class="btn btn-secondary mt-3 rounded-pill px-4">' + LwI18n.t('event.close') + '</button>
-                </div>
-            `;
+                const failedText = t('event.failed_load', 'Gagal memuat detail event');
+                const closeText = t('event.close', 'Tutup');
+                modalContent.innerHTML = `
+                    <div class="text-center py-5">
+                        <i class="fas fa-exclamation-triangle fa-2x text-danger"></i>
+                        <p class="mt-2 text-danger">${failedText}</p>
+                        <button onclick="closeEventModal()" class="btn btn-secondary mt-3 rounded-pill px-4">${closeText}</button>
+                    </div>
+                `;
             });
     }
 
     function closeEventModal() {
-        document.getElementById('eventModal').classList.remove('active');
+        const modal = document.getElementById('eventModal');
+        if (modal) {
+            modal.classList.remove('active');
+        }
     }
 
     function escapeHtml(str) {
         if (!str) return '';
-        return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
     }
 
-    document.getElementById('eventModal').addEventListener('click', function(e) {
-        if (e.target === this) closeEventModal();
+    document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('eventModal');
+        if (modal) {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) closeEventModal();
+            });
+        }
     });
 </script>
 
