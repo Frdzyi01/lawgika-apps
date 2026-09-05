@@ -493,6 +493,65 @@
     {{-- RIGHT --}}
     <div class="col-md-4">
 
+        {{-- QR Code Layanan --}}
+        <div class="card border-0 shadow-sm mb-4" style="border-left: 4px solid #1a2b5a !important;">
+            <div class="card-header bg-transparent border-0 pt-4 pb-2 px-4 d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center gap-2">
+                    <i class="fa-solid fa-qrcode text-dark fs-5"></i>
+                    <h6 class="fw-bold mb-0">QR Code Layanan</h6>
+                </div>
+                @if($order->qr_token)
+                    <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-2 py-1" style="font-size: 0.72rem;">
+                        <i class="fa-solid fa-circle-check me-1"></i>Aktif
+                    </span>
+                @else
+                    <span class="badge bg-secondary bg-opacity-10 text-secondary px-2 py-1" style="font-size: 0.72rem;">
+                        Belum Dibuat
+                    </span>
+                @endif
+            </div>
+            <div class="card-body px-4 pb-4">
+                @if($order->qr_token)
+                    <div class="text-center p-3 bg-light rounded-3 mb-3 border">
+                        <div class="d-inline-block bg-white p-2 rounded shadow-sm">
+                            {!! \SimpleSoftwareIO\QrCode\Facades\QrCode::size(170)->margin(1)->generate($order->qr_url) !!}
+                        </div>
+                        <div class="mt-2 text-truncate small">
+                            <span class="text-muted d-block" style="font-size: 0.75rem;">Link Resmi QR:</span>
+                            <a href="{{ $order->qr_url }}" target="_blank" class="text-primary fw-semibold text-decoration-none" title="{{ $order->qr_url }}">
+                                {{ $order->qr_url }} <i class="fa-solid fa-arrow-up-right-from-square small ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="d-flex flex-column gap-2">
+                        <a href="{{ route('admin.orders.download-qr', $order->id) }}" class="btn btn-outline-dark btn-sm w-100 fw-semibold">
+                            <i class="fa-solid fa-download me-1"></i>Download QR Code (SVG)
+                        </a>
+                        <a href="{{ route('qr.show', $order->qr_token) }}" target="_blank" class="btn btn-primary btn-sm w-100 fw-semibold">
+                            <i class="fa-solid fa-eye me-1"></i>Buka Halaman Layanan
+                        </a>
+                        <form action="{{ route('admin.orders.generate-qr', $order->id) }}" method="POST" onsubmit="return confirm('Regenerate QR token? Link QR lama tidak akan berfungsi lagi.')">
+                            @csrf
+                            <button type="submit" class="btn btn-link btn-sm text-muted w-100 text-decoration-none pt-2" style="font-size: 0.8rem;">
+                                <i class="fa-solid fa-rotate-right me-1"></i>Regenerate Token Baru
+                            </button>
+                        </form>
+                    </div>
+                @else
+                    <p class="text-muted small mb-3">
+                        Generate QR Code unik untuk order ini agar klien dapat memindai dan mengakses informasi layanan secara publik.
+                    </p>
+                    <form action="{{ route('admin.orders.generate-qr', $order->id) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-dark w-100 fw-semibold">
+                            <i class="fa-solid fa-qrcode me-1"></i>Generate QR Code Layanan
+                        </button>
+                    </form>
+                @endif
+            </div>
+        </div>
+
         {{-- Update Status --}}
         <div class="card border-0 shadow-sm mb-4">
             <div class="card-header bg-transparent border-0 pt-4 pb-2 px-4">

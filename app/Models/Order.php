@@ -83,6 +83,39 @@ class Order extends Model
         return self::STATUS_MAP[$this->status]['color'] ?? 'secondary';
     }
 
+    // ── QR Code ───────────────────────────────────────────────────────────────
+
+    public function generateQrToken(): string
+    {
+        if (empty($this->qr_token)) {
+            do {
+                $token = \Illuminate\Support\Str::random(48);
+            } while (self::where('qr_token', $token)->exists());
+
+            $this->forceFill(['qr_token' => $token])->save();
+        }
+
+        return $this->qr_token;
+    }
+
+    public function getQrUrlAttribute(): ?string
+    {
+        if (empty($this->qr_token)) {
+            return null;
+        }
+
+        $baseUrl = env('QR_BASE_URL', 'https://lawgika.co.id');
+        return rtrim($baseUrl, '/') . '/qr/' . $this->qr_token;
+    }
+
+    /**
+     * URL lokal untuk preview langsung di browser admin localhost
+     */
+    public function getLocalQrUrlAttribute(): ?string
+    {
+        return $this->qr_token ? url('/qr/' . $this->qr_token) : null;
+    }
+
     // ── Relasi ────────────────────────────────────────────────────────────────
 
     public function user()

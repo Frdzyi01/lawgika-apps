@@ -40,7 +40,7 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
-        $order->load(['user', 'service.documentRequirements', 'documents']);
+        $order->load(['user', 'service.documentRequirements', 'documents', 'roomBenefits']);
         $documentSummary = $this->documentService->getDocumentSummary($order);
         return view('admin.orders.show', compact('order', 'documentSummary'));
     }
@@ -302,5 +302,37 @@ class OrderController extends Controller
         return redirect()->route('admin.orders.index')
             ->with('success', 'Pesanan baru berhasil ditambahkan oleh Admin.' . $waMessage)
             ->with($waMessage && str_contains($waMessage, 'gagal') ? 'warning' : 'info', $waMessage ?: null);
+    }
+
+    /**
+     * Generate atau regenerate QR Code token untuk order.
+     */
+    public function generateQr(Order $order)
+    {
+        $order->generateQrToken();
+
+        return redirect()->back()->with('success', 'QR Code layanan berhasil di-generate untuk order #' . $order->order_number);
+    }
+
+    /**
+     * Download QR Code order sebagai file SVG.
+     */
+    public function downloadQr(Order $order)
+    {
+        if (empty($order->qr_token)) {
+            $order->generateQrToken();
+        }
+
+        $targetUrl = $order->qr_url;
+
+        try {
+            $svg = \SimpleSoftwareIO\QrCode\Facades\QrCode::format('svg')->size(400)->margin(2)->generate($targetUrl);
+            return response($svg, 200, [
+                'Content-Type'        => 'image/svg+xml',
+                'Content-Disposition' => 'attachment; filename="qr-' . $order->order_number . '.svg"',
+            ]);
+        } catch (\Throwable $e) {
+            return redirect()->back()->with('error', 'Gagal men-download QR Code: ' . $e->getMessage());
+        }
     }
 }

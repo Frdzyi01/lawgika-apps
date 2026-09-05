@@ -122,14 +122,54 @@
                             <small class="text-muted">{{ $order->created_at->format('H:i') }}</small>
                         </td>
                         <td class="text-center">
-                            <a href="{{ route('admin.orders.show', $order->id) }}" class="btn btn-sm btn-outline-primary">
-                                Detail
-                            </a>
+                            <div class="d-flex align-items-center justify-content-center gap-1">
+                                <a href="{{ route('admin.orders.show', $order->id) }}" class="btn btn-sm btn-outline-primary px-2" title="Detail Order">
+                                    Detail
+                                </a>
+                                @if($order->qr_token)
+                                    <a href="{{ url('/qr/' . $order->qr_token) }}" target="_blank" class="btn btn-sm btn-outline-dark d-inline-flex align-items-center justify-content-center px-2 py-1" title="Buka Halaman QR Layanan" style="height: 31px;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" viewBox="0 0 16 16" class="me-1">
+                                            <path d="M2 2h2v2H2z"/>
+                                            <path d="M6 0v6H0V0zM1 1v4h4V1zm1 7h2v2H2z"/>
+                                            <path d="M6 7v6H0V7zm-5 1v4h4V8zm-4 3h2v2h-2z"/>
+                                            <path d="M6 10v6H0v-6zm-5 1v4h4v-4zm11-9h2v2h-2z"/>
+                                            <path d="M16 0v6h-6V0zm-1 1v4h-4V1zm-4 7h2v2h-2z"/>
+                                            <path d="M16 7v6h-6V7zm-1 1v4h-4V8zm-2 3h2v2h-2z"/>
+                                            <path d="M14 10v6h-4v-6zm-3 1v4h2v-4zm-8 2h2v2H3zm2 2h2v-2H5zm4-2h2v2H9zm2 2h2v-2h-2zm-4 0h2v2H7zm4-6h2v2h-2zm2 2h2v2h-2zm-2 2h2v2h-2z"/>
+                                            <path d="M10 9h2v2h-2z"/>
+                                        </svg>
+                                        <span>QR</span>
+                                    </a>
+                                    <a href="{{ route('admin.orders.download-qr', $order->id) }}" class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center justify-content-center px-2 py-1" title="Download QR Code (SVG)" style="height: 31px;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" viewBox="0 0 16 16">
+                                            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
+                                            <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"/>
+                                        </svg>
+                                    </a>
+                                @else
+                                    <form action="{{ route('admin.orders.generate-qr', $order->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-outline-success d-inline-flex align-items-center justify-content-center px-2 py-1" title="Generate QR Code Layanan" style="height: 31px;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" viewBox="0 0 16 16" class="me-1">
+                                                <path d="M2 2h2v2H2z"/>
+                                                <path d="M6 0v6H0V0zM1 1v4h4V1zm1 7h2v2H2z"/>
+                                                <path d="M6 7v6H0V7zm-5 1v4h4V8zm-4 3h2v2h-2z"/>
+                                                <path d="M6 10v6H0v-6zm-5 1v4h4v-4zm11-9h2v2h-2z"/>
+                                                <path d="M16 0v6h-6V0zm-1 1v4h-4V1zm-4 7h2v2h-2z"/>
+                                                <path d="M16 7v6h-6V7zm-1 1v4h-4V8zm-2 3h2v2h-2z"/>
+                                                <path d="M14 10v6h-4v-6zm-3 1v4h2v-4zm-8 2h2v2H3zm2 2h2v-2H5zm4-2h2v2H9zm2 2h2v-2h-2zm-4 0h2v2H7zm4-6h2v2h-2zm2 2h2v2h-2zm-2 2h2v2h-2z"/>
+                                                <path d="M10 9h2v2h-2z"/>
+                                            </svg>
+                                            <span>+ QR</span>
+                                        </button>
+                                    </form>
+                                @endif
+                            </div>
                         </td>
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="7" class="text-center py-5 text-muted">Belum ada pesanan masuk.</td>
+                        <td colspan="10" class="text-center py-5 text-muted">Belum ada pesanan masuk.</td>
                     </tr>
                     @endforelse
                 </tbody>

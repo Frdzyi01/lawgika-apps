@@ -137,6 +137,12 @@ Route::get('/login', function() { return redirect('/?login=1'); })->name('login'
 // Public Order Route (guest + logged in) — modal quick form
 Route::post('/order-quick', [\App\Http\Controllers\PublicOrderController::class, 'store'])->name('public.order.store');
 
+// Public QR Code Portal & Service Verification Pages
+Route::get('/qr', [\App\Http\Controllers\QrOrderController::class, 'index'])->name('qr.index');
+Route::post('/qr/verify', [\App\Http\Controllers\QrOrderController::class, 'verify'])->name('qr.verify');
+Route::get('/qr/{token}', [\App\Http\Controllers\QrOrderController::class, 'show'])->name('qr.show');
+Route::get('/qr/{token}/image', [\App\Http\Controllers\QrOrderController::class, 'image'])->name('qr.image');
+
 // Redirect /home
 Route::get('/home', function () {
     if (auth()->check() && auth()->user()->hasAdminAccess()) return redirect()->route('admin.dashboard');
@@ -156,6 +162,8 @@ Route::middleware(['auth', 'role:admin,admin1,admin2'])->prefix('admin')->name('
     Route::post('documents/{document}/reset',   [\App\Http\Controllers\Admin\DocumentController::class, 'reset'])->name('documents.reset');
     Route::post('orders/{order}/payment-status', [\App\Http\Controllers\Admin\OrderController::class, 'updatePaymentStatus'])->name('orders.payment-status');
     Route::post('orders/{order}/send-payment-reminder', [\App\Http\Controllers\Admin\OrderController::class, 'sendPaymentReminder'])->name('orders.send-payment-reminder');
+    Route::post('orders/{order}/generate-qr', [\App\Http\Controllers\Admin\OrderController::class, 'generateQr'])->name('orders.generate-qr');
+    Route::get('orders/{order}/download-qr', [\App\Http\Controllers\Admin\OrderController::class, 'downloadQr'])->name('orders.download-qr');
     
     // Virtual Office Module
     Route::get('virtual-office', [\App\Http\Controllers\Admin\VirtualOfficeController::class, 'index'])->name('virtual-office.index');
