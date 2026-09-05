@@ -13,36 +13,46 @@ class QrOrderController extends Controller
      */
     public function show(string $token)
     {
-        $order = Order::with(['user', 'service', 'roomBenefits', 'documents'])
+        $order = Order::with(['user', 'service', 'roomBenefits'])
             ->where('qr_token', $token)
             ->firstOrFail();
 
-        // Dynamically parse form_data for generic display
-        $formData = $order->form_data ?? [];
-        $displayFields = [];
+        // 1. Hitung Status Active / Expired
+        $isExpired = false;
+        $expiredDate = null;
 
-        if (is_array($formData)) {
-            $hiddenKeys = ['_token', 'password', 'service', 'terms', 'payment_method'];
-            foreach ($formData as $key => $value) {
-                if (in_array($key, $hiddenKeys)) {
-                    continue;
-                }
-                if (is_array($value)) {
-                    $valStr = json_encode($value, JSON_UNESCAPED_UNICODE);
-                } elseif (is_bool($value)) {
-                    $valStr = $value ? 'Ya' : 'Tidak';
-                } else {
-                    $valStr = (string)$value;
-                }
-
-                if (trim($valStr) !== '') {
-                    $label = ucwords(str_replace(['_', '-'], ' ', $key));
-                    $displayFields[$label] = $valStr;
-                }
+        if ($order->roomBenefits->isNotEmpty()) {
+            $hasActiveBenefit = $order->roomBenefits->contains(function ($b) {
+                return $b->is_active && (!$b->expired_at || $b->expired_at->isFuture());
+            });
+            $isExpired = !$hasActiveBenefit;
+            $expiredDate = $order->roomBenefits->first()->expired_at;
+        } else {
+            $expiredDate = $order->created_at ? $order->created_at->copy()->addYear() : now()->addYear();
+            if (in_array($order->status, ['cancelled', 'rejected'])) {
+                $isExpired = true;
+            } else {
+                $isExpired = $expiredDate->isPast();
             }
         }
 
-        return view('qr.show', compact('order', 'displayFields'));
+        // 2. Filter hanya 5 spesifikasi layanan sesuai kebutuhan:
+        // - Director Name
+        // - Company Name
+        // - PIC Name
+        // - Operations Address
+        // - Business Field
+        $formData = $order->form_data ?? [];
+
+        $specifications = [
+            'Director Name'      => $formData['director_name'] ?? $formData['director'] ?? $formData['nama_direktur'] ?? '–',
+            'Company Name'       => $formData['company_name'] ?? $order->user?->company_name ?? $formData['nama_perusahaan'] ?? '–',
+            'PIC Name'           => $formData['pic_name'] ?? $order->user?->name ?? $formData['nama_pic'] ?? '–',
+            'Operations Address' => $formData['operational_address'] ?? $formData['operations_address'] ?? $formData['address'] ?? $formData['alamat'] ?? $order->user?->address ?? '–',
+            'Business Field'     => $formData['business_field'] ?? $formData['bidang_usaha'] ?? $order->user?->business_type ?? '–',
+        ];
+
+        return view('qr.show', compact('order', 'specifications', 'isExpired', 'expiredDate'));
     }
 
     /**

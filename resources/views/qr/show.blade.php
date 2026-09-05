@@ -18,22 +18,19 @@
 
     <style>
         :root {
-            --navy-dark: #0a1128;
-            --navy-primary: #121e42;
-            --navy-surface: #1a2b5a;
-            --navy-card: #ffffff;
+            --navy-dark: #070d1e;
+            --navy-primary: #0f1c3f;
+            --navy-surface: #16254c;
             --gold-primary: #c59b27;
             --gold-light: #fef5d8;
             --gold-gradient: linear-gradient(135deg, #d4af37 0%, #aa7c11 100%);
-            --navy-gradient: linear-gradient(165deg, #0a1128 0%, #162450 60%, #1c3066 100%);
+            --navy-gradient: linear-gradient(145deg, #081126 0%, #122046 60%, #182c5e 100%);
             --text-primary: #0f172a;
             --text-muted: #64748b;
             --border-color: #e2e8f0;
             --success-color: #10b981;
             --success-light: #ecfdf5;
-            --warning-color: #f59e0b;
-            --danger-color: #ef4444;
-            --bg-body: #f8fafc;
+            --bg-body: #f4f6fb;
         }
 
         * {
@@ -48,87 +45,121 @@
             background-color: var(--bg-body);
             color: var(--text-primary);
             line-height: 1.5;
-            padding-bottom: 40px;
+            min-height: 100vh;
         }
 
-        .container {
+        /* ── Top Corporate Navbar ── */
+        .top-navbar {
+            background: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+        }
+
+        .nav-container {
             width: 100%;
-            max-width: 580px;
+            max-width: 640px;
             margin: 0 auto;
-            padding: 16px;
-        }
-
-        /* ── Header Area ── */
-        .hero-header {
-            background: var(--navy-gradient);
-            color: #ffffff;
-            padding: 28px 20px 70px 20px;
-            border-bottom-left-radius: 28px;
-            border-bottom-right-radius: 28px;
-            text-align: center;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(10, 17, 40, 0.25);
-        }
-
-        .hero-header::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.4), transparent);
-        }
-
-        .brand-logo {
-            display: inline-flex;
+            padding: 0 16px;
+            display: flex;
             align-items: center;
-            gap: 10px;
-            background: rgba(255, 255, 255, 0.08);
-            padding: 8px 18px;
-            border-radius: 999px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            margin-bottom: 18px;
+            justify-content: space-between;
         }
 
-        .brand-logo img {
-            height: 28px;
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .brand-img {
+            height: 34px;
             width: auto;
             display: block;
         }
 
-        .brand-logo span {
-            font-family: 'Outfit', sans-serif;
-            font-weight: 700;
-            font-size: 1.15rem;
-            letter-spacing: 0.5px;
-            color: #ffffff;
-        }
-
-        .verified-pill {
+        .header-secure-badge {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: rgba(16, 185, 129, 0.15);
-            border: 1px solid rgba(16, 185, 129, 0.4);
-            color: #34d399;
-            font-size: 0.76rem;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #166534;
+            font-size: 0.74rem;
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            padding: 5px 12px;
+            padding: 5px 11px;
             border-radius: 999px;
-            margin-bottom: 12px;
+            letter-spacing: 0.3px;
         }
 
-        .verified-pill .pulse-dot {
+        /* ── Main Container ── */
+        .main-container {
+            width: 100%;
+            max-width: 640px;
+            margin: 20px auto 40px;
+            padding: 0 16px;
+        }
+
+        /* ── Hero Header Card (No overlap, perfectly bounded) ── */
+        .hero-card {
+            background: var(--navy-gradient);
+            color: #ffffff;
+            border-radius: 20px;
+            padding: 24px 22px;
+            margin-bottom: 16px;
+            position: relative;
+            border-top: 4px solid var(--gold-primary);
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 25px -5px rgba(8, 17, 38, 0.25);
+        }
+
+        .hero-card-eyebrow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .hero-pass-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(212, 175, 55, 0.15);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            color: #fde047;
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
+        .hero-live-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #86efac;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .pulse-dot-green {
             width: 7px;
             height: 7px;
-            background-color: #34d399;
+            background-color: #22c55e;
             border-radius: 50%;
-            box-shadow: 0 0 8px #34d399;
-            animation: pulse 2s infinite;
+            box-shadow: 0 0 8px #22c55e;
+            animation: pulse 1.8s infinite;
         }
 
         @keyframes pulse {
@@ -137,80 +168,162 @@
             100% { transform: scale(0.95); opacity: 0.8; }
         }
 
-        .hero-title {
+        .hero-service-title {
             font-family: 'Outfit', sans-serif;
             font-size: 1.45rem;
             font-weight: 800;
             color: #ffffff;
-            margin-bottom: 4px;
+            margin-bottom: 14px;
             line-height: 1.25;
+            letter-spacing: -0.2px;
         }
 
-        .hero-subtitle {
-            font-size: 0.86rem;
-            color: #cbd5e1;
-        }
-
-        /* ── Floating Main Card ── */
-        .content-wrapper {
-            margin-top: -46px;
-        }
-
-        .card-box {
-            background: #ffffff;
-            border-radius: 20px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.06);
-            padding: 22px;
-            margin-bottom: 16px;
-        }
-
-        /* Order Header Row */
-        .order-meta-header {
+        .hero-card-meta {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding-bottom: 16px;
-            border-bottom: 1px dashed var(--border-color);
-            margin-bottom: 16px;
             flex-wrap: wrap;
             gap: 8px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            font-size: 0.82rem;
         }
 
-        .order-tag {
-            font-family: 'Outfit', sans-serif;
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: var(--navy-surface);
+        .hero-meta-item {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
-        .btn-copy {
-            background: #f1f5f9;
-            border: 1px solid #e2e8f0;
-            color: #475569;
-            border-radius: 6px;
-            padding: 3px 8px;
-            font-size: 0.75rem;
-            font-weight: 600;
+        .hero-meta-label {
+            color: #94a3b8;
+        }
+
+        .hero-meta-val {
+            color: #ffffff;
+            font-weight: 700;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .btn-copy-mini {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            border-radius: 5px;
+            padding: 2px 6px;
+            font-size: 0.7rem;
             cursor: pointer;
             transition: all 0.2s;
         }
 
-        .btn-copy:hover {
-            background: #e2e8f0;
-            color: #0f172a;
+        .btn-copy-mini:hover {
+            background: rgba(255, 255, 255, 0.25);
         }
 
-        .order-date-label {
-            font-size: 0.78rem;
-            color: var(--text-muted);
-            font-weight: 500;
+        /* ── White Card Box ── */
+        .card-box {
+            background: #ffffff;
+            border-radius: 18px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 18px -2px rgba(0, 0, 0, 0.05);
+            padding: 22px;
+            margin-bottom: 16px;
         }
 
-        /* Client & Service Info */
+        /* ── Big Prominent Active / Expired Hero Banner ── */
+        .status-hero-banner {
+            border-radius: 16px;
+            padding: 16px 18px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        .status-hero-banner.active-banner {
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            border: 2px solid #10b981;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.12);
+        }
+
+        .status-hero-banner.expired-banner {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border: 2px solid #ef4444;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.12);
+        }
+
+        .status-hero-icon {
+            font-size: 2.3rem;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+
+        .status-hero-icon.active-icon {
+            color: #059669;
+        }
+
+        .status-hero-icon.expired-icon {
+            color: #dc2626;
+        }
+
+        .status-hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            padding: 3px 9px;
+            border-radius: 999px;
+            margin-bottom: 4px;
+        }
+
+        .status-hero-pill.active-pill {
+            background: #059669;
+            color: #ffffff;
+        }
+
+        .status-hero-pill.expired-pill {
+            background: #dc2626;
+            color: #ffffff;
+        }
+
+        .status-pulse-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #ffffff;
+            box-shadow: 0 0 6px #ffffff;
+            animation: pulse 1.5s infinite;
+        }
+
+        .status-hero-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.32rem;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: 0.2px;
+        }
+
+        .text-success-dark {
+            color: #065f46;
+        }
+
+        .text-danger-dark {
+            color: #991b1b;
+        }
+
+        .status-hero-desc {
+            font-size: 0.83rem;
+            color: #475569;
+            margin-top: 3px;
+            line-height: 1.35;
+        }
+
+        /* Client & Order Grid */
         .info-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -246,8 +359,8 @@
         .info-value.highlight {
             font-family: 'Outfit', sans-serif;
             font-weight: 700;
-            color: var(--navy-surface);
-            font-size: 1.05rem;
+            color: var(--navy-primary);
+            font-size: 1.08rem;
         }
 
         /* Status Badge Group */
@@ -299,7 +412,7 @@
             font-family: 'Outfit', sans-serif;
             font-size: 1.05rem;
             font-weight: 700;
-            color: var(--navy-surface);
+            color: var(--navy-primary);
             display: flex;
             align-items: center;
             gap: 8px;
@@ -312,12 +425,11 @@
         .benefit-card {
             background: #ffffff;
             border: 1.5px solid var(--border-color);
-            border-radius: 16px;
+            border-radius: 14px;
             padding: 16px;
             margin-bottom: 12px;
             position: relative;
             overflow: hidden;
-            transition: transform 0.2s, box-shadow 0.2s;
         }
 
         .benefit-card:last-child {
@@ -330,7 +442,7 @@
             top: 0;
             left: 0;
             bottom: 0;
-            width: 5px;
+            width: 4px;
             background: var(--gold-gradient);
         }
 
@@ -344,7 +456,7 @@
         .benefit-type {
             font-family: 'Outfit', sans-serif;
             font-weight: 700;
-            font-size: 1rem;
+            font-size: 0.98rem;
             color: var(--navy-primary);
             display: flex;
             align-items: center;
@@ -422,43 +534,43 @@
             color: var(--text-muted);
         }
 
-        /* ── Dynamic Form Data / Parameter List ── */
-        .param-list {
+        /* ── Spesifikasi Layanan (5 Field) ── */
+        .spec-list {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
         }
 
-        .param-row {
+        .spec-row {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             padding-bottom: 10px;
             border-bottom: 1px solid #f1f5f9;
-            font-size: 0.85rem;
-            gap: 12px;
+            font-size: 0.88rem;
+            gap: 14px;
         }
 
-        .param-row:last-child {
+        .spec-row:last-child {
             border-bottom: none;
             padding-bottom: 0;
         }
 
-        .param-key {
+        .spec-key {
             color: var(--text-muted);
             font-weight: 500;
             flex-shrink: 0;
             max-width: 45%;
         }
 
-        .param-val {
+        .spec-val {
             font-weight: 600;
             color: var(--text-primary);
             text-align: right;
             word-break: break-word;
         }
 
-        /* ── Security & Stamp Area ── */
+        /* ── Security Stamp ── */
         .security-badge {
             background: linear-gradient(135deg, #fef9ee 0%, #ffffff 100%);
             border: 1.5px dashed var(--gold-primary);
@@ -504,9 +616,9 @@
             text-decoration: none;
             font-weight: 700;
             font-size: 0.95rem;
-            padding: 14px 20px;
+            padding: 13px 20px;
             border-radius: 12px;
-            box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+            box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
             transition: all 0.2s;
         }
 
@@ -520,7 +632,7 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            background: var(--navy-surface);
+            background: var(--navy-primary);
             color: #ffffff;
             text-decoration: none;
             font-weight: 600;
@@ -569,42 +681,96 @@
 </head>
 <body>
 
-    <!-- HERO HEADER -->
-    <header class="hero-header">
-        <div class="brand-logo">
-            <img src="{{ asset('template-admin/assets/images/logo-icon-2.webp') }}" alt="Lawgika">
-            <span>Lawgika</span>
+    <!-- TOP CORPORATE NAVBAR -->
+    <header class="top-navbar">
+        <div class="nav-container">
+            <a href="{{ url('/') }}" class="navbar-brand">
+                <img src="{{ asset('buyer-file/assets/img/logo-removebg.webp') }}" alt="Lawgika" class="brand-img">
+            </a>
+            <div class="header-secure-badge">
+                <i class="fa-solid fa-shield-halved text-success"></i>
+                <span>Official Verification Pass</span>
+            </div>
         </div>
-        
-        <div>
-            <span class="verified-pill">
-                <span class="pulse-dot"></span>
-                Official Service Pass
-            </span>
-        </div>
-
-        <h1 class="hero-title">{{ $order->service_name ?? ($order->service?->name ?? 'Layanan Lawgika') }}</h1>
-        <p class="hero-subtitle">Verifikasi Dokumen &amp; Status Layanan Klien</p>
     </header>
 
-    <!-- CONTENT WRAPPER -->
-    <div class="container content-wrapper">
+    <!-- MAIN WRAPPER -->
+    <main class="main-container">
 
-        <!-- CARD 1: ORDER & CLIENT INFO -->
-        <div class="card-box">
-            <div class="order-meta-header">
-                <div class="order-tag">
-                    <i class="fa-solid fa-receipt text-warning"></i>
-                    <span>#{{ $order->order_number }}</span>
-                    <button class="btn-copy" onclick="copyOrderNumber('{{ $order->order_number }}')" title="Salin No. Order">
+        <!-- HERO HEADER CARD (Clean, bounded, official certificate style) -->
+        <div class="hero-card">
+            <div class="hero-card-eyebrow">
+                <span class="hero-pass-tag">
+                    <i class="fa-solid fa-certificate text-warning"></i>
+                    SERTIFIKAT LAYANAN RESMI
+                </span>
+                <span class="hero-live-tag">
+                    <span class="pulse-dot-green"></span>
+                    SERVER VERIFIED
+                </span>
+            </div>
+
+            <h1 class="hero-service-title">
+                {{ $order->service_name ?? ($order->service?->name ?? 'Layanan Lawgika') }}
+            </h1>
+
+            <div class="hero-card-meta">
+                <div class="hero-meta-item">
+                    <span class="hero-meta-label">No. Registrasi:</span>
+                    <span class="hero-meta-val">#{{ $order->order_number }}</span>
+                    <button type="button" class="btn-copy-mini" onclick="copyOrderNumber('{{ $order->order_number }}')" title="Salin No. Order">
                         <i class="fa-regular fa-copy"></i>
                     </button>
                 </div>
-                <div class="order-date-label">
-                    <i class="fa-regular fa-calendar me-1"></i>
-                    {{ $order->created_at->translatedFormat('d F Y') }}
+                <div class="hero-meta-item">
+                    <span class="hero-meta-label">Tanggal Terbit:</span>
+                    <span class="hero-meta-val">{{ $order->created_at->translatedFormat('d F Y') }}</span>
                 </div>
             </div>
+        </div>
+
+        <!-- CARD 1: ORDER & CLIENT INFO WITH BIG ACTIVE/EXPIRED VERDICT -->
+        <div class="card-box">
+            <!-- KALIMAT BESAR STATUS LAYANAN (ACTIVE / EXPIRED) -->
+            @if(!$isExpired)
+                <div class="status-hero-banner active-banner">
+                    <div class="status-hero-icon active-icon">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <div class="status-hero-pill active-pill">
+                            <span class="status-pulse-dot"></span>
+                            VERIFIED &amp; ACTIVE
+                        </div>
+                        <div class="status-hero-title text-success-dark">STATUS: ACTIVE / LAYANAN AKTIF</div>
+                        <div class="status-hero-desc">
+                            Layanan resmi terverifikasi dan aktif di Lawgika
+                            @if($expiredDate)
+                                s/d <strong>{{ $expiredDate->translatedFormat('d F Y') }}</strong>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            @else
+                <div class="status-hero-banner expired-banner">
+                    <div class="status-hero-icon expired-icon">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <div class="status-hero-pill expired-pill">
+                            EXPIRED PASS
+                        </div>
+                        <div class="status-hero-title text-danger-dark">STATUS: EXPIRED / KADALUARSA</div>
+                        <div class="status-hero-desc">
+                            Masa berlaku layanan telah berakhir
+                            @if($expiredDate)
+                                pada <strong>{{ $expiredDate->translatedFormat('d F Y') }}</strong>
+                            @endif
+                            . Silakan hubungi tim Lawgika untuk perpanjangan.
+                        </div>
+                    </div>
+                </div>
+            @endif
 
             <div class="info-grid">
                 <div class="info-item full-width">
@@ -631,19 +797,17 @@
             <!-- Status Badges -->
             <div class="status-badge-group">
                 @php
-                    $docStatusLabel = $order->status_label;
-                    $isDocVerified  = in_array($order->status, ['verified', 'completed', 'approved']);
-                    $isPayVerified  = $order->payment_status === 'verified';
+                    $isPayVerified = $order->payment_status === 'verified';
                 @endphp
 
-                <div class="badge-pill {{ $isDocVerified ? 'badge-verified' : 'badge-waiting' }}">
-                    <i class="fa-solid {{ $isDocVerified ? 'fa-circle-check' : 'fa-clock' }}"></i>
-                    <span>Dokumen: {{ $docStatusLabel }}</span>
+                <div class="badge-pill {{ !$isExpired ? 'badge-verified' : 'badge-waiting' }}">
+                    <i class="fa-solid {{ !$isExpired ? 'fa-shield-halved' : 'fa-triangle-exclamation' }}"></i>
+                    <span>Status Layanan: {{ !$isExpired ? 'Aktif' : 'Expired' }}</span>
                 </div>
 
                 <div class="badge-pill {{ $isPayVerified ? 'badge-verified' : ($order->payment_status === 'unpaid' ? 'badge-secondary' : 'badge-waiting') }}">
-                    <i class="fa-solid {{ $isPayVerified ? 'fa-shield-halved' : 'fa-money-bill-wave' }}"></i>
-                    <span>Bayar: {{ $order->payment_status_label }}</span>
+                    <i class="fa-solid {{ $isPayVerified ? 'fa-circle-check' : 'fa-money-bill-wave' }}"></i>
+                    <span>Pembayaran: {{ $order->payment_status_label }}</span>
                 </div>
             </div>
         </div>
@@ -717,8 +881,8 @@
         </div>
         @endif
 
-        <!-- CARD 3: DETAIL SPESIFIKASI LAYANAN (GENERIC FORM_DATA) -->
-        @if(!empty($displayFields))
+        <!-- CARD 3: SPESIFIKASI LAYANAN (HANYA 5 FIELD) -->
+        @if(!empty($specifications))
         <div class="card-box">
             <div class="section-heading">
                 <h2 class="section-title">
@@ -726,58 +890,16 @@
                     Spesifikasi Layanan
                 </h2>
             </div>
-            <div class="param-list">
-                @foreach($displayFields as $label => $val)
-                    <div class="param-row">
-                        <span class="param-key">{{ $label }}</span>
-                        <span class="param-val">{{ $val }}</span>
+            <div class="spec-list">
+                @foreach($specifications as $label => $val)
+                    <div class="spec-row">
+                        <span class="spec-key">{{ $label }}</span>
+                        <span class="spec-val">{{ $val }}</span>
                     </div>
                 @endforeach
             </div>
         </div>
         @endif
-
-        <!-- CARD 4: STATUS DOKUMEN & VERIFIKASI -->
-        <div class="card-box">
-            <div class="section-heading">
-                <h2 class="section-title">
-                    <i class="fa-solid fa-folder-closed"></i>
-                    Berkas &amp; Dokumen
-                </h2>
-                <span class="badge-pill badge-secondary" style="font-size: 0.72rem;">
-                    {{ $order->documents->count() }} Berkas
-                </span>
-            </div>
-
-            @if($order->documents->isEmpty())
-                <p class="text-muted" style="font-size: 0.85rem;">Belum ada berkas terlampir pada sistem.</p>
-            @else
-                <div class="param-list">
-                    @foreach($order->documents as $doc)
-                        @php
-                            $isDocApproved = in_array($doc->status, ['approved', 'verified']);
-                        @endphp
-                        <div class="param-row">
-                            <span class="param-key">
-                                <i class="fa-regular fa-file-lines me-1 text-muted"></i>
-                                {{ $doc->original_name ?? ($doc->document_type ?? 'Dokumen') }}
-                            </span>
-                            <span class="param-val">
-                                @if($isDocApproved)
-                                    <span class="badge-pill badge-verified" style="padding: 3px 8px; font-size: 0.72rem;">
-                                        <i class="fa-solid fa-check"></i> Terverifikasi
-                                    </span>
-                                @else
-                                    <span class="badge-pill badge-waiting" style="padding: 3px 8px; font-size: 0.72rem;">
-                                        {{ ucfirst($doc->status ?? 'Diproses') }}
-                                    </span>
-                                @endif
-                            </span>
-                        </div>
-                    @endforeach
-                </div>
-            @endif
-        </div>
 
         <!-- SECURITY STAMP -->
         <div class="security-badge">
@@ -815,7 +937,7 @@
         <footer class="page-footer">
             <p>&copy; {{ date('Y') }} Lawgika Indonesia (PT Lawgika Digital Indonesia). All Rights Reserved.</p>
         </footer>
-    </div>
+    </main>
 
     <!-- TOAST NOTIFICATION -->
     <div id="copyToast" class="toast-notify">
