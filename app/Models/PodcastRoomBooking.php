@@ -99,6 +99,49 @@ class PodcastRoomBooking extends Model
     }
 
     /**
+     * Calculate billing duration based on booking start time (jam mulai ditentukan admin)
+     * and rounded-up checkout time (ceiling ke jam berikutnya).
+     *
+     * @param \Carbon\Carbon|null $checkinAt Actual checkin timestamp
+     * @param \Carbon\Carbon|null $checkoutAt Actual checkout timestamp
+     * @return array
+     */
+    public function calculateBillingDuration(?\Carbon\Carbon $checkinAt = null, ?\Carbon\Carbon $checkoutAt = null): array
+    {
+        $checkin  = $checkinAt ?? $this->checkin_at ?? now();
+        $checkout = $checkoutAt ?? $this->checkout_at ?? now();
+
+        $bookingDate = $this->date ? \Carbon\Carbon::parse($this->date)->format('Y-m-d') : $checkin->format('Y-m-d');
+
+        // Jam Mulai: Selalu gunakan jam mulai booking yang ditentukan admin ($this->start_time)
+        $startCarbon = $this->start_time
+            ? \Carbon\Carbon::parse($bookingDate . ' ' . \Carbon\Carbon::parse($this->start_time)->format('H:i:s'))
+            : $checkin->copy();
+
+        // Jam Selesai: Bulatkan ke atas ke jam berikutnya (.00) jika ada kelebihan menit/detik
+        $outH = (int) $checkout->format('H');
+        $outM = (int) $checkout->format('i');
+        $outS = (int) $checkout->format('s');
+
+        if ($outM > 0 || $outS > 0) {
+            $roundedCheckout = $checkout->copy()->startOfHour()->addHour();
+        } else {
+            $roundedCheckout = $checkout->copy()->startOfHour();
+        }
+
+        // Hitung selisih jam dari Jam Mulai Booking sampai Jam Checkout yang sudah dibulatkan
+        $diffSeconds  = $startCarbon->diffInSeconds($roundedCheckout, false);
+        $billingHours = max(1, (int) ceil($diffSeconds / 3600));
+
+        return [
+            'start_carbon'     => $startCarbon,
+            'rounded_checkout' => $roundedCheckout,
+            'billing_hours'    => $billingHours,
+            'billing_seconds'  => $billingHours * 3600,
+        ];
+    }
+
+    /**
      * Calculate rounded-up duration in hours for billing purposes.
      * Rounds up to nearest hour with minimum of 1 hour.
      * 
