@@ -9,7 +9,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb mb-0 p-0 align-items-center">
                 <li class="breadcrumb-item">
-                    <a href="javascript:;"><ion-icon name="home-outline"></ion-icon></a>
+                    <a href="{{ route('admin.dashboard') }}"><i class="fa-solid fa-house"></i></a>
                 </li>
                 <li class="breadcrumb-item">
                     <a href="{{ route('admin.surat-menyurat.index') }}">Semua Surat</a>
@@ -30,7 +30,7 @@
 
         <div class="card radius-10">
             <div class="card-header py-3">
-                <h6 class="mb-0"><ion-icon name="mail-unread-outline" class="align-middle"></ion-icon> Form Kirim Surat ke Client (Admin)</h6>
+                <h6 class="mb-0 fw-bold"><i class="fa-solid fa-envelope-open-text text-primary me-2"></i> Form Kirim Surat ke Client (Admin)</h6>
             </div>
             <div class="card-body">
                 @if($errors->any())
@@ -66,9 +66,9 @@
                         </div>
 
                         <div class="col-12 mt-4 text-end">
-                            <a href="{{ route('admin.surat-menyurat.index') }}" class="btn btn-secondary px-4">Batal</a>
-                            <button type="submit" class="btn btn-primary px-4">
-                                <ion-icon name="paper-plane-outline" class="align-middle"></ion-icon> Kirim Surat
+                            <a href="{{ route('admin.surat-menyurat.index') }}" class="btn btn-secondary px-4 me-2">Batal</a>
+                            <button type="submit" class="btn btn-primary px-4 d-inline-flex align-items-center gap-2">
+                                <i class="fa-solid fa-paper-plane"></i> <span>Kirim Surat</span>
                             </button>
                         </div>
                     </div>

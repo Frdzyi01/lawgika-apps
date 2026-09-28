@@ -83,7 +83,7 @@ class WhatsAppService
 
         // ── Send via Pancake API ──────────────────────────────────────────────
         try {
-            $response = Http::withHeaders([
+            $response = Http::withoutVerifying()->withHeaders([
                 'Content-Type' => 'application/json',
             ])->post($url . '?' . http_build_query(['page_access_token' => $token]), [
                 'action'  => 'reply_inbox',
@@ -309,7 +309,7 @@ class WhatsAppService
         $startTime = microtime(true);
 
         try {
-            $response     = Http::withHeaders($headers)->post($url, $payload);
+            $response     = Http::withoutVerifying()->withHeaders($headers)->post($url, $payload);
             $responseTime = round((microtime(true) - $startTime) * 1000, 2);
 
             $statusCode = $response->status();
@@ -566,17 +566,77 @@ class WhatsAppService
 
     /**
      * Notify client when admin creates a Correspondence (Surat Menyurat).
+     *
+     * Menggunakan WhatsApp Template Message via Botcake Official WABA API.
+     * Template: surat_menyurat_dokumen_tersedia (4 parameter)
+     * Template ID: 1624426569064688
+     * Kategori: UTILITY
+     *
+     * Placeholder mapping:
+     *  {{1}} = Nama PIC/Client
+     *  {{2}} = Perihal/Judul surat
+     *  {{3}} = Tanggal surat/dokumen
+     *  {{4}} = Catatan/Deskripsi
      */
     public function notifyCorrespondenceCreated(Correspondence $correspondence): ?WhatsappLog
     {
         $correspondence->loadMissing('user');
 
         $phone = $correspondence->user->phone ?? null;
-        if (empty($phone)) return null;
+        if (empty($phone)) {
+            Log::warning('WhatsAppService::notifyCorrespondenceCreated - Nomor telepon client kosong.', [
+                'correspondence_id' => $correspondence->id,
+                'user_id'           => $correspondence->user_id,
+            ]);
+            return null;
+        }
 
-        $message = $this->buildCorrespondenceMessage($correspondence);
+        // ── Prepare 4 template parameters ─────────────────────────────────────
+        $clientName = $correspondence->user->pic_name
+            ?? $correspondence->user->name
+            ?? 'Client';
 
-        return $this->send($phone, $message, $correspondence->user_id);
+        $judul = $correspondence->title ?? '-';
+
+        $tanggal = $correspondence->created_at
+            ? \Carbon\Carbon::parse($correspondence->created_at)->format('d M Y')
+            : date('d M Y');
+
+        $catatan = $correspondence->note ?? '-';
+
+        // ── Validate: log warning jika ada parameter kosong ───────────────────
+        $paramLabels = [
+            '{{1}} clientName' => $clientName,
+            '{{2}} judul'      => $judul,
+            '{{3}} tanggal'    => $tanggal,
+            '{{4}} catatan'    => $catatan,
+        ];
+
+        foreach ($paramLabels as $label => $value) {
+            if (empty($value) || $value === '-') {
+                Log::warning('WhatsAppService::notifyCorrespondenceCreated - Parameter template kosong/default.', [
+                    'parameter'         => $label,
+                    'value'             => $value,
+                    'correspondence_id' => $correspondence->id,
+                ]);
+            }
+        }
+
+        // ── Kirim via Botcake Official WABA API ────────────────────────────────
+        $templateId = config('services.botcake.templates.surat_menyurat_dokumen_tersedia', '1624426569064688');
+
+        return $this->sendTemplateById(
+            $phone,
+            $templateId,
+            'UTILITY',
+            [
+                $clientName, // {{1}} Nama PIC/Client
+                $judul,      // {{2}} Perihal/Judul surat
+                $tanggal,    // {{3}} Tanggal surat/dokumen
+                $catatan,    // {{4}} Catatan/Deskripsi
+            ],
+            $correspondence->user_id
+        );
     }
 
     /**
@@ -2450,7 +2510,7 @@ class WhatsAppService
 
             '1039778505436096' => "Halo Ibu/Bapak {{1}},\n\n\nTerima kasih telah menggunakan fasilitas Studio Podcast Lawgika.\n\n\n━━━━━━━━━━━━━\n\n\n\n\nDETAIL BOOKING:\n\n\n🎙️ Ruangan\nPodcast Studio Lawgika Office, World Capital Tower Lt. 38 Unit 6-7, Mega Kuningan, Setia Budi, Jakarta Selatan, Indonesia\n\n\n\n\n📅 Tanggal\n\n\n{{2}}\n\n\n\n\n🕒 Mulai\n\n\n{{3}}\n\n\n\n\n🕒 Selesai\n\n\n{{4}}\n\n\n━━━━━━━━━━━━━\n\n\nTerima kasih banyak atas kepercayaan Anda telah bertransaksi dengan Lawgika.co.id 😊✨\n\n\nKami berharap untuk mendapat review atas pelayanan terbaik kami melalui:\nhttp://bit.ly/4xZqiGK\n\n\n\nJika ada yang ingin ditanyakan atau dibutuhkan lagi, jangan ragu hubungi kami ya!\n\n\nSee you di next order 😉\n\n\n\nSalam,\nLawgika.co.id",
 
-            '2581822038921591' => "Halo Ibu/Bapak {{1}},\n\nTerima kasih telah menggunakan fasilitas Studio Podcast Lawgika.\n\n━━━━━━━━━━━━━━━━━━\n\nDETAIL BOOKING:\n\n🎙️ Ruangan\nPodcast Studio Lawgika Office, World Capital Tower Lt. 38 Unit 6-7, Mega Kuningan, Setia Budi, Jakarta Selatan, Indonesia\n\n📅 Tanggal\n{{2}}\n\n🕒 Mulai\n{{3}}\n\n🕒 Selesai\n{{4}}\n\n━━━━━━━━━━━━━━━━━━\n\nTerima kasih banyak atas kepercayaan Anda telah bertransaksi dengan Lawgika.co.id 😊✨\n\nKami berharap untuk mendapat review atas pelayanan terbaik kami melalui:\n\nhttp://bit.ly/4xZqiGK\n\nJika ada yang ingin ditanyakan atau dibutuhkan lagi, jangan ragu hubungi kami ya!\n\nSee you di next order 😉\n\nSalam,\n\nLawgika.co.id",
+            '1624426569064688' => "Halo Ibu/Bapak {{1}},\n\nKami informasikan bahwa surat/dokumen berikut telah tersedia di Dashboard Lawgika.co.id.\n\n━━━━━━━━━━━━━━\n\n📄 Perihal/Judul\n{{2}}\n\n📅 Tanggal\n{{3}}\n\n📝 Catatan/Deskripsi\n{{4}}\n\n━━━━━━━━━━━━━━\n\nSilakan login ke Dashboard Lawgika.co.id untuk melihat dan mengunduh dokumen tersebut.\n\nApabila Ibu/Bapak ingin mengambil dokumen dalam bentuk fisik, silakan menghubungi kami untuk mengatur jadwal pengambilan.\n\nTerima kasih.\n\nSalam,\n\nLawgika.co.id",
         ];
 
         return $templates[(string)$templateId] ?? null;

@@ -55,6 +55,7 @@ return [
             'podcast_room_checkout'     => env('BOTCAKE_TEMPLATE_PODCAST_ROOM_CHECKOUT', '1039778505436096'),
             'virtual_office_mail_notification' => env('BOTCAKE_TEMPLATE_VIRTUAL_OFFICE_MAIL_NOTIFICATION', '2856503864713589'),
             'virtual_office_guest_notification' => env('BOTCAKE_TEMPLATE_VIRTUAL_OFFICE_GUEST_NOTIFICATION', '1712545996642391'),
+            'surat_menyurat_dokumen_tersedia'   => env('BOTCAKE_TEMPLATE_SURAT_MENYURAT_DOKUMEN_TERSEDIA', '1624426569064688'),
             'virtual_office_renewal_h30' => env('BOTCAKE_TEMPLATE_VO_RENEWAL_H30', '1329567535585592'),
             'virtual_office_renewal_h7'  => env('BOTCAKE_TEMPLATE_VO_RENEWAL_H7', '1025817360352995'),
             'virtual_office_expired'            => env('BOTCAKE_TEMPLATE_VO_EXPIRED', '1757632552089608'),

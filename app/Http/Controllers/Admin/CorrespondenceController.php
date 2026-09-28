@@ -66,12 +66,18 @@ class CorrespondenceController extends Controller
         try {
             $waLog = $this->whatsAppService->notifyCorrespondenceCreated($correspondence);
             if ($waLog && $waLog->status === \App\Models\WhatsappLog::STATUS_SUCCESS) {
-                $waMessage = ' WhatsApp notifikasi berhasil dikirim.';
+                $waMessage = ' Notifikasi WhatsApp berhasil dikirim ke client.';
             } elseif ($waLog) {
-                $waMessage = ' Tetapi WhatsApp gagal dikirim.';
+                $waMessage = ' Namun notifikasi WhatsApp gagal dikirim ke client.';
+            } else {
+                $waMessage = ' Namun nomor WhatsApp client tidak tersedia.';
             }
         } catch (\Exception $e) {
-            $waMessage = ' Tetapi WhatsApp gagal dikirim.';
+            \Illuminate\Support\Facades\Log::error('CorrespondenceController@store - WhatsApp notification error: ' . $e->getMessage(), [
+                'correspondence_id' => $correspondence->id,
+                'error'             => $e->getMessage(),
+            ]);
+            $waMessage = ' Namun notifikasi WhatsApp gagal dikirim.';
         }
 
         return redirect()

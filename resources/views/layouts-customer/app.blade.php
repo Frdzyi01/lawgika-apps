@@ -14,6 +14,8 @@
   <link href="{{ asset('template-admin/assets/css/bootstrap-extended.css') }}" rel="stylesheet" />
   <link href="{{ asset('template-admin/assets/css/style.css') }}" rel="stylesheet" />
   <link href="{{ asset('template-admin/assets/css/icons.css') }}" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
   <!--Theme Styles-->
   <link href="{{ asset('template-admin/assets/css/dark-theme.css') }}" rel="stylesheet" />
@@ -199,64 +201,15 @@
         <div class="toggle-icon">
           <ion-icon name="menu-outline"></ion-icon>
         </div>
-        <form class="searchbar">
-          <div class="position-absolute top-50 translate-middle-y search-icon ms-3">
-            <ion-icon name="search-outline"></ion-icon>
-          </div>
-          <input class="form-control" type="text" placeholder="{{ __('customer.nav.search_placeholder') }}" />
-          <div class="position-absolute top-50 translate-middle-y search-close-icon">
-            <ion-icon name="close-outline"></ion-icon>
-          </div>
-        </form>
+        
         <div class="top-navbar-right ms-auto">
           <ul class="navbar-nav align-items-center">
             <li class="nav-item">
-              <a class="nav-link" style="margin: 45px;" href="{{ url('/') }}" title="{{ __('customer.nav.back_to_main') }}">
+              <a class="nav-link" href="{{ url('/') }}" target="_blank" title="{{ __('customer.nav.back_to_main') }}">
                 <div class=""><ion-icon name="globe-outline"></ion-icon></div>
               </a>
             </li>
 
-
-
-            <li class="nav-item">
-              <a class="nav-link mobile-search-button" href="javascript:;">
-                <div class=""><ion-icon name="search-outline"></ion-icon></div>
-              </a>
-            </li>
-
-            <li class="nav-item dropdown dropdown-large dropdown-apps">
-              <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="javascript:;" data-bs-toggle="dropdown">
-                <div class=""><ion-icon name="apps-outline"></ion-icon></div>
-              </a>
-              <div class="dropdown-menu dropdown-menu-end dropdown-menu-dark">
-                <div class="row row-cols-3 g-3 p-3">
-                  <div class="col text-center">
-                    <div class="app-box mx-auto bg-gradient-purple text-white"><ion-icon name="cart-outline"></ion-icon></div>
-                    <div class="app-title">{{ __('customer.nav.apps.orders') }}</div>
-                  </div>
-                  <div class="col text-center">
-                    <div class="app-box mx-auto bg-gradient-info text-white"><ion-icon name="people-outline"></ion-icon></div>
-                    <div class="app-title">{{ __('customer.nav.apps.teams') }}</div>
-                  </div>
-                  <div class="col text-center">
-                    <div class="app-box mx-auto bg-gradient-success text-white"><ion-icon name="shield-checkmark-outline"></ion-icon></div>
-                    <div class="app-title">{{ __('customer.nav.apps.tasks') }}</div>
-                  </div>
-                  <div class="col text-center">
-                    <div class="app-box mx-auto bg-gradient-danger text-white"><ion-icon name="videocam-outline"></ion-icon></div>
-                    <div class="app-title">{{ __('customer.nav.apps.media') }}</div>
-                  </div>
-                  <div class="col text-center">
-                    <div class="app-box mx-auto bg-gradient-warning text-white"><ion-icon name="file-tray-outline"></ion-icon></div>
-                    <div class="app-title">{{ __('customer.nav.apps.files') }}</div>
-                  </div>
-                  <div class="col text-center">
-                    <div class="app-box mx-auto bg-gradient-branding text-white"><ion-icon name="notifications-outline"></ion-icon></div>
-                    <div class="app-title">{{ __('customer.nav.apps.alerts') }}</div>
-                  </div>
-                </div>
-              </div>
-            </li>
             <li class="nav-item dropdown dropdown-large">
               <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="javascript:;" data-bs-toggle="dropdown">
                 <div class="position-relative">
@@ -299,6 +252,7 @@
                 </a>
               </div>
             </li>
+
             @auth
             <li class="nav-item dropdown dropdown-user-setting">
               <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="javascript:;" data-bs-toggle="dropdown">
@@ -322,42 +276,26 @@
                   <hr class="dropdown-divider" />
                 </li>
                 <li>
-                  <a class="dropdown-item" href="javascript:;">
-                    <div class="d-flex align-items-center">
-                      <div class=""><ion-icon name="person-outline"></ion-icon></div>
-                      <div class="ms-3"><span>{{ __('customer.nav.user.profile') }}</span></div>
-                    </div>
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="javascript:;">
-                    <div class="d-flex align-items-center">
-                      <div class=""><ion-icon name="settings-outline"></ion-icon></div>
-                      <div class="ms-3"><span>{{ __('customer.nav.user.setting') }}</span></div>
-                    </div>
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="javascript:;">
+                  <a class="dropdown-item" href="{{ route('customer.dashboard') }}">
                     <div class="d-flex align-items-center">
                       <div class=""><ion-icon name="speedometer-outline"></ion-icon></div>
-                      <div class="ms-3"><span>{{ __('customer.nav.user.dashboard') }}</span></div>
+                      <div class="ms-3"><span>{{ __('customer.nav.user.dashboard') ?? 'Dashboard' }}</span></div>
                     </div>
                   </a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="javascript:;">
+                  <a class="dropdown-item" href="{{ route('customer.notifications.index') }}">
                     <div class="d-flex align-items-center">
-                      <div class=""><ion-icon name="wallet-outline"></ion-icon></div>
-                      <div class="ms-3"><span>{{ __('customer.nav.user.earnings') }}</span></div>
+                      <div class=""><ion-icon name="notifications-outline"></ion-icon></div>
+                      <div class="ms-3"><span>{{ __('customer.nav.notif.title') ?? 'Notifikasi' }}</span></div>
                     </div>
                   </a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="javascript:;">
+                  <a class="dropdown-item" href="https://wa.me/6281112088600" target="_blank" rel="noopener noreferrer">
                     <div class="d-flex align-items-center">
-                      <div class=""><ion-icon name="cloud-download-outline"></ion-icon></div>
-                      <div class="ms-3"><span>{{ __('customer.nav.user.downloads') }}</span></div>
+                      <div class=""><ion-icon name="logo-whatsapp" style="color:#25D366; font-size:1.15rem;"></ion-icon></div>
+                      <div class="ms-3"><span>Hubungi Lawgika</span></div>
                     </div>
                   </a>
                 </li>
@@ -365,7 +303,7 @@
                   <hr class="dropdown-divider" />
                 </li>
                 <li>
-                  <a class="dropdown-item" href="{{ route('logout') }}"
+                  <a class="dropdown-item text-danger" href="{{ route('logout') }}"
                     onclick="event.preventDefault(); document.getElementById('admin-logout-form').submit();">
                     <div class="d-flex align-items-center">
                       <div class=""><ion-icon name="log-out-outline"></ion-icon></div>
@@ -402,7 +340,7 @@
 
     <!--start footer-->
     <footer class="footer">
-      <div class="footer-text">{{ __('customer.footer.copyright') }}</div>
+      <div class="footer-text">{!! __('customer.footer.copyright') !!}</div>
     </footer>
     <!--end footer-->
 

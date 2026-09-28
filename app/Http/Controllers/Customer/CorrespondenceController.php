@@ -79,4 +79,47 @@ class CorrespondenceController extends Controller
 
         return view('customer.surat-menyurat.show', compact('correspondence'));
     }
+
+    /**
+     * Customer membalas surat atau mengirim dokumen balasan ke Admin.
+     * POST /dashboard/surat-menyurat/reply/{id}
+     */
+    public function reply(Request $request, $id)
+    {
+        $request->validate([
+            'note' => 'required|string',
+            'file' => 'nullable|file|mimes:pdf|max:5120',
+        ], [
+            'note.required' => 'Catatan / pesan balasan wajib diisi.',
+            'file.mimes'    => 'File harus berformat PDF.',
+            'file.max'      => 'Ukuran file maksimal 5MB.',
+        ]);
+
+        $parent = Correspondence::root()
+            ->where('user_id', auth()->id())
+            ->findOrFail($id);
+
+        $path = $request->hasFile('file')
+            ? $request->file('file')->store('documents', 'public')
+            : '';
+
+        Correspondence::create([
+            'user_id'     => auth()->id(),
+            'title'       => 'Re: ' . $parent->title,
+            'note'        => $request->note,
+            'file_path'   => $path,
+            'sender_role' => 'customer',
+            'status'      => 'pending',
+            'parent_id'   => $parent->id,
+        ]);
+
+        // Auto-update status induk menjadi 'replied'
+        if ($parent->status !== 'done') {
+            $parent->update(['status' => 'replied']);
+        }
+
+        return redirect()
+            ->route('customer.surat-menyurat.show', $parent->id)
+            ->with('success', 'Tanggapan / balasan Anda berhasil dikirim ke Admin.');
+    }
 }

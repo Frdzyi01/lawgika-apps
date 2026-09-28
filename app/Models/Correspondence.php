@@ -40,11 +40,47 @@ class Correspondence extends Model
         };
     }
 
+    public function isFromAdmin(): bool
+    {
+        return $this->sender_role === 'admin';
+    }
+
+    public function isFromCustomer(): bool
+    {
+        return $this->sender_role === 'customer';
+    }
+
+    public function getDirectionBadgeAttribute(): array
+    {
+        if ($this->sender_role === 'admin') {
+            return [
+                'label' => 'Surat Keluar (Admin → Client)',
+                'badge' => 'info',
+                'icon'  => 'fa-paper-plane',
+            ];
+        }
+
+        return [
+            'label' => 'Surat Masuk (Client → Admin)',
+            'badge' => 'primary',
+            'icon'  => 'fa-inbox',
+        ];
+    }
+
     public function getStatusLabelAttribute(): string
     {
+        if ($this->sender_role === 'admin') {
+            return match($this->status) {
+                'pending'  => 'Terkirim (Menunggu Respon)',
+                'replied'  => 'Dibalas Client',
+                'done'     => 'Selesai',
+                default    => ucfirst($this->status),
+            };
+        }
+
         return match($this->status) {
-            'pending'  => 'Menunggu',
-            'replied'  => 'Dibalas',
+            'pending'  => 'Menunggu Tindakan',
+            'replied'  => 'Sudah Dibalas',
             'done'     => 'Selesai',
             default    => ucfirst($this->status),
         };

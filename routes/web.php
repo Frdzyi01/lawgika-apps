@@ -264,6 +264,7 @@ Route::middleware(['auth', 'role:customer'])->prefix('dashboard')->name('custome
     Route::get('/surat-menyurat/create', [CustomerCorrespondenceController::class, 'create'])->name('surat-menyurat.create');
     Route::post('/surat-menyurat', [CustomerCorrespondenceController::class, 'store'])->name('surat-menyurat.store');
     Route::get('/surat-menyurat/{id}', [CustomerCorrespondenceController::class, 'show'])->name('surat-menyurat.show');
+    Route::post('/surat-menyurat/reply/{id}', [CustomerCorrespondenceController::class, 'reply'])->name('surat-menyurat.reply');
 });
 
 Route::get('/layanan/{slug}', [\App\Http\Controllers\PublicServiceController::class, 'show'])->name('services.show');
