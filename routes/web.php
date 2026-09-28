@@ -107,6 +107,8 @@ Route::get('/layanan-visa-kitas', [ServicesController::class, 'layananVisaKitas'
 Route::get('/layanan-call-answering', [ServicesController::class, 'layananCallAnswering']);
 Route::get('/virtual-office', [ServicesController::class, 'virtualOffice']);
 Route::get('/virtual-office/panduan-pengambilan-dokumen', [ServicesController::class, 'panduanPengambilanDokumen'])->name('virtual-office.panduan-pengambilan-dokumen');
+Route::get('/sewa-meeting-room/syarat-ketentuan', [ServicesController::class, 'syaratKetentuanMeetingRoom'])->name('meeting-room.syarat-ketentuan');
+Route::get('/sewa-ruang-podcast/syarat-ketentuan', [ServicesController::class, 'syaratKetentuanPodcastRoom'])->name('podcast-room.syarat-ketentuan');
 Route::get('/kerjasama-bisnis', [ServicesController::class, 'kerjasamaBisnis']);
 Route::get('/perizinan-dan-hukum', [ServicesController::class, 'perizinanDanHukum']);
 

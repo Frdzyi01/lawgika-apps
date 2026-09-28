@@ -193,6 +193,16 @@ class ServicesController extends Controller
         return view('frontend.services.layanan-pendukung-bisnis.panduan-pengambilan-dokumen');
     }
 
+    public function syaratKetentuanMeetingRoom()
+    {
+        return view('frontend.services.layanan-pendukung-bisnis.syarat-ketentuan-meeting-room');
+    }
+
+    public function syaratKetentuanPodcastRoom()
+    {
+        return view('frontend.services.layanan-pendukung-bisnis.syarat-ketentuan-podcast-room');
+    }
+
     public function tentangKami()
     {
         return view('frontend.tentangkami');

@@ -28,6 +28,10 @@
       $pageKey = 'meeting_room';
   } elseif ($path === 'sewa-ruang-podcast') {
       $pageKey = 'podcast_room';
+  } elseif ($path === 'sewa-meeting-room/syarat-ketentuan') {
+      $pageKey = 'snk_meeting_room';
+  } elseif ($path === 'sewa-ruang-podcast/syarat-ketentuan') {
+      $pageKey = 'snk_podcast_room';
   } elseif ($path === 'kerjasama-bisnis') {
       $pageKey = 'kerjasama';
   } elseif ($path === 'pendirian-pt-perorangan') {
