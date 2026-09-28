@@ -858,8 +858,9 @@ class MeetingRoomController extends Controller
 
         $roomName  = $request->input('room_name', $booking->room_name ?: 'Ruang Meetingroom 1');
         $dateInput = $request->input('date', $booking->date ? \Carbon\Carbon::parse($booking->date)->format('Y-m-d') : date('Y-m-d'));
-        $startTime = $request->input('start_time', $booking->start_time ?: date('H:i'));
-        $endTime   = $request->input('end_time');
+        // Tetap pertahankan jam booking yang sudah ditentukan admin jika request tidak secara spesifik mengubahnya
+        $startTime = $request->filled('start_time') ? $request->input('start_time') : ($booking->start_time ?: date('H:i'));
+        $endTime   = $request->filled('end_time') ? $request->input('end_time') : null;
 
         // Guard: Cegah Check In jika ruangan tersebut sedang digunakan (Check In) oleh booking/client lain
         $occupiedByOther = MeetingRoomBooking::where('room_name', $roomName)
@@ -916,7 +917,15 @@ class MeetingRoomController extends Controller
         }
 
         $bookingDate = \Carbon\Carbon::parse($dateInput)->format('Y-m-d');
-        $endTimeVal  = $endTime ? \Carbon\Carbon::parse($bookingDate . ' ' . $endTime) : ($startTime ? \Carbon\Carbon::parse($bookingDate . ' ' . $startTime)->addHour() : null);
+        if ($endTime) {
+            $endTimeVal = \Carbon\Carbon::parse($bookingDate . ' ' . $endTime);
+        } elseif ($booking->end_time) {
+            $endTimeVal = $booking->end_time;
+        } elseif ($startTime) {
+            $endTimeVal = \Carbon\Carbon::parse($bookingDate . ' ' . $startTime)->addHour();
+        } else {
+            $endTimeVal = null;
+        }
 
         $booking->update([
             'room_name'      => $roomName,
@@ -972,13 +981,23 @@ class MeetingRoomController extends Controller
             return redirect()->back()->with('error', 'Booking ini belum di Check In.');
         }
 
-        $checkinAt      = $booking->checkin_at;
-        $checkoutAt     = now();
+        $checkinAt  = $booking->checkin_at;
+        $checkoutAt = now();
         
         // ── VALIDATION: Prevent invalid duration ──────────────────────────────
         if ($checkoutAt->lessThan($checkinAt)) {
             return redirect()->back()->with('error', 'Checkout time tidak boleh lebih awal dari checkin time.');
         }
+        
+        // ── Perhitungan Durasi sesuai aturan Lawgika:
+        // 1. Waktu Mulai: Mengikuti Jam Mulai Booking yang dibuat admin ($booking->start_time)
+        // 2. Waktu Selesai (Checkout): Waktu aktual saat checkout dibulatkan ke atas (.00) ke jam berikutnya
+        // 3. Total Durasi: Jam Mulai Booking s/d Jam Checkout Dibulatkan
+        $calc = $booking->calculateBillingDuration($checkinAt, $checkoutAt);
+        $billingHours    = $calc['billing_hours'];
+        $billingSeconds  = $calc['billing_seconds'];
+        $roundedCheckout = $calc['rounded_checkout'];
+        $startCarbon     = $calc['start_carbon'];
         
         $sessionSeconds = $checkinAt->diffInSeconds($checkoutAt);
         
@@ -987,12 +1006,9 @@ class MeetingRoomController extends Controller
             return redirect()->back()->with('error', 'Durasi tidak valid. Silakan hubungi administrator.');
         }
         
-        $billingHours = $booking->calculateBillingHours($sessionSeconds);
-        $billingSeconds = $billingHours * 3600;
-        
-        $prevUsed       = $booking->total_used_seconds > 0 ? $booking->total_used_seconds : ($booking->total_used_minutes * 60);
-        $newTotalUsed   = $prevUsed + $billingSeconds;
-        $totalQuotaSecs = $booking->duration * 3600;
+        $prevUsed          = $booking->total_used_seconds > 0 ? $booking->total_used_seconds : ($booking->total_used_minutes * 60);
+        $newTotalUsed      = $prevUsed + $billingSeconds;
+        $totalQuotaSecs    = $booking->duration * 3600;
         $hasRemainingQuota = ($booking->duration >= 10) ? ($totalQuotaSecs > $newTotalUsed) : false;
         
         $sessionNotes = $booking->notes;
@@ -1000,12 +1016,13 @@ class MeetingRoomController extends Controller
         $booking->update([
             'status'             => $hasRemainingQuota ? 'approved' : 'selesai',
             'total_used_seconds' => $newTotalUsed,
-            'start_time'         => null, // Reset start_time so it returns to "Reservasi Check In" state!
+            'start_time'         => $hasRemainingQuota ? null : $booking->start_time,
+            'end_time'           => $hasRemainingQuota ? null : ($booking->end_time ?: $roundedCheckout),
             'date'               => $hasRemainingQuota ? null : $booking->date,
             'room_name'          => $hasRemainingQuota ? null : $booking->room_name,
             'keperluan'          => $hasRemainingQuota ? null : $booking->keperluan,
             'participants'       => $hasRemainingQuota ? 1 : $booking->participants,
-            'notes'              => $hasRemainingQuota ? null : $booking->notes, // Reset notes on checkout!
+            'notes'              => $hasRemainingQuota ? null : $booking->notes,
             'checkout_at'        => $checkoutAt,
             'checkin_at'         => null,
         ]);
@@ -1053,14 +1070,18 @@ class MeetingRoomController extends Controller
             }
         }
 
-        // Display actual duration and quota deduction
-        $actualDuration = $booking->formatSeconds($sessionSeconds);
-        $billingInfo    = " (Pemakaian Kuota: {$billingHours} Jam)";
-        
         // ── WhatsApp Notification ─────────────────────────────────────────────
         $waMessage = '';
         try {
-            $waLog = app(\App\Services\WhatsAppService::class)->notifyMeetingRoomCheckOut($booking, $actualDuration, $billingHours, $checkinAt, $checkoutAt);
+            $waLog = app(\App\Services\WhatsAppService::class)->notifyMeetingRoomCheckOut(
+                $booking, 
+                $billingHours . ' Jam', 
+                $billingHours, 
+                $checkinAt, 
+                $checkoutAt,
+                $startCarbon,
+                $roundedCheckout
+            );
             if ($waLog && $waLog->status === \App\Models\WhatsappLog::STATUS_SUCCESS) {
                 $waMessage = ' WhatsApp notifikasi berhasil dikirim.';
             } elseif ($waLog) {
@@ -1071,7 +1092,9 @@ class MeetingRoomController extends Controller
             $waMessage = ' Tetapi WhatsApp gagal dikirim.';
         }
 
-        return redirect()->back()->with('success', "User berhasil Check Out dari ruangan. Durasi aktual: {$actualDuration}{$billingInfo}." . $waMessage);
+        $formattedStart = $startCarbon->format('H:i');
+        $formattedEnd   = $roundedCheckout->format('H:i');
+        return redirect()->back()->with('success', "User berhasil Check Out dari ruangan. Waktu: {$formattedStart} - {$formattedEnd} WIB (Durasi: {$billingHours} Jam)." . $waMessage);
     }
 
     // ── Private helpers ───────────────────────────────────────────────────────

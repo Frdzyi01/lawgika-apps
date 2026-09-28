@@ -585,9 +585,12 @@
                                 <td>
                                     @if($log->type === 'checkout' && $index > 0 && $logs[$index-1]->type === 'checkin')
                                         @php
-                                            $diff = \Carbon\Carbon::parse($logs[$index-1]->timestamp)->diffInSeconds($log->timestamp);
+                                            $cIn  = \Carbon\Carbon::parse($logs[$index-1]->timestamp);
+                                            $cOut = \Carbon\Carbon::parse($log->timestamp);
+                                            $calc = $booking->calculateBillingDuration($cIn, $cOut);
                                         @endphp
-                                        <span class="badge bg-light text-dark border">{{ $booking->formatSeconds($diff) }}</span>
+                                        <span class="badge bg-primary-subtle text-primary border border-primary-subtle fw-bold">{{ $calc['billing_hours'] }} Jam</span>
+                                        <small class="text-muted d-block mt-0.5" style="font-size:0.72rem;">({{ $calc['start_carbon']->format('H:i') }} - {{ $calc['rounded_checkout']->format('H:i') }})</small>
                                     @else
                                         <span class="text-muted">–</span>
                                     @endif

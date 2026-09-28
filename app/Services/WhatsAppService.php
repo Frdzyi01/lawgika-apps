@@ -605,7 +605,15 @@ class WhatsAppService
      * Menggunakan WhatsApp Template Message via Botcake API.
      * Template: meeting_room_checkout (6 parameter)
      */
-    public function notifyMeetingRoomCheckOut(MeetingRoomBooking $booking, string $actualDuration, int $billingHours, $checkinAt, $checkoutAt): ?WhatsappLog
+    public function notifyMeetingRoomCheckOut(
+        MeetingRoomBooking $booking, 
+        string $actualDuration, 
+        int $billingHours, 
+        $checkinAt, 
+        $checkoutAt,
+        ?\Carbon\Carbon $startCarbon = null,
+        ?\Carbon\Carbon $roundedCheckout = null
+    ): ?WhatsappLog
     {
         $booking->loadMissing(['user', 'benefit']);
 
@@ -626,20 +634,33 @@ class WhatsAppService
 
         $roomName = $booking->room_name ?? 'Meeting Room';
 
-        // Tanggal: ambil dari tanggal yang sama dengan checkin ($booking->date)
+        // Tanggal: ambil dari tanggal yang sama dengan booking/checkin ($booking->date)
         $tanggal = $booking->date
             ? \Carbon\Carbon::parse($booking->date)->format('d M Y')
             : ($checkinAt ? \Carbon\Carbon::parse($checkinAt)->format('d M Y') : ($checkoutAt ? \Carbon\Carbon::parse($checkoutAt)->format('d M Y') : '-'));
 
-        // Jam Mulai: ambil dari jam mulai yang diisi saat checkin ($booking->start_time)
-        $jamMulai = $booking->start_time
-            ? \Carbon\Carbon::parse($booking->start_time)->format('H:i')
-            : ($checkinAt ? \Carbon\Carbon::parse($checkinAt)->format('H:i') : '-');
+        // Jam Mulai: selalu gunakan jam mulai booking yang dibuat admin
+        if ($startCarbon) {
+            $jamMulai = $startCarbon->format('H:i');
+        } elseif ($booking->start_time) {
+            $jamMulai = \Carbon\Carbon::parse($booking->start_time)->format('H:i');
+        } else {
+            $jamMulai = $checkinAt ? \Carbon\Carbon::parse($checkinAt)->format('H:i') : '-';
+        }
 
-        // Jam Selesai: ambil dari waktu admin klik checkout ($checkoutAt)
-        $jamSelesai = $checkoutAt
-            ? \Carbon\Carbon::parse($checkoutAt)->format('H:i')
-            : ($booking->end_time ? \Carbon\Carbon::parse($booking->end_time)->format('H:i') : '-');
+        // Jam Selesai: ambil dari waktu checkout yang sudah dibulatkan ke atas (.00) ke jam berikutnya
+        if ($roundedCheckout) {
+            $jamSelesai = $roundedCheckout->format('H:i');
+        } elseif ($checkoutAt) {
+            $cOut = \Carbon\Carbon::parse($checkoutAt);
+            $outH = (int) $cOut->format('H');
+            $outM = (int) $cOut->format('i');
+            $outS = (int) $cOut->format('s');
+            $rEnd = ($outM > 0 || $outS > 0) ? $cOut->copy()->startOfHour()->addHour() : $cOut->copy()->startOfHour();
+            $jamSelesai = $rEnd->format('H:i');
+        } else {
+            $jamSelesai = $booking->end_time ? \Carbon\Carbon::parse($booking->end_time)->format('H:i') : '-';
+        }
 
         // Sisa Kuota: menyesuaikan paket dikurangi jam dari mulai sampai selesai yang dibulatkan jamnya
         $sisaKuota = $this->calculateMeetingRoomRemainingQuota($booking->fresh());

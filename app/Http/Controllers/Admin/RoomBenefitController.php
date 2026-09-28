@@ -88,16 +88,27 @@ class RoomBenefitController extends Controller
                 ->with('error', '❌ Tidak ada sesi Check In aktif yang ditemukan untuk benefit ini.');
         }
 
-        // ── BILLING ADJUSTMENT: Calculate actual and rounded duration ─────────
-        $actualMinutes = (int) ceil($lastLog->action_at->diffInMinutes(now()));
+        // ── BILLING ADJUSTMENT: Calculate duration according to Lawgika rules ─────────
+        $now = now();
+        $booking = $benefit->meeting_room_booking_id ? \App\Models\MeetingRoomBooking::find($benefit->meeting_room_booking_id) : null;
         
-        // Round up to nearest hour (minimum 1 hour)
-        $billingHours = (int) ceil($actualMinutes / 60);
-        if ($billingHours < 1) {
-            $billingHours = 1; // Enforce minimum 1 hour
+        if ($booking && $booking->start_time) {
+            $calc = $booking->calculateBillingDuration($lastLog->action_at, $now);
+            $billingHours    = $calc['billing_hours'];
+            $roundedCheckout = $calc['rounded_checkout'];
+            $startCarbon     = $calc['start_carbon'];
+        } else {
+            $outH = (int) $now->format('H');
+            $outM = (int) $now->format('i');
+            $outS = (int) $now->format('s');
+            $roundedCheckout = ($outM > 0 || $outS > 0) ? $now->copy()->startOfHour()->addHour() : $now->copy()->startOfHour();
+            $diffSeconds     = $lastLog->action_at->diffInSeconds($roundedCheckout, false);
+            $billingHours    = max(1, (int) ceil($diffSeconds / 3600));
+            $startCarbon     = $lastLog->action_at;
         }
         
         $billingMinutes = $billingHours * 60;
+        $actualMinutes  = (int) ceil($lastLog->action_at->diffInMinutes($now));
 
         try {
             // Pass ROUNDED minutes to service for deduction
@@ -106,8 +117,9 @@ class RoomBenefitController extends Controller
             return redirect()
                 ->back()
                 ->with('success', sprintf(
-                    'Check Out berhasil. Durasi aktual: %s (Ditagih: %d jam). Sisa benefit: %s.',
-                    RoomBenefit::formatMinutes($actualMinutes),
+                    'Check Out berhasil. Waktu: %s - %s WIB (Ditagih: %d jam). Sisa benefit: %s.',
+                    $startCarbon->format('H:i'),
+                    $roundedCheckout->format('H:i'),
                     $billingHours,
                     RoomBenefit::formatMinutes($benefit->fresh()->remaining_minutes)
                 ));
