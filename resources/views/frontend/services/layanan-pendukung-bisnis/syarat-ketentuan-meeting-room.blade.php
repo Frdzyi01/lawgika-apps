@@ -197,10 +197,10 @@
 <section class="snk-hero text-center">
     <div class="container">
         <span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold text-uppercase mb-3" style="font-size: 0.8rem; letter-spacing: 1px;">
-            <i class="fa-solid fa-file-contract me-1"></i> Syarat & Ketentuan
+            <i class="fa-solid fa-file-contract me-1"></i> <span data-i18n="snk.badge">Syarat & Ketentuan</span>
         </span>
-        <h1>Syarat & Ketentuan Sewa Meeting Room Lawgika</h1>
-        <p>
+        <h1 data-i18n="snk.meeting.hero_title">Syarat & Ketentuan Sewa Meeting Room Lawgika</h1>
+        <p data-i18n="snk.meeting.hero_desc">
             Harap membaca dan memahami seluruh syarat dan ketentuan berikut sebelum melakukan reservasi meeting room di Lawgika.
         </p>
     </div>
@@ -212,30 +212,30 @@
 
         <div class="snk-card">
             <h2 class="snk-card-title">
-                <i class="fa-solid fa-clipboard-list"></i> 📌 Syarat & Ketentuan Sewa Meeting Room Lawgika
+                <i class="fa-solid fa-clipboard-list"></i> <span data-i18n="snk.meeting.card_title">📌 Syarat & Ketentuan Sewa Meeting Room Lawgika</span>
             </h2>
             <ol class="snk-list">
-                <li>Reservasi wajib dilakukan dan dikonfirmasi selambat-lambatnya 1 (satu) hari sebelum jadwal penggunaan ruangan.</li>
-                <li>Keterlambatan kedatangan tidak menambah durasi penggunaan ruangan.</li>
-                <li>Apabila penyewa ingin membawa properti, peralatan, dekorasi, atau kebutuhan tambahan lainnya, wajib menginformasikannya kepada Lawgika sebelum hari penggunaan.</li>
-                <li>Perpanjangan waktu penggunaan (overtime) akan dikenakan pemotongan kuota meeting.</li>
-                <li>Reschedule dapat dilakukan maksimal 1 (satu) kali dengan pemberitahuan minimal 1 x 24 jam sebelum jadwal penggunaan dan bergantung pada ketersediaan ruangan.</li>
-                <li>Penyewa bertanggung jawab atas setiap kerusakan atau kehilangan fasilitas yang disebabkan oleh penyewa maupun pihak yang dibawa oleh penyewa.</li>
-                <li>Dilarang menggunakan ruangan untuk kegiatan yang bertentangan dengan peraturan perundang-undangan, ketertiban umum, atau norma yang berlaku.</li>
-                <li>Dengan menggunakan fasilitas ruangan meeting, penyewa dianggap telah membaca, memahami, dan menyetujui seluruh syarat dan ketentuan ini.</li>
+                <li data-i18n="snk.meeting.item1">Reservasi wajib dilakukan dan dikonfirmasi selambat-lambatnya 1 (satu) hari sebelum jadwal penggunaan ruangan.</li>
+                <li data-i18n="snk.meeting.item2">Keterlambatan kedatangan tidak menambah durasi penggunaan ruangan.</li>
+                <li data-i18n="snk.meeting.item3">Apabila penyewa ingin membawa properti, peralatan, dekorasi, atau kebutuhan tambahan lainnya, wajib menginformasikannya kepada Lawgika sebelum hari penggunaan.</li>
+                <li data-i18n="snk.meeting.item4">Perpanjangan waktu penggunaan (overtime) akan dikenakan pemotongan kuota meeting.</li>
+                <li data-i18n="snk.meeting.item5">Reschedule dapat dilakukan maksimal 1 (satu) kali dengan pemberitahuan minimal 1 x 24 jam sebelum jadwal penggunaan dan bergantung pada ketersediaan ruangan.</li>
+                <li data-i18n="snk.meeting.item6">Penyewa bertanggung jawab atas setiap kerusakan atau kehilangan fasilitas yang disebabkan oleh penyewa maupun pihak yang dibawa oleh penyewa.</li>
+                <li data-i18n="snk.meeting.item7">Dilarang menggunakan ruangan untuk kegiatan yang bertentangan dengan peraturan perundang-undangan, ketertiban umum, atau norma yang berlaku.</li>
+                <li data-i18n="snk.meeting.item8">Dengan menggunakan fasilitas ruangan meeting, penyewa dianggap telah membaca, memahami, dan menyetujui seluruh syarat dan ketentuan ini.</li>
             </ol>
         </div>
 
         <!-- Closing & CTA -->
         <div class="snk-closing-box">
-            <p>
+            <p data-i18n="snk.meeting.closing_desc">
                 Jika Anda memiliki pertanyaan lebih lanjut mengenai sewa meeting room, silakan hubungi tim <strong>Lawgika</strong>.
             </p>
             <a href="https://wa.me/6281112088600?text=Halo%20Admin%20Lawgika%2C%20saya%20ingin%20bertanya%20mengenai%20sewa%20meeting%20room"
                target="_blank"
                rel="noopener noreferrer"
                class="btn-wa-snk">
-                <i class="fa-brands fa-whatsapp fs-4"></i> Hubungi Kami via WhatsApp
+                <i class="fa-brands fa-whatsapp fs-4"></i> <span data-i18n="snk.cta_whatsapp">Hubungi Kami via WhatsApp</span>
             </a>
         </div>
 

@@ -197,10 +197,10 @@
 <section class="snk-hero text-center">
     <div class="container">
         <span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold text-uppercase mb-3" style="font-size: 0.8rem; letter-spacing: 1px;">
-            <i class="fa-solid fa-file-contract me-1"></i> Syarat & Ketentuan
+            <i class="fa-solid fa-file-contract me-1"></i> <span data-i18n="snk.badge">Syarat & Ketentuan</span>
         </span>
-        <h1>Syarat & Ketentuan Sewa Podcast Room Lawgika</h1>
-        <p>
+        <h1 data-i18n="snk.podcast.hero_title">Syarat & Ketentuan Sewa Podcast Room Lawgika</h1>
+        <p data-i18n="snk.podcast.hero_desc">
             Harap membaca dan memahami seluruh syarat dan ketentuan berikut sebelum melakukan reservasi studio podcast di Lawgika.
         </p>
     </div>
@@ -212,41 +212,41 @@
 
         <div class="snk-card">
             <h2 class="snk-card-title">
-                <i class="fa-solid fa-clipboard-list"></i> 📌 Syarat & Ketentuan Sewa Studio Podcast Lawgika
+                <i class="fa-solid fa-clipboard-list"></i> <span data-i18n="snk.podcast.card_title">📌 Syarat & Ketentuan Sewa Studio Podcast Lawgika</span>
             </h2>
             <ol class="snk-list">
-                <li>Reservasi wajib dilakukan dan dikonfirmasi selambat-lambatnya 1 (satu) hari sebelum jadwal penggunaan studio.</li>
-                <li>Reservasi dianggap valid setelah pembayaran diterima oleh Lawgika.</li>
-                <li>Penyewa wajib hadir 30 menit sebelum jadwal dimulai.</li>
-                <li>Keterlambatan kedatangan tidak menambah durasi penggunaan studio.</li>
-                <li>Customer disarankan membawa/menyediakan media penyimpanan data untuk mentransfer file audio dan visual.</li>
-                <li>Apabila penyewa ingin membawa properti, peralatan, dekorasi, atau kebutuhan tambahan lainnya, wajib menginformasikannya kepada Lawgika sebelum hari penggunaan.</li>
-                <li>Apabila memerlukan penggunaan TV mohon kirimkan file ukuran 4K dengan format MP4 sebelum hari penggunaan.</li>
-                <li>Perpanjangan waktu penggunaan (overtime) akan dikenakan biaya tambahan sesuai tarif yang berlaku dan ditagihkan setelah sesi podcast selesai.</li>
-                <li>Reschedule dapat dilakukan maksimal 1 (satu) kali dengan pemberitahuan minimal 1 x 24 jam sebelum jadwal penggunaan dan bergantung pada ketersediaan studio.</li>
-                <li>Pembatalan setelah pembayaran dilakukan tidak dapat dikembalikan (non-refundable).</li>
-                <li>Penyewa bertanggung jawab atas setiap kerusakan atau kehilangan fasilitas yang disebabkan oleh penyewa maupun pihak yang dibawa oleh penyewa.</li>
-                <li>Operator podcast hanya membantu untuk setup audio dan visual diawal sesuai permintaan customer.</li>
-                <li>Jika membutuhkan setup khusus atau bantuan operator, mohon diinformasikan saat reservasi.</li>
-                <li>Bagi customer yang tidak menggunakan jasa operator dari Lawgika, maka setiap kendala setelah video take bukan menjadi tanggung jawab dari Lawgika</li>
-                <li>Dimohon untuk mengantisipasi kemungkinan kamera mati, overheat, hal yang berkaitan dengan recording berhenti.</li>
-                <li>Untuk customer yang tidak menggunakan layanan operator disarankan untuk menyediakan operator yang berpengalaman dengan podcast.</li>
-                <li>Lawgika hanya bertindak sebagai penyedia fasilitas studio podcast dan tidak bertanggung jawab atas isi, materi, pernyataan, maupun konsekuensi hukum dari konten yang dibuat atau disampaikan oleh penyewa.</li>
-                <li>Dilarang menggunakan studio untuk kegiatan yang bertentangan dengan peraturan perundang-undangan, ketertiban umum, atau norma yang berlaku.</li>
-                <li>Dengan melakukan pembayaran dan/atau menggunakan fasilitas studio, penyewa dianggap telah membaca, memahami, dan menyetujui seluruh syarat dan ketentuan ini.</li>
+                <li data-i18n="snk.podcast.item1">Reservasi wajib dilakukan dan dikonfirmasi selambat-lambatnya 1 (satu) hari sebelum jadwal penggunaan studio.</li>
+                <li data-i18n="snk.podcast.item2">Reservasi dianggap valid setelah pembayaran diterima oleh Lawgika.</li>
+                <li data-i18n="snk.podcast.item3">Penyewa wajib hadir 30 menit sebelum jadwal dimulai.</li>
+                <li data-i18n="snk.podcast.item4">Keterlambatan kedatangan tidak menambah durasi penggunaan studio.</li>
+                <li data-i18n="snk.podcast.item5">Customer disarankan membawa/menyediakan media penyimpanan data untuk mentransfer file audio dan visual.</li>
+                <li data-i18n="snk.podcast.item6">Apabila penyewa ingin membawa properti, peralatan, dekorasi, atau kebutuhan tambahan lainnya, wajib menginformasikannya kepada Lawgika sebelum hari penggunaan.</li>
+                <li data-i18n="snk.podcast.item7">Apabila memerlukan penggunaan TV mohon kirimkan file ukuran 4K dengan format MP4 sebelum hari penggunaan.</li>
+                <li data-i18n="snk.podcast.item8">Perpanjangan waktu penggunaan (overtime) akan dikenakan biaya tambahan sesuai tarif yang berlaku dan ditagihkan setelah sesi podcast selesai.</li>
+                <li data-i18n="snk.podcast.item9">Reschedule dapat dilakukan maksimal 1 (satu) kali dengan pemberitahuan minimal 1 x 24 jam sebelum jadwal penggunaan dan bergantung pada ketersediaan studio.</li>
+                <li data-i18n="snk.podcast.item10">Pembatalan setelah pembayaran dilakukan tidak dapat dikembalikan (non-refundable).</li>
+                <li data-i18n="snk.podcast.item11">Penyewa bertanggung jawab atas setiap kerusakan atau kehilangan fasilitas yang disebabkan oleh penyewa maupun pihak yang dibawa oleh penyewa.</li>
+                <li data-i18n="snk.podcast.item12">Operator podcast hanya membantu untuk setup audio dan visual diawal sesuai permintaan customer.</li>
+                <li data-i18n="snk.podcast.item13">Jika membutuhkan setup khusus atau bantuan operator, mohon diinformasikan saat reservasi.</li>
+                <li data-i18n="snk.podcast.item14">Bagi customer yang tidak menggunakan jasa operator dari Lawgika, maka setiap kendala setelah video take bukan menjadi tanggung jawab dari Lawgika</li>
+                <li data-i18n="snk.podcast.item15">Dimohon untuk mengantisipasi kemungkinan kamera mati, overheat, hal yang berkaitan dengan recording berhenti.</li>
+                <li data-i18n="snk.podcast.item16">Untuk customer yang tidak menggunakan layanan operator disarankan untuk menyediakan operator yang berpengalaman dengan podcast.</li>
+                <li data-i18n="snk.podcast.item17">Lawgika hanya bertindak sebagai penyedia fasilitas studio podcast dan tidak bertanggung jawab atas isi, materi, pernyataan, maupun konsekuensi hukum dari konten yang dibuat atau disampaikan oleh penyewa.</li>
+                <li data-i18n="snk.podcast.item18">Dilarang menggunakan studio untuk kegiatan yang bertentangan dengan peraturan perundang-undangan, ketertiban umum, atau norma yang berlaku.</li>
+                <li data-i18n="snk.podcast.item19">Dengan melakukan pembayaran dan/atau menggunakan fasilitas studio, penyewa dianggap telah membaca, memahami, dan menyetujui seluruh syarat dan ketentuan ini.</li>
             </ol>
         </div>
 
         <!-- Closing & CTA -->
         <div class="snk-closing-box">
-            <p>
+            <p data-i18n="snk.podcast.closing_desc">
                 Jika Anda memiliki pertanyaan lebih lanjut mengenai sewa studio podcast, silakan hubungi tim <strong>Lawgika</strong>.
             </p>
             <a href="https://wa.me/6281112088600?text=Halo%20Admin%20Lawgika%2C%20saya%20ingin%20bertanya%20mengenai%20sewa%20podcast%20room"
                target="_blank"
                rel="noopener noreferrer"
                class="btn-wa-snk">
-                <i class="fa-brands fa-whatsapp fs-4"></i> Hubungi Kami via WhatsApp
+                <i class="fa-brands fa-whatsapp fs-4"></i> <span data-i18n="snk.cta_whatsapp">Hubungi Kami via WhatsApp</span>
             </a>
         </div>
 
