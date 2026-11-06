@@ -176,6 +176,28 @@ class RoomBenefit extends Model
     }
 
 
+    /**
+     * Label jenis badan usaha sesuai layanan yang dipesan client
+     * (PT, PT Perorangan, PT PMA, CV, Firma, Yayasan, Virtual Office).
+     * Hanya untuk tampilan, tidak mengubah data.
+     */
+    public function getBusinessLabelAttribute(): string
+    {
+        $order = $this->order;
+        $slug  = strtolower(trim($order?->form_data['service'] ?? ''));
+        $text  = strtolower(($order?->service_name ?? $order?->service?->name ?? '') . ' ' . ($this->paket ?? '') . ' ' . $slug);
+
+        return match (true) {
+            str_contains($text, 'virtual office')                                   => 'Virtual Office',
+            str_contains($text, 'yayasan')                                          => 'Yayasan',
+            str_contains($text, 'firma')                                            => 'Firma',
+            str_contains($text, 'pma')                                              => 'PT PMA',
+            str_contains($text, 'perorangan')                                       => 'PT Perorangan',
+            preg_match('/\bcv\b/', $text) === 1                                     => 'CV',
+            default                                                                 => 'PT',
+        };
+    }
+
     // ── Relationships ─────────────────────────────────────────────────────────
 
     public function user(): BelongsTo

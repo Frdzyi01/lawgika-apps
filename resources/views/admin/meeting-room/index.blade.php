@@ -567,7 +567,7 @@
                                     </div>
                                 @elseif ($b->source_type === 'benefit')
                                     <span class="badge bg-info-subtle text-info border border-info-subtle px-2 py-0.5 rounded" style="font-size:0.76rem;">
-                                        <i class="fa-solid fa-gift me-1"></i> Benefit Kuota PT
+                                        <i class="fa-solid fa-gift me-1"></i> Benefit Kuota {{ $b->benefit?->business_label ?? 'PT' }}
                                     </span>
                                 @else
                                     <span class="badge bg-light text-muted border px-2 py-0.5 rounded" style="font-size:0.76rem;">
@@ -595,7 +595,7 @@
                             </td>
                             <td>
                                 @if($b->source_type === 'benefit')
-                                    <span class="badge bg-light text-dark border">Paket PT</span>
+                                    <span class="badge bg-light text-dark border">{{ ($b->benefit?->business_label ?? 'PT') === 'Virtual Office' ? 'Paket Virtual Office' : 'Paket Pendirian ' . ($b->benefit?->business_label ?? 'PT') }}</span>
                                     @if($b->benefit)
                                         <div class="client-sub-detail mt-0.5">{{ $b->benefit->paket }}</div>
                                     @endif

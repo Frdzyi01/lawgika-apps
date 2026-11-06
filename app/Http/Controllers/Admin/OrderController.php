@@ -300,8 +300,7 @@ class OrderController extends Controller
         }
 
         return redirect()->route('admin.orders.index')
-            ->with('success', 'Pesanan baru berhasil ditambahkan oleh Admin.' . $waMessage)
-            ->with($waMessage && str_contains($waMessage, 'gagal') ? 'warning' : 'info', $waMessage ?: null);
+            ->with('success', 'Data pelanggan berhasil ditambahkan.');
     }
 
     /**
