@@ -424,10 +424,10 @@
         {{-- Arrow Controls --}}
         <div class="layanan-nav-arrows">
           <button class="layanan-arrow-btn layanan-prev-office" title="Previous" aria-label="Previous">
-            <i class="bi bi-chevron-left"></i>
+            <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/></svg>
           </button>
           <button class="layanan-arrow-btn layanan-next-office" title="Next" aria-label="Next">
-            <i class="bi bi-chevron-right"></i>
+            <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>
           </button>
         </div>
 
@@ -437,7 +437,10 @@
             <div class="swiper-slide">
               <div class="layanan-card">
                 <div class="layanan-card-img-wrap">
-                  <img src="{{ asset('buyer-file/assets/img/meetingroom/ruang.webp') }}"
+                  <img src="{{ asset('buyer-file/assets/img/meetingroom/ruang-card.webp') }}"
+                    srcset="{{ asset('buyer-file/assets/img/meetingroom/ruang-card.webp') }} 500w, {{ asset('buyer-file/assets/img/meetingroom/ruang.webp') }} 1200w"
+                    sizes="(max-width: 767px) 92vw, 380px"
+                    width="500" height="333" decoding="async"
                     alt="Virtual Office – Gedung Perkantoran Modern" loading="lazy">
                   <span class="layanan-card-badge" data-i18n="layanan.badge.best_seller">Best Seller</span>
                 </div>
@@ -454,7 +457,10 @@
             <div class="swiper-slide">
               <div class="layanan-card">
                 <div class="layanan-card-img-wrap">
-                  <img src="{{ asset('buyer-file/assets/img/meetingroom/ruangmeeting4.webp') }}"
+                  <img src="{{ asset('buyer-file/assets/img/meetingroom/ruangmeeting4-card.webp') }}"
+                    srcset="{{ asset('buyer-file/assets/img/meetingroom/ruangmeeting4-card.webp') }} 500w, {{ asset('buyer-file/assets/img/meetingroom/ruangmeeting4.webp') }} 1200w"
+                    sizes="(max-width: 767px) 92vw, 380px"
+                    width="500" height="342" decoding="async"
                     alt="Meeting Room – Ruang Rapat Profesional" loading="lazy">
                 </div>
                 <div class="layanan-card-body">
@@ -470,7 +476,10 @@
             <div class="swiper-slide">
               <div class="layanan-card">
                 <div class="layanan-card-img-wrap">
-                  <img src="{{ asset('buyer-file/assets/img/podcastroom/ruang.webp') }}"
+                  <img src="{{ asset('buyer-file/assets/img/podcastroom/ruang-card.webp') }}"
+                    srcset="{{ asset('buyer-file/assets/img/podcastroom/ruang-card.webp') }} 500w, {{ asset('buyer-file/assets/img/podcastroom/ruang.webp') }} 1200w"
+                    sizes="(max-width: 767px) 92vw, 380px"
+                    width="500" height="333" decoding="async"
                     alt="Coworking Space – Ruang Kerja Bersama" loading="lazy">
                 </div>
                 <div class="layanan-card-body">
@@ -514,10 +523,10 @@
 
         <div class="layanan-nav-arrows">
           <button class="layanan-arrow-btn layanan-prev-business" title="Previous" aria-label="Previous">
-            <i class="bi bi-chevron-left"></i>
+            <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/></svg>
           </button>
           <button class="layanan-arrow-btn layanan-next-business" title="Next" aria-label="Next">
-            <i class="bi bi-chevron-right"></i>
+            <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>
           </button>
         </div>
 
@@ -528,7 +537,9 @@
             <div class="swiper-slide">
               <div class="layanan-card">
                 <div class="layanan-card-img-wrap">
-                  <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=500&q=80"
+                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='333'/%3E"
+                    data-src="{{ asset('lawgika/services/pt-perorangan.webp') }}"
+                    width="500" height="333" decoding="async"
                     alt="Pendirian PT Perorangan" loading="lazy">
                   <span class="layanan-card-badge" data-i18n="layanan.badge.popular">Populer</span>
                 </div>
@@ -546,7 +557,9 @@
             <div class="swiper-slide">
               <div class="layanan-card">
                 <div class="layanan-card-img-wrap">
-                  <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=500&q=80"
+                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='333'/%3E"
+                    data-src="{{ asset('lawgika/services/pt.webp') }}"
+                    width="500" height="333" decoding="async"
                     alt="Pendirian PT" loading="lazy">
                 </div>
                 <div class="layanan-card-body">
@@ -563,7 +576,9 @@
             <div class="swiper-slide">
               <div class="layanan-card">
                 <div class="layanan-card-img-wrap">
-                  <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=500&q=80"
+                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='333'/%3E"
+                    data-src="{{ asset('lawgika/services/cv.webp') }}"
+                    width="500" height="333" decoding="async"
                     alt="Pendirian CV" loading="lazy">
                 </div>
                 <div class="layanan-card-body">
@@ -580,7 +595,9 @@
             <div class="swiper-slide">
               <div class="layanan-card">
                 <div class="layanan-card-img-wrap">
-                  <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=500&q=80"
+                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='333'/%3E"
+                    data-src="{{ asset('lawgika/services/yayasan.webp') }}"
+                    width="500" height="333" decoding="async"
                     alt="Pendirian Yayasan" loading="lazy">
                 </div>
                 <div class="layanan-card-body">
@@ -597,7 +614,9 @@
             <div class="swiper-slide">
               <div class="layanan-card">
                 <div class="layanan-card-img-wrap">
-                  <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=500&q=80"
+                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='333'/%3E"
+                    data-src="{{ asset('lawgika/services/firma.webp') }}"
+                    width="500" height="333" decoding="async"
                     alt="Pendirian Firma" loading="lazy">
                 </div>
                 <div class="layanan-card-body">
@@ -643,10 +662,10 @@
 
         <div class="layanan-nav-arrows">
           <button class="layanan-arrow-btn layanan-prev-foreign" title="Previous" aria-label="Previous">
-            <i class="bi bi-chevron-left"></i>
+            <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/></svg>
           </button>
           <button class="layanan-arrow-btn layanan-next-foreign" title="Next" aria-label="Next">
-            <i class="bi bi-chevron-right"></i>
+            <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>
           </button>
         </div>
 
@@ -657,7 +676,9 @@
             <div class="swiper-slide">
               <div class="layanan-card">
                 <div class="layanan-card-img-wrap">
-                  <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=500&q=80"
+                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='333'/%3E"
+                    data-src="{{ asset('lawgika/services/pembukuan.webp') }}"
+                    width="500" height="333" decoding="async"
                     alt="Jasa Pembukuan & Perpajakan" loading="lazy">
                   <span class="layanan-card-badge" data-i18n="layanan.badge.best_seller2">Terlaris</span>
                 </div>
@@ -677,7 +698,9 @@
             <div class="swiper-slide">
               <div class="layanan-card">
                 <div class="layanan-card-img-wrap">
-                  <img src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=500&q=80"
+                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='333'/%3E"
+                    data-src="{{ asset('lawgika/services/spt.webp') }}"
+                    width="500" height="333" decoding="async"
                     alt="Pelaporan SPT Tahunan" loading="lazy">
                 </div>
                 <div class="layanan-card-body">
@@ -696,7 +719,9 @@
             <div class="swiper-slide">
               <div class="layanan-card">
                 <div class="layanan-card-img-wrap">
-                  <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=500&q=80"
+                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='333'/%3E"
+                    data-src="{{ asset('lawgika/services/pkp.webp') }}"
+                    width="500" height="333" decoding="async"
                     alt="Pengurusan PKP" loading="lazy">
                 </div>
                 <div class="layanan-card-body">
@@ -715,7 +740,9 @@
             <div class="swiper-slide">
               <div class="layanan-card">
                 <div class="layanan-card-img-wrap">
-                  <img src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=500&q=80"
+                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='333'/%3E"
+                    data-src="{{ asset('lawgika/services/konsultasi-pajak.webp') }}"
+                    width="500" height="333" decoding="async"
                     alt="Konsultasi Pajak" loading="lazy">
                 </div>
                 <div class="layanan-card-body">
@@ -773,19 +800,25 @@
       }
     });
 
-    // Initialize Swipers safely
+    // Initialize visible tab Swiper first; lazy-init hidden tabs on first click
     let swiperOffice, swiperBusiness, swiperForeign;
-    if (typeof Swiper !== 'undefined') {
+    function initTabSwiper(target) {
+      if (typeof Swiper === 'undefined') return null;
       try {
-        swiperOffice = new Swiper('#swiper-office', getSwiperConfig('.layanan-prev-office', '.layanan-next-office'));
-        swiperBusiness = new Swiper('#swiper-business', getSwiperConfig('.layanan-prev-business', '.layanan-next-business'));
-        swiperForeign = new Swiper('#swiper-foreign', getSwiperConfig('.layanan-prev-foreign', '.layanan-next-foreign'));
+        if (target === 'office' && !swiperOffice) {
+          swiperOffice = new Swiper('#swiper-office', getSwiperConfig('.layanan-prev-office', '.layanan-next-office'));
+        } else if (target === 'business' && !swiperBusiness) {
+          swiperBusiness = new Swiper('#swiper-business', getSwiperConfig('.layanan-prev-business', '.layanan-next-business'));
+        } else if (target === 'foreign' && !swiperForeign) {
+          swiperForeign = new Swiper('#swiper-foreign', getSwiperConfig('.layanan-prev-foreign', '.layanan-next-foreign'));
+        }
       } catch (err) {
         console.error('Swiper initialization failed:', err);
       }
-    } else {
-      console.warn('Swiper is not defined. Sliders will not be initialized.');
+      return target === 'office' ? swiperOffice : target === 'business' ? swiperBusiness : swiperForeign;
     }
+
+    initTabSwiper('office');
 
     // --- Tab Switching Logic ---
     const tabBtns = document.querySelectorAll('[data-layanan-tab]');
@@ -811,15 +844,16 @@
 
         const targetPane = document.getElementById('pane-' + target);
         if (targetPane) {
+          targetPane.querySelectorAll('img[data-src]').forEach(function(img) {
+            img.src = img.getAttribute('data-src');
+            img.removeAttribute('data-src');
+          });
           targetPane.style.display = 'block';
           // Trigger a tiny reflow for animation if needed
           void targetPane.offsetWidth;
           targetPane.classList.add('active-visible');
 
-          // Swiper update is handled by observer: true, but we can force it if needed
-          const swiperInstance = target === 'office' ? swiperOffice :
-            target === 'business' ? swiperBusiness :
-            swiperForeign;
+          const swiperInstance = initTabSwiper(target);
           if (swiperInstance) {
             try {
               swiperInstance.update();

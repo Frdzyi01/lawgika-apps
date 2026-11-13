@@ -48,8 +48,9 @@
       return;
     }
     /* Fallback: XHR (digunakan jika inline tidak tersedia, misal: AJAX partial load) */
+    var ver = (window.__lwLangVer && window.__lwLangVer[lang]) ? window.__lwLangVer[lang] : '1';
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', BASE_PATH + lang + '.json?v=1', true);
+    xhr.open('GET', BASE_PATH + lang + '.json?v=' + encodeURIComponent(ver), true);
     xhr.onload = function () {
       if (xhr.status >= 200 && xhr.status < 300) {
         try {
@@ -94,7 +95,7 @@
     for (var i = 0; i < elems.length; i++) {
       var key = elems[i].getAttribute('data-i18n');
       var translation = t(key);
-      if (translation !== key) {
+      if (translation !== key && elems[i].innerHTML !== translation) {
         elems[i].innerHTML = translation;
       }
     }
@@ -104,7 +105,7 @@
     for (var j = 0; j < textElems.length; j++) {
       var tkey = textElems[j].getAttribute('data-i18n-text');
       var ttranslation = t(tkey);
-      if (ttranslation !== tkey) {
+      if (ttranslation !== tkey && textElems[j].textContent !== ttranslation) {
         textElems[j].textContent = ttranslation;
       }
     }
@@ -114,7 +115,7 @@
     for (var k = 0; k < placeholders.length; k++) {
       var pkey = placeholders[k].getAttribute('data-i18n-placeholder');
       var ptranslation = t(pkey);
-      if (ptranslation !== pkey) {
+      if (ptranslation !== pkey && placeholders[k].getAttribute('placeholder') !== ptranslation) {
         placeholders[k].setAttribute('placeholder', ptranslation);
       }
     }
@@ -124,7 +125,7 @@
     for (var l = 0; l < titles.length; l++) {
       var tikey = titles[l].getAttribute('data-i18n-title');
       var titranslation = t(tikey);
-      if (titranslation !== tikey) {
+      if (titranslation !== tikey && titles[l].getAttribute('title') !== titranslation) {
         titles[l].setAttribute('title', titranslation);
       }
     }
@@ -134,7 +135,7 @@
     for (var m = 0; m < ariaLabels.length; m++) {
       var akey = ariaLabels[m].getAttribute('data-i18n-aria');
       var atranslation = t(akey);
-      if (atranslation !== akey) {
+      if (atranslation !== akey && ariaLabels[m].getAttribute('aria-label') !== atranslation) {
         ariaLabels[m].setAttribute('aria-label', atranslation);
       }
     }
@@ -297,11 +298,10 @@
       document.cookie = "lw_language=" + currentLang + ";path=/;max-age=31536000";
     } catch (e) {}
 
-    /* Pre-load default + bahasa aktif */
-    var toLoad = [DEFAULT_LANG];
-    if (currentLang !== DEFAULT_LANG) toLoad.push(currentLang);
-    /* Selalu preload en sebagai fallback tengah */
-    if (toLoad.indexOf('en') === -1) toLoad.push('en');
+    /* Load bahasa aktif saja (fallback hanya jika bukan default id) */
+    var toLoad = [currentLang];
+    if (currentLang !== DEFAULT_LANG) toLoad.push(DEFAULT_LANG);
+    if (currentLang === 'zh') toLoad.push('en');
 
     var pending = toLoad.length;
     function onLoaded() {

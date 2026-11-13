@@ -6,7 +6,7 @@ Description: Web hosting & WHMCS Html Template
 Version: 1.0.0
 */
 /*CSS Table Of Content Ends Here*/
-@import url("https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap");
+/* Google Fonts Jost loaded asynchronously in app.blade.php */
 
 :root {
   --body: #fff;

@@ -64,30 +64,42 @@ CSS TABLE OF CONTENTS
         });
 
         //>> Video Popup Start <<//
-        $(".img-popup").magnificPopup({
-            type: "image",
-            gallery: {
-                enabled: true,
-            },
-        });
-
-        $('.video-popup').magnificPopup({
-            type: 'iframe',
-            callbacks: {
+        if ($.fn.magnificPopup) {
+            if ($(".img-popup").length) {
+                $(".img-popup").magnificPopup({
+                    type: "image",
+                    gallery: {
+                        enabled: true,
+                    },
+                });
             }
-        });
+
+            if ($('.video-popup').length) {
+                $('.video-popup').magnificPopup({
+                    type: 'iframe',
+                    callbacks: {
+                    }
+                });
+            }
+        }
         
         //>> Counterup Start <<//
-        $(".count").counterUp({
-            delay: 15,
-            time: 4000,
-        });
+        if ($.fn.counterUp && $(".count").length) {
+            $(".count").counterUp({
+                delay: 15,
+                time: 4000,
+            });
+        }
 
         //>> Wow Animation Start <<//
-        new WOW().init();
+        if (typeof WOW !== "undefined" && $(".wow").length) {
+            new WOW().init();
+        }
 
         //>> Nice Select Start <<//
-        $('select').niceSelect();
+        if ($.fn.niceSelect && $('select').length) {
+            $('select').niceSelect();
+        }
 
         //>> Brand Slider Start <<//
         if($('.brand-slider').length > 0) {
@@ -244,32 +256,32 @@ CSS TABLE OF CONTENTS
         }
 
         //>> CountDown Start <<//
-        let targetDate = new Date("2024-07-12 00:00:00").getTime();
-        const countdownInterval = setInterval(function () {
-            let currentDate = new Date().getTime();
-            let remainingTime = targetDate - currentDate;
+        if ($("#countdown-container").length || $("#day").length) {
+            let targetDate = new Date("2024-07-12 00:00:00").getTime();
+            const countdownInterval = setInterval(function () {
+                let currentDate = new Date().getTime();
+                let remainingTime = targetDate - currentDate;
 
-            if (remainingTime <= 0) {
-                clearInterval(countdownInterval);
-                // Display a message or perform any action when the countdown timer reaches zero
-                $("#countdown-container").text("Countdown has ended!");
-            } else {
-                let days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
-                let hours = Math.floor(
-                    (remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-                );
-                let minutes = Math.floor(
-                    (remainingTime % (1000 * 60 * 60)) / (1000 * 60)
-                );
-                let seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+                if (remainingTime <= 0) {
+                    clearInterval(countdownInterval);
+                    $("#countdown-container").text("Countdown has ended!");
+                } else {
+                    let days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+                    let hours = Math.floor(
+                        (remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+                    );
+                    let minutes = Math.floor(
+                        (remainingTime % (1000 * 60 * 60)) / (1000 * 60)
+                    );
+                    let seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
 
-                // Pad single-digit values with leading zeros
-                $("#day").text(days.toString().padStart(2, "0"));
-                $("#hour").text(hours.toString().padStart(2, "0"));
-                $("#min").text(minutes.toString().padStart(2, "0"));
-                $("#sec").text(seconds.toString().padStart(2, "0"));
-            }
-        }, 1000);
+                    $("#day").text(days.toString().padStart(2, "0"));
+                    $("#hour").text(hours.toString().padStart(2, "0"));
+                    $("#min").text(minutes.toString().padStart(2, "0"));
+                    $("#sec").text(seconds.toString().padStart(2, "0"));
+                }
+            }, 1000);
+        }
         
 
         //>> Search Popup Start <<//

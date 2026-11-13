@@ -95,6 +95,12 @@
         Header set Cache-Control "public, max-age=31536000, immutable"
     </FilesMatch>
 
+    # Cache static i18n JSON dictionaries (versioned via ?v=mtime in i18n.js)
+    <IfModule mod_setenvif.c>
+        SetEnvIf Request_URI "^/lang/.*\.json$" IS_LANG_JSON
+        Header set Cache-Control "public, max-age=2592000" env=IS_LANG_JSON
+    </IfModule>
+
     # HTML — no cache
     <FilesMatch "\.(html|htm|php)$">
         Header set Cache-Control "no-cache, no-store, must-revalidate"

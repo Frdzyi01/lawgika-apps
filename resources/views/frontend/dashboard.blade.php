@@ -128,17 +128,11 @@
     padding-top: var(--header-h);
     padding-bottom: 0;
     overflow: hidden;
-    visibility: hidden;
     height: 100vh;
     /* Fixed height = 1 layar penuh */
     display: flex;
     flex-direction: column;
     position: relative;
-  }
-
-  /* JS akan menambahkan class ini setelah page load */
-  .hero-carousel-section.hero-ready {
-    visibility: visible;
   }
 
   .hero-card {
@@ -179,12 +173,23 @@
   }
 
   /* ---- Background: FULL LAYAR TANPA HITAM ---- */
+  .hero-slide-picture {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    display: block;
+  }
+
   .hero-slide-bg {
     position: absolute;
     inset: 0;
     background-size: cover !important;
     background-position: center center !important;
     background-repeat: no-repeat !important;
+    object-fit: cover;
+    object-position: center center;
     z-index: 0;
     width: 100%;
     height: 100%;
@@ -219,8 +224,8 @@
     transform: none;
   }
 
-  /* Animasi fade+slide ringan */
-  .hero-slide.active .hero-slide-text {
+  /* Animasi fade+slide ringan hanya saat perpindahan slide (tidak menghambat FCP awal) */
+  .hero-slide.active.hero-animated .hero-slide-text {
     animation: heroIn 0.50s ease both;
   }
 
@@ -596,12 +601,16 @@
 </style>
 
 <script>
-  /* ---- Dynamic header offset ---- */
+  /* ---- Dynamic header offset (batched in rAF to avoid forced reflow) ---- */
   (function() {
+    var rafId = null;
     function setH() {
-      var hdr = document.querySelector('.header-section-1');
-      if (!hdr) return;
-      document.documentElement.style.setProperty('--header-h', hdr.getBoundingClientRect().height + 'px');
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(function() {
+        var hdr = document.querySelector('.header-section-1');
+        if (!hdr) return;
+        document.documentElement.style.setProperty('--header-h', hdr.getBoundingClientRect().height + 'px');
+      });
     }
     setH();
     window.addEventListener('load', setH);
@@ -623,7 +632,10 @@
 
       <!-- Slide 1: Konsultasi Bisnis -->
       <div class="hero-slide active" id="heroSlide0">
-        <div class="hero-slide-bg" style="background-image:url('{{ asset("lawgika/home/hero-business.webp") }}');"></div>
+        <picture class="hero-slide-picture">
+          <source media="(max-width: 767px)" srcset="{{ asset('lawgika/home/hero-business-mobile.webp') }}" width="800" height="533">
+          <img src="{{ asset('lawgika/home/hero-business.webp') }}" alt="Konsultasi Bisnis &amp; Legal Profesional" class="hero-slide-bg" fetchpriority="high" decoding="sync" width="1600" height="1067">
+        </picture>
         <div class="hero-slide-overlay"></div>
         <div class="hero-slide-inner">
           <div class="container" style="max-width:1200px;">
@@ -644,7 +656,7 @@
 
       <!-- Slide 2: Pendirian PT/CV -->
       <div class="hero-slide" id="heroSlide1">
-        <div class="hero-slide-bg" style="background-image:url('{{ asset("lawgika/home/hero-company.webp") }}');"></div>
+        <div class="hero-slide-bg" data-bg="{{ asset('lawgika/home/hero-company.webp') }}"></div>
         <div class="hero-slide-overlay"></div>
         <div class="hero-slide-inner">
           <div class="container" style="max-width:1200px;">
@@ -665,7 +677,7 @@
 
       <!-- Slide 3: Virtual Office -->
       <div class="hero-slide" id="heroSlide2">
-        <div class="hero-slide-bg" style="background-image:url('{{ asset("lawgika/home/hero-virtual-office.webp") }}');"></div>
+        <div class="hero-slide-bg" data-bg="{{ asset('lawgika/home/hero-virtual-office.webp') }}"></div>
         <div class="hero-slide-overlay"></div>
         <div class="hero-slide-inner">
           <div class="container" style="max-width:1200px;">
@@ -686,7 +698,7 @@
 
       <!-- Slide 4: Perizinan & Legal -->
       <div class="hero-slide" id="heroSlide3">
-        <div class="hero-slide-bg" style="background-image:url('{{ asset("lawgika/home/hero-legal.webp") }}');"></div>
+        <div class="hero-slide-bg" data-bg="{{ asset('lawgika/home/hero-legal.webp') }}"></div>
         <div class="hero-slide-overlay"></div>
         <div class="hero-slide-inner">
           <div class="container" style="max-width:1200px;">
@@ -778,10 +790,22 @@
     var wrapper = document.getElementById('heroSlidesWrapper');
     var section = document.getElementById('heroSection');
 
+    function ensureBg(slide) {
+      if (!slide) return;
+      var bgEl = slide.querySelector('.hero-slide-bg[data-bg]');
+      if (bgEl) {
+        bgEl.style.backgroundImage = "url('" + bgEl.getAttribute('data-bg') + "')";
+        bgEl.removeAttribute('data-bg');
+      }
+    }
+
     /* ---- Show a specific slide (no animation re-trigger issue) ---- */
     function showSlide(idx) {
       if (idx === current) return; // skip if same slide
+      ensureBg(slides[idx]);
+      ensureBg(slides[(idx + 1) % TOTAL]);
       slides.forEach(function(el, i) {
+        if (i === idx) el.classList.add('hero-animated');
         el.classList.toggle('active', i === idx);
       });
       dots.forEach(function(el, i) {
@@ -857,10 +881,17 @@
       });
     }
 
-    /* ---- Wait for page load, THEN reveal hero & start slider ---- */
+    /* ---- Start hero auto-slider & prefetch next slide during idle ---- */
     function initHero() {
-      if (section) section.classList.add('hero-ready');
       startAuto();
+      var prefetch = function() {
+        ensureBg(slides[1]);
+      };
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(prefetch, { timeout: 2000 });
+      } else {
+        setTimeout(prefetch, 1200);
+      }
     }
 
     if (document.readyState === 'complete') {
@@ -1113,109 +1144,109 @@
 
         <!-- Set 1 (original) -->
         <div class="client-logo-card">
-          <img loading="lazy" src="{{('buyer-file/assets/img/brand/1.webp')}}" alt="Placed"
+          <img loading="lazy" decoding="async" width="400" height="135" src="{{ asset('buyer-file/assets/img/brand/1.webp') }}" alt="Placed"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>PLACED</span>'">
         </div>
         <div class="client-logo-card">
-          <img loading="lazy" src="{{('buyer-file/assets/img/brand/2.webp')}}" alt="Cuebiq"
+          <img loading="lazy" decoding="async" width="400" height="135" src="{{ asset('buyer-file/assets/img/brand/2.webp') }}" alt="Cuebiq"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>CUEBIQ</span>'">
         </div>
         <div class="client-logo-card">
-          <img loading="lazy" src="{{('buyer-file/assets/img/brand/3.webp')}}" alt="Factual"
+          <img loading="lazy" decoding="async" width="400" height="135" src="{{ asset('buyer-file/assets/img/brand/3.webp') }}" alt="Factual"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>FACTUAL</span>'">
         </div>
         <div class="client-logo-card">
-          <img loading="lazy" src="{{('buyer-file/assets/img/brand/4.webp')}}" alt="PlaceIQ"
+          <img loading="lazy" decoding="async" width="400" height="135" src="{{ asset('buyer-file/assets/img/brand/4.webp') }}" alt="PlaceIQ"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>PLACE IQ</span>'">
         </div>
         <div class="client-logo-card">
-          <img loading="lazy" src="{{('buyer-file/assets/img/brand/5.webp')}}" alt="Airmeet"
+          <img loading="lazy" decoding="async" width="400" height="135" src="{{ asset('buyer-file/assets/img/brand/5.webp') }}" alt="Airmeet"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>AIRMEET</span>'">
         </div>
         <div class="client-logo-card">
-          <img loading="lazy" src="{{('buyer-file/assets/img/brand/6.webp')}}" alt="Spendflo"
+          <img loading="lazy" decoding="async" width="400" height="135" src="{{ asset('buyer-file/assets/img/brand/6.webp') }}" alt="Spendflo"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>SPENDFLO</span>'">
         </div>
         <div class="client-logo-card">
-          <img loading="lazy" src="{{('buyer-file/assets/img/brand/7.webp')}}" alt="Reed Elsevier"
+          <img loading="lazy" decoding="async" width="400" height="135" src="{{ asset('buyer-file/assets/img/brand/7.webp') }}" alt="Reed Elsevier"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>REED</span>'">
         </div>
         <div class="client-logo-card">
-          <img loading="lazy" src="{{('buyer-file/assets/img/brand/8.webp')}}" alt="Vuori"
+          <img loading="lazy" decoding="async" width="400" height="135" src="{{ asset('buyer-file/assets/img/brand/8.webp') }}" alt="Vuori"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>VUORI</span>'">
         </div>
         <div class="client-logo-card">
-          <img loading="lazy" src="{{('buyer-file/assets/img/brand/9.webp')}}" alt="Versed"
+          <img loading="lazy" decoding="async" width="400" height="135" src="{{ asset('buyer-file/assets/img/brand/9.webp') }}" alt="Versed"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>VERSED</span>'">
         </div>
         <div class="client-logo-card">
-          <img loading="lazy" src="{{('buyer-file/assets/img/brand/10.webp')}}" alt="Matrixian"
+          <img loading="lazy" decoding="async" width="400" height="135" src="{{ asset('buyer-file/assets/img/brand/10.webp') }}" alt="Matrixian"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>MATRIXIAN</span>'">
         </div>
         <div class="client-logo-card">
-          <img loading="lazy" src="{{('buyer-file/assets/img/brand/11.webp')}}" alt="Klippa"
+          <img loading="lazy" decoding="async" width="400" height="135" src="{{ asset('buyer-file/assets/img/brand/11.webp') }}" alt="Klippa"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>KLIPPA</span>'">
         </div>
         <div class="client-logo-card">
-          <img loading="lazy" src="{{('buyer-file/assets/img/brand/12.webp')}}" alt="Factual 2"
+          <img loading="lazy" decoding="async" width="400" height="135" src="{{ asset('buyer-file/assets/img/brand/12.webp') }}" alt="Factual 2"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>FACTUAL</span>'">
         </div>
- <div class="client-logo-card">
-          <img loading="lazy" src="{{('buyer-file/assets/img/brand/13.webp')}}" alt="Factual 3"
+        <div class="client-logo-card">
+          <img loading="lazy" decoding="async" width="400" height="135" src="{{ asset('buyer-file/assets/img/brand/13.webp') }}" alt="Factual 3"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>FACTUAL3</span>'">
         </div>
 
         <!-- Set 2 (duplicate for seamless loop) -->
         <div class="client-logo-card">
-          <img loading="lazy" src="{{('buyer-file/assets/img/brand/1.webp')}}" alt="Placed"
+          <img loading="lazy" decoding="async" width="400" height="135" src="{{ asset('buyer-file/assets/img/brand/1.webp') }}" alt="Placed"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>PLACED</span>'">
         </div>
         <div class="client-logo-card">
-          <img loading="lazy" src="{{('buyer-file/assets/img/brand/2.webp')}}" alt="Cuebiq"
+          <img loading="lazy" decoding="async" width="400" height="135" src="{{ asset('buyer-file/assets/img/brand/2.webp') }}" alt="Cuebiq"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>CUEBIQ</span>'">
         </div>
         <div class="client-logo-card">
-          <img loading="lazy" src="{{('buyer-file/assets/img/brand/3.webp')}}" alt="Factual"
+          <img loading="lazy" decoding="async" width="400" height="135" src="{{ asset('buyer-file/assets/img/brand/3.webp') }}" alt="Factual"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>FACTUAL</span>'">
         </div>
         <div class="client-logo-card">
-          <img loading="lazy" src="{{('buyer-file/assets/img/brand/4.webp')}}" alt="PlaceIQ"
+          <img loading="lazy" decoding="async" width="400" height="135" src="{{ asset('buyer-file/assets/img/brand/4.webp') }}" alt="PlaceIQ"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>PLACE IQ</span>'">
         </div>
         <div class="client-logo-card">
-          <img loading="lazy" src="{{('buyer-file/assets/img/brand/5.webp')}}" alt="Airmeet"
+          <img loading="lazy" decoding="async" width="400" height="135" src="{{ asset('buyer-file/assets/img/brand/5.webp') }}" alt="Airmeet"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>AIRMEET</span>'">
         </div>
         <div class="client-logo-card">
-          <img loading="lazy" src="{{('buyer-file/assets/img/brand/6.webp')}}" alt="Spendflo"
+          <img loading="lazy" decoding="async" width="400" height="135" src="{{ asset('buyer-file/assets/img/brand/6.webp') }}" alt="Spendflo"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>SPENDFLO</span>'">
         </div>
         <div class="client-logo-card">
-          <img loading="lazy" src="{{('buyer-file/assets/img/brand/7.webp')}}" alt="Reed Elsevier"
+          <img loading="lazy" decoding="async" width="400" height="135" src="{{ asset('buyer-file/assets/img/brand/7.webp') }}" alt="Reed Elsevier"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>REED</span>'">
         </div>
         <div class="client-logo-card">
-          <img loading="lazy" src="{{('buyer-file/assets/img/brand/8.webp')}}" alt="Vuori"
+          <img loading="lazy" decoding="async" width="400" height="135" src="{{ asset('buyer-file/assets/img/brand/8.webp') }}" alt="Vuori"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>VUORI</span>'">
         </div>
         <div class="client-logo-card">
-          <img loading="lazy" src="{{('buyer-file/assets/img/brand/9.webp')}}" alt="Versed"
+          <img loading="lazy" decoding="async" width="400" height="135" src="{{ asset('buyer-file/assets/img/brand/9.webp') }}" alt="Versed"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>VERSED</span>'">
         </div>
         <div class="client-logo-card">
-          <img loading="lazy" src="{{('buyer-file/assets/img/brand/10.webp')}}" alt="Matrixian"
+          <img loading="lazy" decoding="async" width="400" height="135" src="{{ asset('buyer-file/assets/img/brand/10.webp') }}" alt="Matrixian"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>MATRIXIAN</span>'">
         </div>
         <div class="client-logo-card">
-          <img loading="lazy" src="{{('buyer-file/assets/img/brand/11.webp')}}" alt="Klippa"
+          <img loading="lazy" decoding="async" width="400" height="135" src="{{ asset('buyer-file/assets/img/brand/11.webp') }}" alt="Klippa"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>KLIPPA</span>'">
         </div>
         <div class="client-logo-card">
-          <img loading="lazy" src="{{('buyer-file/assets/img/brand/12.webp')}}" alt="Factual 2"
+          <img loading="lazy" decoding="async" width="400" height="135" src="{{ asset('buyer-file/assets/img/brand/12.webp') }}" alt="Factual 2"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>FACTUAL</span>'">
         </div>
-  <div class="client-logo-card">
-          <img loading="lazy" src="{{('buyer-file/assets/img/brand/13.webp')}}" alt="Factual 3"
+        <div class="client-logo-card">
+          <img loading="lazy" decoding="async" width="400" height="135" src="{{ asset('buyer-file/assets/img/brand/13.webp') }}" alt="Factual 3"
             onerror="this.outerHTML='<span class=\'client-logo-text\'>FACTUAL3</span>'">
         </div>
 
@@ -1493,9 +1524,9 @@
         <div class="sp-card">
           <div class="sp-card-img-wrap">
             @if($promo->gambar)
-            <img loading="lazy" src="{{ asset('storage/' . $promo->gambar) }}" alt="{{ $promo->judul }}" loading="lazy">
+            <img loading="lazy" decoding="async" width="600" height="400" src="{{ asset('storage/' . $promo->gambar) }}" alt="{{ $promo->judul }}">
             @else
-            <img loading="lazy" src="{{ asset('lawgika/home/promo-placeholder.webp') }}" alt="{{ $promo->judul }}" loading="lazy">
+            <img loading="lazy" decoding="async" width="600" height="400" src="{{ asset('lawgika/home/promo-placeholder.webp') }}" alt="{{ $promo->judul }}">
             @endif
             <span class="sp-img-badge">
               @if($promo->tipe_diskon === 'persen')
@@ -1589,19 +1620,19 @@
             <div class="list-items">
               <ul>
                 <li>
-                  <i class="far fa-check"></i>
+                  <i class="fas fa-check"></i>
                   <span data-i18n="dashboard.why_us.item1">Pendirian badan usaha (PT, CV, Yayasan, Firma)</span>
                 </li>
                 <li>
-                  <i class="far fa-check"></i>
+                  <i class="fas fa-check"></i>
                   <span data-i18n="dashboard.why_us.item2">Perizinan &amp; dokumen hukum</span>
                 </li>
                 <li>
-                  <i class="far fa-check"></i>
+                  <i class="fas fa-check"></i>
                   <span data-i18n="dashboard.why_us.item3">Pembukuan &amp; perpajakan</span>
                 </li>
                 <li>
-                  <i class="far fa-check"></i>
+                  <i class="fas fa-check"></i>
                   <span data-i18n="dashboard.why_us.item4">Konsultasi bisnis &amp; Legal drafting</span>
                 </li>
               </ul>
@@ -1613,13 +1644,13 @@
         <div class="col-xl-6 col-lg-6">
           <div class="feature-hosting-image-2">
             <div class="icon-box-1">
-              <img src="{{('buyer-file/assets/img/hosting/icon-1.webp')}}" alt="img" loading="lazy">
+              <img src="{{ asset('buyer-file/assets/img/hosting/icon-1.webp') }}" alt="img" loading="lazy" decoding="async" width="50" height="50">
             </div>
             <div class="icon-box-2">
-              <img src="{{('buyer-file/assets/img/hosting/icon-3.webp')}}" alt="img" loading="lazy">
+              <img src="{{ asset('buyer-file/assets/img/hosting/icon-3.webp') }}" alt="img" loading="lazy" decoding="async" width="50" height="50">
             </div>
             <div class="thumb" style="max-width: 600px; margin-left: 0; margin-right: auto;">
-              <img src="buyer-file/assets/img/home/gambar-kantor.webp" alt="img" style="border-radius: 10px; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; object-position: left center;" loading="lazy">
+              <img src="{{ asset('buyer-file/assets/img/home/gambar-kantor.webp') }}" alt="img" style="border-radius: 10px; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; object-position: left center;" loading="lazy" decoding="async" width="800" height="437">
             </div>
           </div>
         </div>
@@ -2193,10 +2224,9 @@
         <div class="ue-card">
           <div class="ue-img-wrap">
             @if($event->banner)
-            <img loading="lazy" src="{{ asset('storage/' . $event->banner) }}" alt="{{ $event->nama_event }}" loading="lazy">
+            <img loading="lazy" decoding="async" width="600" height="400" src="{{ asset('storage/' . $event->banner) }}" alt="{{ $event->nama_event }}">
             @else
-            <img loading="lazy" src="{{ asset('lawgika/home/event-placeholder.webp') }}"
-              alt="{{ $event->nama_event }}" loading="lazy">
+            <img loading="lazy" decoding="async" width="600" height="400" src="{{ asset('lawgika/home/event-placeholder.webp') }}" alt="{{ $event->nama_event }}">
             @endif
             @if($event->status_aktif)
             <span class="ue-badge ue-badge-upcoming">Aktif</span>
@@ -2935,7 +2965,7 @@
               <div class="d-flex align-items-center gap-3 mb-3">
                 <span class="text-primary fw-bold text-uppercase" style="font-size: 0.8rem; letter-spacing: 0.5px;">{{ $item->kategori }}</span>
                 <span class="text-muted" style="font-size: 0.8rem;">
-                  <i class="far fa-calendar-alt me-1"></i>
+                  <i class="fas fa-calendar-alt me-1"></i>
                   {{ strtoupper($item->published_at->translatedFormat('F d, Y')) }}
                 </span>
               </div>
@@ -3143,7 +3173,9 @@
                 topReviews.forEach(review => {
                     let stars = '';
                     for(let i = 0; i < 5; i++) {
-                        stars += (i < (review.rating || 5)) ? '<i class="fa-solid fa-star"></i>' : '<i class="fa-regular fa-star"></i>';
+                        stars += (i < (review.rating || 5))
+                          ? '<i class="fa-solid fa-star"></i>'
+                          : '<svg viewBox="0 0 576 512" width="14" height="14" fill="currentColor" style="vertical-align:-0.125em" aria-hidden="true"><path d="M287.9 0c9.2 0 17.6 5.2 21.6 13.5l68.6 141.3 153.2 22.6c9 1.3 16.5 7.6 19.3 16.3s.5 18.1-5.9 24.5L433.6 328.4l26.2 155.6c1.5 9-2.2 18.1-9.6 23.5s-17.3 6-25.3 1.7l-137-73.2L151 509.1c-8.1 4.3-17.9 3.7-25.3-1.7s-11.2-14.5-9.7-23.5l26.2-155.6L31.1 218.2c-6.5-6.4-8.7-15.9-5.9-24.5s10.3-14.9 19.3-16.3l153.2-22.6L266.3 13.5C270.4 5.2 278.7 0 287.9 0zm0 79L235.4 187.2c-3.5 7.1-10.2 12.1-18.1 13.3L99 217.9 184.9 303c5.5 5.5 8.1 13.3 6.8 21L171.4 443.7l105.2-56.2c7.1-3.8 15.6-3.8 22.6 0l105.2 56.2L384.2 324.1c-1.3-7.7 1.2-15.5 6.8-21l85.9-85.1L358.6 200.5c-7.8-1.2-14.6-6.1-18.1-13.3L287.9 79z"/></svg>';
                     }
                     
                     let text = review.text || 'Memberikan rating bintang tanpa teks ulasan.';

@@ -142,25 +142,37 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('lawgika/logo.webp')}}">
 
     <!-- ======== Preconnect for Performance ======== -->
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    @if(!request()->is('/'))
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    @endif
 
-    <!-- Preload Hero Image -->
-    <link rel="preload" as="image" href="{{ asset('lawgika/home/hero-business.webp') }}" fetchpriority="high">
+    @if(request()->is('/'))
+    <!-- Preload Responsive Hero LCP Image -->
+    <link rel="preload" as="image" href="{{ asset('lawgika/home/hero-business-mobile.webp') }}" media="(max-width: 767px)" fetchpriority="high">
+    <link rel="preload" as="image" href="{{ asset('lawgika/home/hero-business.webp') }}" media="(min-width: 768px)" fetchpriority="high">
+    @endif
+
     <!--<< Bootstrap min.css - CRITICAL: load blocking >>-->
-    <link rel="stylesheet" href="{{ asset('buyer-file/assets/css/bootstrap.min.css')}}" />
-    <!--<< All Min Css (Font Awesome) - CRITICAL: load blocking >>-->
-    <link rel="stylesheet" href="{{ asset('buyer-file/assets/css/all.min.css')}}" />
-    <!--<< Swiper Bundle - needed for hero carousel >>-->
-    <link rel="stylesheet" href="{{ asset('buyer-file/assets/css/swiper-bundle.min.css')}}" />
-    <!--<< Color.css - CRITICAL >>-->
-    <link rel="stylesheet" href="{{ asset('buyer-file/assets/css/color.css')}}" />
+    <link rel="stylesheet" href="{{ asset('buyer-file/assets/css/bootstrap.min.css')}}?v={{ filemtime(public_path('buyer-file/assets/css/bootstrap.min.css')) }}" />
     <!--<< Main.css - CRITICAL >>-->
-    <link rel="stylesheet" href="{{ asset('buyer-file/assets/css/main.css')}}" />
+    <link rel="stylesheet" href="{{ asset('buyer-file/assets/css/main.css')}}?v={{ filemtime(public_path('buyer-file/assets/css/main.css')) }}" />
 
     <!--<< NON-CRITICAL CSS: deferred with preload trick >>-->
+    <!-- Google Fonts Jost (async, non-blocking) -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800&display=swap"></noscript>
+
+    <!-- All Min Css (Font Awesome) - deferred to unblock FCP/LCP -->
+    <link rel="preload" href="{{ asset('buyer-file/assets/css/all.min.css')}}?v={{ filemtime(public_path('buyer-file/assets/css/all.min.css')) }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ asset('buyer-file/assets/css/all.min.css')}}?v={{ filemtime(public_path('buyer-file/assets/css/all.min.css')) }}"></noscript>
+
+    <!-- Swiper Bundle - deferred (homepage layanan & promo carousels sit below fold) -->
+    <link rel="preload" href="{{ asset('buyer-file/assets/css/swiper-bundle.min.css')}}?v={{ filemtime(public_path('buyer-file/assets/css/swiper-bundle.min.css')) }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ asset('buyer-file/assets/css/swiper-bundle.min.css')}}?v={{ filemtime(public_path('buyer-file/assets/css/swiper-bundle.min.css')) }}"></noscript>
+
     <!-- Animate.css - only used for scroll animations, not visible on first paint -->
     <link rel="preload" href="{{ asset('buyer-file/assets/css/animate.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="{{ asset('buyer-file/assets/css/animate.css')}}"></noscript>
@@ -177,13 +189,15 @@
     <link rel="preload" href="{{ asset('buyer-file/assets/css/nice-select.css')}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="{{ asset('buyer-file/assets/css/nice-select.css')}}"></noscript>
 
-    <!-- Bootstrap Icons - non-critical, defer it -->
+    @if(!request()->is('/'))
+    <!-- Bootstrap Icons - non-critical, loaded on internal pages only -->
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" as="style" onload="this.onload=null;this.rel='stylesheet'" crossorigin>
     <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" crossorigin></noscript>
+    @endif
 
-    <!-- font-display: swap override to prevent FOIT (invisible text during font load) -->
+    <!-- Reserve icon box geometry while deferred icon fonts load to avoid CLS -->
     <style>
-      @font-face { font-display: swap; }
+      .fas,.far,.fab,.fa-solid,.fa-regular,.fa-brands{display:inline-block;font-style:normal;min-width:1em;text-align:center;}
     </style>
     <style>
       /* Fix Language Switcher dropdown clipping and stack context on header elements */
@@ -525,7 +539,7 @@
 
     <!-- Floating WhatsApp -->
     <a href="https://wa.me/6281112088600" target="_blank" rel="noopener noreferrer" class="floating-whatsapp" aria-label="Hubungi kami via WhatsApp">
-        <i class="fab fa-whatsapp" aria-hidden="true"></i>
+        <svg viewBox="0 0 32 32" width="28" height="28" fill="currentColor" aria-hidden="true"><path d="M16.002 2.667C8.64 2.667 2.668 8.638 2.668 16c0 2.346.614 4.636 1.78 6.656L2.667 29.333l6.835-1.747A13.28 13.28 0 0 0 16 29.333c7.362 0 13.333-5.971 13.333-13.333S23.363 2.667 16.002 2.667zm7.768 18.88c-.325.913-1.894 1.745-2.617 1.855-.664.1-1.505.142-2.429-.152-.56-.178-1.28-.416-2.202-.814-3.875-1.672-6.405-5.573-6.599-5.83-.193-.258-1.576-2.096-1.576-3.998 0-1.901.995-2.835 1.348-3.222.353-.386.77-.483 1.028-.483.257 0 .514.003.739.014.237.011.555-.09.869.662.325.774 1.104 2.695 1.2 2.889.097.193.162.419.033.677-.129.257-.194.419-.387.644-.193.226-.406.504-.58.677-.194.194-.395.404-.17.791.226.386 1.002 1.653 2.152 2.677 1.478 1.318 2.724 1.727 3.11 1.92.387.194.612.162.838-.096.225-.258.965-1.126 1.222-1.512.257-.387.515-.322.869-.194.353.13 2.248 1.06 2.634 1.253.386.194.644.29.74.452.096.16.096.935-.229 1.849z"/></svg>
     </a>
 
     @include('layout.footer')
