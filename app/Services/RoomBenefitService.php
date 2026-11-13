@@ -26,21 +26,35 @@ class RoomBenefitService
 {
     /**
      * Approve (create) a room benefit for the given order.
+     * Uses the order's transaction_date (not submit/approval time) as benefit start date.
      *
      * @throws \RuntimeException when a benefit already exists or order is ineligible
      */
-    public function approve(Order $order): array
+    public function approve(Order $order, ?int $approverId = null): array
     {
+        if (! $order->isValidated()) {
+            throw new \RuntimeException('Pesanan harus disetujui (Approved) oleh Admin 3 / SPV sebelum benefit dapat diaktifkan.');
+        }
+
         if ($order->payment_status !== 'verified' && $order->status !== 'approved') {
             throw new \RuntimeException('Silakan selesaikan pembayaran terlebih dahulu.');
         }
 
-        // ── Guard: already approved (2 records = meeting + podcast) ──────────
-        if (RoomBenefit::where('order_id', $order->id)->count() >= 2) {
+        // ── Guard: already approved (idempotency guard against duplicate hours) ─
+        $expectedCount = RoomBenefit::benefitTypeForOrder($order) === 'meeting_only_12' ? 1 : 2;
+        if (RoomBenefit::where('order_id', $order->id)->count() >= $expectedCount) {
             throw new \RuntimeException('Benefit untuk pesanan ini sudah pernah disetujui sebelumnya.');
         }
 
-        // ── Guard: eligible package + service ─────────────────────────────────
+        return $this->activateOrSyncForOrder($order, $approverId);
+    }
+
+    /**
+     * Idempotent benefit activation/synchronization used when Admin 3 / SPV approves an order.
+     * Never creates duplicate benefit rows or resets already consumed minutes.
+     */
+    public function activateOrSyncForOrder(Order $order, ?int $approverId = null): array
+    {
         if (! RoomBenefit::isEligibleForOrder($order)) {
             throw new \RuntimeException(
                 'Paket "' . ($order->service_name ?? '-') . '" tidak memenuhi syarat untuk benefit ruangan. ' .
@@ -48,12 +62,10 @@ class RoomBenefitService
             );
         }
 
-        // ── Build a descriptive, human-readable label ─────────────────────────
         $formData    = $order->form_data ?? [];
         $rawSlug     = strtolower(trim($formData['package'] ?? ''));
         $serviceSlug = strtolower(trim($formData['service'] ?? ''));
 
-        // Map package slug → friendly label
         $packageLabelMap = [
             'enterprise'   => 'Bundling',
             'professional' => 'Bundling',
@@ -62,7 +74,6 @@ class RoomBenefitService
             'basic'        => 'Izin',
         ];
 
-        // Map service slug → friendly service name
         $serviceNameMap = [
             'pendirian-pt'            => 'PT',
             'pendirian-cv'            => 'CV',
@@ -78,52 +89,84 @@ class RoomBenefitService
             'virtual-office'          => 'Virtual Office',
         ];
 
-        $pkgLabel   = $packageLabelMap[$rawSlug] ?? ucfirst($rawSlug ?: 'Bundling');
-        $svcLabel   = $serviceNameMap[$serviceSlug] ?? '';
-        $paketLabel = $svcLabel !== '' ? "{$pkgLabel} {$svcLabel}" : $pkgLabel;
-
-        // ── Determine benefit type ────────────────────────────────────────────
+        $pkgLabel    = $packageLabelMap[$rawSlug] ?? ucfirst($rawSlug ?: 'Bundling');
+        $svcLabel    = $serviceNameMap[$serviceSlug] ?? '';
+        $paketLabel  = $svcLabel !== '' ? "{$pkgLabel} {$svcLabel}" : $pkgLabel;
         $benefitType = RoomBenefit::benefitTypeForOrder($order);
 
-        // ── Create benefit records in one transaction ─────────────────────────
-        return DB::transaction(function () use ($order, $paketLabel, $benefitType) {
+        return DB::transaction(function () use ($order, $paketLabel, $benefitType, $approverId) {
+            // Transaction date controls benefit activation start & end dates (never submit/approval time)
+            $startedAt  = $order->benefit_start_date;
+            $expiredAt  = $startedAt->copy()->addYear();
+            $approvedAt = $order->approved_at ?? now();
+            $approvedBy = $approverId ?? $order->approved_by ?? auth()->id();
 
-            $expiredAt = Carbon::now()->addYear();
-            $clientName = $order->user->company_name ?? ($order->user->pic_name ?? ($order->user->name ?? 'Client'));
+            $existing = RoomBenefit::where('order_id', $order->id)->get()->keyBy('type');
+            $results  = [];
+
+            if ($existing->isNotEmpty()) {
+                foreach ($existing as $benefit) {
+                    $benefit->update([
+                        'is_active'   => true,
+                        'started_at'  => $startedAt,
+                        'expired_at'  => $expiredAt,
+                        'approved_by' => $approvedBy,
+                        'approved_at' => $approvedAt,
+                        'paket'       => $paketLabel . ($benefit->type === 'podcast' ? ' – Podcast Room' : ' – Meeting Room'),
+                    ]);
+                    $results[] = $benefit->fresh();
+                }
+
+                $benefitIds = $existing->pluck('id')->all();
+
+                MeetingRoomBooking::whereIn('benefit_id', $benefitIds)
+                    ->where('source_type', 'benefit')
+                    ->update(['status' => 'approved', 'payment_status' => 'approved']);
+
+                PodcastRoomBooking::whereIn('benefit_id', $benefitIds)
+                    ->where('source_type', 'benefit')
+                    ->update(['status' => 'approved', 'payment_status' => 'approved']);
+
+                return $results;
+            }
+
+            $clientName  = $order->user->company_name ?? ($order->user->pic_name ?? ($order->user->name ?? 'Client'));
             $companyName = $order->user->company_name ?? ($order->form_data['company_name'] ?? null);
 
             if ($benefitType === 'meeting_only_12') {
-                // Virtual Office Premium → Meeting Room ONLY 12 jam
                 $meetingBenefit = RoomBenefit::create([
                     'user_id'       => $order->user_id,
                     'order_id'      => $order->id,
                     'paket'         => $paketLabel . ' – Meeting Room',
-                    'total_minutes' => 720,         // 12 jam
+                    'total_minutes' => 720,
                     'used_minutes'  => 0,
                     'type'          => 'meeting',
                     'is_active'     => true,
+                    'started_at'    => $startedAt,
                     'expired_at'    => $expiredAt,
+                    'approved_by'   => $approvedBy,
+                    'approved_at'   => $approvedAt,
                 ]);
 
                 $meetingBooking = MeetingRoomBooking::create([
-                    'user_id'         => $order->user_id,
-                    'source_type'     => 'benefit',
-                    'benefit_id'      => $meetingBenefit->id,
-                    'order_number'    => $order->order_number,
-                    'name'            => $clientName,
-                    'nama_perusahaan' => $companyName,
-                    'email'           => $order->user?->email,
-                    'date'            => null,
-                    'start_time'      => null,
-                    'end_time'        => null,
-                    'duration'        => 12,
+                    'user_id'            => $order->user_id,
+                    'source_type'        => 'benefit',
+                    'benefit_id'         => $meetingBenefit->id,
+                    'order_number'       => $order->order_number,
+                    'name'               => $clientName,
+                    'nama_perusahaan'    => $companyName,
+                    'email'              => $order->user?->email,
+                    'date'               => null,
+                    'start_time'         => null,
+                    'end_time'           => null,
+                    'duration'           => 12,
                     'total_used_seconds' => 0,
-                    'participants'    => 1,
-                    'package'         => $meetingBenefit->paket,
-                    'status'          => 'approved',
-                    'payment_status'  => 'approved',
-                    'total_price'     => 0,
-                    'notes'           => 'Benefit otomatis dari Order ' . $order->order_number,
+                    'participants'       => 1,
+                    'package'            => $meetingBenefit->paket,
+                    'status'             => 'approved',
+                    'payment_status'     => 'approved',
+                    'total_price'        => 0,
+                    'notes'              => 'Benefit otomatis dari Order ' . $order->order_number,
                 ]);
 
                 $meetingBenefit->update(['meeting_room_booking_id' => $meetingBooking->id]);
@@ -131,40 +174,40 @@ class RoomBenefitService
                 return [$meetingBenefit];
             }
 
-            // Default: Bundling (enterprise / professional / eksklusif)
-            // → Meeting Room 48 jam + Podcast Room 12 jam
-
             // 1. Meeting Room — 48 jam = 2880 menit
             $meetingBenefit = RoomBenefit::create([
                 'user_id'       => $order->user_id,
                 'order_id'      => $order->id,
                 'paket'         => $paketLabel . ' – Meeting Room',
-                'total_minutes' => 2880,        // 48 jam
+                'total_minutes' => 2880,
                 'used_minutes'  => 0,
                 'type'          => 'meeting',
                 'is_active'     => true,
+                'started_at'    => $startedAt,
                 'expired_at'    => $expiredAt,
+                'approved_by'   => $approvedBy,
+                'approved_at'   => $approvedAt,
             ]);
 
             $meetingBooking = MeetingRoomBooking::create([
-                'user_id'         => $order->user_id,
-                'source_type'     => 'benefit',
-                'benefit_id'      => $meetingBenefit->id,
-                'order_number'    => $order->order_number,
-                'name'            => $clientName,
-                'nama_perusahaan' => $companyName,
-                'email'           => $order->user?->email,
-                'date'            => null,
-                'start_time'      => null,
-                'end_time'        => null,
-                'duration'        => 48,
+                'user_id'            => $order->user_id,
+                'source_type'        => 'benefit',
+                'benefit_id'         => $meetingBenefit->id,
+                'order_number'       => $order->order_number,
+                'name'               => $clientName,
+                'nama_perusahaan'    => $companyName,
+                'email'              => $order->user?->email,
+                'date'               => null,
+                'start_time'         => null,
+                'end_time'           => null,
+                'duration'           => 48,
                 'total_used_seconds' => 0,
-                'participants'    => 1,
-                'package'         => $meetingBenefit->paket,
-                'status'          => 'approved',
-                'payment_status'  => 'approved',
-                'total_price'     => 0,
-                'notes'           => 'Benefit otomatis dari Order ' . $order->order_number,
+                'participants'       => 1,
+                'package'            => $meetingBenefit->paket,
+                'status'             => 'approved',
+                'payment_status'     => 'approved',
+                'total_price'        => 0,
+                'notes'              => 'Benefit otomatis dari Order ' . $order->order_number,
             ]);
 
             $meetingBenefit->update(['meeting_room_booking_id' => $meetingBooking->id]);
@@ -174,37 +217,76 @@ class RoomBenefitService
                 'user_id'       => $order->user_id,
                 'order_id'      => $order->id,
                 'paket'         => $paketLabel . ' – Podcast Room',
-                'total_minutes' => 720,         // 12 jam
+                'total_minutes' => 720,
                 'used_minutes'  => 0,
                 'type'          => 'podcast',
                 'is_active'     => true,
+                'started_at'    => $startedAt,
                 'expired_at'    => $expiredAt,
+                'approved_by'   => $approvedBy,
+                'approved_at'   => $approvedAt,
             ]);
 
             $podcastBooking = PodcastRoomBooking::create([
-                'user_id'         => $order->user_id,
-                'source_type'     => 'benefit',
-                'benefit_id'      => $podcastBenefit->id,
-                'order_number'    => $order->order_number,
-                'name'            => $clientName,
-                'email'           => $order->user?->email,
-                'date'            => null,
-                'start_time'      => null,
-                'end_time'        => null,
-                'duration'        => 12,
+                'user_id'            => $order->user_id,
+                'source_type'        => 'benefit',
+                'benefit_id'         => $podcastBenefit->id,
+                'order_number'       => $order->order_number,
+                'name'               => $clientName,
+                'email'              => $order->user?->email,
+                'date'               => null,
+                'start_time'         => null,
+                'end_time'           => null,
+                'duration'           => 12,
                 'total_used_seconds' => 0,
-                'participants'    => 1,
-                'package'         => $podcastBenefit->paket,
-                'status'          => 'approved',
-                'payment_status'  => 'approved',
-                'total_price'     => 0,
-                'notes'           => 'Benefit otomatis dari Order ' . $order->order_number,
+                'participants'       => 1,
+                'package'            => $podcastBenefit->paket,
+                'status'             => 'approved',
+                'payment_status'     => 'approved',
+                'total_price'        => 0,
+                'notes'              => 'Benefit otomatis dari Order ' . $order->order_number,
             ]);
 
             $podcastBenefit->update(['podcast_room_booking_id' => $podcastBooking->id]);
 
             return [$meetingBenefit, $podcastBenefit];
         });
+    }
+
+    /**
+     * Synchronize benefit activation & expiry dates when an approved order's transaction_date is edited.
+     */
+    public function syncDatesFromOrder(Order $order): void
+    {
+        $startedAt = $order->benefit_start_date;
+        $expiredAt = $startedAt->copy()->addYear();
+
+        RoomBenefit::where('order_id', $order->id)->update([
+            'started_at' => $startedAt,
+            'expired_at' => $expiredAt,
+        ]);
+    }
+
+    /**
+     * Deactivate linked benefits when an order is rejected or soft-deleted.
+     */
+    public function deactivateForOrder(Order $order): void
+    {
+        $benefitIds = RoomBenefit::where('order_id', $order->id)->pluck('id')->all();
+
+        if (empty($benefitIds)) {
+            return;
+        }
+
+        RoomBenefit::whereIn('id', $benefitIds)->update(['is_active' => false]);
+
+        MeetingRoomBooking::whereIn('benefit_id', $benefitIds)
+            ->where('source_type', 'benefit')
+            ->update(['status' => 'rejected']);
+
+        PodcastRoomBooking::whereIn('benefit_id', $benefitIds)
+            ->where('source_type', 'benefit')
+            ->update(['status' => 'rejected']);
     }
 
     /**

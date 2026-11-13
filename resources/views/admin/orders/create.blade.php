@@ -62,6 +62,17 @@
                     <input type="hidden" name="user_id" id="form_user_id">
                     <div class="row g-3">
                         <div class="col-md-6">
+                            <label class="form-label">Nomor Invoice</label>
+                            <input type="text" name="invoice_number" class="form-control" value="{{ old('invoice_number') }}" placeholder="Contoh: INV-20261113-001 (kosongkan untuk otomatis)">
+                            <small class="text-muted">Jika dikosongkan, sistem otomatis membuat nomor invoice unik.</small>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Tanggal Transaksi <span class="text-danger">*</span></label>
+                            <input type="date" name="transaction_date" class="form-control" value="{{ old('transaction_date', date('Y-m-d')) }}" required>
+                            <small class="text-muted">Tanggal transaksi menjadi acuan tanggal mulai & masa berlaku benefit (1 tahun).</small>
+                        </div>
+
+                        <div class="col-md-6">
                             <label class="form-label">Layanan <span class="text-danger">*</span></label>
                             <select name="service" class="form-select" id="service_select" required>
                                 <option value="">-- Pilih Layanan --</option>
@@ -94,24 +105,42 @@
 
                         <hr class="my-3">
 
-                        <div class="col-md-6">
-                            <label class="form-label">Status Pesanan <span class="text-danger">*</span></label>
-                            <select name="status" class="form-select" required>
-                                <option value="draft">Draft (Dokumen Belum Lengkap)</option>
-                                <option value="pending">Pending</option>
-                                <option value="approved" selected>Approved (Langsung Setujui / Aktifkan Benefit)</option>
-                                <option value="processing">Diproses</option>
-                                <option value="completed">Selesai</option>
+                        <div class="col-md-4">
+                            <label class="form-label">Metode Pembayaran <span class="text-danger">*</span></label>
+                            <select name="payment_method" class="form-select" required>
+                                @foreach(($paymentMethods ?? ['Transfer Bank (BCA)', 'Transfer Bank (Mandiri)', 'Virtual Account / QRIS', 'Cash / Tunai', 'Lainnya']) as $pm)
+                                    <option value="{{ $pm }}" {{ old('payment_method') === $pm ? 'selected' : '' }}>{{ $pm }}</option>
+                                @endforeach
                             </select>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <label class="form-label">Status Pembayaran <span class="text-danger">*</span></label>
                             <select name="payment_status" class="form-select" required>
-                                <option value="unpaid">Belum Bayar</option>
-                                <option value="verified" selected>Pembayaran Terverifikasi</option>
-                                <option value="rejected">Pembayaran Ditolak</option>
+                                <option value="unpaid" {{ old('payment_status') === 'unpaid' ? 'selected' : '' }}>Belum Bayar</option>
+                                <option value="pending_verification" {{ old('payment_status') === 'pending_verification' ? 'selected' : '' }}>Menunggu Verifikasi</option>
+                                <option value="verified" {{ old('payment_status', 'verified') === 'verified' ? 'selected' : '' }}>Pembayaran Terverifikasi</option>
+                                <option value="rejected" {{ old('payment_status') === 'rejected' ? 'selected' : '' }}>Pembayaran Ditolak</option>
                             </select>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Status Pesanan <span class="text-danger">*</span></label>
+                            @if(auth()->user()->canApproveOrders())
+                            <select name="status" class="form-select" required>
+                                <option value="pending_approval" {{ old('status', 'pending_approval') === 'pending_approval' ? 'selected' : '' }}>Pending Approval (Menunggu Persetujuan)</option>
+                                <option value="approved" {{ old('status') === 'approved' ? 'selected' : '' }}>Approved (Setujui & Aktifkan Benefit Sesuai Tgl Transaksi)</option>
+                            </select>
+                            @else
+                            <input type="text" class="form-control bg-light" value="Pending Approval (Menunggu Admin 3 / SPV)" readonly>
+                            <input type="hidden" name="status" value="pending_approval">
+                            <small class="text-muted">Pesanan yang disubmit Admin 1 otomatis berstatus Pending Approval.</small>
+                            @endif
+                        </div>
+
+                        <div class="col-md-12">
+                            <label class="form-label">Bukti Pembayaran (Opsional - JPG/PNG/PDF, max 10MB)</label>
+                            <input type="file" name="payment_proof" class="form-control" accept=".pdf,.jpg,.jpeg,.png">
                         </div>
                         
                         <div class="col-12">

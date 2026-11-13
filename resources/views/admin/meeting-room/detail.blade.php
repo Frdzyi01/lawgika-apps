@@ -410,14 +410,18 @@
                             </span>
                         </div>
 
+                        @php
+                            $mrAdminStart = $booking->benefit?->effective_start_date ?? \Carbon\Carbon::parse($booking->created_at);
+                            $mrAdminEnd = $booking->benefit?->expired_at ?? $mrAdminStart->copy()->addYear();
+                        @endphp
                         <div class="kv-row">
-                            <span class="kv-label"><i class="fa-regular fa-calendar-plus text-muted"></i> Tanggal Registrasi</span>
-                            <span class="kv-value">{{ \Carbon\Carbon::parse($booking->created_at)->format('d M Y H:i') }} WIB</span>
+                            <span class="kv-label"><i class="fa-regular fa-calendar-plus text-muted"></i> Tanggal Mulai / Registrasi</span>
+                            <span class="kv-value">{{ $mrAdminStart->format('d M Y') }}</span>
                         </div>
 
                         <div class="kv-row">
                             <span class="kv-label"><i class="fa-regular fa-calendar-xmark text-muted"></i> Masa Berlaku Kuota</span>
-                            <span class="kv-value text-danger fw-bold">{{ \Carbon\Carbon::parse($booking->created_at)->addYear()->format('d M Y') }} (1 Tahun)</span>
+                            <span class="kv-value text-danger fw-bold">{{ $mrAdminEnd->format('d M Y') }} (1 Tahun)</span>
                         </div>
                     </div>
                 </div>

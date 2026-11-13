@@ -45,5 +45,16 @@ class AdminUserSeeder extends Seeder
                 'phone' => '08333333333',
             ]
         );
+
+        // 4. Admin 3 (Admin Verifikasi / Approval Transaksi)
+        User::updateOrCreate(
+            ['email' => 'admin3@example.com'],
+            [
+                'name' => 'Admin Verifikasi 3',
+                'password' => Hash::make('password'),
+                'role' => 'admin3',
+                'phone' => '08444444444',
+            ]
+        );
     }
 }

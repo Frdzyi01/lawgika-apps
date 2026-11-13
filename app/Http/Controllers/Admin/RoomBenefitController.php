@@ -26,18 +26,28 @@ class RoomBenefitController extends Controller
      */
     public function approve(Order $order): RedirectResponse
     {
-        if ($order->payment_status !== 'verified') {
+        if (! auth()->user()->canApproveOrders()) {
+            abort(403, 'Hanya Admin 3 atau SPV yang berhak mengaktifkan benefit pesanan.');
+        }
+
+        if (! $order->isValidated()) {
+            return redirect()
+                ->back()
+                ->with('error', 'Pesanan masih berstatus Pending Approval / Ditolak. Lakukan Approve transaksi terlebih dahulu.');
+        }
+
+        if ($order->payment_status !== 'verified' && $order->status !== 'approved') {
             return redirect()
                 ->back()
                 ->with('error', 'Silakan selesaikan pembayaran terlebih dahulu.');
         }
 
         try {
-            $this->benefitService->approve($order);
+            $this->benefitService->approve($order, auth()->id());
 
             return redirect()
                 ->back()
-                ->with('success', '✅ Benefit ruangan berhasil diaktifkan: Meeting Room (48 Jam) & Podcast Room (12 Jam).');
+                ->with('success', '✅ Benefit ruangan berhasil diaktifkan sesuai tanggal transaksi pesanan.');
 
         } catch (\RuntimeException $e) {
             return redirect()

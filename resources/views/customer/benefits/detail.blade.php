@@ -109,15 +109,15 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="text-muted ps-0">{{ __('customer.benefit.detail.order_time') }}</td>
+                            <td class="text-muted ps-0">{{ __('customer.benefit.detail.order_time') }} (Mulai Benefit)</td>
                             <td class="fw-semibold">
-                                {{ $benefit->order ? \Carbon\Carbon::parse($benefit->order->created_at)->format('d M Y H:i:s') : '-' }}
+                                {{ $benefit->effective_start_date->format('d M Y') }}
                             </td>
                         </tr>
                         <tr>
                             <td class="text-muted ps-0">{{ __('customer.benefit.detail.expired_time') }}</td>
                             <td class="fw-semibold text-danger">
-                                {{ $benefit->expired_at ? $benefit->expired_at->format('d M Y H:i:s') : ($benefit->order ? \Carbon\Carbon::parse($benefit->order->created_at)->addYear()->format('d M Y H:i:s') : '-') }}
+                                {{ $benefit->expired_at ? $benefit->expired_at->format('d M Y') : ($benefit->order ? $benefit->order->benefit_end_date->format('d M Y') : '-') }}
                             </td>
                         </tr>
                         <tr>

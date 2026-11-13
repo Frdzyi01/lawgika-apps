@@ -181,8 +181,20 @@
                         <tr><td class="text-muted">{{ __('customer.orders.show.info.total') }}</td>
                             <td class="fw-semibold">–</td></tr>
                     @endif
+                    <tr><td class="text-muted">Nomor Invoice</td>
+                        <td class="fw-semibold">{{ $order->invoice_number ?? '–' }}</td></tr>
+                    <tr><td class="text-muted">Tanggal Transaksi</td>
+                        <td class="fw-semibold">{{ $order->effective_transaction_date->format('d M Y') }}</td></tr>
+                    @if($order->payment_method)
+                    <tr><td class="text-muted">Metode Pembayaran</td>
+                        <td class="fw-semibold">{{ $order->payment_method }}</td></tr>
+                    @endif
                     <tr><td class="text-muted">{{ __('customer.orders.show.info.date') }}</td>
                         <td>{{ $order->created_at->format('d M Y, H:i') }}</td></tr>
+                    @if($order->isValidated())
+                    <tr><td class="text-muted">Masa Berlaku Layanan</td>
+                        <td class="fw-semibold">{{ $order->benefit_start_date->format('d M Y') }} s/d {{ $order->benefit_end_date->format('d M Y') }}</td></tr>
+                    @endif
                     @if($order->admin_notes)
                     <tr>
                         <td class="text-muted align-top">{{ __('customer.orders.show.info.admin_notes') }}</td>

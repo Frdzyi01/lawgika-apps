@@ -24,11 +24,11 @@ class DashboardController extends Controller
             + PodcastRoomBooking::where('user_id', $userId)->count() 
             + MeetingRoomBooking::where('user_id', $userId)->count();
 
-        $pendingOrders = Order::where('user_id', $userId)->where('status', 'pending')->count()
+        $pendingOrders = Order::where('user_id', $userId)->whereIn('status', ['pending', 'pending_approval', 'waiting_verification'])->count()
             + PodcastRoomBooking::where('user_id', $userId)->where('status', 'pending')->count()
             + MeetingRoomBooking::where('user_id', $userId)->where('status', 'pending')->count();
 
-        $approvedOrders = Order::where('user_id', $userId)->whereIn('status', ['approved', 'completed'])->count()
+        $approvedOrders = Order::where('user_id', $userId)->whereIn('status', ['approved', 'processing', 'verified', 'completed'])->count()
             + PodcastRoomBooking::where('user_id', $userId)->whereIn('status', ['approved', 'checkin', 'selesai'])->count()
             + MeetingRoomBooking::where('user_id', $userId)->whereIn('status', ['approved', 'checkin', 'selesai'])->count();
 

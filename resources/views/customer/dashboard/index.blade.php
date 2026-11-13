@@ -68,10 +68,14 @@
                                 </h5>
                             </div>
                             <div class="d-flex align-items-center gap-2">
-                                @if($rb->expired_at)
-                                    <span class="badge bg-light text-muted border rounded-pill px-3 py-2" style="font-size:0.78rem;">
-                                        {{ __('customer.dashboard.valid_until') }} {{ \Carbon\Carbon::parse($rb->expired_at)->format('d M Y') }}
-                                    </span>
+                                <span class="badge bg-light text-muted border rounded-pill px-3 py-2" style="font-size:0.78rem;">
+                                    Mulai: {{ $rb->effective_start_date->format('d M Y') }}
+                                    @if($rb->expired_at)
+                                        &middot; {{ __('customer.dashboard.valid_until') }} {{ \Carbon\Carbon::parse($rb->expired_at)->format('d M Y') }}
+                                    @endif
+                                </span>
+                                @if($rb->is_expired)
+                                    <span class="badge bg-danger rounded-pill px-2 py-1" style="font-size:0.75rem;">Expired</span>
                                 @endif
 
                                 @if($isCurrentlyActive && $activeSession)
@@ -231,21 +235,12 @@
                         <td class="ps-4"><small class="text-primary fw-semibold">{{ $order->order_number }}</small></td>
                         <td>{{ $order->service_name ?? ($order->service->name ?? '—') }}</td>
                         <td>
-                            @php
-                            $badge = match($order->status) {
-                            'pending' => 'warning',
-                            'approved' => 'success',
-                            'processing' => 'info',
-                            'rejected' => 'danger',
-                            'completed' => 'primary',
-                            default => 'secondary',
-                            };
-                            @endphp
-                            <span class="badge bg-{{ $badge }} px-3 py-2" style="border-radius: 6px; color: {{ in_array($badge, ['warning', 'light']) ? '#000' : '#fff' }} !important;">
-                                {{ ucfirst($order->status) }}
+                            @php $badge = $order->status_color; @endphp
+                            <span class="badge bg-{{ $badge }} px-3 py-2" style="border-radius: 6px; color: {{ in_array($badge, ['warning', 'light', 'info']) ? '#000' : '#fff' }} !important;">
+                                {{ $order->status_label }}
                             </span>
                         </td>
-                        <td><small>{{ $order->created_at->format('d M Y') }}</small></td>
+                        <td><small>{{ $order->effective_transaction_date->format('d M Y') }}</small></td>
                         <td>
                             <a href="{{ route('customer.orders.show', $order->id) }}" class="btn btn-sm btn-outline-secondary">{{ __('customer.dashboard.detail') }}</a>
                         </td>

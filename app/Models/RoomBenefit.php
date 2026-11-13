@@ -18,7 +18,10 @@ class RoomBenefit extends Model
         'used_minutes',
         'type',
         'is_active',
+        'started_at',
         'expired_at',
+        'approved_by',
+        'approved_at',
         'renewal_reminder_h30_sent_at',
         'renewal_reminder_h7_sent_at',
         'renewal_reminder_expired_sent_at',
@@ -26,7 +29,9 @@ class RoomBenefit extends Model
 
     protected $casts = [
         'is_active'                        => 'boolean',
+        'started_at'                       => 'datetime',
         'expired_at'                       => 'datetime',
+        'approved_at'                      => 'datetime',
         'renewal_reminder_h30_sent_at'     => 'datetime',
         'renewal_reminder_h7_sent_at'      => 'datetime',
         'renewal_reminder_expired_sent_at' => 'datetime',
@@ -210,12 +215,22 @@ class RoomBenefit extends Model
         return $this->belongsTo(Order::class);
     }
 
+    public function approver(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'approved_by');
+    }
+
     public function logs(): HasMany
     {
         return $this->hasMany(RoomBenefitLog::class, 'benefit_id');
     }
 
     // ── Computed attributes ───────────────────────────────────────────────────
+
+    public function getEffectiveStartDateAttribute()
+    {
+        return $this->started_at ?? $this->order?->benefit_start_date ?? $this->created_at;
+    }
 
     /** Remaining minutes (never negative) */
     public function getRemainingMinutesAttribute(): int

@@ -54,6 +54,7 @@
                                 <option value="customer" {{ old('role', $user->role) === 'customer' ? 'selected' : '' }}>Pelanggan (Client)</option>
                                 <option value="admin1"   {{ old('role', $user->role) === 'admin1'   ? 'selected' : '' }}>Admin Order (Admin 1)</option>
                                 <option value="admin2"   {{ old('role', $user->role) === 'admin2'   ? 'selected' : '' }}>Admin Konten (Admin 2)</option>
+                                <option value="admin3"   {{ old('role', $user->role) === 'admin3'   ? 'selected' : '' }}>Admin Verifikasi & Approval (Admin 3)</option>
                                 <option value="admin"    {{ old('role', $user->role) === 'admin'    ? 'selected' : '' }}>SPV (Super Admin)</option>
                             </select>
                             @else

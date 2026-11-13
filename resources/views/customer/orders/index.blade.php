@@ -17,9 +17,12 @@
             <tbody>
                 @foreach($orders as $order)
                 <tr>
-                    <td>{{ $order->order_number }}</td>
-                    <td>{{ $order->service->name ?? '-' }}</td>
-                    <td><span class="badge bg-info">{{ $order->status }}</span></td>
+                    <td>
+                        <div class="fw-semibold">{{ $order->order_number }}</div>
+                        @if($order->invoice_number)<small class="text-muted">INV: {{ $order->invoice_number }}</small>@endif
+                    </td>
+                    <td>{{ $order->service_name ?? ($order->service->name ?? '-') }}</td>
+                    <td><span class="badge bg-{{ $order->status_color }}">{{ $order->status_label }}</span></td>
                     <td>
                         @if($order->total_price > 0)
                             @php $ppnData = \App\Helpers\PpnHelper::calculate($order->total_price); @endphp

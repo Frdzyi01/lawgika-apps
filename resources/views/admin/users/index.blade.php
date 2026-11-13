@@ -153,11 +153,16 @@
                                 
                                 foreach($user->orders as $o) {
                                     $name = $o->service_name ?: ($o->service->name ?? 'Jasa Unknown');
-                                    $isApproved = ($o->payment_status === 'verified' || in_array($o->status, ['approved', 'processing', 'completed', 'verified']));
-                                    $expiry = $isApproved ? $o->updated_at->addYear()->format('d M Y') : 'Menunggu Approval';
+                                    $isApproved = $o->isValidated();
+                                    $benefit = $o->roomBenefits->first();
+                                    $startDate = $benefit?->effective_start_date ?? $o->benefit_start_date;
+                                    $endDate = $benefit?->expired_at ?? $o->benefit_end_date;
+                                    $expiry = $isApproved
+                                        ? $endDate->format('d M Y') . ($endDate->isPast() ? ' (Expired)' : '')
+                                        : ($o->isRejected() ? 'Ditolak' : 'Pending Approval');
                                     $purchasedItems->push([
                                         'label' => $name,
-                                        'start' => $o->created_at->format('d M Y'),
+                                        'start' => $startDate->format('d M Y'),
                                         'expiry' => $expiry,
                                         'status' => $isApproved
                                     ]);

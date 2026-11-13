@@ -87,50 +87,57 @@ class VirtualOfficeController extends Controller
         $vo->tanggal_aktif = null;
         $vo->tanggal_expired = null;
         $vo->sisa_hari = 0;
+
+        if ($vo->isPendingApproval()) {
+            $vo->vo_status = 'Pending Approval';
+            $vo->vo_status_color = 'warning';
+            return;
+        }
+
+        if ($vo->isRejected()) {
+            $vo->vo_status = 'Ditolak';
+            $vo->vo_status_color = 'danger';
+            return;
+        }
+
+        if ($vo->status === 'cancelled' || $vo->status === 'draft') {
+            $vo->vo_status = 'Pending';
+            $vo->vo_status_color = 'secondary';
+            return;
+        }
+
         $vo->vo_status = 'Pending';
         $vo->vo_status_color = 'warning';
 
-        if ($vo->status === 'approved') {
+        if ($vo->isValidated()) {
             $benefits = $vo->roomBenefits;
-            
+
             if ($benefits->isNotEmpty()) {
                 $vo->benefit_meeting = $benefits->where('type', 'meeting')->first();
                 $vo->benefit_podcast = $benefits->where('type', 'podcast')->first();
-                
-                $vo->tanggal_aktif = $benefits->first()->created_at;
-                $vo->tanggal_expired = $benefits->first()->expired_at;
-                
-                $days = Carbon::now()->diffInDays(Carbon::parse($vo->tanggal_expired), false);
-                $vo->sisa_hari = max(0, $days);
 
-                if (Carbon::now()->startOfDay()->greaterThan(Carbon::parse($vo->tanggal_expired)->startOfDay())) {
-                    $vo->vo_status = 'Expired';
-                    $vo->vo_status_color = 'danger';
-                } elseif ($days <= 30) {
-                    $vo->vo_status = 'Segera Berakhir';
-                    $vo->vo_status_color = 'warning';
-                } else {
-                    $vo->vo_status = 'Aktif';
-                    $vo->vo_status_color = 'success';
-                }
+                $firstBenefit = $benefits->first();
+                $vo->tanggal_aktif = $firstBenefit->effective_start_date;
+                $vo->tanggal_expired = $firstBenefit->expired_at ?? $vo->benefit_end_date;
             } else {
-                // Fallback if no benefits found but order is approved
-                $vo->tanggal_aktif = $vo->updated_at;
-                $vo->tanggal_expired = Carbon::parse($vo->updated_at)->addYear();
-                
-                $days = Carbon::now()->diffInDays($vo->tanggal_expired, false);
-                $vo->sisa_hari = max(0, $days);
+                // Consistent fallback based on transaction_date (never updated_at)
+                $vo->tanggal_aktif = $vo->benefit_start_date;
+                $vo->tanggal_expired = $vo->benefit_end_date;
+            }
 
-                if (Carbon::now()->startOfDay()->greaterThan($vo->tanggal_expired->startOfDay())) {
-                    $vo->vo_status = 'Expired';
-                    $vo->vo_status_color = 'danger';
-                } elseif ($days <= 30) {
-                    $vo->vo_status = 'Segera Berakhir';
-                    $vo->vo_status_color = 'warning';
-                } else {
-                    $vo->vo_status = 'Aktif';
-                    $vo->vo_status_color = 'success';
-                }
+            $expiredDate = Carbon::parse($vo->tanggal_expired);
+            $days = Carbon::now()->startOfDay()->diffInDays($expiredDate->copy()->startOfDay(), false);
+            $vo->sisa_hari = max(0, $days);
+
+            if (Carbon::now()->greaterThan($expiredDate)) {
+                $vo->vo_status = 'Expired';
+                $vo->vo_status_color = 'danger';
+            } elseif ($days <= 30) {
+                $vo->vo_status = 'Segera Berakhir';
+                $vo->vo_status_color = 'warning';
+            } else {
+                $vo->vo_status = 'Aktif';
+                $vo->vo_status_color = 'success';
             }
         }
     }

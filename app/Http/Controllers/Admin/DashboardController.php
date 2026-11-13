@@ -26,11 +26,14 @@ class DashboardController extends Controller
         $recentPromos  = Promo::latest()->take(5)->get();
         $recentEvents  = EventUpComing::latest()->take(5)->get();
 
-        // ── Data CRM & Client Operasional (SPV & Admin 1) ───────────────────────
-        $pendingOrders  = Order::whereIn('status', ['draft', 'waiting_verification', 'pending'])->count();
-        $totalCustomers = User::where('role', 'customer')->count();
-        $totalServices  = Service::count();
-        $recentOrders   = Order::with(['user', 'service'])->latest()->take(5)->get();
+        // ── Data CRM & Client Operasional (SPV, Admin 1, Admin 3) ────────────────
+        $pendingOrders         = Order::whereIn('status', ['pending_approval', 'draft', 'waiting_verification', 'pending'])->count();
+        $pendingApprovalOrders = Order::where('status', 'pending_approval')->count();
+        $rejectedOrdersCount   = Order::where('status', 'rejected')->count();
+        $pendingChangeRequests = \App\Models\OrderChangeRequest::where('status', 'pending')->count();
+        $totalCustomers        = User::where('role', 'customer')->count();
+        $totalServices         = Service::count();
+        $recentOrders          = Order::with(['user', 'service'])->latest()->take(5)->get();
 
         $pendingMeetings = \App\Models\MeetingRoomBooking::where('status', 'pending')->count();
         $pendingPodcasts = \App\Models\PodcastRoomBooking::where('status', 'pending')->count();
@@ -40,7 +43,8 @@ class DashboardController extends Controller
                            \App\Models\PodcastRoomBooking::where('status', 'checkin')->count();
 
         return view('admin.dashboard.index', compact(
-            'pendingOrders', 'totalCustomers', 'totalServices', 'recentOrders',
+            'pendingOrders', 'pendingApprovalOrders', 'rejectedOrdersCount', 'pendingChangeRequests',
+            'totalCustomers', 'totalServices', 'recentOrders',
             'pendingMeetings', 'pendingPodcasts', 'pendingSurat', 'activeCheckins',
             'totalPromo', 'totalEvents', 'totalKbli', 'totalBerita',
             'recentBeritas', 'recentPromos', 'recentEvents'

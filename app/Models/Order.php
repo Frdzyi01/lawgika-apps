@@ -2,20 +2,31 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $guarded = ['id'];
 
     protected $casts = [
-        'form_data' => 'array',
+        'form_data'        => 'array',
+        'transaction_date' => 'date',
+        'submitted_at'     => 'datetime',
+        'approved_at'      => 'datetime',
+        'rejected_at'      => 'datetime',
+        'last_revised_at'  => 'datetime',
+        'deleted_at'       => 'datetime',
     ];
 
-    // ── Status: dokumen workflow ───────────────────────────────────────────────
+    // ── Status: dokumen & approval workflow ────────────────────────────────────
+
+    /** Status order untuk alur approval transaksi */
+    const DOC_STATUS_PENDING_APPROVAL    = 'pending_approval';
 
     /** Status order untuk alur dokumen */
     const DOC_STATUS_DRAFT               = 'draft';
@@ -32,6 +43,7 @@ class Order extends Model
     const DOC_STATUS_REJECTED   = 'rejected';
 
     const STATUS_MAP = [
+        'pending_approval'    => ['label' => 'Pending Approval',           'color' => 'warning'],
         'draft'               => ['label' => 'Dokumen Belum Lengkap',      'color' => 'secondary'],
         'waiting_verification'=> ['label' => 'Menunggu Verifikasi',        'color' => 'warning'],
         'revision'            => ['label' => 'Perlu Revisi Dokumen',       'color' => 'danger'],
@@ -152,5 +164,101 @@ class Order extends Model
     public function roomBenefits()
     {
         return $this->hasMany(RoomBenefit::class);
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function approver()
+    {
+        return $this->belongsTo(User::class, 'approved_by');
+    }
+
+    public function rejector()
+    {
+        return $this->belongsTo(User::class, 'rejected_by');
+    }
+
+    public function deleter()
+    {
+        return $this->belongsTo(User::class, 'deleted_by');
+    }
+
+    public function histories()
+    {
+        return $this->hasMany(OrderHistory::class)->orderByDesc('created_at')->orderByDesc('id');
+    }
+
+    public function auditLogs()
+    {
+        return $this->hasMany(OrderAuditLog::class)->orderByDesc('created_at')->orderByDesc('id');
+    }
+
+    public function changeRequests()
+    {
+        return $this->hasMany(OrderChangeRequest::class)->orderByDesc('created_at')->orderByDesc('id');
+    }
+
+    public function pendingChangeRequests()
+    {
+        return $this->hasMany(OrderChangeRequest::class)->where('status', 'pending')->orderByDesc('created_at');
+    }
+
+    // ── Business Helpers ──────────────────────────────────────────────────────
+
+    public static function generateInvoiceNumber(?Carbon $transactionDate = null): string
+    {
+        $datePart = ($transactionDate ?? now())->format('Ymd');
+        do {
+            $candidate = 'INV-' . $datePart . '-' . strtoupper(\Illuminate\Support\Str::random(5));
+        } while (self::withTrashed()->where('invoice_number', $candidate)->exists());
+
+        return $candidate;
+    }
+
+    public function getEffectiveTransactionDateAttribute(): Carbon
+    {
+        if ($this->transaction_date) {
+            return $this->transaction_date instanceof Carbon
+                ? $this->transaction_date->copy()
+                : Carbon::parse($this->transaction_date);
+        }
+
+        return ($this->created_at ?? now())->copy();
+    }
+
+    public function getBenefitStartDateAttribute(): Carbon
+    {
+        return $this->effective_transaction_date->copy()->startOfDay();
+    }
+
+    public function getBenefitEndDateAttribute(): Carbon
+    {
+        return $this->benefit_start_date->copy()->addYear();
+    }
+
+    public function isValidated(): bool
+    {
+        return in_array($this->status, [
+            self::DOC_STATUS_APPROVED,
+            self::DOC_STATUS_PROCESSING,
+            self::DOC_STATUS_COMPLETED,
+            self::DOC_STATUS_VERIFIED,
+        ], true);
+    }
+
+    public function isPendingApproval(): bool
+    {
+        return in_array($this->status, [
+            self::DOC_STATUS_PENDING_APPROVAL,
+            self::DOC_STATUS_PENDING,
+        ], true);
+    }
+
+    public function isRejected(): bool
+    {
+        return $this->status === self::DOC_STATUS_REJECTED;
     }
 }

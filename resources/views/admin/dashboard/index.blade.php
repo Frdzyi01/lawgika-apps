@@ -383,11 +383,23 @@
                         </div>
                         <span class="badge bg-danger rounded-pill">{{ $pendingSurat }}</span>
                     </a>
-                    <a href="{{ route('admin.orders.index', ['status' => 'waiting_verification']) }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                    <a href="{{ route('admin.orders.index', ['tab' => 'pending_approval']) }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                         <div>
-                            <ion-icon name="document-text-outline" class="align-middle me-1 text-warning"></ion-icon> Verifikasi Order
+                            <ion-icon name="time-outline" class="align-middle me-1 text-warning"></ion-icon> Pending Approval Transaksi
                         </div>
-                        <span class="badge bg-warning text-dark rounded-pill">{{ $pendingOrders }}</span>
+                        <span class="badge bg-warning text-dark rounded-pill">{{ $pendingApprovalOrders ?? $pendingOrders }}</span>
+                    </a>
+                    <a href="{{ route('admin.orders.index', ['tab' => 'rejected']) }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                        <div>
+                            <ion-icon name="close-circle-outline" class="align-middle me-1 text-danger"></ion-icon> Transaksi Ditolak / Revisi
+                        </div>
+                        <span class="badge bg-danger rounded-pill">{{ $rejectedOrdersCount ?? 0 }}</span>
+                    </a>
+                    <a href="{{ route('admin.orders.index', ['tab' => 'change_requests']) }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                        <div>
+                            <ion-icon name="git-pull-request-outline" class="align-middle me-1 text-secondary"></ion-icon> Pengajuan Edit / Hapus
+                        </div>
+                        <span class="badge bg-secondary rounded-pill">{{ $pendingChangeRequests ?? 0 }}</span>
                     </a>
                 </div>
             </div>

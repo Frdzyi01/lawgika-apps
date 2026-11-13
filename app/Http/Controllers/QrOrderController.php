@@ -17,18 +17,21 @@ class QrOrderController extends Controller
             ->where('qr_token', $token)
             ->firstOrFail();
 
-        // 1. Hitung Status Active / Expired
+        // 1. Hitung Status Active / Expired konsisten dengan approval & tanggal transaksi
         $isExpired = false;
         $expiredDate = null;
 
-        if ($order->roomBenefits->isNotEmpty()) {
+        if (! $order->isValidated()) {
+            $isExpired = true;
+            $expiredDate = $order->benefit_end_date;
+        } elseif ($order->roomBenefits->isNotEmpty()) {
             $hasActiveBenefit = $order->roomBenefits->contains(function ($b) {
                 return $b->is_active && (!$b->expired_at || $b->expired_at->isFuture());
             });
             $isExpired = !$hasActiveBenefit;
             $expiredDate = $order->roomBenefits->first()->expired_at;
         } else {
-            $expiredDate = $order->created_at ? $order->created_at->copy()->addYear() : now()->addYear();
+            $expiredDate = $order->benefit_end_date;
             if (in_array($order->status, ['cancelled', 'rejected'])) {
                 $isExpired = true;
             } else {

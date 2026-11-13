@@ -675,6 +675,7 @@ class PodcastRoomController extends Controller
         // If package purchase (20 Jam), activate RoomBenefit pool
         $benefitId = $request->benefit_id;
         if ($isPackagePurchase && $request->source_type === 'manual') {
+            $startedAt = now();
             $benefit = RoomBenefit::create([
                 'user_id'       => $user->id,
                 'paket'         => 'Paket Podcast Room (20 Jam / 1 Tahun)',
@@ -682,7 +683,8 @@ class PodcastRoomController extends Controller
                 'used_minutes'  => 0,
                 'type'          => 'podcast',
                 'is_active'     => true,
-                'expired_at'    => now()->addYear(),
+                'started_at'    => $startedAt,
+                'expired_at'    => $startedAt->copy()->addYear(),
             ]);
             $benefitId = $benefit->id;
         }
@@ -852,6 +854,7 @@ class PodcastRoomController extends Controller
                 ->orWhere('id', $booking->benefit_id)
                 ->first();
 
+            $startedAt = $booking->created_at ? \Carbon\Carbon::parse($booking->created_at) : now();
             if (!$benefit) {
                 $benefit = RoomBenefit::create([
                     'user_id'                 => $booking->user_id,
@@ -861,13 +864,15 @@ class PodcastRoomController extends Controller
                     'total_minutes'           => ($booking->duration ?: 20) * 60,
                     'used_minutes'            => round($booking->used_seconds / 60),
                     'is_active'               => true,
-                    'expired_at'              => \Carbon\Carbon::parse($booking->created_at)->addYear(),
+                    'started_at'              => $startedAt,
+                    'expired_at'              => $startedAt->copy()->addYear(),
                 ]);
             } else {
                 $benefit->update([
                     'is_active'               => true,
                     'podcast_room_booking_id' => $booking->id,
-                    'expired_at'              => $benefit->expired_at ?: \Carbon\Carbon::parse($booking->created_at)->addYear(),
+                    'started_at'              => $benefit->started_at ?: $startedAt,
+                    'expired_at'              => $benefit->expired_at ?: $startedAt->copy()->addYear(),
                 ]);
             }
 
@@ -1221,6 +1226,7 @@ class PodcastRoomController extends Controller
                 return $existing;
             }
 
+            $startedAt = \Carbon\Carbon::parse($packageBooking->created_at);
             $benefit = RoomBenefit::create([
                 'user_id'                 => Auth::id(),
                 'podcast_room_booking_id' => $packageBooking->id,
@@ -1229,7 +1235,8 @@ class PodcastRoomController extends Controller
                 'total_minutes'           => ($packageBooking->duration ?: 20) * 60,
                 'used_minutes'            => round($packageBooking->used_seconds / 60),
                 'is_active'               => true,
-                'expired_at'              => \Carbon\Carbon::parse($packageBooking->created_at)->addYear(),
+                'started_at'              => $startedAt,
+                'expired_at'              => $startedAt->copy()->addYear(),
             ]);
 
             $packageBooking->update(['benefit_id' => $benefit->id]);

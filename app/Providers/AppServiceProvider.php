@@ -54,13 +54,16 @@ class AppServiceProvider extends ServiceProvider
                 });
 
             $orders = Order::latest()->take(5)->get()->map(function($item) {
+                $isPendingApproval = $item->isPendingApproval();
                 return [
-                    'title' => 'Layanan: ' . ($item->service_name ?? 'Order Baru'),
-                    'time'  => $item->created_at,
+                    'title' => $isPendingApproval
+                        ? '⏳ Pending Approval: ' . ($item->invoice_number ?? $item->order_number)
+                        : 'Layanan: ' . ($item->service_name ?? 'Order Baru'),
+                    'time'  => $item->submitted_at ?? $item->created_at,
                     'url'   => url('admin/orders/' . $item->id),
-                    'icon'  => 'cart-outline',
-                    'color' => 'primary',
-                    'desc'  => $item->name . ' (' . $item->order_number . ')'
+                    'icon'  => $isPendingApproval ? 'time-outline' : 'cart-outline',
+                    'color' => $isPendingApproval ? 'warning' : 'primary',
+                    'desc'  => ($item->user?->name ?? 'Client') . ' (' . ($item->invoice_number ?? $item->order_number) . ')'
                 ];
             });
 

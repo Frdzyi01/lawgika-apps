@@ -67,7 +67,9 @@ class PodcastRoomBooking extends Model
      */
     public function getIsExpiredAttribute()
     {
-        return now()->greaterThan($this->created_at->addYear());
+        $benefit = $this->relationLoaded('benefit') ? $this->benefit : $this->benefit()->first();
+        $expiredAt = $benefit?->expired_at ?? $this->created_at->copy()->addYear();
+        return now()->greaterThan($expiredAt);
     }
 
     /** Human-readable used time */

@@ -106,12 +106,16 @@
                         </td>
                     </tr>
                     <tr>
+                        <td class="text-muted ps-0">Mulai Berlaku (Tgl Transaksi)</td>
+                        <td>{{ $benefit->effective_start_date->format('d M Y') }}</td>
+                    </tr>
+                    <tr>
                         <td class="text-muted ps-0">Berlaku s/d</td>
-                        <td>{{ $benefit->expired_at?->format('d M Y, H:i') ?? '–' }}</td>
+                        <td>{{ $benefit->expired_at?->format('d M Y') ?? '–' }}</td>
                     </tr>
                     <tr>
                         <td class="text-muted ps-0">Disetujui</td>
-                        <td>{{ $benefit->created_at->format('d M Y, H:i') }}</td>
+                        <td>{{ ($benefit->approved_at ?? $benefit->created_at)->format('d M Y, H:i') }}</td>
                     </tr>
                     <tr>
                         <td class="text-muted ps-0">Status</td>

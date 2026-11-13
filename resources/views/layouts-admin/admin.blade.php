@@ -54,6 +54,8 @@
             <span class="badge bg-gradient-info text-white px-2 py-1 rounded">Admin Order</span>
           @elseif(auth()->user()->isAdmin2())
             <span class="badge bg-gradient-success text-white px-2 py-1 rounded">Admin Konten</span>
+          @elseif(auth()->user()->isAdmin3())
+            <span class="badge bg-warning text-dark px-2 py-1 rounded">Admin 3 (Approval)</span>
           @endif
           {{ auth()->user()->name }}
         </li>
@@ -92,9 +94,35 @@
         </li>
         @endif
 
-        {{-- ── PENJUALAN & JASA: Admin1 & SPV ──────────────────────────── --}}
-        @if(auth()->user()->isAdmin1() || auth()->user()->isSPV())
-        <li class="menu-label">Penjualan & Jasa</li>
+        {{-- ── PENJUALAN & JASA: Admin1, Admin3 & SPV ─────────────────── --}}
+        @if(auth()->user()->isAdmin1() || auth()->user()->isAdmin3() || auth()->user()->isSPV())
+        <li class="menu-label">Transaksi & Penjualan</li>
+        <li class="{{ request()->routeIs('admin.orders.*') ? 'mm-active' : '' }}">
+          <a class="has-arrow" href="javascript:;">
+            <div class="parent-icon"><ion-icon name="receipt-outline"></ion-icon></div>
+            <div class="menu-title">Manajemen Pesanan</div>
+          </a>
+          <ul>
+            <li>
+              <a href="{{ route('admin.orders.index') }}"><ion-icon name="ellipse-outline"></ion-icon>Semua Pesanan</a>
+            </li>
+            @if(auth()->user()->canApproveOrders())
+            <li>
+              <a href="{{ route('admin.orders.index', ['tab' => 'pending_approval']) }}"><ion-icon name="ellipse-outline"></ion-icon>Approval Transaksi</a>
+            </li>
+            <li>
+              <a href="{{ route('admin.orders.index', ['tab' => 'change_requests']) }}"><ion-icon name="ellipse-outline"></ion-icon>Pengajuan Edit/Hapus</a>
+            </li>
+            <li>
+              <a href="{{ route('admin.orders.index', ['tab' => 'trashed']) }}"><ion-icon name="ellipse-outline"></ion-icon>Terhapus (Audit)</a>
+            </li>
+            @else
+            <li>
+              <a href="{{ route('admin.orders.index', ['tab' => 'rejected']) }}"><ion-icon name="ellipse-outline"></ion-icon>Ditolak / Revisi</a>
+            </li>
+            @endif
+          </ul>
+        </li>
         <li>
           <a href="{{ route('admin.virtual-office.index') }}">
             <div class="parent-icon"><ion-icon name="business-outline"></ion-icon></div>

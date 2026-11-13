@@ -151,88 +151,114 @@ Route::get('/home', function () {
     return redirect()->route('customer.dashboard');
 })->middleware('auth')->name('home');
 
-Route::middleware(['auth', 'role:admin,admin1,admin2'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'role:admin,spv,admin1,admin2,admin3'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
     Route::get('/home', function() { return redirect()->route('admin.dashboard'); })->name('home'); // backward compatibility
     Route::get('/notifications', [\App\Http\Controllers\Admin\NotificationController::class, 'index'])->name('notifications.index');
-    Route::resource('services', \App\Http\Controllers\Admin\ServiceController::class);
-    Route::resource('orders', \App\Http\Controllers\Admin\OrderController::class)->except(['destroy']);
-    Route::get('orders/document-requirements/{serviceKey}', [\App\Http\Controllers\Admin\OrderController::class, 'getDocumentRequirements'])->name('orders.document-requirements');
-    Route::post('documents/{document}/status',  [\App\Http\Controllers\Admin\DocumentController::class, 'updateStatus'])->name('documents.status');
-    Route::post('documents/{document}/approve', [\App\Http\Controllers\Admin\DocumentController::class, 'approve'])->name('documents.approve');
-    Route::post('documents/{document}/reject',  [\App\Http\Controllers\Admin\DocumentController::class, 'reject'])->name('documents.reject');
-    Route::post('documents/{document}/reset',   [\App\Http\Controllers\Admin\DocumentController::class, 'reset'])->name('documents.reset');
-    Route::post('orders/{order}/payment-status', [\App\Http\Controllers\Admin\OrderController::class, 'updatePaymentStatus'])->name('orders.payment-status');
-    Route::post('orders/{order}/send-payment-reminder', [\App\Http\Controllers\Admin\OrderController::class, 'sendPaymentReminder'])->name('orders.send-payment-reminder');
-    Route::post('orders/{order}/generate-qr', [\App\Http\Controllers\Admin\OrderController::class, 'generateQr'])->name('orders.generate-qr');
-    Route::get('orders/{order}/download-qr', [\App\Http\Controllers\Admin\OrderController::class, 'downloadQr'])->name('orders.download-qr');
-    
-    // Virtual Office Module
-    Route::get('virtual-office', [\App\Http\Controllers\Admin\VirtualOfficeController::class, 'index'])->name('virtual-office.index');
-    Route::get('virtual-office/{id}', [\App\Http\Controllers\Admin\VirtualOfficeController::class, 'show'])->name('virtual-office.show');
-    Route::post('virtual-office/{id}/mail-notification', [\App\Http\Controllers\Admin\VirtualOfficeController::class, 'sendMailNotification'])->name('virtual-office.mail-notification.store');
-    Route::post('virtual-office/{id}/guest-notification', [\App\Http\Controllers\Admin\VirtualOfficeController::class, 'sendGuestNotification'])->name('virtual-office.guest-notification.store');
-
-    // ── Room Benefit System (NEW) ─────────────────────────────────────────────
-    Route::post('orders/{order}/approve-benefit', [\App\Http\Controllers\Admin\RoomBenefitController::class, 'approve'])->name('orders.approve-benefit');
-    Route::post('benefits/{benefit}/checkin/{roomType}', [\App\Http\Controllers\Admin\RoomBenefitController::class, 'checkin'])->name('benefits.checkin');
-    Route::post('benefits/{benefit}/checkout/{roomType}', [\App\Http\Controllers\Admin\RoomBenefitController::class, 'checkout'])->name('benefits.checkout');
-    Route::get('benefits/{benefit}/detail', [\App\Http\Controllers\Admin\RoomBenefitController::class, 'showDetail'])->name('benefits.detail');
-
-    Route::resource('promo', PromoController::class);
-    Route::resource('event-upcoming', EventUpComingController::class);
-    Route::resource('peraturan-kbli', PeraturanKBLIController::class);
-    Route::resource('berita', BeritaController::class)->parameters([
-        'berita' => 'berita'
-    ]);
-
-    // ── Meeting Room ──────────────────────────────────────────────────────────
-    Route::get('/meeting-room', [MeetingRoomController::class, 'adminIndex']);
-    Route::get('/meeting-room/calendar', [MeetingRoomController::class, 'calendar'])->name('meeting-room.calendar');
-    Route::get('/meeting-room/calendar-events', [MeetingRoomController::class, 'calendarEvents'])->name('meeting-room.calendar-events');
-    Route::get('/meeting-room/booked-slots', [MeetingRoomController::class, 'getBookedSlots'])->name('meeting-room.booked-slots');
-    Route::get('/meeting-room/create', [MeetingRoomController::class, 'adminCreate'])->name('meeting-room.create');
-    Route::post('/meeting-room/store', [MeetingRoomController::class, 'adminStore'])->name('meeting-room.store');
-    Route::post('/meeting-room/create-session', [MeetingRoomController::class, 'createSession'])->name('meeting-room.create-session');
-    Route::get('/meeting-room/{id}/detail', [MeetingRoomController::class, 'adminDetail']);
-    Route::match(['get', 'post'], '/meeting-room/{id}/checkin', [MeetingRoomController::class, 'checkin']);
-    Route::match(['get', 'post'], '/meeting-room/{id}/checkout', [MeetingRoomController::class, 'checkout']);
-    Route::match(['get', 'post'], '/meeting-room/{id}/approve-payment', [MeetingRoomController::class, 'approvePayment'])->name('admin.meeting-room.approve');
-    Route::match(['get', 'post'], '/meeting-room/{id}/reject-payment', [MeetingRoomController::class, 'rejectPayment'])->name('admin.meeting-room.reject');
-    Route::match(['get', 'post'], '/meeting-room/{id}/benefit-approve', [MeetingRoomController::class, 'approveBenefitReservation'])->name('admin.meeting-room.benefit-approve');
-    Route::match(['get', 'post'], '/meeting-room/{id}/benefit-reject', [MeetingRoomController::class, 'rejectBenefitReservation'])->name('admin.meeting-room.benefit-reject');
-
-    // ── Podcast Room ──────────────────────────────────────────────────────────
-    Route::get('/podcast-room', [\App\Http\Controllers\PodcastRoomController::class, 'adminIndex'])->name('podcast-room.index');
-    Route::get('/podcast-room/calendar', [\App\Http\Controllers\PodcastRoomController::class, 'calendar'])->name('podcast-room.calendar');
-    Route::get('/podcast-room/calendar-events', [\App\Http\Controllers\PodcastRoomController::class, 'calendarEvents'])->name('podcast-room.calendar-events');
-    Route::get('/podcast-room/booked-slots', [\App\Http\Controllers\PodcastRoomController::class, 'getBookedSlots'])->name('podcast-room.booked-slots');
-    Route::get('/podcast-room/create', [\App\Http\Controllers\PodcastRoomController::class, 'adminCreate'])->name('podcast-room.create');
-    Route::post('/podcast-room/store', [\App\Http\Controllers\PodcastRoomController::class, 'adminStore'])->name('podcast-room.store');
-    Route::post('/podcast-room/create-session', [\App\Http\Controllers\PodcastRoomController::class, 'createSession'])->name('podcast-room.create-session');
-    Route::get('/podcast-room/{id}/detail', [\App\Http\Controllers\PodcastRoomController::class, 'adminDetail']);
-    Route::match(['get', 'post'], '/podcast-room/{id}/checkin', [\App\Http\Controllers\PodcastRoomController::class, 'checkin']);
-    Route::match(['get', 'post'], '/podcast-room/{id}/checkout', [\App\Http\Controllers\PodcastRoomController::class, 'checkout']);
-    Route::match(['get', 'post'], '/podcast-room/{id}/approve-payment', [\App\Http\Controllers\PodcastRoomController::class, 'approvePayment'])->name('admin.podcast-room.approve');
-    Route::match(['get', 'post'], '/podcast-room/{id}/reject-payment', [\App\Http\Controllers\PodcastRoomController::class, 'rejectPayment'])->name('admin.podcast-room.reject');
-    Route::match(['get', 'post'], '/podcast-room/{id}/benefit-approve', [\App\Http\Controllers\PodcastRoomController::class, 'approveBenefitReservation'])->name('admin.podcast-room.benefit-approve');
-    Route::match(['get', 'post'], '/podcast-room/{id}/benefit-reject', [\App\Http\Controllers\PodcastRoomController::class, 'rejectBenefitReservation'])->name('admin.podcast-room.benefit-reject');
-
-    Route::get('/spt-badan', [\App\Http\Controllers\SptTahunanController::class, 'adminDashboard'])->name('spt-badan.index');
-    Route::post('/spt-badan/{id}/status', [\App\Http\Controllers\SptTahunanController::class, 'updateStatus'])->name('spt-badan.status');
-
-    // ── Surat Menyurat Dokumen Legal ──────────────────────────────────────────
-    Route::get('/surat-menyurat', [AdminCorrespondenceController::class, 'index'])->name('surat-menyurat.index');
-    Route::get('/surat-menyurat/create', [AdminCorrespondenceController::class, 'create'])->name('surat-menyurat.create');
-    Route::post('/surat-menyurat/store', [AdminCorrespondenceController::class, 'store'])->name('surat-menyurat.store');
-    Route::get('/surat-menyurat/{id}', [AdminCorrespondenceController::class, 'show'])->name('surat-menyurat.show');
-    Route::post('/surat-menyurat/reply/{id}', [AdminCorrespondenceController::class, 'reply'])->name('surat-menyurat.reply');
-    Route::post('/surat-menyurat/status/{id}', [AdminCorrespondenceController::class, 'updateStatus'])->name('surat-menyurat.status');
-
-    // ── Master Client: Search API untuk semua Admin ───────────────────────────
     Route::get('/users/search', [\App\Http\Controllers\Admin\UserController::class, 'search'])->name('users.search');
 
-    // ── Master Client: CRUD hanya SPV dan Admin 1 ────────────────────────────
+    // ── Operasional, Pesanan & Layanan (SPV, Admin 1, Admin 3) ───────────────
+    Route::middleware('role:admin,spv,admin1,admin3')->group(function () {
+        Route::resource('services', \App\Http\Controllers\Admin\ServiceController::class);
+
+        Route::get('orders/document-requirements/{serviceKey}', [\App\Http\Controllers\Admin\OrderController::class, 'getDocumentRequirements'])->name('orders.document-requirements');
+        Route::resource('orders', \App\Http\Controllers\Admin\OrderController::class)->except(['edit', 'update', 'destroy']);
+        Route::post('orders/{order}/payment-status', [\App\Http\Controllers\Admin\OrderController::class, 'updatePaymentStatus'])->name('orders.payment-status');
+        Route::post('orders/{order}/send-payment-reminder', [\App\Http\Controllers\Admin\OrderController::class, 'sendPaymentReminder'])->name('orders.send-payment-reminder');
+        Route::post('orders/{order}/generate-qr', [\App\Http\Controllers\Admin\OrderController::class, 'generateQr'])->name('orders.generate-qr');
+        Route::get('orders/{order}/download-qr', [\App\Http\Controllers\Admin\OrderController::class, 'downloadQr'])->name('orders.download-qr');
+
+        // Revisi & Pengajuan Edit/Hapus (Admin 1 & SPV)
+        Route::middleware('role:admin,spv,admin1')->group(function () {
+            Route::post('orders/{order}/resubmit', [\App\Http\Controllers\Admin\OrderController::class, 'resubmit'])->name('orders.resubmit');
+            Route::post('orders/{order}/change-requests', [\App\Http\Controllers\Admin\OrderController::class, 'storeChangeRequest'])->name('orders.change-requests.store');
+        });
+
+        // Approval, Reject, Edit Langsung & Soft Delete (Admin 3 & SPV)
+        Route::middleware('role:admin,spv,admin3')->group(function () {
+            Route::get('orders/{order}/edit', [\App\Http\Controllers\Admin\OrderController::class, 'edit'])->name('orders.edit');
+            Route::match(['put', 'patch'], 'orders/{order}', [\App\Http\Controllers\Admin\OrderController::class, 'update'])->name('orders.update');
+            Route::delete('orders/{order}', [\App\Http\Controllers\Admin\OrderController::class, 'destroy'])->name('orders.destroy');
+            Route::post('orders/{order}/approve', [\App\Http\Controllers\Admin\OrderController::class, 'approve'])->name('orders.approve');
+            Route::post('orders/{order}/reject', [\App\Http\Controllers\Admin\OrderController::class, 'reject'])->name('orders.reject');
+            Route::post('change-requests/{changeRequest}/approve', [\App\Http\Controllers\Admin\OrderController::class, 'approveChangeRequest'])->name('change-requests.approve');
+            Route::post('change-requests/{changeRequest}/reject', [\App\Http\Controllers\Admin\OrderController::class, 'rejectChangeRequest'])->name('change-requests.reject');
+        });
+
+        Route::post('orders/{order}/documents',     [\App\Http\Controllers\Admin\DocumentController::class, 'store'])->name('documents.store');
+        Route::match(['put', 'patch'], 'documents/{document}', [\App\Http\Controllers\Admin\DocumentController::class, 'update'])->name('documents.update');
+        Route::post('documents/{document}/status',  [\App\Http\Controllers\Admin\DocumentController::class, 'updateStatus'])->name('documents.status');
+        Route::post('documents/{document}/approve', [\App\Http\Controllers\Admin\DocumentController::class, 'approve'])->name('documents.approve');
+        Route::post('documents/{document}/reject',  [\App\Http\Controllers\Admin\DocumentController::class, 'reject'])->name('documents.reject');
+        Route::post('documents/{document}/reset',   [\App\Http\Controllers\Admin\DocumentController::class, 'reset'])->name('documents.reset');
+
+        // Virtual Office Module
+        Route::get('virtual-office', [\App\Http\Controllers\Admin\VirtualOfficeController::class, 'index'])->name('virtual-office.index');
+        Route::get('virtual-office/{id}', [\App\Http\Controllers\Admin\VirtualOfficeController::class, 'show'])->name('virtual-office.show');
+        Route::post('virtual-office/{id}/mail-notification', [\App\Http\Controllers\Admin\VirtualOfficeController::class, 'sendMailNotification'])->name('virtual-office.mail-notification.store');
+        Route::post('virtual-office/{id}/guest-notification', [\App\Http\Controllers\Admin\VirtualOfficeController::class, 'sendGuestNotification'])->name('virtual-office.guest-notification.store');
+
+        // Room Benefit System
+        Route::post('orders/{order}/approve-benefit', [\App\Http\Controllers\Admin\RoomBenefitController::class, 'approve'])->name('orders.approve-benefit');
+        Route::post('benefits/{benefit}/checkin/{roomType}', [\App\Http\Controllers\Admin\RoomBenefitController::class, 'checkin'])->name('benefits.checkin');
+        Route::post('benefits/{benefit}/checkout/{roomType}', [\App\Http\Controllers\Admin\RoomBenefitController::class, 'checkout'])->name('benefits.checkout');
+        Route::get('benefits/{benefit}/detail', [\App\Http\Controllers\Admin\RoomBenefitController::class, 'showDetail'])->name('benefits.detail');
+
+        // Meeting Room
+        Route::get('/meeting-room', [MeetingRoomController::class, 'adminIndex']);
+        Route::get('/meeting-room/calendar', [MeetingRoomController::class, 'calendar'])->name('meeting-room.calendar');
+        Route::get('/meeting-room/calendar-events', [MeetingRoomController::class, 'calendarEvents'])->name('meeting-room.calendar-events');
+        Route::get('/meeting-room/booked-slots', [MeetingRoomController::class, 'getBookedSlots'])->name('meeting-room.booked-slots');
+        Route::get('/meeting-room/create', [MeetingRoomController::class, 'adminCreate'])->name('meeting-room.create');
+        Route::post('/meeting-room/store', [MeetingRoomController::class, 'adminStore'])->name('meeting-room.store');
+        Route::post('/meeting-room/create-session', [MeetingRoomController::class, 'createSession'])->name('meeting-room.create-session');
+        Route::get('/meeting-room/{id}/detail', [MeetingRoomController::class, 'adminDetail']);
+        Route::match(['get', 'post'], '/meeting-room/{id}/checkin', [MeetingRoomController::class, 'checkin']);
+        Route::match(['get', 'post'], '/meeting-room/{id}/checkout', [MeetingRoomController::class, 'checkout']);
+        Route::match(['get', 'post'], '/meeting-room/{id}/approve-payment', [MeetingRoomController::class, 'approvePayment'])->name('admin.meeting-room.approve');
+        Route::match(['get', 'post'], '/meeting-room/{id}/reject-payment', [MeetingRoomController::class, 'rejectPayment'])->name('admin.meeting-room.reject');
+        Route::match(['get', 'post'], '/meeting-room/{id}/benefit-approve', [MeetingRoomController::class, 'approveBenefitReservation'])->name('admin.meeting-room.benefit-approve');
+        Route::match(['get', 'post'], '/meeting-room/{id}/benefit-reject', [MeetingRoomController::class, 'rejectBenefitReservation'])->name('admin.meeting-room.benefit-reject');
+
+        // Podcast Room
+        Route::get('/podcast-room', [\App\Http\Controllers\PodcastRoomController::class, 'adminIndex'])->name('podcast-room.index');
+        Route::get('/podcast-room/calendar', [\App\Http\Controllers\PodcastRoomController::class, 'calendar'])->name('podcast-room.calendar');
+        Route::get('/podcast-room/calendar-events', [\App\Http\Controllers\PodcastRoomController::class, 'calendarEvents'])->name('podcast-room.calendar-events');
+        Route::get('/podcast-room/booked-slots', [\App\Http\Controllers\PodcastRoomController::class, 'getBookedSlots'])->name('podcast-room.booked-slots');
+        Route::get('/podcast-room/create', [\App\Http\Controllers\PodcastRoomController::class, 'adminCreate'])->name('podcast-room.create');
+        Route::post('/podcast-room/store', [\App\Http\Controllers\PodcastRoomController::class, 'adminStore'])->name('podcast-room.store');
+        Route::post('/podcast-room/create-session', [\App\Http\Controllers\PodcastRoomController::class, 'createSession'])->name('podcast-room.create-session');
+        Route::get('/podcast-room/{id}/detail', [\App\Http\Controllers\PodcastRoomController::class, 'adminDetail']);
+        Route::match(['get', 'post'], '/podcast-room/{id}/checkin', [\App\Http\Controllers\PodcastRoomController::class, 'checkin']);
+        Route::match(['get', 'post'], '/podcast-room/{id}/checkout', [\App\Http\Controllers\PodcastRoomController::class, 'checkout']);
+        Route::match(['get', 'post'], '/podcast-room/{id}/approve-payment', [\App\Http\Controllers\PodcastRoomController::class, 'approvePayment'])->name('admin.podcast-room.approve');
+        Route::match(['get', 'post'], '/podcast-room/{id}/reject-payment', [\App\Http\Controllers\PodcastRoomController::class, 'rejectPayment'])->name('admin.podcast-room.reject');
+        Route::match(['get', 'post'], '/podcast-room/{id}/benefit-approve', [\App\Http\Controllers\PodcastRoomController::class, 'approveBenefitReservation'])->name('admin.podcast-room.benefit-approve');
+        Route::match(['get', 'post'], '/podcast-room/{id}/benefit-reject', [\App\Http\Controllers\PodcastRoomController::class, 'rejectBenefitReservation'])->name('admin.podcast-room.benefit-reject');
+
+        Route::get('/spt-badan', [\App\Http\Controllers\SptTahunanController::class, 'adminDashboard'])->name('spt-badan.index');
+        Route::post('/spt-badan/{id}/status', [\App\Http\Controllers\SptTahunanController::class, 'updateStatus'])->name('spt-badan.status');
+
+        // Surat Menyurat Dokumen Legal
+        Route::get('/surat-menyurat', [AdminCorrespondenceController::class, 'index'])->name('surat-menyurat.index');
+        Route::get('/surat-menyurat/create', [AdminCorrespondenceController::class, 'create'])->name('surat-menyurat.create');
+        Route::post('/surat-menyurat/store', [AdminCorrespondenceController::class, 'store'])->name('surat-menyurat.store');
+        Route::get('/surat-menyurat/{id}', [AdminCorrespondenceController::class, 'show'])->name('surat-menyurat.show');
+        Route::post('/surat-menyurat/reply/{id}', [AdminCorrespondenceController::class, 'reply'])->name('surat-menyurat.reply');
+        Route::post('/surat-menyurat/status/{id}', [AdminCorrespondenceController::class, 'updateStatus'])->name('surat-menyurat.status');
+    });
+
+    // ── Konten & Artikel (Hanya SPV & Admin 2) ───────────────────────────────
+    Route::middleware('role:admin,spv,admin2')->group(function () {
+        Route::resource('promo', PromoController::class);
+        Route::resource('event-upcoming', EventUpComingController::class);
+        Route::resource('peraturan-kbli', PeraturanKBLIController::class);
+        Route::resource('berita', BeritaController::class)->parameters([
+            'berita' => 'berita'
+        ]);
+    });
+
+    // ── Master Client & Role Pengguna: CRUD hanya SPV dan Admin 1 ──────────
     Route::middleware('role:admin,spv,admin1')->group(function () {
         Route::resource('users', \App\Http\Controllers\Admin\UserController::class);
     });

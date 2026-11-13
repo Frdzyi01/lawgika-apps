@@ -83,6 +83,46 @@ class User extends Authenticatable
     }
 
     /**
+     * Admin 3 — Verifikasi, Approval, Edit & Delete Transaksi/Pesanan.
+     */
+    public function isAdmin3(): bool
+    {
+        return $this->role === 'admin3';
+    }
+
+    /**
+     * SPV dan Admin 3 berhak approve/reject pesanan & perubahan transaksi.
+     */
+    public function canApproveOrders(): bool
+    {
+        return $this->isSPV() || $this->isAdmin3();
+    }
+
+    /**
+     * SPV dan Admin 3 berhak edit/hapus pesanan secara langsung (dengan audit trail).
+     */
+    public function canDirectlyModifyOrders(): bool
+    {
+        return $this->isSPV() || $this->isAdmin3();
+    }
+
+    /**
+     * SPV, Admin 1, dan Admin 3 memiliki akses ke menu manajemen order/operasional.
+     */
+    public function canManageOrders(): bool
+    {
+        return $this->isSPV() || $this->isAdmin1() || $this->isAdmin3();
+    }
+
+    /**
+     * SPV dan Admin 2 berhak mengelola konten/artikel.
+     */
+    public function canManageContent(): bool
+    {
+        return $this->isSPV() || $this->isAdmin2();
+    }
+
+    /**
      * SPV dan Admin 1 (Admin Order) berhak mengelola data client (Master Client).
      */
     public function canManageClients(): bool
@@ -95,7 +135,7 @@ class User extends Authenticatable
      */
     public function hasAdminAccess(): bool
     {
-        return in_array($this->role, ['admin', 'spv', 'admin1', 'admin2']);
+        return in_array($this->role, ['admin', 'spv', 'admin1', 'admin2', 'admin3']);
     }
 
     /**
@@ -107,6 +147,7 @@ class User extends Authenticatable
             'admin', 'spv' => 'SPV',
             'admin1'       => 'Admin Order',
             'admin2'       => 'Admin Konten',
+            'admin3'       => 'Admin 3 (Approval)',
             'customer'     => 'Pelanggan',
             default        => ucfirst($this->role),
         };
