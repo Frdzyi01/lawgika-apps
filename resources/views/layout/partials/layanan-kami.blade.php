@@ -892,11 +892,7 @@
 
 {{-- ── Auth state untuk JS (server-side rendered, aman) ── --}}
 <script>
-  var IS_LOGGED_IN = {
-    {
-      auth() - > check() ? 'true' : 'false'
-    }
-  };
+  var IS_LOGGED_IN = {{ auth()->check() ? 'true' : 'false' }};
 
   function openOrderModal(serviceName) {
     if (!IS_LOGGED_IN) {

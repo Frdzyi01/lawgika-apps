@@ -307,6 +307,7 @@ CSS TABLE OF CONTENTS
             if ($("body")) {
                 const e = document.querySelector(".cursor-inner"),
                     t = document.querySelector(".cursor-outer");
+                if (!e || !t) return;
                 let n,
                     i = 0,
                     o = !1;
