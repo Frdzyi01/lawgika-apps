@@ -28,8 +28,8 @@
         @if(isset($renewOrder) && $renewOrder)
         <div class="alert alert-info border-0 shadow-sm d-flex align-items-center justify-content-between mb-3">
             <div>
-                <h6 class="alert-heading mb-1 text-info fw-bold"><ion-icon name="refresh-circle-outline" class="align-middle me-1" style="font-size: 1.3rem;"></ion-icon> Form Perpanjangan (Renew) Virtual Office</h6>
-                <small class="mb-0">Memperpanjang layanan Virtual Office untuk <strong>{{ $preselectedClient->company_name ?? ($preselectedClient->pic_name ?? $preselectedClient->name) }}</strong> (Order Referensi: <code>{{ $renewOrder->order_number }}</code>).</small>
+                <h6 class="alert-heading mb-1 text-info fw-bold"><ion-icon name="refresh-circle-outline" class="align-middle me-1" style="font-size: 1.3rem;"></ion-icon> Form Perpanjangan (Renew) Layanan</h6>
+                <small class="mb-0">Memperpanjang layanan <strong>{{ $renewOrder->service_name ?? 'Virtual Office' }}</strong> untuk <strong>{{ $preselectedClient->company_name ?? ($preselectedClient->pic_name ?? $preselectedClient->name) }}</strong> (Order Referensi: <code>{{ $renewOrder->order_number }}</code>).</small>
             </div>
             <span class="badge bg-primary fs-6">Mode Renew</span>
         </div>
@@ -69,7 +69,7 @@
                         <div class="col-md-6">
                             <label class="form-label">Tanggal Transaksi <span class="text-danger">*</span></label>
                             <input type="date" name="transaction_date" class="form-control" value="{{ old('transaction_date', date('Y-m-d')) }}" required>
-                            <small class="text-muted">Tanggal transaksi menjadi acuan tanggal mulai & masa berlaku benefit (1 tahun).</small>
+                            <small class="text-muted">Tanggal transaksi menjadi acuan tanggal mulai &amp; masa berlaku benefit sesuai durasi paket.</small>
                         </div>
 
                         <div class="col-md-6">
@@ -89,6 +89,17 @@
                             </select>
                         </div>
 
+                        <div class="col-md-12">
+                            <label class="form-label">Durasi Paket (Bulan) <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <input type="number" name="duration_months" id="duration_months_input" class="form-control"
+                                    value="{{ old('duration_months', 12) }}" min="1" max="120" step="1" required
+                                    placeholder="Masukkan jumlah bulan (misal: 12, 13, 24, 26)">
+                                <span class="input-group-text">Bulan</span>
+                            </div>
+                            <div id="duration_info_box" class="small mt-1 px-2 py-1 rounded bg-light border text-dark"></div>
+                        </div>
+
                         <div class="col-md-12" id="modal_dasar_container" style="display:none;">
                             <label class="form-label">Skala Modal Dasar (Khusus Pendirian PT)</label>
                             <select name="modal_dasar" class="form-select">
@@ -105,31 +116,21 @@
 
                         <hr class="my-3">
 
-                        <div class="col-md-4">
-                            <label class="form-label">Metode Pembayaran <span class="text-danger">*</span></label>
-                            <select name="payment_method" class="form-select" required>
-                                @foreach(($paymentMethods ?? ['Transfer Bank (BCA)', 'Transfer Bank (Mandiri)', 'Virtual Account / QRIS', 'Cash / Tunai', 'Lainnya']) as $pm)
-                                    <option value="{{ $pm }}" {{ old('payment_method') === $pm ? 'selected' : '' }}>{{ $pm }}</option>
+                        <div class="col-md-6">
+                            <label class="form-label">Status Pembayaran <span class="text-danger">*</span></label>
+                            <select name="payment_status" class="form-select" required>
+                                @foreach(\App\Models\Order::ADMIN_PAYMENT_OPTIONS as $psKey => $psInfo)
+                                    <option value="{{ $psKey }}" {{ old('payment_status', 'verified') === $psKey ? 'selected' : '' }}>{{ $psInfo['label'] }}</option>
                                 @endforeach
                             </select>
                         </div>
 
-                        <div class="col-md-4">
-                            <label class="form-label">Status Pembayaran <span class="text-danger">*</span></label>
-                            <select name="payment_status" class="form-select" required>
-                                <option value="unpaid" {{ old('payment_status') === 'unpaid' ? 'selected' : '' }}>Belum Bayar</option>
-                                <option value="pending_verification" {{ old('payment_status') === 'pending_verification' ? 'selected' : '' }}>Menunggu Verifikasi</option>
-                                <option value="verified" {{ old('payment_status', 'verified') === 'verified' ? 'selected' : '' }}>Pembayaran Terverifikasi</option>
-                                <option value="rejected" {{ old('payment_status') === 'rejected' ? 'selected' : '' }}>Pembayaran Ditolak</option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <label class="form-label">Status Pesanan <span class="text-danger">*</span></label>
                             @if(auth()->user()->canApproveOrders())
                             <select name="status" class="form-select" required>
                                 <option value="pending_approval" {{ old('status', 'pending_approval') === 'pending_approval' ? 'selected' : '' }}>Pending Approval (Menunggu Persetujuan)</option>
-                                <option value="approved" {{ old('status') === 'approved' ? 'selected' : '' }}>Approved (Setujui & Aktifkan Benefit Sesuai Tgl Transaksi)</option>
+                                <option value="approved" {{ old('status') === 'approved' ? 'selected' : '' }}>Approved (Setujui &amp; Aktifkan Benefit Sesuai Tgl Transaksi)</option>
                             </select>
                             @else
                             <input type="text" class="form-control bg-light" value="Pending Approval (Menunggu Admin 3 / SPV)" readonly>
@@ -276,6 +277,33 @@
         fetchDocumentRequirements(serviceSelect.value);
     }
 
+    const durationInput = document.getElementById('duration_months_input');
+    const durationInfoBox = document.getElementById('duration_info_box');
+    function updateDurationSummary() {
+        if (!durationInput || !durationInfoBox) return;
+        const raw = parseInt(durationInput.value, 10);
+        if (isNaN(raw) || raw < 1) {
+            durationInfoBox.innerHTML = '<i class="fa fa-info-circle text-primary me-1"></i>Default <strong>1 Tahun (12 Bulan)</strong>. Benefit ruangan sesuai 1 tahun.';
+            return;
+        }
+        if (raw < 12) {
+            durationInfoBox.innerHTML = `<i class="fa fa-circle-info text-warning me-1"></i>Input <strong>${raw} bulan (&lt; 12 bulan)</strong> &rarr; Paket tetap dihitung <strong>1 Tahun (12 Bulan)</strong> dan benefit hanya sesuai <strong>12 bulan</strong>.`;
+            return;
+        }
+        const years = Math.floor(raw / 12);
+        const bonus = raw % 12;
+        if (bonus === 0) {
+            durationInfoBox.innerHTML = `<i class="fa fa-check-circle text-success me-1"></i>Paket: <strong>${years} Tahun (${raw} Bulan)</strong>. Kuota benefit &amp; estimasi harga otomatis untuk <strong>${years} tahun</strong>.`;
+        } else {
+            durationInfoBox.innerHTML = `<i class="fa fa-gift text-success me-1"></i>Paket: <strong>${years} Tahun (${years * 12} Bulan) + Bonus ${bonus} Bulan dari Lawgika</strong> (Total Masa Aktif: <strong>${raw} Bulan</strong>). Benefit dasar sesuai ${years} tahun.`;
+        }
+    }
+    if (durationInput) {
+        durationInput.addEventListener('input', updateDurationSummary);
+        durationInput.addEventListener('change', updateDurationSummary);
+        updateDurationSummary();
+    }
+
     // Auto-fill and pre-select data if preselectedClient or renewOrder is passed
     @if(isset($preselectedClient) && $preselectedClient)
         const preselectedClientData = {
@@ -296,10 +324,13 @@
     @endif
 
     @if(isset($renewOrder) && $renewOrder)
-        // Set Layanan to virtual-office
-        serviceSelect.value = 'virtual-office';
-        updatePackageDropdown('virtual-office');
-        fetchDocumentRequirements('virtual-office');
+        // Set Layanan based on renewOrder
+        const renewService = "{{ $renewOrder->form_data['service'] ?? 'virtual-office' }}";
+        if (renewService) {
+            serviceSelect.value = renewService;
+            updatePackageDropdown(renewService);
+            fetchDocumentRequirements(renewService);
+        }
 
         // Set Paket based on renewOrder
         const renewPackage = "{{ $renewOrder->form_data['package'] ?? '' }}";

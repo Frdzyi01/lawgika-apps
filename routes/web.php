@@ -183,14 +183,14 @@ Route::middleware(['auth', 'role:admin,spv,admin1,admin2,admin3'])->prefix('admi
             Route::post('orders/{order}/reject', [\App\Http\Controllers\Admin\OrderController::class, 'reject'])->name('orders.reject');
             Route::post('change-requests/{changeRequest}/approve', [\App\Http\Controllers\Admin\OrderController::class, 'approveChangeRequest'])->name('change-requests.approve');
             Route::post('change-requests/{changeRequest}/reject', [\App\Http\Controllers\Admin\OrderController::class, 'rejectChangeRequest'])->name('change-requests.reject');
+            Route::post('documents/{document}/status',  [\App\Http\Controllers\Admin\DocumentController::class, 'updateStatus'])->name('documents.status');
+            Route::post('documents/{document}/approve', [\App\Http\Controllers\Admin\DocumentController::class, 'approve'])->name('documents.approve');
+            Route::post('documents/{document}/reject',  [\App\Http\Controllers\Admin\DocumentController::class, 'reject'])->name('documents.reject');
+            Route::post('documents/{document}/reset',   [\App\Http\Controllers\Admin\DocumentController::class, 'reset'])->name('documents.reset');
         });
 
         Route::post('orders/{order}/documents',     [\App\Http\Controllers\Admin\DocumentController::class, 'store'])->name('documents.store');
         Route::match(['put', 'patch'], 'documents/{document}', [\App\Http\Controllers\Admin\DocumentController::class, 'update'])->name('documents.update');
-        Route::post('documents/{document}/status',  [\App\Http\Controllers\Admin\DocumentController::class, 'updateStatus'])->name('documents.status');
-        Route::post('documents/{document}/approve', [\App\Http\Controllers\Admin\DocumentController::class, 'approve'])->name('documents.approve');
-        Route::post('documents/{document}/reject',  [\App\Http\Controllers\Admin\DocumentController::class, 'reject'])->name('documents.reject');
-        Route::post('documents/{document}/reset',   [\App\Http\Controllers\Admin\DocumentController::class, 'reset'])->name('documents.reset');
 
         // Virtual Office Module
         Route::get('virtual-office', [\App\Http\Controllers\Admin\VirtualOfficeController::class, 'index'])->name('virtual-office.index');

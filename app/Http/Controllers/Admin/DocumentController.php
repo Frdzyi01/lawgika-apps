@@ -154,6 +154,10 @@ class DocumentController extends Controller
      */
     public function approve(Request $request, Document $document)
     {
+        if (! auth()->user()?->canApproveOrders()) {
+            abort(403, 'Hanya Admin 3 / SPV yang dapat menyetujui dokumen.');
+        }
+
         $document->update([
             'status'          => 'approved',
             'rejection_reason'=> null,
@@ -175,6 +179,10 @@ class DocumentController extends Controller
      */
     public function reject(Request $request, Document $document)
     {
+        if (! auth()->user()?->canApproveOrders()) {
+            abort(403, 'Hanya Admin 3 / SPV yang dapat menolak dokumen.');
+        }
+
         $request->validate([
             'rejection_reason' => 'required|string|min:5|max:1000',
         ], [
@@ -203,6 +211,10 @@ class DocumentController extends Controller
      */
     public function reset(Request $request, Document $document)
     {
+        if (! auth()->user()?->canApproveOrders()) {
+            abort(403, 'Hanya Admin 3 / SPV yang dapat mereset status dokumen.');
+        }
+
         $document->update([
             'status'           => 'pending',
             'rejection_reason' => null,
@@ -223,6 +235,10 @@ class DocumentController extends Controller
      */
     public function updateStatus(Request $request, Document $document)
     {
+        if (! auth()->user()?->canApproveOrders()) {
+            abort(403, 'Hanya Admin 3 / SPV yang dapat mengubah status persetujuan dokumen.');
+        }
+
         $request->validate([
             'status'           => 'required|in:approved,verified,rejected,pending',
             'rejection_reason' => 'required_if:status,rejected|nullable|string|min:5|max:1000',

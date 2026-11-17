@@ -47,9 +47,19 @@ class OrderController extends Controller
 
         $counts = [
             'all'              => Order::count(),
-            'pending_approval' => Order::whereIn('status', [Order::DOC_STATUS_PENDING_APPROVAL, Order::DOC_STATUS_PENDING])->count(),
+            'pending_approval' => Order::where(function ($q) {
+                $q->whereIn('status', [Order::DOC_STATUS_PENDING_APPROVAL, Order::DOC_STATUS_PENDING])
+                  ->orWhere(function ($sub) {
+                      $sub->where('status', Order::DOC_STATUS_VERIFIED)->whereNull('approved_at');
+                  });
+            })->count(),
             'rejected'         => Order::where('status', Order::DOC_STATUS_REJECTED)->count(),
-            'approved'         => Order::whereIn('status', [Order::DOC_STATUS_APPROVED, Order::DOC_STATUS_PROCESSING, Order::DOC_STATUS_VERIFIED, Order::DOC_STATUS_COMPLETED])->count(),
+            'approved'         => Order::where(function ($q) {
+                $q->whereIn('status', [Order::DOC_STATUS_APPROVED, Order::DOC_STATUS_PROCESSING, Order::DOC_STATUS_COMPLETED])
+                  ->orWhere(function ($sub) {
+                      $sub->where('status', Order::DOC_STATUS_VERIFIED)->whereNotNull('approved_at');
+                  });
+            })->count(),
             'change_requests'  => OrderChangeRequest::where('status', 'pending')->count(),
             'trashed'          => Order::onlyTrashed()->count(),
         ];
@@ -71,11 +81,21 @@ class OrderController extends Controller
         }
 
         if ($tab === 'pending_approval') {
-            $query->whereIn('status', [Order::DOC_STATUS_PENDING_APPROVAL, Order::DOC_STATUS_PENDING]);
+            $query->where(function ($q) {
+                $q->whereIn('status', [Order::DOC_STATUS_PENDING_APPROVAL, Order::DOC_STATUS_PENDING])
+                  ->orWhere(function ($sub) {
+                      $sub->where('status', Order::DOC_STATUS_VERIFIED)->whereNull('approved_at');
+                  });
+            });
         } elseif ($tab === 'rejected') {
             $query->where('status', Order::DOC_STATUS_REJECTED);
         } elseif ($tab === 'approved') {
-            $query->whereIn('status', [Order::DOC_STATUS_APPROVED, Order::DOC_STATUS_PROCESSING, Order::DOC_STATUS_VERIFIED, Order::DOC_STATUS_COMPLETED]);
+            $query->where(function ($q) {
+                $q->whereIn('status', [Order::DOC_STATUS_APPROVED, Order::DOC_STATUS_PROCESSING, Order::DOC_STATUS_COMPLETED])
+                  ->orWhere(function ($sub) {
+                      $sub->where('status', Order::DOC_STATUS_VERIFIED)->whereNotNull('approved_at');
+                  });
+            });
         }
 
         if ($request->filled('status')) {
@@ -169,9 +189,10 @@ class OrderController extends Controller
             'transaction_date' => 'sometimes|required|date',
             'service'          => 'sometimes|required|string|max:100',
             'package'          => 'sometimes|required|string|max:100',
+            'duration_months'  => 'nullable|integer|min:1|max:120',
             'total_price'      => 'nullable',
             'payment_method'   => 'nullable|string|max:100',
-            'payment_status'   => 'nullable|in:unpaid,pending_verification,verified,rejected',
+            'payment_status'   => 'nullable|in:unpaid,verified',
             'payment_proof'    => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
             'status'           => 'sometimes|required|string|max:50',
             'notes'            => 'nullable|string|max:2000',
@@ -192,12 +213,18 @@ class OrderController extends Controller
             $serviceKey = strtolower($request->input('service', $lockedOrder->form_data['service'] ?? ''));
             $packageKey = strtolower($request->input('package', $lockedOrder->form_data['package'] ?? ''));
             $modalDasar = $request->input('modal_dasar', $lockedOrder->form_data['modal_dasar'] ?? null);
+            $duration   = Order::resolveDuration(
+                $request->filled('duration_months')
+                    ? (int) $request->input('duration_months')
+                    : (isset($lockedOrder->form_data['duration_months']) ? (int) $lockedOrder->form_data['duration_months'] : 12)
+            );
 
             $resolved = $this->resolveServiceAndPrice(
                 $serviceKey,
                 $packageKey,
                 $modalDasar,
-                $request->has('total_price') ? $request->input('total_price') : $lockedOrder->total_price
+                $request->has('total_price') ? $request->input('total_price') : $lockedOrder->total_price,
+                $duration['base_years']
             );
 
             $formData = $lockedOrder->form_data ?? [];
@@ -210,6 +237,10 @@ class OrderController extends Controller
             if ($modalDasar !== null) {
                 $formData['modal_dasar'] = $modalDasar;
             }
+            $formData['duration_months']  = $duration['input_months'];
+            $formData['effective_months'] = $duration['effective_months'];
+            $formData['base_years']       = $duration['base_years'];
+            $formData['bonus_months']     = $duration['bonus_months'];
 
             $newStatus = $request->input('status', $lockedOrder->status);
             $txDate = $request->filled('transaction_date')
@@ -250,14 +281,14 @@ class OrderController extends Controller
 
             // Benefit orchestration: never auto-activate during pending_approval/rejected
             if ($lockedOrder->isValidated()) {
-                if (RoomBenefit::where('order_id', $lockedOrder->id)->exists()) {
-                    $this->benefitService->syncDatesFromOrder($lockedOrder);
-                } elseif (RoomBenefit::isEligibleForOrder($lockedOrder)) {
+                if (RoomBenefit::isEligibleForOrder($lockedOrder)) {
                     try {
-                        $this->benefitService->activateOrSyncForOrder($lockedOrder, auth()->id());
+                        $this->benefitService->activateOrSyncForOrder($lockedOrder, $lockedOrder->approved_by ?? auth()->id());
                     } catch (\Throwable $e) {
                         // Ineligible package ignored gracefully
                     }
+                } elseif (RoomBenefit::where('order_id', $lockedOrder->id)->exists()) {
+                    $this->benefitService->syncDatesFromOrder($lockedOrder);
                 }
             } elseif (in_array($lockedOrder->status, [Order::DOC_STATUS_REJECTED, Order::DOC_STATUS_CANCELLED, Order::DOC_STATUS_PENDING_APPROVAL], true)) {
                 $this->benefitService->deactivateForOrder($lockedOrder);
@@ -460,9 +491,10 @@ class OrderController extends Controller
             'transaction_date' => 'required|date',
             'service'          => 'required|string|max:100',
             'package'          => 'required|string|max:100',
+            'duration_months'  => 'nullable|integer|min:1|max:120',
             'total_price'      => 'required',
-            'payment_method'   => 'required|string|max:100',
-            'payment_status'   => 'required|in:unpaid,pending_verification,verified,rejected',
+            'payment_method'   => 'nullable|string|max:100',
+            'payment_status'   => 'required|in:unpaid,verified',
             'payment_proof'    => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
             'notes'            => 'nullable|string|max:2000',
             'revision_note'    => 'nullable|string|max:1000',
@@ -475,11 +507,20 @@ class OrderController extends Controller
             $serviceKey = strtolower($request->service);
             $packageKey = strtolower($request->package);
             $modalDasar = $request->input('modal_dasar', $lockedOrder->form_data['modal_dasar'] ?? null);
-            $resolved = $this->resolveServiceAndPrice($serviceKey, $packageKey, $modalDasar, $request->total_price);
+            $duration   = Order::resolveDuration(
+                $request->filled('duration_months')
+                    ? (int) $request->input('duration_months')
+                    : (isset($lockedOrder->form_data['duration_months']) ? (int) $lockedOrder->form_data['duration_months'] : 12)
+            );
+            $resolved = $this->resolveServiceAndPrice($serviceKey, $packageKey, $modalDasar, $request->total_price, $duration['base_years']);
 
             $formData = $lockedOrder->form_data ?? [];
-            $formData['service'] = $serviceKey;
-            $formData['package'] = $packageKey;
+            $formData['service']          = $serviceKey;
+            $formData['package']          = $packageKey;
+            $formData['duration_months']  = $duration['input_months'];
+            $formData['effective_months'] = $duration['effective_months'];
+            $formData['base_years']       = $duration['base_years'];
+            $formData['bonus_months']     = $duration['bonus_months'];
             if ($modalDasar !== null) {
                 $formData['modal_dasar'] = $modalDasar;
             }
@@ -490,7 +531,7 @@ class OrderController extends Controller
                 'service_id'       => $resolved['service_id'],
                 'service_name'     => $resolved['service_name'],
                 'total_price'      => $resolved['total_price'],
-                'payment_method'   => $request->payment_method,
+                'payment_method'   => $request->filled('payment_method') ? $request->payment_method : $lockedOrder->payment_method,
                 'payment_status'   => $request->payment_status,
                 'notes'            => $request->notes,
                 'form_data'        => $formData,
@@ -757,9 +798,11 @@ class OrderController extends Controller
 
         if ($request->filled('renew_order_id')) {
             $renewOrder = Order::with(['user', 'roomBenefits'])->find($request->renew_order_id);
-            if ($renewOrder) {
-                $preselectedClient = $renewOrder->user;
+            if (! $renewOrder || ! $renewOrder->isRenewable()) {
+                return redirect()->route('admin.orders.index')
+                    ->with('error', 'Fitur Renew hanya aktif jika layanan sudah disetujui dan masa berlaku tersisa maksimal 30 hari (H-30) atau sudah Expired.');
             }
+            $preselectedClient = $renewOrder->user;
         } elseif ($request->filled('client_id')) {
             $preselectedClient = User::find($request->client_id);
         }
@@ -784,10 +827,11 @@ class OrderController extends Controller
             'user_id'          => 'required|exists:users,id',
             'service'          => 'required|string',
             'package'          => 'required|string|max:100',
+            'duration_months'  => 'nullable|integer|min:1|max:120',
             'transaction_date' => 'required|date',
             'invoice_number'   => ['nullable', 'string', 'max:100', Rule::unique('orders', 'invoice_number')],
-            'payment_method'   => 'required|string|max:100',
-            'payment_status'   => 'required|in:unpaid,pending_verification,verified,rejected',
+            'payment_method'   => 'nullable|string|max:100',
+            'payment_status'   => 'required|in:unpaid,verified',
             'payment_proof'    => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
             'status'           => 'nullable|string',
             'notes'            => 'nullable|string|max:2000',
@@ -796,11 +840,13 @@ class OrderController extends Controller
 
         $serviceKey = strtolower($request->service);
         $packageKey = strtolower($request->package);
+        $duration   = Order::resolveDuration($request->filled('duration_months') ? (int) $request->input('duration_months') : 12);
         $resolved   = $this->resolveServiceAndPrice(
             $serviceKey,
             $packageKey,
             $request->input('modal_dasar'),
-            $request->input('total_price')
+            $request->input('total_price'),
+            $duration['base_years']
         );
 
         $client = User::findOrFail($request->user_id);
@@ -808,6 +854,10 @@ class OrderController extends Controller
         $formData = [
             'service'             => $serviceKey,
             'package'             => $packageKey,
+            'duration_months'     => $duration['input_months'],
+            'effective_months'    => $duration['effective_months'],
+            'base_years'          => $duration['base_years'],
+            'bonus_months'        => $duration['bonus_months'],
             'director_name'       => $client->pic_name ?: $client->name,
             'director_phone'      => $client->phone,
             'company_name'        => $client->company_name,
@@ -860,7 +910,7 @@ class OrderController extends Controller
                 'service_id'       => $resolved['service_id'],
                 'service_name'     => $resolved['service_name'],
                 'status'           => $finalStatus,
-                'payment_method'   => $request->payment_method,
+                'payment_method'   => $request->filled('payment_method') ? $request->payment_method : null,
                 'payment_status'   => $request->payment_status,
                 'total_price'      => $resolved['total_price'],
                 'notes'            => $request->notes,
@@ -975,7 +1025,7 @@ class OrderController extends Controller
 
     // ── Shared Helpers ────────────────────────────────────────────────────────
 
-    private function resolveServiceAndPrice(string $serviceKey, string $packageKey, ?string $modalDasar, mixed $priceOverride): array
+    private function resolveServiceAndPrice(string $serviceKey, string $packageKey, ?string $modalDasar, mixed $priceOverride, int $baseYears = 1): array
     {
         $serviceInfo  = UniversalOrderController::$services[$serviceKey] ?? ['db_slug' => $serviceKey];
         $dbService    = $serviceKey !== '' ? Service::where('slug', $serviceInfo['db_slug'] ?? $serviceKey)->first() : null;
@@ -988,6 +1038,8 @@ class OrderController extends Controller
         } elseif (isset(UniversalOrderController::$otherPricing[$serviceKey][$packageKey])) {
             $totalBiaya = UniversalOrderController::$otherPricing[$serviceKey][$packageKey];
         }
+
+        $totalBiaya = (int) $totalBiaya * max(1, $baseYears);
 
         if ($priceOverride !== null && $priceOverride !== '') {
             $totalBiaya = (int) preg_replace('/[^\d]/', '', (string) $priceOverride);
@@ -1007,6 +1059,9 @@ class OrderController extends Controller
             'invoice_number'   => $order->invoice_number,
             'transaction_date' => $order->transaction_date?->toDateString(),
             'service_name'     => $order->service_name,
+            'effective_months' => $order->effective_duration_months,
+            'base_years'       => $order->benefit_years,
+            'bonus_months'     => $order->bonus_months,
             'total_price'      => (int) $order->total_price,
             'payment_method'   => $order->payment_method,
             'payment_status'   => $order->payment_status,

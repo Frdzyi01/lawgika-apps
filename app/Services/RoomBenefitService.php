@@ -93,27 +93,46 @@ class RoomBenefitService
         $svcLabel    = $serviceNameMap[$serviceSlug] ?? '';
         $paketLabel  = $svcLabel !== '' ? "{$pkgLabel} {$svcLabel}" : $pkgLabel;
         $benefitType = RoomBenefit::benefitTypeForOrder($order);
+        $years       = max(1, $order->benefit_years);
+        $effectiveMonths = max(12, $order->effective_duration_months);
 
-        return DB::transaction(function () use ($order, $paketLabel, $benefitType, $approverId) {
-            // Transaction date controls benefit activation start & end dates (never submit/approval time)
+        return DB::transaction(function () use ($order, $paketLabel, $benefitType, $approverId, $years, $effectiveMonths) {
+            // Transaction date & effective duration control benefit start/end dates & base-year quota
             $startedAt  = $order->benefit_start_date;
-            $expiredAt  = $startedAt->copy()->addYear();
+            $expiredAt  = $startedAt->copy()->addMonthsNoOverflow($effectiveMonths);
             $approvedAt = $order->approved_at ?? now();
             $approvedBy = $approverId ?? $order->approved_by ?? auth()->id();
+
+            $meetingTargetMinutes = ($benefitType === 'meeting_only_12' ? 720 : 2880) * $years;
+            $podcastTargetMinutes = 720 * $years;
 
             $existing = RoomBenefit::where('order_id', $order->id)->get()->keyBy('type');
             $results  = [];
 
             if ($existing->isNotEmpty()) {
                 foreach ($existing as $benefit) {
+                    $targetMinutes = $benefit->type === 'podcast' ? $podcastTargetMinutes : $meetingTargetMinutes;
+                    $targetHours   = (int) intdiv($targetMinutes, 60);
                     $benefit->update([
-                        'is_active'   => true,
-                        'started_at'  => $startedAt,
-                        'expired_at'  => $expiredAt,
-                        'approved_by' => $approvedBy,
-                        'approved_at' => $approvedAt,
-                        'paket'       => $paketLabel . ($benefit->type === 'podcast' ? ' – Podcast Room' : ' – Meeting Room'),
+                        'is_active'     => true,
+                        'total_minutes' => max((int) $benefit->used_minutes, $targetMinutes),
+                        'started_at'    => $startedAt,
+                        'expired_at'    => $expiredAt,
+                        'approved_by'   => $approvedBy,
+                        'approved_at'   => $approvedAt,
+                        'paket'         => $paketLabel . ($benefit->type === 'podcast' ? ' – Podcast Room' : ' – Meeting Room'),
                     ]);
+
+                    if ($benefit->type === 'meeting' && $benefit->meeting_room_booking_id) {
+                        MeetingRoomBooking::where('id', $benefit->meeting_room_booking_id)
+                            ->where('source_type', 'benefit')
+                            ->update(['duration' => $targetHours]);
+                    } elseif ($benefit->type === 'podcast' && $benefit->podcast_room_booking_id) {
+                        PodcastRoomBooking::where('id', $benefit->podcast_room_booking_id)
+                            ->where('source_type', 'benefit')
+                            ->update(['duration' => $targetHours]);
+                    }
+
                     $results[] = $benefit->fresh();
                 }
 
@@ -138,7 +157,7 @@ class RoomBenefitService
                     'user_id'       => $order->user_id,
                     'order_id'      => $order->id,
                     'paket'         => $paketLabel . ' – Meeting Room',
-                    'total_minutes' => 720,
+                    'total_minutes' => $meetingTargetMinutes,
                     'used_minutes'  => 0,
                     'type'          => 'meeting',
                     'is_active'     => true,
@@ -159,7 +178,7 @@ class RoomBenefitService
                     'date'               => null,
                     'start_time'         => null,
                     'end_time'           => null,
-                    'duration'           => 12,
+                    'duration'           => 12 * $years,
                     'total_used_seconds' => 0,
                     'participants'       => 1,
                     'package'            => $meetingBenefit->paket,
@@ -174,12 +193,12 @@ class RoomBenefitService
                 return [$meetingBenefit];
             }
 
-            // 1. Meeting Room — 48 jam = 2880 menit
+            // 1. Meeting Room — 48 jam/tahun = 2880 menit * base_years
             $meetingBenefit = RoomBenefit::create([
                 'user_id'       => $order->user_id,
                 'order_id'      => $order->id,
                 'paket'         => $paketLabel . ' – Meeting Room',
-                'total_minutes' => 2880,
+                'total_minutes' => $meetingTargetMinutes,
                 'used_minutes'  => 0,
                 'type'          => 'meeting',
                 'is_active'     => true,
@@ -200,7 +219,7 @@ class RoomBenefitService
                 'date'               => null,
                 'start_time'         => null,
                 'end_time'           => null,
-                'duration'           => 48,
+                'duration'           => 48 * $years,
                 'total_used_seconds' => 0,
                 'participants'       => 1,
                 'package'            => $meetingBenefit->paket,
@@ -212,12 +231,12 @@ class RoomBenefitService
 
             $meetingBenefit->update(['meeting_room_booking_id' => $meetingBooking->id]);
 
-            // 2. Podcast Room — 12 jam = 720 menit
+            // 2. Podcast Room — 12 jam/tahun = 720 menit * base_years
             $podcastBenefit = RoomBenefit::create([
                 'user_id'       => $order->user_id,
                 'order_id'      => $order->id,
                 'paket'         => $paketLabel . ' – Podcast Room',
-                'total_minutes' => 720,
+                'total_minutes' => $podcastTargetMinutes,
                 'used_minutes'  => 0,
                 'type'          => 'podcast',
                 'is_active'     => true,
@@ -237,7 +256,7 @@ class RoomBenefitService
                 'date'               => null,
                 'start_time'         => null,
                 'end_time'           => null,
-                'duration'           => 12,
+                'duration'           => 12 * $years,
                 'total_used_seconds' => 0,
                 'participants'       => 1,
                 'package'            => $podcastBenefit->paket,
@@ -259,7 +278,7 @@ class RoomBenefitService
     public function syncDatesFromOrder(Order $order): void
     {
         $startedAt = $order->benefit_start_date;
-        $expiredAt = $startedAt->copy()->addYear();
+        $expiredAt = $startedAt->copy()->addMonthsNoOverflow($order->effective_duration_months);
 
         RoomBenefit::where('order_id', $order->id)->update([
             'started_at' => $startedAt,

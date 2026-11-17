@@ -127,6 +127,7 @@ class VirtualOfficeController extends Controller
 
             $expiredDate = Carbon::parse($vo->tanggal_expired);
             $days = Carbon::now()->startOfDay()->diffInDays($expiredDate->copy()->startOfDay(), false);
+            $vo->raw_sisa_hari = $days;
             $vo->sisa_hari = max(0, $days);
 
             if (Carbon::now()->greaterThan($expiredDate)) {

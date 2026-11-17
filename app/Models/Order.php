@@ -65,6 +65,12 @@ class Order extends Model
         'rejected' => ['label' => 'Pembayaran Ditolak',        'color' => 'danger'],
     ];
 
+    /** Pilihan status pembayaran saat admin membuat/mengedit pesanan */
+    const ADMIN_PAYMENT_OPTIONS = [
+        'unpaid'   => ['label' => 'Belum Bayar',              'color' => 'secondary'],
+        'verified' => ['label' => 'Pembayaran Terverifikasi', 'color' => 'success'],
+    ];
+
     /** Extended lookup for label resolution */
     const ALL_PAYMENT_STATUSES = [
         'unpaid'               => ['label' => 'Belum Bayar',               'color' => 'secondary'],
@@ -229,6 +235,46 @@ class Order extends Model
         return ($this->created_at ?? now())->copy();
     }
 
+    public static function resolveDuration(?int $inputMonths): array
+    {
+        $raw = (int) ($inputMonths ?? 12);
+        $effectiveMonths = max(12, $raw);
+        $baseYears = intdiv($effectiveMonths, 12);
+        $bonusMonths = $effectiveMonths % 12;
+
+        return [
+            'input_months'     => $raw > 0 ? $raw : 12,
+            'effective_months' => $effectiveMonths,
+            'base_years'       => $baseYears,
+            'bonus_months'     => $bonusMonths,
+            'summary'          => $bonusMonths > 0
+                ? "{$baseYears} Tahun + {$bonusMonths} Bulan Bonus Lawgika ({$effectiveMonths} Bulan)"
+                : "{$baseYears} Tahun ({$effectiveMonths} Bulan)",
+        ];
+    }
+
+    public function getDurationBreakdownAttribute(): array
+    {
+        $raw = $this->form_data['duration_months'] ?? null;
+
+        return self::resolveDuration($raw !== null ? (int) $raw : 12);
+    }
+
+    public function getEffectiveDurationMonthsAttribute(): int
+    {
+        return $this->duration_breakdown['effective_months'];
+    }
+
+    public function getBenefitYearsAttribute(): int
+    {
+        return $this->duration_breakdown['base_years'];
+    }
+
+    public function getBonusMonthsAttribute(): int
+    {
+        return $this->duration_breakdown['bonus_months'];
+    }
+
     public function getBenefitStartDateAttribute(): Carbon
     {
         return $this->effective_transaction_date->copy()->startOfDay();
@@ -236,17 +282,20 @@ class Order extends Model
 
     public function getBenefitEndDateAttribute(): Carbon
     {
-        return $this->benefit_start_date->copy()->addYear();
+        return $this->benefit_start_date->copy()->addMonthsNoOverflow($this->effective_duration_months);
     }
 
     public function isValidated(): bool
     {
-        return in_array($this->status, [
+        if (in_array($this->status, [
             self::DOC_STATUS_APPROVED,
             self::DOC_STATUS_PROCESSING,
             self::DOC_STATUS_COMPLETED,
-            self::DOC_STATUS_VERIFIED,
-        ], true);
+        ], true)) {
+            return true;
+        }
+
+        return $this->status === self::DOC_STATUS_VERIFIED && $this->approved_at !== null;
     }
 
     public function isPendingApproval(): bool
@@ -257,8 +306,73 @@ class Order extends Model
         ], true);
     }
 
+    /**
+     * Selama Admin 3 / SPV belum klik Approve atau Reject, tombol aksi approval tetap tampil
+     * (termasuk jika dokumen sudah diverifikasi lebih dulu sebelum transaksi di-approve).
+     */
+    public function needsTransactionApproval(): bool
+    {
+        if ($this->trashed() || $this->isRejected()) {
+            return false;
+        }
+
+        if ($this->isPendingApproval()) {
+            return true;
+        }
+
+        return $this->approved_at === null
+            && ! in_array($this->status, [self::DOC_STATUS_APPROVED, self::DOC_STATUS_CANCELLED], true);
+    }
+
     public function isRejected(): bool
     {
         return $this->status === self::DOC_STATUS_REJECTED;
+    }
+
+    public function isVirtualOffice(): bool
+    {
+        return str_contains(strtolower((string) $this->service_name), 'virtual office')
+            || (($this->form_data['service'] ?? '') === 'virtual-office');
+    }
+
+    public function getEffectiveBenefitExpiryAttribute(): ?Carbon
+    {
+        $firstBenefit = $this->relationLoaded('roomBenefits')
+            ? $this->roomBenefits->first()
+            : $this->roomBenefits()->first();
+
+        if ($firstBenefit && $firstBenefit->expired_at) {
+            return $firstBenefit->expired_at->copy();
+        }
+
+        if ($this->isVirtualOffice() || RoomBenefit::isEligibleForOrder($this)) {
+            return $this->benefit_end_date->copy();
+        }
+
+        return null;
+    }
+
+    public function getDaysUntilExpiryAttribute(): ?int
+    {
+        $expiry = $this->effective_benefit_expiry;
+        if (! $expiry) {
+            return null;
+        }
+
+        return (int) Carbon::now()->startOfDay()->diffInDays($expiry->copy()->startOfDay(), false);
+    }
+
+    /**
+     * Renew hanya aktif jika order sudah tervalidasi (approved) dan masa berlaku H-30 atau sudah Expired.
+     */
+    public function isRenewable(): bool
+    {
+        if ($this->trashed() || ! $this->isValidated()) {
+            return false;
+        }
+
+        $daysRemaining = $this->days_until_expiry;
+
+        return $daysRemaining !== null && $daysRemaining <= 30;
     }
 }

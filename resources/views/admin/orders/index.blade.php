@@ -3,41 +3,65 @@
 @section('title', 'Manajemen Pesanan')
 
 @section('content')
-<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
     <div>
-        <h4 class="mb-0">Manajemen Pesanan &amp; Transaksi</h4>
-        <small class="text-muted">Daftar transaksi layanan, status approval Admin 3 / SPV, revisi, serta riwayat audit.</small>
+        <h4 class="fw-bold mb-1">Manajemen Pesanan &amp; Transaksi</h4>
+        <p class="text-muted small mb-0">Daftar transaksi layanan, status approval Admin 3 / SPV, dan revisi pesanan.</p>
     </div>
 
-    <div class="d-flex flex-wrap gap-2 align-items-center">
-        <form method="GET" class="d-flex flex-wrap gap-2 m-0 align-items-center">
-            <input type="hidden" name="tab" value="{{ $tab }}">
-            <input type="text" name="search" value="{{ request('search') }}" class="form-control form-control-sm" placeholder="Cari No. Order / Invoice / Client..." style="min-width: 210px;">
-            <select name="status" class="form-select form-select-sm" onchange="this.form.submit()">
-                <option value="">Semua Status</option>
-                @foreach(['pending_approval' => 'Pending Approval', 'approved' => 'Approved', 'rejected' => 'Ditolak', 'pending' => 'Pending (Legacy)', 'processing' => 'Diproses', 'completed' => 'Selesai', 'cancelled' => 'Dibatalkan'] as $sVal => $sLbl)
-                    <option value="{{ $sVal }}" {{ request('status') == $sVal ? 'selected' : '' }}>{{ $sLbl }}</option>
-                @endforeach
-            </select>
-            <select name="service" class="form-select form-select-sm" onchange="this.form.submit()">
-                <option value="">Semua Layanan</option>
-                @foreach($services as $sKey => $sInfo)
-                    <option value="{{ $sKey }}" {{ request('service') == $sKey ? 'selected' : '' }}>{{ $sInfo['label'] }}</option>
-                @endforeach
-            </select>
-            <button type="submit" class="btn btn-sm btn-outline-secondary">Filter</button>
-        </form>
+    @if(auth()->user()->isAdmin1() || auth()->user()->isSPV() || auth()->user()->isAdmin3())
+    <a href="{{ route('admin.orders.create') }}" class="btn btn-primary px-3 py-2 fw-semibold shadow-sm text-nowrap d-inline-flex align-items-center gap-2" style="border-radius: 8px; font-size: .875rem;">
+        <i class="fa-solid fa-circle-plus"></i>
+        <span>Buat Pesanan Baru</span>
+    </a>
+    @endif
+</div>
 
-        @if(auth()->user()->isAdmin1() || auth()->user()->isSPV() || auth()->user()->isAdmin3())
-        <a href="{{ route('admin.orders.create') }}" class="btn btn-sm btn-primary shadow-sm text-nowrap">
-            <ion-icon name="add-circle-outline" class="align-middle"></ion-icon> Buat Pesanan Baru
-        </a>
-        @endif
+{{-- Filter & Pencarian --}}
+<div class="card border-0 shadow-sm mb-3" style="border-radius: 10px;">
+    <div class="card-body py-2 px-3">
+        <form method="GET" class="row g-2 align-items-center m-0">
+            <input type="hidden" name="tab" value="{{ $tab }}">
+            <div class="col-12 col-lg-5">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text bg-white border-end-0 text-muted">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </span>
+                    <input type="text" name="search" value="{{ request('search') }}"
+                        class="form-control border-start-0 ps-0"
+                        placeholder="Cari No. Order, Invoice, atau Nama Client...">
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+                <select name="status" class="form-select form-select-sm" onchange="this.form.submit()">
+                    <option value="">Semua Status</option>
+                    @foreach(['pending_approval' => 'Pending Approval', 'approved' => 'Approved', 'rejected' => 'Ditolak', 'pending' => 'Pending (Legacy)', 'processing' => 'Diproses', 'completed' => 'Selesai', 'cancelled' => 'Dibatalkan'] as $sVal => $sLbl)
+                        <option value="{{ $sVal }}" {{ request('status') == $sVal ? 'selected' : '' }}>{{ $sLbl }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-6 col-md-5 col-lg-3">
+                <select name="service" class="form-select form-select-sm" onchange="this.form.submit()">
+                    <option value="">Semua Layanan</option>
+                    @foreach($services as $sKey => $sInfo)
+                        <option value="{{ $sKey }}" {{ request('service') == $sKey ? 'selected' : '' }}>{{ $sInfo['label'] }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-12 col-md-3 col-lg-1 d-flex gap-1">
+                <button type="submit" class="btn btn-sm btn-dark w-100 fw-semibold">Filter</button>
+                @if(request()->filled('search') || request()->filled('status') || request()->filled('service'))
+                <a href="{{ route('admin.orders.index', ['tab' => $tab]) }}" class="btn btn-sm btn-outline-secondary" title="Reset Filter">
+                    <i class="fa-solid fa-rotate-left"></i>
+                </a>
+                @endif
+            </div>
+        </form>
     </div>
 </div>
 
 {{-- Workflow Tabs --}}
-<ul class="nav nav-pills mb-3 gap-2">
+<ul class="nav nav-pills mb-3 gap-2 flex-wrap" style="font-size: .85rem;">
     <li class="nav-item">
         <a class="nav-link {{ $tab === 'all' ? 'active' : 'bg-white text-dark border' }}" href="{{ route('admin.orders.index', ['tab' => 'all']) }}">
             Semua <span class="badge bg-secondary ms-1">{{ $counts['all'] }}</span>
@@ -66,7 +90,7 @@
     @if(auth()->user()->canApproveOrders())
     <li class="nav-item">
         <a class="nav-link {{ $tab === 'trashed' ? 'active' : 'bg-white text-dark border' }}" href="{{ route('admin.orders.index', ['tab' => 'trashed']) }}">
-            Terhapus (Audit) <span class="badge bg-dark ms-1">{{ $counts['trashed'] }}</span>
+            Terhapus <span class="badge bg-dark ms-1">{{ $counts['trashed'] }}</span>
         </a>
     </li>
     @endif
@@ -219,7 +243,7 @@
                         <th>Status &amp; Pembayaran</th>
                         <th>Kuota Ruangan</th>
                         <th>Total</th>
-                        <th class="text-center">Aksi</th>
+                        <th class="text-center" style="min-width: 230px;">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -251,6 +275,11 @@
                         <td>
                             <div>{{ $order->service_name ?? ($order->service->name ?? '—') }}</div>
                             <span class="badge bg-light text-dark border">{{ $pkgLabel }}</span>
+                            @if($order->effective_duration_months > 12 || $order->bonus_months > 0)
+                                <span class="badge bg-info bg-opacity-10 text-primary border border-primary border-opacity-25">
+                                    {{ $order->benefit_years }} Thn{{ $order->bonus_months > 0 ? ' + ' . $order->bonus_months . ' Bln Bonus' : '' }}
+                                </span>
+                            @endif
                         </td>
                         <td>
                             <div class="small">
@@ -267,7 +296,7 @@
                                 @if($order->approved_at)
                                     <div class="small text-success">Approved: {{ $order->approved_at->format('d M Y H:i') }}</div>
                                 @endif
-                            @elseif($order->isPendingApproval())
+                            @elseif($order->needsTransactionApproval())
                                 <small class="text-warning fw-semibold">Benefit belum aktif (Pending Approval)</small>
                             @elseif($order->isRejected())
                                 <small class="text-danger fw-semibold">Ditolak {{ $order->rejected_at?->format('d M Y') }}</small>
@@ -311,8 +340,70 @@
                             @endif
                         </td>
                         <td class="text-center">
+                            @php
+                                $hasVoOrBenefit = $order->isVirtualOffice() || $order->effective_benefit_expiry !== null;
+                                $daysUntilExpiry = $order->days_until_expiry;
+                                $isRenewable = $order->isRenewable();
+                                $voCompany = $order->user->company_name ?? ($order->form_data['company_name'] ?? ($order->user->name ?? '—'));
+                                $voPic = $order->user->pic_name ?? ($order->form_data['pic_name'] ?? ($order->user->name ?? '—'));
+                                $voPhone = $order->user->phone ?? ($order->form_data['pic_phone'] ?? '—');
+                            @endphp
                             <div class="d-flex flex-wrap align-items-center justify-content-center gap-1">
-                                <a href="{{ route('admin.orders.show', $order->id) }}" class="btn btn-sm btn-outline-primary px-2">Detail</a>
+                                @if(!$order->trashed() && $hasVoOrBenefit)
+                                    <button type="button"
+                                        class="btn btn-sm btn-info text-white btn-mail-notification px-2 py-1 text-nowrap d-inline-flex align-items-center gap-1"
+                                        style="font-size: .76rem; border-radius: 6px;"
+                                        data-id="{{ $order->id }}"
+                                        data-company="{{ $voCompany }}"
+                                        data-pic="{{ $voPic }}"
+                                        data-phone="{{ $voPhone }}"
+                                        data-url="{{ route('admin.virtual-office.mail-notification.store', $order->id) }}">
+                                        <i class="fa-solid fa-envelope"></i>
+                                        <span>Surat Masuk</span>
+                                    </button>
+                                    <button type="button"
+                                        class="btn btn-sm btn-warning text-dark btn-guest-notification px-2 py-1 text-nowrap d-inline-flex align-items-center gap-1"
+                                        style="font-size: .76rem; border-radius: 6px;"
+                                        data-id="{{ $order->id }}"
+                                        data-company="{{ $voCompany }}"
+                                        data-pic="{{ $voPic }}"
+                                        data-phone="{{ $voPhone }}"
+                                        data-url="{{ route('admin.virtual-office.guest-notification.store', $order->id) }}">
+                                        <i class="fa-solid fa-user-group"></i>
+                                        <span>Tamu Datang</span>
+                                    </button>
+
+                                    @if($isRenewable)
+                                        <a href="{{ route('admin.orders.create', ['service' => $order->form_data['service'] ?? 'virtual-office', 'renew_order_id' => $order->id]) }}"
+                                           class="btn btn-sm btn-success px-2 py-1 text-nowrap d-inline-flex align-items-center gap-1"
+                                           style="font-size: .76rem; border-radius: 6px;"
+                                           title="Perpanjang Layanan (H-30 / Expired)">
+                                            <i class="fa-solid fa-arrows-rotate"></i>
+                                            <span>Renew</span>
+                                        </a>
+                                    @else
+                                        @php
+                                            $renewDisabledTitle = !$order->isValidated()
+                                                ? 'Renew hanya tersedia setelah pesanan disetujui (Approved)'
+                                                : 'Renew hanya dapat digunakan jika masa berlaku H-30 atau sudah Expired (Saat ini sisa ' . max(0, (int) $daysUntilExpiry) . ' hari)';
+                                        @endphp
+                                        <button type="button"
+                                                class="btn btn-sm btn-secondary opacity-50 px-2 py-1 text-nowrap d-inline-flex align-items-center gap-1"
+                                                style="font-size: .76rem; border-radius: 6px;"
+                                                disabled
+                                                title="{{ $renewDisabledTitle }}">
+                                            <i class="fa-solid fa-arrows-rotate"></i>
+                                            <span>Renew</span>
+                                        </button>
+                                    @endif
+                                @endif
+
+                                <a href="{{ route('admin.orders.show', $order->id) }}"
+                                   class="btn btn-sm btn-outline-primary px-2 py-1 text-nowrap d-inline-flex align-items-center gap-1"
+                                   style="font-size: .76rem; border-radius: 6px;">
+                                    <i class="fa-solid fa-eye"></i>
+                                    <span>Detail</span>
+                                </a>
 
                                 @if(!$order->trashed())
                                     @if($order->isRejected())
@@ -326,7 +417,7 @@
                                         @endif
                                     @endif
 
-                                    @if($order->isPendingApproval() && auth()->user()->canApproveOrders())
+                                    @if($order->needsTransactionApproval() && auth()->user()->canApproveOrders())
                                         <form action="{{ route('admin.orders.approve', $order->id) }}" method="POST" class="d-inline">
                                             @csrf
                                             <button type="submit" class="btn btn-sm btn-success px-2" onclick="return confirm('Approve pesanan {{ $order->invoice_number ?? $order->order_number }}? Benefit akan diaktifkan sesuai tanggal transaksi {{ $order->effective_transaction_date->format('d M Y') }}.')">
@@ -339,7 +430,6 @@
                                     @endif
 
                                     @if(auth()->user()->canDirectlyModifyOrders())
-                                        <a href="{{ route('admin.orders.edit', $order->id) }}" class="btn btn-sm btn-outline-secondary px-2">Edit</a>
                                         <button type="button" class="btn btn-sm btn-outline-danger px-2" data-bs-toggle="modal" data-bs-target="#deleteOrderModal{{ $order->id }}">Hapus</button>
                                     @endif
 
@@ -405,11 +495,11 @@
                                             @csrf
                                             @method('DELETE')
                                             <div class="modal-header">
-                                                <h5 class="modal-title text-danger">Hapus Pesanan (Audit Trail)</h5>
+                                                <h5 class="modal-title text-danger">Hapus Pesanan</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <p class="small">Pesanan <strong>{{ $order->order_number }}</strong> (Invoice: <code>{{ $order->invoice_number }}</code>) akan di-soft-delete dan benefit terkait dinonaktifkan. Riwayat &amp; log audit tetap tersimpan.</p>
+                                                <p class="small">Pesanan <strong>{{ $order->order_number }}</strong> (Invoice: <code>{{ $order->invoice_number }}</code>) akan di-soft-delete dan benefit terkait dinonaktifkan. Riwayat pesanan tetap tersimpan.</p>
                                                 <label class="form-label fw-semibold">Alasan Penghapusan</label>
                                                 <textarea name="delete_reason" class="form-control" rows="2" placeholder="Alasan penghapusan transaksi..."></textarea>
                                             </div>
@@ -438,5 +528,7 @@
 <div class="mt-3">
     {{ $orders->appends(request()->query())->links() }}
 </div>
+
+@include('admin.partials.vo-notification-modals')
 @endif
 @endsection

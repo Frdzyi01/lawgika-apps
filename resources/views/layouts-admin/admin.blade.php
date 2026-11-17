@@ -114,7 +114,7 @@
               <a href="{{ route('admin.orders.index', ['tab' => 'change_requests']) }}"><ion-icon name="ellipse-outline"></ion-icon>Pengajuan Edit/Hapus</a>
             </li>
             <li>
-              <a href="{{ route('admin.orders.index', ['tab' => 'trashed']) }}"><ion-icon name="ellipse-outline"></ion-icon>Terhapus (Audit)</a>
+              <a href="{{ route('admin.orders.index', ['tab' => 'trashed']) }}"><ion-icon name="ellipse-outline"></ion-icon>Pesanan Terhapus</a>
             </li>
             @else
             <li>
@@ -123,12 +123,12 @@
             @endif
           </ul>
         </li>
-        <li>
+        {{-- <li>
           <a href="{{ route('admin.virtual-office.index') }}">
             <div class="parent-icon"><ion-icon name="business-outline"></ion-icon></div>
             <div class="menu-title">Virtual Office</div>
           </a>
-        </li>
+        </li> --}}
         <li>
           <a href="{{ url('admin/meeting-room') }}">
             <div class="parent-icon"><ion-icon name="business-outline"></ion-icon></div>

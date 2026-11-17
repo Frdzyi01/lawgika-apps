@@ -95,6 +95,24 @@ class DocumentService
      */
     public function syncOrderStatus(Order $order): string
     {
+        // Transaksi yang dibuat admin atau sudah masuk alur approval transaksi
+        // tidak boleh status order-nya ditimpa oleh verifikasi dokumen individual.
+        if (
+            $order->created_by !== null
+            || $order->submitted_at !== null
+            || in_array($order->status, [
+                Order::DOC_STATUS_PENDING_APPROVAL,
+                Order::DOC_STATUS_PENDING,
+                Order::DOC_STATUS_APPROVED,
+                Order::DOC_STATUS_REJECTED,
+                Order::DOC_STATUS_PROCESSING,
+                Order::DOC_STATUS_COMPLETED,
+                Order::DOC_STATUS_CANCELLED,
+            ], true)
+        ) {
+            return $order->status;
+        }
+
         // Reload relasi agar data fresh
         $order->load(['documents', 'service.documentRequirements']);
 

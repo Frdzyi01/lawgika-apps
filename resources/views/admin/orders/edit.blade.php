@@ -55,24 +55,25 @@
                     </select>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-12">
+                    <label class="form-label fw-semibold">Durasi Paket (Bulan) <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <input type="number" name="duration_months" id="edit_duration_months_input" class="form-control"
+                            value="{{ old('duration_months', $order->form_data['duration_months'] ?? 12) }}" min="1" max="120" step="1" required>
+                        <span class="input-group-text">Bulan</span>
+                    </div>
+                    <small class="text-muted">Kurang dari 12 bulan dihitung 12 bulan. Kelebihan bulan di atas kelipatan 12 dihitung bonus Lawgika (misal 13 = 1 tahun + 1 bln bonus; 24 = 2 tahun; 26 = 2 tahun + 2 bln bonus).</small>
+                </div>
+
+                <div class="col-md-6">
                     <label class="form-label fw-semibold">Total Harga (DPP / Nominal Dasar) <span class="text-danger">*</span></label>
                     <input type="number" name="total_price" class="form-control" value="{{ old('total_price', (int) $order->total_price) }}" required>
                 </div>
 
-                <div class="col-md-4">
-                    <label class="form-label fw-semibold">Metode Pembayaran</label>
-                    <select name="payment_method" class="form-select">
-                        @foreach($paymentMethods as $pm)
-                            <option value="{{ $pm }}" {{ old('payment_method', $order->payment_method) === $pm ? 'selected' : '' }}>{{ $pm }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <label class="form-label fw-semibold">Status Pembayaran <span class="text-danger">*</span></label>
                     <select name="payment_status" class="form-select" required>
-                        @foreach(\App\Models\Order::ALL_PAYMENT_STATUSES as $psKey => $psInfo)
+                        @foreach(\App\Models\Order::ADMIN_PAYMENT_OPTIONS as $psKey => $psInfo)
                             <option value="{{ $psKey }}" {{ old('payment_status', $order->payment_status) === $psKey ? 'selected' : '' }}>{{ $psInfo['label'] }}</option>
                         @endforeach
                     </select>
@@ -103,14 +104,14 @@
                 </div>
 
                 <div class="col-12">
-                    <label class="form-label fw-semibold text-primary">Alasan Perubahan (Tercatat di Audit Trail) <span class="text-danger">*</span></label>
+                    <label class="form-label fw-semibold text-primary">Alasan Perubahan <span class="text-danger">*</span></label>
                     <input type="text" name="edit_reason" class="form-control" value="{{ old('edit_reason') }}" placeholder="Contoh: Koreksi tanggal transaksi atau nominal pembayaran" required>
                 </div>
             </div>
 
             <div class="mt-4 d-flex justify-content-end gap-2">
                 <a href="{{ route('admin.orders.show', $order->id) }}" class="btn btn-secondary">Batal</a>
-                <button type="submit" class="btn btn-primary px-4">Simpan Perubahan &amp; Catat Audit Log</button>
+                <button type="submit" class="btn btn-primary px-4">Simpan Perubahan</button>
             </div>
         </form>
     </div>

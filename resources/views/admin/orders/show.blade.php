@@ -88,6 +88,7 @@
 @endif
 @endforeach
 
+@if(auth()->user()->canApproveOrders())
 {{-- Reject Modal --}}
 <div class="modal fade" id="rejectModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
@@ -113,6 +114,7 @@
         </div>
     </div>
 </div>
+@endif
 
 @if(!$order->trashed())
 @php
@@ -234,6 +236,16 @@
                         <td class="fw-bold text-primary">{{ $order->invoice_number ?? '—' }}</td>
                     </tr>
                     <tr>
+                        <td class="text-muted">Status Pesanan</td>
+                        <td>
+                            @php
+                            $infoBadge = App\Models\Order::STATUS_MAP[$order->status]['color'] ?? 'secondary';
+                            $infoLabel = App\Models\Order::STATUS_MAP[$order->status]['label'] ?? ucfirst($order->status);
+                            @endphp
+                            <span class="badge bg-{{ $infoBadge }}" style="color: {{ in_array($infoBadge, ['warning', 'light', 'info']) ? '#000' : '#fff' }} !important;">{{ $infoLabel }}</span>
+                        </td>
+                    </tr>
+                    <tr>
                         <td class="text-muted">Tanggal Transaksi</td>
                         <td class="fw-semibold">{{ $order->effective_transaction_date->format('d M Y') }} <small class="text-muted">(Acuan aktivasi benefit)</small></td>
                     </tr>
@@ -242,9 +254,15 @@
                         <td>{{ ($order->submitted_at ?? $order->created_at)->format('d M Y, H:i') }} @if($order->creator) <small class="text-muted">oleh {{ $order->creator->name }}</small> @endif</td>
                     </tr>
                     <tr>
-                        <td class="text-muted">Metode Pembayaran</td>
-                        <td class="fw-semibold">{{ $order->payment_method ?? '—' }}</td>
+                        <td class="text-muted">Durasi Paket</td>
+                        <td class="fw-semibold">{{ $order->duration_breakdown['summary'] }}</td>
                     </tr>
+                    @if(!empty($order->payment_method))
+                    <tr>
+                        <td class="text-muted">Metode Pembayaran</td>
+                        <td class="fw-semibold">{{ $order->payment_method }}</td>
+                    </tr>
+                    @endif
                     @if($order->approved_at)
                     <tr>
                         <td class="text-muted">Disetujui Oleh</td>
@@ -406,15 +424,24 @@
         {{-- ── DOKUMEN (grouped by document_type, dynamic) ── --}}
         @if($documentSummary && count($documentSummary) > 0)
         <div class="card border-0 shadow-sm mb-4">
-            <div class="card-header bg-transparent border-0 pt-4 pb-2 px-4 d-flex align-items-center justify-content-between">
+            <div class="card-header bg-transparent border-0 pt-4 pb-2 px-4 d-flex align-items-center justify-content-between flex-wrap gap-2">
                 <h6 class="fw-bold mb-0"><i class="fa fa-file-shield me-2 text-muted"></i>Dokumen Persyaratan</h6>
                 @php
                 $fulfilledCount = collect($documentSummary)->filter(fn($d) => $d['is_fulfilled'])->count();
                 $totalRequired = count($documentSummary);
                 @endphp
-                <span class="badge {{ $fulfilledCount === $totalRequired ? 'bg-success' : 'bg-warning text-dark' }}">
-                    {{ $fulfilledCount }}/{{ $totalRequired }} Terpenuhi
-                </span>
+                <div class="d-flex align-items-center gap-2">
+                    @if(!$order->trashed())
+                    <button type="button" class="btn btn-outline-primary btn-sm py-0 px-2" style="font-size:.76rem;"
+                        onclick="openUploadDocumentModal('')"
+                        title="Upload / Tambah Dokumen Persyaratan">
+                        <i class="fa fa-plus me-1"></i>Upload
+                    </button>
+                    @endif
+                    <span class="badge {{ $fulfilledCount === $totalRequired ? 'bg-success' : 'bg-warning text-dark' }}">
+                        {{ $fulfilledCount }}/{{ $totalRequired }} Terpenuhi
+                    </span>
+                </div>
             </div>
             <div class="card-body px-4 pb-4 pt-3">
                 @foreach($documentSummary as $docType => $summary)
@@ -432,18 +459,9 @@
                             <strong style="font-size:.9rem">{{ $req->label }}</strong>
                             <code style="font-size:.72rem;color:#6b7280">{{ $req->document_type }}</code>
                         </div>
-                        <div class="d-flex align-items-center gap-2">
-                            @if(!$order->trashed())
-                            <button type="button" class="btn btn-outline-primary btn-sm py-0 px-2" style="font-size:.74rem;"
-                                onclick="openUploadDocumentModal('{{ addslashes($req->document_type) }}')"
-                                title="Upload / Tambah Dokumen untuk {{ $req->label }}">
-                                <i class="fa fa-upload me-1"></i>Upload
-                            </button>
-                            @endif
-                            <span class="badge {{ $fulfilled ? 'bg-success' : 'bg-secondary' }}" style="font-size:.72rem; color: #fff !important;">
-                                {{ $approved }}/{{ $req->min_required }} Disetujui
-                            </span>
-                        </div>
+                        <span class="badge {{ $fulfilled ? 'bg-success' : 'bg-secondary' }}" style="font-size:.72rem; color: #fff !important;">
+                            {{ $approved }}/{{ $req->min_required }} Disetujui
+                        </span>
                     </div>
 
                     @if($docs->count() > 0)
@@ -468,51 +486,7 @@
                             </div>
 
                             {{-- Professional Action Buttons & Badges --}}
-                            <div class="d-flex align-items-center gap-2 flex-wrap">
-                                @if(!$order->trashed())
-                                    <button type="button" class="btn btn-outline-primary btn-sm px-2.5 py-1" style="font-size:.78rem;"
-                                        onclick="openEditDocumentModal('{{ route('admin.documents.update', $doc->id) }}', '{{ addslashes($doc->original_name) }}', '{{ addslashes($doc->document_type ?? '') }}')"
-                                        title="Edit / Ganti Dokumen">
-                                        <i class="fa fa-pen-to-square me-1"></i>Edit
-                                    </button>
-                                @endif
-                                @if(in_array($doc->status, ['approved', 'verified']))
-                                    <span class="badge bg-success px-2.5 py-1.5" style="font-size:.78rem; color:#fff !important;">
-                                        <i class="fa fa-circle-check me-1"></i>Disetujui
-                                    </span>
-                                    <button type="button" class="btn btn-outline-danger btn-sm px-2.5 py-1" style="font-size:.78rem;"
-                                        onclick="openRejectModal('{{ route('admin.documents.reject', $doc->id) }}', '{{ addslashes($doc->original_name) }}')"
-                                        title="Tolak Dokumen">
-                                        <i class="fa fa-xmark me-1"></i>Tolak
-                                    </button>
-                                @elseif($doc->status === 'rejected')
-                                    <span class="badge bg-danger px-2.5 py-1.5" style="font-size:.78rem; color:#fff !important;">
-                                        <i class="fa fa-circle-xmark me-1"></i>Ditolak
-                                    </span>
-                                    <form action="{{ route('admin.documents.approve', $doc->id) }}" method="POST" class="d-inline">
-                                        @csrf
-                                        <button type="submit" class="btn btn-success btn-sm px-2.5 py-1" style="font-size:.78rem;"
-                                            onclick="return confirm('Setujui dokumen ini?')">
-                                            <i class="fa fa-check me-1"></i>Setujui
-                                        </button>
-                                    </form>
-                                @else
-                                    <span class="badge bg-warning text-dark px-2.5 py-1.5" style="font-size:.78rem;">
-                                        <i class="fa fa-clock me-1"></i>Menunggu Verifikasi
-                                    </span>
-                                    <form action="{{ route('admin.documents.approve', $doc->id) }}" method="POST" class="d-inline">
-                                        @csrf
-                                        <button type="submit" class="btn btn-success btn-sm px-2.5 py-1" style="font-size:.78rem;"
-                                            onclick="return confirm('Setujui dokumen ini?')">
-                                            <i class="fa fa-check me-1"></i>Setujui
-                                        </button>
-                                    </form>
-                                    <button type="button" class="btn btn-outline-danger btn-sm px-2.5 py-1" style="font-size:.78rem;"
-                                        onclick="openRejectModal('{{ route('admin.documents.reject', $doc->id) }}', '{{ addslashes($doc->original_name) }}')">
-                                        <i class="fa fa-xmark me-1"></i>Tolak
-                                    </button>
-                                @endif
-                            </div>
+                            @include('admin.orders.partials.document-actions', ['doc' => $doc, 'order' => $order])
                         </div>
                         {{-- Rejection reason --}}
                         @if($doc->status === 'rejected' && $doc->rejection_reason)
@@ -524,8 +498,15 @@
                     </div>
                     @endforeach
                     @else
-                    <div class="doc-file-row text-muted small">
-                        <i class="fa fa-folder-open me-1"></i>Belum ada dokumen untuk tipe ini.
+                    <div class="doc-file-row d-flex align-items-center justify-content-between text-muted small">
+                        <span><i class="fa fa-folder-open me-1"></i>Belum ada dokumen untuk tipe ini.</span>
+                        @if(!$order->trashed())
+                        <button type="button" class="btn btn-outline-primary btn-sm py-0 px-2" style="font-size:.74rem;"
+                            onclick="openUploadDocumentModal('{{ addslashes($req->document_type) }}')"
+                            title="Upload {{ $req->label }}">
+                            <i class="fa fa-upload me-1"></i>Upload
+                        </button>
+                        @endif
                     </div>
                     @endif
                 </div>
@@ -558,51 +539,7 @@
                                     <i class="fa fa-eye"></i> Lihat
                                 </a>
                             </div>
-                            <div class="d-flex align-items-center gap-2 flex-wrap">
-                                @if(!$order->trashed())
-                                    <button type="button" class="btn btn-outline-primary btn-sm px-2.5 py-1" style="font-size:.78rem;"
-                                        onclick="openEditDocumentModal('{{ route('admin.documents.update', $doc->id) }}', '{{ addslashes($doc->original_name) }}', '{{ addslashes($doc->document_type ?? '') }}')"
-                                        title="Edit / Ganti Dokumen">
-                                        <i class="fa fa-pen-to-square me-1"></i>Edit
-                                    </button>
-                                @endif
-                                @if(in_array($doc->status, ['approved', 'verified']))
-                                    <span class="badge bg-success px-2.5 py-1.5" style="font-size:.78rem; color:#fff !important;">
-                                        <i class="fa fa-circle-check me-1"></i>Disetujui
-                                    </span>
-                                    <button type="button" class="btn btn-outline-danger btn-sm px-2.5 py-1" style="font-size:.78rem;"
-                                        onclick="openRejectModal('{{ route('admin.documents.reject', $doc->id) }}', '{{ addslashes($doc->original_name) }}')"
-                                        title="Tolak Dokumen">
-                                        <i class="fa fa-xmark me-1"></i>Tolak
-                                    </button>
-                                @elseif($doc->status === 'rejected')
-                                    <span class="badge bg-danger px-2.5 py-1.5" style="font-size:.78rem; color:#fff !important;">
-                                        <i class="fa fa-circle-xmark me-1"></i>Ditolak
-                                    </span>
-                                    <form action="{{ route('admin.documents.approve', $doc->id) }}" method="POST" class="d-inline">
-                                        @csrf
-                                        <button type="submit" class="btn btn-success btn-sm px-2.5 py-1" style="font-size:.78rem;"
-                                            onclick="return confirm('Setujui dokumen ini?')">
-                                            <i class="fa fa-check me-1"></i>Setujui
-                                        </button>
-                                    </form>
-                                @else
-                                    <span class="badge bg-warning text-dark px-2.5 py-1.5" style="font-size:.78rem;">
-                                        <i class="fa fa-clock me-1"></i>Menunggu Verifikasi
-                                    </span>
-                                    <form action="{{ route('admin.documents.approve', $doc->id) }}" method="POST" class="d-inline">
-                                        @csrf
-                                        <button type="submit" class="btn btn-success btn-sm px-2.5 py-1" style="font-size:.78rem;"
-                                            onclick="return confirm('Setujui dokumen ini?')">
-                                            <i class="fa fa-check me-1"></i>Setujui
-                                        </button>
-                                    </form>
-                                    <button type="button" class="btn btn-outline-danger btn-sm px-2.5 py-1" style="font-size:.78rem;"
-                                        onclick="openRejectModal('{{ route('admin.documents.reject', $doc->id) }}', '{{ addslashes($doc->original_name) }}')">
-                                        <i class="fa fa-xmark me-1"></i>Tolak
-                                    </button>
-                                @endif
-                            </div>
+                            @include('admin.orders.partials.document-actions', ['doc' => $doc, 'order' => $order])
                         </div>
                         @if($doc->status === 'rejected' && $doc->rejection_reason)
                         <div class="alert alert-danger py-2 px-3 mt-2 mb-0" style="font-size:.82rem;border-radius:8px">
@@ -648,51 +585,7 @@
                                     <i class="fa fa-eye"></i> Lihat
                                 </a>
                             </div>
-                            <div class="d-flex align-items-center gap-2 flex-wrap">
-                                @if(!$order->trashed())
-                                    <button type="button" class="btn btn-outline-primary btn-sm px-2.5 py-1" style="font-size:.78rem;"
-                                        onclick="openEditDocumentModal('{{ route('admin.documents.update', $doc->id) }}', '{{ addslashes($doc->original_name) }}', '{{ addslashes($doc->document_type ?? $doc->type ?? '') }}')"
-                                        title="Edit / Ganti Dokumen">
-                                        <i class="fa fa-pen-to-square me-1"></i>Edit
-                                    </button>
-                                @endif
-                                @if(in_array($doc->status, ['approved', 'verified']))
-                                    <span class="badge bg-success px-2.5 py-1.5" style="font-size:.78rem; color:#fff !important;">
-                                        <i class="fa fa-circle-check me-1"></i>Disetujui
-                                    </span>
-                                    <button type="button" class="btn btn-outline-danger btn-sm px-2.5 py-1" style="font-size:.78rem;"
-                                        onclick="openRejectModal('{{ route('admin.documents.reject', $doc->id) }}', '{{ addslashes($doc->original_name) }}')"
-                                        title="Tolak Dokumen">
-                                        <i class="fa fa-xmark me-1"></i>Tolak
-                                    </button>
-                                @elseif($doc->status === 'rejected')
-                                    <span class="badge bg-danger px-2.5 py-1.5" style="font-size:.78rem; color:#fff !important;">
-                                        <i class="fa fa-circle-xmark me-1"></i>Ditolak
-                                    </span>
-                                    <form action="{{ route('admin.documents.approve', $doc->id) }}" method="POST" class="d-inline">
-                                        @csrf
-                                        <button type="submit" class="btn btn-success btn-sm px-2.5 py-1" style="font-size:.78rem;"
-                                            onclick="return confirm('Setujui dokumen ini?')">
-                                            <i class="fa fa-check me-1"></i>Setujui
-                                        </button>
-                                    </form>
-                                @else
-                                    <span class="badge bg-warning text-dark px-2.5 py-1.5" style="font-size:.78rem;">
-                                        <i class="fa fa-clock me-1"></i>Menunggu Verifikasi
-                                    </span>
-                                    <form action="{{ route('admin.documents.approve', $doc->id) }}" method="POST" class="d-inline">
-                                        @csrf
-                                        <button type="submit" class="btn btn-success btn-sm px-2.5 py-1" style="font-size:.78rem;"
-                                            onclick="return confirm('Setujui dokumen ini?')">
-                                            <i class="fa fa-check me-1"></i>Setujui
-                                        </button>
-                                    </form>
-                                    <button type="button" class="btn btn-outline-danger btn-sm px-2.5 py-1" style="font-size:.78rem;"
-                                        onclick="openRejectModal('{{ route('admin.documents.reject', $doc->id) }}', '{{ addslashes($doc->original_name) }}')">
-                                        <i class="fa fa-xmark me-1"></i>Tolak
-                                    </button>
-                                @endif
-                            </div>
+                            @include('admin.orders.partials.document-actions', ['doc' => $doc, 'order' => $order, 'useTypeFallback' => true])
                         </div>
                         @if($doc->status === 'rejected' && $doc->rejection_reason)
                         <div class="alert alert-danger py-2 px-3 mt-2 mb-0" style="font-size:.82rem;border-radius:8px">
@@ -748,21 +641,17 @@
                         </select>
                     </div>
                     <div class="col-md-4">
+                        <label class="form-label fw-semibold">Durasi Paket (Bulan) <span class="text-danger">*</span></label>
+                        <input type="number" name="duration_months" class="form-control" value="{{ old('duration_months', $order->form_data['duration_months'] ?? 12) }}" min="1" max="120" required>
+                    </div>
+                    <div class="col-md-4">
                         <label class="form-label fw-semibold">Total Harga <span class="text-danger">*</span></label>
                         <input type="number" name="total_price" class="form-control" value="{{ old('total_price', (int) $order->total_price) }}" required>
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label fw-semibold">Metode Pembayaran <span class="text-danger">*</span></label>
-                        <select name="payment_method" class="form-select" required>
-                            @foreach($paymentMethods as $pm)
-                                <option value="{{ $pm }}" {{ old('payment_method', $order->payment_method) === $pm ? 'selected' : '' }}>{{ $pm }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="col-md-4">
                         <label class="form-label fw-semibold">Status Pembayaran <span class="text-danger">*</span></label>
                         <select name="payment_status" class="form-select" required>
-                            @foreach(\App\Models\Order::ALL_PAYMENT_STATUSES as $psKey => $psInfo)
+                            @foreach(\App\Models\Order::ADMIN_PAYMENT_OPTIONS as $psKey => $psInfo)
                                 <option value="{{ $psKey }}" {{ old('payment_status', $order->payment_status) === $psKey ? 'selected' : '' }}>{{ $psInfo['label'] }}</option>
                             @endforeach
                         </select>
@@ -863,39 +752,6 @@
     </div>
     @endif
 
-    {{-- Audit Trail --}}
-    <div class="card border-0 shadow-sm mb-4">
-        <div class="card-header bg-transparent border-0 pt-4 pb-2 px-4">
-            <h6 class="fw-bold mb-0"><i class="fa fa-shield-halved me-2 text-dark"></i>Audit Trail Transaksi</h6>
-        </div>
-        <div class="card-body px-4 pb-4">
-            <div class="table-responsive">
-                <table class="table table-sm align-middle mb-0">
-                    <thead class="table-light">
-                        <tr>
-                            <th>Waktu</th>
-                            <th>Pelaku</th>
-                            <th>Aksi</th>
-                            <th>Alasan &amp; Catatan</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse($order->auditLogs as $log)
-                        <tr>
-                            <td class="small text-nowrap">{{ $log->created_at->format('d M Y H:i') }}</td>
-                            <td class="small">{{ $log->user->name ?? 'Sistem' }} <span class="text-muted">({{ $log->user_role ?? '-' }})</span></td>
-                            <td><span class="badge bg-light text-dark border">{{ $log->action_label }}</span></td>
-                            <td class="small">{{ $log->reason ?? '—' }}</td>
-                        </tr>
-                        @empty
-                        <tr><td colspan="4" class="text-muted small text-center py-3">Belum ada entri audit log.</td></tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
     </div>{{-- /col-lg-8 --}}
 
     {{-- RIGHT --}}
@@ -960,7 +816,8 @@
             </div>
         </div>
 
-        {{-- Verifikasi & Approval Transaksi (Admin 3 / SPV) atau Pengajuan Admin 1 --}}
+        {{-- Verifikasi & Approval Transaksi (Admin 3 / SPV) --}}
+        @if(!$order->trashed() && auth()->user()->canApproveOrders())
         <div class="card border-0 shadow-sm mb-4">
             <div class="card-header bg-transparent border-0 pt-4 pb-2 px-4">
                 <h6 class="fw-bold mb-0">Status &amp; Approval Transaksi</h6>
@@ -972,76 +829,52 @@
                 @endphp
                 <p>Status Saat Ini: <span class="badge bg-{{ $badge }}" style="color: {{ in_array($badge, ['warning', 'light', 'info']) ? '#000' : '#fff' }} !important;">{{ $label }}</span></p>
 
-                @if(!$order->trashed() && auth()->user()->canApproveOrders())
-                    @if($order->isPendingApproval())
-                    <div class="d-grid gap-2 mb-3">
-                        <form action="{{ route('admin.orders.approve', $order->id) }}" method="POST">
-                            @csrf
-                            <button type="submit" class="btn btn-success w-100 fw-semibold"
-                                onclick="return confirm('Setujui transaksi {{ $order->invoice_number ?? $order->order_number }}? Benefit akan diaktifkan menggunakan tanggal transaksi {{ $order->effective_transaction_date->format('d M Y') }}.')">
-                                <i class="fa fa-check-circle me-1"></i>Approve Transaksi
-                            </button>
-                        </form>
-                        <button type="button" class="btn btn-danger w-100 fw-semibold" data-bs-toggle="modal" data-bs-target="#rejectOrderDetailModal">
-                            <i class="fa fa-xmark-circle me-1"></i>Reject Transaksi (Alasan Wajib)
+                @if($order->needsTransactionApproval())
+                <div class="d-grid gap-2 mb-3">
+                    <form action="{{ route('admin.orders.approve', $order->id) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-success w-100 fw-semibold"
+                            onclick="return confirm('Setujui transaksi {{ $order->invoice_number ?? $order->order_number }}? Benefit akan diaktifkan menggunakan tanggal transaksi {{ $order->effective_transaction_date->format('d M Y') }}.')">
+                            <i class="fa fa-check-circle me-1"></i>Approve Transaksi
                         </button>
-                    </div>
-                    @endif
-
-                    <form action="{{ route('admin.orders.update', $order->id) }}" method="POST">
-                        @csrf @method('PUT')
-                        @php
-                        $selectStatuses = [
-                            'pending_approval' => 'Pending Approval',
-                            'approved'         => 'Approved (Aktif Sesuai Tgl Transaksi)',
-                            'draft'            => 'Dokumen Belum Lengkap',
-                            'completed'        => 'Dokumen Terverifikasi',
-                            'cancelled'        => 'Dibatalkan',
-                        ];
-                        @endphp
-                        <div class="mb-3">
-                            <label class="form-label fw-semibold">Ubah Status</label>
-                            <select name="status" class="form-select">
-                                @foreach($selectStatuses as $val => $lbl)
-                                <option value="{{ $val }}" {{ ($order->status == $val) ? 'selected' : '' }}>
-                                    {{ $lbl }}
-                                </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label fw-semibold">Catatan Admin</label>
-                            <textarea name="admin_notes" class="form-control" rows="2"
-                                placeholder="Pesan untuk customer...">{{ $order->admin_notes }}</textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Simpan Status &amp; Catatan</button>
                     </form>
-                @elseif(!$order->trashed() && auth()->user()->isAdmin1())
-                    <div class="alert alert-light border small mb-3">
-                        @if($order->isPendingApproval())
-                            Pesanan ini sedang menunggu persetujuan <strong>Admin 3 / SPV</strong>. Benefit belum aktif sampai transaksi disetujui.
-                        @elseif($order->isRejected())
-                            Pesanan ini ditolak. Silakan cek <strong>Alasan Penolakan</strong> dan lakukan <strong>Revisi Pesanan</strong>.
-                        @else
-                            Admin 1 tidak dapat mengubah atau menghapus langsung pesanan. Ajukan permintaan perubahan ke Admin 3 / SPV jika diperlukan.
-                        @endif
-                    </div>
-                    <div class="d-grid gap-2">
-                        @if($order->isRejected())
-                        <a href="#revisionSection" class="btn btn-warning fw-semibold">
-                            <i class="fa fa-rotate-left me-1"></i>Revisi Pesanan
-                        </a>
-                        @endif
-                        <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#requestEditModal">
-                            Ajukan Perubahan (Edit)
-                        </button>
-                        <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#requestDeleteModal">
-                            Ajukan Penghapusan
-                        </button>
-                    </div>
+                    <button type="button" class="btn btn-danger w-100 fw-semibold" data-bs-toggle="modal" data-bs-target="#rejectOrderDetailModal">
+                        <i class="fa fa-xmark-circle me-1"></i>Reject Transaksi (Alasan Wajib)
+                    </button>
+                </div>
                 @endif
+
+                <form action="{{ route('admin.orders.update', $order->id) }}" method="POST">
+                    @csrf @method('PUT')
+                    @php
+                    $selectStatuses = [
+                        'pending_approval' => 'Pending Approval',
+                        'approved'         => 'Approved (Aktif Sesuai Tgl Transaksi)',
+                        'draft'            => 'Dokumen Belum Lengkap',
+                        'completed'        => 'Dokumen Terverifikasi',
+                        'cancelled'        => 'Dibatalkan',
+                    ];
+                    @endphp
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Ubah Status</label>
+                        <select name="status" class="form-select">
+                            @foreach($selectStatuses as $val => $lbl)
+                            <option value="{{ $val }}" {{ ($order->status == $val) ? 'selected' : '' }}>
+                                {{ $lbl }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Catatan Admin</label>
+                        <textarea name="admin_notes" class="form-control" rows="2"
+                            placeholder="Pesan untuk customer...">{{ $order->admin_notes }}</textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Simpan Status &amp; Catatan</button>
+                </form>
             </div>
         </div>
+        @endif
 
         {{-- Room Benefit --}}
         @php
@@ -1060,11 +893,12 @@
             <div class="card-body px-4 pb-4">
                 @php
                     $benefitType = \App\Models\RoomBenefit::benefitTypeForOrder($order);
+                    $years = $order->benefit_years;
                     $benefitDesc = $benefitType === 'meeting_only_12'
-                        ? '<strong>Meeting Room 12 Jam</strong>'
-                        : '<strong>Meeting Room 48 Jam</strong> &amp; <strong>Podcast Room 12 Jam</strong>';
+                        ? '<strong>Meeting Room ' . (12 * $years) . ' Jam</strong>'
+                        : '<strong>Meeting Room ' . (48 * $years) . ' Jam</strong> &amp; <strong>Podcast Room ' . (12 * $years) . ' Jam</strong>';
                 @endphp
-                <p class="text-muted small mb-3">Paket <strong>{{ $packageName }}</strong> termasuk benefit ruangan (masa berlaku 1 tahun sejak tanggal transaksi <strong>{{ $order->effective_transaction_date->format('d M Y') }}</strong>): {!! $benefitDesc !!}.</p>
+                <p class="text-muted small mb-3">Paket <strong>{{ $packageName }}</strong> ({{ $order->duration_breakdown['summary'] }}) termasuk benefit ruangan sejak tanggal transaksi <strong>{{ $order->effective_transaction_date->format('d M Y') }}</strong>: {!! $benefitDesc !!}.</p>
                 @if($hasAnyBenefit)
                 @php $firstBenefit = $existingBenefits->first(); @endphp
                 <div class="alert alert-{{ $firstBenefit->is_expired ? 'danger' : 'success' }} py-3 px-3 mb-0" style="font-size:.88rem">
@@ -1154,79 +988,17 @@
             <form action="{{ route('admin.orders.destroy', $order->id) }}" method="POST">
                 @csrf @method('DELETE')
                 <div class="modal-header">
-                    <h5 class="modal-title text-danger">Hapus Pesanan (Audit Trail)</h5>
+                    <h5 class="modal-title text-danger">Hapus Pesanan</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <p class="small">Pesanan akan dihapus (soft-delete) dan benefit terkait dinonaktifkan. Seluruh log audit tetap tersimpan.</p>
+                    <p class="small">Pesanan akan dihapus (soft-delete) dan benefit terkait dinonaktifkan. Riwayat pesanan tetap tersimpan.</p>
                     <label class="form-label fw-semibold">Alasan Penghapusan</label>
                     <textarea name="delete_reason" class="form-control" rows="3" placeholder="Masukkan alasan penghapusan..."></textarea>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                     <button type="submit" class="btn btn-danger">Ya, Hapus Pesanan</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-@endif
-
-@if(!$order->trashed() && (auth()->user()->isAdmin1() || auth()->user()->isSPV()))
-<div class="modal fade" id="requestEditModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <form action="{{ route('admin.orders.change-requests.store', $order->id) }}" method="POST">
-                @csrf
-                <input type="hidden" name="request_type" value="edit">
-                <div class="modal-header">
-                    <h5 class="modal-title">Ajukan Perubahan Transaksi</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body row g-2">
-                    <div class="col-12">
-                        <label class="form-label fw-semibold">Nomor Invoice Baru</label>
-                        <input type="text" name="invoice_number" class="form-control" value="{{ $order->invoice_number }}">
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label fw-semibold">Tanggal Transaksi Baru</label>
-                        <input type="date" name="transaction_date" class="form-control" value="{{ $order->effective_transaction_date->format('Y-m-d') }}">
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label fw-semibold">Total Harga Baru</label>
-                        <input type="number" name="total_price" class="form-control" value="{{ (int) $order->total_price }}">
-                    </div>
-                    <div class="col-12">
-                        <label class="form-label fw-semibold">Alasan Pengajuan Edit <span class="text-danger">*</span></label>
-                        <textarea name="reason" class="form-control" rows="3" required minlength="3" placeholder="Jelaskan alasan perubahan yang diajukan..."></textarea>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">Kirim Pengajuan Edit</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="requestDeleteModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <form action="{{ route('admin.orders.change-requests.store', $order->id) }}" method="POST">
-                @csrf
-                <input type="hidden" name="request_type" value="delete">
-                <div class="modal-header">
-                    <h5 class="modal-title text-danger">Ajukan Penghapusan Pesanan</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <label class="form-label fw-semibold">Alasan Pengajuan Hapus <span class="text-danger">*</span></label>
-                    <textarea name="reason" class="form-control" rows="3" required minlength="3" placeholder="Jelaskan mengapa pesanan ini perlu dihapus..."></textarea>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-danger">Kirim Pengajuan Hapus</button>
                 </div>
             </form>
         </div>
